@@ -1,0 +1,17 @@
+package com.zwdbj.server.adminserver.service.heart.mapper;
+
+import com.zwdbj.server.adminserver.service.heart.model.HeartModel;
+import org.apache.ibatis.annotations.*;
+
+@Mapper
+public interface IHeartMapper {
+    @Insert("insert into core_hearts(id,userId,resourceOwnerId,resourceTypeId) values(" +
+            "#{id},#{userId},#{resourceOwnerId},#{type})")
+    long heart(@Param("id") long id, @Param("userId") long userId, @Param("resourceOwnerId") long resourceOwnerId, @Param("type") int type);
+
+    @Delete("delete from core_hearts where userId=#{userId} and resourceOwnerId=#{resourceOwnerId}")
+    long unHeart(@Param("userId") long userId,@Param("resourceOwnerId") long resourceOwnerId);
+
+    @Select("select * from core_hearts where userId=#{userId} and resourceOwnerId=#{resourceOwnerId}")
+    HeartModel findHeart(@Param("userId") long userId, @Param("resourceOwnerId") long resourceOwnerId);
+}

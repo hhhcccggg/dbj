@@ -11,8 +11,9 @@
 
     <modules>
         <module>utility</module>
+        <module>adminserver</module>
         <module>mobileapi</module>
-        <module>adminapi</module>
+        <module>apigateway</module>
     </modules>
 
 </project>

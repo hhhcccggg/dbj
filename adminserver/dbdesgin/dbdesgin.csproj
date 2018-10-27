@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-dbdesgin-698325E0-47D7-4270-9533-AECAAC3845D7</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="sql\v1__init_base.sql" />
+    <None Remove="sql\V5__video_ishiddenlocation.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" PrivateAssets="All" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Controllers\HomeController.cs" />
+    <Compile Remove="Migrations\20180725104327_init.cs" />
+    <Compile Remove="Migrations\20180803105337_init.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
+    <Content Remove="Views\_ViewImports.cshtml" />
+    <Content Remove="Views\_ViewStart.cshtml" />
+    <Content Remove="Views\Home\About.cshtml" />
+    <Content Remove="wwwroot\css\site.css" />
+  </ItemGroup>
+</Project>

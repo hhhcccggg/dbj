@@ -1,0 +1,59 @@
+syntax = "proto3";
+option java_package = "com.zwdbj.server.adminserver.middleware.mq";
+option java_outer_classname = "QueueWorkInfoModel";
+
+// protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/addressbook.proto
+// protoc -I=./ --java_out=../../src/main/java ./QueueWorkInfo.proto
+
+message QueueWorkInfo {
+    enum WorkTypeEnum {
+        SEND_PHONE_CODE = 0;
+        HEART = 1; //点赞
+        PUSH = 2; //推送
+        QINIU_VIDEO_IMG_REVIEW_RESULT = 3; //七牛图片&视频审核返回的结果
+        QINIU_LIVE_REVIEW_RESULT = 4; //七牛直播审核返回的结果
+        QINIU_RES_WAIT_REVIEW_DATA = 5; //七牛需要审核的资源
+    }
+    WorkTypeEnum workType = 1; //任务标识
+    QueueWorkPhoneCode phoneCode = 2; //验证码数据
+    QueueWorkHeart heartData = 3; // 点赞数据
+    QueueWorkPush pushData = 4; //推送数据
+    QueueWorkQiniuReviewResult qiniuReviewResult = 5; //七牛审核的结果
+    QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6; //七牛需要待审核的资源
+}
+
+message QueueWorkHeart {
+    string resourceId = 1; //被点赞的资源
+    string resourceType = 2; //资源类型
+    int64 userId = 3; //点赞的用户ID
+    bool unHeart = 4; //取消/关注点赞
+}
+
+message QueueWorkPhoneCode {
+    string phone = 1;
+    string code = 2;
+}
+
+message QueueWorkPush {
+    int64 pushId=1;
+    int64 creatorUserId=2; //消息创建者/发起者
+    string msgContent=3; //消息文本内容
+    string dataContent=4; //消息携带的数据
+    string refUrl=5; //消息关联的网页
+    int64 toUserId=6; //消息目的地用户
+    int32 messageType=7; //消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
+}
+
+// 七牛直播、视频、图片审核的结果
+message QueueWorkQiniuReviewResult {
+    string resultContent =1; //七牛审核返回的结果
+    int32 retryCount =2; //重试的次数
+}
+// 七牛需要被审核的资源列表
+message QueueWorkQiniuWaitReviewResData {
+    string resContent = 1; //七牛资源key
+    string bucketName = 2; //七牛空间名
+    int32 resType = 3; //七牛资源的类型，0:七牛图片1:七牛视频
+    int64 dataId = 4; //关联的数据ID
+    int32 dataType = 5; //关联的数据类型0:用户头像1:宠物头像2:短视频
+}
