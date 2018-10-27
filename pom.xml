@@ -11,6 +11,8 @@
 
     <modules>
         <module>utility</module>
+        <module>mobileapi</module>
+        <module>adminapi</module>
     </modules>
 
 </project>
