@@ -33,11 +33,8 @@ public class VideoReviewService {
             JSONObject dataObject= JSON.parseObject(dataResponse);
             String inputKey = dataObject.getString("inputKey");
             JSONObject resultObject = dataObject.getJSONArray("items").getJSONObject(0).getJSONObject("result").getJSONObject("result");
-            //JSONObject scenesObject = resultObject.getJSONObject("scenes");
             String suggestion = resultObject.getString("suggestion");
-            //String politician = scenesObject.getJSONObject("politician").getString("suggestion");
-            //String pulp = scenesObject.getJSONObject("pulp").getString("suggestion");
-            //String terror = scenesObject.getJSONObject("terror").getString("suggestion");
+            logger.info("++++++++++++++++++++++++++++++++++"+suggestion);
             int count = this.resourceNeedReviewMapper.findByResContent(inputKey);
             if (count==0){
                 this.newReview(inputKey,suggestion);
@@ -47,13 +44,14 @@ public class VideoReviewService {
                 ReviewModel model = this.selectReviewById(id);
                 if (model.getResType()==1 && model.getDataId()!=0 && model.getDataType()==2){
                     this.videoService.updateReview(model.getDataId(),model.getReviewResultType());
+                    logger.info("++++++++++++++++++++++++++++++++++"+"ResType"+model.getResType()+",DataId"+model.getDataId()+",ReviewResultType"+model.getReviewResultType());
                     this.deleteReview(id);
-                }else if (model.getResType()==0  && model.getDataType()==2 && model.getDataId()!=0){
+                /*}else if (model.getResType()==0  && model.getDataType()==2 && model.getDataId()!=0){
                     this.deleteReview(id);
                     logger.info("我是视频图片删除1111");
                 }else if (model.getResType()==0  && model.getDataType()==0 && model.getDataId()==0){
                     this.deleteReview(id);
-                    logger.info("我是不知道图片删除1111");
+                    logger.info("我是不知道图片删除1111");*/
                 }else if (model.getResType()==0 && model.getDataId()!=0 && model.getDataType()==0){
                     this.userService.updateReview(model.getDataId(),model.getReviewResultType());
                     this.deleteReview(id);
@@ -90,15 +88,16 @@ public class VideoReviewService {
                 Long id = this.resourceNeedReviewMapper.getIdByKey(inputKey);
                 this.updateReviewResData(id,dataId,dataType,resType);
                 ReviewModel model = this.selectReviewById(id);
-                if (model.getResType()==1 && model.getDataId()!=0 && model.getDataType()==2){
+                if (model.getResType()==1 && model.getDataId()!=0 && model.getDataType()==2 && model.getReviewResultType()!=null){
                     this.videoService.updateReview(model.getDataId(),model.getReviewResultType());
+                    logger.info("-------------------------------------"+"ResType"+model.getResType()+",DataId"+model.getDataId()+",ReviewResultType"+model.getReviewResultType());
                     this.deleteReview(id);
-                }else if (model.getResType()==0  && model.getDataType()==2 && model.getReviewResultType()!=null){
+                /*}else if (model.getResType()==0  && model.getDataType()==2 && model.getReviewResultType()!=null){
                     this.deleteReview(id);
                     logger.info("我是视频图片删除2222");
                 }else if (model.getResType()==0  && model.getDataType()==0 && model.getDataId()==0){
                     this.deleteReview(id);
-                    logger.info("我是不知道图片删除2222");
+                    logger.info("我是不知道图片删除2222");*/
                 }else if (model.getResType()==0 && model.getDataId()!=0 && model.getDataType()==0){
                     this.userService.updateReview(model.getDataId(),model.getReviewResultType());
                     this.deleteReview(id);
