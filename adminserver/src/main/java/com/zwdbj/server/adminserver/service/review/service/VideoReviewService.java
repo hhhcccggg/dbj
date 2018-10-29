@@ -90,8 +90,8 @@ public class VideoReviewService {
                 ReviewModel model = this.selectReviewById(id);
                 if (model.getResType()==1 && model.getDataId()!=0 && model.getDataType()==2 && model.getReviewResultType()!=null){
                     this.videoService.updateReview(model.getDataId(),model.getReviewResultType());
-                    logger.info("-------------------------------------"+"ResType"+model.getResType()+",DataId"+model.getDataId()+",ReviewResultType"+model.getReviewResultType());
                     this.deleteReview(id);
+                    logger.info("++++++++++++++++++++++++++++++++++"+"ResType"+model.getResType()+",DataId"+model.getDataId()+",ReviewResultType"+model.getReviewResultType());
                 /*}else if (model.getResType()==0  && model.getDataType()==2 && model.getReviewResultType()!=null){
                     this.deleteReview(id);
                     logger.info("我是视频图片删除2222");
@@ -148,6 +148,10 @@ public class VideoReviewService {
     public void deleteReview(Long id){
         this.resourceNeedReviewMapper.deleteReview(id);
 
+    }
+
+    public void deleteResourceNeedReview(){
+        this.resourceNeedReviewMapper.deleteResourceNeedReview();
     }
 
 

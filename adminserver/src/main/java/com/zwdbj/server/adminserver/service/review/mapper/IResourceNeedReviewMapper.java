@@ -36,4 +36,7 @@ public interface IResourceNeedReviewMapper {
 
     @Delete("delete from core_resourceNeedReviews where resContent=#{resContent}")
     int deleteByInputKey(@Param("resContent")String resContent);
+
+    @Delete("delete from core_resourceNeedReviews where resType=0")
+    Long deleteResourceNeedReview();
 }

@@ -7,6 +7,7 @@ import com.zwdbj.server.adminserver.service.dailyIncreaseAnalysises.service.Dail
 import com.zwdbj.server.adminserver.service.living.service.LivingService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.review.service.TextScanSample;
+import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import org.slf4j.Logger;
@@ -36,6 +37,8 @@ public class QuartzService {
     TextScanSample textScanSample;
     @Autowired
     ComplainService complainService;
+    @Autowired
+    VideoReviewService videoReviewService;
 
     private Logger logger = LoggerFactory.getLogger(QuartzService.class);
 
@@ -143,6 +146,17 @@ public class QuartzService {
             logger.info("用户查询数量异常"+e.getMessage());
         }
 
+    }
+
+    /**
+     * 定时删除每天需要审核的表
+     */
+    public void deleteResourceNeedReview(){
+        try {
+            this.videoReviewService.deleteResourceNeedReview();
+        }catch (Exception e){
+            logger.info("删除review异常"+e.getMessage());
+        }
     }
 
 }
