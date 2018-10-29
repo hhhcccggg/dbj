@@ -2,55 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5cc2a817-8b2e-42c6-974d-f54a1e28a96a" name="Default" comment="..">
-      <change afterPath="$PROJECT_DIR$/build_dev_server.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build_production_server.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Data/ApplicationDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Migrations/20181020032404_init.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Migrations/20181020032404_init.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Migrations/20181020032404_init.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Migrations/20181020032404_init.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/AppVersion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/AppVersion.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/BaseModelWithTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/BaseModelWithTime.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Category.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Category.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Comment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Comment.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Complain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Complain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/ComplainReason.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/ComplainReason.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/DailyIncreaseAnalysis.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/DailyIncreaseAnalysis.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/ErrorViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/ErrorViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Follower.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Follower.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Heart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Heart.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Living.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Living.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Message.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/MessageBroadcast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/MessageBroadcast.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/MessageDispatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/MessageDispatch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Music.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Music.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Permission.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Permission.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Pet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Pet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/ResourceNeedReview.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/ResourceNeedReview.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/ResourceRefGoods.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/ResourceRefGoods.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Role.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/RolePermission.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/RolePermission.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Tag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Tag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/UserDeviceToken.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/UserDeviceToken.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/UserRole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/UserRole.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/UserThirdAccountBind.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/UserThirdAccountBind.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Models/Video.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Models/Video.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/dbdesgin.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/dbdesgin.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/dbdesgin/dbdesgin.sln" beforeDir="false" afterPath="$PROJECT_DIR$/dbdesgin/dbdesgin.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/libs/xgqq/PushJavaSDK.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/libs/youzan/open-sdk-java-2.0.2-sources.jar" beforeDir="false" afterPath="$PROJECT_DIR$/libs/youzan/open-sdk-java-2.0.2-sources.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/libs/youzan/open-sdk-java-2.0.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/libs/youzan/open-sdk-java-2.0.2.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminserver/protobuf/mq/QueueWorkInfo.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobileapi/libs/xgqq/PushJavaSDK.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobileapi/libs/youzan/open-sdk-java-2.0.2-sources.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobileapi/libs/youzan/open-sdk-java-2.0.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobileapi/protobuf/mq/QueueWorkInfo.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protobuf/mq/QueueWorkInfo.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/review/service/VideoReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/review/service/VideoReviewService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -60,19 +13,120 @@
     <ignored path="$PROJECT_DIR$/adminserver/target/" />
     <ignored path="$PROJECT_DIR$/apigateway/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1284137808">
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="iml" value="1" />
+          <entry key="xml" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="IDEA_MODULE" value="1" />
+          <entry key="XML" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="38" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="38" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="build_production_server.sh" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/build_production_server.sh">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/controller/ReviewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+            <state relative-caret-position="600">
+              <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/review/service/ReviewService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="546">
+              <caret line="29" column="60" lean-forward="true" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/qiniu/service/QiniuService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="25">
+              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/middleware/mq/MQWorkReceiver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="596">
+              <caret line="99" column="45" selection-start-line="99" selection-start-column="45" selection-end-line="99" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/review/service/VideoReviewService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="90" column="92" selection-start-line="90" selection-start-column="92" selection-end-line="90" selection-end-column="92" />
+              <folding>
+                <element signature="e#7049#7050#0" expanded="true" />
+                <element signature="e#7122#7123#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/quartzService/QuartzService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2100">
+              <caret line="130" column="72" selection-start-line="130" selection-start-column="72" selection-end-line="130" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/review/mapper/IResourceNeedReviewMapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="346">
+              <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apigateway/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1400">
+              <caret line="56" column="26" selection-start-line="56" selection-start-column="26" selection-end-line="56" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -94,6 +148,7 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/build_dev_server.sh" />
         <option value="$PROJECT_DIR$/build_production_server.sh" />
+        <option value="$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/review/service/VideoReviewService.java" />
       </list>
     </option>
   </component>
@@ -110,14 +165,11 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1920" />
-    <option name="y" value="23" />
-    <option name="width" value="1920" />
-    <option name="height" value="1057" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -128,77 +180,19 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-              <item name="adminserver" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-              <item name="adminserver" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-              <item name="adminserver" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-              <item name="adminserver" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-              <item name="adminserver" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-              <item name="mobileapi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-              <item name="mobileapi" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-              <item name="mobileapi" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="petserver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="petserver" type="462c0819:PsiDirectoryNode" />
-              <item name="mobileapi" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="petserverapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="petserverapp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -254,25 +248,21 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="MobileAPIApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="mobileapi" />
@@ -283,28 +273,17 @@
         </pattern>
       </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.zwdbj.server.mobileapi.MobileAPIApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <list>
       <item itemvalue="Spring Boot.MobileAPIApplication" />
@@ -355,78 +334,57 @@
       <option name="project" value="LOCAL" />
       <updated>1540637359992</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="..">
+      <created>1540780970552</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1540780970552</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7343000" />
+    <option name="totallyTimeSpent" value="10749000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1920" y="23" width="1920" height="1057" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.34824282" side_tool="true" weight="0.46354166" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21695095" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.24964234" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32916668" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="bottom" id="Java Enterprise" order="7" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Run Dashboard" order="7" weight="0.59583336" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32916668" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.778125" />
-      <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.6517572" weight="0.46354166" />
       <window_info id="Persistence" order="2" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25292864" />
-      <window_info anchor="right" id="Bean Validation" order="3" />
-      <window_info id="Web" order="2" side_tool="true" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Web" order="6" side_tool="true" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.778125" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.34824282" side_tool="true" weight="0.46354166" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1773163" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Java Enterprise" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.6517572" weight="0.46354166" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info id="Web" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run Dashboard" order="7" weight="0.59583336" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Bean Validation" order="3" />
-      <window_info id="Persistence" order="2" side_tool="true" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32916668" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32916668" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.778125" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32916668" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.6517572" weight="0.46354166" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.34824282" side_tool="true" weight="0.46354166" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32916668" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="13" weight="0.32899022" />
+      <window_info anchor="bottom" id="Run Dashboard" order="14" weight="0.59583336" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Bean Validation" order="9" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -463,9 +421,6 @@
     <entry file="file://$PROJECT_DIR$/petserver.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/utility/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -474,16 +429,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/adminapi/pom.xml" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobileapi/api.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/mobileapi/api.iml" />
     <entry file="file://$PROJECT_DIR$/mobileapi/src/main/java/com/zwdbj/server/mobileapi/MobileAPIApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -514,8 +460,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apigateway/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="44" column="31" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
+        <state relative-caret-position="1400">
+          <caret line="56" column="26" selection-start-line="56" selection-start-column="26" selection-end-line="56" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -526,139 +472,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobileapi/src/main/java/com/zwdbj/server/mobileapi/ApiApplication.java" />
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/encodings.xml" />
-    <entry file="file://$PROJECT_DIR$/.idea/compiler.xml" />
-    <entry file="file://$PROJECT_DIR$/utility/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobileapi/pom.xml" />
-    <entry file="file://$PROJECT_DIR$/petserver.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utility/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/petserver.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobileapi/pom.xml" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="13" column="34" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/encodings.xml" />
-    <entry file="file://$PROJECT_DIR$/.idea/compiler.xml" />
-    <entry file="file://$PROJECT_DIR$/mobileapi/src/main/java/com/zwdbj/server/mobileapi/ApiApplication.java" />
-    <entry file="file://$PROJECT_DIR$/mobileapi/src/main/java/com/zwdbj/server/mobileapi/service/share/service/ShareService.java" />
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/petserver.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utility/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/adminapi/pom.xml" />
-    <entry file="file://$PROJECT_DIR$/mobileapi/api.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobileapi/src/main/java/com/zwdbj/server/mobileapi/MobileAPIApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/AdminServerApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobileapi/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="143" column="31" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/adminserver/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="151" column="31" selection-start-line="151" selection-start-column="31" selection-end-line="151" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apigateway/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="44" column="31" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="33" lean-forward="true" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apigateway/build_dev_server.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/adminserver/build_dev_server.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="31" lean-forward="true" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/apigateway/build_dev_server.sh" />
+    <entry file="file://$PROJECT_DIR$/adminserver/build_dev_server.sh" />
     <entry file="file://$PROJECT_DIR$/build_dev_server.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
@@ -666,13 +481,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/adminserver/build_production_server.sh">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/adminserver/build_production_server.sh" />
     <entry file="file://$PROJECT_DIR$/build_production_server.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
           <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/review/service/ReviewService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="29" column="60" lean-forward="true" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/qiniu/service/QiniuService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adminserver/src/main/java/com/zwdbj/server/adminserver/service/review/service/VideoReviewService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="90" column="92" selection-start-line="90" selection-start-column="92" selection-end-line="90" selection-end-column="92" />
+          <folding>
+            <element signature="e#7049#7050#0" expanded="true" />
+            <element signature="e#7122#7123#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
