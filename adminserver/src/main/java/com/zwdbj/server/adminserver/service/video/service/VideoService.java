@@ -334,4 +334,13 @@ public class VideoService {
         ValueOperations<String,AdVideoWeightInput> operations = redisTemplate.opsForValue();
         operations.set(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY,input,24,TimeUnit.HOURS);
     }
+
+    /**
+     * 定时任务
+     * @return
+     */
+    public List<VideoHeartAndPlayCountDto> findHeartAndPlayCount(){
+        List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoMapper.findHeartAndPlayCount();
+        return videoHeartAndPlayCountDtos;
+    }
 }

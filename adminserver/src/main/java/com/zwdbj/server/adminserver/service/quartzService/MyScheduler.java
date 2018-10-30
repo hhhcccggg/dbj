@@ -20,11 +20,13 @@ public class MyScheduler {
         JobKey jobKey4  = new JobKey("job4", "group04");
         JobKey jobKey5  = new JobKey("job5", "group05");
         JobKey jobKey6  = new JobKey("job6", "group06");
+        //JobKey jobKey7  = new JobKey("job7", "group07");
         if (!myScheduler.checkExists(jobKey2)) startJob2(myScheduler);
         if (!myScheduler.checkExists(jobKey5)) startJob5(myScheduler);
         if (!myScheduler.checkExists(jobKey4)) startJob4(myScheduler);
         if (!myScheduler.checkExists(jobKey3)) startJob3(myScheduler);
         if (!myScheduler.checkExists(jobKey6)) startJob6(myScheduler);
+        //if (!myScheduler.checkExists(jobKey7)) startJob7(myScheduler);
         myScheduler.start();
 
     }
@@ -77,6 +79,17 @@ public class MyScheduler {
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 4 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("trigger6", "group6")
                 .withSchedule(scheduleBuilder).build();
+        scheduler.scheduleJob(jobDetail,cronTrigger);
+    }
+    private void startJob7(Scheduler scheduler) throws SchedulerException{
+        JobDetail jobDetail = JobBuilder.newJob(IncreaseHeartAndPlayCountJob.class)
+                .withIdentity("job7", "group07")
+                .build();
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 56-57,59 * * * ?");
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+                .withIdentity("trigger7", "group7")
+                .withSchedule(scheduleBuilder)
+                .build();
         scheduler.scheduleJob(jobDetail,cronTrigger);
     }
 

@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "搜索视频")
 public class SearchVideoAdInput {
-    @ApiModelProperty(value = "视频状态，-1：所有，0：正常的。其他的值非正常")
+    @ApiModelProperty(value = "视频状态，-1：所有，0：正常的,1:未审核,2:下架,3:待审核")
     int status;
     @ApiModelProperty(value = "关联的商品，-1：所有，其他值为真正关联的商品数")
     int isLinkProduct;

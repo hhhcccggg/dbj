@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "搜索视频")
 public class AdVideoVerityInfoInput {
-    @ApiModelProperty(value = "视频状态，-1：所有，0：正常的,1:未审核,2:已拒绝,3:已下架")
+    @ApiModelProperty(value = "视频状态，-1：所有，0：正常的,1:未审核,2:下架,3:待审核")
     int status;
     @ApiModelProperty(value = "关键字，可以查询标题")
     String keywords;
