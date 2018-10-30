@@ -18,12 +18,30 @@ public class AdVideoVerityInfoDto {
     private String rejectMsg;
     private int recommendIndex;
     private long userId;
+    private String userName;
+    private String nickName;
     private long musicId;
     private int linkProductCount;
     private String address;
     private double firstFrameHeight;
     private String firstFrameUrl;
     private double firstFrameWidth;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public long getId() {
         return id;
