@@ -557,9 +557,11 @@ public class UserService {
                 }
             }
             catch (Exception ex) {
-                //TODO 增加日志
                 logger.warn(ex.getMessage());
                 logger.warn(ex.getStackTrace().toString());
+                //重新处理缓存
+                cfg = new SmsSendCfg(currentTimeStamp,todayStr+":1");
+                operations.set(AppConfigConstant.getRedisPhoneCodeCfgKey(phone),cfg);
                 return new ServiceStatusInfo<String>(1,"发送验证码失败，请稍后再试.","");
             }
         }

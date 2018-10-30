@@ -23,9 +23,14 @@ public class EaseMobTokenManager {
     public EaseMobToken token() {
         boolean isGetToken = false;
         if (this.redisTemplate.hasKey(easeMobTokenCacheKey)) {
-            EaseMobToken easeMobToken = (EaseMobToken)this.redisTemplate.opsForValue().get(easeMobTokenCacheKey);
-            if (easeMobToken!=null) {
-                return easeMobToken;
+            try {
+                EaseMobToken easeMobToken = (EaseMobToken) this.redisTemplate.opsForValue().get(easeMobTokenCacheKey);
+                if (easeMobToken != null) {
+                    return easeMobToken;
+                }
+            } catch (Exception ex) {
+                logger.error(ex.getStackTrace().toString());
+                logger.error(ex.getMessage());
             }
             isGetToken = true;
         } else {
