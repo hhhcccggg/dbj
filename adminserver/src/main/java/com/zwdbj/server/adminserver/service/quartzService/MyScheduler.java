@@ -19,10 +19,12 @@ public class MyScheduler {
         JobKey jobKey3  = new JobKey("job3", "group03");
         JobKey jobKey4  = new JobKey("job4", "group04");
         JobKey jobKey5  = new JobKey("job5", "group05");
+        JobKey jobKey6  = new JobKey("job6", "group06");
         if (!myScheduler.checkExists(jobKey2)) startJob2(myScheduler);
         if (!myScheduler.checkExists(jobKey5)) startJob5(myScheduler);
         if (!myScheduler.checkExists(jobKey4)) startJob4(myScheduler);
         if (!myScheduler.checkExists(jobKey3)) startJob3(myScheduler);
+        if (!myScheduler.checkExists(jobKey6)) startJob6(myScheduler);
         myScheduler.start();
 
     }
@@ -64,6 +66,16 @@ public class MyScheduler {
                 .build();
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0/3 * * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("trigger5", "group1")
+                .withSchedule(scheduleBuilder).build();
+        scheduler.scheduleJob(jobDetail,cronTrigger);
+    }
+
+    private void startJob6(Scheduler scheduler) throws SchedulerException{
+        JobDetail jobDetail = JobBuilder.newJob(DeleteResourceNeedReviewJob.class)
+                .withIdentity("job6", "group06")
+                .build();
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 4 * * ?");
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("trigger6", "group6")
                 .withSchedule(scheduleBuilder).build();
         scheduler.scheduleJob(jobDetail,cronTrigger);
     }
