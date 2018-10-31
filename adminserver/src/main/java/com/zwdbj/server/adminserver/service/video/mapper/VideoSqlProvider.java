@@ -75,8 +75,9 @@ public class VideoSqlProvider {
     public String verityListAd(Map params){
         AdVideoVerityInfoInput model = (AdVideoVerityInfoInput)params.get("model");
         SQL sql = new SQL()
-                .SELECT("*")
-                .FROM("core_videos");
+                .SELECT("v.*,u.userName,u.nickName")
+                .FROM("core_videos v")
+                .INNER_JOIN("core_users u on u.id=v.userId");
         if (model.getStatus()!=-1){
             sql.WHERE("status=#{model.status}");
         }

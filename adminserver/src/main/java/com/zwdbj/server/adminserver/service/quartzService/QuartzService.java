@@ -9,6 +9,7 @@ import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.review.service.TextScanSample;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
+import com.zwdbj.server.adminserver.service.video.model.VideoHeartAndPlayCountDto;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -156,6 +157,21 @@ public class QuartzService {
             this.videoReviewService.deleteResourceNeedReview();
         }catch (Exception e){
             logger.info("删除review异常"+e.getMessage());
+        }
+    }
+
+    /**
+     * 定时增加视频的播放量和点赞量
+     */
+    public void increaseHeartAndPlayCount(){
+        try {
+            List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
+            if (videoHeartAndPlayCountDtos==null) return;
+
+            logger.info("-------我是测试--------"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+
+        }catch (Exception e){
+            logger.info("increateHeartAndPlayCount异常"+e.getMessage());
         }
     }
 

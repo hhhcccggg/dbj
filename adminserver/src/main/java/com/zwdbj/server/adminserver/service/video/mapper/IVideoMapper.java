@@ -104,4 +104,8 @@ public interface IVideoMapper {
     @Update("update core_videos set status=4 where id=#{id}")
     int peopleVideoReview(@Param("id")Long id);
 
+    //定时任务
+    @Select("select id,userId,playCount,heartCount,shareCount from core_videos where status=0 ")
+    List<VideoHeartAndPlayCountDto> findHeartAndPlayCount();
+
 }

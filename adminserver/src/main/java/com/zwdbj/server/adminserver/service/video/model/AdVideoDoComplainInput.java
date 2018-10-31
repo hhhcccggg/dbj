@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "处理被举报视频")
 public class AdVideoDoComplainInput {
 
-    @ApiModelProperty(value = "处理方式,0:忽略,1:下架")
+    @ApiModelProperty(value = "处理方式,0:忽略,2:下架")
     int treatment;
 
     public int getTreatment() {
