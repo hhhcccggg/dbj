@@ -167,11 +167,29 @@ public class QuartzService {
         try {
             List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
             if (videoHeartAndPlayCountDtos==null) return;
+            for(VideoHeartAndPlayCountDto dto:videoHeartAndPlayCountDtos){
+                if (dto.getPlayCount()<100){
+                    this.videoService.updateField("playCount=playCount+20,heartCount=heartCount+6,shareCount=shareCount+2",dto.getId());
+                    Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
+                    this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
+                }else if (dto.getPlayCount()<1000){
+                    this.videoService.updateField("playCount=playCount*1.2,heartCount=heartCount*1.2,shareCount=shareCount*1.2",dto.getId());
+                    Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
+                    this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
+                }else if (dto.getPlayCount()<10000){
+                    this.videoService.updateField("playCount=playCount*1.1,heartCount=heartCount*1.1,shareCount=shareCount*1.1",dto.getId());
+                    Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
+                    this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
+                }else {
+                    return;
+                }
+
+            }
 
             logger.info("-------我是测试--------"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
 
         }catch (Exception e){
-            logger.info("increateHeartAndPlayCount异常"+e.getMessage());
+            logger.info("increaseHeartAndPlayCount异常"+e.getMessage());
         }
     }
 

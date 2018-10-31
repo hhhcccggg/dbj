@@ -106,6 +106,7 @@ public class UserService {
     public ServiceStatusInfo<Object> follow(FollowInput input) {
         long userId = JWTUtil.getCurrentId();
         if (userId == 0) return new ServiceStatusInfo<>(1,"请重新登录",null);
+        if (input.getUserId()==userId)return new ServiceStatusInfo<>(1,"不能关注自己",null);
         boolean isFollowed = isFollower(input.getUserId(),userId);
         if (input.isFollow()) {
             if (!isFollowed) {

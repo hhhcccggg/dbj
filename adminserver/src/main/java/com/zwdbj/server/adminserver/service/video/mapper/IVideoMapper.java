@@ -108,4 +108,7 @@ public interface IVideoMapper {
     @Select("select id,userId,playCount,heartCount,shareCount from core_videos where status=0 ")
     List<VideoHeartAndPlayCountDto> findHeartAndPlayCount();
 
+    @Select("select heartCount from core_videos where id=#{id}")
+    Long findVideoHeartCount(@Param("id")Long id);
+
 }

@@ -343,4 +343,9 @@ public class VideoService {
         List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoMapper.findHeartAndPlayCount();
         return videoHeartAndPlayCountDtos;
     }
+
+    public Long findVideoHeartCount(Long id){
+        Long hearCount = this.videoMapper.findVideoHeartCount(id);
+        return hearCount;
+    }
 }
