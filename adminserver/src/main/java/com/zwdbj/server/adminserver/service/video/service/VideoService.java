@@ -131,7 +131,7 @@ public class VideoService {
         if (userId<=0) return 0;
         if (input.getTags()!=null) {
             String[] tags = input.getTags().split(",");
-            tagService.everyTagCount(tags);
+            //tagService.everyTagCount(tags);
         }
         videoMapper.publicVideo(videoId,userId,input);
         return videoId;
