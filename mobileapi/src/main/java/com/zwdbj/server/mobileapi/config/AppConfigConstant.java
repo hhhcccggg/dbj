@@ -78,6 +78,10 @@ public class AppConfigConstant {
         return REDIS_YOUZAN_USER_TOKEN_KEY+"_"+userId;
     }
 
+    // 推荐
+    public static String REDIS_VIDEO_RECOMMEND_KEY = "videoRecommend";
+    public static String REDIS_VIDEO_WEIGHT_KEY = "videoWeight";
+
     public static String PUSH_ENV;
     public static boolean SWAGGER_ENABLED;
 

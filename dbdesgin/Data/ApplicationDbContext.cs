@@ -154,6 +154,7 @@ namespace dbdesgin.Data
             videoEntity.Property(c => c.complainCount).HasDefaultValue(0);
             videoEntity.Property(c => c.firstFrameWidth).HasDefaultValue(0);
             videoEntity.Property(c => c.firstFrameHeight).HasDefaultValue(0);
+            videoEntity.Property(c=>c.isManualRecommend).HasDefaultValue(false);
             //Pet
             var petEntity = modelBuilder.Entity<Pet>();
             petEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
