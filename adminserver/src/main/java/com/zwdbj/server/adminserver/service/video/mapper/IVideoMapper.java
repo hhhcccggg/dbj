@@ -1,7 +1,6 @@
 package com.zwdbj.server.adminserver.service.video.mapper;
 
 
-import com.zwdbj.server.adminserver.service.share.model.ShareDto;
 import com.zwdbj.server.adminserver.service.video.model.*;
 import org.apache.ibatis.annotations.*;
 

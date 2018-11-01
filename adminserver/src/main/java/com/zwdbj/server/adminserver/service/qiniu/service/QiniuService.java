@@ -21,11 +21,7 @@ import org.springframework.stereotype.Service;
 //@EnableScheduling
 public class QiniuService {
     @Autowired
-    private  ILivingMapper livingMapper;
-    @Autowired
     EaseMobChatRoom easeMobChatRoom;
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     public String uploadToken() {
         long expireTime = AppConfigConstant.QINIU_UPTOKEN_EXPIRETIME;

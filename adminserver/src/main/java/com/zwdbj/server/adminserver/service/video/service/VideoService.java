@@ -1,13 +1,11 @@
 package com.zwdbj.server.adminserver.service.video.service;
 
-import com.github.pagehelper.Page;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.resourceRefGoods.service.ResRefGoodsService;
-import com.zwdbj.server.adminserver.service.share.model.ShareDto;
 import com.zwdbj.server.adminserver.service.tag.service.TagService;
 import com.zwdbj.server.adminserver.service.user.model.UserModel;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
@@ -131,9 +129,6 @@ public class VideoService {
         videoMapper.publicVideo(videoId,userId,input);
         return videoId;
     }
-
-
-
 
 
 
