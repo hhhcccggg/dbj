@@ -52,7 +52,7 @@ namespace dbdesgin.Models
         /// </summary>
         /// <value>The index of the recommend.</value>
         public int recommendIndex { get; set; }
-        // 是否手动推荐
+        // 是否手动推荐,当前未启用此字段
         public bool isManualRecommend {get;set;}
         public long playCount { get; set; }
         public long commentCount { get; set; }
