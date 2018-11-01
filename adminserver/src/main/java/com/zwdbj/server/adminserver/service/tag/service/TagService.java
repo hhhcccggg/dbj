@@ -14,16 +14,10 @@ import java.util.*;
 
 @Service
 public class TagService {
-    /*private static ThreadLocal<SqlSession> threadLocal =new ThreadLocal<SqlSession>();
-    private static SqlSessionFactory sqlSessionFactory;*/
     @Autowired
     ITagMapper tagMapper;
     private Logger logger = LoggerFactory.getLogger(TagService.class);
 
-    public List<TagDto> search(TagSearchInput input) {
-        List<TagDto> dtos = this.tagMapper.search(input);
-        return dtos;
-    }
 
     public List<AdVideoTagDto> getVideoTagAd(AdVideoTagInput input){
         List<AdVideoTagDto>  videoTagDtos = this.tagMapper.getVideoTagAd(input);

@@ -8,7 +8,6 @@ import com.zwdbj.server.adminserver.model.ResponseDataCode;
 import com.zwdbj.server.adminserver.model.ResponsePageInfoData;
 import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdDeviceTokenDto;
-import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdUserDeviceTokensInput;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.service.UserDeviceTokensService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,16 +25,6 @@ public class UserDeviceTokensController {
     @Autowired
     private UserDeviceTokensService userDeviceTokensService;
 
-    @RequiresAuthentication
-    @RequestMapping(value = "/bindingUser",method = RequestMethod.POST)
-    @ApiOperation(value = "绑定/解绑设备的token和userId,若userId=0时则代表删除对应的记录")
-    public ResponseData<Object> bindingUserId(@RequestBody AdUserDeviceTokensInput input){
-        ServiceStatusInfo<Object> statusInfo = this.userDeviceTokensService.bindingUserId(input);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
-        }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-    }
 
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/tokenList",method = RequestMethod.GET)

@@ -132,65 +132,10 @@ public class VideoService {
         return videoId;
     }
 
-    // TODO 未来优化性能检测
-    public List<VideoInfoDto> nearby(double longitude,double latitude,float distance) {
-        List<VideoInfoDto> videoInfoDtos = this.videoMapper.nearby(longitude, latitude, distance);
-        if (videoInfoDtos==null) return null;
-        for (VideoInfoDto dto:videoInfoDtos) {
-            loadVideoInfoDto(dto);
-        }
-        return videoInfoDtos;
-    }
 
-    public List<VideoInfoDto> listHot(Page<VideoInfoDto> pageInfo) {
-        List<VideoInfoDto> videoInfoDtos = this.videoMapper.listHot();
-        if (videoInfoDtos==null) return null;
-        for (VideoInfoDto dto:videoInfoDtos) {
-            loadVideoInfoDto(dto);
-        }
-        return videoInfoDtos;
-    }
 
-    public List<VideoInfoDto> listLatest(Page<VideoInfoDto> pageInfo) {
-        List<VideoInfoDto> videoInfoDtos = this.videoMapper.listLatest();
-        if (videoInfoDtos==null) return null;
-        for (VideoInfoDto dto:videoInfoDtos) {
-            loadVideoInfoDto(dto);
-        }
-        return videoInfoDtos;
-    }
 
-    /**
-     * 获取userId关注的用户的视频列表
-     * @param userId
-     * @return
-     */
-    public List<VideoInfoDto> listByUserFollowed(long userId) {
-        List<VideoInfoDto> dtos = this.videoMapper.myFollowedVideos(userId);
-        if (dtos==null) return null;
-        for(VideoInfoDto dto:dtos) {
-            loadVideoInfoDto(dto);
-        }
-        return dtos;
-    }
 
-    public List<VideoInfoDto> videosByUser(long userId) {
-        List<VideoInfoDto> dtos = this.videoMapper.videosByUser(userId);
-        if (dtos==null) return null;
-        for(VideoInfoDto dto:dtos) {
-            loadVideoInfoDto(dto);
-        }
-        return dtos;
-    }
-
-    public List<VideoInfoDto> videosByHearted(long userId) {
-        List<VideoInfoDto> dtos = this.videoMapper.videosByHearted(userId);
-        if (dtos==null) return null;
-        for(VideoInfoDto dto:dtos) {
-            loadVideoInfoDto(dto);
-        }
-        return dtos;
-    }
 
     public VideoDetailInfoDto video(long id) {
         VideoDetailInfoDto dto = this.videoMapper.video(id);
@@ -214,14 +159,6 @@ public class VideoService {
     public void updateField(String fields,long id) {
         this.videoMapper.updateVideoField(fields,id);
     }
-    public List<VideoInfoDto> next(long id) {
-        List<VideoInfoDto> videoInfoDtos = this.videoMapper.next(id);
-        if (videoInfoDtos==null) return null;
-        for (VideoInfoDto dto:videoInfoDtos) {
-            loadVideoInfoDto(dto);
-        }
-        return videoInfoDtos;
-    }
 
     /**
      * TODO 调用此方法的源待优化
@@ -244,14 +181,6 @@ public class VideoService {
         }
     }
 
-    public String findLinkPets(Long id){
-        String linkPet = this.videoMapper.findLinkPets(id);
-        return linkPet;
-    }
-    public ShareDto doShare(Long id){
-        ShareDto sharedto = this.videoMapper.doShare(id);
-        return sharedto;
-    }
 
 
     public Long findIncreasedVideoAd(int input){
