@@ -43,32 +43,6 @@ public class QuartzService {
 
     private Logger logger = LoggerFactory.getLogger(QuartzService.class);
 
-    /**
-     * 直播相关
-     * 直播房间的人数,关闭无推流的聊天室
-     */
-    public  void timedQueryChatRoomId(){
-        List<Long> ids = livingService.timedQueryIsLivingIds();
-        for (Long id: ids) {
-            String chatRoomId = livingService.timedQueryChatRoomId(id);
-            String streamName = String.valueOf(id);
-            boolean flag = qiniuService.getLiveStatus(streamName);
-            if (!flag){
-                easeMobChatRoom.deleteChatRoom(chatRoomId);
-                qiniuService.disableStream(streamName,id);
-                livingService.modifyIsLiving(id);
-                logger.info("<================我是状态不正确的 :"  + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "count===============>");
-            }else if(flag) {
-                Integer result = Integer.valueOf(easeMobChatRoom.getAffiliationsCount(chatRoomId));
-                Date createTime = this.livingService.findCreatedTimeById(id);
-                Long liveingTotalTime = (new Date().getTime()-createTime.getTime())/1000;
-
-                this.livingService.updateOnlinePeopleCount(id,result,liveingTotalTime);
-                logger.info("<================我是状态正确的 :"  + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "count===============>");
-            }
-        }
-        logger.info("<================我是验证标准 :"  + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "count===============>");
-    }
 
     /**
      * 定时每天早上5点插入增量表的时间和id
@@ -114,24 +88,6 @@ public class QuartzService {
      */
     public void userAllCount(){
         try {
-            /*List<UserIdAndFollowersDto> followersDtos = this.userService.findMyFansCount();
-            if (followersDtos.size()!=0){
-                for (UserIdAndFollowersDto dto: followersDtos) {
-                    String field = "totalFans="+dto.getTotalFans();
-                    this.userService.updateField(field,dto.getUserId());
-                    logger.info("-------我是粉丝总量--------"+dto.getUserId()+"的粉丝总量为: "+dto.getTotalFans());
-                }
-                logger.info("-------我是粉丝总量--------"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-            }
-            List<UserIdAndFocusesDto> focusesDtos = this.userService.findMyFocusesCount();
-            if (focusesDtos.size()!=0){
-                for (UserIdAndFocusesDto dto: focusesDtos) {
-                    String field = "totalMyFocuses="+dto.getTotalMyFocuses();
-                    this.userService.updateField(field,dto.getFollowerUserId());
-                    logger.info("-------我是关注总量--------"+dto.getFollowerUserId()+"的关注总量为: "+dto.getTotalMyFocuses());
-                }
-                logger.info("-------我是关注总量--------"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-            }*/
             List<UserComplainDto> userComplainDtos = this.complainService.findUserComplainCount();
             if (userComplainDtos.size()!=0){
                 for (UserComplainDto dto: userComplainDtos) {
@@ -167,11 +123,29 @@ public class QuartzService {
         try {
             List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
             if (videoHeartAndPlayCountDtos==null) return;
+            for(VideoHeartAndPlayCountDto dto:videoHeartAndPlayCountDtos){
+                if (dto.getPlayCount()<100){
+                    this.videoService.updateField("playCount=playCount+20,heartCount=heartCount+6,shareCount=shareCount+2",dto.getId());
+                    Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
+                    this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
+                }else if (dto.getPlayCount()<1000){
+                    this.videoService.updateField("playCount=playCount*1.2,heartCount=heartCount*1.2,shareCount=shareCount*1.2",dto.getId());
+                    Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
+                    this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
+                }else if (dto.getPlayCount()<10000){
+                    this.videoService.updateField("playCount=playCount*1.1,heartCount=heartCount*1.1,shareCount=shareCount*1.1",dto.getId());
+                    Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
+                    this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
+                }else {
+                    return;
+                }
+
+            }
 
             logger.info("-------我是测试--------"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
 
         }catch (Exception e){
-            logger.info("increateHeartAndPlayCount异常"+e.getMessage());
+            logger.info("increaseHeartAndPlayCount异常"+e.getMessage());
         }
     }
 

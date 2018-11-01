@@ -85,7 +85,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(IncreaseHeartAndPlayCountJob.class)
                 .withIdentity("job7", "group07")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 56-57,59 * * * ?");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 0/2 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger7", "group7")
                 .withSchedule(scheduleBuilder)

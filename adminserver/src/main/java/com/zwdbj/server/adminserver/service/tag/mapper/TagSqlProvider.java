@@ -7,14 +7,6 @@ import org.apache.ibatis.jdbc.SQL;
 import java.util.Map;
 
 public class TagSqlProvider {
-    public String search(Map paras) {
-        TagSearchInput input = (TagSearchInput)paras.get("input");
-        SQL sql = new SQL()
-                .FROM("core_tags")
-                .SELECT("*")
-                .ORDER_BY("recommendIndex desc");
-        return sql.toString();
-    }
 
     public String getVideoTagAd(Map params){
         AdVideoTagInput input = (AdVideoTagInput)params.get("input");

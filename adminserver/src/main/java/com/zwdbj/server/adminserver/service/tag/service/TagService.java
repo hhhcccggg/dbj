@@ -14,16 +14,10 @@ import java.util.*;
 
 @Service
 public class TagService {
-    /*private static ThreadLocal<SqlSession> threadLocal =new ThreadLocal<SqlSession>();
-    private static SqlSessionFactory sqlSessionFactory;*/
     @Autowired
     ITagMapper tagMapper;
     private Logger logger = LoggerFactory.getLogger(TagService.class);
 
-    public List<TagDto> search(TagSearchInput input) {
-        List<TagDto> dtos = this.tagMapper.search(input);
-        return dtos;
-    }
 
     public List<AdVideoTagDto> getVideoTagAd(AdVideoTagInput input){
         List<AdVideoTagDto>  videoTagDtos = this.tagMapper.getVideoTagAd(input);
@@ -46,33 +40,7 @@ public class TagService {
         }
 
     }
-
-    public ServiceStatusInfo<Object> everyTagCount(String[] tagNames){
-        for (String tagName:tagNames) {
-            int tag = this.tagMapper.findTagByName(tagName);
-            if (tag<=0){
-                try {
-                    Long id = UniqueIDCreater.generateID();
-                    this.tagMapper.addVideoTag(id,tagName);
-                    logger.info("标签增加------");
-                }catch (RuntimeException e){
-                    logger.info("标签增加错误------"+e.getMessage());
-                    e.printStackTrace();
-                }
-            }else {
-                try {
-                    this.tagMapper.updateTagResNumber(tagName);
-                    logger.info("标签数量更新成功------");
-                }catch (Exception e){
-                    logger.info("标签数量更新错误-------"+e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-
-        }
-        return new ServiceStatusInfo<>(0,"","");
-    }
-
+    
     public List<AdFindHotTagsDto> findHotTags(){
         return this.tagMapper.findHotTags();
     }

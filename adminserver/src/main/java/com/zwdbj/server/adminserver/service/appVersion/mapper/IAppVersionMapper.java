@@ -9,8 +9,6 @@ import java.util.List;
 @Mapper
 public interface IAppVersionMapper {
 
-    @Select("select * from core_appVersions where platform=#{platform} ORDER BY createTime DESC LIMIT 1")
-    AppVersionDto getAppVersion(@Param("platform") int platform);
 
     @Insert("insert into core_appVersions(id,version,title,description,versionNum,platform,downloadUrl,upgradeType) " +
             "values(#{id},#{input.version},#{input.title},#{input.description},0,#{input.platform},#{input.downloadUrl},#{input.upgradeType})")

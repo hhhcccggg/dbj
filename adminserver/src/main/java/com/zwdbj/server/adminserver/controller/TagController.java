@@ -25,15 +25,6 @@ public class TagController {
     @Autowired
     TagService tagService;
 
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
-    @ApiOperation(value = "获取标签列表")
-    public ResponsePageInfoData<List<TagDto>> search(@RequestBody TagSearchInput input,
-                                               @RequestParam(value = "pageNo",defaultValue = "1",required = true) int pageNo,
-                                               @RequestParam(value = "rows",defaultValue = "13",required = true) int rows) {
-        Page<TagDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<TagDto> dtos = tagService.search(input);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
-    }
 
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/videoTag",method = RequestMethod.POST)

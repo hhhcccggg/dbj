@@ -25,27 +25,7 @@ public class ComplainController {
     @Autowired
     protected ComplainService complainService;
 
-    @RequestMapping(value = "/listReason",method = RequestMethod.POST)
-    @ApiOperation(value = "获取举报的原因列表")
-    public ResponsePageInfoData<List<ComplainReasonListInfoDto>> listReason(
-            @RequestBody ComplainReasonListInput input,
-            @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-            @RequestParam(value = "rows",required = true,defaultValue = "13") int rows
-    ) {
-        Page<ComplainReasonListInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<ComplainReasonListInfoDto> dtos = this.complainService.list(input);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
-    }
 
-    @RequestMapping(value = "/complain",method = RequestMethod.POST)
-    @ApiOperation(value = "举报")
-    public ResponseData<Object> complain(@RequestBody PubComplainInput input) {
-        ServiceStatusInfo<Object> statusInfo = this.complainService.pubComplain(input);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
-        }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-    }
 
     //admin
     @RequiresAuthentication

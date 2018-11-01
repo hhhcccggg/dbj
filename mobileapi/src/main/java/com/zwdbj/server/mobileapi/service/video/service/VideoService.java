@@ -71,6 +71,7 @@ public class VideoService {
         if (input.getTags()!=null) {
             String[] tags = input.getTags().split(",");
             //TODO 更新标签的数据
+            this.tagService.everyTagCount(tags);
         }
         videoMapper.publicVideo(videoId,userId,input);
         UserModel userModel = this.userService.findUserById(userId);

@@ -139,23 +139,4 @@ public class UserSqlProvider {
         sql.ORDER_BY("u.id desc");
         return sql.toString();
     }
-    public String updateInfo(Map params) {
-        UpdateUserInfoInput input = (UpdateUserInfoInput)params.get("input");
-        long userId = (long)params.get("userId");
-        SQL sql = new SQL()
-                .UPDATE(TBL_NAME);
-        if (input.getAvatarKey()!=null&&input.getAvatarKey().length()>0) {
-            sql.SET("avatarUrl=#{input.avatarKey}");
-        }
-        sql.SET("nickName=#{input.nickName}")
-        .SET("sex=#{input.sex}")
-        .SET("birthday=#{input.birthday}")
-        .SET("address=#{input.city}")
-        .SET("longitude=#{input.longitude}")
-        .SET("latitude=#{input.latitude}")
-        .SET("occupationId=#{input.occupationId}")
-        .SET("loveStatusId=#{input.loveStatusId}");
-        sql.WHERE("id=#{userId}");
-        return sql.toString();
-    }
 }

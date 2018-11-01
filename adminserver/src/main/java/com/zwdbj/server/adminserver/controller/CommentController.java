@@ -50,51 +50,6 @@ public class CommentController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dto);
     }
 
-    @RequiresAuthentication
-    @RequestMapping(value = "/myAllComments",method = RequestMethod.GET)
-    @ApiOperation(value = "获取我的所有评论")
-    public ResponsePageInfoData<List<CommentInfoDto>> myAllComments(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                           @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        Page<CommentInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
-        List<CommentInfoDto> comments = commentService.myAllComments(JWTUtil.getCurrentId());
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",comments,pageInfo.getTotal());
-    }
-
-    @RequestMapping(value = "/heart",method = RequestMethod.POST)
-    @ApiOperation(value = "评论点赞")
-    @RequiresAuthentication
-    public ResponseData<Object> heart(@RequestBody HeartInput input) {
-        ServiceStatusInfo<Object> statusInfo = this.commentService.heart(input);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
-        }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-    }
-
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
-    @ApiOperation(value = "删除评论")
-    @RequiresAuthentication
-    public ResponseData<EntityKeyModel<Long>> delete(@RequestBody EntityKeyModel<Long> input) {
-        ServiceStatusInfo<EntityKeyModel<Long>> statusInfo = this.commentService.delete(input);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),input);
-        } else {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),input);
-        }
-    }
-
-    @RequestMapping(value = "/publish",method = RequestMethod.POST)
-    @ApiOperation(value = "发布评论")
-    @RequiresAuthentication
-    public ResponseData<Object> publish(@RequestBody AddCommentInput input) {
-        ServiceStatusInfo<Object> statusInfo = this.commentService.add(input);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
-        } else {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-        }
-    }
-
 
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/screeningComment/{id}",method = RequestMethod.GET)

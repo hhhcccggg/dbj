@@ -43,41 +43,6 @@ public class VideoController {
         dataMap.put("id",String.valueOf(videoId));
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dataMap);
     }
-    @RequestMapping(value = "/listHot",method = RequestMethod.GET)
-    @ApiOperation(value = "获取短视频推荐列表")
-    public ResponsePageInfoData<List<VideoInfoDto>> listHot(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                      @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
-        List<VideoInfoDto> videos = videoService.listHot(pageInfo);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videos,pageInfo.getTotal());
-    }
-    @RequestMapping(value = "/listLatest",method = RequestMethod.GET)
-    @ApiOperation(value = "获取短视频最新列表")
-    public ResponsePageInfoData<List<VideoInfoDto>> listLatest(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                      @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
-        List<VideoInfoDto> videos = videoService.listLatest(pageInfo);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videos,pageInfo.getTotal());
-    }
-
-    @RequestMapping(value = "/next",method = RequestMethod.GET)
-    @ApiOperation(value = "获取下一波短视频列表，可以用于短视频观看界面，下拉观看下一个短视频场景. id为当面正在播放的视频ID")
-    public ResponseData<List<VideoInfoDto>> next(@RequestParam(value = "id") long id) {
-        List<VideoInfoDto> videos = videoService.next(id);
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",videos);
-    }
-
-    @RequestMapping(value = "/nearby/{distance}/{longitude}/{latitude}",method = RequestMethod.GET)
-    @ApiOperation(value = "获取附近的视频")
-    public ResponsePageInfoData<List<VideoInfoDto>> nearBy(@PathVariable(required = true) float distance,
-                                                   @PathVariable(required = true) double longitude,
-                                                   @PathVariable(required = true) double latitude,
-                                                   @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                   @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<VideoInfoDto> videoInfoDtos = this.videoService.nearby(longitude,latitude,100000);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoInfoDtos,pageInfo.getTotal());
-    }
 
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
@@ -90,52 +55,8 @@ public class VideoController {
         this.videoService.updatePlayCount(id);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",videoInfoDto);
     }
-    @RequestMapping(value = "/shared/{id}",method = RequestMethod.GET)
-    @ApiOperation(value = "视频分享成功回调")
-    public ResponseData<Object> shared(@PathVariable long id) {
-        this.videoService.updateShareCount(id);
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
-    }
 
-    @RequestMapping(value = "/heart",method = RequestMethod.POST)
-    @ApiOperation(value = "视频点赞")
-    @RequiresAuthentication
-    public ResponseData<Object> heart(@RequestBody HeartInput input) {
-        ServiceStatusInfo<Object> statusInfo = this.videoService.heart(input);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
-        }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-    }
 
-    @RequiresAuthentication
-    @RequestMapping(value = "/listByUserFollowed/{userId}",method = RequestMethod.GET)
-    @ApiOperation(value = "获取我关注的用户的视频列表")
-    public ResponsePageInfoData<List<VideoInfoDto>> listByUserFollowed(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                                       @RequestParam(value = "rows",required = true,defaultValue = "30") int rows,
-                                                                       @PathVariable long userId) {
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
-        List<VideoInfoDto> dtos = this.videoService.listByUserFollowed(userId);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
-    }
-    @RequestMapping(value = "/videosByUser/{userId}",method = RequestMethod.GET)
-    @ApiOperation(value = "获取用户发布的视频列表")
-    public ResponsePageInfoData<List<VideoInfoDto>> videosByUser(@PathVariable long userId,
-                                                                 @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                                 @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<VideoInfoDto> dtos = this.videoService.videosByUser(userId);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
-    }
-    @RequestMapping(value = "/videosByUserHeart/{userId}",method = RequestMethod.GET)
-    @ApiOperation(value = "获取用户点赞过的视频列表")
-    public ResponsePageInfoData<List<VideoInfoDto>> videosByUserHeart(@PathVariable long userId,
-                                                                      @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                                      @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<VideoInfoDto> dtos = this.videoService.videosByHearted(userId);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
-    }
 
     @RequestMapping(value = "/goods/{videoId}",method = RequestMethod.GET)
     @ApiOperation(value = "获取视频关联的商品列表")
