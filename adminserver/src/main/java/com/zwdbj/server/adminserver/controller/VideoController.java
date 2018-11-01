@@ -97,16 +97,6 @@ public class VideoController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
     }
 
-    @RequestMapping(value = "/heart",method = RequestMethod.POST)
-    @ApiOperation(value = "视频点赞")
-    @RequiresAuthentication
-    public ResponseData<Object> heart(@RequestBody HeartInput input) {
-        ServiceStatusInfo<Object> statusInfo = this.videoService.heart(input);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
-        }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-    }
 
     @RequiresAuthentication
     @RequestMapping(value = "/listByUserFollowed/{userId}",method = RequestMethod.GET)

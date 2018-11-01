@@ -27,16 +27,6 @@ public class AppVersionController {
     @Autowired
     AppVersionService appVersionService;
 
-    @RequestMapping(value = "/updateOrNot",method = RequestMethod.POST)
-    @ApiOperation("版本查看是否需要更新")
-    public ResponseData<AppVersionDto> getAppVersion(@RequestBody AppVersionInput input){
-        ServiceStatusInfo<AppVersionDto> statusInfo  = this.appVersionService.getAppVersion(input);
-        if (statusInfo.isSuccess()){
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
-        }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-
-    }
 
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/insertNew",method = RequestMethod.POST)

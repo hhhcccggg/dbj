@@ -16,8 +16,6 @@ import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedDto;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedInput;
-import com.zwdbj.server.adminserver.service.messageCenter.model.MessageInput;
-import com.zwdbj.server.adminserver.service.messageCenter.service.MessageCenterService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.user.model.*;
 import com.zwdbj.server.adminserver.service.userBind.service.UserBindService;
@@ -61,8 +59,6 @@ public class UserService {
     UserBindService userBindService;
     @Autowired
     EaseMobUser easeMobUser;
-    @Autowired
-    private MessageCenterService messageCenterService;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -277,41 +273,6 @@ public class UserService {
         return result>0;
     }
 
-    @Transactional
-    public ServiceStatusInfo<Object> follow(FollowInput input) {
-        long userId = JWTUtil.getCurrentId();
-        if (userId == 0) return new ServiceStatusInfo<>(1,"请重新登录",null);
-        boolean isFollowed = isFollower(input.getUserId(),userId);
-        if (input.isFollow()) {
-            if (!isFollowed) {
-                long id = UniqueIDCreater.generateID();
-                long result = this.userMapper.follow(id,input.getUserId(),userId);
-                if (result>0 ) {
-                    if (input.getLivingId()!=null&&input.getLivingId()>0) {
-                        this.userMapper.addFanCount(input.getLivingId());
-                    }
-                    //记录内容，发布通知
-                    MessageInput msgInput = new MessageInput();
-                    msgInput.setCreatorUserId(userId);
-                    msgInput.setMessageType(2);
-                    this.messageCenterService.push(msgInput,input.getUserId());
-                    return new ServiceStatusInfo<>(0,"关注成功",null);
-                } else {
-                    return new ServiceStatusInfo<>(1,"关注失败",null);
-                }
-            }
-        } else {
-            if (isFollowed) {
-                long result = this.userMapper.unFollow(input.getUserId(),userId);
-                if (result>0) {
-                    return new ServiceStatusInfo<>(0,"取消关注成功",null);
-                } else {
-                    return new ServiceStatusInfo<>(1,"取消关注失败",null);
-                }
-            }
-        }
-        return new ServiceStatusInfo<>(0,"操作成功",null);
-    }
 
     /**
      * 用户的粉丝

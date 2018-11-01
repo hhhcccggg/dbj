@@ -5,8 +5,6 @@ import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
-import com.zwdbj.server.adminserver.service.messageCenter.model.MessageInput;
-import com.zwdbj.server.adminserver.service.messageCenter.service.MessageCenterService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.resourceRefGoods.service.ResRefGoodsService;
 import com.zwdbj.server.adminserver.service.share.model.ShareDto;
@@ -15,7 +13,6 @@ import com.zwdbj.server.adminserver.service.user.model.UserModel;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.mapper.IVideoMapper;
 import com.zwdbj.server.adminserver.service.heart.model.HeartModel;
-import com.zwdbj.server.adminserver.model.HeartInput;
 import com.zwdbj.server.adminserver.service.video.model.*;
 import com.zwdbj.server.adminserver.shiro.JWTUtil;
 import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
@@ -49,8 +46,6 @@ public class VideoService {
     protected ResRefGoodsService resRefGoodsService;
     @Autowired
     protected TagService tagService;
-    @Autowired
-    protected MessageCenterService messageCenterService;
     private Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     //短视频关联商品
@@ -226,40 +221,6 @@ public class VideoService {
             loadVideoInfoDto(dto);
         }
         return videoInfoDtos;
-    }
-    @Transactional
-    public ServiceStatusInfo<Object> heart(HeartInput input) {
-        long userId = JWTUtil.getCurrentId();
-        if (userId<=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
-        HeartModel heartModel = this.heartService.findHeart(userId,input.getId());
-        if (heartModel !=null && input.isHeart()) {
-            return new ServiceStatusInfo<>(1,"已经点赞过",null);
-        }
-        if (heartModel ==null && !input.isHeart())
-        {
-            return new ServiceStatusInfo<>(0,"取消成功",null);
-        }
-        if (input.isHeart()) {
-            long id = UniqueIDCreater.generateID();
-            this.heartService.heart(id,userId,input.getId(),0);
-            this.videoMapper.addHeart(input.getId(),1);
-            this.userService.addHeart(userId,1);
-            VideoDetailInfoDto detailInfoDto = this.video(input.getId());
-            if (detailInfoDto != null) {
-                MessageInput msgInput = new MessageInput();
-                msgInput.setCreatorUserId(userId);
-                msgInput.setDataContent("{\"resId\":\""+input.getId()+"\",\"type\":\"0\"}");
-                msgInput.setMessageType(1);
-                this.messageCenterService.push(msgInput,detailInfoDto.getUserId());
-            }
-            return new ServiceStatusInfo<>(0,"点赞成功",null);
-        } else {
-            this.heartService.unHeart(userId,input.getId());
-            this.videoMapper.addHeart(input.getId(),-1);
-            this.userService.addHeart(userId,-1);
-            return new ServiceStatusInfo<>(0,"取消成功",null);
-
-        }
     }
 
     /**
