@@ -51,7 +51,6 @@ public interface IVideoMapper {
     long publicVideo(@Param("id") long id,@Param("userId") long userId,@Param("dataInput")VideoPublishInput dataInput);
     @Select("select * from core_videos where id=#{id} and status=0")
     VideoDetailInfoDto video(@Param("id") long id);
-    @SelectProvider(type = VideoSqlProvider.class,method = "nearby")
     @UpdateProvider(type = VideoSqlProvider.class,method = "updateVideoField")
     long updateVideoField(@Param("fields") String fields,@Param("id") long id);
 
