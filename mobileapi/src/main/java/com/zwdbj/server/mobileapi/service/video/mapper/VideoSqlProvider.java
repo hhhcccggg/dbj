@@ -11,6 +11,27 @@ public class VideoSqlProvider {
     private static final double EARTH_RADIUS = 6378137;
     private static final double RAD = Math.PI / 180.0;
 
+    public String hotVideo(Map params) {
+        String conditionValue = (String)params.get("conditionValue");
+        SQL sql = new SQL()
+                .SELECT("*")
+                .FROM("core_videos");
+        if (conditionValue!=null&&!conditionValue.equals("")) {
+            sql = sql.WHERE(conditionValue);
+        }
+        sql = sql.ORDER_BY("recommendIndex desc");
+        return sql.toString();
+    }
+
+    public String videoByIds(Map params) {
+        String ids = (String)params.get("ids");
+        SQL sql = new SQL()
+                .SELECT("*")
+                .FROM("core_videos")
+                .WHERE("id in ("+ids+")");
+        return sql.toString();
+    }
+
     public String nearby(Map params) {
         Double longitude = (Double) params.get("longitude");
         Double latitude = (Double) params.get("latitude");

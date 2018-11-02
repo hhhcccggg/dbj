@@ -30,8 +30,10 @@ public interface IVideoMapper {
             "#{dataInput.firstFrameWidth}," +
             "#{dataInput.firstFrameHeight})")
     long publicVideo(@Param("id") long id,@Param("userId") long userId,@Param("dataInput")VideoPublishInput dataInput);
-    @Select("select * from core_videos where status=0 order by recommendIndex desc")
-    List<VideoInfoDto> listHot();
+    @SelectProvider(type = VideoSqlProvider.class,method = "videoByIds")
+    List<VideoInfoDto> listIds(@Param("ids") String ids);
+    @SelectProvider(type = VideoSqlProvider.class,method = "hotVideo")
+    List<VideoInfoDto> listHot(@Param("conditionValue") String conditionValue);
     @Select("select * from core_videos where status=0 order by createTime desc")
     List<VideoInfoDto> listLatest();
     @Select("select * from core_videos where tags=#{tags}")
