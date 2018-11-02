@@ -13,6 +13,7 @@ message QueueWorkInfo {
         QINIU_VIDEO_IMG_REVIEW_RESULT = 3; //七牛图片&视频审核返回的结果
         QINIU_LIVE_REVIEW_RESULT = 4; //七牛直播审核返回的结果
         QINIU_RES_WAIT_REVIEW_DATA = 5; //七牛需要审核的资源
+        VIDEO_WEIGHT = 6; //短视频权重处理
     }
     WorkTypeEnum workType = 1; //任务标识
     QueueWorkPhoneCode phoneCode = 2; //验证码数据
@@ -56,4 +57,9 @@ message QueueWorkQiniuWaitReviewResData {
     int32 resType = 3; //七牛资源的类型，0:七牛图片1:七牛视频
     int64 dataId = 4; //关联的数据ID
     int32 dataType = 5; //关联的数据类型0:用户头像1:宠物头像2:短视频
+}
+
+// 处理视频权重数据
+message QueueWorkVideoWeightData {
+    int64 id = 1; //视频的ID
 }
