@@ -154,6 +154,7 @@ public class QuartzService {
                     for (int i = 0; i <comment ; i++) {
                         this.operateService.commentVideo(dto.getId());
                     }
+                    this.videoService.updateField("commentCount=commentCount+"+comment,dto.getId());
                     logger.info("播放量不超过100=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (dto.getPlayCount()<1000){
                     Long addPlayCount = new Double(Math.ceil(dto.getPlayCount()*0.3)).longValue();
@@ -165,6 +166,7 @@ public class QuartzService {
                     for (int i = 0; i <comment ; i++) {
                         this.operateService.commentVideo(dto.getId());
                     }
+                    this.videoService.updateField("commentCount=commentCount+"+comment,dto.getId());
                     logger.info("播放量不超过1000=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (dto.getPlayCount()<10000){
                     Long addPlayCount = new Double(Math.ceil(dto.getPlayCount()*0.15)).longValue();
@@ -176,6 +178,7 @@ public class QuartzService {
                     for (int i = 0; i <comment ; i++) {
                         this.operateService.commentVideo(dto.getId());
                     }
+                    this.videoService.updateField("commentCount=commentCount+"+comment,dto.getId());
                     logger.info("播放量不超过10000=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }
             }
