@@ -252,7 +252,7 @@ public class VideoService {
             dto.setShareTitle(dto.getTitle());
             String videoUserNickName = this.userService.getUserName(dto.getUserId());
             if (videoUserNickName==null) {
-                videoUserNickName = "未知用户";
+                videoUserNickName = "爪子用户";
             }
             dto.setShareContent(videoUserNickName+"拍摄的宠物短视频");
             dto.setShareUrl(AppConfigConstant.getShareUrl(id,"video"));
