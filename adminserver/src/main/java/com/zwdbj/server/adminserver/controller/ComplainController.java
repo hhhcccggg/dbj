@@ -25,8 +25,6 @@ public class ComplainController {
     @Autowired
     protected ComplainService complainService;
 
-
-
     //admin
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/basicComplain/{resTypeId}",method = RequestMethod.POST)

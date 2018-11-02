@@ -73,4 +73,8 @@ public interface ICommentMapper {
     @Update("update core_comments set contentTxt='******',reviewedResult='评论涉嫌违规',reviewStatus=#{reviewStatus} where id=#{id}")
     int blockComment(@Param("id")Long id,@Param("reviewStatus")String reviewStatus);
 
+    @Insert("insert into core_comments(id,userId,contentTxt,resourceOwnerId,reviewStatus,originContentTxt) " +
+            "values(#{id},#{userId},#{contentTxt},#{resourceOwnerId},'pass',#{contentTxt})")
+    int greatComment(@Param("id") Long id,@Param("userId") Long userId,@Param("contentTxt") String contentTxt,@Param("resourceOwnerId") Long resourceOwnerId);
+
 }

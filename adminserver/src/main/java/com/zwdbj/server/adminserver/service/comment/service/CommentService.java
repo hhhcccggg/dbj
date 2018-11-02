@@ -99,5 +99,9 @@ public class CommentService {
 
     }
 
+    public void greatComment(Long id,Long userId,String contentTxt,Long resourceOwnerId){
+        this.commentMapper.greatComment(id,userId,contentTxt,resourceOwnerId);
+    }
+
 
 }
