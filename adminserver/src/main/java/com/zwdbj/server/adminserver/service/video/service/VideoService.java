@@ -229,8 +229,16 @@ public class VideoService {
         return videoHeartAndPlayCountDtos;
     }
 
+    public Long getVideoPlayCount(Long id){
+        return this.videoMapper.getVideoPlayCount(id);
+    }
+
     public Long findVideoHeartCount(Long id){
         Long hearCount = this.videoMapper.findVideoHeartCount(id);
         return hearCount;
+    }
+
+    public List<Long> getRandomVideoIds(){
+        return this.videoMapper.getRandomVideoIds();
     }
 }

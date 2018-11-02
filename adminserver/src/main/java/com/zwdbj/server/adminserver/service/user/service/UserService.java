@@ -7,8 +7,6 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.adminserver.easemob.api.EaseMobUser;
-import com.zwdbj.server.adminserver.middleware.mq.MQWorkSender;
-import com.zwdbj.server.adminserver.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
 import com.zwdbj.server.adminserver.model.user.UserToken;
@@ -16,7 +14,6 @@ import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedDto;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedInput;
-import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.user.model.*;
 import com.zwdbj.server.adminserver.service.userBind.service.UserBindService;
 import com.zwdbj.server.adminserver.service.youzan.service.YouZanService;
@@ -28,31 +25,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserService {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private IUserMapper userMapper;
-    @Autowired
-    private QiniuService qiniuService;
     @Autowired
     YouZanService youZanService;
     @Autowired
@@ -469,6 +454,17 @@ public class UserService {
         List<UserIdAndFocusesDto> dtos = this.userMapper.findMyFocusesCount();
         return dtos;
     }
+
+    public void newVestUser(String phone,String avatarUrl,String nickName){
+        Long id = UniqueIDCreater.generateID();
+        String userName = UniqueIDCreater.generateUserName();
+        this.userMapper.newVestUser(phone,id,userName,avatarUrl,nickName);
+    }
+
+    public List<Long> getVestUserIds(){
+        return this.userMapper.getVestUserIds();
+    }
+
 
 }
 

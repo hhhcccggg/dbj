@@ -129,4 +129,11 @@ public interface IUserMapper {
     @Select("select followerUserId,count(id) as totalMyFocuses FROM core_followers GROUP BY followerUserId")
     List<UserIdAndFocusesDto> findMyFocusesCount();
 
+    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,IsPhoneVerification) values(#{id},#{phone}," +
+            "#{username},#{nickName},#{avatarUrl},true)")
+    long newVestUser(@Param("phone")String phone,@Param("id") long id,@Param("username")String username,@Param("avatarUrl")String avatarUrl,@Param("nickName")String nickName);
+
+    @Select("select id  from core_users where phone like '56%'")
+    List<Long> getVestUserIds();
+
 }

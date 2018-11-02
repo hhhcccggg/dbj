@@ -4,6 +4,7 @@ package com.zwdbj.server.mobileapi.service.video.mapper;
 import com.zwdbj.server.mobileapi.service.share.model.ShareDto;
 import com.zwdbj.server.mobileapi.service.video.model.*;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -79,5 +80,7 @@ public interface IVideoMapper {
 
     @Select("select linkPets from core_videos where id=#{id}")
     String findLinkPets(@Param("id")Long id);
+    @Delete("delete from core_videos where id=#{id}")
+    Long deleteVideo(@Param("id")Long id);
 
 }
