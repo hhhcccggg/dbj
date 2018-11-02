@@ -147,13 +147,14 @@ public class QuartzService {
             for(VideoHeartAndPlayCountDto dto:videoHeartAndPlayCountDtos){
                 if (dto.getPlayCount()<100){
                     this.videoService.updateField("playCount=playCount+50",dto.getId());
-                    this.videoService.updateField("heartCount=heartCount+5,shareCount=shareCount"+new Double(Math.ceil(50*0.05)).longValue(),dto.getId());
+                    this.videoService.updateField("heartCount=heartCount+5,shareCount=shareCount+1",dto.getId());
                     Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
                     this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
                     int comment = (int)Math.ceil(addHeartCount*0.5);
                     for (int i = 0; i <comment ; i++) {
                         this.operateService.commentVideo(dto.getId());
                     }
+                    this.videoService.updateField("commentCount=commentCount+"+comment,dto.getId());
                     logger.info("播放量不超过100=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (dto.getPlayCount()<1000){
                     Long addPlayCount = new Double(Math.ceil(dto.getPlayCount()*0.3)).longValue();
@@ -165,6 +166,7 @@ public class QuartzService {
                     for (int i = 0; i <comment ; i++) {
                         this.operateService.commentVideo(dto.getId());
                     }
+                    this.videoService.updateField("commentCount=commentCount+"+comment,dto.getId());
                     logger.info("播放量不超过1000=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (dto.getPlayCount()<10000){
                     Long addPlayCount = new Double(Math.ceil(dto.getPlayCount()*0.15)).longValue();
@@ -176,12 +178,9 @@ public class QuartzService {
                     for (int i = 0; i <comment ; i++) {
                         this.operateService.commentVideo(dto.getId());
                     }
+                    this.videoService.updateField("commentCount=commentCount+"+comment,dto.getId());
                     logger.info("播放量不超过10000=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else {
-                    logger.info("播放量超过10000=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                    return;
                 }
-
             }
 
             logger.info("-------我是测试--------"+new SimpleDateFormat("HH:mm:ss").format(new Date()));

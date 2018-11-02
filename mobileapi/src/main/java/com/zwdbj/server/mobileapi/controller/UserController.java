@@ -230,6 +230,18 @@ public class UserController {
     }
 
     @RequiresAuthentication
+    @RequestMapping(value = "/userNameIsExist/{username}",method = RequestMethod.GET)
+    @ApiOperation(value = "判断username是否已经存在")
+    public ResponseData<Object> userNameIsExist(@PathVariable String username){
+        ServiceStatusInfo<Object> statusInfo = this.userService.userNameIsExist(username);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
+        } else {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+        }
+    }
+
+    @RequiresAuthentication
     @RequestMapping(value = "/followStatusSearch",method = RequestMethod.POST)
     @ApiOperation(value = "查询两个用户关注关系")
     public ResponseData<UserFollowInfoDto> followStatusSearch(@RequestBody UserFollowInfoSearchInput input) {

@@ -265,6 +265,16 @@ public class UserService {
         }
 
     }
+    public ServiceStatusInfo<Object> userNameIsExist(String userName){
+        try {
+            int result = this.userMapper.userNameIsExist(userName);
+            if (result>0)
+                return new ServiceStatusInfo<>(1,"此用户id已经存在",null);
+            return  new ServiceStatusInfo<>(0,"",null);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(500,e.getMessage(),null);
+        }
+    }
 
     public UserFollowInfoDto followStatusSearch(UserFollowInfoSearchInput input) {
         UserFollowInfoDto dto = this.userMapper.followStatusSearch(input);
