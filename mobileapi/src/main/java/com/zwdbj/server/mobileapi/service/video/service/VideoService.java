@@ -83,7 +83,7 @@ public class VideoService {
         videoMapper.publicVideo(videoId,userId,input);
         UserModel userModel = this.userService.findUserById(userId);
         // 审核信息加入到消息队列
-        if (userModel.isReviewed() && videoKey!=null && videoKey.length() > 0 ) {
+        if (/*userModel.isReviewed() &&*/ videoKey!=null && videoKey.length() > 0 ) {
             QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData resData
                     = QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.newBuilder()
                     .setDataId(videoId)
@@ -93,7 +93,7 @@ public class VideoService {
                     .build();
             this.reviewService.reviewQiniuRes(resData);
         }
-        if (userModel.isReviewed() && coverImageKey!=null && coverImageKey.length()>0) {
+        if (/*userModel.isReviewed() &&*/ coverImageKey!=null && coverImageKey.length()>0) {
             QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData resData
                     = QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.newBuilder()
                     .setDataId(videoId)
@@ -104,7 +104,7 @@ public class VideoService {
             this.reviewService.reviewQiniuRes(resData);
         }
 
-        if (userModel.isReviewed() && firstFrameImageKey!=null && firstFrameImageKey.length()>0 && !(firstFrameImageKey.equals(coverImageKey))) {
+        if (/*userModel.isReviewed() && */firstFrameImageKey!=null && firstFrameImageKey.length()>0 && !(firstFrameImageKey.equals(coverImageKey))) {
             QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData resData
                     = QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.newBuilder()
                     .setDataId(videoId)
