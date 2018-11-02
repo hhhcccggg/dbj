@@ -58,6 +58,8 @@ public interface IUserMapper {
 
     @Update("update core_livings set getFriends=getFriends+1 where id=#{id}")
     Long addFanCount(@Param("id") Long livingId);
+    @Select("select nickName from core_users where id=#{id}")
+    String getUserNickName(@Param("id") long id);
 
     //点赞
     @Select("select heart.id as id, " +

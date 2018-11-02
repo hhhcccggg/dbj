@@ -247,7 +247,11 @@ public class VideoService {
         if (dto!=null) {
             dto.setLinkProductUrl(AppConfigConstant.getShopListUrl(id,"video"));
             dto.setShareTitle(dto.getTitle());
-            dto.setShareContent(dto.getTitle());
+            String videoUserNickName = this.userService.getUserName(dto.getUserId());
+            if (videoUserNickName==null) {
+                videoUserNickName = "未知用户";
+            }
+            dto.setShareContent(videoUserNickName+"拍摄的宠物短视频");
             dto.setShareUrl(AppConfigConstant.getShareUrl(id,"video"));
         }
         return dto;

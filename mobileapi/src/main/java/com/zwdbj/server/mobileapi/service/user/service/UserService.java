@@ -177,6 +177,11 @@ public class UserService {
         return dtos;
     }
 
+    public String getUserName(long id) {
+        String name = this.userMapper.getUserNickName(id);
+        return name;
+    }
+
     public UserDetailInfoDto getUserDetailByToken() {
         long userId = JWTUtil.getCurrentId();
         if (userId==0) return null;
