@@ -25,9 +25,11 @@ import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -48,6 +50,8 @@ public class VideoService {
     protected MessageCenterService messageCenterService;
     @Autowired
     protected ReviewService reviewService;
+    @Autowired
+    protected StringRedisTemplate stringRedisTemplate;
     @Autowired
     protected CommentService commentService;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
@@ -125,10 +129,57 @@ public class VideoService {
     }
 
     public List<VideoInfoDto> listHot(Page<VideoInfoDto> pageInfo) {
-        List<VideoInfoDto> videoInfoDtos = this.videoMapper.listHot();
+        boolean isNeedGetCommend = pageInfo.getPageNum()<4;
+        String recommendIds = null;
+        if (this.stringRedisTemplate.hasKey(AppConfigConstant.REDIS_VIDEO_RECOMMEND_KEY) && isNeedGetCommend) {
+            try {
+                recommendIds = (String) this.stringRedisTemplate.opsForValue().get(AppConfigConstant.REDIS_VIDEO_RECOMMEND_KEY);
+            } catch (Exception ex) {
+                logger.error(ex.getMessage());
+                logger.error(ex.getStackTrace().toString());
+            }
+        }
+        boolean isHaveRecommend = (recommendIds!=null && recommendIds.length()>0);
+        String ids = null;
+        if (isHaveRecommend) {
+            String[] idsArr = recommendIds.split(",");
+            isHaveRecommend = idsArr.length > 0;
+            int fromIndex = (pageInfo.getPageNum() - 1) * 4;
+            if (fromIndex<idsArr.length-1) {
+                int endIndex = fromIndex+3;
+                if (endIndex>=idsArr.length-1) {
+                    endIndex = idsArr.length-1;
+                }
+                int len = endIndex - fromIndex + 1;
+                String[] desIdsArr = new String[len];
+                System.arraycopy(idsArr,fromIndex,desIdsArr,0,len);
+                ids = String.join(",",desIdsArr);
+            } else  {
+                isHaveRecommend = false;
+            }
+        }
+
+        List<VideoInfoDto> videoInfoDtos = null;
+        if (!isHaveRecommend) {
+            videoInfoDtos = this.videoMapper.listHot("");
+        } else {
+            videoInfoDtos = this.videoMapper.listHot("id not in ("+ids+")");
+        }
         if (videoInfoDtos==null) return null;
         for (VideoInfoDto dto:videoInfoDtos) {
             loadVideoInfoDto(dto);
+        }
+        //加载推荐短视频
+        if (isHaveRecommend) {
+            List<VideoInfoDto> recommendVideos = this.videoMapper.listIds(ids);
+            if (recommendVideos!=null) {
+                for (VideoInfoDto dto:recommendVideos) {
+                    loadVideoInfoDto(dto);
+                }
+            }
+            //合并数据
+            recommendVideos.addAll(videoInfoDtos);
+            return recommendVideos;
         }
         return videoInfoDtos;
     }
