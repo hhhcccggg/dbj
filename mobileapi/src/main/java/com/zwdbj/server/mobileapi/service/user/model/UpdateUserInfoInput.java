@@ -11,6 +11,8 @@ public class UpdateUserInfoInput {
     String avatarKey;
     @ApiModelProperty(value = "昵称")
     String nickName;
+    @ApiModelProperty(value = "用户的userName")
+    String userName;
     @ApiModelProperty(value = "性别>>0：未知1：男2：女3：保密")
     int sex;
     @ApiModelProperty(value = "出生年月>>格式按照2018-09-10 00:00:00")
@@ -25,6 +27,14 @@ public class UpdateUserInfoInput {
     int occupationId;
     @ApiModelProperty("情感状态ID，当前忽略此字段，传0即可")
     int loveStatusId;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getAvatarKey() {
         return avatarKey;

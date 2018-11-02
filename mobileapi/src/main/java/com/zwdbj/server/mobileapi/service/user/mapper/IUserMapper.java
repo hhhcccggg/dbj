@@ -56,6 +56,9 @@ public interface IUserMapper {
             "from core_followers where ( userId=#{input.userId} and followerUserId=#{input.toUserId}) or (followerUserId=#{input.userId} and userId=#{input.toUserId})  limit 0,1")
     UserFollowInfoDto followStatusSearch(@Param("input") UserFollowInfoSearchInput input);
 
+    @Select("select count(id) from core_users where username=#{username}")
+    int userNameIsExist(@Param("username")String username);
+
     @Update("update core_livings set getFriends=getFriends+1 where id=#{id}")
     Long addFanCount(@Param("id") Long livingId);
     @Select("select nickName from core_users where id=#{id}")
