@@ -21,4 +21,7 @@ public class HeartService {
     public HeartModel findHeart(long userId,long resourceOwnerId) {
         return this.heartMapper.findHeart(userId, resourceOwnerId);
     }
+    public Long deleteVideoHeart(Long id){
+        return this.heartMapper.deleteVideoHeart(id);
+    }
 }

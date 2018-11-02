@@ -136,5 +136,9 @@ public class CommentService {
         }
     }
 
+    public Long deleteVideoComments(Long id){
+        return this.commentMapper.deleteVideoComments(id);
+    }
+
 
 }

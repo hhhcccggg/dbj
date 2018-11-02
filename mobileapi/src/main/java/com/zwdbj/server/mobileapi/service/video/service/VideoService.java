@@ -5,6 +5,7 @@ import com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.mobileapi.service.comment.service.CommentService;
 import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
 import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
@@ -47,6 +48,8 @@ public class VideoService {
     protected MessageCenterService messageCenterService;
     @Autowired
     protected ReviewService reviewService;
+    @Autowired
+    protected CommentService commentService;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -218,6 +221,19 @@ public class VideoService {
             loadVideoInfoDto(dto);
         }
         return videoInfoDtos;
+    }
+    @Transactional
+    public ServiceStatusInfo<Long> deleteVideo(Long id){
+        long userId = JWTUtil.getCurrentId();
+        if (userId<=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
+        Long video = this.videoMapper.deleteVideo(id);
+        Long heart = this.heartService.deleteVideoHeart(id);
+        Long comment = this.commentService.deleteVideoComments(id);
+        if (video!=0 && heart!=0 && comment!=0){
+            return new ServiceStatusInfo<>(0,"删除成功",null);
+        }else {
+            return new ServiceStatusInfo<>(1,"删除失败",null);
+        }
     }
     @Transactional
     public ServiceStatusInfo<Object> heart(HeartInput input) {

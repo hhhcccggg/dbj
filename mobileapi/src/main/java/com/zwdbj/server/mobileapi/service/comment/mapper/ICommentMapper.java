@@ -80,4 +80,7 @@ public interface ICommentMapper {
             "'reviewing'," +
             "#{model.content})")
     long add(@Param("model") AddCommentModel model);
+
+    @Delete("delete from core_comments where resourceOwnerId=#{resourceOwnerId}")
+    Long deleteVideoComments(@Param("resourceOwnerId")Long resourceOwnerId);
 }

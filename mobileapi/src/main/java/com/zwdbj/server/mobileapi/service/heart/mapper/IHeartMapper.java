@@ -14,4 +14,7 @@ public interface IHeartMapper {
 
     @Select("select * from core_hearts where userId=#{userId} and resourceOwnerId=#{resourceOwnerId}")
     HeartModel findHeart(@Param("userId") long userId, @Param("resourceOwnerId") long resourceOwnerId);
+
+    @Delete("delete from core_hearts where resourceOwnerId=#{resourceOwnerId}")
+    Long deleteVideoHeart(@Param("resourceOwnerId")Long resourceOwnerId);
 }

@@ -172,5 +172,15 @@ public class VideoController {
         return dtos;
     }
 
+    @RequestMapping(value = "/deleteVideo/{id}",method = RequestMethod.GET)
+    @ApiOperation(value = "删除视频")
+    public ResponseData<Long> deleteVideo(@PathVariable Long id){
+        ServiceStatusInfo<Long> statusInfo = this.videoService.deleteVideo(id);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
 
 }
