@@ -147,7 +147,7 @@ public class QuartzService {
             for(VideoHeartAndPlayCountDto dto:videoHeartAndPlayCountDtos){
                 if (dto.getPlayCount()<100){
                     this.videoService.updateField("playCount=playCount+50",dto.getId());
-                    this.videoService.updateField("heartCount=heartCount+5,shareCount=shareCount"+new Double(Math.ceil(50*0.05)).longValue(),dto.getId());
+                    this.videoService.updateField("heartCount=heartCount+5,shareCount=shareCount+1",dto.getId());
                     Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
                     this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
                     int comment = (int)Math.ceil(addHeartCount*0.5);
