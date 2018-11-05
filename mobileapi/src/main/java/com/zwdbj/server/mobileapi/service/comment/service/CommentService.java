@@ -111,6 +111,7 @@ public class CommentService {
                 msgInput.setDataContent("{\"resId\":\""+input.getResId()+"\",\"type\":\"0\"}");
                 this.messageCenterService.push(msgInput,detailInfoDto.getUserId());
             }
+            this.videoService.videoWegiht(input.getResId());
             return new ServiceStatusInfo<>(0,"发布成功",null);
         } else {
             return new ServiceStatusInfo<>(1,"发布失败",null);

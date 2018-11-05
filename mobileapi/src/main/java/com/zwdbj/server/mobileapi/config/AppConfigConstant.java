@@ -82,6 +82,14 @@ public class AppConfigConstant {
     public static String REDIS_VIDEO_RECOMMEND_KEY = "videoRecommend";
     public static String REDIS_VIDEO_WEIGHT_KEY = "videoWeight";
 
+    //视频权重
+    protected static String REDIS_VIDEO_WEIGHT_TASK_KEY = "video_weight_key_";
+    public static String getRedisVideoWeightTaskKey(long id) {
+        return REDIS_VIDEO_WEIGHT_TASK_KEY + String.valueOf(id);
+    }
+    // 计算权重时间间隔，单位秒
+    public static int VIDEO_WEIGHT_CALCULATE_INTERVAL = 3*60;
+
     public static String PUSH_ENV;
     public static boolean SWAGGER_ENABLED;
 

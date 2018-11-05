@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.video.service;
 
 import com.github.pagehelper.Page;
+import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
@@ -31,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class VideoService {
@@ -262,10 +264,12 @@ public class VideoService {
 
     public void updatePlayCount(long id) {
         this.videoMapper.updateVideoField("playCount=playCount+1",id);
+        this.videoWegiht(id);
     }
 
     public void  updateShareCount(long id) {
         this.videoMapper.updateVideoField("shareCount=shareCount+1",id);
+        this.videoWegiht(id);
     }
     public void updateField(String fields,long id) {
         this.videoMapper.updateVideoField(fields,id);
@@ -316,11 +320,13 @@ public class VideoService {
                 msgInput.setMessageType(1);
                 this.messageCenterService.push(msgInput,detailInfoDto.getUserId());
             }
+            this.videoWegiht(input.getId());
             return new ServiceStatusInfo<>(0,"点赞成功",null);
         } else {
             this.heartService.unHeart(userId,input.getId());
             this.videoMapper.addHeart(input.getId(),-1);
             this.userService.addHeart(VUserId,-1);
+            this.videoWegiht(input.getId());
             return new ServiceStatusInfo<>(0,"取消成功",null);
 
         }
@@ -362,5 +368,28 @@ public class VideoService {
         this.videoMapper.addShareCount(id);
     }
 
+
+    /**
+     * 处理视频权重
+     * @param id
+     */
+    public void videoWegiht(long id) {
+        String cacheKey = AppConfigConstant.getRedisVideoWeightTaskKey(id);
+        if (this.stringRedisTemplate.hasKey(cacheKey)) return;
+        //添加到消息队列
+        try {
+            QueueWorkInfoModel.QueueWorkVideoWeightData workVideoWeightData = QueueWorkInfoModel.QueueWorkVideoWeightData.newBuilder()
+                    .setId(id).build();
+            QueueWorkInfoModel.QueueWorkInfo workInfo = QueueWorkInfoModel.QueueWorkInfo.newBuilder()
+                    .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.VIDEO_WEIGHT)
+                    .setVideoWeightData(workVideoWeightData)
+                    .build();
+            MQWorkSender.shareSender().send(workInfo);
+            this.stringRedisTemplate.opsForValue().set(cacheKey,"OK",AppConfigConstant.VIDEO_WEIGHT_CALCULATE_INTERVAL,TimeUnit.SECONDS);
+        } catch (Exception ex) {
+            logger.error(ex.getStackTrace().toString());
+            logger.error(ex.getMessage());
+        }
+    }
 
 }

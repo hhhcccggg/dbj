@@ -7,6 +7,7 @@ import com.zwdbj.server.adminserver.service.push.service.AppPushService;
 import com.zwdbj.server.adminserver.service.review.service.LivingReviewService;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
+import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.adminserver.utility.SpringContextUtil;
 
 import java.io.IOException;
@@ -104,7 +105,17 @@ public class MQWorkReceiver extends MQConnection {
             reviewService.reviewMQ2(info.getQiniuWaitReviewResData());
             logger.info("[MQ]收到数据类型:"+info.getWorkType()+"七牛图片&视频审核返回的结果");
             channel.basicAck(envelope.getDeliveryTag(),false);
-        }else {
+        } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.VIDEO_WEIGHT) {
+            VideoService videoService = SpringContextUtil.getBean(VideoService.class);
+            if (videoService!=null) {
+                videoService.calculateVideoWeight(info.getVideoWeightData().getId());
+            } else {
+                logger.error("[MQ]找不到VIDEOSERVER服务");
+            }
+            logger.info("[MQ]收到数据类型:"+info.getWorkType()+"处理视频权重");
+            channel.basicAck(envelope.getDeliveryTag(),false);
+        }
+        else {
             logger.info("[MQ]收到数据类型:"+info.getWorkType()+"后端暂时没有合适的服务处理");
             channel.basicAck(envelope.getDeliveryTag(),false);
         }

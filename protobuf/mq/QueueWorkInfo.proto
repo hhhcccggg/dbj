@@ -21,6 +21,7 @@ message QueueWorkInfo {
     QueueWorkPush pushData = 4; //推送数据
     QueueWorkQiniuReviewResult qiniuReviewResult = 5; //七牛审核的结果
     QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6; //七牛需要待审核的资源
+    QueueWorkVideoWeightData videoWeightData = 7; //数据
 }
 
 message QueueWorkHeart {
