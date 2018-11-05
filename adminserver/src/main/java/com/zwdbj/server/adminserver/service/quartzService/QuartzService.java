@@ -124,13 +124,13 @@ public class QuartzService {
     public void greatVestUser(){
         try {
             for (int i = 1; i <= 50; i++) {
-                if (i%5==0 || i%5==1){
+                if (i%5==0){
                     this.operateService.newVestUser1();
                     logger.info("我是默认马甲"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (i%5==2){
                     this.operateService.newVestUser2(2);
                     logger.info("我是不同的马甲2"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%5==3){
+                }else if (i%5==3 || i%5==1){
                     this.operateService.newVestUser2(3);
                     logger.info("我是不同的马甲3"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (i%5==4){
@@ -153,36 +153,48 @@ public class QuartzService {
             for(VideoHeartAndPlayCountDto dto:videoHeartAndPlayCountDtos){
                 if (dto.getPlayCount()<100){
                     this.videoService.updateField("playCount=playCount+50",dto.getId());
-                    this.videoService.updateField("heartCount=heartCount+5,shareCount=shareCount+1",dto.getId());
+                    this.videoService.updateField("heartCount=heartCount+5",dto.getId());
                     Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
                     this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
-                    int comment = (int)Math.ceil(addHeartCount*0.5);
+                    int comment = (int)Math.ceil(addHeartCount*0.2);
                     for (int i = 0; i <comment ; i++) {
-                        this.operateService.commentVideo(dto.getId());
+                        if (i%10==6){
+                            this.operateService.commentVideo2(dto.getId());
+                        }else {
+                            this.operateService.commentVideo1(dto.getId());
+                        }
                     }
                     this.videoService.updateField("commentCount=commentCount+"+comment,dto.getId());
                     logger.info("播放量不超过100=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (dto.getPlayCount()<1000){
                     Long addPlayCount = new Double(Math.ceil(dto.getPlayCount()*0.3)).longValue();
                     this.videoService.updateField("playCount=playCount+"+addPlayCount,dto.getId());
-                    this.videoService.updateField("heartCount=heartCount+"+new Double(Math.ceil(addPlayCount*0.03)).longValue()+",shareCount=shareCount+2",dto.getId());
+                    this.videoService.updateField("heartCount=heartCount+"+new Double(Math.ceil(addPlayCount*0.03)).longValue(),dto.getId());
                     Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
                     this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
-                    int comment = (int)Math.ceil(addHeartCount*0.5);
+                    int comment = (int)Math.ceil(addHeartCount*0.15);
                     for (int i = 0; i <comment ; i++) {
-                        this.operateService.commentVideo(dto.getId());
+                        if (i%10==6){
+                            this.operateService.commentVideo2(dto.getId());
+                        }else {
+                            this.operateService.commentVideo1(dto.getId());
+                        }
                     }
                     this.videoService.updateField("commentCount=commentCount+"+comment,dto.getId());
                     logger.info("播放量不超过1000=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (dto.getPlayCount()<10000){
                     Long addPlayCount = new Double(Math.ceil(dto.getPlayCount()*0.15)).longValue();
                     this.videoService.updateField("playCount=playCount+"+addPlayCount,dto.getId());
-                    this.videoService.updateField("heartCount=heartCount+"+new Double(Math.ceil(addPlayCount*0.002)).longValue()+",shareCount=shareCount+2",dto.getId());
+                    this.videoService.updateField("heartCount=heartCount+"+new Double(Math.ceil(addPlayCount*0.002)).longValue(),dto.getId());
                     Long addHeartCount  = this.videoService.findVideoHeartCount(dto.getId())-dto.getHeartCount();
                     this.userService.updateField("totalHearts=totalHearts+"+addHeartCount,dto.getUserId());
-                    int comment = (int)Math.ceil(addHeartCount*0.5);
+                    int comment = (int)Math.ceil(addHeartCount*0.2);
                     for (int i = 0; i <comment ; i++) {
-                        this.operateService.commentVideo(dto.getId());
+                        if (i%10==6 ){
+                            this.operateService.commentVideo2(dto.getId());
+                        }else {
+                            this.operateService.commentVideo1(dto.getId());
+                        }
                     }
                     this.videoService.updateField("commentCount=commentCount+"+comment,dto.getId());
                     logger.info("播放量不超过10000=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));

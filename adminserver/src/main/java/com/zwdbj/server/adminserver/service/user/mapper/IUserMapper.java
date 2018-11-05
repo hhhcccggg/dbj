@@ -133,7 +133,9 @@ public interface IUserMapper {
             "#{username},#{nickName},#{avatarUrl},true)")
     long newVestUser(@Param("phone")String phone,@Param("id") long id,@Param("username")String username,@Param("avatarUrl")String avatarUrl,@Param("nickName")String nickName);
 
-    @Select("select id  from core_users where phone like '56%'")
-    List<Long> getVestUserIds();
+    @Select("select id  from core_users where phone like '56%' and username!='爪子用户'")
+    List<Long> getVestUserIds1();
+    @Select("select id  from core_users where phone like '56%' and username='爪子用户'")
+    List<Long> getVestUserIds2();
 
 }

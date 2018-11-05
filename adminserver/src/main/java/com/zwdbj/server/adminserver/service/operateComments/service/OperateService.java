@@ -106,8 +106,13 @@ public class OperateService {
         return "好好玩呀!";
     }
 
-    public Long getVestUserId(){
-        List<Long> vestUsers = this.userService.getVestUserIds();
+    public Long getVestUserId1(){
+        List<Long> vestUsers = this.userService.getVestUserIds1();
+        int random = this.getRandom(vestUsers.size());
+        return vestUsers.get(random);
+    }
+    public Long getVestUserId2(){
+        List<Long> vestUsers = this.userService.getVestUserIds2();
         int random = this.getRandom(vestUsers.size());
         return vestUsers.get(random);
     }
@@ -118,12 +123,17 @@ public class OperateService {
         return randomVideoIds.get(random);
     }
 
-    public void commentVideo(Long videoId){
-        Long userId= this.getVestUserId();
+    public void commentVideo1(Long videoId){
+        Long userId= this.getVestUserId1();
         String contentTxt = this.getRedisComment();
         Long id = UniqueIDCreater.generateID();
         this.commentService.greatComment(id,userId,contentTxt,videoId);
-
+    }
+    public void commentVideo2(Long videoId){
+        Long userId= this.getVestUserId2();
+        String contentTxt = this.getRedisComment();
+        Long id = UniqueIDCreater.generateID();
+        this.commentService.greatComment(id,userId,contentTxt,videoId);
     }
 
 }
