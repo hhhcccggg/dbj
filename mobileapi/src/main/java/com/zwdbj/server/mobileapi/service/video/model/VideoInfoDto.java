@@ -45,8 +45,10 @@ public class VideoInfoDto {
     String userNickName;
     @ApiModelProperty(value = "视频背景音乐ID")
     long musicId;
-    @ApiModelProperty(value = "视频状态")
+    @ApiModelProperty(value = "视频状态》》0:正常1:审核中2:下架3:需要人工审核")
     int status;
+    @ApiModelProperty(value = "视频被拒下架的原因")
+    String rejectMsg;
 
     //20180731新增
     @ApiModelProperty(value = "视频用户的头像")
@@ -69,6 +71,14 @@ public class VideoInfoDto {
     protected Date createTime;
     @ApiModelProperty(value = "时间友好显示，比如：5分前，1小时前。")
     protected String createTimeFormat;
+
+    public String getRejectMsg() {
+        return rejectMsg;
+    }
+
+    public void setRejectMsg(String rejectMsg) {
+        this.rejectMsg = rejectMsg;
+    }
 
     public int getStatus() {
         return status;
