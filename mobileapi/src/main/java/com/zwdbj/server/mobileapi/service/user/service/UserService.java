@@ -269,7 +269,7 @@ public class UserService {
     }
     public ServiceStatusInfo<Object> userNameIsExist(String userName){
         try {
-            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{6,9}$";
+            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{2,11}$";
             Pattern r = Pattern.compile(regEx);
             Matcher m = r.matcher(userName);
             boolean rs = m.matches();

@@ -231,7 +231,7 @@ public class UserController {
 
     @RequiresAuthentication
     @RequestMapping(value = "/userNameIsExist/{username}",method = RequestMethod.GET)
-    @ApiOperation(value = "判断username是否已经存在")
+    @ApiOperation(value = "判断username是否已经存在,username格式:字母开头，允许3-12字节，允许字母数字下划线")
     public ResponseData<Object> userNameIsExist(@PathVariable String username){
         ServiceStatusInfo<Object> statusInfo = this.userService.userNameIsExist(username);
         if (statusInfo.isSuccess()) {
