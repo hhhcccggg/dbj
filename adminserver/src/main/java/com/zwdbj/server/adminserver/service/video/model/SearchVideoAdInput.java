@@ -15,6 +15,16 @@ public class SearchVideoAdInput {
     String keywords;
     @ApiModelProperty(value = "上传者的角色名称:admin market finance normal null")
     String roleName;
+    @ApiModelProperty(value = "排序规则,1:浏览次数,2:点赞次数,3:评论次数,4:转发次数,5:举报次数")
+    int orderRule;
+
+    public int getOrderRule() {
+        return orderRule;
+    }
+
+    public void setOrderRule(int orderRule) {
+        this.orderRule = orderRule;
+    }
 
     public String getRoleName() {
         return roleName;

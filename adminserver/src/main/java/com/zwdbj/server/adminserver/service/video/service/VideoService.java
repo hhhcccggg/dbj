@@ -217,7 +217,16 @@ public class VideoService {
     public void weightVideos(AdVideoWeightInput input){
         if (input==null)return;
         ValueOperations<String,AdVideoWeightInput> operations = redisTemplate.opsForValue();
-        operations.set(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY,input,24,TimeUnit.HOURS);
+        operations.set(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY,input);
+    }
+    public ServiceStatusInfo<AdVideoWeightInput> getVideosWeight(){
+        ValueOperations<String,AdVideoWeightInput> operations = redisTemplate.opsForValue();
+        AdVideoWeightInput dto = operations.get(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY);
+        if (dto!=null){
+            return new ServiceStatusInfo<>(0, "", dto);
+        }else {
+            return new ServiceStatusInfo<>(1, "没取到数据：", null);
+        }
     }
 
     /**

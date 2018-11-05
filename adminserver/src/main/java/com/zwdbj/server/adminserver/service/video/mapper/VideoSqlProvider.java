@@ -113,6 +113,7 @@ public class VideoSqlProvider {
         if(model.getStatus()!=-1) {
             sql.WHERE("v.status=#{model.status}");
         }
+
         if (model.getIsLinkProduct()!=-1) {
             if (model.getIsLinkProduct()==0){
                 sql.WHERE("v.linkProductCount=0");
@@ -139,7 +140,21 @@ public class VideoSqlProvider {
         if (model.getRoleName()!=null && model.getRoleName().length()>0) {
             sql.WHERE(String.format("r.roleName='%s'",model.getRoleName()));
         }
-        sql.ORDER_BY("v.id desc");
+        if (model.getOrderRule()!=-1){
+            if (model.getOrderRule()==1){
+                sql.ORDER_BY("v.playCount desc");
+            }else if (model.getOrderRule()==2){
+                sql.ORDER_BY("v.heartCount desc");
+            }else if (model.getOrderRule()==3){
+                sql.ORDER_BY("v.commentCount desc");
+            }else if (model.getOrderRule()==4){
+                sql.ORDER_BY("v.shareCount desc");
+            }else if (model.getOrderRule()==5){
+                sql.ORDER_BY("v.complainCount desc");
+            }
+        }else {
+            sql.ORDER_BY("v.id desc");
+        }
         return sql.toString();
     }
 

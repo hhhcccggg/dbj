@@ -187,9 +187,19 @@ public class VideoController {
     public ResponseData<Object> weightVideos(AdVideoWeightInput input){
         this.videoService.weightVideos(input);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
-
     }
 
-
+    @RequiresAuthentication
+    @RequestMapping(value = "/dbj/getVideosWeight",method = RequestMethod.POST)
+    @ApiOperation("查看视频推荐的权重")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    public ResponseData<AdVideoWeightInput>  getVideosWeight(){
+        ServiceStatusInfo<AdVideoWeightInput> statusInfo = this.videoService.getVideosWeight();
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
+        }else {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+        }
+    }
 
 }
