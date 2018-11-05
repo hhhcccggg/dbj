@@ -352,6 +352,14 @@ public final class QueueWorkInfoModel {
        * <code>QINIU_RES_WAIT_REVIEW_DATA = 5;</code>
        */
       QINIU_RES_WAIT_REVIEW_DATA(5),
+      /**
+       * <pre>
+       *短视频权重处理
+       * </pre>
+       *
+       * <code>VIDEO_WEIGHT = 6;</code>
+       */
+      VIDEO_WEIGHT(6),
       UNRECOGNIZED(-1),
       ;
 
@@ -399,6 +407,14 @@ public final class QueueWorkInfoModel {
        * <code>QINIU_RES_WAIT_REVIEW_DATA = 5;</code>
        */
       public static final int QINIU_RES_WAIT_REVIEW_DATA_VALUE = 5;
+      /**
+       * <pre>
+       *短视频权重处理
+       * </pre>
+       *
+       * <code>VIDEO_WEIGHT = 6;</code>
+       */
+      public static final int VIDEO_WEIGHT_VALUE = 6;
 
 
       public final int getNumber() {
@@ -425,6 +441,7 @@ public final class QueueWorkInfoModel {
           case 3: return QINIU_VIDEO_IMG_REVIEW_RESULT;
           case 4: return QINIU_LIVE_REVIEW_RESULT;
           case 5: return QINIU_RES_WAIT_REVIEW_DATA;
+          case 6: return VIDEO_WEIGHT;
           default: return null;
         }
       }
@@ -6556,6 +6573,511 @@ public final class QueueWorkInfoModel {
 
   }
 
+  public interface QueueWorkVideoWeightDataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:QueueWorkVideoWeightData)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *视频的ID
+     * </pre>
+     *
+     * <code>int64 id = 1;</code>
+     */
+    long getId();
+  }
+  /**
+   * <pre>
+   * 处理视频权重数据
+   * </pre>
+   *
+   * Protobuf type {@code QueueWorkVideoWeightData}
+   */
+  public  static final class QueueWorkVideoWeightData extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:QueueWorkVideoWeightData)
+      QueueWorkVideoWeightDataOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueueWorkVideoWeightData.newBuilder() to construct.
+    private QueueWorkVideoWeightData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueueWorkVideoWeightData() {
+      id_ = 0L;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueueWorkVideoWeightData(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              id_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.class, com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private long id_;
+    /**
+     * <pre>
+     *视频的ID
+     * </pre>
+     *
+     * <code>int64 id = 1;</code>
+     */
+    public long getId() {
+      return id_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (id_ != 0L) {
+        output.writeInt64(1, id_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (id_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, id_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData)) {
+        return super.equals(obj);
+      }
+      com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData other = (com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) obj;
+
+      boolean result = true;
+      result = result && (getId()
+          == other.getId());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 处理视频权重数据
+     * </pre>
+     *
+     * Protobuf type {@code QueueWorkVideoWeightData}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:QueueWorkVideoWeightData)
+        com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.class, com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder.class);
+      }
+
+      // Construct using com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
+      }
+
+      @java.lang.Override
+      public com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
+        return com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData build() {
+        com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData buildPartial() {
+        com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = new com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData(this);
+        result.id_ = id_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) {
+          return mergeFrom((com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData other) {
+        if (other == com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance()) return this;
+        if (other.getId() != 0L) {
+          setId(other.getId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long id_ ;
+      /**
+       * <pre>
+       *视频的ID
+       * </pre>
+       *
+       * <code>int64 id = 1;</code>
+       */
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <pre>
+       *视频的ID
+       * </pre>
+       *
+       * <code>int64 id = 1;</code>
+       */
+      public Builder setId(long value) {
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *视频的ID
+       * </pre>
+       *
+       * <code>int64 id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:QueueWorkVideoWeightData)
+    }
+
+    // @@protoc_insertion_point(class_scope:QueueWorkVideoWeightData)
+    private static final com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData();
+    }
+
+    public static com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueueWorkVideoWeightData>
+        PARSER = new com.google.protobuf.AbstractParser<QueueWorkVideoWeightData>() {
+      @java.lang.Override
+      public QueueWorkVideoWeightData parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueueWorkVideoWeightData(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueueWorkVideoWeightData> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueueWorkVideoWeightData> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_QueueWorkInfo_descriptor;
   private static final 
@@ -6586,6 +7108,11 @@ public final class QueueWorkInfoModel {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_QueueWorkVideoWeightData_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_QueueWorkVideoWeightData_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -6595,33 +7122,34 @@ public final class QueueWorkInfoModel {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\023QueueWorkInfo.proto\"\302\003\n\rQueueWorkInfo\022" +
+      "\n\023QueueWorkInfo.proto\"\324\003\n\rQueueWorkInfo\022" +
       "-\n\010workType\030\001 \001(\0162\033.QueueWorkInfo.WorkTy" +
       "peEnum\022&\n\tphoneCode\030\002 \001(\0132\023.QueueWorkPho" +
       "neCode\022\"\n\theartData\030\003 \001(\0132\017.QueueWorkHea" +
       "rt\022 \n\010pushData\030\004 \001(\0132\016.QueueWorkPush\0226\n\021" +
       "qiniuReviewResult\030\005 \001(\0132\033.QueueWorkQiniu" +
       "ReviewResult\022@\n\026qiniuWaitReviewResData\030\006" +
-      " \001(\0132 .QueueWorkQiniuWaitReviewResData\"\231" +
+      " \001(\0132 .QueueWorkQiniuWaitReviewResData\"\253" +
       "\001\n\014WorkTypeEnum\022\023\n\017SEND_PHONE_CODE\020\000\022\t\n\005" +
       "HEART\020\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_REV" +
       "IEW_RESULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESULT" +
-      "\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_DATA\020\005\"[\n\016Qu" +
-      "eueWorkHeart\022\022\n\nresourceId\030\001 \001(\t\022\024\n\014reso" +
-      "urceType\030\002 \001(\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unHear" +
-      "t\030\004 \001(\010\"1\n\022QueueWorkPhoneCode\022\r\n\005phone\030\001" +
-      " \001(\t\022\014\n\004code\030\002 \001(\t\"\226\001\n\rQueueWorkPush\022\016\n\006" +
-      "pushId\030\001 \001(\003\022\025\n\rcreatorUserId\030\002 \001(\003\022\022\n\nm" +
-      "sgContent\030\003 \001(\t\022\023\n\013dataContent\030\004 \001(\t\022\016\n\006" +
-      "refUrl\030\005 \001(\t\022\020\n\010toUserId\030\006 \001(\003\022\023\n\013messag" +
-      "eType\030\007 \001(\005\"G\n\032QueueWorkQiniuReviewResul" +
-      "t\022\025\n\rresultContent\030\001 \001(\t\022\022\n\nretryCount\030\002" +
-      " \001(\005\"|\n\037QueueWorkQiniuWaitReviewResData\022" +
-      "\022\n\nresContent\030\001 \001(\t\022\022\n\nbucketName\030\002 \001(\t\022" +
-      "\017\n\007resType\030\003 \001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010data" +
-      "Type\030\005 \001(\005B>\n(com.zwdbj.server.mobileapi" +
-      ".middleware.mqB\022QueueWorkInfoModelb\006prot" +
-      "o3"
+      "\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014VI" +
+      "DEO_WEIGHT\020\006\"[\n\016QueueWorkHeart\022\022\n\nresour" +
+      "ceId\030\001 \001(\t\022\024\n\014resourceType\030\002 \001(\t\022\016\n\006user" +
+      "Id\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n\022QueueWorkPh" +
+      "oneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"\226\001\n" +
+      "\rQueueWorkPush\022\016\n\006pushId\030\001 \001(\003\022\025\n\rcreato" +
+      "rUserId\030\002 \001(\003\022\022\n\nmsgContent\030\003 \001(\t\022\023\n\013dat" +
+      "aContent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001(\t\022\020\n\010toUser" +
+      "Id\030\006 \001(\003\022\023\n\013messageType\030\007 \001(\005\"G\n\032QueueWo" +
+      "rkQiniuReviewResult\022\025\n\rresultContent\030\001 \001" +
+      "(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037QueueWorkQiniu" +
+      "WaitReviewResData\022\022\n\nresContent\030\001 \001(\t\022\022\n" +
+      "\nbucketName\030\002 \001(\t\022\017\n\007resType\030\003 \001(\005\022\016\n\006da" +
+      "taId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(\005\"&\n\030QueueWor" +
+      "kVideoWeightData\022\n\n\002id\030\001 \001(\003B>\n(com.zwdb" +
+      "j.server.mobileapi.middleware.mqB\022QueueW" +
+      "orkInfoModelb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6671,6 +7199,12 @@ public final class QueueWorkInfoModel {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkQiniuWaitReviewResData_descriptor,
         new java.lang.String[] { "ResContent", "BucketName", "ResType", "DataId", "DataType", });
+    internal_static_QueueWorkVideoWeightData_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_QueueWorkVideoWeightData_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_QueueWorkVideoWeightData_descriptor,
+        new java.lang.String[] { "Id", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -19,6 +19,7 @@ public class VideoSqlProvider {
         if (conditionValue!=null&&!conditionValue.equals("")) {
             sql = sql.WHERE(conditionValue);
         }
+        sql = sql.WHERE("status=0");
         sql = sql.ORDER_BY("recommendIndex desc");
         return sql.toString();
     }
@@ -28,7 +29,9 @@ public class VideoSqlProvider {
         SQL sql = new SQL()
                 .SELECT("*")
                 .FROM("core_videos")
-                .WHERE("id in ("+ids+")");
+                .WHERE("id in ("+ids+")")
+                .AND()
+                .WHERE("status=0");
         return sql.toString();
     }
 
