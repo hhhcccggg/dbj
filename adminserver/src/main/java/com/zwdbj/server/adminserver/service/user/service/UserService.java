@@ -465,7 +465,7 @@ public class UserService {
         return this.userMapper.getVestUserIds1();
     }
     public List<Long> getVestUserIds2(){
-        return this.userMapper.getVestUserIds1();
+        return this.userMapper.getVestUserIds2();
     }
 
 
