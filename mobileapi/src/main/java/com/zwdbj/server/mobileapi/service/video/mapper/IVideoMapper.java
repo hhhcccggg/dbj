@@ -62,7 +62,7 @@ public interface IVideoMapper {
             "isFollowedMe from core_followers as t1 inner join core_users as t3 on t3.id = t1.userId inner join core_videos as " +
             "videoTbl on videoTbl.userId =t1.userId where t1.followerUserId=#{userId} and videoTbl.status=0 order by videoTbl.createTime desc")
     List<VideoInfoDto> myFollowedVideos(@Param("userId") long userId);
-    @Select("select * from core_videos where userId=#{userId} and status!=2 order by createTime desc")
+    @Select("select * from core_videos where userId=#{userId} order by createTime desc")
     List<VideoInfoDto> videosByUser(@Param("userId") long userId);
     @Select("select * from core_videos where userId=#{userId} and status=0 order by createTime desc")
     List<VideoInfoDto> videosByUser1(@Param("userId") long userId);

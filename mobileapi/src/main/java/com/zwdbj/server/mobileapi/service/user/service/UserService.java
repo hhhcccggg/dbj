@@ -42,6 +42,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -267,10 +269,19 @@ public class UserService {
     }
     public ServiceStatusInfo<Object> userNameIsExist(String userName){
         try {
+            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{2,11}$";
+            Pattern r = Pattern.compile(regEx);
+            Matcher m = r.matcher(userName);
+            boolean rs = m.matches();
+            if (rs==false)return  new ServiceStatusInfo<>(1,"用户Id格式不正确",null);
+            long userId = JWTUtil.getCurrentId();
             int result = this.userMapper.userNameIsExist(userName);
-            if (result>0)
+            UserModel userModel = this.userMapper.findUserByUserName(userName);
+            if (result>0 && userId!=userModel.getId()){
                 return new ServiceStatusInfo<>(1,"此用户id已经存在",null);
-            return  new ServiceStatusInfo<>(0,"",null);
+            }else{
+                return  new ServiceStatusInfo<>(0,"",null);
+            }
         }catch (Exception e){
             return new ServiceStatusInfo<>(500,e.getMessage(),null);
         }
