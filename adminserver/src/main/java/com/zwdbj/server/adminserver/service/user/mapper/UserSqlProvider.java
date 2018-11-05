@@ -16,7 +16,7 @@ public class UserSqlProvider {
                 .SELECT("count(id) as userNum ")
                 .FROM("core_users");
         if (!input.isTof()){
-            sql.WHERE("phone not like '56%'");
+            sql.WHERE("phone not like '56%' or phone is null");
         }
         if (input.getQuantumTime()==0){
             sql.WHERE("TO_DAYS(createTime) = TO_DAYS(NOW())");
@@ -37,7 +37,6 @@ public class UserSqlProvider {
         }else if (input.getQuantumTime()==8){
             sql.WHERE("year(createTime)=year(date_sub(now(),interval 1 year))");
         }
-
         return sql.toString();
     }
 
@@ -119,7 +118,7 @@ public class UserSqlProvider {
                 .SELECT("u.*")
                 .FROM("core_users u")
                 .LEFT_OUTER_JOIN("core_userRoles r on r.userId=u.id");
-        sql.WHERE("u.isSuper=0");
+        sql.WHERE("u.isSuper=0 and phone not like '56%' or phone is null");
         if (model.getKeyWords() !=null && model.getKeyWords().length()>0 ) {
             sql.WHERE(String.format("u.id like '%s'", ("%" + model.getKeyWords() + "%")))
                     .OR()
