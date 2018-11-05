@@ -200,7 +200,6 @@ public class QuartzService {
                     logger.info("播放量不超过10000=++++++"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }
             }
-
             logger.info("-------我是测试--------"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
 
         }catch (Exception e){

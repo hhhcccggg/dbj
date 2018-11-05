@@ -282,9 +282,10 @@ public class VideoService {
         long userId = JWTUtil.getCurrentId();
         if (userId<=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
         Long video = this.videoMapper.deleteVideo(id);
+        //this.heartService.findVideoHeart(id);
         Long heart = this.heartService.deleteVideoHeart(id);
         Long comment = this.commentService.deleteVideoComments(id);
-        if (video!=0 && heart!=0 && comment!=0){
+        if (video!=0 ){
             return new ServiceStatusInfo<>(0,"删除成功",null);
         }else {
             return new ServiceStatusInfo<>(1,"删除失败",null);
