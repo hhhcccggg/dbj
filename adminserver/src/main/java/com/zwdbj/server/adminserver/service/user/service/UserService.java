@@ -461,8 +461,11 @@ public class UserService {
         this.userMapper.newVestUser(phone,id,userName,avatarUrl,nickName);
     }
 
-    public List<Long> getVestUserIds(){
-        return this.userMapper.getVestUserIds();
+    public List<Long> getVestUserIds1(){
+        return this.userMapper.getVestUserIds1();
+    }
+    public List<Long> getVestUserIds2(){
+        return this.userMapper.getVestUserIds1();
     }
 
 
