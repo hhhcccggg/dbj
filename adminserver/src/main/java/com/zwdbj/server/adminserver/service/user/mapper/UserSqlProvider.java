@@ -14,9 +14,10 @@ public class UserSqlProvider {
         AdFindIncreasedInput input = (AdFindIncreasedInput)params.get("input");
         SQL sql = new SQL()
                 .SELECT("count(id) as userNum ")
-                .FROM("core_users");
+                .FROM("core_users")
+                .WHERE("isSuper=0");
         if (!input.isTof()){
-            sql.WHERE("phone not like '56%' or phone is null");
+            sql.WHERE("(phone not like '56%' or phone is null)");
         }
         if (input.getQuantumTime()==0){
             sql.WHERE("TO_DAYS(createTime) = TO_DAYS(NOW())");
@@ -118,7 +119,7 @@ public class UserSqlProvider {
                 .SELECT("u.*")
                 .FROM("core_users u")
                 .LEFT_OUTER_JOIN("core_userRoles r on r.userId=u.id");
-        sql.WHERE("u.isSuper=0 and phone not like '56%' or phone is null");
+        sql.WHERE("u.isSuper=0 and (phone not like '56%' or phone is null)");
         if (model.getKeyWords() !=null && model.getKeyWords().length()>0 ) {
             sql.WHERE(String.format("u.id like '%s'", ("%" + model.getKeyWords() + "%")))
                     .OR()
