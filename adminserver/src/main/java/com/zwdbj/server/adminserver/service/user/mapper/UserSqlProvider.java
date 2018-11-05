@@ -15,6 +15,9 @@ public class UserSqlProvider {
         SQL sql = new SQL()
                 .SELECT("count(id) as userNum ")
                 .FROM("core_users");
+        if (!input.isTof()){
+            sql.WHERE("phone not like '56%'");
+        }
         if (input.getQuantumTime()==0){
             sql.WHERE("TO_DAYS(createTime) = TO_DAYS(NOW())");
         }else if (input.getQuantumTime()==1){
