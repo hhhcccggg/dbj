@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.service.review.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zwdbj.server.adminserver.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.adminserver.service.pet.service.PetService;
 import com.zwdbj.server.adminserver.service.review.mapper.IResourceNeedReviewMapper;
 import com.zwdbj.server.adminserver.service.review.model.ReviewModel;

@@ -1,5 +1,5 @@
 syntax = "proto3";
-option java_package = "com.zwdbj.server.mobileapi.middleware.mq";
+option java_package = "com.zwdbj.server.probuf.middleware.mq";
 option java_outer_classname = "QueueWorkInfoModel";
 
 // protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/addressbook.proto

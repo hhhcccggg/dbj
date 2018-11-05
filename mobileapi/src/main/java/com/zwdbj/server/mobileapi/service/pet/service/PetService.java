@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.pet.service;
 
-import com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.pet.mapper.IPetMapper;

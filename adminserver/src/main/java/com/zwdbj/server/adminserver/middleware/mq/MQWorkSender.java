@@ -1,5 +1,7 @@
 package com.zwdbj.server.adminserver.middleware.mq;
 
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
+
 import com.rabbitmq.client.MessageProperties;
 
 import java.io.IOException;

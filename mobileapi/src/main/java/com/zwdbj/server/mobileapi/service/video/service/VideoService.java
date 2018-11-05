@@ -2,7 +2,7 @@ package com.zwdbj.server.mobileapi.service.video.service;
 
 import com.github.pagehelper.Page;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
-import com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;

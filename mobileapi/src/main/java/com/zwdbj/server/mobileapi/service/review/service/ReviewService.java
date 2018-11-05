@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.review.service;
 
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
-import com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

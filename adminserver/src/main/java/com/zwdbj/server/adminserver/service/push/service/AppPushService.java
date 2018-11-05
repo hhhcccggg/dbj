@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.service.push.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zwdbj.server.adminserver.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.push.model.*;
 import com.zwdbj.server.adminserver.service.user.service.UserService;

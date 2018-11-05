@@ -14,6 +14,7 @@
         <module>adminserver</module>
         <module>mobileapi</module>
         <module>apigateway</module>
+        <module>probuf</module>
     </modules>
 
     <parent>
