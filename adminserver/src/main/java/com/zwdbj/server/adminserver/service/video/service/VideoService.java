@@ -219,6 +219,22 @@ public class VideoService {
         ValueOperations<String,AdVideoWeightInput> operations = redisTemplate.opsForValue();
         operations.set(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY,input);
     }
+
+    public void calculateVideoWeight(long id) {
+        ValueOperations<String,AdVideoWeightInput> operations = redisTemplate.opsForValue();
+        if (!redisTemplate.hasKey(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY)) {
+            logger.info("没有设置权重");
+            return;
+        }
+        AdVideoWeightInput input = (AdVideoWeightInput)operations.get(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY);
+        if (input == null) {
+            logger.info("没有设置权重");
+            return;
+        }
+        this.videoMapper.updateVideoField("recommendIndex = (heartCount * "+input.getHeartCount()/100.0f+" + " +
+                "commentCount*"+input.getCommentCount()/100.0f+"+shareCount*"+input.getShareCount()/100.0f+"+playCount*"+input.getPlayCount()/100.0f+")",id);
+        operations.set(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY,input);
+    }
     public ServiceStatusInfo<AdVideoWeightInput> getVideosWeight(){
         ValueOperations<String,AdVideoWeightInput> operations = redisTemplate.opsForValue();
         AdVideoWeightInput dto = operations.get(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY);

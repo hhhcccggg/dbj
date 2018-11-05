@@ -159,6 +159,31 @@ public final class QueueWorkInfoModel {
      * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
      */
     com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder getQiniuWaitReviewResDataOrBuilder();
+
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+     */
+    boolean hasVideoWeightData();
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+     */
+    com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getVideoWeightData();
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+     */
+    com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder();
   }
   /**
    * Protobuf type {@code QueueWorkInfo}
@@ -267,6 +292,19 @@ public final class QueueWorkInfoModel {
               if (subBuilder != null) {
                 subBuilder.mergeFrom(qiniuWaitReviewResData_);
                 qiniuWaitReviewResData_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 58: {
+              com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder subBuilder = null;
+              if (videoWeightData_ != null) {
+                subBuilder = videoWeightData_.toBuilder();
+              }
+              videoWeightData_ = input.readMessage(com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(videoWeightData_);
+                videoWeightData_ = subBuilder.buildPartial();
               }
 
               break;
@@ -684,6 +722,39 @@ public final class QueueWorkInfoModel {
       return getQiniuWaitReviewResData();
     }
 
+    public static final int VIDEOWEIGHTDATA_FIELD_NUMBER = 7;
+    private com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData videoWeightData_;
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+     */
+    public boolean hasVideoWeightData() {
+      return videoWeightData_ != null;
+    }
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+     */
+    public com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getVideoWeightData() {
+      return videoWeightData_ == null ? com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance() : videoWeightData_;
+    }
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+     */
+    public com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder() {
+      return getVideoWeightData();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -715,6 +786,9 @@ public final class QueueWorkInfoModel {
       }
       if (qiniuWaitReviewResData_ != null) {
         output.writeMessage(6, getQiniuWaitReviewResData());
+      }
+      if (videoWeightData_ != null) {
+        output.writeMessage(7, getVideoWeightData());
       }
       unknownFields.writeTo(output);
     }
@@ -748,6 +822,10 @@ public final class QueueWorkInfoModel {
       if (qiniuWaitReviewResData_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, getQiniuWaitReviewResData());
+      }
+      if (videoWeightData_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, getVideoWeightData());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -791,6 +869,11 @@ public final class QueueWorkInfoModel {
         result = result && getQiniuWaitReviewResData()
             .equals(other.getQiniuWaitReviewResData());
       }
+      result = result && (hasVideoWeightData() == other.hasVideoWeightData());
+      if (hasVideoWeightData()) {
+        result = result && getVideoWeightData()
+            .equals(other.getVideoWeightData());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -823,6 +906,10 @@ public final class QueueWorkInfoModel {
       if (hasQiniuWaitReviewResData()) {
         hash = (37 * hash) + QINIUWAITREVIEWRESDATA_FIELD_NUMBER;
         hash = (53 * hash) + getQiniuWaitReviewResData().hashCode();
+      }
+      if (hasVideoWeightData()) {
+        hash = (37 * hash) + VIDEOWEIGHTDATA_FIELD_NUMBER;
+        hash = (53 * hash) + getVideoWeightData().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -989,6 +1076,12 @@ public final class QueueWorkInfoModel {
           qiniuWaitReviewResData_ = null;
           qiniuWaitReviewResDataBuilder_ = null;
         }
+        if (videoWeightDataBuilder_ == null) {
+          videoWeightData_ = null;
+        } else {
+          videoWeightData_ = null;
+          videoWeightDataBuilder_ = null;
+        }
         return this;
       }
 
@@ -1040,6 +1133,11 @@ public final class QueueWorkInfoModel {
           result.qiniuWaitReviewResData_ = qiniuWaitReviewResData_;
         } else {
           result.qiniuWaitReviewResData_ = qiniuWaitReviewResDataBuilder_.build();
+        }
+        if (videoWeightDataBuilder_ == null) {
+          result.videoWeightData_ = videoWeightData_;
+        } else {
+          result.videoWeightData_ = videoWeightDataBuilder_.build();
         }
         onBuilt();
         return result;
@@ -1106,6 +1204,9 @@ public final class QueueWorkInfoModel {
         }
         if (other.hasQiniuWaitReviewResData()) {
           mergeQiniuWaitReviewResData(other.getQiniuWaitReviewResData());
+        }
+        if (other.hasVideoWeightData()) {
+          mergeVideoWeightData(other.getVideoWeightData());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1964,6 +2065,159 @@ public final class QueueWorkInfoModel {
           qiniuWaitReviewResData_ = null;
         }
         return qiniuWaitReviewResDataBuilder_;
+      }
+
+      private com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData videoWeightData_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder> videoWeightDataBuilder_;
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+       */
+      public boolean hasVideoWeightData() {
+        return videoWeightDataBuilder_ != null || videoWeightData_ != null;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+       */
+      public com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getVideoWeightData() {
+        if (videoWeightDataBuilder_ == null) {
+          return videoWeightData_ == null ? com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance() : videoWeightData_;
+        } else {
+          return videoWeightDataBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+       */
+      public Builder setVideoWeightData(com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData value) {
+        if (videoWeightDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          videoWeightData_ = value;
+          onChanged();
+        } else {
+          videoWeightDataBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+       */
+      public Builder setVideoWeightData(
+          com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder builderForValue) {
+        if (videoWeightDataBuilder_ == null) {
+          videoWeightData_ = builderForValue.build();
+          onChanged();
+        } else {
+          videoWeightDataBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+       */
+      public Builder mergeVideoWeightData(com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData value) {
+        if (videoWeightDataBuilder_ == null) {
+          if (videoWeightData_ != null) {
+            videoWeightData_ =
+              com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.newBuilder(videoWeightData_).mergeFrom(value).buildPartial();
+          } else {
+            videoWeightData_ = value;
+          }
+          onChanged();
+        } else {
+          videoWeightDataBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+       */
+      public Builder clearVideoWeightData() {
+        if (videoWeightDataBuilder_ == null) {
+          videoWeightData_ = null;
+          onChanged();
+        } else {
+          videoWeightData_ = null;
+          videoWeightDataBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+       */
+      public com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder getVideoWeightDataBuilder() {
+        
+        onChanged();
+        return getVideoWeightDataFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+       */
+      public com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder() {
+        if (videoWeightDataBuilder_ != null) {
+          return videoWeightDataBuilder_.getMessageOrBuilder();
+        } else {
+          return videoWeightData_ == null ?
+              com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance() : videoWeightData_;
+        }
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder> 
+          getVideoWeightDataFieldBuilder() {
+        if (videoWeightDataBuilder_ == null) {
+          videoWeightDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.mobileapi.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder>(
+                  getVideoWeightData(),
+                  getParentForChildren(),
+                  isClean());
+          videoWeightData_ = null;
+        }
+        return videoWeightDataBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -7122,34 +7376,35 @@ public final class QueueWorkInfoModel {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\023QueueWorkInfo.proto\"\324\003\n\rQueueWorkInfo\022" +
+      "\n\023QueueWorkInfo.proto\"\210\004\n\rQueueWorkInfo\022" +
       "-\n\010workType\030\001 \001(\0162\033.QueueWorkInfo.WorkTy" +
       "peEnum\022&\n\tphoneCode\030\002 \001(\0132\023.QueueWorkPho" +
       "neCode\022\"\n\theartData\030\003 \001(\0132\017.QueueWorkHea" +
       "rt\022 \n\010pushData\030\004 \001(\0132\016.QueueWorkPush\0226\n\021" +
       "qiniuReviewResult\030\005 \001(\0132\033.QueueWorkQiniu" +
       "ReviewResult\022@\n\026qiniuWaitReviewResData\030\006" +
-      " \001(\0132 .QueueWorkQiniuWaitReviewResData\"\253" +
-      "\001\n\014WorkTypeEnum\022\023\n\017SEND_PHONE_CODE\020\000\022\t\n\005" +
-      "HEART\020\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_REV" +
-      "IEW_RESULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESULT" +
-      "\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014VI" +
-      "DEO_WEIGHT\020\006\"[\n\016QueueWorkHeart\022\022\n\nresour" +
-      "ceId\030\001 \001(\t\022\024\n\014resourceType\030\002 \001(\t\022\016\n\006user" +
-      "Id\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n\022QueueWorkPh" +
-      "oneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"\226\001\n" +
-      "\rQueueWorkPush\022\016\n\006pushId\030\001 \001(\003\022\025\n\rcreato" +
-      "rUserId\030\002 \001(\003\022\022\n\nmsgContent\030\003 \001(\t\022\023\n\013dat" +
-      "aContent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001(\t\022\020\n\010toUser" +
-      "Id\030\006 \001(\003\022\023\n\013messageType\030\007 \001(\005\"G\n\032QueueWo" +
-      "rkQiniuReviewResult\022\025\n\rresultContent\030\001 \001" +
-      "(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037QueueWorkQiniu" +
-      "WaitReviewResData\022\022\n\nresContent\030\001 \001(\t\022\022\n" +
-      "\nbucketName\030\002 \001(\t\022\017\n\007resType\030\003 \001(\005\022\016\n\006da" +
-      "taId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(\005\"&\n\030QueueWor" +
-      "kVideoWeightData\022\n\n\002id\030\001 \001(\003B>\n(com.zwdb" +
-      "j.server.mobileapi.middleware.mqB\022QueueW" +
-      "orkInfoModelb\006proto3"
+      " \001(\0132 .QueueWorkQiniuWaitReviewResData\0222" +
+      "\n\017videoWeightData\030\007 \001(\0132\031.QueueWorkVideo" +
+      "WeightData\"\253\001\n\014WorkTypeEnum\022\023\n\017SEND_PHON" +
+      "E_CODE\020\000\022\t\n\005HEART\020\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_V" +
+      "IDEO_IMG_REVIEW_RESULT\020\003\022\034\n\030QINIU_LIVE_R" +
+      "EVIEW_RESULT\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_" +
+      "DATA\020\005\022\020\n\014VIDEO_WEIGHT\020\006\"[\n\016QueueWorkHea" +
+      "rt\022\022\n\nresourceId\030\001 \001(\t\022\024\n\014resourceType\030\002" +
+      " \001(\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n" +
+      "\022QueueWorkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004co" +
+      "de\030\002 \001(\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 \001" +
+      "(\003\022\025\n\rcreatorUserId\030\002 \001(\003\022\022\n\nmsgContent\030" +
+      "\003 \001(\t\022\023\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001" +
+      "(\t\022\020\n\010toUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001(" +
+      "\005\"G\n\032QueueWorkQiniuReviewResult\022\025\n\rresul" +
+      "tContent\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037Qu" +
+      "eueWorkQiniuWaitReviewResData\022\022\n\nresCont" +
+      "ent\030\001 \001(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resType" +
+      "\030\003 \001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(\005" +
+      "\"&\n\030QueueWorkVideoWeightData\022\n\n\002id\030\001 \001(\003" +
+      "B>\n(com.zwdbj.server.mobileapi.middlewar" +
+      "e.mqB\022QueueWorkInfoModelb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7168,7 +7423,7 @@ public final class QueueWorkInfoModel {
     internal_static_QueueWorkInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkInfo_descriptor,
-        new java.lang.String[] { "WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", });
+        new java.lang.String[] { "WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", "VideoWeightData", });
     internal_static_QueueWorkHeart_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_QueueWorkHeart_fieldAccessorTable = new
