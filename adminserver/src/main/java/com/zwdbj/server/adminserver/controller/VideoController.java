@@ -196,7 +196,7 @@ public class VideoController {
     public ResponseData<AdVideoWeightInput>  getVideosWeight(){
         ServiceStatusInfo<AdVideoWeightInput> statusInfo = this.videoService.getVideosWeight();
         if (statusInfo.isSuccess()){
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
         }else {
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
         }
