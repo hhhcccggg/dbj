@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.pet.model;
 
+import com.zwdbj.server.utility.common.YearAgeHelper;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,6 +18,8 @@ public class PetModelDto {
     Date birthday;
     @ApiModelProperty(value = "年龄")
     float year;
+    @ApiModelProperty(value = "年龄：比如5个月，1岁1个月，终端可以直接用此字段显示")
+    String yearFriendly;
     @ApiModelProperty(value = "性别：0：未知1:GG 2:MM 3:保密")
     int sex;
     @ApiModelProperty(value = "分类/品种")
@@ -70,8 +73,7 @@ public class PetModelDto {
         Date nowDate = new Date();
         long diff = nowDate.getTime() - getBirthday().getTime();
         float yr = diff/(24*60*60*1000.0f)/365.0f;
-        year = (float)Math.ceil(yr);
-        return year;
+        return yr;
     }
 
     public String getCategoryName() {
@@ -79,6 +81,11 @@ public class PetModelDto {
             categoryName = "未知";
         }
         return categoryName;
+    }
+
+    public String getYearFriendly() {
+        this.yearFriendly = YearAgeHelper.ageShowFriendly(this.getYear());
+        return yearFriendly;
     }
 
     public void setCategoryName(String categoryName) {
