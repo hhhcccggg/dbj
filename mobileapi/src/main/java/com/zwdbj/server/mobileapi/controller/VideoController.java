@@ -49,6 +49,14 @@ public class VideoController {
         List<VideoInfoDto> videos = videoService.listHot(pageInfo);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videos,pageInfo.getTotal());
     }
+    @RequestMapping(value = "/listHot1",method = RequestMethod.GET)
+    @ApiOperation(value = "获取短视频推荐列表(使用此接口)")
+    public ResponsePageInfoData<List<VideoInfoDto>> listHot1(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo) {
+        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, 30);
+        List<VideoInfoDto> videos = videoService.listHot(pageInfo);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videos,pageInfo.getTotal());
+    }
+
     @RequestMapping(value = "/listLatest",method = RequestMethod.GET)
     @ApiOperation(value = "获取短视频最新列表")
     public ResponsePageInfoData<List<VideoInfoDto>> listLatest(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
