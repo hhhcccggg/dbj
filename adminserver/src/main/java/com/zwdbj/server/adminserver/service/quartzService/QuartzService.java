@@ -129,13 +129,13 @@ public class QuartzService {
                     logger.info("我是默认马甲"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (i%5==2){
                     this.operateService.newVestUser2(2);
-                    logger.info("我是不同的马甲2"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                    logger.info("我是不同的马甲2: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (i%5==3 || i%5==1){
                     this.operateService.newVestUser2(3);
-                    logger.info("我是不同的马甲3"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                    logger.info("我是不同的马甲3: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (i%5==4){
                     this.operateService.newVestUser2(4);
-                    logger.info("我是不同的马甲4"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                    logger.info("我是不同的马甲4: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }
             }
         }catch (Exception e){
