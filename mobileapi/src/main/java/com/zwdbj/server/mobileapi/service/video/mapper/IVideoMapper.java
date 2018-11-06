@@ -80,7 +80,7 @@ public interface IVideoMapper {
 
     @Select("select linkPets from core_videos where id=#{id}")
     String findLinkPets(@Param("id")Long id);
-    @Delete("delete from core_videos where id=#{id}")
-    Long deleteVideo(@Param("id")Long id);
+    @Delete("delete from core_videos where id=#{id} and userId=#{userId}")
+    Long deleteVideo(@Param("id")Long id,@Param("userId")Long userId);
 
 }

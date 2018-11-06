@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.pet.service;
 
+import com.zwdbj.server.mobileapi.shiro.JWTUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
@@ -44,7 +45,9 @@ public class PetService {
     }
 
     public ServiceStatusInfo<Long> delete(long id) {
-        long rows = this.petMapper.delete(id);
+        long userId = JWTUtil.getCurrentId();
+        if (userId<=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
+        long rows = this.petMapper.delete(id,userId);
         if (rows ==0) {
             return  new ServiceStatusInfo<>(1,"删除失败",null);
         }
