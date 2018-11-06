@@ -11,7 +11,7 @@ import com.zwdbj.server.mobileapi.service.resourceRefGoods.service.ResRefGoodsSe
 import com.zwdbj.server.mobileapi.service.user.model.UserModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.shiro.JWTUtil;
-import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

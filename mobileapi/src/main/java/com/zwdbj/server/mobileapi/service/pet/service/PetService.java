@@ -8,7 +8,7 @@ import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.model.UpdatePetModelInput;
 import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;
 import com.zwdbj.server.mobileapi.service.review.service.ReviewService;
-import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

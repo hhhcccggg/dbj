@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.controller;
 
 import com.zwdbj.server.adminserver.model.ResponseData;
 import com.zwdbj.server.adminserver.model.ResponseDataCode;
-import com.zwdbj.server.adminserver.utility.UnauthorizedException;
+import com.zwdbj.server.utility.common.UnauthorizedException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.shiro.ShiroException;
 import org.springframework.http.HttpStatus;

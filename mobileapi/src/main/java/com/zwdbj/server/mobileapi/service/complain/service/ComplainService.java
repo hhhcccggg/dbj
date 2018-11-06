@@ -8,7 +8,7 @@ import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.mobileapi.shiro.JWTUtil;
-import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -4,7 +4,7 @@ import com.zwdbj.server.adminserver.service.music.mapper.IMusicMapper;
 import com.zwdbj.server.adminserver.service.music.model.*;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.shiro.JWTUtil;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

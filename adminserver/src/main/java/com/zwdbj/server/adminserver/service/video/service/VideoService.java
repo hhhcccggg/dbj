@@ -13,7 +13,7 @@ import com.zwdbj.server.adminserver.service.video.mapper.IVideoMapper;
 import com.zwdbj.server.adminserver.service.heart.model.HeartModel;
 import com.zwdbj.server.adminserver.service.video.model.*;
 import com.zwdbj.server.adminserver.shiro.JWTUtil;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -19,7 +19,7 @@ import com.zwdbj.server.adminserver.service.userBind.service.UserBindService;
 import com.zwdbj.server.adminserver.service.youzan.service.YouZanService;
 import com.zwdbj.server.adminserver.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.SHAEncrypt;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

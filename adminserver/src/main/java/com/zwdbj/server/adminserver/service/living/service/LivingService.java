@@ -11,7 +11,7 @@ import com.zwdbj.server.adminserver.service.resourceRefGoods.service.ResRefGoods
 import com.zwdbj.server.adminserver.service.user.model.UserModel;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.shiro.JWTUtil;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

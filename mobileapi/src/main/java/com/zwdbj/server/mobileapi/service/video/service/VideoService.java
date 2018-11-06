@@ -22,7 +22,7 @@ import com.zwdbj.server.mobileapi.service.heart.model.HeartModel;
 import com.zwdbj.server.mobileapi.model.HeartInput;
 import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.mobileapi.shiro.JWTUtil;
-import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

@@ -8,7 +8,7 @@ import com.zwdbj.server.adminserver.service.review.mapper.IResourceNeedReviewMap
 import com.zwdbj.server.adminserver.service.review.model.ReviewModel;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

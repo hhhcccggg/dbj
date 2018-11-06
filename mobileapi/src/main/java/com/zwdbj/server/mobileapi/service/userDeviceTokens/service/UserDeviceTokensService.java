@@ -4,7 +4,7 @@ import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.mapper.IUserDeviceTokensMapper;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokenDto;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokensInput;
-import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

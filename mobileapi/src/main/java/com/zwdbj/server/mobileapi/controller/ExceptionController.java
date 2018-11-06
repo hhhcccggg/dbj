@@ -2,7 +2,7 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.zwdbj.server.mobileapi.model.ResponseData;
 import com.zwdbj.server.mobileapi.model.ResponseDataCode;
-import com.zwdbj.server.mobileapi.utility.UnauthorizedException;
+import com.zwdbj.server.utility.common.UnauthorizedException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.shiro.ShiroException;
 import org.slf4j.Logger;

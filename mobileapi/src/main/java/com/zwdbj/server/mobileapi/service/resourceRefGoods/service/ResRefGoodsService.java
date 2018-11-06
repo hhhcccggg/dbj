@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.resourceRefGoods.service;
 
 import com.zwdbj.server.mobileapi.service.resourceRefGoods.mapper.IResRefGoodsMapper;
-import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

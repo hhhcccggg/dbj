@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.dailyIncreaseAnalysises.service;
 import com.zwdbj.server.adminserver.service.dailyIncreaseAnalysises.mapper.IDailyIncreaseAnalysisesMapper;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedInput;
 import com.zwdbj.server.adminserver.service.homepage.model.AdUserOrVideoGrowthDto;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

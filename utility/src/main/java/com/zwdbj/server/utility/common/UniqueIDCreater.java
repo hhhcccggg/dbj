@@ -1,9 +1,8 @@
-package com.zwdbj.server.adminserver.utility;
+package com.zwdbj.server.utility.common;
 
 import java.security.MessageDigest;
 import java.util.Random;
 import java.util.UUID;
-import com.zwdbj.server.utility.common.SnowFlake;
 
 /**
  * 生成唯一编码
@@ -12,7 +11,7 @@ public class UniqueIDCreater {
 
     public static long generateID() {
         //TODO 后期增加分布式ID生成器
-        SnowFlake snowFlake = new SnowFlake(1,1);
+        SnowFlake snowFlake = new SnowFlake(2,2);
         return snowFlake.nextId();
     }
 
@@ -70,6 +69,7 @@ public class UniqueIDCreater {
 
         return ShortStr;
     }
+
 }
 
 

@@ -4,7 +4,7 @@ import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.user.model.BindThirdPartyAccountInput;
 import com.zwdbj.server.adminserver.service.userBind.mapper.IUserBindMapper;
 import com.zwdbj.server.adminserver.service.userBind.model.UserThirdAccountBindDto;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

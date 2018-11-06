@@ -8,7 +8,7 @@ import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageDispatchInp
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInfoDto;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageUnReadDto;
-import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

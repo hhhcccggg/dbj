@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.category.service;
 import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.adminserver.service.category.model.*;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

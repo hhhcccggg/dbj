@@ -4,7 +4,7 @@ import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.user.model.BindThirdPartyAccountInput;
 import com.zwdbj.server.mobileapi.service.userBind.mapper.IUserBindMapper;
 import com.zwdbj.server.mobileapi.service.userBind.model.UserThirdAccountBindDto;
-import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

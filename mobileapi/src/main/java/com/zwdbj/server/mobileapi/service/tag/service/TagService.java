@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.service.tag.service;
 
 import com.zwdbj.server.mobileapi.service.tag.mapper.ITagMapper;
 import com.zwdbj.server.mobileapi.service.tag.model.*;
-import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

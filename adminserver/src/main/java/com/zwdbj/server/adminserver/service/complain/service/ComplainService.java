@@ -7,7 +7,7 @@ import com.zwdbj.server.adminserver.service.living.service.LivingService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

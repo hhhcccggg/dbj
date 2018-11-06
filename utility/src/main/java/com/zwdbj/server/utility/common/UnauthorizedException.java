@@ -1,4 +1,4 @@
-package com.zwdbj.server.adminserver.utility;
+package com.zwdbj.server.utility.common;
 
 public class UnauthorizedException extends RuntimeException {
     public UnauthorizedException(String msg) {

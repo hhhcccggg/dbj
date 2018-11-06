@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.operateComments.service;
 import com.zwdbj.server.adminserver.service.comment.service.CommentService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
-import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
