@@ -37,7 +37,7 @@ public interface IVideoMapper {
     List<VideoInfoDto> listHot(@Param("conditionValue") String conditionValue);
     @Select("select * from core_videos where status=0 order by createTime desc")
     List<VideoInfoDto> listLatest();
-    @Select("select * from core_videos where tags=#{tags}")
+    @Select("select * from core_videos where tags=#{tags} order by createTime desc")
     List<VideoInfoDto> listByTag(@Param("tags")String tag);
     @Select("select * from core_videos where id=#{id}")
     VideoDetailInfoDto video(@Param("id") long id);

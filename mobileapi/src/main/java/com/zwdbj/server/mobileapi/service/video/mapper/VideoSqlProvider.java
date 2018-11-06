@@ -20,7 +20,7 @@ public class VideoSqlProvider {
             sql = sql.WHERE(conditionValue);
         }
         sql = sql.WHERE("status=0");
-        sql = sql.ORDER_BY("recommendIndex desc");
+        sql = sql.ORDER_BY("createTime desc");
         return sql.toString();
     }
 
@@ -50,7 +50,7 @@ public class VideoSqlProvider {
                 .WHERE(String.format("latitude  BETWEEN %f AND %f",results[0],results[2]))
                 .AND()
                 .WHERE("status=0")
-                .ORDER_BY("heartCount desc");
+                .ORDER_BY("createTime desc");
         return sql.toString();
     }
 
