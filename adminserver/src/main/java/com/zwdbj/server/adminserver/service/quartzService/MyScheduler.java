@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.service.quartzService;
 
 import com.zwdbj.server.adminserver.service.quartzService.job.*;
-import com.zwdbj.server.adminserver.utility.SpringContextUtil;
+import com.zwdbj.server.utility.common.SpringContextUtil;
 import org.quartz.*;
 import org.quartz.impl.StdScheduler;
 import org.springframework.context.ApplicationContext;

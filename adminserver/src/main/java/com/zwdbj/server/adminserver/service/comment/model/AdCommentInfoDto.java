@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.comment.model;
 
-import com.zwdbj.server.adminserver.utility.DateTimeFriendly;
+import com.zwdbj.server.utility.common.DateTimeFriendly;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.utility;
 import java.security.MessageDigest;
 import java.util.Random;
 import java.util.UUID;
+import com.zwdbj.server.utility.common.SnowFlake;
 
 /**
  * 生成唯一编码

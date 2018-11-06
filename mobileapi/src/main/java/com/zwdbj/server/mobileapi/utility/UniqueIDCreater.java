@@ -1,5 +1,7 @@
 package com.zwdbj.server.mobileapi.utility;
 
+import com.zwdbj.server.utility.common.SnowFlake;
+
 import java.security.MessageDigest;
 import java.util.Random;
 import java.util.UUID;

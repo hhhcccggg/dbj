@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.middleware.mq;
 
 import com.rabbitmq.client.*;
-import com.zwdbj.server.adminserver.utility.SpringContextUtil;
+import com.zwdbj.server.utility.common.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.utility;
+package com.zwdbj.server.utility.common;
 /**
  * twitter的snowflake算法 -- java实现
  * 

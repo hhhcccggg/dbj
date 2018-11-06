@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi;
 
-import com.zwdbj.server.mobileapi.utility.DateTimeFriendly;
+import com.zwdbj.server.utility.common.DateTimeFriendly;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

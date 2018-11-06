@@ -1,4 +1,4 @@
-package com.zwdbj.server.adminserver.utility;
+package com.zwdbj.server.utility.common;
 
 import java.util.Date;
 
@@ -9,7 +9,11 @@ public class DateTimeFriendly {
         long timeStamp = (nowDate.getTime() - date.getTime())/1000;
         String showValue = "未知";
         if (timeStamp<=59) {
-            showValue = String.format("%d秒前",timeStamp);
+            if (timeStamp < 10) {
+                showValue = "刚刚";
+            } else {
+                showValue = String.format("%d秒前", timeStamp);
+            }
         } else if (timeStamp>=60 && timeStamp<3600) {
             long minutes = timeStamp / 60;
             showValue = String.format("%d分前",minutes);

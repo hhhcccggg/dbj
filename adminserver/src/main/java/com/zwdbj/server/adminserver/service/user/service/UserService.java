@@ -18,7 +18,7 @@ import com.zwdbj.server.adminserver.service.user.model.*;
 import com.zwdbj.server.adminserver.service.userBind.service.UserBindService;
 import com.zwdbj.server.adminserver.service.youzan.service.YouZanService;
 import com.zwdbj.server.adminserver.shiro.JWTUtil;
-import com.zwdbj.server.adminserver.utility.SHAEncrypt;
+import com.zwdbj.server.utility.common.SHAEncrypt;
 import com.zwdbj.server.adminserver.utility.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.user.model;
 
-import com.zwdbj.server.mobileapi.utility.DateTimeFriendly;
+import com.zwdbj.server.utility.common.DateTimeFriendly;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

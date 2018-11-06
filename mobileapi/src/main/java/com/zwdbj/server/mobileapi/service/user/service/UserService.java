@@ -23,7 +23,7 @@ import com.zwdbj.server.mobileapi.service.userBind.model.UserThirdAccountBindDto
 import com.zwdbj.server.mobileapi.service.userBind.service.UserBindService;
 import com.zwdbj.server.mobileapi.service.youzan.service.YouZanService;
 import com.zwdbj.server.mobileapi.shiro.JWTUtil;
-import com.zwdbj.server.mobileapi.utility.SHAEncrypt;
+import com.zwdbj.server.utility.common.SHAEncrypt;
 import com.zwdbj.server.mobileapi.utility.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
