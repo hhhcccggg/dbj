@@ -81,6 +81,9 @@ public class VideoService {
             //TODO 更新标签的数据
             this.tagService.everyTagCount(tags);
         }
+        if(input.getLatitude()==0 && input.getLongitude()==0){
+            input.setAddress("");
+        }
         videoMapper.publicVideo(videoId,userId,input);
         UserModel userModel = this.userService.findUserById(userId);
         // 审核信息加入到消息队列
