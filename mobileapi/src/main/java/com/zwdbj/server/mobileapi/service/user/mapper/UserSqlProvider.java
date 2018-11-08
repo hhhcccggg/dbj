@@ -27,11 +27,17 @@ public class UserSqlProvider {
         if (input.getAvatarKey()!=null&&input.getAvatarKey().length()>0) {
             sql.SET("avatarUrl=#{input.avatarKey}");
         }
-        sql.SET("nickName=#{input.nickName}")
-        .SET("sex=#{input.sex}")
-        .SET("birthday=#{input.birthday}")
-        .SET("address=#{input.city}")
-        .SET("longitude=#{input.longitude}")
+        if (input.getNickName()!=null){
+            sql.SET("nickName=#{input.nickName}");
+        }
+        sql.SET("sex=#{input.sex}");
+        if(input.getBirthday()!=null){
+            sql.SET("birthday=#{input.birthday}") ;
+        }
+        if (input.getCity()!=null){
+            sql.SET("address=#{input.city}");
+        }
+        sql.SET("longitude=#{input.longitude}")
         .SET("latitude=#{input.latitude}")
         .SET("occupationId=#{input.occupationId}")
         .SET("loveStatusId=#{input.loveStatusId}");
