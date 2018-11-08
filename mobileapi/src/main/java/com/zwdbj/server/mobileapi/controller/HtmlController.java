@@ -18,6 +18,6 @@ public class HtmlController {
     }
     @RequestMapping(value = "/download",method = RequestMethod.GET)
     public void download(HttpServletResponse response) throws IOException {
-        response.sendRedirect("http://www.zwdbj.com");
+        response.sendRedirect("http://www.zwdbj.com/apps/download");
     }
 }
