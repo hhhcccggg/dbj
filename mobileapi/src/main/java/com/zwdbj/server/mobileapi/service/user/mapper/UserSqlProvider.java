@@ -35,7 +35,9 @@ public class UserSqlProvider {
         .SET("latitude=#{input.latitude}")
         .SET("occupationId=#{input.occupationId}")
         .SET("loveStatusId=#{input.loveStatusId}");
-        //.SET("username=#{input.userName}");
+        if (input.getUserName() != null) {
+            sql.SET("username=#{input.userName}");
+        }
         sql.WHERE("id=#{userId}");
         return sql.toString();
     }
