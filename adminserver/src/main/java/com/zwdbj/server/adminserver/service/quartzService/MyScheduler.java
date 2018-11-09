@@ -108,7 +108,7 @@ public class MyScheduler {
         scheduler.scheduleJob(jobDetail,cronTrigger);
     }
     private void startJob8(Scheduler scheduler) throws SchedulerException{
-        JobDetail jobDetail = JobBuilder.newJob(GreatVestUserJob.class)
+        JobDetail jobDetail = JobBuilder.newJob(GreatVestUser2Job.class)
                 .withIdentity("job8", "group08")
                 .build();
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 25 5 * * ?");

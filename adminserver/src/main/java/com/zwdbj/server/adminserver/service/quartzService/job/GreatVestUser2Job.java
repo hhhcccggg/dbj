@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Component
-public class GreatVestUserJob extends QuartzJobBean implements Serializable {
+public class GreatVestUser2Job extends QuartzJobBean implements Serializable {
     private static final Long serialversionUID = 1L;
     @Autowired
     QuartzService quartzService;
