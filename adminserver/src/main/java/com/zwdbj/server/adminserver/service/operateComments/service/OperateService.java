@@ -5,9 +5,12 @@ import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +19,8 @@ public class OperateService {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
     @Autowired
     UserService userService;
     @Autowired
@@ -65,7 +70,7 @@ public class OperateService {
     public void newVestUser2(int length){
         String a = String.valueOf(UniqueIDCreater.generateID()).substring(9,17);
         String phone ="56"+a;
-        int avatar = this.getRandom(80)+1;
+        int avatar = this.getRandom(0,80)+1;
         String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/1%20%28"+avatar+"%29.jpg";
         String nickName = this.getNickName(length);
         this.userService.newVestUser(phone,avatarUrl,nickName);
@@ -77,18 +82,22 @@ public class OperateService {
                 "为什么脸上含笑,完全是因为我在爪子App上找到了生活的意义.>我想给你铲屎！>妈耶怎么会有这么可爱的小东西>" +
                 "口特!>每一天来撸你>老板问我为什么拿着手机往脸上蹭>吸你一把,么么哒.>阔爱~~~~~~>萌化了,希望多出一点视频.>" +
                 "火了你还是我的小宝贝吗？>火钳留名，你会是下一个小明星噢.>你是吃可爱多长大的吗?>没有什么能抵挡我来看" +
-                "你,毕竟我是无限流量!>太可爱了，这是什么品种?>在哪里可以买到这种小宝贝?>我也好想养一只~>想养但是怕脱" +
+                "你,毕竟我是无限流量!>太可爱了，这是什么品种?>老板是个大傻逼>在哪里可以买到这种小宝贝?>我也好想养一只~>想养但是怕脱" +
                 "毛,所以还是就这里云养宠吧！>哈哈哈哈，被玩坏了>嘤嘤嘤太萌啦>怎么那么Q>告诉我它在做甚么>眼睛好漂亮啊>" +
                 "想吸>我可以偷走吗>呜呜呜呜好可爱啊,想悄悄把它踹进荷包里>我家那位怎么不长这样,生气!!!>我疯了!这是什么" +
                 "天使宝贝啊!!>小小的好软一只呀>真想亲亲它>拍得好好看啊,不行了,回去我也要拍拍我家的>请问她的表情是在" +
                 "说:干嘛拍我吗?>它叫什么名字哇>单方面宣布我是你家的头号粉丝儿>Emmmmm我想给它介绍个对象>别人家的就是" +
                 "可爱>每天都来吸一吸你家主子的神颜>看起来好乖啊,不像我家的皮得不行>心都酥了>请问这样的萌宠,国家包分配" +
-                "吗?>默默点了个赞来表达我的喜欢>幸福就是天天见,请保持这个更新速度>滴~打卡,按时来吸一吸";
+                "吗?>默默点了个赞来表达我的喜欢>幸福就是天天见,请保持这个更新速度>滴~打卡,按时来吸一吸>可爱～>转发了～>" +
+                "y>这是什么品种啊>这只真是超可爱的>好可爱～>转发,想养一只>好可爱啊～>不行了～好想偷回家>666>好萌~>哈哈>" +
+                "炒鸡好看>非常喜欢这个>好萌,好乖>为什么我笑了,是我笑点低吗>超级萌qwq>卡哇伊～>偷猫狗的有没有～>666666" +
+                "6666666>这个要怎么买啊>路过>这个视频我看了好几遍～>太棒了，真是太入境了>人家就想摸摸>在这里在这里，我" +
+                "我～>第一次见，真可爱";
         stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments,7, TimeUnit.DAYS);
     }
 
-    public int getRandom(int length){
-        int random = (int)(Math.random()*length);
+    public int getRandom(int startIndex,int length){
+        int random = (int)(Math.random()*(length-startIndex))+startIndex;
         return random;
     }
 
@@ -96,7 +105,7 @@ public class OperateService {
         if (this.stringRedisTemplate.hasKey("REDIS_COMMENTS")){
            String comment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
            String[] comments = comment.split(">");
-           int random = this.getRandom(comments.length);
+           int random = this.getRandom(0,comments.length);
            String contentTxt = comments[random];
            if (contentTxt==null || contentTxt.length()==0) contentTxt=".......";
            return contentTxt;
@@ -108,32 +117,55 @@ public class OperateService {
 
     public Long getVestUserId1(){
         List<Long> vestUsers = this.userService.getVestUserIds1();
-        int random = this.getRandom(vestUsers.size());
+        int random = this.getRandom(0,vestUsers.size());
         return vestUsers.get(random);
     }
     public Long getVestUserId2(){
         List<Long> vestUsers = this.userService.getVestUserIds2();
-        int random = this.getRandom(vestUsers.size());
+        int random = this.getRandom(0,vestUsers.size());
         return vestUsers.get(random);
     }
 
     public Long getRandomVideoId(){
         List<Long> randomVideoIds = this.videoService.getRandomVideoIds();
-        int random = this.getRandom(randomVideoIds.size());
+        int random = this.getRandom(0,randomVideoIds.size());
         return randomVideoIds.get(random);
     }
 
     public void commentVideo1(Long videoId){
+        String videoIds = videoId.toString();
         Long userId= this.getVestUserId1();
         String contentTxt = this.getRedisComment();
+        if (this.redisTemplate.hasKey(videoIds)){
+            List<String> list = (List<String>)redisTemplate.opsForList().leftPop(videoIds);
+                if (list.contains(contentTxt)){
+                    return;
+                }else {
+                    list.add(contentTxt);
+                }
+        }else {
+            List<String> list = new ArrayList<>();
+            list.add(contentTxt);
+            this.redisTemplate.opsForList().rightPush(videoIds,list);
+        }
         Long id = UniqueIDCreater.generateID();
         this.commentService.greatComment(id,userId,contentTxt,videoId);
     }
-    public void commentVideo2(Long videoId){
-        Long userId= this.getVestUserId2();
+   /* public void commentVideo2(Long videoId){
+        String videoIds = videoId.toString();
         String contentTxt = this.getRedisComment();
+        if (this.redisTemplate.hasKey(videoIds)){
+            List<String> list = (List<String>)redisTemplate.opsForList().leftPop(videoIds);
+                list.add(contentTxt);
+                return;
+        }else {
+            List<String> list = new ArrayList<>();
+            list.add(contentTxt);
+            this.redisTemplate.opsForList().rightPush(videoIds,list);
+            }
+        Long userId= this.getVestUserId2();
         Long id = UniqueIDCreater.generateID();
         this.commentService.greatComment(id,userId,contentTxt,videoId);
-    }
+    }*/
 
 }
