@@ -67,7 +67,7 @@ public class VideoController {
     }
 
     @RequestMapping(value = "/listByTag",method = RequestMethod.POST)
-    @ApiOperation(value = "根据标签获取短视频列表")
+    @ApiOperation(value = "根据标签获取短视频列表，post请求中的id的value为tag")
     public ResponsePageInfoData<List<VideoInfoDto>> listByTag(@RequestBody EntityKeyModel<String> tag,
                                                            @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                            @RequestParam(value = "rows",required = true,defaultValue = "30") int rows){
