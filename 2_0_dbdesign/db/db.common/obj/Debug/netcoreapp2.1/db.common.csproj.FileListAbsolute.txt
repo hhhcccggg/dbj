@@ -1,0 +1,8 @@
+/Users/limingru/Documents/zwdbj/code/petserver/2_0_dbdesign/db/db.common/bin/Debug/netcoreapp2.1/db.common.deps.json
+/Users/limingru/Documents/zwdbj/code/petserver/2_0_dbdesign/db/db.common/bin/Debug/netcoreapp2.1/db.common.dll
+/Users/limingru/Documents/zwdbj/code/petserver/2_0_dbdesign/db/db.common/bin/Debug/netcoreapp2.1/db.common.pdb
+/Users/limingru/Documents/zwdbj/code/petserver/2_0_dbdesign/db/db.common/obj/Debug/netcoreapp2.1/db.common.csproj.CoreCompileInputs.cache
+/Users/limingru/Documents/zwdbj/code/petserver/2_0_dbdesign/db/db.common/obj/Debug/netcoreapp2.1/db.common.AssemblyInfoInputs.cache
+/Users/limingru/Documents/zwdbj/code/petserver/2_0_dbdesign/db/db.common/obj/Debug/netcoreapp2.1/db.common.AssemblyInfo.cs
+/Users/limingru/Documents/zwdbj/code/petserver/2_0_dbdesign/db/db.common/obj/Debug/netcoreapp2.1/db.common.dll
+/Users/limingru/Documents/zwdbj/code/petserver/2_0_dbdesign/db/db.common/obj/Debug/netcoreapp2.1/db.common.pdb

@@ -30,3 +30,8 @@
 workspace.xml
 /utility/target
 /probuf/target
+/2_0_dbdesign/db/.vs
+/2_0_dbdesign/db/db.o2o/bin
+/2_0_dbdesign/db/db.o2o/obj
+/2_0_dbdesign/db/dbdesgin/bin
+/2_0_dbdesign/db/dbdesgin/obj
