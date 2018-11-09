@@ -66,9 +66,9 @@ public class VideoController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videos,pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/listByTag/{tag}",method = RequestMethod.GET)
+    @RequestMapping(value = "/listByTag",method = RequestMethod.GET)
     @ApiOperation(value = "根据标签获取短视频列表")
-    public ResponsePageInfoData<List<VideoInfoDto>> listByTag(@PathVariable(required = true) String tag,
+    public ResponsePageInfoData<List<VideoInfoDto>> listByTag(@RequestParam String tag,
                                                            @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                            @RequestParam(value = "rows",required = true,defaultValue = "30") int rows){
         Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);

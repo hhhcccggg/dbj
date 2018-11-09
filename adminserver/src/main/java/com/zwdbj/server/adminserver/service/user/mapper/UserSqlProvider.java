@@ -116,7 +116,7 @@ public class UserSqlProvider {
     public String queryUser(Map params) {
         UserSearchForAdInput model = (UserSearchForAdInput)params.get("model");
         SQL sql = new SQL()
-                .SELECT("u.*")
+                .SELECT("u.*,(SELECT COUNT(id) FROM core_pets AS pet WHERE pet.userId = u.id) AS petCount,(SELECT COUNT(id) FROM core_videos AS vd WHERE vd.userId = u.id) AS videoCount")
                 .FROM("core_users u")
                 .LEFT_OUTER_JOIN("core_userRoles r on r.userId=u.id");
         sql.WHERE("u.isSuper=0 and (phone not like '56%' or phone is null)");
