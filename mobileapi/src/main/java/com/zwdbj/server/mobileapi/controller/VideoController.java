@@ -66,13 +66,13 @@ public class VideoController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videos,pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/listByTag",method = RequestMethod.POST)
-    @ApiOperation(value = "根据标签获取短视频列表，post请求中的id的value为tag")
-    public ResponsePageInfoData<List<VideoInfoDto>> listByTag(@RequestBody EntityKeyModel<String> tag,
+    @RequestMapping(value = "/listByTag",method = RequestMethod.GET)
+    @ApiOperation(value = "根据标签获取短视频列表")
+    public ResponsePageInfoData<List<VideoInfoDto>> listByTag(@RequestParam String tag,
                                                            @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                            @RequestParam(value = "rows",required = true,defaultValue = "30") int rows){
         Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<VideoInfoDto> videoInfoDtos = this.videoService.listByTag(tag.getId());
+        List<VideoInfoDto> videoInfoDtos = this.videoService.listByTag(tag);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoInfoDtos,pageInfo.getTotal());
     }
 
