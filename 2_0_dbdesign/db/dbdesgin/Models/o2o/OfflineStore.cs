@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using db.common;
-namespace db.o2o.Models
+namespace dbdesgin.Models.o2o
 {
     /// <summary>
     /// 线下门店
@@ -28,6 +28,11 @@ namespace db.o2o.Models
         /// </summary>
         /// <value>The index of the recommend.</value>
         public long recommendIndex { get; set; }
+        /// <summary>
+        /// 商家评分
+        /// </summary>
+        /// <value>The grade.</value>
+        public float grade { get; set; }
         /// <summary>
         /// 经度
         /// </summary>

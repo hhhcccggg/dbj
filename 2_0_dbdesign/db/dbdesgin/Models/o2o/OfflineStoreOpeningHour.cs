@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using db.common;
-namespace db.o2o.Models
+namespace dbdesgin.Models.o2o
 {
     /// <summary>
     /// 营业时间

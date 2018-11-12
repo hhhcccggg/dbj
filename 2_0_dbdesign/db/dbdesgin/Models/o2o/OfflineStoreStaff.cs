@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace db.o2o.Models
+namespace dbdesgin.Models.o2o
 {
     /// <summary>
     /// 门店员工，或者代言人

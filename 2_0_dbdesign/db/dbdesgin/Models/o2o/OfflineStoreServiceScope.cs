@@ -1,25 +1,26 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using db.common;
 
-namespace db.o2o.Models
+namespace dbdesgin.Models.o2o
 {
     /// <summary>
-    /// 门店其他服务，比如：免费停车、免费WIFI等等
+    /// 线下门店服务范围
     /// </summary>
-    [Table("o2o_offlineStoreExtraServices")]
-    public class OfflineStoreExtraService
+    [Table("o2o_offlineStoreServiceScopes")]
+    public class OfflineStoreServiceScope
     {
         [Key]
         public long offlineStoreId { get; set; }
         [Key]
-        public long extraServiceId { get; set; }
+        public long serviceScopeId { get; set; }
+        [MaxLength(1024)]
+        public String notes { get; set; }
         /// <summary>
-        /// 0:正常1：非正常
+        /// 0:正常1:下线
         /// </summary>
         /// <value>The status.</value>
         public int status { get; set; }
-        [MaxLength(1024)]
-        public String notes { get; set; }
     }
 }

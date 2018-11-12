@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using db.common;
-namespace db.o2o.Models
+namespace dbdesgin.Models.o2o
 {
     /// <summary>
     /// 认证资料&审核情况
