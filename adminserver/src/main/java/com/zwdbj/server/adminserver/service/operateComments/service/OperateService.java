@@ -5,15 +5,12 @@ import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -139,16 +136,15 @@ public class OperateService {
         Long userId = this.getVestUserId1();
         String contentTxt = this.getRedisComment();
         List<String> list = new ArrayList<>();
-
         if (this.redisTemplate.hasKey(videoIds + ":"))
              list = this.redisTemplate.opsForList().range(videoIds + ":", 0, -1);
-            if (list.contains(contentTxt)) {
-                return;
-            } else {
-                this.redisTemplate.opsForList().leftPush(videoIds + ":", contentTxt);
-            }
-            Long id = UniqueIDCreater.generateID();
-            this.commentService.greatComment(id, userId, contentTxt, videoId);
+        if (list.contains(contentTxt)) {
+            return;
+        } else {
+            this.redisTemplate.opsForList().leftPush(videoIds + ":", contentTxt);
+        }
+        Long id = UniqueIDCreater.generateID();
+        this.commentService.greatComment(id, userId, contentTxt, videoId);
 
     }
 }
