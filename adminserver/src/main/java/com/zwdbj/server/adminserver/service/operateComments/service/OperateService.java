@@ -11,7 +11,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -82,7 +84,7 @@ public class OperateService {
                 "为什么脸上含笑,完全是因为我在爪子App上找到了生活的意义.>我想给你铲屎！>妈耶怎么会有这么可爱的小东西>" +
                 "口特!>每一天来撸你>老板问我为什么拿着手机往脸上蹭>吸你一把,么么哒.>阔爱~~~~~~>萌化了,希望多出一点视频.>" +
                 "火了你还是我的小宝贝吗？>火钳留名，你会是下一个小明星噢.>你是吃可爱多长大的吗?>没有什么能抵挡我来看" +
-                "你,毕竟我是无限流量!>太可爱了，这是什么品种?>老板是个大傻逼>在哪里可以买到这种小宝贝?>我也好想养一只~>想养但是怕脱" +
+                "你,毕竟我是无限流量!>太可爱了，这是什么品种?>在哪里可以买到这种小宝贝?>我也好想养一只~>想养但是怕脱" +
                 "毛,所以还是就这里云养宠吧！>哈哈哈哈，被玩坏了>嘤嘤嘤太萌啦>怎么那么Q>告诉我它在做甚么>眼睛好漂亮啊>" +
                 "想吸>我可以偷走吗>呜呜呜呜好可爱啊,想悄悄把它踹进荷包里>我家那位怎么不长这样,生气!!!>我疯了!这是什么" +
                 "天使宝贝啊!!>小小的好软一只呀>真想亲亲它>拍得好好看啊,不行了,回去我也要拍拍我家的>请问她的表情是在" +
@@ -132,40 +134,21 @@ public class OperateService {
         return randomVideoIds.get(random);
     }
 
-    public void commentVideo1(Long videoId){
+    public void commentVideo1(Long videoId) {
         String videoIds = videoId.toString();
-        Long userId= this.getVestUserId1();
+        Long userId = this.getVestUserId1();
         String contentTxt = this.getRedisComment();
-        if (this.redisTemplate.hasKey(videoIds)){
-            List<String> list = (List<String>)redisTemplate.opsForList().leftPop(videoIds);
-                if (list.contains(contentTxt)){
-                    return;
-                }else {
-                    list.add(contentTxt);
-                }
-        }else {
-            List<String> list = new ArrayList<>();
-            list.add(contentTxt);
-            this.redisTemplate.opsForList().rightPush(videoIds,list);
-        }
-        Long id = UniqueIDCreater.generateID();
-        this.commentService.greatComment(id,userId,contentTxt,videoId);
-    }
-   /* public void commentVideo2(Long videoId){
-        String videoIds = videoId.toString();
-        String contentTxt = this.getRedisComment();
-        if (this.redisTemplate.hasKey(videoIds)){
-            List<String> list = (List<String>)redisTemplate.opsForList().leftPop(videoIds);
-                list.add(contentTxt);
-                return;
-        }else {
-            List<String> list = new ArrayList<>();
-            list.add(contentTxt);
-            this.redisTemplate.opsForList().rightPush(videoIds,list);
-            }
-        Long userId= this.getVestUserId2();
-        Long id = UniqueIDCreater.generateID();
-        this.commentService.greatComment(id,userId,contentTxt,videoId);
-    }*/
+        List<String> list = new ArrayList<>();
 
+        if (this.redisTemplate.hasKey(videoIds + ":"))
+             list = this.redisTemplate.opsForList().range(videoIds + ":", 0, -1);
+            if (list.contains(contentTxt)) {
+                return;
+            } else {
+                this.redisTemplate.opsForList().leftPush(videoIds + ":", contentTxt);
+            }
+            Long id = UniqueIDCreater.generateID();
+            this.commentService.greatComment(id, userId, contentTxt, videoId);
+
+    }
 }

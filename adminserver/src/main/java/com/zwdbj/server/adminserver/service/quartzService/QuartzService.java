@@ -148,14 +148,16 @@ public class QuartzService {
      */
     public void increaseHeartAndPlayCount() {
         try {
-
+            logger.info("定时增加视频的播放量和点赞量++++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
             if (videoHeartAndPlayCountDtos == null) return;
-            for (VideoHeartAndPlayCountDto dto : videoHeartAndPlayCountDtos) {
-                int dianzhan = this.operateService.getRandom(20, 36);
-                int pinlun = this.operateService.getRandom(4, 6);
-                int fenxiang = this.operateService.getRandom(5, 8);
-                int addPlayCount = this.operateService.getRandom(50, 200);
+            int count =  new Double(Math.ceil(videoHeartAndPlayCountDtos.size()*0.8)).intValue();
+            for (int j=0; j<count; j++) {
+                VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(j);
+                int dianzhan = this.operateService.getRandom(20, 37);
+                int pinlun = this.operateService.getRandom(4, 7);
+                int fenxiang = this.operateService.getRandom(5, 9);
+                int addPlayCount = this.operateService.getRandom(50, 201);
                 this.videoService.updateField("playCount=playCount+" + addPlayCount, dto.getId());
                 this.videoService.updateField("heartCount=heartCount+" + new Double(Math.ceil(addPlayCount * dianzhan / 100.0)).longValue(), dto.getId());
                 Long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
