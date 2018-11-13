@@ -17,6 +17,13 @@ namespace dbdesgin.Models
         public int type { get; set; }
         // 分类创建者，如果是系统内置分类，此字段保持为null
         public long? userId { get; set; }
+        [MaxLength(512)]
+        public String iconUrl { get; set; }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <value>The index of the order.</value>
+        public int orderIndex { get; set; }
     }
 }
     
