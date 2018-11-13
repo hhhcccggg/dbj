@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace db.video.Models.o2o
 {
 	/// <summary>
     /// 线下门店服务范围
     /// </summary>
+    [Table("o2o_serviceScopeCategories")]
     public class ServiceScopeCategory : db.common.BaseModelWithTime<long>
     {
         [Required]

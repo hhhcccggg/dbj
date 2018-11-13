@@ -51,11 +51,6 @@ namespace dbdesgin.Models
         [Column("isPhoneVerification")]
         public bool IsPhoneVerification { get; set; }
         /// <summary>
-        /// 我的金币
-        /// </summary>
-        /// <value>The coins.</value>
-        public long coins { get; set; }
-        /// <summary>
         /// 是否有权限直播
         /// </summary>
         /// <value><c>true</c> if is living open; otherwise, <c>false</c>.</value>
