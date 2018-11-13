@@ -153,7 +153,7 @@ public class QuartzService {
             if (videoHeartAndPlayCountDtos == null) return;
             int count =  new Double(Math.ceil(videoHeartAndPlayCountDtos.size()*0.8)).intValue();
             for (int j=0; j<count; j++) {
-                VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(j);
+                VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0,videoHeartAndPlayCountDtos.size()));
                 int dianzhan = this.operateService.getRandom(20, 37);
                 int pinlun = this.operateService.getRandom(4, 7);
                 int fenxiang = this.operateService.getRandom(5, 9);
