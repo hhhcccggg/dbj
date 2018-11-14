@@ -76,7 +76,7 @@ public interface IVideoMapper {
     int peopleVideoReview(@Param("id")Long id);
 
     //定时任务
-    @Select("select id,userId,playCount,heartCount,shareCount from core_videos where status=0 and playCount<8000")
+    @Select("select id,userId,playCount,heartCount,shareCount,commentCount from core_videos where status=0 and playCount<8000")
     List<VideoHeartAndPlayCountDto> findHeartAndPlayCount();
 
     @Select("select playCount from core_videos where id=#{id}")
@@ -87,5 +87,4 @@ public interface IVideoMapper {
 
     @Select("select id from core_videos where status=0 and playCount<10000")
     List<Long> getRandomVideoIds();
-
 }

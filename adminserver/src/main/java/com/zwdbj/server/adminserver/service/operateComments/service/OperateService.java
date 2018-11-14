@@ -131,20 +131,21 @@ public class OperateService {
         return randomVideoIds.get(random);
     }
 
-    public void commentVideo1(Long videoId) {
+    public int commentVideo1(Long videoId) {
         String videoIds = videoId.toString();
         Long userId = this.getVestUserId1();
         String contentTxt = this.getRedisComment();
+        int gg=0;
         List<String> list = new ArrayList<>();
         if (this.redisTemplate.hasKey(videoIds + ":"))
              list = this.redisTemplate.opsForList().range(videoIds + ":", 0, -1);
         if (list.contains(contentTxt)) {
-            return;
+            return gg;
         } else {
             this.redisTemplate.opsForList().leftPush(videoIds + ":", contentTxt);
         }
         Long id = UniqueIDCreater.generateID();
-        this.commentService.greatComment(id, userId, contentTxt, videoId);
-
+        gg = this.commentService.greatComment(id, userId, contentTxt, videoId);
+        return gg;
     }
 }

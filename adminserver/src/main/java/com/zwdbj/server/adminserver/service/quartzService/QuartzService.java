@@ -1,6 +1,5 @@
 package com.zwdbj.server.adminserver.service.quartzService;
 
-import com.zwdbj.server.adminserver.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.adminserver.service.complain.model.UserComplainDto;
 import com.zwdbj.server.adminserver.service.complain.service.ComplainService;
 import com.zwdbj.server.adminserver.service.dailyIncreaseAnalysises.service.DailyIncreaseAnalysisesService;
@@ -15,6 +14,7 @@ import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -24,13 +24,13 @@ import java.util.List;
 @Service
 public class QuartzService {
     @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
     UserService userService;
     @Autowired
     VideoService videoService;
     @Autowired
     LivingService livingService;
-    @Autowired
-    EaseMobChatRoom easeMobChatRoom ;
     @Autowired
     QiniuService qiniuService ;
     @Autowired
@@ -164,9 +164,17 @@ public class QuartzService {
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
                 this.videoService.updateField("shareCount=shareCount+" + new Double(Math.ceil(addHeartCount * fenxiang / 100.0)).longValue(), dto.getId());
                 int comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
+                String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
+                String[] redisComments = redisComment.split(">");
+                int size = redisComments.length;
+                if (dto.getCommentCount()>size)comment=0;
+                int tem = 0;
                 for (int i = 0; i < comment; i++) {
-                    this.operateService.commentVideo1(dto.getId());
+                    int gg = this.operateService.commentVideo1(dto.getId());
+                    if (gg==0)tem--;
                 }
+                comment = comment + tem;
+                if (comment==0)return;
                 this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
                 logger.info("播放量不超过8000=++++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             }

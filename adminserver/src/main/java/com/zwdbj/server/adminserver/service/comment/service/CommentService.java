@@ -99,8 +99,8 @@ public class CommentService {
 
     }
 
-    public void greatComment(Long id,Long userId,String contentTxt,Long resourceOwnerId){
-        this.commentMapper.greatComment(id,userId,contentTxt,resourceOwnerId);
+    public int greatComment(Long id,Long userId,String contentTxt,Long resourceOwnerId){
+        return this.commentMapper.greatComment(id,userId,contentTxt,resourceOwnerId);
     }
 
 

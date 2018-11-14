@@ -6,6 +6,15 @@ public class VideoHeartAndPlayCountDto {
     private Long playCount;
     private Long heartCount;
     private Long shareCount;
+    private Long commentCount;
+
+    public Long getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Long commentCount) {
+        this.commentCount = commentCount;
+    }
 
     public Long getId() {
         return id;
