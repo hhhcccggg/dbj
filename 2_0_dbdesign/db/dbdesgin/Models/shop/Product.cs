@@ -132,6 +132,16 @@ namespace db.video.Models.shop
         /// <value>The specify publish time.</value>
         public long specifyPublishTime { get; set; }
         /// <summary>
+        /// 商品详情
+        /// </summary>
+        /// <value>The detail description.</value>
+        public String detailDescription { get; set; }
+        /// <summary>
+        /// 重量kg
+        /// </summary>
+        /// <value>The weight.</value>
+        public float weight { get; set; }
+        /// <summary>
         /// 备注
         /// </summary>
         /// <value>The notes.</value>
