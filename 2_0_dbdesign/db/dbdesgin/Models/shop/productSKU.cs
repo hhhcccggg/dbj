@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace db.video.Models.shop
 {
     [Table("shop_productSKUs")]
-    public class productSKU : db.common.BaseModelWithTime<long>
+    public class ProductSKU : db.common.BaseModelWithTime<long>
     {
         /// <summary>
         /// sku编号
