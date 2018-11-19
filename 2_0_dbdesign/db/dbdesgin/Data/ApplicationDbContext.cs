@@ -85,7 +85,6 @@ namespace dbdesgin.Data
             userEntity.Property(c => c.IsLocked).HasDefaultValue(false);
             userEntity.Property(c => c.IsEmailVerification).HasDefaultValue(false);
             userEntity.Property(c => c.IsPhoneVerification).HasDefaultValue(false);
-            userEntity.Property(c => c.coins).HasDefaultValue(0);
             userEntity.Property(c => c.isLivingOpen).HasDefaultValue(false);
             userEntity.Property(c => c.isLiving).HasDefaultValue(false);
             userEntity.Property(c => c.totalHearts).HasDefaultValue(0);

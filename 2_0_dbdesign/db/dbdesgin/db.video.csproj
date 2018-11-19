@@ -38,5 +38,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\o2o\" />
+    <Folder Include="Models\shop\" />
   </ItemGroup>
 </Project>
