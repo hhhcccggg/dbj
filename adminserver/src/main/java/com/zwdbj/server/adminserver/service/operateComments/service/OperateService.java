@@ -26,7 +26,7 @@ public class OperateService {
     VideoService videoService;
     @Autowired
     CommentService commentService;
-    public String getNickName(int length){
+    /*public String getNickName(int length){
         String gg = "天,地,玄,黄,宇,宙,洪,荒,日,月,盈,昃,辰,宿,列,张,寒,来,暑,往,秋,收,冬,藏,闰,馀,成,岁,律,吕,调,阳,云," +
                 "腾,致,雨,露,结,为,霜,金,生,丽,水,玉,出,昆,冈,剑,号,巨,阙,珠,称,夜,光,果,珍,李,柰,菜,重,芥,姜,海,咸,河," +
                 "淡,鳞,潜,羽,翔,龙,师,火,帝,鸟,官,人,皇,始,制,文,字,乃,服,衣,裳,推,位,让,国,有,虞,陶,唐,吊,民,伐,罪,周," +
@@ -57,7 +57,7 @@ public class OperateService {
            nickName.append(b);
         }
         return nickName.toString();
-    }
+    }*/
 
     public void newVestUser1(){
         String a = String.valueOf(UniqueIDCreater.generateID()).substring(9,17);
@@ -66,16 +66,16 @@ public class OperateService {
         String nickName = "爪子用户";
         this.userService.newVestUser(phone,avatarUrl,nickName);
     }
-    public void newVestUser2(int length){
+   /* public void newVestUser2(int length){
         String a = String.valueOf(UniqueIDCreater.generateID()).substring(9,17);
         String phone ="56"+a;
         int avatar = this.getRandom(0,80)+1;
         String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/1%20%28"+avatar+"%29.jpg";
         String nickName = this.getNickName(length);
         this.userService.newVestUser(phone,avatarUrl,nickName);
-    }
+    }*/
 
-    public void redisComments(){
+   /* public void redisComments(){
         String  comments = "真是小可爱呢~>给你一个么么哒>有种说不出的萌>我想偷你回家呢>请问这么可爱的小宝贝在哪里才" +
                 "可以买到>哈哈哈哈哈哈哈笑屎我了>天啦噜萌化我了>每一天我都在这个APP里浪费光阴>老板都不知道我每天" +
                 "为什么脸上含笑,完全是因为我在爪子App上找到了生活的意义.>我想给你铲屎！>妈耶怎么会有这么可爱的小东西>" +
@@ -93,14 +93,14 @@ public class OperateService {
                 "6666666>这个要怎么买啊>路过>这个视频我看了好几遍～>太棒了，真是太入境了>人家就想摸摸>在这里在这里，我" +
                 "我～>第一次见，真可爱";
         stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments,7, TimeUnit.DAYS);
-    }
+    }*/
 
     public int getRandom(int startIndex,int length){
         int random = (int)(Math.random()*(length-startIndex))+startIndex;
         return random;
     }
 
-    public String getRedisComment(){
+    /*public String getRedisComment(){
         if (this.stringRedisTemplate.hasKey("REDIS_COMMENTS")){
            String comment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
            String[] comments = comment.split(">");
@@ -112,7 +112,7 @@ public class OperateService {
             this.redisComments();
         }
         return "好好玩呀!";
-    }
+    }*/
 
     public Long getVestUserId1(){
         List<Long> vestUsers = this.userService.getVestUserIds1();
@@ -125,13 +125,8 @@ public class OperateService {
         return vestUsers.get(random);
     }
 
-    public Long getRandomVideoId(){
-        List<Long> randomVideoIds = this.videoService.getRandomVideoIds();
-        int random = this.getRandom(0,randomVideoIds.size());
-        return randomVideoIds.get(random);
-    }
 
-    public int commentVideo1(Long videoId) {
+   /* public int commentVideo1(Long videoId) {
         String videoIds = videoId.toString();
         Long userId = this.getVestUserId1();
         String contentTxt = this.getRedisComment();
@@ -147,5 +142,5 @@ public class OperateService {
         Long id = UniqueIDCreater.generateID();
         gg = this.commentService.greatComment(id, userId, contentTxt, videoId);
         return gg;
-    }
+    }*/
 }

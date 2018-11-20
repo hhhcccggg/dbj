@@ -26,4 +26,13 @@ public class VideoService {
     public List<Long> getRandomVideoIds(){
         return this.videoMapper.getRandomVideoIds();
     }
+    public Long everyIncreasedVideos(){
+        Long increasedVideos = this.videoMapper.everyIncreasedVideos();
+        return increasedVideos;
+    }
+
+    public void updateField(String fields,long id) {
+        this.videoMapper.updateVideoField(fields,id);
+    }
+
 }

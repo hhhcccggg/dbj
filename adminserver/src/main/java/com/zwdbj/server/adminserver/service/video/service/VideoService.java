@@ -263,7 +263,4 @@ public class VideoService {
         return hearCount;
     }
 
-    public List<Long> getRandomVideoIds(){
-        return this.videoMapper.getRandomVideoIds();
-    }
 }
