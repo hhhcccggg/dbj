@@ -15,26 +15,26 @@ public class MyScheduler {
         ApplicationContext annotationContext = SpringContextUtil.getApplicationContext();
         StdScheduler stdScheduler = (StdScheduler) annotationContext.getBean("mySchedulerFactoryBean");//获得上面创建的bean
         Scheduler myScheduler =stdScheduler;
-        JobKey jobKey1  = new JobKey("job1", "group01");
+        //JobKey jobKey1  = new JobKey("job1", "group01");
         JobKey jobKey2  = new JobKey("job2", "group02");
         JobKey jobKey3  = new JobKey("job3", "group03");
         JobKey jobKey4  = new JobKey("job4", "group04");
         JobKey jobKey5  = new JobKey("job5", "group05");
         JobKey jobKey6  = new JobKey("job6", "group06");
-        JobKey jobKey7  = new JobKey("job7", "group07");
-        JobKey jobKey8  = new JobKey("job8", "group08");
-        if (!myScheduler.checkExists(jobKey1)) startJob1(myScheduler);
+        //JobKey jobKey7  = new JobKey("job7", "group07");
+        //JobKey jobKey8  = new JobKey("job8", "group08");
+        //if (!myScheduler.checkExists(jobKey1)) startJob1(myScheduler);
         if (!myScheduler.checkExists(jobKey2)) startJob2(myScheduler);
         if (!myScheduler.checkExists(jobKey3)) startJob3(myScheduler);
         if (!myScheduler.checkExists(jobKey4)) startJob4(myScheduler);
         if (!myScheduler.checkExists(jobKey5)) startJob5(myScheduler);
         if (!myScheduler.checkExists(jobKey6)) startJob6(myScheduler);
         //if (!myScheduler.checkExists(jobKey7)) startJob7(myScheduler);
-        if (!myScheduler.checkExists(jobKey8)) startJob8(myScheduler);
+        //if (!myScheduler.checkExists(jobKey8)) startJob8(myScheduler);
         myScheduler.start();
 
     }
-    private void startJob1(Scheduler scheduler) throws SchedulerException{
+   /* private void startJob1(Scheduler scheduler) throws SchedulerException{
         JobDetail jobDetail = JobBuilder.newJob(IncreaseHeartAndPlayCountJob.class)
                 .withIdentity("job1", "group01")
                 .build();
@@ -44,7 +44,7 @@ public class MyScheduler {
                 .withSchedule(scheduleBuilder)
                 .build();
         scheduler.scheduleJob(jobDetail,cronTrigger);
-    }
+    }*/
 
 
     private void startJob2(Scheduler scheduler) throws SchedulerException{
@@ -96,7 +96,7 @@ public class MyScheduler {
                 .withSchedule(scheduleBuilder).build();
         scheduler.scheduleJob(jobDetail,cronTrigger);
     }
-    private void startJob7(Scheduler scheduler) throws SchedulerException{
+   /* private void startJob7(Scheduler scheduler) throws SchedulerException{
         JobDetail jobDetail = JobBuilder.newJob(IncreaseHeartAndPlayCountJob.class)
                 .withIdentity("job7", "group07")
                 .build();
@@ -117,6 +117,6 @@ public class MyScheduler {
                 .withSchedule(scheduleBuilder)
                 .build();
         scheduler.scheduleJob(jobDetail,cronTrigger);
-    }
+    }*/
 
 }

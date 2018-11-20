@@ -14,6 +14,26 @@ public class AdFindIncreasedDto {
     Long verifingVideoNum;
     @ApiModelProperty(value = "新增订单")
     Long orderNum;
+    @ApiModelProperty(value = "日活")
+    long dau;
+    @ApiModelProperty(value = "月活")
+    long mau;
+
+    public long getDau() {
+        return dau;
+    }
+
+    public void setDau(long dau) {
+        this.dau = dau;
+    }
+
+    public long getMau() {
+        return mau;
+    }
+
+    public void setMau(long mau) {
+        this.mau = mau;
+    }
 
     public Long getUserNum() {
         return userNum;

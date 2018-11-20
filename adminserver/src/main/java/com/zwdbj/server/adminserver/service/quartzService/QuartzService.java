@@ -121,7 +121,7 @@ public class QuartzService {
     /**
      * 每天增加马甲用户
      */
-    public void greatVestUser(){
+    /*public void greatVestUser(){
         try {
             for (int i = 1; i <= 50; i++) {
                 if (i%5==0){
@@ -141,12 +141,12 @@ public class QuartzService {
         }catch (Exception e){
             logger.info("增加用户异常"+e.getMessage());
         }
-    }
+    }*/
 
     /**
      * 定时增加视频的播放量和点赞量
      */
-    public void increaseHeartAndPlayCount() {
+    /*public void increaseHeartAndPlayCount() {
         try {
             logger.info("定时增加视频的播放量和点赞量++++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
@@ -182,5 +182,5 @@ public class QuartzService {
                 logger.info("increaseHeartAndPlayCount异常" + e.getMessage());
             }
 
-        }
+        }*/
     }

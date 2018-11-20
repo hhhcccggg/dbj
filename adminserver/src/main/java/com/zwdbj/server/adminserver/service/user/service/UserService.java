@@ -430,6 +430,9 @@ public class UserService {
         AdFindIncreasedDto dto = this.userMapper.findIncreasedUserAd(input);
         return dto;
     }
+    public long dau(){
+        return this.userMapper.dau();
+    }
 
     public Long everyIncreasedUsers(){
         return this.userMapper.everyIncreasedUsers();

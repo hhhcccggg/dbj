@@ -84,7 +84,4 @@ public interface IVideoMapper {
 
     @Select("select heartCount from core_videos where id=#{id}")
     Long findVideoHeartCount(@Param("id")Long id);
-
-    @Select("select id from core_videos where status=0 and playCount<10000")
-    List<Long> getRandomVideoIds();
 }

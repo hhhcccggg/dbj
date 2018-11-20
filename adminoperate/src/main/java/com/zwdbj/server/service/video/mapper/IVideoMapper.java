@@ -20,4 +20,9 @@ public interface IVideoMapper {
 
     @Select("select heartCount from core_videos where id=#{id}")
     Long findVideoHeartCount(@Param("id")Long id);
+    @Select("select count(id) from core_videos where status=0 and date(createTime)=curDate()-1")
+    Long everyIncreasedVideos();
+
+    @UpdateProvider(type = VideoSqlProvider.class,method = "updateVideoField")
+    long updateVideoField(@Param("fields") String fields,@Param("id") long id);
 }

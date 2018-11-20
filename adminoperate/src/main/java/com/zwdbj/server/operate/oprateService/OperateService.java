@@ -1,6 +1,7 @@
 package com.zwdbj.server.operate.oprateService;
 
 import com.zwdbj.server.service.comment.service.CommentService;
+import com.zwdbj.server.service.pet.service.PetService;
 import com.zwdbj.server.service.user.service.UserService;
 import com.zwdbj.server.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -26,6 +27,9 @@ public class OperateService {
     VideoService videoService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    PetService petService;
+
     public String getNickName(int length){
         String gg = "天,地,玄,黄,宇,宙,洪,荒,日,月,盈,昃,辰,宿,列,张,寒,来,暑,往,秋,收,冬,藏,闰,馀,成,岁,律,吕,调,阳,云," +
                 "腾,致,雨,露,结,为,霜,金,生,丽,水,玉,出,昆,冈,剑,号,巨,阙,珠,称,夜,光,果,珍,李,柰,菜,重,芥,姜,海,咸,河," +
@@ -59,6 +63,45 @@ public class OperateService {
         return nickName.toString();
     }
 
+    public String getPetNickName(){
+        String gg = "小贝,Angel,虎虎,雅虎,混混,小狼,小虎,李小熊,大奔,达达妹,咪妹,麒麟,谜底,KA,波利,彼利,贝茜" +
+                ",黑妮,艾德,蓝莓,阿郎,阿东,阿sir,Ti,SAM,哈雷,NANA,悠悠,哈喽,宾果,但丁,大帝,依恋,优卡,壮壮," +
+                "元帅,虫宝,丸子,深爱的小虎,虎子,杰克,虎子,虎虎,小贝,威廉,基诺,尼尼,尼卡,黑虎,奥巴,牛牛," +
+                "虎虎,巴顿,小无敌,亚瑟,笨笨,莱克思,阳阳,墨脱,吉利,欢欢,王小豹,黑豹,黑妞,阿尔萨斯,悍虎,白龙," +
+                "黑虎,大黑,毛豆,包子,果果,桃子,咖喱,鱼丸,戴维,法拉利,水牛,凯撒,钢铁侠,超人,贝贝,卷卷,嘟嘟," +
+                "毛毛,肉肉,小白,当当,豆豆,旺财,卷卷,可乐,加菲,嘟嘟,滴滴,蛋蛋,鲁卡,哈比,小花,闪电,威廉,巴克," +
+                "查理,雷神,哈瑞,米奇,卷卷,闹闹,卡尔,熊熊,奈奈,香香,海豚,可可,若若,圆圆,小可,瑞瑞,球球,米菲," +
+                "卡哇伊,贝贝,巧克力,璐璐,淘淘,雪糕,西瓜, 大米,奇奇,波波,疯子,跳跳,虫虫,大哥,贝宝,肉肉,皮蛋," +
+                "宝宝,大壮,二蛋,大款,多多,强子,土豪,飞飞,小乖,娜娜,臭臭,八戒,丫丫,妞妞,公主,小静,花花,美美," +
+                "丽丽,小白,大白,雪糕,雪妮,花花,宝马,棉花,云朵,王子,小雪,奶糖,橙子,桔子,阳阳,小菊,小美,小乖," +
+                "香香,美莎,依依,黑子,小奇,熊二,安安,兜兜,贱贱,凶凶,笨笨,呆呆,呼呼,小米,可乐,虎虎,笨猪,咪咪," +
+                "猫咪,豆豆,果果,洛克,捷克,恺撒,道格,阿呆,香菇,李白,馒头,豆儿,鼎鼎,旺财,小白,肥肥,公爵,王子," +
+                "乐乐,球球,胡圈,鲁班七号,胡豆,胡椒,叮叮,当当,爱米,豆豆,爱贝,贝尔,呆呆,扑扑,兜兜,贱贱,小黑," +
+                "肉包,肥包,哎呦,小歪,卡卡,滚滚,娇娇,大熊,多多,枫枫,奈奈,香香,阿飞,梦琪";
+        String[] names = gg.split(",");
+        int  random = this.getRandom(0,names.length);
+        return names[random];
+    }
+
+    public void userNamber(){
+        this.stringRedisTemplate.opsForValue().set("2018-11-20","120",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-21","556",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-22","929",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-23","3586",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-24","4589",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-25","3930",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-26","3677",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-27","4821",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-28","4987",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-29","3434",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-30","3809",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-1","2789",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-2","3144",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-3","2681",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-4","4499",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-5","6087",30,TimeUnit.DAYS);
+    }
+
     public void newVestUser1(){
         String a = String.valueOf(UniqueIDCreater.generateID()).substring(9,17);
         String[] ss = {"3","5","7","8","9"};
@@ -79,7 +122,23 @@ public class OperateService {
         this.userService.newVestUser(phone,avatarUrl,nickName);
     }
 
-    /*public void redisComments(){
+    public void newPet(long userId){
+        int avatar = this.getRandom(0,104)+1;
+        String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/3%20%28"+avatar+"%29.jpg";
+        String nickName = this.getPetNickName();
+        long categoryId = 0L;
+        int s = this.getRandom(0,2);
+        if (s==0){
+            categoryId = 252118610506551296L;
+        }else {
+            categoryId = 252116228808773632L;
+        }
+        this.petService.newPet(avatarUrl,userId,nickName,categoryId);
+    }
+
+
+
+    public void redisComments(){
         String  comments = "真是小可爱呢~>给你一个么么哒>有种说不出的萌>我想偷你回家呢>请问这么可爱的小宝贝在哪里才" +
                 "可以买到>哈哈哈哈哈哈哈笑屎我了>天啦噜萌化我了>每一天我都在这个APP里浪费光阴>老板都不知道我每天" +
                 "为什么脸上含笑,完全是因为我在爪子App上找到了生活的意义.>我想给你铲屎！>妈耶怎么会有这么可爱的小东西>" +
@@ -97,14 +156,15 @@ public class OperateService {
                 "6666666>这个要怎么买啊>路过>这个视频我看了好几遍～>太棒了，真是太入境了>人家就想摸摸>在这里在这里，我" +
                 "我～>第一次见，真可爱";
         stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments,7, TimeUnit.DAYS);
-    }*/
+
+    }
 
     public int getRandom(int startIndex,int length){
         int random = (int)(Math.random()*(length-startIndex))+startIndex;
         return random;
     }
 
-   /* public String getRedisComment(){
+    public String getRedisComment(){
         if (this.stringRedisTemplate.hasKey("REDIS_COMMENTS")){
            String comment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
            String[] comments = comment.split(">");
@@ -116,7 +176,7 @@ public class OperateService {
             this.redisComments();
         }
         return "好好玩呀!";
-    }*/
+    }
 
     public Long getVestUserId1(){
         List<Long> vestUsers = this.userService.getVestUserIds1();
@@ -135,7 +195,7 @@ public class OperateService {
         return randomVideoIds.get(random);
     }
 
-   /* public int commentVideo1(Long videoId) {
+    public int commentVideo1(Long videoId) {
         String videoIds = videoId.toString();
         Long userId = this.getVestUserId1();
         String contentTxt = this.getRedisComment();
@@ -151,5 +211,9 @@ public class OperateService {
         Long id = UniqueIDCreater.generateID();
         gg = this.commentService.greatComment(id, userId, contentTxt, videoId);
         return gg;
-    }*/
+    }
+
+
+
+
 }

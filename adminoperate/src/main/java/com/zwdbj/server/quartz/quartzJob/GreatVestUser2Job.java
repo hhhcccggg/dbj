@@ -1,7 +1,6 @@
-/*
-package com.zwdbj.server.adminserver.service.quartzService.job;
+package com.zwdbj.server.quartz.quartzJob;
 
-import com.zwdbj.server.adminserver.service.quartzService.QuartzService;
+import com.zwdbj.server.quartz.quartzService.QuartzService;
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
@@ -20,4 +19,3 @@ public class GreatVestUser2Job extends QuartzJobBean implements Serializable {
         this.quartzService.greatVestUser();
     }
 }
-*/
