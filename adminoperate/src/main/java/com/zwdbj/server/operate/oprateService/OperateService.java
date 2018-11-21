@@ -3,6 +3,7 @@ package com.zwdbj.server.operate.oprateService;
 import com.zwdbj.server.service.comment.service.CommentService;
 import com.zwdbj.server.service.pet.service.PetService;
 import com.zwdbj.server.service.user.service.UserService;
+import com.zwdbj.server.service.userDeviceTokens.service.UserDeviceTokensService;
 import com.zwdbj.server.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -29,6 +31,8 @@ public class OperateService {
     CommentService commentService;
     @Autowired
     PetService petService;
+    @Autowired
+    UserDeviceTokensService userDeviceTokensService;
 
     public String getNickName(int length){
         String gg = "天,地,玄,黄,宇,宙,洪,荒,日,月,盈,昃,辰,宿,列,张,寒,来,暑,往,秋,收,冬,藏,闰,馀,成,岁,律,吕,调,阳,云," +
@@ -83,23 +87,44 @@ public class OperateService {
         return names[random];
     }
 
-    public void userNamber(){
-        this.stringRedisTemplate.opsForValue().set("2018-11-20","120",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-21","556",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-22","929",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-23","3586",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-24","4589",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-25","3930",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-26","3677",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-27","4821",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-28","4987",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-29","3434",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-30","3809",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-1","2789",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-2","3144",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-3","2681",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-4","4499",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-5","6087",30,TimeUnit.DAYS);
+    public void userNumber(){
+        this.stringRedisTemplate.opsForValue().set("2018-11-20u","120",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-21u","556",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-22u","929",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-23u","3586",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-24u","4589",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-25u","3930",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-26u","3677",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-27u","4821",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-28u","4987",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-29u","3434",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-30u","3809",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-1u","2789",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-2u","3144",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-3u","2681",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-4u","4499",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-5u","6087",30,TimeUnit.DAYS);
+        this.videoNumber();
+    }
+
+    public void videoNumber(){
+        this.stringRedisTemplate.opsForValue().set("2018-11-20v","120",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-21v","929",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-22v","631",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-23v","538",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-24v","551",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-25v","1061",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-26v","588",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-27v","482",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-28v","798",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-29v","549",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-30v","724",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-1v","446",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-2v","629",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-3v","402",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-4v","585",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-5v","609",30,TimeUnit.DAYS);
+
     }
 
     public void newVestUser1(){
@@ -110,6 +135,7 @@ public class OperateService {
         String avatarUrl ="http://res.pet.zwdbj.com/default_avatar.png";
         String nickName = "爪子用户";
         this.userService.newVestUser(phone,avatarUrl,nickName);
+
     }
     public void newVestUser2(int length){
         String a = String.valueOf(UniqueIDCreater.generateID()).substring(9,17);
@@ -123,6 +149,8 @@ public class OperateService {
     }
 
     public void newPet(long userId){
+        int a = this.getRandom(0,2);
+        if (a==0)return;
         int avatar = this.getRandom(0,104)+1;
         String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/3%20%28"+avatar+"%29.jpg";
         String nickName = this.getPetNickName();
@@ -136,6 +164,19 @@ public class OperateService {
         this.petService.newPet(avatarUrl,userId,nickName,categoryId);
     }
 
+    public void  newDeviceToken(long userId){
+        int a = this.getRandom(0,2);
+        String s1 = UUID.randomUUID().toString().replace("-", "");
+        String s2 = UUID.randomUUID().toString().replace("-", "");
+        if (a==0){
+            s1 = s1+s2.substring(12,19);
+            this.userDeviceTokensService.newDeviceToken(userId,s1,"android");
+        }else {
+            s1 = s1+s2.substring(7,25);
+            this.userDeviceTokensService.newDeviceToken(userId,s1,"ios");
+        }
+
+    }
 
 
     public void redisComments(){

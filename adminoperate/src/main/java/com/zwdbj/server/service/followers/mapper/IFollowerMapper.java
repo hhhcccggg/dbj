@@ -22,4 +22,7 @@ public interface IFollowerMapper {
 
     @Insert("insert into core_followers(id,followerUserId,userId,isManualData) values(#{id},#{followerUserId},#{userId},true)")
     int newMyFollower(@Param("id")long id,@Param("followerUserId")long followerUserId,@Param("userId")long userId);
+
+    @Select("select count(id) from core_followers where userId=#{userId} group by userId ")
+    int findMyFollowers(@Param("userId")long userId);
 }

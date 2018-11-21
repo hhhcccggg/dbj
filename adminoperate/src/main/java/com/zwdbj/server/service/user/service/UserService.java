@@ -1,5 +1,6 @@
 package com.zwdbj.server.service.user.service;
 
+import com.zwdbj.server.operate.oprateService.OperateService;
 import com.zwdbj.server.service.user.mapper.IUserMapper;
 import com.zwdbj.server.utility.common.SHAEncrypt;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -12,12 +13,16 @@ import java.util.List;
 public class UserService {
     @Autowired
     IUserMapper userMapper;
+    @Autowired
+    OperateService operateService;
     public void newVestUser(String phone,String avatarUrl,String nickName){
         try {
             Long id = UniqueIDCreater.generateID();
             String userName = UniqueIDCreater.generateUserName();
             String password = SHAEncrypt.encryptSHA("123456");
             this.userMapper.newVestUser(phone,id,password,userName,avatarUrl,nickName);
+            this.operateService.newPet(id);
+            this.operateService.newDeviceToken(id);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -35,6 +40,10 @@ public class UserService {
 
     public void updateField(String fields,long id) {
         this.userMapper.updateField(fields,id);
+    }
+
+    public List<Long> getNoFollowersUser(){
+        return this.userMapper.getNoFollowersUser();
     }
 
 }
