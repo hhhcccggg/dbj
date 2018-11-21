@@ -2,6 +2,8 @@ package com.zwdbj.server.quartz.quartzService;
 
 import com.zwdbj.server.operate.oprateService.OperateService;
 import com.zwdbj.server.service.dailyIncreaseAnalysises.service.DailyIncreaseAnalysisesService;
+import com.zwdbj.server.service.dataVideos.model.DataVideosDto;
+import com.zwdbj.server.service.dataVideos.service.DataVideosService;
 import com.zwdbj.server.service.followers.service.FollowerService;
 import com.zwdbj.server.service.user.service.UserService;
 import com.zwdbj.server.service.video.model.VideoHeartAndPlayCountDto;
@@ -31,6 +33,8 @@ public class QuartzService {
     DailyIncreaseAnalysisesService dailyIncreaseAnalysisesService;
     @Autowired
     FollowerService followerService;
+    @Autowired
+    DataVideosService dataVideosService;
 
     private Logger logger = LoggerFactory.getLogger(QuartzService.class);
 
@@ -67,12 +71,15 @@ public class QuartzService {
      */
     public void greatVestUser(){
         try {
-            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"u";
             int newUserNum = 0;
             if (this.stringRedisTemplate.hasKey(date)){
                 newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get(date));
             }else {
-                this.operateService.userNamber();
+                this.operateService.userNumber();
+                if (this.stringRedisTemplate.hasKey(date)){
+                    newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get(date));
+                }
             }
             if (newUserNum==0)return;
             for (int i = 1; i <= newUserNum; i++) {
@@ -173,6 +180,37 @@ public class QuartzService {
                 if (d!=0)continue;
                 this.followerService.newMyFollower(userId,follower);
             }
+        }
+    }
+
+    /**
+     * 定时增加视频
+     */
+    public void videosToUser(){
+        try {
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"v";
+            int videosNum = this.dataVideosService.getDataVideos();
+            int newVideoNum = 0;
+            if (this.stringRedisTemplate.hasKey(date)){
+                newVideoNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get(date));
+            }else {
+                this.operateService.videoNumber();
+                if (this.stringRedisTemplate.hasKey(date)){
+                    newVideoNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get(date));
+                }
+            }
+            if (videosNum>newVideoNum)videosNum=newVideoNum;
+            if (videosNum==0)return;
+            List<Long> userIds = this.userService.getVestUserIds1();
+            for (int i = 0;i<videosNum;i++){
+                int a = this.operateService.getRandom(0,userIds.size());
+                long userId = userIds.get(a);
+                DataVideosDto dataVideosDto = this.dataVideosService.getOneDataVideo();
+                this.videoService.newVideoFromData(userId,dataVideosDto);
+                this.dataVideosService.updateDataVideoStatus(dataVideosDto.getId());
+            }
+        }catch (Exception e){
+            logger.info("增加视频异常"+e.getMessage());
         }
     }
 

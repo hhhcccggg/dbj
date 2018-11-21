@@ -1,6 +1,8 @@
 package com.zwdbj.server.service.video.service;
+import com.zwdbj.server.service.dataVideos.model.DataVideosDto;
 import com.zwdbj.server.service.video.mapper.IVideoMapper;
 import com.zwdbj.server.service.video.model.VideoHeartAndPlayCountDto;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,12 @@ public class VideoService {
 
     public void updateField(String fields,long id) {
         this.videoMapper.updateVideoField(fields,id);
+    }
+
+    public void newVideoFromData(long userId, DataVideosDto dataVideosDto){
+        long id = UniqueIDCreater.generateID();
+        this.videoMapper.newVideoFromData(id,userId,dataVideosDto);
+
     }
 
 }
