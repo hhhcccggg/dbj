@@ -3,6 +3,7 @@ package com.zwdbj.server.operate.oprateService;
 import com.zwdbj.server.service.comment.service.CommentService;
 import com.zwdbj.server.service.pet.service.PetService;
 import com.zwdbj.server.service.user.service.UserService;
+import com.zwdbj.server.service.userDeviceTokens.service.UserDeviceTokensService;
 import com.zwdbj.server.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -29,6 +31,8 @@ public class OperateService {
     CommentService commentService;
     @Autowired
     PetService petService;
+    @Autowired
+    UserDeviceTokensService userDeviceTokensService;
 
     public String getNickName(int length){
         String gg = "天,地,玄,黄,宇,宙,洪,荒,日,月,盈,昃,辰,宿,列,张,寒,来,暑,往,秋,收,冬,藏,闰,馀,成,岁,律,吕,调,阳,云," +
@@ -110,6 +114,7 @@ public class OperateService {
         String avatarUrl ="http://res.pet.zwdbj.com/default_avatar.png";
         String nickName = "爪子用户";
         this.userService.newVestUser(phone,avatarUrl,nickName);
+
     }
     public void newVestUser2(int length){
         String a = String.valueOf(UniqueIDCreater.generateID()).substring(9,17);
@@ -123,6 +128,8 @@ public class OperateService {
     }
 
     public void newPet(long userId){
+        int a = this.getRandom(0,2);
+        if (a==0)return;
         int avatar = this.getRandom(0,104)+1;
         String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/3%20%28"+avatar+"%29.jpg";
         String nickName = this.getPetNickName();
@@ -136,6 +143,19 @@ public class OperateService {
         this.petService.newPet(avatarUrl,userId,nickName,categoryId);
     }
 
+    public void  newDeviceToken(long userId){
+        int a = this.getRandom(0,2);
+        String s1 = UUID.randomUUID().toString().replace("-", "");
+        String s2 = UUID.randomUUID().toString().replace("-", "");
+        if (a==0){
+            s1 = s1+s2.substring(12,19);
+            this.userDeviceTokensService.newDeviceToken(userId,s1,"android");
+        }else {
+            s1 = s1+s2.substring(7,25);
+            this.userDeviceTokensService.newDeviceToken(userId,s1,"ios");
+        }
+
+    }
 
 
     public void redisComments(){

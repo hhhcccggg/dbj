@@ -19,4 +19,6 @@ public interface IUserMapper {
     Long everyIncreasedUsers();
     @UpdateProvider(type = UserSqlProvider.class,method = "updateField")
     long updateField(@Param("fields") String fields,@Param("id") long id);
+    @Select("select id from core_users where totalFans=0 and totalMyFocuses=0 and isManualData=true")
+    List<Long> getNoFollowersUser();
 }

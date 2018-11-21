@@ -49,4 +49,8 @@ public class FollowerService {
         return this.followerMapper.newMyFollower(id,followerUserId,userId);
     }
 
+    public int findMyFollowers(long userId){
+        return this.followerMapper.findMyFollowers(userId);
+    }
+
 }

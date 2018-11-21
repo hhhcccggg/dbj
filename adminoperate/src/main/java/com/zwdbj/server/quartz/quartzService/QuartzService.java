@@ -2,6 +2,7 @@ package com.zwdbj.server.quartz.quartzService;
 
 import com.zwdbj.server.operate.oprateService.OperateService;
 import com.zwdbj.server.service.dailyIncreaseAnalysises.service.DailyIncreaseAnalysisesService;
+import com.zwdbj.server.service.followers.service.FollowerService;
 import com.zwdbj.server.service.user.service.UserService;
 import com.zwdbj.server.service.video.model.VideoHeartAndPlayCountDto;
 import com.zwdbj.server.service.video.service.VideoService;
@@ -28,6 +29,8 @@ public class QuartzService {
     OperateService operateService;
     @Autowired
     DailyIncreaseAnalysisesService dailyIncreaseAnalysisesService;
+    @Autowired
+    FollowerService followerService;
 
     private Logger logger = LoggerFactory.getLogger(QuartzService.class);
 
@@ -133,6 +136,44 @@ public class QuartzService {
         }catch(Exception e){
             logger.info("increaseHeartAndPlayCount异常" + e.getMessage());
         }
+    }
+
+    public void newMyFollowers(){
+        try {
+            logger.info("我是增加粉丝和关注的开始");
+            List<Long> userIds = this.userService.getNoFollowersUser();
+            List<Long> followers = this.userService.getVestUserIds1();
+            if (userIds==null || userIds.size()==0)return;
+            for (Long userId:userIds){
+                int a= this.operateService.getRandom(0,101);
+                this.newFollowers(userId,a,followers,0);
+                this.userService.updateField("totalFans=totalFans"+a,userId);
+                int  b = this.operateService.getRandom(0,501);
+                this.newFollowers(userId,a,followers,1);
+                this.userService.updateField("totalMyFocuses=totalMyFocuses"+b,userId);
+            }
+            logger.info("我是增加粉丝和关注的结束");
+        }catch (Exception e){
+            logger.info("增加粉丝和关注异常" + e.getMessage());
+        }
 
     }
+
+    public void newFollowers(long userId,int count,List<Long> followers,int type ){
+        for (int i=0;i<count;i++){
+            int c = this.operateService.getRandom(0,followers.size());
+            Long follower = followers.get(c);
+            int d = 0;
+            if (type==0){
+                d=this.followerService.followIsExit(follower,userId);
+                if (d!=0)continue;
+                this.followerService.newMyFollower(follower,userId);
+            }else if (type==1){
+                d = this.followerService.followIsExit(userId,follower);
+                if (d!=0)continue;
+                this.followerService.newMyFollower(userId,follower);
+            }
+        }
     }
+
+}
