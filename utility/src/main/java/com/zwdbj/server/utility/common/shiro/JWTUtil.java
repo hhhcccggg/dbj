@@ -1,4 +1,4 @@
-package com.zwdbj.server.adminserver.shiro;
+package com.zwdbj.server.utility.common.shiro;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -64,7 +64,7 @@ public class JWTUtil {
                     .withClaim("id", id)
                     .withExpiresAt(date)
                     .sign(algorithm);
-        } catch (UnsupportedEncodingException e) {
+        } catch ( IllegalArgumentException e) {
             return null;
         }
     }

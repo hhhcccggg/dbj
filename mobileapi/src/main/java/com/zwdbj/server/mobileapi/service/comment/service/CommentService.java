@@ -14,7 +14,7 @@ import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterSer
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
-import com.zwdbj.server.mobileapi.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

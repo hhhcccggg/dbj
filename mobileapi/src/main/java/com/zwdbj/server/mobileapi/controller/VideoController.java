@@ -9,7 +9,7 @@ import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZSearchItemInput;
 import com.zwdbj.server.mobileapi.service.youzan.service.YouZanService;
-import com.zwdbj.server.mobileapi.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;

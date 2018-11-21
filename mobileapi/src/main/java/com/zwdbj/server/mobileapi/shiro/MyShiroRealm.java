@@ -2,6 +2,8 @@ package com.zwdbj.server.mobileapi.shiro;
 
 import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.user.model.UserAuthInfoModel;
+import com.zwdbj.server.utility.common.shiro.JWTToken;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

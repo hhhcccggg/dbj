@@ -12,7 +12,7 @@ import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.mapper.IVideoMapper;
 import com.zwdbj.server.adminserver.service.heart.model.HeartModel;
 import com.zwdbj.server.adminserver.service.video.model.*;
-import com.zwdbj.server.adminserver.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

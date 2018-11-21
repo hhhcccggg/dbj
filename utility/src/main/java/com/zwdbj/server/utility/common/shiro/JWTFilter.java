@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.shiro;
+package com.zwdbj.server.utility.common.shiro;
 
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest)request;
-        String authHeader = req.getHeader(AUTHORIZATION_HEADER);
+        String authHeader = req.getHeader(BasicHttpAuthenticationFilter.AUTHORIZATION_HEADER);
         String authorization = getAuthToken(authHeader);
         return authorization != null;
     }
@@ -29,7 +29,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest req = (HttpServletRequest)request;
-        String authHeader = req.getHeader(AUTHORIZATION_HEADER);
+        String authHeader = req.getHeader(BasicHttpAuthenticationFilter.AUTHORIZATION_HEADER);
         String authorization = getAuthToken(authHeader);
         JWTToken token = new JWTToken(authorization);
         getSubject(request, response).login(token);

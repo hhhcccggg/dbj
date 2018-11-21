@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.shiro;
+package com.zwdbj.server.utility.common.shiro;
 
 import org.apache.shiro.authc.AuthenticationToken;
 
