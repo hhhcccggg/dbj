@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.user.model;
 
 
-import com.zwdbj.server.mobileapi.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;

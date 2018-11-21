@@ -8,7 +8,7 @@ import com.zwdbj.server.adminserver.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.adminserver.service.setting.service.SettingService;
 import com.zwdbj.server.adminserver.service.user.model.*;
 import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
-import com.zwdbj.server.adminserver.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;

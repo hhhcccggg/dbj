@@ -7,7 +7,7 @@ import com.zwdbj.server.adminserver.model.ResponseData;
 import com.zwdbj.server.adminserver.model.ResponseDataCode;
 import com.zwdbj.server.adminserver.model.SexType;
 import com.zwdbj.server.adminserver.service.AppConfigDto;
-import com.zwdbj.server.adminserver.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;

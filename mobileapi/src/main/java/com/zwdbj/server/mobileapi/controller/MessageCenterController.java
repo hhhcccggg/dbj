@@ -8,7 +8,7 @@ import com.zwdbj.server.mobileapi.model.ResponsePageInfoData;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInfoDto;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageUnReadDto;
 import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
-import com.zwdbj.server.mobileapi.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

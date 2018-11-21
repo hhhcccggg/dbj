@@ -10,7 +10,7 @@ import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.resourceRefGoods.service.ResRefGoodsService;
 import com.zwdbj.server.adminserver.service.user.model.UserModel;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
-import com.zwdbj.server.adminserver.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

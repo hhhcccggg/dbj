@@ -7,7 +7,7 @@ import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.model.AddCommentInput;
 import com.zwdbj.server.mobileapi.service.comment.model.CommentInfoDto;
 import com.zwdbj.server.mobileapi.service.comment.service.CommentService;
-import com.zwdbj.server.mobileapi.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
