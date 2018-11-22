@@ -12,6 +12,7 @@
 
     <artifactId>adminoperate</artifactId>
     <packaging>jar</packaging>
+    <name>adminoperate</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -113,6 +114,7 @@
     </dependencies>
 
     <build>
+        <finalName>adminoperate</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
