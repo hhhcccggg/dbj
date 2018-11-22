@@ -154,10 +154,10 @@ public class QuartzService {
             for (Long userId:userIds){
                 int a= this.operateService.getRandom(0,101);
                 this.newFollowers(userId,a,followers,0);
-                this.userService.updateField("totalFans=totalFans"+a,userId);
+                this.userService.updateField("totalFans=totalFans+"+a,userId);
                 int  b = this.operateService.getRandom(0,501);
-                this.newFollowers(userId,a,followers,1);
-                this.userService.updateField("totalMyFocuses=totalMyFocuses"+b,userId);
+                this.newFollowers(userId,b,followers,1);
+                this.userService.updateField("totalMyFocuses=totalMyFocuses+"+b,userId);
             }
             logger.info("我是增加粉丝和关注的结束");
         }catch (Exception e){
