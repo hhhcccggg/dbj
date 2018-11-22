@@ -15,7 +15,7 @@ mvn package
 
 supervisorctl stop adminserverapp
 supervisorctl stop apiserverapp
-supervisorctl stop adminoperateserver
+supervisorctl stop adminoperateapp
 
 cp ./adminserver/target/api.jar ~/serverapps/adminserverapp/admin.jar
 cp ./mobileapi/target/api.jar ~/serverapps/apiserverapp/
@@ -23,7 +23,7 @@ cp ./adminoperate/target/adminoperate.jar ~/serverapps/adminoperateapp/
 
 supervisorctl start adminserverapp
 supervisorctl start apiserverapp
-supervisorctl start adminoperateserver
+supervisorctl start adminoperateapp
 
 git reset --hard
 echo "OK"
