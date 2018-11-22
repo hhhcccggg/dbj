@@ -101,7 +101,7 @@ public class QuartzService {
                 }
             }
         }catch (Exception e){
-            logger.info("增加用户异常"+e.getMessage());
+            logger.error("增加用户异常"+e.getMessage());
         }
     }
 
@@ -127,6 +127,7 @@ public class QuartzService {
                 this.videoService.updateField("shareCount=shareCount+" + new Double(Math.ceil(addHeartCount * fenxiang / 100.0)).longValue(), dto.getId());
                 int comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
                 String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
+                logger.info(redisComment);
                 String[] redisComments = redisComment.split(">");
                 int size = redisComments.length;
                 if (dto.getCommentCount()>=size)comment=0;
@@ -141,7 +142,7 @@ public class QuartzService {
                 logger.info("播放量不超过8000=++++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             }
         }catch(Exception e){
-            logger.info("increaseHeartAndPlayCount异常" + e.getMessage());
+            logger.error("increaseHeartAndPlayCount异常" + e.getMessage());
         }
     }
 
@@ -152,16 +153,16 @@ public class QuartzService {
             List<Long> followers = this.userService.getVestUserIds1();
             if (userIds==null || userIds.size()==0)return;
             for (Long userId:userIds){
-                int a= this.operateService.getRandom(0,101);
+                int a= this.operateService.getRandom(0,61);
                 this.newFollowers(userId,a,followers,0);
                 this.userService.updateField("totalFans=totalFans+"+a,userId);
-                int  b = this.operateService.getRandom(0,501);
+                int  b = this.operateService.getRandom(0,201);
                 this.newFollowers(userId,b,followers,1);
                 this.userService.updateField("totalMyFocuses=totalMyFocuses+"+b,userId);
             }
             logger.info("我是增加粉丝和关注的结束");
         }catch (Exception e){
-            logger.info("增加粉丝和关注异常" + e.getMessage());
+            logger.error("增加粉丝和关注异常" + e.getMessage());
         }
 
     }
@@ -210,7 +211,7 @@ public class QuartzService {
                 this.dataVideosService.updateDataVideoStatus(dataVideosDto.getId());
             }
         }catch (Exception e){
-            logger.info("增加视频异常"+e.getMessage());
+            logger.error("增加视频异常"+e.getMessage());
         }
     }
 
