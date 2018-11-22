@@ -5,6 +5,9 @@ import com.zwdbj.server.service.dataVideos.model.DataVideosDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 @Service
 public class DataVideosService {
@@ -16,6 +19,13 @@ public class DataVideosService {
     }
     public DataVideosDto getOneDataVideo(){
         DataVideosDto dataVideosDto = this.dataVideosMapper.getOneDataVideo();
+        String title = dataVideosDto.getTitle();
+        //String pattern = "^([^\\@]*)\\@.*$";
+        Pattern r = Pattern.compile("@");
+        title = r.split(title)[0];
+        Pattern r1 = Pattern.compile("抖音小助手");
+        title = r1.split(title)[0];
+        dataVideosDto.setTitle(title);
         dataVideosDto.setFirstFrameUrl(dataVideosDto.getCoverImageUrl());
         dataVideosDto.setFirstFrameHeight(dataVideosDto.getCoverImageHeight());
         dataVideosDto.setFirstFrameWidth(dataVideosDto.getCoverImageWidth());

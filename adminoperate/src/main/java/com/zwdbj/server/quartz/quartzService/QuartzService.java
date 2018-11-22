@@ -86,13 +86,13 @@ public class QuartzService {
                 if (i%15==0){
                     this.operateService.newVestUser2(2);
                     logger.info("我是不同的马甲2: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%15==1){
+                }else if (i%15==1 || i%15==9){
                     this.operateService.newVestUser2(3);
                     logger.info("我是不同的马甲3: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else if (i%15==2){
                     this.operateService.newVestUser2(4);
                     logger.info("我是不同的马甲4: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%15==3){
+                }else if (i%15==3 && i%30==3){
                     this.operateService.newVestUser2(5);
                     logger.info("我是不同的马甲5: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else {
