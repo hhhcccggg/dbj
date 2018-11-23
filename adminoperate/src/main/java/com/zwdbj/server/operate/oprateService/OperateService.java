@@ -6,14 +6,12 @@ import com.zwdbj.server.service.user.service.UserService;
 import com.zwdbj.server.service.userDeviceTokens.service.UserDeviceTokensService;
 import com.zwdbj.server.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import org.apache.http.annotation.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -181,8 +179,6 @@ public class OperateService {
 
     }
 
-
-    //@Cacheable(value = "REDIS_COMMENTS")
     public void redisComments(){
         String  comments = "真是小可爱呢~>给你一个么么哒>有种说不出的萌>我想偷你回家呢>请问这么可爱的小宝贝在哪里才" +
                 "可以买到>哈哈哈哈哈哈哈笑屎我了>天啦噜萌化我了>每一天我都在这个APP里浪费光阴>老板都不知道我每天" +
@@ -200,7 +196,7 @@ public class OperateService {
                 "炒鸡好看>非常喜欢这个>好萌,好乖>为什么我笑了,是我笑点低吗>超级萌qwq>卡哇伊～>偷猫狗的有没有～>666666" +
                 "6666666>这个要怎么买啊>路过>这个视频我看了好几遍～>太棒了，真是太入境了>人家就想摸摸>在这里在这里，我" +
                 "我～>第一次见，真可爱";
-        stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments,7,TimeUnit.DAYS);
+        stringRedisTemplate.opsForValue().set("REDIS_COMMENTSS",comments);
 
     }
 
@@ -210,8 +206,8 @@ public class OperateService {
     }
 
     public String getRedisComment(){
-        if (this.stringRedisTemplate.hasKey("REDIS_COMMENTS")){
-           String comment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
+        if (this.stringRedisTemplate.hasKey("REDIS_COMMENTSS")){
+           String comment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTSS");
            String[] comments = comment.split(">");
            int random = this.getRandom(0,comments.length);
            String contentTxt = comments[random];
