@@ -9,8 +9,13 @@ import java.util.List;
 public interface IUserMapper {
     @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,password,loginType,isManualData,IsPhoneVerification) values(#{id},#{phone}," +
             "#{username},#{nickName},#{avatarUrl},#{password},2,true,true)")
-    long newVestUser(@Param("phone")String phone,@Param("id") long id,@Param("password")String password,@Param("username")String username,@Param("avatarUrl")String avatarUrl,@Param("nickName")String nickName);
+    long newVestUser(@Param("phone")String phone,@Param("id") long id,@Param("password")String password,@Param("username")String username,
+                     @Param("avatarUrl")String avatarUrl,@Param("nickName")String nickName);
 
+    @Insert("insert into core_users(id,username,nickName,avatarUrl,loginType,thirdOpenId,isManualData,IsPhoneVerification) values(#{id}," +
+            "#{username},#{nickName},#{avatarUrl},#{loginType},#{thirdOpenId},true,true)")
+    long newThirdUsers(@Param("id") long id,@Param("username")String username,@Param("avatarUrl")String avatarUrl,
+                       @Param("nickName")String nickName,@Param("loginType")int loginType,@Param("thirdOpenId")String thirdOpenId);
     @Select("select id  from core_users where isManualData=true")
     List<Long> getVestUserIds1();
     @Select("select id  from core_users where phone like '56%' and username='爪子用户'")

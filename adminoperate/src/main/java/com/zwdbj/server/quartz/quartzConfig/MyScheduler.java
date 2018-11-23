@@ -46,7 +46,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(GreatVestUser2Job.class)
                 .withIdentity("job2", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 3 * * ?");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 5 1 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger2", "group2")
                 .withSchedule(scheduleBuilder)
@@ -57,7 +57,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(MyFollowersJob.class)
                 .withIdentity("job3", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 15 3 * * ?");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 25 1 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger3", "group2")
                 .withSchedule(scheduleBuilder)
@@ -68,7 +68,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(VideosToUsersJob.class)
                 .withIdentity("job4", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 5 6 * * ?");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 5 5 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger4", "group2")
                 .withSchedule(scheduleBuilder)

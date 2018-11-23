@@ -7,11 +7,11 @@ import com.zwdbj.server.service.userDeviceTokens.service.UserDeviceTokensService
 import com.zwdbj.server.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class OperateService {
 
-    @Autowired
+    @Resource
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private RedisTemplate redisTemplate;
@@ -35,7 +35,7 @@ public class OperateService {
     @Autowired
     UserDeviceTokensService userDeviceTokensService;
 
-    public String getNickName(int length){
+    public String getNickName(){
         String gg = "天,地,玄,黄,宇,宙,洪,荒,日,月,盈,昃,辰,宿,列,张,寒,来,暑,往,秋,收,冬,藏,闰,馀,成,岁,律,吕,调,阳,云," +
                 "腾,致,雨,露,结,为,霜,金,生,丽,水,玉,出,昆,冈,剑,号,巨,阙,珠,称,夜,光,果,珍,李,柰,菜,重,芥,姜,海,咸,河," +
                 "淡,鳞,潜,羽,翔,龙,师,火,帝,鸟,官,人,皇,始,制,文,字,乃,服,衣,裳,推,位,让,国,有,虞,陶,唐,吊,民,伐,罪,周," +
@@ -60,6 +60,7 @@ public class OperateService {
                 "妙,毛,施,淑,姿,工,妍,笑,年,矢,每,催,曦,晖,朗,曜,璇玑,悬,晦,,者";
         String[] names = gg.split(",");
         StringBuilder nickName=new StringBuilder();
+        int length= this.getRandom(2,5);
         for (int i = 0; i <length ; i++) {
             int r = (int)(Math.random()*700);
             String b = names[r];
@@ -138,16 +139,54 @@ public class OperateService {
         this.userService.newVestUser(phone,avatarUrl,nickName);
 
     }
-    public void newVestUser2(int length){
+    public void newVestUser2(){
         String a = String.valueOf(UniqueIDCreater.generateID()).substring(9,17);
         String[] ss = {"3","5","7","8","9"};
         String s =ss[this.getRandom(0,5)];
         String phone ="1"+s+a;
         int avatar = this.getRandom(0,80)+1;
         String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/1%20%28"+avatar+"%29.jpg";
-        String nickName = this.getNickName(length);
+        String nickName = this.getNickName();
         this.userService.newVestUser(phone,avatarUrl,nickName);
     }
+
+    /**
+     * 4:微信 8:QQ 16:微博
+     * @param type
+     */
+    public void newThirdUsers(int type){
+        int avatar = this.getRandom(0,80)+1;
+        String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/1%20%28"+avatar+"%29.jpg";
+        String s1 = UUID.randomUUID().toString().replace("-", "");
+        String s2 = UUID.randomUUID().toString().replace("-", "");
+        int device = this.getRandom(0,2);
+        String nickName = this.getNickName();
+        String thirdOpenId="";
+        String accessToken="";
+        if (type==4){
+            String s3 = UUID.randomUUID().toString().replace("-", "");
+            String s4 = UUID.randomUUID().toString().replace("-", "");
+            String s5 = UUID.randomUUID().toString().replace("-", "");
+            if (device==0){
+                thirdOpenId="oILKI0"+s1.substring(4,26);
+            }else if (device==1){
+                thirdOpenId="oxzu51"+s1.substring(3,25);
+            }
+            accessToken="15_"+s2+"_"+s3+"_"+s4+s5.substring(10,19);
+
+
+        }else if (type==8){
+            thirdOpenId=s1;
+            accessToken=s2;
+
+        }else if (type==16){
+            thirdOpenId=String.valueOf(UniqueIDCreater.generateID()).substring(5,15);
+            accessToken="2.00"+s1.substring(3,31);
+
+        }
+        this.userService.newThirdUsers(avatarUrl,nickName,thirdOpenId,device,type,accessToken);
+    }
+
 
     public void newPet(long userId){
         int a = this.getRandom(0,2);
@@ -165,15 +204,14 @@ public class OperateService {
         this.petService.newPet(avatarUrl,userId,nickName,categoryId);
     }
 
-    public void  newDeviceToken(long userId){
-        int a = this.getRandom(0,2);
+    public void  newDeviceToken(long userId,int device){
         String s1 = UUID.randomUUID().toString().replace("-", "");
         String s2 = UUID.randomUUID().toString().replace("-", "");
-        if (a==0){
-            s1 = s1+s2.substring(12,19);
+        if (device==0){
+            s1 = s1+s2.substring(12,20);
             this.userDeviceTokensService.newDeviceToken(userId,s1,"android");
         }else {
-            s1 = s1+s2.substring(7,25);
+            s1 = s1+s2.substring(7,26);
             this.userDeviceTokensService.newDeviceToken(userId,s1,"ios");
         }
 
@@ -196,7 +234,7 @@ public class OperateService {
                 "炒鸡好看>非常喜欢这个>好萌,好乖>为什么我笑了,是我笑点低吗>超级萌qwq>卡哇伊～>偷猫狗的有没有～>666666" +
                 "6666666>这个要怎么买啊>路过>这个视频我看了好几遍～>太棒了，真是太入境了>人家就想摸摸>在这里在这里，我" +
                 "我～>第一次见，真可爱";
-        stringRedisTemplate.opsForValue().set("REDIS_COMMENTSS",comments);
+        stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments,7,TimeUnit.DAYS);
 
     }
 
@@ -206,8 +244,8 @@ public class OperateService {
     }
 
     public String getRedisComment(){
-        if (this.stringRedisTemplate.hasKey("REDIS_COMMENTSS")){
-           String comment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTSS");
+        if (this.stringRedisTemplate.hasKey("REDIS_COMMENTS")){
+           String comment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
            String[] comments = comment.split(">");
            int random = this.getRandom(0,comments.length);
            String contentTxt = comments[random];
@@ -253,6 +291,7 @@ public class OperateService {
         gg = this.commentService.greatComment(id, userId, contentTxt, videoId);
         return gg;
     }
+
 
 
 
