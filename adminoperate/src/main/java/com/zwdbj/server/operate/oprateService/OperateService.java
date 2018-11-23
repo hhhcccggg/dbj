@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class OperateService {
 
-    @Resource
+    @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private RedisTemplate redisTemplate;
