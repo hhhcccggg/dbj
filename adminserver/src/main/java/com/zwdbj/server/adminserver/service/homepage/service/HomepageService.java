@@ -31,7 +31,7 @@ public class HomepageService {
         Long verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
         long dau1 = this.userService.dau();
         long dau = new Double(Math.ceil(dau1/3.5)).longValue();
-        Long mau = new Double(Math.ceil(dau1*4.5/3.5)).longValue();
+        long mau = new Double(Math.ceil(dau1*4.5/3.5)).longValue();
         dto.setDau(dau);
         dto.setMau(mau);
         dto.setVideoNum(videoNum);

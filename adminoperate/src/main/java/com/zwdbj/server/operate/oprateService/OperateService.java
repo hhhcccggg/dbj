@@ -6,6 +6,8 @@ import com.zwdbj.server.service.user.service.UserService;
 import com.zwdbj.server.service.userDeviceTokens.service.UserDeviceTokensService;
 import com.zwdbj.server.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -34,6 +36,8 @@ public class OperateService {
     PetService petService;
     @Autowired
     UserDeviceTokensService userDeviceTokensService;
+
+    private Logger logger = LoggerFactory.getLogger(OperateService.class);
 
     public String getNickName(){
         String gg = "天,地,玄,黄,宇,宙,洪,荒,日,月,盈,昃,辰,宿,列,张,寒,来,暑,往,秋,收,冬,藏,闰,馀,成,岁,律,吕,调,阳,云," +
@@ -234,7 +238,9 @@ public class OperateService {
                 "炒鸡好看>非常喜欢这个>好萌,好乖>为什么我笑了,是我笑点低吗>超级萌qwq>卡哇伊～>偷猫狗的有没有～>666666" +
                 "6666666>这个要怎么买啊>路过>这个视频我看了好几遍～>太棒了，真是太入境了>人家就想摸摸>在这里在这里，我" +
                 "我～>第一次见，真可爱";
+        logger.info("redisComments11111");
         stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments,7,TimeUnit.DAYS);
+        logger.info("redisComments22222");
 
     }
 
@@ -278,6 +284,7 @@ public class OperateService {
         String videoIds = videoId.toString();
         Long userId = this.getVestUserId1();
         String contentTxt = this.getRedisComment();
+        logger.info(contentTxt);
         int gg=0;
         List<String> list = new ArrayList<>();
         if (this.redisTemplate.hasKey(videoIds + ":"))
@@ -285,7 +292,7 @@ public class OperateService {
         if (list.contains(contentTxt)) {
             return gg;
         } else {
-            this.redisTemplate.opsForList().leftPush(videoIds + ":", contentTxt);
+            this.redisTemplate.opsForList().leftPush(videoIds + ":",contentTxt);
         }
         Long id = UniqueIDCreater.generateID();
         gg = this.commentService.greatComment(id, userId, contentTxt, videoId);

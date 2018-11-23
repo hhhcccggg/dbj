@@ -23,6 +23,6 @@ public class AdFindHotTagsDto {
     }
 
     public void setResNumber(Long resNumber) {
-        this.resNumber = resNumber;
+        this.resNumber = resNumber*20;
     }
 }
