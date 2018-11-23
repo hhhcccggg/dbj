@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -83,21 +84,15 @@ public class QuartzService {
             }
             if (newUserNum==0)return;
             for (int i = 1; i <= newUserNum; i++) {
-                if (i%15==0){
-                    this.operateService.newVestUser2(2);
-                    logger.info("我是不同的马甲2: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%15==1 || i%15==9){
-                    this.operateService.newVestUser2(3);
-                    logger.info("我是不同的马甲3: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%15==2){
-                    this.operateService.newVestUser2(4);
-                    logger.info("我是不同的马甲4: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%15==3 && i%30==3){
-                    this.operateService.newVestUser2(5);
-                    logger.info("我是不同的马甲5: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                if (i%10==1 || i%10==4 || i%10==7){
+                    this.operateService.newThirdUsers(8);
+                    logger.info("我是 QQ 马甲: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                }else if (i%10==5){
+                    this.operateService.newThirdUsers(16);
+                    logger.info("我是微博马甲: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }else {
-                    this.operateService.newVestUser1();
-                    logger.info("我是默认马甲"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                    this.operateService.newThirdUsers(4);
+                    logger.info("我是微信马甲"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 }
             }
         }catch (Exception e){
@@ -126,7 +121,8 @@ public class QuartzService {
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
                 this.videoService.updateField("shareCount=shareCount+" + new Double(Math.ceil(addHeartCount * fenxiang / 100.0)).longValue(), dto.getId());
                 int comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
-                String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTSS");
+                String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS2");
+                logger.info(this.stringRedisTemplate.opsForValue().toString());
                 logger.info(redisComment);
                 String[] redisComments ={};
                 if (redisComment!=null)

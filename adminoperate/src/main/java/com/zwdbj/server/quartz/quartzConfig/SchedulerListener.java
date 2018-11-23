@@ -44,7 +44,7 @@ public class SchedulerListener implements ApplicationListener<ContextRefreshedEv
     public SchedulerFactoryBean mySchedulerFactoryBean()throws IOException, PropertyAccessException {
         SchedulerFactoryBean bean = new SchedulerFactoryBean();
         bean.setOverwriteExistingJobs(true);
-        bean.setStartupDelay(2);
+        bean.setStartupDelay(1);
         bean.setJobFactory(springJobFactory);
         bean.setQuartzProperties(properties());
         bean.setWaitForJobsToCompleteOnShutdown(true);
