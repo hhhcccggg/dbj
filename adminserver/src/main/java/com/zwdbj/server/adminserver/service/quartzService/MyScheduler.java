@@ -32,7 +32,7 @@ public class MyScheduler {
 
     private void startJob1(Scheduler scheduler) throws SchedulerException{
         JobDetail jobDetail = JobBuilder.newJob(EverydayInsertTimeJob.class)
-                .withIdentity("jo1", "group01")
+                .withIdentity("job1", "group01")
                 .build();
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 5 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("trigger1", "group1")
