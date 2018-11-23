@@ -8,6 +8,7 @@ import com.zwdbj.server.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.apache.http.annotation.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -181,6 +182,7 @@ public class OperateService {
     }
 
 
+    @Cacheable(value = "REDIS_COMMENTS")
     public void redisComments(){
         String  comments = "真是小可爱呢~>给你一个么么哒>有种说不出的萌>我想偷你回家呢>请问这么可爱的小宝贝在哪里才" +
                 "可以买到>哈哈哈哈哈哈哈笑屎我了>天啦噜萌化我了>每一天我都在这个APP里浪费光阴>老板都不知道我每天" +
