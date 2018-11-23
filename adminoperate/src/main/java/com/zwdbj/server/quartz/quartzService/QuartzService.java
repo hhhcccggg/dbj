@@ -128,7 +128,9 @@ public class QuartzService {
                 int comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
                 String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
                 logger.info(redisComment);
-                String[] redisComments = redisComment.split(">");
+                String[] redisComments ={};
+                if (redisComment!=null)
+                    redisComments = redisComment.split(">");
                 int size = redisComments.length;
                 if (dto.getCommentCount()>=size)comment=0;
                 int tem = 0;
@@ -172,6 +174,7 @@ public class QuartzService {
             int c = this.operateService.getRandom(0,followers.size());
             Long follower = followers.get(c);
             int d = 0;
+            if (userId==follower)return;
             if (type==0){
                 d=this.followerService.followIsExit(follower,userId);
                 if (d!=0)continue;
