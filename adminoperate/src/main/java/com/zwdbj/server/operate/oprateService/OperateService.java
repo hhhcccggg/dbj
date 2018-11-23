@@ -7,7 +7,6 @@ import com.zwdbj.server.service.userDeviceTokens.service.UserDeviceTokensService
 import com.zwdbj.server.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -235,7 +234,7 @@ public class OperateService {
                 "炒鸡好看>非常喜欢这个>好萌,好乖>为什么我笑了,是我笑点低吗>超级萌qwq>卡哇伊～>偷猫狗的有没有～>666666" +
                 "6666666>这个要怎么买啊>路过>这个视频我看了好几遍～>太棒了，真是太入境了>人家就想摸摸>在这里在这里，我" +
                 "我～>第一次见，真可爱";
-        stringRedisTemplate.opsForValue().set("REDIS_COMMENTS2",comments);
+        stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments,7,TimeUnit.DAYS);
 
     }
 
@@ -245,8 +244,8 @@ public class OperateService {
     }
 
     public String getRedisComment(){
-        if (this.stringRedisTemplate.hasKey("REDIS_COMMENTS2")){
-           String comment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS2");
+        if (this.stringRedisTemplate.hasKey("REDIS_COMMENTS")){
+           String comment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
            String[] comments = comment.split(">");
            int random = this.getRandom(0,comments.length);
            String contentTxt = comments[random];
