@@ -33,7 +33,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(IncreaseHeartAndPlayCountJob.class)
                 .withIdentity("job1", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0/12 8-23 * * ?");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0/3 8-23 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger1", "group2")
                 .withSchedule(scheduleBuilder)
@@ -68,7 +68,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(VideosToUsersJob.class)
                 .withIdentity("job4", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 5 5 * * ?");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 58 14 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger4", "group2")
                 .withSchedule(scheduleBuilder)
