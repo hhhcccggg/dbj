@@ -116,8 +116,8 @@ public class QuartzService {
             int count =  new Double(Math.ceil(videoHeartAndPlayCountDtos.size()*0.8)).intValue();
             for (int j=0; j<count; j++) {
                 VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0,videoHeartAndPlayCountDtos.size()));
-                int dianzhan = this.operateService.getRandom(20, 37);
-                int pinlun = this.operateService.getRandom(4, 7);
+                int dianzhan = this.operateService.getRandom(18, 34);
+                int pinlun = this.operateService.getRandom(3, 6);
                 int fenxiang = this.operateService.getRandom(1, 3);
                 int addPlayCount = this.operateService.getRandom(50, 201);
                 this.videoService.updateField("playCount=playCount+" + addPlayCount, dto.getId());
@@ -128,7 +128,6 @@ public class QuartzService {
                 int comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
                 int tem = 0;
                 String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
-                logger.info(redisComment);
                 String[] redisComments ={};
                 if (redisComment!=null)
                     redisComments = redisComment.split(">");
