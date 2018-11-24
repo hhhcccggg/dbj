@@ -81,11 +81,11 @@ public class CommentService {
                 videoCommentId5 = videoCommentIds.get(v3);
                 this.stringRedisTemplate.opsForValue().set(resourceOwnerId+"videoCommentId5",String.valueOf(videoCommentId5),3, TimeUnit.DAYS);
             }
-            long commentHeart1 = Math.round(videoHeart/(Math.random()+6));
+            long commentHeart1 = Math.round(videoHeart/(Math.random()+7));
             this.commentMapper.updateheart(videoCommentId1,commentHeart1);
-            long commentHeart2 = Math.round(commentHeart1/9.0);
+            long commentHeart2 = Math.round(commentHeart1/7.0);
             this.commentMapper.updateheart(videoCommentId2,commentHeart2);
-            long commentHeart3 = Math.round(commentHeart1/20.0);
+            long commentHeart3 = Math.round(commentHeart1/15.0);
             this.commentMapper.updateheart(videoCommentId3,commentHeart3);
             long commentHeart4 = this.operateService.getRandom(2,6);
             this.commentMapper.updateheart(videoCommentId4,commentHeart4);
