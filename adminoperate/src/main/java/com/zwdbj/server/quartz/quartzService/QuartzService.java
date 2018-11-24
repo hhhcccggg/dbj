@@ -1,6 +1,7 @@
 package com.zwdbj.server.quartz.quartzService;
 
 import com.zwdbj.server.operate.oprateService.OperateService;
+import com.zwdbj.server.service.comment.service.CommentService;
 import com.zwdbj.server.service.dailyIncreaseAnalysises.service.DailyIncreaseAnalysisesService;
 import com.zwdbj.server.service.dataVideos.model.DataVideosDto;
 import com.zwdbj.server.service.dataVideos.service.DataVideosService;
@@ -11,10 +12,10 @@ import com.zwdbj.server.service.video.service.VideoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,8 @@ import java.util.List;
 public class QuartzService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisTemplate<String,String> redisTemplate;
     @Autowired
     UserService userService;
     @Autowired
@@ -36,6 +39,8 @@ public class QuartzService {
     FollowerService followerService;
     @Autowired
     DataVideosService dataVideosService;
+    @Autowired
+    CommentService commentService;
 
     private Logger logger = LoggerFactory.getLogger(QuartzService.class);
 
@@ -121,22 +126,29 @@ public class QuartzService {
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
                 this.videoService.updateField("shareCount=shareCount+" + new Double(Math.ceil(addHeartCount * fenxiang / 100.0)).longValue(), dto.getId());
                 int comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
+                int tem = 0;
                 String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
-                logger.info(this.stringRedisTemplate.opsForValue().toString());
                 logger.info(redisComment);
                 String[] redisComments ={};
                 if (redisComment!=null)
                     redisComments = redisComment.split(">");
                 int size = redisComments.length;
-                if (dto.getCommentCount()>=size)comment=0;
-                int tem = 0;
-                for (int i = 0; i < comment; i++) {
-                    int gg = this.operateService.commentVideo1(dto.getId());
-                    if (gg==0)tem--;
+                if (dto.getCommentCount()>=(size+99))comment=0;
+                for (int i = 0; i < comment; i++){
+                    if (this.redisTemplate.hasKey(dto.getId()+"_COMMENTS") && this.redisTemplate.opsForList().size(dto.getId()+"_COMMENTS")!=0){
+                        long userId = this.operateService.getVestUserId1();
+                        String videoComment = this.redisTemplate.opsForList().rightPop(dto.getId()+"_COMMENTS");
+                        logger.info(videoComment);
+                        this.commentService.greatComment(userId,videoComment,dto.getId());
+                    }else {
+                        int gg = this.operateService.commentVideo1(dto.getId());
+                        if (gg==0)tem--;
+                    }
                 }
                 comment = comment + tem;
                 if (comment==0)return;
                 this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
+                if (dto.getCommentCount()>10) this.commentService.addCommentHeart(dto.getId());
                 logger.info("播放量不超过8000=++++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             }
         }catch(Exception e){
@@ -188,6 +200,7 @@ public class QuartzService {
      */
     public void videosToUser(){
         try {
+            logger.info("我是增加视频开始");
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"v";
             int videosNum = this.dataVideosService.getDataVideos();
             int newVideoNum = 0;
@@ -209,6 +222,7 @@ public class QuartzService {
                 this.videoService.newVideoFromData(userId,dataVideosDto);
                 this.dataVideosService.updateDataVideoStatus(dataVideosDto.getId());
             }
+            logger.info("我是增加视频结束");
         }catch (Exception e){
             logger.error("增加视频异常"+e.getMessage());
         }

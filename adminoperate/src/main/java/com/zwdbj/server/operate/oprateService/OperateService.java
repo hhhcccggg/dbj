@@ -239,7 +239,7 @@ public class OperateService {
                 "6666666>这个要怎么买啊>路过>这个视频我看了好几遍～>太棒了，真是太入境了>人家就想摸摸>在这里在这里，我" +
                 "我～>第一次见，真可爱";
         logger.info("redisComments11111");
-        stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments,7,TimeUnit.DAYS);
+        stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments);
         logger.info("redisComments22222");
 
     }
@@ -284,7 +284,6 @@ public class OperateService {
         String videoIds = videoId.toString();
         Long userId = this.getVestUserId1();
         String contentTxt = this.getRedisComment();
-        logger.info(contentTxt);
         int gg=0;
         List<String> list = new ArrayList<>();
         if (this.redisTemplate.hasKey(videoIds + ":"))
@@ -294,8 +293,7 @@ public class OperateService {
         } else {
             this.redisTemplate.opsForList().leftPush(videoIds + ":",contentTxt);
         }
-        Long id = UniqueIDCreater.generateID();
-        gg = this.commentService.greatComment(id, userId, contentTxt, videoId);
+        gg = this.commentService.greatComment(userId, contentTxt, videoId);
         return gg;
     }
 

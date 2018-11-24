@@ -10,7 +10,15 @@ public class DataVideosDto {
     private float firstFrameWidth;
     private float firstFrameHeight;
     private String videoUrl;
+    private  String comments;
 
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 
     public String getId() {
         return id;

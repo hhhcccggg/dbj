@@ -20,7 +20,6 @@ public class DataVideosService {
     public DataVideosDto getOneDataVideo(){
         DataVideosDto dataVideosDto = this.dataVideosMapper.getOneDataVideo();
         String title = dataVideosDto.getTitle();
-        //String pattern = "^([^\\@]*)\\@.*$";
         Pattern r = Pattern.compile("@");
         title = r.split(title)[0];
         Pattern r1 = Pattern.compile("抖音小助手");
@@ -34,4 +33,5 @@ public class DataVideosService {
     public void updateDataVideoStatus(String id){
         this.dataVideosMapper.updateDataVideoStatus(id);
     }
+
 }
