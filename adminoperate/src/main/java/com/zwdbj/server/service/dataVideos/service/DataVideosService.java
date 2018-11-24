@@ -2,6 +2,7 @@ package com.zwdbj.server.service.dataVideos.service;
 
 import com.zwdbj.server.service.dataVideos.mapper.IDataVideosMapper;
 import com.zwdbj.server.service.dataVideos.model.DataVideosDto;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class DataVideosService {
         title = r.split(title)[0];
         Pattern r1 = Pattern.compile("抖音小助手");
         title = r1.split(title)[0];
+        if (title.length()==0)title= UniqueIDCreater.generatePhoneCode().substring(1,3);
         dataVideosDto.setTitle(title);
         dataVideosDto.setFirstFrameUrl(dataVideosDto.getCoverImageUrl());
         dataVideosDto.setFirstFrameHeight(dataVideosDto.getCoverImageHeight());
