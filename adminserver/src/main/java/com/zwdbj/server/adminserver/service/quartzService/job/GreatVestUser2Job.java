@@ -1,3 +1,4 @@
+/*
 package com.zwdbj.server.adminserver.service.quartzService.job;
 
 import com.zwdbj.server.adminserver.service.quartzService.QuartzService;
@@ -19,3 +20,4 @@ public class GreatVestUser2Job extends QuartzJobBean implements Serializable {
         this.quartzService.greatVestUser();
     }
 }
+*/

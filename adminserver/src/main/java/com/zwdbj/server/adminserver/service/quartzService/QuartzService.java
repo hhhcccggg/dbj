@@ -1,6 +1,5 @@
 package com.zwdbj.server.adminserver.service.quartzService;
 
-import com.zwdbj.server.adminserver.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.adminserver.service.complain.model.UserComplainDto;
 import com.zwdbj.server.adminserver.service.complain.service.ComplainService;
 import com.zwdbj.server.adminserver.service.dailyIncreaseAnalysises.service.DailyIncreaseAnalysisesService;
@@ -15,6 +14,7 @@ import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -29,8 +29,6 @@ public class QuartzService {
     VideoService videoService;
     @Autowired
     LivingService livingService;
-    @Autowired
-    EaseMobChatRoom easeMobChatRoom ;
     @Autowired
     QiniuService qiniuService ;
     @Autowired
@@ -118,61 +116,4 @@ public class QuartzService {
         }
     }
 
-    /**
-     * 每天增加马甲用户
-     */
-    public void greatVestUser(){
-        try {
-            for (int i = 1; i <= 50; i++) {
-                if (i%5==0){
-                    this.operateService.newVestUser1();
-                    logger.info("我是默认马甲"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%5==2){
-                    this.operateService.newVestUser2(2);
-                    logger.info("我是不同的马甲2: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%5==3 || i%5==1){
-                    this.operateService.newVestUser2(3);
-                    logger.info("我是不同的马甲3: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%5==4){
-                    this.operateService.newVestUser2(4);
-                    logger.info("我是不同的马甲4: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }
-            }
-        }catch (Exception e){
-            logger.info("增加用户异常"+e.getMessage());
-        }
-    }
-
-    /**
-     * 定时增加视频的播放量和点赞量
-     */
-    public void increaseHeartAndPlayCount() {
-        try {
-            logger.info("定时增加视频的播放量和点赞量++++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
-            List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
-            if (videoHeartAndPlayCountDtos == null) return;
-            int count =  new Double(Math.ceil(videoHeartAndPlayCountDtos.size()*0.8)).intValue();
-            for (int j=0; j<count; j++) {
-                VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0,videoHeartAndPlayCountDtos.size()));
-                int dianzhan = this.operateService.getRandom(20, 37);
-                int pinlun = this.operateService.getRandom(4, 7);
-                int fenxiang = this.operateService.getRandom(5, 9);
-                int addPlayCount = this.operateService.getRandom(50, 201);
-                this.videoService.updateField("playCount=playCount+" + addPlayCount, dto.getId());
-                this.videoService.updateField("heartCount=heartCount+" + new Double(Math.ceil(addPlayCount * dianzhan / 100.0)).longValue(), dto.getId());
-                Long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
-                this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
-                this.videoService.updateField("shareCount=shareCount+" + new Double(Math.ceil(addHeartCount * fenxiang / 100.0)).longValue(), dto.getId());
-                int comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
-                for (int i = 0; i < comment; i++) {
-                    this.operateService.commentVideo1(dto.getId());
-                }
-                this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
-                logger.info("播放量不超过8000=++++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
-            }
-            }catch(Exception e){
-                logger.info("increaseHeartAndPlayCount异常" + e.getMessage());
-            }
-
-        }
     }

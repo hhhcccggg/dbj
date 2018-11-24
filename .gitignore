@@ -35,3 +35,6 @@ workspace.xml
 /2_0_dbdesign/db/db.o2o/obj
 /2_0_dbdesign/db/dbdesgin/bin
 /2_0_dbdesign/db/dbdesgin/obj
+/adminoperate/target
+/2_0_dbdesign/db/db.common/bin
+/2_0_dbdesign/db/db.common/obj

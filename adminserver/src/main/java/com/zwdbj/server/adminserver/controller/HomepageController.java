@@ -44,7 +44,7 @@ public class HomepageController {
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
     public ResponsePageInfoData<List<AdUserOrVideoGrowthDto>> userGrowthAd(@RequestBody AdFindIncreasedInput input,
                                                                            @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                                           @RequestParam(value = "rows",required = true,defaultValue = "13") int rows){
+                                                                           @RequestParam(value = "rows",required = true,defaultValue = "31") int rows){
         Page<AdUserOrVideoGrowthDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<AdUserOrVideoGrowthDto> dtos= this.homepageService.userGrowthAd(input);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
@@ -56,7 +56,7 @@ public class HomepageController {
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
     public ResponsePageInfoData<List<AdUserOrVideoGrowthDto>> videoGrowthAd(@RequestBody AdFindIncreasedInput input,
                                                                            @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                                           @RequestParam(value = "rows",required = true,defaultValue = "13") int rows){
+                                                                           @RequestParam(value = "rows",required = true,defaultValue = "31") int rows){
         Page<AdUserOrVideoGrowthDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<AdUserOrVideoGrowthDto> dtos= this.homepageService.videoGrowthAd(input);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
@@ -67,11 +67,12 @@ public class HomepageController {
     @ApiOperation("热门标签")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
     public ResponsePageInfoData<List<AdFindHotTagsDto>> findHotTagsAd(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                                      @RequestParam(value = "rows",required = true,defaultValue = "13") int rows){
+                                                                      @RequestParam(value = "rows",required = true,defaultValue = "20") int rows){
         Page<AdFindHotTagsDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<AdFindHotTagsDto> dtos= this.homepageService.findHotTags();
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
     }
+
 
 
 }

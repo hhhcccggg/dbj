@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.shiro;
 
+import com.zwdbj.server.utility.common.shiro.JWTFilter;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -10,6 +11,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 
 import javax.servlet.Filter;
 import java.util.HashMap;

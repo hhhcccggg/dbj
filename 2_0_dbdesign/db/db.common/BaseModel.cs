@@ -21,5 +21,10 @@ namespace db.common
         public Boolean IsDeleted { get; set; }
         [Column("deleteTime", TypeName = "timestamp")]
         public DateTime? DeleteTime { get; set; }
+        /// <summary>
+        /// 是否手动生成的数据
+        /// </summary>
+        /// <value><c>true</c> if is manual data; otherwise, <c>false</c>.</value>
+        public bool isManualData { get; set; }
     }
 }

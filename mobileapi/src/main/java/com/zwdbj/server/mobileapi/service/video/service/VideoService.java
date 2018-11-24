@@ -21,7 +21,7 @@ import com.zwdbj.server.mobileapi.service.video.mapper.IVideoMapper;
 import com.zwdbj.server.mobileapi.service.heart.model.HeartModel;
 import com.zwdbj.server.mobileapi.model.HeartInput;
 import com.zwdbj.server.mobileapi.service.video.model.*;
-import com.zwdbj.server.mobileapi.shiro.JWTUtil;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

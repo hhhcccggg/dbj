@@ -44,6 +44,10 @@ namespace dbdesgin.Migrations
                     b.Property<string>("downloadUrl")
                         .HasMaxLength(512);
 
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<int>("platform");
 
                     b.Property<string>("title")
@@ -84,9 +88,18 @@ namespace dbdesgin.Migrations
                         .HasColumnName("isDeleted")
                         .HasDefaultValue(false);
 
+                    b.Property<string>("iconUrl")
+                        .HasMaxLength(512);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(20);
+
+                    b.Property<int>("orderIndex");
 
                     b.Property<long>("parentId")
                         .ValueGeneratedOnAdd()
@@ -131,6 +144,10 @@ namespace dbdesgin.Migrations
                     b.Property<long>("heartCount")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0L);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
 
                     b.Property<bool>("isOwner")
                         .ValueGeneratedOnAdd()
@@ -192,6 +209,10 @@ namespace dbdesgin.Migrations
 
                     b.Property<long>("fromUserId");
 
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<long>("reasonId");
 
                     b.Property<string>("snapshotUrl")
@@ -250,6 +271,10 @@ namespace dbdesgin.Migrations
                         .HasColumnName("isDeleted")
                         .HasDefaultValue(false);
 
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<long>("newOrders")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0L);
@@ -294,6 +319,10 @@ namespace dbdesgin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
 
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<long>("userId");
 
                     b.HasKey("Id");
@@ -320,6 +349,10 @@ namespace dbdesgin.Migrations
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
 
                     b.Property<long>("resourceOwnerId");
@@ -389,6 +422,10 @@ namespace dbdesgin.Migrations
                         .HasMaxLength(512);
 
                     b.Property<bool>("isLiving")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("isManualData")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
 
@@ -472,6 +509,10 @@ namespace dbdesgin.Migrations
                     b.Property<string>("dataContent")
                         .HasMaxLength(2048);
 
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<int>("messageType")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
@@ -521,6 +562,10 @@ namespace dbdesgin.Migrations
                         .HasColumnName("isDeleted")
                         .HasDefaultValue(false);
 
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<long>("receivedUserId");
 
                     b.Property<long>("refMessageId");
@@ -566,6 +611,10 @@ namespace dbdesgin.Migrations
                     b.Property<long?>("creatorUserId");
 
                     b.Property<float?>("duration");
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
 
                     b.Property<string>("musicUrl")
                         .HasMaxLength(512);
@@ -633,6 +682,10 @@ namespace dbdesgin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0L);
 
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<string>("nickName")
                         .IsRequired()
                         .HasMaxLength(20);
@@ -677,6 +730,10 @@ namespace dbdesgin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
 
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<string>("resContent")
                         .HasMaxLength(512);
 
@@ -718,6 +775,10 @@ namespace dbdesgin.Migrations
 
                     b.Property<string>("goods")
                         .HasMaxLength(1024);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
 
                     b.Property<long>("resourceId");
 
@@ -784,6 +845,10 @@ namespace dbdesgin.Migrations
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
 
                     b.Property<string>("name")
@@ -866,10 +931,6 @@ namespace dbdesgin.Migrations
                         .HasColumnName("birthday")
                         .HasColumnType("timestamp");
 
-                    b.Property<long>("coins")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(0L);
-
                     b.Property<int>("complainCount")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
@@ -893,6 +954,10 @@ namespace dbdesgin.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<bool>("isManager")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("isManualData")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
 
@@ -990,6 +1055,10 @@ namespace dbdesgin.Migrations
                     b.Property<string>("deviceType")
                         .HasMaxLength(20);
 
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<long>("userId")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0L);
@@ -1043,6 +1112,10 @@ namespace dbdesgin.Migrations
                     b.Property<int>("accountType");
 
                     b.Property<long>("exipreIn");
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
 
                     b.Property<string>("nickName")
                         .ValueGeneratedOnAdd()
@@ -1119,6 +1192,10 @@ namespace dbdesgin.Migrations
                         .HasDefaultValue(0L);
 
                     b.Property<bool>("isHiddenLocation")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("isManualData")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
 

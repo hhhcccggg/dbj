@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.shiro;
 import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.user.model.UserAuthInfoModel;
+import com.zwdbj.server.utility.common.shiro.JWTToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;

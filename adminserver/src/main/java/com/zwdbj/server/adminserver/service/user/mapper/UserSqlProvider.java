@@ -16,9 +16,6 @@ public class UserSqlProvider {
                 .SELECT("count(id) as userNum ")
                 .FROM("core_users")
                 .WHERE("isSuper=0");
-        if (!input.isTof()){
-            sql.WHERE("(phone not like '56%' or phone is null)");
-        }
         if (input.getQuantumTime()==0){
             sql.WHERE("TO_DAYS(createTime) = TO_DAYS(NOW())");
         }else if (input.getQuantumTime()==1){
@@ -119,7 +116,6 @@ public class UserSqlProvider {
                 .SELECT("u.*,(SELECT COUNT(id) FROM core_pets AS pet WHERE pet.userId = u.id) AS petCount,(SELECT COUNT(id) FROM core_videos AS vd WHERE vd.userId = u.id) AS videoCount")
                 .FROM("core_users u")
                 .LEFT_OUTER_JOIN("core_userRoles r on r.userId=u.id");
-        sql.WHERE("u.isSuper=0 and (phone not like '56%' or phone is null)");
         if (model.getKeyWords() !=null && model.getKeyWords().length()>0 ) {
             sql.WHERE(String.format("u.id like '%s'", ("%" + model.getKeyWords() + "%")))
                     .OR()

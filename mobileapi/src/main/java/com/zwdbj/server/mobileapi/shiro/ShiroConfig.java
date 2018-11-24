@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.shiro;
 
+import com.zwdbj.server.utility.common.shiro.JWTFilter;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
