@@ -38,4 +38,8 @@ public class DailyIncreaseAnalysisesService {
         List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesMapper.videoGrowthAd(input);
         return growthDtos;
     }
+
+    public long dau(){
+        return this.dailyIncreaseAnalysisesMapper.dau();
+    }
 }

@@ -23,5 +23,7 @@ public interface IDailyIncreaseAnalysisesMapper {
 
     @SelectProvider(type =DailyincreaseaSqlProvider.class,method = "videoGrowthAd")
     List<AdUserOrVideoGrowthDto> videoGrowthAd(@Param("input")AdFindIncreasedInput input);
+    @Select("select SUM(newUsers) FROM core_dailyIncreaseAnalysises where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime)")
+    long dau();
 
 }
