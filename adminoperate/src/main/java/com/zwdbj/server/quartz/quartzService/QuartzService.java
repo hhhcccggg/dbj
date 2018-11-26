@@ -114,6 +114,7 @@ public class QuartzService {
             List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
             if (videoHeartAndPlayCountDtos == null) return;
             int count =  (int)Math.ceil(videoHeartAndPlayCountDtos.size()*0.8);
+            logger.info("次数为："+count);
             for (int j=0; j<count; j++) {
                 VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0,videoHeartAndPlayCountDtos.size()));
                 int dianzhan = this.operateService.getRandom(18, 34);
@@ -132,7 +133,7 @@ public class QuartzService {
                 if (redisComment!=null)
                     redisComments = redisComment.split(">");
                 int size = redisComments.length;
-                if (dto.getCommentCount()>=(size+99))comment=0;
+                if (dto.getCommentCount()>=(size+99))continue;
                 for (int i = 0; i < comment; i++){
                     if (this.redisTemplate.hasKey(dto.getId()+"_COMMENTS") && this.redisTemplate.opsForList().size(dto.getId()+"_COMMENTS")!=0){
                         long userId = this.operateService.getVestUserId1();
@@ -145,7 +146,7 @@ public class QuartzService {
                     }
                 }
                 comment = comment + tem;
-                if (comment==0)return;
+                if (comment==0)continue;
                 this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
                 if (dto.getCommentCount()>10) this.commentService.addCommentHeart(dto.getId());
                 logger.info("播放量不超过8000总视频数量："+videoHeartAndPlayCountDtos.size()+"++++实际数量，第"+j+"个+++++"+ new SimpleDateFormat("HH:mm:ss").format(new Date()));
