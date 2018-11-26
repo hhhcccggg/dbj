@@ -150,7 +150,7 @@ public class QuartzService {
                 comment = comment + tem;
                 if (comment==0)continue;
                 this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
-                if (dto.getCommentCount()>10) this.commentService.addCommentHeart(dto.getId());
+                if (dto.getCommentCount()>=10) this.commentService.addCommentHeart(dto.getId());
                 logger.info("播放量不超过8000总视频数量："+videoHeartAndPlayCountDtos.size()+"++++实际数量，第"+j+"个+++++"+ new SimpleDateFormat("HH:mm:ss").format(new Date()));
             }
         }catch(Exception e){

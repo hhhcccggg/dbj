@@ -35,6 +35,7 @@ public class CommentService {
     public void addCommentHeart(long resourceOwnerId){
         List<Long> videoCommentIds = this.getVideoCommentIds(resourceOwnerId);
         if (videoCommentIds!=null && videoCommentIds.size()!=0){
+            if (videoCommentIds.size()<10)return;
             long videoHeart = this.videoService.findVideoHeartCount(resourceOwnerId);
             int v1 = this.operateService.getRandom(3,9);
             int v2=0;
