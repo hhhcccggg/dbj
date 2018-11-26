@@ -299,7 +299,7 @@ public class OperateService {
             return gg;
         }catch (RuntimeException e){
             logger.error("获取redis评论异常"+e.getMessage());
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException();
         }
 
     }
