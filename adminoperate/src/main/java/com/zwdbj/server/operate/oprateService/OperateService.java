@@ -287,11 +287,14 @@ public class OperateService {
             String contentTxt = this.getRedisComment();
             logger.info("视频id:"+videoIds+",评论内容为："+contentTxt);
             int gg=0;
-            List<String> list = new ArrayList<>();
-            if (this.redisTemplate.hasKey(videoIds + ":"))
-                list = this.redisTemplate.opsForList().range(videoIds + ":", 0, -1);
-            if (list.contains(contentTxt)) {
-                return gg;
+            if (this.redisTemplate.hasKey(videoIds + ":")){
+                List<String>  list = this.redisTemplate.opsForList().range(videoIds + ":", 0, -1);
+                if (list==null || list.size()==0)return gg;
+                if (list.contains(contentTxt)){
+                    return gg;
+                }else {
+                    this.redisTemplate.opsForList().leftPush(videoIds + ":",contentTxt);
+                }
             } else {
                 this.redisTemplate.opsForList().leftPush(videoIds + ":",contentTxt);
             }
