@@ -192,6 +192,8 @@ namespace dbdesgin.Data
 
             //Follower
             var followerEntity = modelBuilder.Entity<Follower>();
+            followerEntity.HasIndex(cw => cw.userId);
+            followerEntity.HasIndex(cw => cw.followerUserId);
             followerEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             followerEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
             followerEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
