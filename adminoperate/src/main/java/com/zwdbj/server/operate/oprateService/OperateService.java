@@ -281,7 +281,6 @@ public class OperateService {
     }
 
     public int commentVideo1(Long videoId) {
-        try {
             String videoIds = videoId.toString();
             Long userId = this.getVestUserId1();
             String contentTxt = this.getRedisComment();
@@ -300,15 +299,7 @@ public class OperateService {
             }
             gg = this.commentService.greatComment(userId, contentTxt, videoId);
             return gg;
-        }catch (RuntimeException e){
-            logger.error("获取redis评论异常"+e.getMessage());
-            throw new RuntimeException();
-        }
 
     }
-
-
-
-
 
 }
