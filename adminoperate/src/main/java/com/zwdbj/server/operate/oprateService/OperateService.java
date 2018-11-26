@@ -284,6 +284,7 @@ public class OperateService {
         String videoIds = videoId.toString();
         Long userId = this.getVestUserId1();
         String contentTxt = this.getRedisComment();
+        logger.info("视频id:"+videoIds+",评论内容为："+contentTxt);
         int gg=0;
         List<String> list = new ArrayList<>();
         if (this.redisTemplate.hasKey(videoIds + ":"))
