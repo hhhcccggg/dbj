@@ -112,8 +112,9 @@ public class QuartzService {
         try {
             logger.info("定时增加视频的播放量和点赞量++++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
-            if (videoHeartAndPlayCountDtos == null) return;
-            int count =  (int)Math.round(videoHeartAndPlayCountDtos.size()*0.8);
+            if (videoHeartAndPlayCountDtos == null || videoHeartAndPlayCountDtos.size()==0) return;
+            int videosSize = videoHeartAndPlayCountDtos.size();
+            int count =  (int)Math.round(videosSize*0.8);
             logger.info("次数为："+count);
             String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
             String[] redisComments ={};
@@ -121,7 +122,7 @@ public class QuartzService {
                 redisComments = redisComment.split(">");
             int size = redisComments.length;
             for (int j=0; j<count; j++) {
-                VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0,videoHeartAndPlayCountDtos.size()));
+                VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0,videosSize));
                 int dianzhan = this.operateService.getRandom(18, 34);
                 int pinlun = this.operateService.getRandom(3, 6);
                 int fenxiang = this.operateService.getRandom(1, 3);
@@ -154,7 +155,6 @@ public class QuartzService {
             }
         }catch(Exception e){
             logger.error("increaseHeartAndPlayCount异常" + e.getMessage());
-            throw  new RuntimeException();
         }
     }
 
