@@ -113,7 +113,7 @@ public class QuartzService {
             logger.info("定时增加视频的播放量和点赞量++++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
             if (videoHeartAndPlayCountDtos == null) return;
-            int count =  (int)Math.ceil(videoHeartAndPlayCountDtos.size()*0.8);
+            int count =  (int)Math.round(videoHeartAndPlayCountDtos.size()*0.8);
             logger.info("次数为："+count);
             for (int j=0; j<count; j++) {
                 VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0,videoHeartAndPlayCountDtos.size()));
@@ -122,11 +122,11 @@ public class QuartzService {
                 int fenxiang = this.operateService.getRandom(1, 3);
                 int addPlayCount = this.operateService.getRandom(50, 201);
                 this.videoService.updateField("playCount=playCount+" + addPlayCount, dto.getId());
-                this.videoService.updateField("heartCount=heartCount+" + new Double(Math.ceil(addPlayCount * dianzhan / 100.0)).longValue(), dto.getId());
+                this.videoService.updateField("heartCount=heartCount+" + Math.round(addPlayCount * dianzhan / 100.0), dto.getId());
                 Long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
-                this.videoService.updateField("shareCount=shareCount+" + new Double(Math.ceil(addHeartCount * fenxiang / 100.0)).longValue(), dto.getId());
-                int comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
+                this.videoService.updateField("shareCount=shareCount+" + Math.round(addHeartCount * fenxiang / 100.0), dto.getId());
+                int comment = (int) Math.round(addHeartCount * pinlun / 100.0);
                 int tem = 0;
                 String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
                 String[] redisComments ={};
