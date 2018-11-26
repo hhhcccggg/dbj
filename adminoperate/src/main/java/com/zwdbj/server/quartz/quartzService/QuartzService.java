@@ -127,6 +127,7 @@ public class QuartzService {
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
                 this.videoService.updateField("shareCount=shareCount+" + Math.round(addHeartCount * fenxiang / 100.0), dto.getId());
                 int comment = (int) Math.round(addHeartCount * pinlun / 100.0);
+                if (comment==0)continue;
                 int tem = 0;
                 String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
                 String[] redisComments ={};
