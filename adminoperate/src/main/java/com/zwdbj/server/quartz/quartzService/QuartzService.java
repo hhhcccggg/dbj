@@ -153,6 +153,7 @@ public class QuartzService {
             }
         }catch(Exception e){
             logger.error("increaseHeartAndPlayCount异常" + e.getMessage());
+            throw  new RuntimeException(e.getMessage());
         }
     }
 

@@ -281,21 +281,27 @@ public class OperateService {
     }
 
     public int commentVideo1(Long videoId) {
-        String videoIds = videoId.toString();
-        Long userId = this.getVestUserId1();
-        String contentTxt = this.getRedisComment();
-        logger.info("视频id:"+videoIds+",评论内容为："+contentTxt);
-        int gg=0;
-        List<String> list = new ArrayList<>();
-        if (this.redisTemplate.hasKey(videoIds + ":"))
-             list = this.redisTemplate.opsForList().range(videoIds + ":", 0, -1);
-        if (list.contains(contentTxt)) {
+        try {
+            String videoIds = videoId.toString();
+            Long userId = this.getVestUserId1();
+            String contentTxt = this.getRedisComment();
+            logger.info("视频id:"+videoIds+",评论内容为："+contentTxt);
+            int gg=0;
+            List<String> list = new ArrayList<>();
+            if (this.redisTemplate.hasKey(videoIds + ":"))
+                list = this.redisTemplate.opsForList().range(videoIds + ":", 0, -1);
+            if (list.contains(contentTxt)) {
+                return gg;
+            } else {
+                this.redisTemplate.opsForList().leftPush(videoIds + ":",contentTxt);
+            }
+            gg = this.commentService.greatComment(userId, contentTxt, videoId);
             return gg;
-        } else {
-            this.redisTemplate.opsForList().leftPush(videoIds + ":",contentTxt);
+        }catch (RuntimeException e){
+            logger.error("获取redis评论异常"+e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
-        gg = this.commentService.greatComment(userId, contentTxt, videoId);
-        return gg;
+
     }
 
 
