@@ -115,6 +115,11 @@ public class QuartzService {
             if (videoHeartAndPlayCountDtos == null) return;
             int count =  (int)Math.round(videoHeartAndPlayCountDtos.size()*0.8);
             logger.info("次数为："+count);
+            String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
+            String[] redisComments ={};
+            if (redisComment!=null)
+                redisComments = redisComment.split(">");
+            int size = redisComments.length;
             for (int j=0; j<count; j++) {
                 VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0,videoHeartAndPlayCountDtos.size()));
                 int dianzhan = this.operateService.getRandom(18, 34);
@@ -123,17 +128,12 @@ public class QuartzService {
                 int addPlayCount = this.operateService.getRandom(50, 201);
                 this.videoService.updateField("playCount=playCount+" + addPlayCount, dto.getId());
                 this.videoService.updateField("heartCount=heartCount+" + Math.round(addPlayCount * dianzhan / 100.0), dto.getId());
-                Long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
+                long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
                 this.videoService.updateField("shareCount=shareCount+" + Math.round(addHeartCount * fenxiang / 100.0), dto.getId());
                 int comment = (int) Math.round(addHeartCount * pinlun / 100.0);
                 if (comment==0)continue;
                 int tem = 0;
-                String redisComment =  this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
-                String[] redisComments ={};
-                if (redisComment!=null)
-                    redisComments = redisComment.split(">");
-                int size = redisComments.length;
                 if (dto.getCommentCount()>=(size+99))continue;
                 for (int i = 0; i < comment; i++){
                     if (this.redisTemplate.hasKey(dto.getId()+"_COMMENTS") && this.redisTemplate.opsForList().size(dto.getId()+"_COMMENTS")!=0){
@@ -154,7 +154,7 @@ public class QuartzService {
             }
         }catch(Exception e){
             logger.error("increaseHeartAndPlayCount异常" + e.getMessage());
-            throw  new RuntimeException(e.getMessage());
+            throw  new RuntimeException();
         }
     }
 
