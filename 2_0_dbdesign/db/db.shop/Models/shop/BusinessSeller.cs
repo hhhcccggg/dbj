@@ -108,6 +108,7 @@ namespace db.shop.Models.shop
         /// 封面图
         /// </summary>
         /// <value>The main conver image.</value>
+        [MaxLength(128)]
         public String mainConverImage { get; set; }
         /// <summary>
         /// 封面图地址，多个用,隔开

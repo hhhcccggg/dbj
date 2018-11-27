@@ -40,3 +40,4 @@ workspace.xml
 /2_0_dbdesign/db/db.common/obj
 obj
 bin
+/shop/shop-service/target

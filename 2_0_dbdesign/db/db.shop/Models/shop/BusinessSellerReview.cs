@@ -7,7 +7,7 @@ namespace db.shop.Models.shop
     /// <summary>
     /// 认证资料&审核情况
     /// </summary>
-    [Table("o2o_offlineStoreReviews")]
+    [Table("shop_offlineStoreReviews")]
     public class BusinessSellerReview:BaseModelWithTime<long>
     {
         [Required]

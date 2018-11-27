@@ -56,7 +56,7 @@ namespace db.shop.Models.shop
         [MaxLength(512)]
         public String cityLevel { get; set; }
         [Column("updateTime", TypeName = "timestamp")]
-        public DateTime updateTime { get; set; }
+        public DateTime? updateTime { get; set; }
         /// <summary>
         /// 是否为默认地址
         /// </summary>

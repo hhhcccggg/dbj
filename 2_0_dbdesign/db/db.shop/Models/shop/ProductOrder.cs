@@ -32,31 +32,31 @@ namespace db.shop.Models.shop
         /// </summary>
         /// <value>The update time.</value>
         [Column("updateTime", TypeName = "timestamp")]
-        public DateTime updateTime { get; set; }
+        public DateTime? updateTime { get; set; }
         /// <summary>
         /// 付款时间
         /// </summary>
         /// <value>The payment time.</value>
         [Column("paymentTime", TypeName = "timestamp")]
-        public DateTime paymentTime { get; set; }
+        public DateTime? paymentTime { get; set; }
         /// <summary>
         /// 发货时间
         /// </summary>
         /// <value>The payment time.</value>
         [Column("deliveryTime", TypeName = "timestamp")]
-        public DateTime deliveryTime { get; set; }
+        public DateTime? deliveryTime { get; set; }
         /// <summary>
         /// 交易结束时间
         /// </summary>
         /// <value>The end time.</value>
         [Column("endTime", TypeName = "timestamp")]
-        public DateTime endTime { get; set; }
+        public DateTime? endTime { get; set; }
         /// <summary>
         /// 交易关闭时间
         /// </summary>
         /// <value>The close time.</value>
         [Column("closeTime", TypeName = "timestamp")]
-        public DateTime closeTime { get; set; }
+        public DateTime? closeTime { get; set; }
         /// <summary>
         /// 物流名字
         /// </summary>
