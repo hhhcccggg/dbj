@@ -33,4 +33,6 @@ public interface IVideoMapper {
             "#{dataVideosDto.firstFrameUrl},#{dataVideosDto.firstFrameWidth},#{dataVideosDto.firstFrameHeight}," +
             "#{dataVideosDto.videoUrl},0,#{userId},true)")
     int newVideoFromData(@Param("id")long id, @Param("userId")long userId, @Param("dataVideosDto")DataVideosDto dataVideosDto);
+
+
 }
