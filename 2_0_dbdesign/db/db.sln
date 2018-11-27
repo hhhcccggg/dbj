@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "db.common", "db.common\db.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "db.video", "dbdesgin\db.video.csproj", "{D79DC46A-67EC-4BBB-8179-FE33BDFF9192}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "db.shop", "db.shop\db.shop.csproj", "{1C7C4516-66D8-4741-A1C2-89EE305EB5FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +21,9 @@ Global
 		{D79DC46A-67EC-4BBB-8179-FE33BDFF9192}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D79DC46A-67EC-4BBB-8179-FE33BDFF9192}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D79DC46A-67EC-4BBB-8179-FE33BDFF9192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7C4516-66D8-4741-A1C2-89EE305EB5FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7C4516-66D8-4741-A1C2-89EE305EB5FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7C4516-66D8-4741-A1C2-89EE305EB5FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7C4516-66D8-4741-A1C2-89EE305EB5FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

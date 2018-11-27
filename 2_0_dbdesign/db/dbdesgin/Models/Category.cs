@@ -24,6 +24,11 @@ namespace dbdesgin.Models
         /// </summary>
         /// <value>The index of the order.</value>
         public int orderIndex { get; set; }
+        /// <summary>
+        /// 0:正常1：下线
+        /// </summary>
+        /// <value>The status.</value>
+        public int status { get; set; }
     }
 }
     

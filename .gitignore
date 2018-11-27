@@ -38,3 +38,6 @@ workspace.xml
 /adminoperate/target
 /2_0_dbdesign/db/db.common/bin
 /2_0_dbdesign/db/db.common/obj
+obj
+bin
+/shop/shop-service/target

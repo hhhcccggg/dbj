@@ -47,8 +47,8 @@ public class VideoService {
         String comments = dataVideosDto.getComments();
         if (comments!=null && comments.length()!=0)
             this.setRedisComments(id,comments);
-
     }
+
     public void setRedisComments(long id,String comments){
         Pattern p = Pattern.compile("\\{dbj}");
         String[] ss = p.split(comments);
@@ -56,5 +56,4 @@ public class VideoService {
             this.redisTemplate.opsForList().leftPush(id+"_COMMENTS",ss[i]);
         }
     }
-
 }

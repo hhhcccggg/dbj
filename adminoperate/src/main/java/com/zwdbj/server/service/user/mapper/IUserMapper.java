@@ -12,9 +12,9 @@ public interface IUserMapper {
     long newVestUser(@Param("phone")String phone,@Param("id") long id,@Param("password")String password,@Param("username")String username,
                      @Param("avatarUrl")String avatarUrl,@Param("nickName")String nickName);
 
-    @Insert("insert into core_users(id,username,nickName,avatarUrl,loginType,thirdOpenId,isManualData,IsPhoneVerification) values(#{id}," +
-            "#{username},#{nickName},#{avatarUrl},#{loginType},#{thirdOpenId},true,true)")
-    long newThirdUsers(@Param("id") long id,@Param("username")String username,@Param("avatarUrl")String avatarUrl,
+    @Insert("insert into core_users(id,username,nickName,phone,avatarUrl,loginType,thirdOpenId,isManualData,IsPhoneVerification) values(#{id}," +
+            "#{username},#{nickName},#{phone},#{avatarUrl},#{loginType},#{thirdOpenId},true,true)")
+    long newThirdUsers(@Param("id") long id,@Param("username")String username,@Param("phone")String phone,@Param("avatarUrl")String avatarUrl,
                        @Param("nickName")String nickName,@Param("loginType")int loginType,@Param("thirdOpenId")String thirdOpenId);
     @Select("select id  from core_users where isManualData=true")
     List<Long> getVestUserIds1();
@@ -26,4 +26,9 @@ public interface IUserMapper {
     long updateField(@Param("fields") String fields,@Param("id") long id);
     @Select("select id from core_users where totalFans=0 and totalMyFocuses=0 and isManualData=true")
     List<Long> getNoFollowersUser();
+    @Select("select count(id) from core_users where phone=#{phone}")
+    int phoneIsExist(@Param("phone")String phone);
+
+    @Select("select id from core_users where phone is null and isManualData=true")
+    List<Long> getNullPhone();
 }

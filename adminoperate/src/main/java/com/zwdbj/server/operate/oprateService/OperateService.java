@@ -13,8 +13,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -154,11 +152,37 @@ public class OperateService {
         this.userService.newVestUser(phone,avatarUrl,nickName);
     }
 
+    public String getNewPhone(){
+        String phone="";
+        int b = this.getRandom(0,14);
+        int c = this.getRandom(0,13);
+        String a = String.valueOf(UniqueIDCreater.generateID()).substring(b,b+4)+String.valueOf(UniqueIDCreater.generateID()).substring(c,c+5);
+        int[] ss = {3,5,7,8,9};
+        int s =ss[this.getRandom(0,5)];
+        if (s==9){
+            phone="199"+a.substring(0,8);
+        }else{
+            phone ="1"+s+a;
+        }
+        return phone;
+    }
+    public String getOneOnlyPhone(){
+        String phone = "";
+        boolean isExit = false;
+        do {
+            phone = this.getNewPhone();
+            isExit = this.userService.phoneIsExit(phone);
+        }while (isExit);
+        return phone;
+    }
+
+
     /**
      * 4:微信 8:QQ 16:微博
      * @param type
      */
     public void newThirdUsers(int type){
+        String phone = this.getOneOnlyPhone();
         int avatar = this.getRandom(0,80)+1;
         String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/1%20%28"+avatar+"%29.jpg";
         String s1 = UUID.randomUUID().toString().replace("-", "");
@@ -188,7 +212,7 @@ public class OperateService {
             accessToken="2.00"+s1.substring(3,31);
 
         }
-        this.userService.newThirdUsers(avatarUrl,nickName,thirdOpenId,device,type,accessToken);
+        this.userService.newThirdUsers(phone,avatarUrl,nickName,thirdOpenId,device,type,accessToken);
     }
 
 
@@ -238,9 +262,7 @@ public class OperateService {
                 "炒鸡好看>非常喜欢这个>好萌,好乖>为什么我笑了,是我笑点低吗>超级萌qwq>卡哇伊～>偷猫狗的有没有～>666666" +
                 "6666666>这个要怎么买啊>路过>这个视频我看了好几遍～>太棒了，真是太入境了>人家就想摸摸>在这里在这里，我" +
                 "我～>第一次见，真可爱";
-        logger.info("redisComments11111");
         stringRedisTemplate.opsForValue().set("REDIS_COMMENTS",comments);
-        logger.info("redisComments22222");
 
     }
 
