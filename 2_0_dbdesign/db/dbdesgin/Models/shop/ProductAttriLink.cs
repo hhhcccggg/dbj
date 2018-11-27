@@ -12,5 +12,10 @@ namespace db.video.Models.shop
         public long productId { get; set; }
         public long attriId { get; set; }
         public long attriValueId { get; set; }
+        /// <summary>
+        /// 额外的数据存储
+        /// </summary>
+        /// <value>The extra data.</value>
+        public String extraData { get; set; }
     }
 }

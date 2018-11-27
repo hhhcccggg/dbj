@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace db.video.Models.shop
 {
-    public class ProductOrderDelivery:db.common.BaseModelWithTime<long>
+    [Table("shop_receiveAddresses")]
+    public class ReceiveAddress:db.common.BaseModelWithTime<long>
     {
-        public long orderId { get; set; }
         /// <summary>
         /// 收货人
         /// </summary>
@@ -57,5 +57,10 @@ namespace db.video.Models.shop
         public String cityLevel { get; set; }
         [Column("updateTime", TypeName = "timestamp")]
         public DateTime updateTime { get; set; }
+        /// <summary>
+        /// 是否为默认地址
+        /// </summary>
+        /// <value><c>true</c> if is default; otherwise, <c>false</c>.</value>
+        public bool isDefault { get; set; }
     }
 }

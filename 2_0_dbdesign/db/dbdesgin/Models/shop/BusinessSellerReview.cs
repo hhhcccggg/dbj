@@ -2,13 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using db.common;
-namespace dbdesgin.Models.o2o
+namespace dbdesgin.Models.shop
 {
     /// <summary>
     /// 认证资料&审核情况
     /// </summary>
     [Table("o2o_offlineStoreReviews")]
-    public class OfflineStoreReview:BaseModelWithTime<long>
+    public class BusinessSellerReview:BaseModelWithTime<long>
     {
         [Required]
         [MaxLength(50)]
@@ -27,9 +27,9 @@ namespace dbdesgin.Models.o2o
         [MaxLength(512)]
         public String rejectMsg { get; set; }
         /// <summary>
-        /// 线下门店ID
+        /// 商户(线下门店ID)
         /// </summary>
         /// <value>The offline store identifier.</value>
-        public long offlineStoreId { get; set; }
+        public long businessSellerId { get; set; }
     }
 }

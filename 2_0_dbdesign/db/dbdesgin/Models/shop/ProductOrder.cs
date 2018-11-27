@@ -88,5 +88,10 @@ namespace db.video.Models.shop
         /// </summary>
         /// <value><c>true</c> if buyer rate; otherwise, <c>false</c>.</value>
         public bool buyerRate { get; set; }
+        /// <summary>
+        /// 收货地址
+        /// </summary>
+        /// <value>The receive address identifier.</value>
+        public long receiveAddressId { get; set; }
     }
 }
