@@ -1,9 +1,6 @@
 package com.zwdbj.server.quartz.quartzConfig;
 
-import com.zwdbj.server.quartz.quartzJob.GreatVestUser2Job;
-import com.zwdbj.server.quartz.quartzJob.IncreaseHeartAndPlayCountJob;
-import com.zwdbj.server.quartz.quartzJob.VideosToUsersJob;
-import com.zwdbj.server.quartz.quartzJob.MyFollowersJob;
+import com.zwdbj.server.quartz.quartzJob.*;
 import com.zwdbj.server.utility.common.SpringContextUtil;
 import org.quartz.*;
 import org.quartz.impl.StdScheduler;
@@ -22,10 +19,12 @@ public class MyScheduler {
         JobKey jobKey2  = new JobKey("job2", "group02");
         JobKey jobKey3  = new JobKey("job3", "group02");
         JobKey jobKey4  = new JobKey("job4", "group02");
+        JobKey jobKey5  = new JobKey("job5", "group02");
         if (!myScheduler.checkExists(jobKey1)) startJob1(myScheduler);
         if (!myScheduler.checkExists(jobKey2)) startJob2(myScheduler);
         if (!myScheduler.checkExists(jobKey3)) startJob3(myScheduler);
         if (!myScheduler.checkExists(jobKey4)) startJob4(myScheduler);
+        if (!myScheduler.checkExists(jobKey5)) startJob5(myScheduler);
         myScheduler.start();
 
     }
@@ -71,6 +70,17 @@ public class MyScheduler {
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 5 6 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger4", "group2")
+                .withSchedule(scheduleBuilder)
+                .build();
+        scheduler.scheduleJob(jobDetail,cronTrigger);
+    }
+    private void startJob5(Scheduler scheduler) throws SchedulerException{
+        JobDetail jobDetail = JobBuilder.newJob(ForNullPhoneJob.class)
+                .withIdentity("job5", "group02")
+                .build();
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 30 23 27 11 ? 2018");
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+                .withIdentity("trigger5", "group2")
                 .withSchedule(scheduleBuilder)
                 .build();
         scheduler.scheduleJob(jobDetail,cronTrigger);

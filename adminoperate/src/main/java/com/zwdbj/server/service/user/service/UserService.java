@@ -32,11 +32,11 @@ public class UserService {
         }
     }
 
-    public void newThirdUsers(String avatarUrl,String nickName,String thirdOpenId,int device,int type,String accessToken){
+    public void newThirdUsers(String phone,String avatarUrl,String nickName,String thirdOpenId,int device,int type,String accessToken){
         try {
             Long id = UniqueIDCreater.generateID();
             String userName = UniqueIDCreater.generateUserName();
-            this.userMapper.newThirdUsers(id,userName,avatarUrl,nickName,type,thirdOpenId);
+            this.userMapper.newThirdUsers(id,userName,phone,avatarUrl,nickName,type,thirdOpenId);
             this.userBindService.newThirdBind(id,thirdOpenId,type,accessToken,nickName);
             this.operateService.newPet(id);
             this.operateService.newDeviceToken(id,device);
@@ -62,6 +62,15 @@ public class UserService {
 
     public List<Long> getNoFollowersUser(){
         return this.userMapper.getNoFollowersUser();
+    }
+
+    public boolean phoneIsExit(String phone){
+        int a = this.userMapper.phoneIsExist(phone);
+        return a>0;
+    }
+
+    public List<Long> getNullPhone(){
+        return this.userMapper.getNullPhone();
     }
 
 }

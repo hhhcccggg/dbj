@@ -209,24 +209,77 @@ public class QuartzService {
             if (this.stringRedisTemplate.hasKey(date)){
                 newVideoNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get(date));
             }else {
-                this.operateService.videoNumber();
-                if (this.stringRedisTemplate.hasKey(date)){
-                    newVideoNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get(date));
-                }
+                newVideoNum = videosNum;
             }
             if (videosNum>newVideoNum)videosNum=newVideoNum;
             if (videosNum==0)return;
-            List<Long> userIds = this.userService.getVestUserIds1();
-            for (int i = 0;i<videosNum;i++){
-                int a = this.operateService.getRandom(0,userIds.size());
-                long userId = userIds.get(a);
-                DataVideosDto dataVideosDto = this.dataVideosService.getOneDataVideo();
-                this.videoService.newVideoFromData(userId,dataVideosDto);
-                this.dataVideosService.updateDataVideoStatus(dataVideosDto.getId());
+            int top = this.dataVideosService.getTopVideosNum();
+            if (top!=0){
+                if (top>=videosNum){
+                    this.insertVideos2(videosNum);
+                }else {
+                    this.insertVideos1((videosNum-top));
+                    this.insertVideos2(top);
+                 }
+            }else {
+                this.insertVideos1(videosNum);
             }
             logger.info("我是增加视频结束");
         }catch (Exception e){
             logger.error("增加视频异常"+e.getMessage());
+        }
+    }
+
+    /**
+     * all isPublish=false
+     * @param videosNum
+     */
+    public void insertVideos1(int videosNum){
+        try {
+            List<Long> userIds = this.userService.getVestUserIds1();
+            for (int i = 1;i<=videosNum;i++){
+                int a = this.operateService.getRandom(0,userIds.size());
+                long userId = userIds.get(a);
+                DataVideosDto dataVideosDto = this.dataVideosService.getOneDataVideo1();
+                this.videoService.newVideoFromData(userId,dataVideosDto);
+                this.dataVideosService.updateDataVideoStatus(dataVideosDto.getId());
+                logger.info("我不是100："+dataVideosDto.getTitle());
+            }
+        }catch (NullPointerException e){
+            logger.error(e.getMessage());
+        }
+
+    }
+
+    /**
+     * top100=true and isPublish=false
+     * @param videosNum
+     */
+    public void insertVideos2(int videosNum){
+        List<Long> userIds = this.userService.getVestUserIds1();
+        for (int i = 1;i<=videosNum;i++){
+            int a = this.operateService.getRandom(0,userIds.size());
+            long userId = userIds.get(a);
+            DataVideosDto dataVideosDto = this.dataVideosService.getOneDataVideo2();
+            this.videoService.newVideoFromData(userId,dataVideosDto);
+            this.dataVideosService.updateDataVideoStatus(dataVideosDto.getId());
+            logger.info("我是100："+dataVideosDto.getTitle());
+        }
+    }
+
+    /**
+     * 给没有phone的用户添加手机号码
+     */
+
+    public void forNullPhone(){
+        List<Long> userIds = this.userService.getNullPhone();
+        if (userIds==null || userIds.size()==0)return;
+        int i =0;
+        for(Long id : userIds){
+            String phone = this.operateService.getOneOnlyPhone();
+            this.userService.updateField("phone="+phone,id);
+            i++;
+            logger.info("第"+i+"用户id："+id+",手机号码："+phone);
         }
     }
 
