@@ -6,7 +6,7 @@ namespace db.shop.Models.o2o
     /// <summary>
     /// 营业时间
     /// </summary>
-    [Table("core_offlineStoreOpeningHours")]
+    [Table("o2o_offlineStoreOpeningHours")]
     public class OfflineStoreOpeningHour:BaseModelWithTime<long>
     {
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace db.shop.Models.shop
@@ -20,7 +21,9 @@ namespace db.shop.Models.shop
         /// </summary>
         /// <value>The price.</value>
         public float price { get; set; }
+        [MaxLength(50)]
         public string ip { get; set; }
+        [MaxLength(128)]
         public string ua { get; set; }
         public long expireTime { get; set; }
     }
