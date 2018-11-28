@@ -16,8 +16,10 @@
         <module>apigateway</module>
         <module>probuf</module>
         <module>adminoperate</module>
-        <module>shop/shop-service</module>
         <module>shop/shop-api</module>
+        <module>shop/shop-api-service</module>
+        <module>shop/shop-admin-service</module>
+        <module>shop/shop-common-service</module>
     </modules>
 
     <parent>
