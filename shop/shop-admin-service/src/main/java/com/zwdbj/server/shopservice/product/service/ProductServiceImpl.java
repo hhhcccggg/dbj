@@ -31,10 +31,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ServiceStatusInfo<Long> deleteProductsById(Long id) {
+    public ServiceStatusInfo<Long> deleteProductsById(Products  products) {
         Long result = 0L;
         try {
-            result = this.iProductMapper.deleteProduct(id);
+            result = this.iProductMapper.deleteProduct(products);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "删除失败" + e.getMessage(), result);

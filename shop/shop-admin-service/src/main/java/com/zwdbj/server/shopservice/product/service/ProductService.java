@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProductService {
     ServiceStatusInfo<Long> createProducts(Products products);
 
-    ServiceStatusInfo<Long> deleteProductsById(Long id);
+    ServiceStatusInfo<Long> deleteProductsById(Products products);
 
     ServiceStatusInfo<Long> updateProducts(Products products);
 

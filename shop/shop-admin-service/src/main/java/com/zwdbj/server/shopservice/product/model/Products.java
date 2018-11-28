@@ -13,14 +13,13 @@ public class Products {
     String numberId;
     @ApiModelProperty(value = "商品名称")
     String name;
-    @ApiModelProperty(value = "")
-    boolean isManualData;
     String subName;
     String searchName;
     String marketName;
     String sellerPoint;
     long categoryId;
     String categoryLevel;
+    boolean isDeleted;
     @ApiModelProperty(value = "品牌ID")
     long brangdId;
     @ApiModelProperty(value = "分享描述")
@@ -64,6 +63,14 @@ public class Products {
     @ApiModelProperty(value = "备注")
     String notes;
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     public int getProductType() {
         return productType;
     }
@@ -88,13 +95,7 @@ public class Products {
         this.name = name;
     }
 
-    public boolean isManualData() {
-        return isManualData;
-    }
 
-    public void setManualData(boolean manualData) {
-        isManualData = manualData;
-    }
 
     public String getSubName() {
         return subName;

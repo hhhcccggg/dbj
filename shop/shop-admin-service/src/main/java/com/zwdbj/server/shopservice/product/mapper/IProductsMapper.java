@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface IProductsMapper {
-    @Insert("insert into shop_products(id,createTime,isDeleted,deleteTime,isManualData," +
+    @Insert("insert into shop_products(id," +
             "productType,numberId,name,subName,searchName,marketName," +
             "sellerPoint,categoryId,categoryLevel," +
             "brandId,shareDesc,sellerId,commentCount,grade,sales,inventory,priceUp," +
@@ -16,10 +16,6 @@ public interface IProductsMapper {
             "isNeedDelivery,universalDeliveryPrice,deliverytemplateId,isPublish," +
             "specifyPublishTime,detailDescription,weight,notes) values(#{id}," +
             "#{id}," +
-            "#{products.createTime}," +
-            "#{products.isDeleted}," +
-            "#{products.deleteTime}," +
-            "#{products.isManualData}," +
             "#{products.productType}," +
             "#{products.numberId}," +
             "#{products.name}," +
@@ -52,11 +48,11 @@ public interface IProductsMapper {
             "#{products.notes}")
     Long createProducts(@Param("id") Long id, @Param("procucts") Products products);
 
-    @Delete("delete from shop_products where id=#{id}")
-    Long deleteProduct(@Param("id") Long id);
+    @Update("update  shop_products set isDeleted=#{products.isDeleted},deleteTime=#{products.deleteTime} where id=#{products.id}")
+    Long deleteProduct(@Param("products") Products products);
 
-    @Update("update shop_products set isDeleted=#{products.isDeleted},isManualData=" +
-            "#{products.isManualData},productType=#{products.productType}," +
+    @Update("update shop_products set " +
+            "productType=#{products.productType}," +
             "numberId=#{products.numberId},name=#{products.name},subName=" +
             "#{products.subName},searchName=#{products.searchName}," +
             "marketName=#{products.marketName},sellerPoint=#{products.sellerPoint}," +
