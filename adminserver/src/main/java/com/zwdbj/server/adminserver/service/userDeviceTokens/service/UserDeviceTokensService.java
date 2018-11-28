@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.userDeviceTokens.service;
 
-import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.mapper.IUserDeviceTokensMapper;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdDeviceTokenDto;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdUserDeviceTokenDto;
