@@ -10,6 +10,9 @@ import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZSearchItemInput;
 import com.zwdbj.server.mobileapi.service.youzan.service.YouZanService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
+import com.zwdbj.server.utility.model.ResponseData;
+import com.zwdbj.server.utility.model.ResponseDataCode;
+import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -44,7 +47,7 @@ public class VideoController {
     @RequestMapping(value = "/listHot",method = RequestMethod.GET)
     @ApiOperation(value = "获取短视频推荐列表")
     public ResponsePageInfoData<List<VideoInfoDto>> listHot(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                      @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
+                                                            @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
         Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
         List<VideoInfoDto> videos = videoService.listHot(pageInfo);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videos,pageInfo.getTotal());

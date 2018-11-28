@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.shiro;
 
 import com.zwdbj.server.adminserver.identity.RoleIdentity;
-import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.user.model.UserAuthInfoModel;
 import com.zwdbj.server.utility.common.shiro.JWTToken;
 import org.apache.shiro.authc.AuthenticationException;

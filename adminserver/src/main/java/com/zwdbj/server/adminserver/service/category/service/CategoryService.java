@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.category.service;
 
-import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.adminserver.service.category.model.*;
 import com.zwdbj.server.utility.common.UniqueIDCreater;

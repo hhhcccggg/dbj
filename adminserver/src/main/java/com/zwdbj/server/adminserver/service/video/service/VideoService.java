@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.service.video.service;
 
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
-import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.resourceRefGoods.service.ResRefGoodsService;

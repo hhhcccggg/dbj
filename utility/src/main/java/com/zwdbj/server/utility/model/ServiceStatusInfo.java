@@ -1,4 +1,4 @@
-package com.zwdbj.server.adminserver.service;
+package com.zwdbj.server.utility.model;
 
 import java.io.Serializable;
 
@@ -7,12 +7,6 @@ public class ServiceStatusInfo<T> implements Serializable {
     private String msg;
     private T data;
     private boolean isSuccess;
-
-    public ServiceStatusInfo(T data) {
-        this.code = 0;
-        this.msg = "";
-        this.data = data;
-    }
 
     public ServiceStatusInfo(int code, String msg, T data) {
         this.code = code;
