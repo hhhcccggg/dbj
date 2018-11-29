@@ -10,6 +10,9 @@ namespace db.shop.Models.o2o
     [Table("o2o_offlineStoreExtraServices")]
     public class OfflineStoreExtraService:db.common.BaseModelWithTime<long>
     {
+
+
+    
         public long offlineStoreId { get; set; }
         public long extraServiceId { get; set; }
         /// <summary>
