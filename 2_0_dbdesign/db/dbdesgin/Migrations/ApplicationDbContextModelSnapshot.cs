@@ -105,6 +105,8 @@ namespace dbdesgin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0L);
 
+                    b.Property<int>("status");
+
                     b.Property<int>("type")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
@@ -851,6 +853,13 @@ namespace dbdesgin.Migrations
                         .HasColumnName("isDeleted")
                         .HasDefaultValue(false);
 
+                    b.Property<string>("desc")
+                        .HasMaxLength(1024);
+
+                    b.Property<bool>("isHot")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<bool>("isManualData")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
@@ -1248,7 +1257,7 @@ namespace dbdesgin.Migrations
 
                     b.Property<string>("title")
                         .IsRequired()
-                        .HasMaxLength(50);
+                        .HasMaxLength(512);
 
                     b.Property<long>("userId");
 

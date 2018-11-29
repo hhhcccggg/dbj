@@ -2,7 +2,6 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.mobileapi.model.*;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.mobileapi.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.mobileapi.service.setting.service.SettingService;
@@ -12,6 +11,9 @@ import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.userBind.model.UserThirdAccountBindDto;
 import com.zwdbj.server.mobileapi.service.userBind.service.UserBindService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
+import com.zwdbj.server.utility.model.ResponseData;
+import com.zwdbj.server.utility.model.ResponseDataCode;
+import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;

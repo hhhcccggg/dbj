@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.tag.service;
 
-import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindHotTagsDto;
 import com.zwdbj.server.adminserver.service.tag.mapper.ITagMapper;
 import com.zwdbj.server.adminserver.service.tag.model.*;

@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.controller;
 
-import com.zwdbj.server.mobileapi.model.ResponseData;
-import com.zwdbj.server.mobileapi.model.ResponseDataCode;
+import com.zwdbj.server.utility.model.ResponseData;
+import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.mobileapi.service.category.model.*;
 import com.zwdbj.server.mobileapi.service.category.service.CategoryService;
 import io.swagger.annotations.Api;

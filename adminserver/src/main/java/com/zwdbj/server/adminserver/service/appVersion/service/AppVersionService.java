@@ -1,10 +1,9 @@
 package com.zwdbj.server.adminserver.service.appVersion.service;
 
-import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.appVersion.mapper.IAppVersionMapper;
 import com.zwdbj.server.adminserver.service.appVersion.model.AdAppVersionInput;
 import com.zwdbj.server.adminserver.service.appVersion.model.AppVersionDto;
-import com.zwdbj.server.adminserver.service.appVersion.model.AppVersionInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

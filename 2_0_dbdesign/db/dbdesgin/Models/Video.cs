@@ -9,7 +9,7 @@ namespace dbdesgin.Models
     public class Video : BaseModelWithTime<long>
     {
         [Required]
-        [MaxLength(50)]
+        [MaxLength(512)]
         public string title { get; set; }
         [Required]
         [MaxLength(512)]

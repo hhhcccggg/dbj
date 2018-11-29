@@ -11,7 +11,7 @@ import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
 import com.zwdbj.server.adminserver.model.user.UserToken;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
-import com.zwdbj.server.adminserver.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedDto;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedInput;
 import com.zwdbj.server.adminserver.service.user.model.*;

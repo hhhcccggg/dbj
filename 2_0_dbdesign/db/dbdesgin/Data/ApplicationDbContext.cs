@@ -145,6 +145,7 @@ namespace dbdesgin.Data
             tagEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             tagEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
             tagEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            tagEntity.Property(cw => cw.isHot).HasDefaultValue(false);
             //Video
             var videoEntity = modelBuilder.Entity<Video>();
             videoEntity.Property(c => c.status).HasDefaultValue(1);

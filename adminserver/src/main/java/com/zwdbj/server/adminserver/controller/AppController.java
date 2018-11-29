@@ -3,8 +3,8 @@ package com.zwdbj.server.adminserver.controller;
 
 import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.adminserver.model.LoginType;
-import com.zwdbj.server.adminserver.model.ResponseData;
-import com.zwdbj.server.adminserver.model.ResponseDataCode;
+import com.zwdbj.server.utility.model.ResponseData;
+import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.adminserver.model.SexType;
 import com.zwdbj.server.adminserver.service.AppConfigDto;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
