@@ -78,6 +78,16 @@ public class VideoController {
         List<VideoInfoDto> videoInfoDtos = this.videoService.listByTag(tag);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoInfoDtos,pageInfo.getTotal());
     }
+    @RequestMapping(value = "/listByTag/{id}/{type}",method = RequestMethod.GET)
+    @ApiOperation(value = "根据标签获取短视频列表(type的值为0或1,0为按点赞量排序，1为按时间排序)")
+    public ResponsePageInfoData<List<VideoInfoDto>> listByTagId(@PathVariable long id,
+                                                              @PathVariable int type,
+                                                              @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
+                                                              @RequestParam(value = "rows",required = true,defaultValue = "30") int rows){
+        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+        List<VideoInfoDto> videoInfoDtos = this.videoService.listByTagId(id,type);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoInfoDtos,pageInfo.getTotal());
+    }
 
 
 

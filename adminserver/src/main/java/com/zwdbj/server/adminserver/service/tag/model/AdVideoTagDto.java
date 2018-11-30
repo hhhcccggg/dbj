@@ -11,6 +11,16 @@ public class AdVideoTagDto {
     int isDeleted;
     @ApiModelProperty(value = "标签使用次数")
     Long resNumber;
+    @ApiModelProperty(value = "标签描述")
+    String desc;
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
     public String getName() {
         return name;

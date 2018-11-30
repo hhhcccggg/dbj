@@ -8,6 +8,10 @@ import java.util.List;
 public interface ITagMapper {
     @SelectProvider(type = TagSqlProvider.class,method = "search")
     List<TagDto> search(@Param("input") TagSearchInput input);
+    @Select("select id,name,resNumber from core_tags where isHot=true order by resNumber desc")
+    List<TagDto> hotTags();
+    @Select("select id,name,resNumber from core_tags order by resNumber desc")
+    List<TagDto> listAll();
 
     @Select("select count(*) from core_tags where name=#{name}")
     int  findTagByName(@Param("name")String name);
@@ -17,4 +21,6 @@ public interface ITagMapper {
 
     @Update("update core_tags set resNumber=resNumber+1 where name=#{name}")
     int updateTagResNumber(@Param("name")String name);
+    @Select("select id,name,resNumber,`desc` from core_tags where id=#{id}")
+    TagDetailDto tagDetail(@Param("id")long id);
 }
