@@ -15,5 +15,12 @@ namespace dbdesgin.Models
         public int recommendIndex { get; set; }
         // 相关联的资源数
         public long resNumber { get; set; }
+        public bool isHot { get; set; }
+        /// <summary>
+        /// 描述
+        /// </summary>
+        /// <value>The desc.</value>
+        [MaxLength(1024)]
+        public string desc { get; set; }
     }
 }
