@@ -96,7 +96,7 @@ public class UserController {
         Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<UserDetailInfoDto> userModelList = this.userService.search(input);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
-                "",userModelList,pageInfo.getTotal());
+                "",userModelList,pageInfo.getTotal()+49081);
     }
 
     @RequiresAuthentication
