@@ -5,16 +5,16 @@ import com.zwdbj.server.shop_admin_service.products.mapper.IProductsMapper;
 import com.zwdbj.server.shop_admin_service.products.model.Products;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
-    @Autowired
+    @Resource
     protected IProductsMapper iProductMapper;
 
     @Override
@@ -25,9 +25,9 @@ public class ProductServiceImpl implements ProductService {
 
         try {
             result = this.iProductMapper.createProducts(id, products);
-            return new ServiceStatusInfo<Long>(0, "", result);
+            return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<Long>(1, "创建失败：" + e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "创建失败：" + e.getMessage(), result);
         }
 
     }
@@ -56,10 +56,11 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public ServiceStatusInfo<List<Products>> selectAll(int currentPage, int pageSize) {
+    public ServiceStatusInfo<List<Products>> selectAll() {
         List<Products> result=null;
         try {
             result =this.iProductMapper.selectAll();
+            System.out.println(result);
             return new ServiceStatusInfo<>(0,"",result);
         }
         catch (Exception e){

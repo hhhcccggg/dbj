@@ -3,12 +3,12 @@ package com.zwdbj.server.shop_admin_service.products.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.Date;
-
 @ApiModel(description = "商品信息")
 public class Products {
+    @ApiModelProperty(value = "id")
+    Long id;
     @ApiModelProperty(value = "商品类型")
-    int productType;
+    Long productType;
     @ApiModelProperty(value = "商品编码")
     String numberId;
     @ApiModelProperty(value = "商品名称")
@@ -17,11 +17,11 @@ public class Products {
     String searchName;
     String marketName;
     String sellerPoint;
-    long categoryId;
+    Long categoryId;
     String categoryLevel;
     boolean isDeleted;
     @ApiModelProperty(value = "品牌ID")
-    long brangdId;
+    Long brandId;
     @ApiModelProperty(value = "分享描述")
     String shareDesc;
     @ApiModelProperty(value = "卖家编号")
@@ -55,7 +55,7 @@ public class Products {
     @ApiModelProperty(value = "是否上架")
     boolean isPublish;
     @ApiModelProperty(value = "上架时间")
-    Date specifyPublishTime;
+    long specifyPublishTime;
     @ApiModelProperty(value = "商品详情")
     String detailDescription;
     @ApiModelProperty(value = "重量Kg")
@@ -63,19 +63,19 @@ public class Products {
     @ApiModelProperty(value = "备注")
     String notes;
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public Long getId() {
+        return id;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public int getProductType() {
+    public Long getProductType() {
         return productType;
     }
 
-    public void setProductType(int productType) {
+    public void setProductType(Long productType) {
         this.productType = productType;
     }
 
@@ -94,8 +94,6 @@ public class Products {
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     public String getSubName() {
         return subName;
@@ -129,11 +127,11 @@ public class Products {
         this.sellerPoint = sellerPoint;
     }
 
-    public long getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -145,12 +143,20 @@ public class Products {
         this.categoryLevel = categoryLevel;
     }
 
-    public long getBrangdId() {
-        return brangdId;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 
-    public void setBrangdId(long brangdId) {
-        this.brangdId = brangdId;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
     }
 
     public String getShareDesc() {
@@ -281,11 +287,11 @@ public class Products {
         isPublish = publish;
     }
 
-    public Date getSpecifyPublishTime() {
+    public long getSpecifyPublishTime() {
         return specifyPublishTime;
     }
 
-    public void setSpecifyPublishTime(Date specifyPublishTime) {
+    public void setSpecifyPublishTime(long specifyPublishTime) {
         this.specifyPublishTime = specifyPublishTime;
     }
 
