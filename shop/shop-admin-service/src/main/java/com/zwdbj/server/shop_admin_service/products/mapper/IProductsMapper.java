@@ -14,7 +14,7 @@ public interface IProductsMapper {
             "brandId,shareDesc,sellerId,commentCount,grade,sales,inventory,priceUp," +
             "priceDown,imageUrls,videoUrl,productGroupId,isJoinMemberDiscount," +
             "isNeedDelivery,universalDeliveryPrice,deliverytemplateId,isPublish," +
-            "specifyPublishTime,detailDescription,weight,notes) values(#{id}," +
+            "specifyPublishTime,detailDescription,weight,notes) values("+
             "#{id}," +
             "#{products.productType}," +
             "#{products.numberId}," +
@@ -32,7 +32,7 @@ public interface IProductsMapper {
             "#{products.grade}," +
             "#{products.sales}," +
             "#{products.inventory}," +
-            "#{products.priceUp," +
+            "#{products.priceUp}," +
             "#{products.priceDown}," +
             "#{products.imageUrls}," +
             "#{products.videoUrl}," +
@@ -43,10 +43,10 @@ public interface IProductsMapper {
             "#{products.deliverytemplateId}," +
             "#{products.isPublish}," +
             "#{products.specifyPublishTime}," +
-            "#{products.etailDescription}," +
+            "#{products.detailDescription}," +
             "#{products.weight}," +
-            "#{products.notes}")
-    Long createProducts(@Param("id") Long id, @Param("procucts") Products products);
+            "#{products.notes})")
+    Long createProducts(@Param("id") Long id, @Param("products") Products products);
 
     @Update("update  shop_products set isDeleted=#{products.isDeleted},deleteTime=#{products.deleteTime} where id=#{products.id}")
     Long deleteProduct(@Param("products") Products products);
@@ -57,14 +57,14 @@ public interface IProductsMapper {
             "#{products.subName},searchName=#{products.searchName}," +
             "marketName=#{products.marketName},sellerPoint=#{products.sellerPoint}," +
             "categoryId=#{products.categoryId},categoryLevel=#{products.categoryLevel}," +
-            "brandId=#{products.brandId},shareDesc=#{products.share},sellerId=#{products.sellerId}," +
-            "commentCount=#{commentCount},grade=#{products.grade},sales=#{products.sales}," +
+            "brandId=#{products.brandId},shareDesc=#{products.shareDesc},sellerId=#{products.sellerId}," +
+            "commentCount=#{products.commentCount},grade=#{products.grade},sales=#{products.sales}," +
             "inventory=#{products.inventory},priceUp=#{products.priceUp}," +
             "priceDown=#{products.priceDown},imageUrls=#{products.priceDown},videoUrl=#{products.videoUrl}," +
             "productGroupId=#{products.productGroupId},isJoinMemberDiscount=#{products.isJoinMemberDiscount}," +
             "isNeedDelivery=#{products.isNeedDelivery},universalDeliveryPrice=#{products.universalDeliveryPrice}," +
-            "deliverytemplateId=#{products.deliverytemplateId},isPublish=#{products.isPublish}" +
-            "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription}" +
+            "deliverytemplateId=#{products.deliverytemplateId},isPublish=#{products.isPublish}," +
+            "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription}," +
             "weight=#{products.weight},notes=#{products.notes}" +
             "where id=#{products.id}")
     Long update(@Param("products") Products products);

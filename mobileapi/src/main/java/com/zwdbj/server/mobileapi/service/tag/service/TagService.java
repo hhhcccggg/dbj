@@ -46,5 +46,28 @@ public class TagService {
         }
     }
 
+    /**
+     * 热门主题标签
+     */
+    public List<TagDto> hotTags(){
+        List<TagDto> dtos = this.tagMapper.hotTags();
+        return dtos;
+    }
+
+    /**
+     * 查询所有的主题
+     */
+    public List<TagDto> listAll(){
+        List<TagDto> dtos = this.tagMapper.listAll();
+        return dtos;
+    }
+    /**
+     * 主题的详情
+     */
+    public TagDetailDto tagDetail(long id){
+        TagDetailDto tagDetailDto = this.tagMapper.tagDetail(id);
+        return tagDetailDto;
+    }
+
 
 }

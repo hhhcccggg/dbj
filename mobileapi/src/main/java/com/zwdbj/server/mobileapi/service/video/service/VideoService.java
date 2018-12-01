@@ -209,6 +209,23 @@ public class VideoService {
         return videoInfoDtos;
 
     }
+    /**
+     * 根据标签ID搜索短视频
+     */
+    public List<VideoInfoDto> listByTagId(long id,int type){
+        List<VideoInfoDto> videoInfoDtos =null;
+        if (type==0){
+            videoInfoDtos = this.videoMapper.listByTagId1(id);
+        }else if (type==1){
+            videoInfoDtos = this.videoMapper.listByTagId2(id);
+        }
+        if (videoInfoDtos==null)return null;
+        for (VideoInfoDto dto:videoInfoDtos) {
+            loadVideoInfoDto(dto);
+        }
+        return videoInfoDtos;
+
+    }
 
     /**
      * 获取userId关注的用户的视频列表

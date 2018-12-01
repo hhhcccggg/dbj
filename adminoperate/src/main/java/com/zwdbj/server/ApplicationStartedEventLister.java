@@ -11,5 +11,7 @@ public class ApplicationStartedEventLister implements ApplicationListener<Applic
     public void onApplicationEvent(ApplicationStartedEvent applicationStartedEvent) {
         OperateService operateService = SpringContextUtil.getBean(OperateService.class);
         operateService.getRedisComment();
+        operateService.userNumber();
+        operateService.videoNumber();
     }
 }

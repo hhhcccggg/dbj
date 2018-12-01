@@ -13,5 +13,5 @@ public interface ProductService {
 
     ServiceStatusInfo<Long> updateProducts(Products products);
 
-    ServiceStatusInfo<List<Products>> selectAll(int currentPage, int pageSize);
+    ServiceStatusInfo<List<Products>> selectAll();
 }

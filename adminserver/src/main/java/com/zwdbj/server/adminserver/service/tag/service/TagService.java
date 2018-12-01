@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.tag.service;
 
+import com.zwdbj.server.adminserver.model.ResourceOpenInput;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindHotTagsDto;
 import com.zwdbj.server.adminserver.service.tag.mapper.ITagMapper;
@@ -30,7 +31,9 @@ public class TagService {
             Long id = UniqueIDCreater.generateID();
             Long result = 0L;
             try {
-                result = this.tagMapper.addVideoTagAd(id,input.getName());
+                String desc = input.getDesc();
+                if (desc==null)desc="";
+                result = this.tagMapper.addVideoTagAd(id,input.getName(),desc);
                 return new ServiceStatusInfo<>(0,"",result);
             }catch (Exception e){
                 return new ServiceStatusInfo<>(1,"创建失败"+e.getMessage(),result);
@@ -43,5 +46,11 @@ public class TagService {
     
     public List<AdFindHotTagsDto> findHotTags(){
         return this.tagMapper.findHotTags();
+    }
+
+    public ServiceStatusInfo<Object> addHotTag(ResourceOpenInput<Long> input){
+        int result = this.tagMapper.addHotTag(input);
+        return new ServiceStatusInfo<>(0,"",result);
+
     }
 }

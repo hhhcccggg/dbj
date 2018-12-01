@@ -101,7 +101,7 @@ public class VideoController {
                                                                  @RequestParam(value = "rows",required = true,defaultValue = "13") int rows) {
         Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal());
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal()+10995);
     }
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/{id}/vComplains",method = RequestMethod.GET)
