@@ -103,11 +103,11 @@ public class OperateService {
         this.stringRedisTemplate.opsForValue().set("2018-11-28u","4987",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-11-29u","3434",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-11-30u","3809",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-1u","2789",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-2u","3144",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-3u","2681",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-4u","4499",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-5u","6087",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-01u","2789",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-02u","3144",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-03u","2681",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-04u","4499",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-05u","6087",30,TimeUnit.DAYS);
         this.videoNumber();
     }
 
@@ -123,11 +123,11 @@ public class OperateService {
         this.stringRedisTemplate.opsForValue().set("2018-11-28v","798",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-11-29v","549",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-11-30v","724",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-1v","446",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-2v","629",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-3v","402",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-4v","585",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-5v","609",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-01v","446",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-02v","629",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-03v","402",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-04v","585",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-05v","609",30,TimeUnit.DAYS);
 
     }
 
