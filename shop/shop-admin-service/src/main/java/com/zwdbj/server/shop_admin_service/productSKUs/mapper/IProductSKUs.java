@@ -23,8 +23,8 @@ public interface IProductSKUs {
 
     @Update("update shop_productSKUs set skuNumber=#{productSKUs.skuNumber},"+
     "productId=#{productSKUs.productId},originalPrice=#{productSKUs.originalPrice},"+
-    "promotionPrice=#{productSKUs.promotionPrice,inventory=#{productSKUs.inventory},"+
-    "sales=#{productSKUs.sales},attrs=#{productSKUs.attrs,weight=#{productSKUs.weight}")
+    "promotionPrice=#{productSKUs.promotionPrice},inventory=#{productSKUs.inventory},"+
+    "sales=#{productSKUs.sales},attrs=#{productSKUs.attrs},weight=#{productSKUs.weight}")
     Long updateProductSKUs(@Param("ProductSKUs")ProductSKUs productSKUs);
 
     @Select("select * from shop_productSKus")

@@ -1,48 +1,81 @@
 package com.zwdbj.shop_common_service.logistics.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.shop_common_service.logistics.model.Logistics;
+import com.zwdbj.shop_common_service.logistics.model.LogisticsDetail;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisServer;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional
 public class LogisticsService implements ILogisticsService {
 
+    @Autowired
+    RedisTemplate redisTemplate;
+
     @Override
     public ServiceStatusInfo<Logistics> selectLogistics(String no, String logisticsName) {
-        try {
-            JSONObject jsonObject = selectLogisticsJSON(no,logisticsName);
-            if (jsonObject.getString("status").equals("0")){
-                String result=jsonObject.getString("result");
-                JSONObject jsonObject1 = JSONObject.parseObject(result);
-                Logistics logistics = new Logistics();
-                logistics.setNumber(jsonObject1.getString("number"));
-                logistics.setType(jsonObject1.getString("type"));
-                logistics.setList(jsonObject1.getString("list"));
-                logistics.setDeliverystatus(jsonObject1.getString("deliverystatus"));
-                logistics.setIssign(jsonObject1.getString("issign"));
-                logistics.setExpName(jsonObject1.getString("expName"));
-                logistics.setExpSite(jsonObject1.getString("expSite"));
-                logistics.setExpPhone(jsonObject.getString("expPhone"));
-                System.out.println(logistics);
-                return new ServiceStatusInfo<>(0,"查询成功",logistics);
-            }else {
-                return new ServiceStatusInfo<>(0,"查询失败",null);
-            }
-        }catch (Exception e){
-            return new ServiceStatusInfo<>(0,"查询失败",null);
+
+        ValueOperations<String,Logistics> operations = redisTemplate.opsForValue();
+
+        Logistics getRedis=(Logistics)operations.get(no+logisticsName);//缓存中取出物流
+        if (getRedis != null){
+            return new ServiceStatusInfo<>(0,"查询成功",getRedis);
+        }else {
+                JSONObject jsonObject = selectLogisticsJSON(no,logisticsName);
+                if (jsonObject.getString("status").equals("0")){
+                    String result=jsonObject.getString("result");
+                    JSONObject jsonObject1 = JSONObject.parseObject(result);
+
+                    Logistics logistics = new Logistics();
+                    List<LogisticsDetail> lists = new ArrayList<>();
+
+                    logistics.setNumber(jsonObject1.getString("number"));
+                    logistics.setType(jsonObject1.getString("type"));
+                    JSONArray jsonArray = jsonObject1.getJSONArray("list");
+                    for (Object object :jsonArray) {
+                        JSONObject jsonObject3 = JSONObject.parseObject(String.valueOf(object));
+                        LogisticsDetail detail = new LogisticsDetail();
+                        detail.setTime(jsonObject3.getString("time"));
+                        detail.setStatus(jsonObject3.getString("status"));
+                        lists.add(detail);
+                    }
+                    logistics.setList(lists);
+                    logistics.setDeliverystatus(jsonObject1.getString("deliverystatus"));
+                    logistics.setIssign(jsonObject1.getString("issign"));
+                    logistics.setExpName(jsonObject1.getString("expName"));
+                    logistics.setExpSite(jsonObject1.getString("expSite"));
+                    logistics.setExpPhone(jsonObject.getString("expPhone"));
+
+                    operations.set(no+logisticsName,logistics);//快递对象存入redis中
+
+                    redisTemplate.expire(no+logisticsName,2, TimeUnit.HOURS);//设置过期时间2小时
+                    return new ServiceStatusInfo<>(0,"查询成功",logistics);
+
+                }else {
+                    return new ServiceStatusInfo<>(0,"查询失败",null);
+                }
         }
     }
 
