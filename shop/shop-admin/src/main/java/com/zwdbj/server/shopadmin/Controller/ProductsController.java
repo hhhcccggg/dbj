@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products/dbj")
 @Api(description = "商品相关")
 public class ProductsController {
     @Resource

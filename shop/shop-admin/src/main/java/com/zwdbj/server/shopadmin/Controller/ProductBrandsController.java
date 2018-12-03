@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/productBrands")
+@RequestMapping(value = "/api/productBrands/dbj")
 @Api(produces = "品牌相关")
 public class ProductBrandsController {
     @Autowired
