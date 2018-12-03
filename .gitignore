@@ -1,6 +1,5 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-
 ### STS ###
 .apt_generated
 .classpath
@@ -9,13 +8,11 @@
 .settings
 .springBeans
 .sts4-cache
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-
 ### NetBeans ###
 /nbproject/private/
 /build/
@@ -41,3 +38,19 @@ workspace.xml
 obj
 bin
 /shop/shop-service/target
+IBusinessSellerMapper.class
+BusinessSellerAddInput.class
+BusinessSellerModel.class
+BusinessSellerModifyInput.class
+BusinessSellerReviewModel.class
+BusinessSellerService.class
+BusinessSellerServiceImpl.class
+Logistics.class
+LogisticsDetail.class
+ILogisticsService.class
+LogisticsService.class
+pom.properties
+inputFiles.lst
+inputFiles.lst
+shop-common-service-1.0-SNAPSHOT.jar
+LogisticsTest.class
