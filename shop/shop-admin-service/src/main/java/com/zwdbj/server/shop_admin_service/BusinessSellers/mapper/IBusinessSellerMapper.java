@@ -17,14 +17,13 @@ public interface IBusinessSellerMapper {
             "marketName=#{input.marketName},shareDesc=#{input.shareDesc},description=#{input.description}," +
             "logoUrl=#{input.logoUrl},isReviewed=#{input.isReviewed},isStopService=#{input.isStopService}," +
             "mainConverImage=#{input.mainConverImage},coverImages=#{input.coverImages},contactName=#{input.contactName}," +
-            "contactPhone=#{input.contactPhone},qq=#{input.qq}")
-    int modifyBusinessSellers(@Param("input") BusinessSellerModifyInput input);
+            "contactPhone=#{input.contactPhone},qq=#{input.qq} where id=#{id}")
+    int modifyBusinessSellers(@Param("id")long id,@Param("input") BusinessSellerModifyInput input);
     @Insert("insert into shop_businessSellers(id,name,address,type,categoryId) " +
             "values(#{id},#{input.name},#{input.address},#{input.type},#{input.categoryId})")
     int addBusinessSellers(@Param("id")long id, @Param("input")BusinessSellerAddInput input);
     @Delete("delete from shop_businessSellers where id=#{id}")
     int deleteBusinessSellers(@Param("id")long id);
-
     @Update("update shop_businessSellers set deleteTime=true,deleteTime=now() where id=#{id}")
-    int notTureDelete(@Param("id")long id);
+    int notTrueDelete(@Param("id")long id);
 }
