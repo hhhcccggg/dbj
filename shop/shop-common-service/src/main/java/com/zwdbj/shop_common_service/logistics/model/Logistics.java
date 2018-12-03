@@ -3,18 +3,17 @@ package com.zwdbj.shop_common_service.logistics.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 @ApiModel
-public class Logistics implements Serializable {
+public class Logistics {
     @ApiModelProperty(value = "快递单号")
     String number;
     @ApiModelProperty(value = "快递公司")
     String type;
     @ApiModelProperty(value = "快递流水")
-    List list;
+    String list;
     @ApiModelProperty(value = "快递状态")//  1.在途中 2.正在派件 3.已签收 4.派送失败
     String deliverystatus;
     @ApiModelProperty(value = "快递是否签收")//1.是否签收
@@ -42,15 +41,9 @@ public class Logistics implements Serializable {
         this.type = type;
     }
 
-    public List getList() {
-        return list;
-    }
-
-    public void setList(List list) {
+    public void setList(String list) {
         this.list = list;
     }
-
-
 
     public String getDeliverystatus() {
         return deliverystatus;
