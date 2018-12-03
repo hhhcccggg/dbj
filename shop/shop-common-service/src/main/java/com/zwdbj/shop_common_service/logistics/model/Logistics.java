@@ -51,6 +51,7 @@ public class Logistics implements Serializable {
     }
 
 
+
     public String getDeliverystatus() {
         return deliverystatus;
     }
