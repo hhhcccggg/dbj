@@ -4,11 +4,9 @@ import com.zwdbj.server.shop_admin_service.BusinessSellers.model.BusinessSellerA
 import com.zwdbj.server.shop_admin_service.BusinessSellers.model.BusinessSellerModel;
 import com.zwdbj.server.shop_admin_service.BusinessSellers.model.BusinessSellerModifyInput;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface BusinessSellerService {
     List<BusinessSellerModel> findAllBusinessSellers();
     ServiceStatusInfo<Integer> modifyBusinessSellers(long id,BusinessSellerModifyInput input);

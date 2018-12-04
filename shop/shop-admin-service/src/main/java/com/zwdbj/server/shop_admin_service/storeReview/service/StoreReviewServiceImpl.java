@@ -5,14 +5,16 @@ import com.zwdbj.server.shop_admin_service.storeReview.model.BusinessSellerRevie
 import com.zwdbj.server.shop_admin_service.storeReview.model.StoreReviewAddInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
+@Transactional
 public class StoreReviewServiceImpl implements StoreReviewService{
-    @Autowired
+    @Resource
     IStoreReviewMapper storeReviewMapper;
 
     @Override
