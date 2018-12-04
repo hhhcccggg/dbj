@@ -24,4 +24,5 @@ public interface IAppVersionMapper {
             "description=#{input.description},platform=#{input.platform},downloadUrl=#{input.downloadUrl}," +
             "upgradeType=#{input.upgradeType} where id=#{id}")
     Long updateVersion(@Param("id")Long id,@Param("input")AdAppVersionInput input);
+
 }

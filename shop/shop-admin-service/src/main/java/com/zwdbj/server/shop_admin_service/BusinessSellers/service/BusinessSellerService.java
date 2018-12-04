@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface BusinessSellerService {
     List<BusinessSellerModel> findAllBusinessSellers();
-    ServiceStatusInfo<Integer> modifyBusinessSellers(BusinessSellerModifyInput input);
+    ServiceStatusInfo<Integer> modifyBusinessSellers(long id,BusinessSellerModifyInput input);
     ServiceStatusInfo<Integer> addBusinessSellers(BusinessSellerAddInput input);
-    ServiceStatusInfo<Integer> deleteBusinessSellers(long businessSellerId);
+    ServiceStatusInfo<Integer> deleteBusinessSellers(long id);
+    ServiceStatusInfo<Integer> notRealDeleteBusinessSellers(long id);
     ServiceStatusInfo<BusinessSellerModel> getBusinessSellerById(long businessSellerId);
 
 

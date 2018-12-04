@@ -8,12 +8,15 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
+@Transactional
 public class BusinessSellerServiceImpl implements BusinessSellerService{
-    @Autowired
+    @Resource
     IBusinessSellerMapper businessSellerMapper;
     @Override
     public List<BusinessSellerModel> findAllBusinessSellers() {
@@ -32,9 +35,9 @@ public class BusinessSellerServiceImpl implements BusinessSellerService{
     }
 
     @Override
-    public ServiceStatusInfo<Integer> modifyBusinessSellers(BusinessSellerModifyInput input) {
+    public ServiceStatusInfo<Integer> modifyBusinessSellers(long id,BusinessSellerModifyInput input) {
         try {
-            int result = this.businessSellerMapper.modifyBusinessSellers(input);
+            int result = this.businessSellerMapper.modifyBusinessSellers(id,input);
             if (result==0)return new ServiceStatusInfo<>(1,"修改商铺失败",result);
             return new ServiceStatusInfo<>(0,"修改商铺成功",result);
         }catch (Exception e){
@@ -56,9 +59,20 @@ public class BusinessSellerServiceImpl implements BusinessSellerService{
     }
 
     @Override
-    public ServiceStatusInfo<Integer> deleteBusinessSellers(long businessSellerId) {
+    public ServiceStatusInfo<Integer> deleteBusinessSellers(long id) {
         try {
-            int result = this.businessSellerMapper.deleteBusinessSellers(businessSellerId);
+            int result = this.businessSellerMapper.deleteBusinessSellers(id);
+            if (result==0)return new ServiceStatusInfo<>(1,"删除商铺失败",result);
+            return new ServiceStatusInfo<>(0,"删除商铺成功",result);
+        }catch (Exception e){
+            return  new ServiceStatusInfo<>(1,"删除商铺失败"+e.getMessage(),null);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<Integer> notRealDeleteBusinessSellers(long id) {
+        try {
+            int result = this.businessSellerMapper.notTrueDelete(id);
             if (result==0)return new ServiceStatusInfo<>(1,"删除商铺失败",result);
             return new ServiceStatusInfo<>(0,"删除商铺成功",result);
         }catch (Exception e){

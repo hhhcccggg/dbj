@@ -16,7 +16,6 @@ public class VideosToUsersJob extends QuartzJobBean implements Serializable {
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext){
-
         this.quartzService.videosToUser();
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductSKUsService {
     ServiceStatusInfo<Long> createProductSKUs(ProductSKUs productSKUs);
-    ServiceStatusInfo<Long> deleteById(ProductSKUs productSKUs);
+    ServiceStatusInfo<Long> deleteById(Long id);
 
     ServiceStatusInfo<Long> updateProductSKUs(ProductSKUs productSKUs);
 

@@ -14,7 +14,7 @@ public interface IProductsMapper {
             "brandId,shareDesc,sellerId,commentCount,grade,sales,inventory,priceUp," +
             "priceDown,imageUrls,videoUrl,productGroupId,isJoinMemberDiscount," +
             "isNeedDelivery,universalDeliveryPrice,deliverytemplateId,isPublish," +
-            "specifyPublishTime,detailDescription,weight,notes) values("+
+            "specifyPublishTime,detailDescription,weight,notes) values(" +
             "#{id}," +
             "#{products.productType}," +
             "#{products.numberId}," +
@@ -48,8 +48,8 @@ public interface IProductsMapper {
             "#{products.notes})")
     Long createProducts(@Param("id") Long id, @Param("products") Products products);
 
-    @Update("update  shop_products set isDeleted=#{products.isDeleted},deleteTime=#{products.deleteTime} where id=#{products.id}")
-    Long deleteProduct(@Param("products") Products products);
+    @Update("update  shop_products set isDeleted=1,deleteTime=now() where id=#{id}")
+    Long deleteProduct(@Param("id") Long id);
 
     @Update("update shop_products set " +
             "productType=#{products.productType}," +
@@ -69,8 +69,11 @@ public interface IProductsMapper {
             "where id=#{products.id}")
     Long update(@Param("products") Products products);
 
-    @Select("select * from shop_products order by id")
+    @Select("select * from shop_products where isDeleted=0,order by createTime")
     List<Products> selectAll();
+
+    @SelectProvider(type = ProductsSqlProvider.class, method = "search")
+    List<Products> search(@Param("searchProducts") SearchProducts searchProducts);
 }
 
 

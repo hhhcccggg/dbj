@@ -19,12 +19,14 @@ public class MyScheduler {
         JobKey jobKey2  = new JobKey("job2", "group02");
         JobKey jobKey3  = new JobKey("job3", "group02");
         JobKey jobKey4  = new JobKey("job4", "group02");
-        JobKey jobKey5  = new JobKey("job5", "group02");
+        JobKey jobKey6  = new JobKey("job6", "group02");
+        JobKey jobKey7  = new JobKey("job7", "group02");
         if (!myScheduler.checkExists(jobKey1)) startJob1(myScheduler);
         if (!myScheduler.checkExists(jobKey2)) startJob2(myScheduler);
         if (!myScheduler.checkExists(jobKey3)) startJob3(myScheduler);
         if (!myScheduler.checkExists(jobKey4)) startJob4(myScheduler);
-        if (!myScheduler.checkExists(jobKey5)) startJob5(myScheduler);
+        if (!myScheduler.checkExists(jobKey6)) startJob6(myScheduler);
+        if (!myScheduler.checkExists(jobKey7)) startJob7(myScheduler);
         myScheduler.start();
 
     }
@@ -74,13 +76,24 @@ public class MyScheduler {
                 .build();
         scheduler.scheduleJob(jobDetail,cronTrigger);
     }
-    private void startJob5(Scheduler scheduler) throws SchedulerException{
-        JobDetail jobDetail = JobBuilder.newJob(ForNullPhoneJob.class)
-                .withIdentity("job5", "group02")
+    private void startJob6(Scheduler scheduler) throws SchedulerException{
+        JobDetail jobDetail = JobBuilder.newJob(NearVideosJob.class)
+                .withIdentity("job6", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 30 23 27 11 ? 2018");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 10 17 4 12 ? 2018");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
-                .withIdentity("trigger5", "group2")
+                .withIdentity("trigger6", "group2")
+                .withSchedule(scheduleBuilder)
+                .build();
+        scheduler.scheduleJob(jobDetail,cronTrigger);
+    }
+    private void startJob7(Scheduler scheduler) throws SchedulerException{
+        JobDetail jobDetail = JobBuilder.newJob(TempGreatUserJob.class)
+                .withIdentity("job7", "group02")
+                .build();
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 30 17 4 12 ? 2018");
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+                .withIdentity("trigger7", "group2")
                 .withSchedule(scheduleBuilder)
                 .build();
         scheduler.scheduleJob(jobDetail,cronTrigger);

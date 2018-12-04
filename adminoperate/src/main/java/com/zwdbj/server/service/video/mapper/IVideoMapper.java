@@ -34,5 +34,11 @@ public interface IVideoMapper {
             "#{dataVideosDto.videoUrl},0,#{userId},true)")
     int newVideoFromData(@Param("id")long id, @Param("userId")long userId, @Param("dataVideosDto")DataVideosDto dataVideosDto);
 
+    @Select("select id from core_videos where isManualData=1 order by recommendIndex limit 1600")
+    List<Long> get1300Videos();
+
+    @Update("update core_videos set longitude=#{longitude},latitude=#{latitude},address=#{address} where id=#{id}")
+    int updateVideoAddress(@Param("id") long id,@Param("longitude") float longitude,@Param("latitude") float latitude,@Param("address") String address);
+
 
 }
