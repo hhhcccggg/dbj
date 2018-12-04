@@ -24,8 +24,15 @@ public class WeChatConfig implements WXPayConfig {
         }
         return payCfg;
     }
+    public static WeChatConfig sandBoxPayConfig(String sandBoxKey) throws Exception {
+        WeChatConfig sandBoxConfig = new WeChatConfig();
+        sandBoxConfig.setKey(sandBoxKey);
+        return sandBoxConfig;
+    }
 
     private byte[] certData;
+    private String key;
+
     public WeChatConfig() throws Exception {
         //TODO 需要调试此模块请联系李明儒获取证书
         String certPath = "/Users/limingru/.ssh/apiclient_cert.p12";
@@ -34,6 +41,7 @@ public class WeChatConfig implements WXPayConfig {
         this.certData = new byte[(int) file.length()];
         certStream.read(this.certData);
         certStream.close();
+        this.setKey("JpP6T3AqRCNXJVKKbLai391yWd6tXsPD");
     }
     @Override
     public String getAppID() {
@@ -47,7 +55,11 @@ public class WeChatConfig implements WXPayConfig {
 
     @Override
     public String getKey() {
-        return "JpP6T3AqRCNXJVKKbLai391yWd6tXsPD";
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     @Override
