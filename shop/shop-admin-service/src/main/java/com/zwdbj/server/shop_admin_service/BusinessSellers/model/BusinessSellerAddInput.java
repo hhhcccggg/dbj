@@ -5,14 +5,34 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(value = "添加新店铺需要的字段")
 public class BusinessSellerAddInput {
-    @ApiModelProperty(value = "店铺名字",required = true)
+    @ApiModelProperty(value = "店铺名字")
     String name;
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(value = "店铺地址")
     String address;
-    @ApiModelProperty(value = "店铺类型,1:自营商家2:第三方商家4:线下门店",required = true)
+    @ApiModelProperty(value = "店铺类型,1:自营商家2:第三方商家4:线下门店")
     int type;
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(value = "店铺的分类")
     long categoryId;
+    @ApiModelProperty(value = "联系人")
+    String contactName;
+    @ApiModelProperty(value = "联系人的手机号码")
+    String contactPhone;
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
 
     public String getName() {
         return name;

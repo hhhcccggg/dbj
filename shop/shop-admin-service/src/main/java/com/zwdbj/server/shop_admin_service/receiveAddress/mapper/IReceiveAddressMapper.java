@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface IReceiveAddressMapper {
-    @Select("select * from shop_receiveAddresses")
+    @Select("select * from shop_receiveAddresses where isDeleted=0")
     List<ReceiveAddressModel> findAllReceiveAddresses();
-    @Select("select * from shop_receiveAddresses where id=#{id}")
+    @Select("select * from shop_receiveAddresses where id=#{id} and isDeleted=0")
     ReceiveAddressModel getReceiveAddressById(@Param("id")long id);
     @Insert("insert into shop_receiveAddresses(id,receiverName,receiverPhone,receiverMobile,reveiverState,receiverCity," +
              "receiverCountry,receiverAddress,receiverZip,cityId,cityLevel,updateTime,isDefault) values(#{id},#{input.receiverName}," +

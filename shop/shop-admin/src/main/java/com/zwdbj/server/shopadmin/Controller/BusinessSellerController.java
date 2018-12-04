@@ -13,16 +13,16 @@ import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/seller/dbj")
 @Api(description = "店铺相关")
 public class BusinessSellerController {
-    @Autowired
+    @Resource
     BusinessSellerService businessSellerService;
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)

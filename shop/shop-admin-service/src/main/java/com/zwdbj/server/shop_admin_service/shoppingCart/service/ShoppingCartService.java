@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface ShoppingCartService {
     List<ProductCartModel> findAllShoppingCarts();
     ServiceStatusInfo<ProductCartModel> getShoppingCartById(long id);

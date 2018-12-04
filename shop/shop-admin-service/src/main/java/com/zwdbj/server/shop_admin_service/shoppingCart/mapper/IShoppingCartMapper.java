@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface IShoppingCartMapper {
-    @Select("select * from shop_productCarts")
+    @Select("select * from shop_productCarts where isDeleted=0")
     List<ProductCartModel> findAllShoppingCarts();
-    @Select("select * from shop_productCarts where id=#{id}")
+    @Select("select * from shop_productCarts where id=#{id} and isDeleted=0")
     ProductCartModel getShoppingCartById(@Param("id")long id);
     @Update("update shop_productCarts set deleteTime=true,deleteTime=now() where id=#{id}")
     int notRealDeleteShoppingCart(@Param("id") long id);

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface StoreReviewService {
     List<BusinessSellerReviewModel> findAllStoreReviews();
     ServiceStatusInfo<Integer> modifyStoreReview(long id,StoreReviewAddInput input);
