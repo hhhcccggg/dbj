@@ -28,6 +28,7 @@ public class ProductsSqlProvider {
         } else if (searchProduct.getSalseDown() != 0) {
             sql.WHERE("salesDown>=" + searchProduct.getSalseDown());
         }
+        sql.ORDER_BY("createTime");
 System.out.println(sql.toString());
         return sql.toString();
     }

@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.shop_admin_service.productBrands.model.ProductBrands;
 import com.zwdbj.server.shop_admin_service.productBrands.service.ProductBrandsService;
-import com.zwdbj.server.shop_admin_service.products.model.Products;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
@@ -33,9 +32,9 @@ public class ProductBrandsController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除品牌")
-    public ResponseData<Long> delete(@RequestParam Long id) {
+    public ResponseData<Long> delete(@PathVariable Long id) {
         ServiceStatusInfo<Long> serviceStatusInfo = productBrandsServiceImpl.deleteById(id);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
@@ -43,7 +42,7 @@ public class ProductBrandsController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改品牌")
     public ResponseData<Long> update(@RequestBody ProductBrands productBrands) {
         ServiceStatusInfo<Long> serviceStatusInfo = productBrandsServiceImpl.updateProductBrands(productBrands);
@@ -55,10 +54,11 @@ public class ProductBrandsController {
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询品牌")
-    public ResponsePageInfoData<List<ProductBrands>> select(@RequestParam int pageNo, @RequestParam int rows) {
+    public ResponsePageInfoData<List<ProductBrands>> select(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                            @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         PageHelper.startPage(pageNo, rows);
         List<ProductBrands> list = productBrandsServiceImpl.selectAll().getData();
-        PageInfo<Products> pageInfo = new PageInfo(list);
+        PageInfo<ProductBrands> pageInfo = new PageInfo(list);
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", list, pageInfo.getTotal());
 
     }

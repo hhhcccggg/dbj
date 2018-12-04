@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "商品品牌")
 public class ProductBrands {
+    @ApiModelProperty(value = "id")
+    Long id;
     @ApiModelProperty(value = "品牌名称")
     String name;
     @ApiModelProperty(value = "图片url")
