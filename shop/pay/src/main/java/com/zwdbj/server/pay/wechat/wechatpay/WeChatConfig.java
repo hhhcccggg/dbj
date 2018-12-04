@@ -32,7 +32,6 @@ public class WeChatConfig implements WXPayConfig {
 
     private byte[] certData;
     private String key;
-
     public WeChatConfig() throws Exception {
         //TODO 需要调试此模块请联系李明儒获取证书
         String certPath = "/Users/limingru/.ssh/apiclient_cert.p12";

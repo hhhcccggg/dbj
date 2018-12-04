@@ -5,6 +5,8 @@ import com.github.wxpay.sdk.WXPayConstants;
 import com.zwdbj.server.pay.wechat.wechatpay.WeChatConfig;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
+import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -156,5 +158,4 @@ public class WechatPayService {
         }
         return new ServiceStatusInfo<>(1,"查询失败",null);
     }
-
 }
