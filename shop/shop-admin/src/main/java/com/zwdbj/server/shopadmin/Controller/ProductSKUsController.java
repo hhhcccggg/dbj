@@ -45,9 +45,9 @@ public class ProductSKUsController {
 
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除商品SKU")
-    public ResponseData<Long> deleteById(@RequestParam Long id) {
+    public ResponseData<Long> deleteById(@PathVariable Long id) {
         ServiceStatusInfo<Long> serviceStatusInfo = productSKUsServiceImpl.deleteById(id);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
@@ -58,7 +58,8 @@ public class ProductSKUsController {
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有商品SKU")
-    public ResponsePageInfoData<List<ProductSKUs>> selectAll(@RequestParam int pageNo, @RequestParam int rows) {
+    public ResponsePageInfoData<List<ProductSKUs>> selectAll(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                             @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
 
         PageHelper.startPage(pageNo, rows);
         List<ProductSKUs> productSKUsList = productSKUsServiceImpl.selectAll().getData();

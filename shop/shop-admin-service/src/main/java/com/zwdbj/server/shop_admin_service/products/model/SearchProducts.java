@@ -5,7 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "搜索需要的商品信息")
 public class SearchProducts {
-
+    @ApiModelProperty(value = "id")
+    Long id;
     @ApiModelProperty(value = "商品类型")
     Long productType;
     @ApiModelProperty(value = "商品编码")
