@@ -165,6 +165,7 @@ namespace dbdesgin.Data
             videoEntity.Property(c => c.firstFrameWidth).HasDefaultValue(0);
             videoEntity.Property(c => c.firstFrameHeight).HasDefaultValue(0);
             videoEntity.Property(c=>c.isManualRecommend).HasDefaultValue(false);
+            videoEntity.HasIndex(c => c.userId);
             //Pet
             var petEntity = modelBuilder.Entity<Pet>();
             petEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
@@ -173,6 +174,7 @@ namespace dbdesgin.Data
             petEntity.Property(c => c.birthday).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             petEntity.Property(c => c.sex).HasDefaultValue(0);
             petEntity.Property(c => c.categoryId).HasDefaultValue(0);
+            petEntity.HasIndex(c => c.userId);
 
             //Comment
             var commentEntity = modelBuilder.Entity<Comment>();
@@ -245,6 +247,8 @@ namespace dbdesgin.Data
             // 权限
             var permissionEntity = modelBuilder.Entity<Permission>();
             permissionEntity.Property(cw => cw.description).HasDefaultValue("");
+            var userRoleEntity = modelBuilder.Entity<UserRole>();
+            userRoleEntity.HasIndex(c => c.userId);
 
             #endregion
         }
