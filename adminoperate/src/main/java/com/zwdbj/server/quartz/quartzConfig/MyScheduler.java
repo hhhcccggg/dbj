@@ -80,7 +80,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(NearVideosJob.class)
                 .withIdentity("job6", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 35 16 4 12 ? 2018");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 10 17 4 12 ? 2018");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger6", "group2")
                 .withSchedule(scheduleBuilder)
@@ -91,7 +91,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(TempGreatUserJob.class)
                 .withIdentity("job7", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 45 16 4 12 ? 2018");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 30 17 4 12 ? 2018");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger7", "group2")
                 .withSchedule(scheduleBuilder)
