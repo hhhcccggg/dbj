@@ -13,5 +13,7 @@ public class ApplicationStartedEventLister implements ApplicationListener<Applic
         operateService.getRedisComment();
         operateService.userNumber();
         operateService.videoNumber();
+        operateService.get1300Videos();
+        operateService.tempNewUser();
     }
 }

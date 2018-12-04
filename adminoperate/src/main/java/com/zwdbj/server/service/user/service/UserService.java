@@ -8,6 +8,7 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,6 +47,20 @@ public class UserService {
 
     }
 
+    public void newThirdUsers2(String phone, String avatarUrl, String nickName, String thirdOpenId, int device, int type, String accessToken, Date createTime){
+        try {
+            Long id = UniqueIDCreater.generateID();
+            String userName = UniqueIDCreater.generateUserName();
+            this.userMapper.newThirdUsers2(id,userName,phone,avatarUrl,nickName,type,thirdOpenId,createTime);
+            this.userBindService.newThirdBind2(id,thirdOpenId,type,accessToken,nickName,createTime);
+            this.operateService.newPet(id);
+            this.operateService.newDeviceToken(id,device);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     public List<Long> getVestUserIds1(){
         return this.userMapper.getVestUserIds1();
     }
@@ -72,6 +87,7 @@ public class UserService {
     public List<Long> getNullPhone(){
         return this.userMapper.getNullPhone();
     }
+
 
 }
 

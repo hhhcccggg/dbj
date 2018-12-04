@@ -9,13 +9,14 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Component
-public class ForNullPhoneJob extends QuartzJobBean implements Serializable {
+public class NearVideosJob extends QuartzJobBean implements Serializable {
     private static final Long serialversionUID = 1L;
     @Autowired
     QuartzService quartzService;
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext){
-        this.quartzService.forNullPhone();
+
+        this.quartzService.get1300Videos();
     }
 }

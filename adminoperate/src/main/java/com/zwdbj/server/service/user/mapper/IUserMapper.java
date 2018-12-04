@@ -2,6 +2,7 @@ package com.zwdbj.server.service.user.mapper;
 
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -16,6 +17,10 @@ public interface IUserMapper {
             "#{username},#{nickName},#{phone},#{avatarUrl},#{loginType},#{thirdOpenId},true,true)")
     long newThirdUsers(@Param("id") long id,@Param("username")String username,@Param("phone")String phone,@Param("avatarUrl")String avatarUrl,
                        @Param("nickName")String nickName,@Param("loginType")int loginType,@Param("thirdOpenId")String thirdOpenId);
+    @Insert("insert into core_users(id,createTime,username,nickName,phone,avatarUrl,loginType,thirdOpenId,isManualData,IsPhoneVerification) " +
+            "values(#{id},#{createTime},#{username},#{nickName},#{phone},#{avatarUrl},#{loginType},#{thirdOpenId},true,true)")
+    long newThirdUsers2(@Param("id") long id, @Param("username")String username, @Param("phone")String phone, @Param("avatarUrl")String avatarUrl,
+                        @Param("nickName")String nickName, @Param("loginType")int loginType, @Param("thirdOpenId")String thirdOpenId, @Param("createTime")Date createTime);
     @Select("select id  from core_users where isManualData=true")
     List<Long> getVestUserIds1();
     @Select("select id  from core_users where phone like '56%' and username='爪子用户'")
