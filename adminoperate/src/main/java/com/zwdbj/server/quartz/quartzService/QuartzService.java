@@ -88,17 +88,51 @@ public class QuartzService {
                 }
             }
             if (newUserNum==0)return;
-            for (int i = 1; i <= newUserNum; i++) {
-                if (i%10==1 || i%10==4 || i%10==7){
-                    this.operateService.newThirdUsers(8);
-                    logger.info("我是 QQ 马甲: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else if (i%10==5){
-                    this.operateService.newThirdUsers(16);
-                    logger.info("我是微博马甲: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }else {
-                    this.operateService.newThirdUsers(4);
-                    logger.info("我是微信马甲"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                }
+            Date createTime = new Date();
+            this.forGreatVestUser(newUserNum,createTime);
+
+        }catch (Exception e){
+            logger.error("增加用户异常"+e.getMessage());
+        }
+    }
+
+    public void forGreatVestUser(int newUserNum,Date createTime){
+        for (int i = 1; i <= newUserNum; i++) {
+            if (i%10==1 || i%10==4 || i%10==7){
+                this.operateService.newThirdUsers(8,createTime);
+                logger.info("我是 QQ 马甲: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            }else if (i%10==5){
+                this.operateService.newThirdUsers(16,createTime);
+                logger.info("我是微博马甲: "+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            }else {
+                this.operateService.newThirdUsers(4,createTime);
+                logger.info("我是微信马甲"+new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            }
+        }
+    }
+
+    /**
+     * 暂时增加用户
+     */
+    public void tempGreatUser(){
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date createTime = null;
+            int newUserNum = 0;
+            if (this.stringRedisTemplate.hasKey("2018-12-1t")){
+                newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2018-12-1t"));
+                createTime = sdf.parse("2018-12-01 20:00:00");
+                this.forGreatVestUser(newUserNum,createTime);
+            }
+            for (int i = 1;i<10;i++){
+                newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2018-11-"+i+"t"));
+                createTime = sdf.parse("2018-11-0"+i+" 20:00:00");
+                this.forGreatVestUser(newUserNum,createTime);
+            }
+            for (int i=10;i<25;i++){
+                newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2018-11-"+i+"t"));
+                createTime = sdf.parse("2018-11-"+i+" 20:00:00");
+                this.forGreatVestUser(newUserNum,createTime);
             }
         }catch (Exception e){
             logger.error("增加用户异常"+e.getMessage());
@@ -268,18 +302,113 @@ public class QuartzService {
     }
 
     /**
-     * 给没有phone的用户添加手机号码
+     * 附近
      */
+    public void get1300Videos(){
+        try {
+            if (this.redisTemplate.hasKey("TEMP_1300_VIDEOS") && this.redisTemplate.opsForList().size("TEMP_1300_VIDEOS")>=0){
+                String address = "";
+                long  id= 0L;
+                float longitude = 0.0F;
+                float latitude = 0.0F;
+                for (int i = 1;i<27;i++){
+                    if (i%13==1){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "北京";
+                        longitude=116.41667F;
+                        latitude = 39.91667F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：北京");
+                    }else if (i%13==2){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "上海";
+                        longitude=121.43333F;
+                        latitude = 34.50000F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：上海");
+                    }else if (i%13==3){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "杭州";
+                        longitude=120.20000F;
+                        latitude = 30.26667F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：杭州");
+                    }else if (i%13==4){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "广州";
+                        longitude=113.23333F;
+                        latitude = 23.16667F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：广州");
+                    }else if (i%13==5){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "深圳";
+                        longitude=114.06667F;
+                        latitude = 22.61667F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：深圳");
+                    }else if (i%13==6){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "南京";
+                        longitude=118.78333F;
+                        latitude = 32.05000F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：南京");
+                    }else if (i%13==7){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "武汉";
+                        longitude=114.31667F;
+                        latitude = 30.51667F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：武汉");
+                    }else if (i%13==8){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "重庆";
+                        longitude=106.45000F;
+                        latitude = 29.56667F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：重庆");
+                    }else if (i%13==9){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "郑州";
+                        longitude=113.65000F;
+                        latitude = 34.76667F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：郑州");
+                    }else if (i%13==10){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "合肥";
+                        longitude=31.52F;
+                        latitude = 117.17F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：合肥");
+                    }else if (i%13==11){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "西安";
+                        longitude=108.95000F;
+                        latitude = 34.26667F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：西安");
+                    }else if (i%13==12){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "天津";
+                        longitude=117.20F;
+                        latitude = 39.13F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：天津");
+                    }else if (i%13==0){
+                        id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
+                        address = "银川";
+                        longitude=106.26667F;
+                        latitude = 38.46667F;
+                        this.videoService.updateVideoAddress(id,longitude,latitude,address);
+                        logger.info("第"+i+"个视频：银川");
+                    }
+                }
 
-    public void forNullPhone(){
-        List<Long> userIds = this.userService.getNullPhone();
-        if (userIds==null || userIds.size()==0)return;
-        int i =0;
-        for(Long id : userIds){
-            String phone = this.operateService.getOneOnlyPhone();
-            this.userService.updateField("phone="+phone,id);
-            i++;
-            logger.info("第"+i+"用户id："+id+",手机号码："+phone);
+            }
+        }catch (Exception e){
+            logger.info("附近异常"+e.getMessage());
         }
     }
 

@@ -13,6 +13,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -181,7 +183,7 @@ public class OperateService {
      * 4:微信 8:QQ 16:微博
      * @param type
      */
-    public void newThirdUsers(int type){
+    public void newThirdUsers(int type, Date createTime){
         String phone = this.getOneOnlyPhone();
         int avatar = this.getRandom(0,80)+1;
         String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/1%20%28"+avatar+"%29.jpg";
@@ -212,7 +214,10 @@ public class OperateService {
             accessToken="2.00"+s1.substring(3,31);
 
         }
-        this.userService.newThirdUsers(phone,avatarUrl,nickName,thirdOpenId,device,type,accessToken);
+        if ("2000-12-12".equals(new SimpleDateFormat("yyyy-MM-dd").format(createTime))){
+            this.userService.newThirdUsers(phone,avatarUrl,nickName,thirdOpenId,device,type,accessToken);
+        }
+        this.userService.newThirdUsers2(phone,avatarUrl,nickName,thirdOpenId,device,type,accessToken,createTime);
     }
 
 
@@ -321,6 +326,38 @@ public class OperateService {
             }
             gg = this.commentService.greatComment(userId, contentTxt, videoId);
             return gg;
+
+    }
+    public void get1300Videos(){
+        this.videoService.get1300Videos();
+    }
+
+    public void tempNewUser(){
+        this.stringRedisTemplate.opsForValue().set("2018-11-1t","85",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-2t","98",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-3t","101",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-4t","128",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-5t","116",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-6t","189",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-7t","209",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-8t","254",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-9t","476",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-10t","598",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-11t","561",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-12t","715",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-13t","1258",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-14t","1985",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-15t","2785",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-16t","3586",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-17t","3196",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-18t","3864",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-19t","4780",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-20t","5168",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-21t","4890",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-22t","5887",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-23t","5741",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-11-24t","4589",7,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-1t","5185",7,TimeUnit.DAYS);
 
     }
 

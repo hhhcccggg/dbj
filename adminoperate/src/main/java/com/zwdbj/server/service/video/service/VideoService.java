@@ -56,4 +56,14 @@ public class VideoService {
             this.redisTemplate.opsForList().leftPush(id+"_COMMENTS",ss[i]);
         }
     }
+    public void get1300Videos(){
+        List<Long> videoIds = this.videoMapper.get1300Videos();
+        for (Long id: videoIds){
+            this.redisTemplate.opsForList().leftPush("TEMP_1300_VIDEOS",String.valueOf(id));
+        }
+    }
+
+    public void updateVideoAddress(long id,float longitude,float latitude,String address){
+        this.videoMapper.updateVideoAddress(id,longitude,latitude,address);
+    }
 }
