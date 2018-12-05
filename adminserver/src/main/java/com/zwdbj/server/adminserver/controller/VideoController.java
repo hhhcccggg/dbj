@@ -104,7 +104,7 @@ public class VideoController {
                                                                  @RequestParam(value = "rows",required = true,defaultValue = "13") int rows) {
 
         List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo%(videoModelDtos.size()/rows),rows);
+        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo%(videoModelDtos.size()/10),rows);
         int allNotTrueNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("OPERATE_ALL_VIDEO_NUM"));
         if (allNotTrueNum==0)allNotTrueNum=13309;
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal()+allNotTrueNum);
