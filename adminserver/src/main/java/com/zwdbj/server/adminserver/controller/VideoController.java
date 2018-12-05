@@ -17,6 +17,7 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -31,6 +32,8 @@ public class VideoController {
     private VideoService videoService;
     @Autowired
     private YouZanService youZanService;
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ApiOperation(value = "发布短视频")
@@ -99,14 +102,17 @@ public class VideoController {
     public ResponsePageInfoData<List<VideoInfoDto>> searchAd(@RequestBody SearchVideoAdInput input,
                                                                  @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                  @RequestParam(value = "rows",required = true,defaultValue = "13") int rows) {
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+
         List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal()+10995);
+        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo%(videoModelDtos.size()/rows),rows);
+        int allNotTrueNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("OPERATE_ALL_VIDEO_NUM"));
+        if (allNotTrueNum==0)allNotTrueNum=13309;
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal()+allNotTrueNum);
     }
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/{id}/vComplains",method = RequestMethod.GET)
     @ApiOperation("视屏详情-举报信息")
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE,RoleIdentity.DATA_REPORT_ROLE},logical = Logical.OR)
     public ResponsePageInfoData<List<AdVideoComplainInfoDto>> complainInfoAd(@PathVariable("id") Long toResId,
                                                                      @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                      @RequestParam(value = "rows",required = true,defaultValue = "13") int rows){
