@@ -113,6 +113,9 @@ public class VideoService {
         }
         return videoModelList;      
     }
+    public int findAllVideoNum(SearchVideoAdInput input){
+        return this.videoMapper.findAllVideoNum(input);
+    }
 
     @Transactional
     public long publicVideo(VideoPublishInput input) {

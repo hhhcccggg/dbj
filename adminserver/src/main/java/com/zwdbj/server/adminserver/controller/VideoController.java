@@ -107,23 +107,19 @@ public class VideoController {
                                                                  @RequestParam(value = "rows",required = true,defaultValue = "13") int rows) {
         int allNotTrueNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("OPERATE_ALL_VIDEO_NUM"));
         if (allNotTrueNum==0)allNotTrueNum=13309;
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
-        int a = new Double(Math.ceil(videoModelDtos.size()*1.0/rows)).intValue();
+        int videoNum = this.videoService.findAllVideoNum(input);
+        int a = new Double(Math.ceil(videoNum*1.0/rows)).intValue();
         if (pageNo>a){
             if (pageNo%a==0){
-                pageNo = a;
-                logger.info("pageNo="+pageNo);
+                pageNo=a;
             }else {
-                pageNo = pageNo%a;
-                logger.info("pageNo="+pageNo);
+                pageNo=pageNo%a;
             }
-            pageInfo = PageHelper.startPage(pageNo,rows);
         }
-
+        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+        List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
         logger.info("pageInfo.getTotal()="+pageInfo.getTotal());
-
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal()+allNotTrueNum);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,videoNum+allNotTrueNum);
     }
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/{id}/vComplains",method = RequestMethod.GET)
