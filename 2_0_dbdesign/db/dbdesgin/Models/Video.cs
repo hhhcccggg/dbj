@@ -72,5 +72,10 @@ namespace dbdesgin.Models
         /// </summary>
         /// <value>The complain count.</value>
         public int complainCount { get; set; }
+        /// <summary>
+        /// 收到小费(打赏次数)
+        /// </summary>
+        /// <value>The tip count.</value>
+        public long tipCount { get; set; }
     }
 }
