@@ -1,8 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace db.video.Models
+namespace dbdesgin.Models
 {
+    /// <summary>
+    /// 用户资产
+    /// </summary>
     [Table("core_userAssets")]
     public class UserAsset:db.common.BaseModelWithTime<long>
     {
@@ -16,5 +19,10 @@ namespace db.video.Models
         /// </summary>
         /// <value>The remain balance.</value>
         public long remainBalance { get; set; }
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>The user identifier.</value>
+        public long userId { get; set; }
     }
 }
