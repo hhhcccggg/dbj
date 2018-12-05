@@ -95,7 +95,7 @@ public class VideoController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/search",method = RequestMethod.POST)
     @ApiOperation("搜索短视频")
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE,RoleIdentity.DATA_REPORT_ROLE},logical = Logical.OR)
     public ResponsePageInfoData<List<VideoInfoDto>> searchAd(@RequestBody SearchVideoAdInput input,
                                                                  @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                  @RequestParam(value = "rows",required = true,defaultValue = "13") int rows) {
