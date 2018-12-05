@@ -157,6 +157,45 @@ public class VideoSqlProvider {
         }
         return sql.toString();
     }
+    public String findAllVideoNum(Map params) {
+        SearchVideoAdInput model = (SearchVideoAdInput)params.get("model");
+        SQL sql = new SQL()
+                .SELECT("count(v.id)")
+                .FROM("core_videos v")
+                .LEFT_OUTER_JOIN("core_userRoles r on r.userId=v.userId")
+                .LEFT_OUTER_JOIN("core_users u on u.id=v.userId");
+        if(model.getStatus()!=-1) {
+            sql.WHERE("v.status=#{model.status}");
+        }
+
+        if (model.getIsLinkProduct()!=-1) {
+            if (model.getIsLinkProduct()==0){
+                sql.WHERE("v.linkProductCount=0");
+            }else {
+                sql.WHERE("v.linkProductCount!=0");
+            }
+
+        }
+        if (model.getIsHaveTag()!=-1) {
+            if (model.getIsHaveTag()==0) {
+                sql.WHERE("(v.tags is NULL or tags='')");
+            } else {
+                sql.WHERE("v.tags is not NULL")
+                        .WHERE("v.tags<>''");
+            }
+        }
+        if (model.getKeywords()!=null && model.getKeywords().length()>0) {
+            sql.WHERE(String.format("u.id like '%s'", ("%" + model.getKeywords() + "%")))
+                    .OR()
+                    .WHERE(String.format("u.nickName like '%s'", ("%" + model.getKeywords() + "%")))
+                    .OR()
+                    .WHERE(String.format("v.title like '%s'", ("%" + model.getKeywords() + "%")));
+        }
+        if (model.getRoleName()!=null && model.getRoleName().length()>0) {
+            sql.WHERE(String.format("r.roleName='%s'",model.getRoleName()));
+        }
+        return sql.toString();
+    }
 
     public String updateVideoField(Map params) {
         Long id = (Long)params.get("id");
