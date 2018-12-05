@@ -193,6 +193,19 @@ namespace dbdesgin.Data
             videoEntity.Property(c=>c.isManualRecommend).HasDefaultValue(false);
             videoEntity.HasIndex(c => c.userId);
             videoEntity.Property(cw => cw.tipCount).HasDefaultValue(0);
+            //videoTipDetail
+            var videoTipDetailEntity = modelBuilder.Entity<VideoTipDetail>();
+            videoTipDetailEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            videoTipDetailEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            videoTipDetailEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            videoTipDetailEntity.HasIndex(cw => cw.userId);
+            videoTipDetailEntity.HasIndex(cw => cw.videoId);
+            //buyCoinConfig
+            var buyCoinConfigEntity = modelBuilder.Entity<BuyCoinConfig>();
+            buyCoinConfigEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            buyCoinConfigEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            buyCoinConfigEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            buyCoinConfigEntity.Property(cw => cw.orderIndex).HasDefaultValue(0);
             //Pet
             var petEntity = modelBuilder.Entity<Pet>();
             petEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
