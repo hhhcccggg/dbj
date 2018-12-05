@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace db.video.Models
+namespace dbdesgin.Models
 {
     /// <summary>
     /// 用户金币明细
@@ -29,14 +29,30 @@ namespace db.video.Models
         [MaxLength(1024)]
         public String extraData { get; set; }
         /// <summary>
-        /// 收入来源，类型待定义
+        /// TASK:任务;PAY:充值;INCOME:收益;OTHER:其他
         /// </summary>
-        /// <value>The type of the income.</value>
-        public int incomeType { get; set; }
+        /// <value>The type.</value>
+        [Required]
+        [MaxLength(20)]
+        public String type { get; set; }
         /// <summary>
-        /// 金币支出限制
+        /// Gets or sets the user identifier.
         /// </summary>
-        /// <value>The pay limit.</value>
-        public int payLimit { get; set; }
+        /// <value>The user identifier.</value>
+        public long userId { get; set; }
+        /// <summary>
+        /// 状态
+        /// SUCCESS:成功；FAILED：失败; PROCESSING：处理中
+        /// </summary>
+        /// <value>The status.</value>
+        [Required]
+        [MaxLength(20)]
+        public String status { get; set; }
+        /// <summary>
+        /// 状态原因说明
+        /// </summary>
+        /// <value>The status message.</value>
+        [MaxLength(1024)]
+        public String statusMsg { get; set; }
     }
 }
