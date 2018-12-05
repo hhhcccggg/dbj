@@ -9,8 +9,11 @@ import com.zwdbj.server.adminserver.service.tag.service.TagService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,11 +27,20 @@ public class HomepageService {
     DailyIncreaseAnalysisesService dailyIncreaseAnalysisesService;
     @Autowired
     TagService tagService;
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
     public AdFindIncreasedDto findIncreasedAd(AdFindIncreasedInput input){
         AdFindIncreasedDto dto = this.userService.findIncreasedUserAd(input);
         if (dto==null) return null;
         Long videoNum = this.videoService.findIncreasedVideoAd(input.getQuantumTime());
-        Long verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
+        //Long verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
+        Long verifingVideoNum;
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"v";
+        if (this.stringRedisTemplate.hasKey(date)){
+            verifingVideoNum = Long.valueOf(this.stringRedisTemplate.opsForValue().get(date));
+        }else {
+            verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
+        }
         //long dau1 = this.userService.dau();
         long dau1 = this.dailyIncreaseAnalysisesService.dau();
         long dau = new Double(Math.ceil(dau1/3.5)).longValue();
