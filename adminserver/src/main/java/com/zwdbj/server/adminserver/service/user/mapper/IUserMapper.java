@@ -17,7 +17,7 @@ public interface IUserMapper {
     @Select("select * from core_users where id=#{id}")
     UserModel findUserById(@Param("id") long id);
 
-    @Select("select * from core_users where username=#{username} and password=#{password}")
+    @Select("select u.*,ur.roleName FROM core_users u INNER JOIN core_userRoles ur ON ur.userId=u.id where username=#{username} and password=#{password}")
     UserModel findUserByUserPwd(@Param("username") String username, @Param("password") String password);
     @Select("SELECT *, (select count(*) from core_pets as pet where pet.userId = u.id) as petCount," +
             "(select count(*) from core_videos as vd where vd.userId = u.id) as videoCount," +

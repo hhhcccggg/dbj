@@ -7,12 +7,14 @@ import com.zwdbj.server.shop_admin_service.BusinessSellers.model.BusinessSellerA
 import com.zwdbj.server.shop_admin_service.BusinessSellers.model.BusinessSellerModel;
 import com.zwdbj.server.shop_admin_service.BusinessSellers.model.BusinessSellerModifyInput;
 import com.zwdbj.server.shop_admin_service.BusinessSellers.service.BusinessSellerService;
+import com.zwdbj.server.shop_admin_service.BusinessSellers.service.BusinessSellerServiceImpl;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,8 +24,8 @@ import java.util.List;
 @RequestMapping("/api/seller/dbj")
 @Api(description = "店铺相关")
 public class BusinessSellerController {
-    @Resource
-    BusinessSellerService businessSellerService;
+    @Autowired
+    BusinessSellerServiceImpl businessSellerService;
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有店铺")

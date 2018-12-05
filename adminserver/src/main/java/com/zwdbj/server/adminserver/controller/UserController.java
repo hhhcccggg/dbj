@@ -89,14 +89,14 @@ public class UserController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/search",method = RequestMethod.POST)
     @ApiOperation(value = "搜索用户")
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE,RoleIdentity.DATA_REPORT_ROLE},logical = Logical.OR)
     public ResponsePageInfoData<List<UserDetailInfoDto>> users(@RequestBody UserSearchForAdInput input,
                                                                @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
         Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<UserDetailInfoDto> userModelList = this.userService.search(input);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
-                "",userModelList,pageInfo.getTotal()+49081);
+                "",userModelList,pageInfo.getTotal());
     }
 
     @RequiresAuthentication

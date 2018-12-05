@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.zwdbj.*"})
-@MapperScan({"com.zwdbj.*"})
+@ComponentScan({"com.zwdbj.server.*"})
+@MapperScan({"com.zwdbj.server.*"})
 public class ShopAdminApplication {
 
     public static void main(String[] args) {

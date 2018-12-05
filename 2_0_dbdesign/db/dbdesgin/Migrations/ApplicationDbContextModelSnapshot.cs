@@ -67,6 +67,48 @@ namespace dbdesgin.Migrations
                     b.ToTable("core_appVersions");
                 });
 
+            modelBuilder.Entity("dbdesgin.Models.BuyCoinConfig", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("coins");
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("orderIndex")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0);
+
+                    b.Property<int>("rmbs");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("core_basic_buyCoinConfigs");
+                });
+
             modelBuilder.Entity("dbdesgin.Models.Category", b =>
                 {
                     b.Property<long>("Id")
@@ -114,6 +156,8 @@ namespace dbdesgin.Migrations
                     b.Property<long?>("userId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("core_categories");
                 });
@@ -1040,6 +1084,138 @@ namespace dbdesgin.Migrations
                     b.ToTable("core_users");
                 });
 
+            modelBuilder.Entity("dbdesgin.Models.UserAsset", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("coins");
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("remainBalance");
+
+                    b.Property<long>("userId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("core_userAssets");
+                });
+
+            modelBuilder.Entity("dbdesgin.Models.UserCoinDetail", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("extraData")
+                        .HasMaxLength(1024);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("num");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<string>("statusMsg")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(512);
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<long>("userId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("core_userCoinDetails");
+                });
+
+            modelBuilder.Entity("dbdesgin.Models.UserCoinType", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("coins");
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<long>("userId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("core_userCoinTypes");
+                });
+
             modelBuilder.Entity("dbdesgin.Models.UserDeviceToken", b =>
                 {
                     b.Property<long>("Id")
@@ -1259,6 +1435,10 @@ namespace dbdesgin.Migrations
 
                     b.Property<string>("tags");
 
+                    b.Property<long>("tipCount")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0L);
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasMaxLength(512);
@@ -1274,6 +1454,46 @@ namespace dbdesgin.Migrations
                     b.HasIndex("userId");
 
                     b.ToTable("core_videos");
+                });
+
+            modelBuilder.Entity("dbdesgin.Models.VideoTipDetail", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("tipCoin");
+
+                    b.Property<long>("userId");
+
+                    b.Property<long>("videoId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId");
+
+                    b.HasIndex("videoId");
+
+                    b.ToTable("core_video_videoTipDetails");
                 });
 #pragma warning restore 612, 618
         }

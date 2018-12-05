@@ -16,8 +16,15 @@ public class UserModel {
     private boolean isEmailVerification;
     private boolean isPhoneVerification;
     private boolean isLivingWatch;
+    private String  roleName;
 
+    public String getRoleName() {
+        return roleName;
+    }
 
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
     public UserModel() {
         

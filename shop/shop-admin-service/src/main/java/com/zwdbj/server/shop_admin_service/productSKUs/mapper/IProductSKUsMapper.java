@@ -21,7 +21,7 @@ public interface IProductSKUsMapper {
     @Update("update shop_productSKUs set skuNumber=#{productSKUs.skuNumber}," +
             "productId=#{productSKUs.productId},originalPrice=#{productSKUs.originalPrice}," +
             "promotionPrice=#{productSKUs.promotionPrice},inventory=#{productSKUs.inventory}," +
-            "sales=#{productSKUs.sales},attrs=#{productSKUs.attrs},weight=#{productSKUs.weight}")
+            "sales=#{productSKUs.sales},attrs=#{productSKUs.attrs},weight=#{productSKUs.weight} where id=#{productSKUs.id}")
     Long updateProductSKUs(@Param("productSKUs") ProductSKUs productSKUs);
 
     @Select("select * from shop_productSKUs isDeleted=0 order by createTime")

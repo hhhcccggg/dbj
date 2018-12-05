@@ -8,9 +8,14 @@ import com.zwdbj.server.adminserver.service.homepage.model.AdUserOrVideoGrowthDt
 import com.zwdbj.server.adminserver.service.tag.service.TagService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,11 +29,21 @@ public class HomepageService {
     DailyIncreaseAnalysisesService dailyIncreaseAnalysisesService;
     @Autowired
     TagService tagService;
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
+    private Logger logger = LoggerFactory.getLogger(HomepageService.class);
     public AdFindIncreasedDto findIncreasedAd(AdFindIncreasedInput input){
         AdFindIncreasedDto dto = this.userService.findIncreasedUserAd(input);
         if (dto==null) return null;
-        Long videoNum = this.videoService.findIncreasedVideoAd(input.getQuantumTime());
+        Long videoNum ;
         Long verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"v";
+        if (this.stringRedisTemplate.hasKey(date)){
+            videoNum = Long.valueOf(this.stringRedisTemplate.opsForValue().get(date));
+            logger.info("videoNum="+videoNum);
+        }else {
+            videoNum = this.videoService.findIncreasedVideoAd(input.getQuantumTime());
+        }
         //long dau1 = this.userService.dau();
         long dau1 = this.dailyIncreaseAnalysisesService.dau();
         long dau = new Double(Math.ceil(dau1/3.5)).longValue();

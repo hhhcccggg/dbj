@@ -27,6 +27,10 @@ namespace dbdesgin.Data
         public DbSet<Heart> Hearts { get; set; }
         public DbSet<Follower> Followers { get; set; }
 
+        public DbSet<UserAsset> UserAssets { get; set; }
+        public DbSet<UserCoinType> userCoinTypes { get; set; }
+        public DbSet<UserCoinDetail> UserCoinDetails { get; set; }
+
         public DbSet<ResourceRefGoods> ResourceRefGoods { get; set; }
 
         public DbSet<Role> Roles { get; set; }
@@ -68,6 +72,7 @@ namespace dbdesgin.Data
             categoryEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
             categoryEntity.Property(c => c.parentId).HasDefaultValue(0);
             categoryEntity.Property(c => c.type).HasDefaultValue(0);
+            categoryEntity.HasIndex(c => c.userId);
             //AppVersion
             var appVersionEntity = modelBuilder.Entity<AppVersion>();
             appVersionEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
@@ -80,6 +85,27 @@ namespace dbdesgin.Data
             userDeviceTokenEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
             userDeviceTokenEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
             userDeviceTokenEntity.Property(c => c.userId).HasDefaultValue(0);
+
+            //UserAsset
+            var userAssetEntity = modelBuilder.Entity<UserAsset>();
+            userAssetEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            userAssetEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            userAssetEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            userAssetEntity.HasIndex(c => c.userId);
+            //UserCoinType
+            var userCoinTypeEntity = modelBuilder.Entity<UserCoinType>();
+            userCoinTypeEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            userCoinTypeEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            userCoinTypeEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            userCoinTypeEntity.HasIndex(c => c.userId);
+            // userCoinDetail
+            var userCoinDetailEntity = modelBuilder.Entity<UserCoinDetail>();
+            userCoinDetailEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            userCoinDetailEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            userCoinDetailEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            userCoinDetailEntity.HasIndex(c => c.userId);
+
+
             //User
             var userEntity = modelBuilder.Entity<User>();
             userEntity.HasIndex(g => g.UserName)
@@ -166,6 +192,20 @@ namespace dbdesgin.Data
             videoEntity.Property(c => c.firstFrameHeight).HasDefaultValue(0);
             videoEntity.Property(c=>c.isManualRecommend).HasDefaultValue(false);
             videoEntity.HasIndex(c => c.userId);
+            videoEntity.Property(cw => cw.tipCount).HasDefaultValue(0);
+            //videoTipDetail
+            var videoTipDetailEntity = modelBuilder.Entity<VideoTipDetail>();
+            videoTipDetailEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            videoTipDetailEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            videoTipDetailEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            videoTipDetailEntity.HasIndex(cw => cw.userId);
+            videoTipDetailEntity.HasIndex(cw => cw.videoId);
+            //buyCoinConfig
+            var buyCoinConfigEntity = modelBuilder.Entity<BuyCoinConfig>();
+            buyCoinConfigEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            buyCoinConfigEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            buyCoinConfigEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            buyCoinConfigEntity.Property(cw => cw.orderIndex).HasDefaultValue(0);
             //Pet
             var petEntity = modelBuilder.Entity<Pet>();
             petEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");

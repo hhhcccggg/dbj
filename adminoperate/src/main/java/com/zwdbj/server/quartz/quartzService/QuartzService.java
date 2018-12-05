@@ -378,8 +378,8 @@ public class QuartzService {
                     }else if (i%13==10){
                         id = Long.valueOf(this.redisTemplate.opsForList().rightPop("TEMP_1300_VIDEOS"));
                         address = "合肥市";
-                        longitude=31.52F;
-                        latitude = 117.17F;
+                        longitude = 117.17F;
+                        latitude=31.52F;
                         this.videoService.updateVideoAddress(id,longitude,latitude,address);
                         logger.info("第"+i+"个视频：合肥市");
                     }else if (i%13==11){
@@ -410,6 +410,29 @@ public class QuartzService {
         }catch (Exception e){
             logger.info("附近异常"+e.getMessage());
         }
+    }
+
+    /**
+     * 每天凌晨3:15更新昨天video的增量
+     */
+    public void everyUpdateVideoNum(){
+        try {
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"v";
+            if (this.stringRedisTemplate.hasKey(date)){
+                int videoNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get(date));
+                this.dailyIncreaseAnalysisesService.updateVideoNum(videoNum);
+                if(this.stringRedisTemplate.hasKey("OPERATE_ALL_VIDEO_NUM")){
+                    int allVideoNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("OPERATE_ALL_VIDEO_NUM"));
+                    allVideoNum = allVideoNum + videoNum;
+                    this.stringRedisTemplate.opsForValue().set("OPERATE_ALL_VIDEO_NUM",String.valueOf(allVideoNum));
+                }
+            }else {
+                this.dailyIncreaseAnalysisesService.updateVideoNum(326);
+            }
+        }catch (Exception e){
+            logger.error("每天更新videoNum异常"+e.getMessage());
+        }
+
     }
 
 }

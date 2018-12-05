@@ -84,4 +84,6 @@ public interface IVideoMapper {
 
     @Select("select heartCount from core_videos where id=#{id}")
     Long findVideoHeartCount(@Param("id")Long id);
+    @SelectProvider(type = VideoSqlProvider.class,method = "findAllVideoNum")
+    int findAllVideoNum(@Param("model")SearchVideoAdInput model);
 }
