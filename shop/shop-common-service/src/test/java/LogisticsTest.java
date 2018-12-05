@@ -1,9 +1,7 @@
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import com.zwdbj.shop_common_service.logistics.model.Logistics;
-import com.zwdbj.shop_common_service.logistics.service.ILogisticsService;
-import com.zwdbj.shop_common_service.logistics.service.LogisticsService;
+import com.zwdbj.server.shop_common_service.logistics.model.Logistics;
+import com.zwdbj.server.shop_common_service.logistics.service.ILogisticsService;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 

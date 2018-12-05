@@ -1,24 +1,20 @@
-package com.zwdbj.shop_common_service.logistics.service;
+package com.zwdbj.server.shop_common_service.logistics.service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zwdbj.server.shop_common_service.logistics.model.Logistics;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import com.zwdbj.shop_common_service.logistics.model.Logistics;
-import com.zwdbj.shop_common_service.logistics.model.LogisticsDetail;
+import com.zwdbj.server.shop_common_service.logistics.model.LogisticsDetail;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.connection.RedisServer;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;

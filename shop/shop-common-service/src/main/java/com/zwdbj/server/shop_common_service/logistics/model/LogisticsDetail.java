@@ -1,4 +1,4 @@
-package com.zwdbj.shop_common_service.logistics.model;
+package com.zwdbj.server.shop_common_service.logistics.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
