@@ -102,12 +102,16 @@ public class VideoController {
     public ResponsePageInfoData<List<VideoInfoDto>> searchAd(@RequestBody SearchVideoAdInput input,
                                                                  @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                  @RequestParam(value = "rows",required = true,defaultValue = "13") int rows) {
-
-        List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo%(videoModelDtos.size()/rows),rows);
         int allNotTrueNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("OPERATE_ALL_VIDEO_NUM"));
         if (allNotTrueNum==0)allNotTrueNum=13309;
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,videoModelDtos.size()+allNotTrueNum);
+        List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
+        if (pageNo%(videoModelDtos.size()/rows)==0){
+            pageNo = videoModelDtos.size()/rows;
+        }else {
+            pageNo = pageNo%(videoModelDtos.size()/rows);
+        }
+        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal()+allNotTrueNum);
     }
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/{id}/vComplains",method = RequestMethod.GET)
