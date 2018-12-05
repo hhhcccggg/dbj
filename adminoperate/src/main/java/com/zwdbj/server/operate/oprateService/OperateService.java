@@ -94,6 +94,7 @@ public class OperateService {
     }
 
     public void userNumber(){
+        this.stringRedisTemplate.opsForValue().set("2018-12-05u","4845",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-12-06u","5543",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-12-07u","5769",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-12-08u","6438",30,TimeUnit.DAYS);
@@ -106,6 +107,7 @@ public class OperateService {
     }
 
     public void videoNumber(){
+        this.stringRedisTemplate.opsForValue().set("2018-12-05v","609",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-12-06v","540",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-12-07v","560",30,TimeUnit.DAYS);
         this.stringRedisTemplate.opsForValue().set("2018-12-08v","897",30,TimeUnit.DAYS);
