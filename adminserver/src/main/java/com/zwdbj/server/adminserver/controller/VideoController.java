@@ -16,6 +16,8 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,7 @@ public class VideoController {
     private YouZanService youZanService;
     @Autowired
     StringRedisTemplate stringRedisTemplate;
+    private Logger logger = LoggerFactory.getLogger(VideoController.class);
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ApiOperation(value = "发布短视频")
@@ -104,14 +107,23 @@ public class VideoController {
                                                                  @RequestParam(value = "rows",required = true,defaultValue = "13") int rows) {
         int allNotTrueNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("OPERATE_ALL_VIDEO_NUM"));
         if (allNotTrueNum==0)allNotTrueNum=13309;
+        Page<VideoInfoDto> pageInfo;
         List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
         int a = new Double(Math.ceil(videoModelDtos.size()*1.0/rows)).intValue();
-        if (pageNo%a==0){
-            pageNo = a;
+        if (pageNo<=a){
+            pageInfo = PageHelper.startPage(pageNo,rows);
         }else {
-            pageNo = pageNo%a;
+            if (pageNo%a==0){
+                pageNo = a;
+                logger.info("pageNo="+pageNo);
+            }else {
+                pageNo = pageNo%a;
+                logger.info("pageNo="+pageNo);
+            }
+            pageInfo = PageHelper.startPage(pageNo,rows);
         }
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+        logger.info("pageInfo.getTotal()="+pageInfo.getTotal());
+
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal()+allNotTrueNum);
     }
     @RequiresAuthentication
