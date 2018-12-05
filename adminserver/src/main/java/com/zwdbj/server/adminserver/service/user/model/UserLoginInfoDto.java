@@ -10,6 +10,15 @@ public class UserLoginInfoDto {
     private String avatarUrl;
     private String phone;
     private String email;
+    private String roleName;
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
     public long getId() {
         return id;

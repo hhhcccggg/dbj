@@ -385,6 +385,7 @@ public class UserService {
             infoDto.setId(userModel.getId());
             infoDto.setPhone(userModel.getPhone());
             infoDto.setUsername(userModel.getUsername());
+            infoDto.setRoleName(userModel.getRoleName());
             return new ServiceStatusInfo<>(0,"登录成功",infoDto);
         } else {
             return new ServiceStatusInfo<>(1,"用户名或密码错误!",null);
