@@ -26,4 +26,8 @@ public class DailyIncreaseAnalysisesService {
         return this.dailyIncreaseAnalysisesMapper.everyIncreasedUsersAndVideos(increasedUsers,increasedVideos);
     }
 
+    public int  updateVideoNum(int videoNum){
+        return this.dailyIncreaseAnalysisesMapper.updateVideoNum(videoNum);
+    }
+
 }

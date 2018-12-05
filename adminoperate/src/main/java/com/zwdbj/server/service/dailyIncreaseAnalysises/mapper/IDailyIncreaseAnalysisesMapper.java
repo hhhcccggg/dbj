@@ -15,5 +15,8 @@ public interface IDailyIncreaseAnalysisesMapper {
     @Update("update core_dailyIncreaseAnalysises set newUsers=#{newUsers},newVideos=#{newVideos} where date(createTime)=curDate()-1")
     int everyIncreasedUsersAndVideos(@Param("newUsers") Long increasedUsers, @Param("newVideos") Long increasedVideos);
 
+    @Update("update core_dailyIncreaseAnalysises set newVideos=#{newVideos} where date(createTime)=curDate()-1")
+    int updateVideoNum(@Param("newVideos")int videoNum);
+
 
 }

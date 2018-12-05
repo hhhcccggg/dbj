@@ -31,7 +31,7 @@ public class TagController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/videoTag",method = RequestMethod.POST)
     @ApiOperation("基础信息-视频标签")
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE,RoleIdentity.DATA_REPORT_ROLE},logical = Logical.OR)
     public  ResponsePageInfoData<List<AdVideoTagDto>> getVideoTagAd(@RequestBody AdVideoTagInput input,
                                                                     @RequestParam(value = "pageNo",defaultValue = "1",required = true) int pageNo,
                                                                     @RequestParam(value = "rows",defaultValue = "13",required = true) int rows){

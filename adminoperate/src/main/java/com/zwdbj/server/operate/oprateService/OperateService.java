@@ -94,43 +94,26 @@ public class OperateService {
     }
 
     public void userNumber(){
-        this.stringRedisTemplate.opsForValue().set("2018-11-20u","120",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-21u","556",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-22u","929",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-23u","3586",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-24u","4589",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-25u","3930",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-26u","3677",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-27u","4821",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-28u","4987",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-29u","3434",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-30u","3809",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-01u","2789",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-02u","3144",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-03u","2681",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-04u","4499",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-05u","6087",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-06u","5543",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-07u","5769",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-08u","6438",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-09u","6679",30,TimeUnit.DAYS);
+        int[] userNums = {5422,5621,5130,5696,5421,6521,6798,5433,5122,5374,5965,6185,6485,6198,5196,4931,4752,5641,5211,6784,6824,6184};
+        for(int i = 10;i<32;i++){
+            this.stringRedisTemplate.opsForValue().set("2018-12-"+i+"u",String.valueOf(userNums[(i-10)]),30,TimeUnit.DAYS);
+        }
         this.videoNumber();
     }
 
     public void videoNumber(){
-        this.stringRedisTemplate.opsForValue().set("2018-11-20v","120",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-21v","929",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-22v","631",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-23v","538",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-24v","551",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-25v","1061",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-26v","588",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-27v","482",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-28v","798",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-29v","549",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-30v","724",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-01v","446",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-02v","629",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-03v","402",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-04v","585",30,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-05v","609",30,TimeUnit.DAYS);
-
+        this.stringRedisTemplate.opsForValue().set("2018-12-06v","540",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-07v","560",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-08v","897",30,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2018-12-09v","912",30,TimeUnit.DAYS);
+        int[] videoNums = {620,598,632,619,622,943,925,685,642,752,732,744,1085,1096,810,851,814,832,842,1125,1265,1285};
+        for(int i = 10;i<32;i++){
+            this.stringRedisTemplate.opsForValue().set("2018-12-"+i+"v",String.valueOf(videoNums[(i-10)]),30,TimeUnit.DAYS);
+        }
     }
 
     public void newVestUser1(){
@@ -332,33 +315,9 @@ public class OperateService {
         this.videoService.get1300Videos();
     }
 
-    public void tempNewUser(){
-        this.stringRedisTemplate.opsForValue().set("2018-11-1t","85",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-2t","98",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-3t","101",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-4t","128",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-5t","116",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-6t","189",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-7t","209",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-8t","254",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-9t","476",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-10t","598",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-11t","561",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-12t","715",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-13t","1258",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-14t","1985",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-15t","2785",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-16t","3586",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-17t","3196",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-18t","3864",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-19t","4780",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-20t","5168",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-21t","4890",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-22t","5887",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-23t","5741",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-11-24t","4589",7,TimeUnit.DAYS);
-        this.stringRedisTemplate.opsForValue().set("2018-12-1t","5185",7,TimeUnit.DAYS);
-
+    public void allVideoNum(){
+        this.stringRedisTemplate.opsForValue().set("OPERATE_ALL_VIDEO_NUM","13309");
     }
+
 
 }
