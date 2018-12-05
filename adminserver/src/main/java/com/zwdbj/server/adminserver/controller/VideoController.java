@@ -119,6 +119,8 @@ public class VideoController {
         Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
         logger.info("pageInfo.getTotal()="+pageInfo.getTotal());
+        if (input.getKeywords()!=null || input.getStatus()==2)
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,videoNum);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,videoNum+allNotTrueNum);
     }
     @RequiresAuthentication
