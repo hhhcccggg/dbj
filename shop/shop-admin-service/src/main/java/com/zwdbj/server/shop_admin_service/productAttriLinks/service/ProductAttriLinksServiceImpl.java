@@ -2,6 +2,7 @@ package com.zwdbj.server.shop_admin_service.productAttriLinks.service;
 
 import com.zwdbj.server.shop_admin_service.productAttriLinks.mapper.IProductAttriLinksMapper;
 import com.zwdbj.server.shop_admin_service.productAttriLinks.model.ProductAttriLinks;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +30,10 @@ public class ProductAttriLinksServiceImpl implements ProductAttriLinksService {
 
     @Override
     public ServiceStatusInfo<Long> createProductAttriLinks(ProductAttriLinks productAttriLinks) {
+        Long id= UniqueIDCreater.generateID();
         Long result = 0L;
         try {
-            result = this.iProductAttriLinksMapper.createProductAttriLinks(productAttriLinks);
+            result = this.iProductAttriLinksMapper.createProductAttriLinks(id,productAttriLinks);
             return new ServiceStatusInfo<Long>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<Long>(1, "创建商品属性关系失败" + e.getMessage(), result);

@@ -24,7 +24,7 @@ public class ProductAttriLinksController {
     @Autowired
     private ProductAttriLinksService productAttriLinksServiceImpl;
 
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "添加商品属性关系")
     public ResponseData<Long> createProductAttriLinks(@RequestBody ProductAttriLinks productAttriLinks) {
         ServiceStatusInfo<Long> serviceStatusInfo = productAttriLinksServiceImpl.createProductAttriLinks(productAttriLinks);
@@ -34,7 +34,7 @@ public class ProductAttriLinksController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/delelte/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除商品属性关系")
     public ResponseData<Long> deleteProductAttriLinks(@PathVariable("id") Long id) {
         ServiceStatusInfo<Long> serviceStatusInfo = productAttriLinksServiceImpl.deleteById(id);
@@ -44,7 +44,7 @@ public class ProductAttriLinksController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改商品属性关系")
     public ResponseData<Long> updateProductAttriLinks(@RequestBody ProductAttriLinks productAttriLinks) {
         ServiceStatusInfo<Long> serviceStatusInfo = productAttriLinksServiceImpl.updateProductAttriLinks(productAttriLinks);
