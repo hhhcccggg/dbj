@@ -32,7 +32,7 @@ public class HomepageController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/findNewNum",method = RequestMethod.POST)
     @ApiOperation("新增加的用户和短视频数量")
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE,RoleIdentity.DATA_REPORT_ROLE},logical = Logical.OR)
     public ResponseData<AdFindIncreasedDto> findIncreasedAd(@RequestBody AdFindIncreasedInput input){
         AdFindIncreasedDto dto = this.homepageService.findIncreasedAd(input);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dto);
@@ -41,7 +41,7 @@ public class HomepageController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/userGrowth",method = RequestMethod.POST)
     @ApiOperation("用户增长趋势")
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE,RoleIdentity.DATA_REPORT_ROLE},logical = Logical.OR)
     public ResponsePageInfoData<List<AdUserOrVideoGrowthDto>> userGrowthAd(@RequestBody AdFindIncreasedInput input,
                                                                            @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                            @RequestParam(value = "rows",required = true,defaultValue = "31") int rows){
@@ -53,7 +53,7 @@ public class HomepageController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/videoGrowth",method = RequestMethod.POST)
     @ApiOperation("短视频增长趋势")
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE,RoleIdentity.DATA_REPORT_ROLE},logical = Logical.OR)
     public ResponsePageInfoData<List<AdUserOrVideoGrowthDto>> videoGrowthAd(@RequestBody AdFindIncreasedInput input,
                                                                            @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                            @RequestParam(value = "rows",required = true,defaultValue = "31") int rows){
@@ -65,7 +65,7 @@ public class HomepageController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/hotTags",method = RequestMethod.GET)
     @ApiOperation("热门标签")
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE,RoleIdentity.DATA_REPORT_ROLE},logical = Logical.OR)
     public ResponsePageInfoData<List<AdFindHotTagsDto>> findHotTagsAd(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                       @RequestParam(value = "rows",required = true,defaultValue = "20") int rows){
         Page<AdFindHotTagsDto> pageInfo = PageHelper.startPage(pageNo,rows);
