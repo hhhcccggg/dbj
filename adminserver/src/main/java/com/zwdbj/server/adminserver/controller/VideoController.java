@@ -108,21 +108,25 @@ public class VideoController {
         int allNotTrueNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("OPERATE_ALL_VIDEO_NUM"));
         if (allNotTrueNum==0)allNotTrueNum=13309;
         int videoNum = this.videoService.findAllVideoNum(input);
-        if (videoNum==0)return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",null,videoNum);
-        int a = new Double(Math.ceil(videoNum*1.0/rows)).intValue();
-        if (pageNo>a){
-            if (pageNo%a==0){
-                pageNo=a;
-            }else {
-                pageNo=pageNo%a;
+        if (videoNum==0){
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",null,videoNum);
+        }else {
+            int a = new Double(Math.ceil(videoNum*1.0/rows)).intValue();
+            if (pageNo>a){
+                if (pageNo%a==0){
+                    pageNo=a;
+                }else {
+                    pageNo=pageNo%a;
+                }
             }
+            Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+            List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
+            logger.info("pageInfo.getTotal()="+pageInfo.getTotal());
+            if ((input.getKeywords()!=null && input.getKeywords().length()!=0) || input.getStatus()==2)
+                return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,videoNum);
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,videoNum+allNotTrueNum);
         }
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
-        logger.info("pageInfo.getTotal()="+pageInfo.getTotal());
-        if ((input.getKeywords()!=null && input.getKeywords().length()!=0) || input.getStatus()==2)
-            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,videoNum);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,videoNum+allNotTrueNum);
+
     }
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/{id}/vComplains",method = RequestMethod.GET)
