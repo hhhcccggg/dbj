@@ -35,15 +35,14 @@ public class HomepageService {
     public AdFindIncreasedDto findIncreasedAd(AdFindIncreasedInput input){
         AdFindIncreasedDto dto = this.userService.findIncreasedUserAd(input);
         if (dto==null) return null;
-        Long videoNum = this.videoService.findIncreasedVideoAd(input.getQuantumTime());
-        //Long verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
-        Long verifingVideoNum;
+        Long videoNum ;
+        Long verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"v";
         if (this.stringRedisTemplate.hasKey(date)){
-            verifingVideoNum = Long.valueOf(this.stringRedisTemplate.opsForValue().get(date));
-            logger.info("verifingVideoNum="+verifingVideoNum);
+            videoNum = Long.valueOf(this.stringRedisTemplate.opsForValue().get(date));
+            logger.info("videoNum="+videoNum);
         }else {
-            verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
+            videoNum = this.videoService.findIncreasedVideoAd(input.getQuantumTime());
         }
         //long dau1 = this.userService.dau();
         long dau1 = this.dailyIncreaseAnalysisesService.dau();
