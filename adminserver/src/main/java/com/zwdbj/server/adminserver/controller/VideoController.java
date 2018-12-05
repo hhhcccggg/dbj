@@ -108,8 +108,12 @@ public class VideoController {
         int allNotTrueNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("OPERATE_ALL_VIDEO_NUM"));
         if (allNotTrueNum==0)allNotTrueNum=13309;
         int videoNum = this.videoService.findAllVideoNum(input);
+        List<VideoInfoDto> videoModelDtos;
+        Page<VideoInfoDto> pageInfo;
         if (videoNum==0){
-            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",null,videoNum);
+            pageInfo = PageHelper.startPage(pageNo,rows);
+            videoModelDtos = this.videoService.searchAd(input);
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal());
         }else {
             int a = new Double(Math.ceil(videoNum*1.0/rows)).intValue();
             if (pageNo>a){
@@ -119,8 +123,8 @@ public class VideoController {
                     pageNo=pageNo%a;
                 }
             }
-            Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-            List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
+            pageInfo = PageHelper.startPage(pageNo,rows);
+            videoModelDtos = this.videoService.searchAd(input);
             logger.info("pageInfo.getTotal()="+pageInfo.getTotal());
             if ((input.getKeywords()!=null && input.getKeywords().length()!=0) || input.getStatus()==2)
                 return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,videoNum);
