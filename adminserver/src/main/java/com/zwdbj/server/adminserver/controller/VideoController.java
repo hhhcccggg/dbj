@@ -107,12 +107,10 @@ public class VideoController {
                                                                  @RequestParam(value = "rows",required = true,defaultValue = "13") int rows) {
         int allNotTrueNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("OPERATE_ALL_VIDEO_NUM"));
         if (allNotTrueNum==0)allNotTrueNum=13309;
-        Page<VideoInfoDto> pageInfo;
+        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<VideoInfoDto> videoModelDtos = this.videoService.searchAd(input);
         int a = new Double(Math.ceil(videoModelDtos.size()*1.0/rows)).intValue();
-        if (pageNo<=a){
-            pageInfo = PageHelper.startPage(pageNo,rows);
-        }else {
+        if (pageNo>a){
             if (pageNo%a==0){
                 pageNo = a;
                 logger.info("pageNo="+pageNo);
@@ -122,6 +120,7 @@ public class VideoController {
             }
             pageInfo = PageHelper.startPage(pageNo,rows);
         }
+
         logger.info("pageInfo.getTotal()="+pageInfo.getTotal());
 
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoModelDtos,pageInfo.getTotal()+allNotTrueNum);
