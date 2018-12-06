@@ -105,10 +105,16 @@ public class UserService {
         return userModelList;
     }
 
+    public List<UserDetailInfoDto> searchTopFake(int s, int e) {
+        return this.userMapper.findUsersFakeAd(s,e);
+    }
+
     public  List<UserDetailInfoDto> marketListAd(AdMarketUserInput input){
         List<UserDetailInfoDto> userInfoDtoList = this.userMapper.marketListAd(input);
         return userInfoDtoList;
     }
+
+
 
     @Transactional
     public ServiceStatusInfo<Long> newMarketAd(AdNewMarketInput input){
