@@ -30,6 +30,10 @@ public interface IUserMapper {
 
     @SelectProvider(type = UserSqlProvider.class,method = "queryUser")
     List<UserDetailInfoDto> findUsersAd(@Param("model") UserSearchForAdInput model);
+    @Select("SELECT u.*, fk.`petCount` as petCount,fk.`videoCount` as videoCount  " +
+            "FROM `core_users` as u INNER JOIN `data_fake_users` as fk on u.`username` = fk.`username` " +
+            "LIMIT #{s},#{e}")
+    List<UserDetailInfoDto> findUsersFakeAd(@Param("s") int s,@Param("e") int e);
     @SelectProvider(type = UserSqlProvider.class,method = "marketListAd")
     List<UserDetailInfoDto> marketListAd(@Param("input") AdMarketUserInput input);
     @Insert("insert into core_users(id,username,nickname,phone,avatarUrl,isSuper,isManager,sex) " +

@@ -95,6 +95,10 @@ public class UserController {
                                                                @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
         Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<UserDetailInfoDto> userModelList = this.userService.search(input);
+        long totalData = pageInfo.getTotal();
+        if (pageNo<10) {
+            userModelList = this.userService.searchTopFake((pageNo-1)*rows,pageNo*rows);
+        }
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
                 "",userModelList,pageInfo.getTotal());
     }
