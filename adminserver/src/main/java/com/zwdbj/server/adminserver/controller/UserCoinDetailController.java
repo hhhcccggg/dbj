@@ -33,7 +33,7 @@ public class UserCoinDetailController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/search/{userId}")
+    @RequestMapping(value = "/search/{userId}",method = RequestMethod.GET)
     @ApiOperation(value = "通过id查询用户资产")
     public ResponseData<UserCoinDetail> searchByUserId(@PathVariable("userId") Long userId) {
         ServiceStatusInfo<UserCoinDetail> serviceStatusInfo = this.userCoinDetailServiceImpl.searchByUserId(userId);

@@ -34,7 +34,7 @@ public class UserAssetsController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/search/{userId}")
+    @RequestMapping(value = "/search/{userId}",method = RequestMethod.GET)
     @ApiOperation(value = "通过id查询用户资产")
     public ResponseData<UserAssets> searchByUserId(@PathVariable("userId") Long userId) {
         ServiceStatusInfo<UserAssets> serviceStatusInfo = this.userAssetsServiceImpl.searchByUserId(userId);

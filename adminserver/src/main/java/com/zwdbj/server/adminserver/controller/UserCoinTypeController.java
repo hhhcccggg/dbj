@@ -35,7 +35,7 @@ public class UserCoinTypeController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/search/{userId}")
+    @RequestMapping(value = "/search/{userId}",method =RequestMethod.GET)
     @ApiOperation(value = "通过id分类查询用户金币总额")
     public ResponseData<UserCoinType> searchByUserId(@PathVariable("userId") Long userId) {
         ServiceStatusInfo<UserCoinType> serviceStatusInfo = this.userCoinTypeServiceImpl.searchByUserId(userId);

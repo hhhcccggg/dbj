@@ -23,7 +23,7 @@ public class UserCoinTypeServiceImpl implements UserCoinTypeService {
             System.out.println(result);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "分类型查询用户金币总额失败", result);
+            return new ServiceStatusInfo<>(1, "分类型查询用户金币总额失败"+e.getMessage(), result);
         }
     }
 
@@ -34,7 +34,7 @@ public class UserCoinTypeServiceImpl implements UserCoinTypeService {
             result = this.userCoinTypeMapper.searchByUserId(userId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "通过用户id分类型查询用户金币总额失败",result);
+            return new ServiceStatusInfo<>(1, "通过用户id分类型查询用户金币总额失败"+e.getMessage(),result);
         }
     }
 }

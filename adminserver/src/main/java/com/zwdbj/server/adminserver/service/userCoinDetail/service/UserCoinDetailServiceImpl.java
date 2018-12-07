@@ -22,7 +22,7 @@ public class UserCoinDetailServiceImpl implements UserCoinDetailService {
             result = this.userCoinDetailMapper.searchAll();
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "查询用户金币明细失败", result);
+            return new ServiceStatusInfo<>(1, "查询用户金币明细失败"+e.getMessage(), result);
         }
     }
 
@@ -33,7 +33,7 @@ public class UserCoinDetailServiceImpl implements UserCoinDetailService {
             result = this.userCoinDetailMapper.searchByUserId(userId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "通过用户id查询用户金币明细失败", result);
+            return new ServiceStatusInfo<>(1, "通过用户id查询用户金币明细失败"+e.getMessage(), result);
         }
     }
 }

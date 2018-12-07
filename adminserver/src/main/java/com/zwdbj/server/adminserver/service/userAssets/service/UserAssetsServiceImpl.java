@@ -24,7 +24,7 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             return new ServiceStatusInfo<>(0, "", result);
 
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "查询用户资产失败", result);
+            return new ServiceStatusInfo<>(1, "查询用户资产失败"+e.getMessage(), result);
         }
     }
 
@@ -35,7 +35,7 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             result = this.userAssetsMapper.searchAll();
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "查询所有用户资产失败", result);
+            return new ServiceStatusInfo<>(1, "查询所有用户资产失败"+e.getMessage(), result);
         }
     }
 }
