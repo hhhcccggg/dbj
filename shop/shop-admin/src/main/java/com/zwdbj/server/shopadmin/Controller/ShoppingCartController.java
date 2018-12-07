@@ -22,13 +22,13 @@ import java.util.List;
 @Api(description = "购物车相关")
 public class ShoppingCartController {
     @Autowired
-    ShoppingCartService shoppingCartService;
+    ShoppingCartService shoppingCartServiceImpl;
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有购物车")
     public ResponsePageInfoData<List<ProductCartModel>> findAllBusinessSellers(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                                @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         Page<ProductCartModel> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<ProductCartModel> shoppingCarts = this.shoppingCartService.findAllShoppingCarts();
+        List<ProductCartModel> shoppingCarts = this.shoppingCartServiceImpl.findAllShoppingCarts();
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", shoppingCarts, pageInfo.getTotal());
 
     }
@@ -36,7 +36,7 @@ public class ShoppingCartController {
     @RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "查询购物车详情")
     public ResponseData<ProductCartModel> getBusinessSellerById(@PathVariable long id) {
-        ServiceStatusInfo<ProductCartModel> productCartModel = this.shoppingCartService.getShoppingCartById(id);
+        ServiceStatusInfo<ProductCartModel> productCartModel = this.shoppingCartServiceImpl.getShoppingCartById(id);
         if (productCartModel.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,productCartModel.getMsg(),productCartModel.getData());
         }
@@ -46,7 +46,7 @@ public class ShoppingCartController {
     @ApiOperation(value = "修改店铺信息")
     public ResponseData<Integer> modifyShoppingCart(@PathVariable long id,
                                                        @RequestBody ProductCartModifyInput input) {
-        ServiceStatusInfo <Integer> statusInfo = this.shoppingCartService.modifyShoppingCart(id,input);
+        ServiceStatusInfo <Integer> statusInfo = this.shoppingCartServiceImpl.modifyShoppingCart(id,input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
@@ -56,7 +56,7 @@ public class ShoppingCartController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiOperation(value = "添加新的购物车")
     public ResponseData<Integer> addShoppingCart(@RequestBody ProductCartAddInput input) {
-        ServiceStatusInfo <Integer> statusInfo = this.shoppingCartService.addShoppingCart(input);
+        ServiceStatusInfo <Integer> statusInfo = this.shoppingCartServiceImpl.addShoppingCart(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
@@ -66,7 +66,7 @@ public class ShoppingCartController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除购物车")
     public ResponseData<Integer> deleteBusinessSellers(@PathVariable(value = "id") long id) {
-        ServiceStatusInfo <Integer> statusInfo = this.shoppingCartService.notRealDeleteShoppingCart(id);
+        ServiceStatusInfo <Integer> statusInfo = this.shoppingCartServiceImpl.notRealDeleteShoppingCart(id);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }

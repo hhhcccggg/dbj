@@ -7,7 +7,6 @@ import com.zwdbj.server.shop_admin_service.BusinessSellers.model.BusinessSellerA
 import com.zwdbj.server.shop_admin_service.BusinessSellers.model.BusinessSellerModel;
 import com.zwdbj.server.shop_admin_service.BusinessSellers.model.BusinessSellerModifyInput;
 import com.zwdbj.server.shop_admin_service.BusinessSellers.service.BusinessSellerService;
-import com.zwdbj.server.shop_admin_service.BusinessSellers.service.BusinessSellerServiceImpl;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
@@ -17,7 +16,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
@@ -25,14 +23,15 @@ import java.util.List;
 @Api(description = "店铺相关")
 public class BusinessSellerController {
     @Autowired
-    BusinessSellerServiceImpl businessSellerService;
+    BusinessSellerService businessSellerServiceImpl;
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有店铺")
-    public ResponsePageInfoData<List<BusinessSellerModel>> findAllBusinessSellers(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+    public ResponsePageInfoData<List<BusinessSellerModel>
+            > findAllBusinessSellers(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                                @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         Page<BusinessSellerModel> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<BusinessSellerModel> businessSellerModels = this.businessSellerService.findAllBusinessSellers();
+        List<BusinessSellerModel> businessSellerModels = this.businessSellerServiceImpl.findAllBusinessSellers();
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", businessSellerModels, pageInfo.getTotal());
 
     }
@@ -40,7 +39,7 @@ public class BusinessSellerController {
     @RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "查询店铺详情")
     public ResponseData<BusinessSellerModel> getBusinessSellerById(@PathVariable long id) {
-        ServiceStatusInfo <BusinessSellerModel> businessSellerModel = this.businessSellerService.getBusinessSellerById(id);
+        ServiceStatusInfo <BusinessSellerModel> businessSellerModel = this.businessSellerServiceImpl.getBusinessSellerById(id);
         if (businessSellerModel.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,businessSellerModel.getMsg(),businessSellerModel.getData());
         }
@@ -51,7 +50,7 @@ public class BusinessSellerController {
     @ApiOperation(value = "修改店铺信息")
     public ResponseData<Integer> modifyBusinessSellers(@PathVariable long id,
                                                        @RequestBody BusinessSellerModifyInput input) {
-        ServiceStatusInfo <Integer> statusInfo = this.businessSellerService.modifyBusinessSellers(id,input);
+        ServiceStatusInfo <Integer> statusInfo = this.businessSellerServiceImpl.modifyBusinessSellers(id,input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
@@ -61,7 +60,7 @@ public class BusinessSellerController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiOperation(value = "添加店铺")
     public ResponseData<Integer> addBusinessSellers(@RequestBody BusinessSellerAddInput input) {
-        ServiceStatusInfo <Integer> statusInfo = this.businessSellerService.addBusinessSellers(input);
+        ServiceStatusInfo <Integer> statusInfo = this.businessSellerServiceImpl.addBusinessSellers(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
@@ -71,7 +70,7 @@ public class BusinessSellerController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除店铺")
     public ResponseData<Integer> deleteBusinessSellers(@PathVariable(value = "id") long id) {
-        ServiceStatusInfo <Integer> statusInfo = this.businessSellerService.deleteBusinessSellers(id);
+        ServiceStatusInfo <Integer> statusInfo = this.businessSellerServiceImpl.deleteBusinessSellers(id);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
