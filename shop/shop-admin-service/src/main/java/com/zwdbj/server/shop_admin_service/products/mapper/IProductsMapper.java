@@ -69,7 +69,7 @@ public interface IProductsMapper {
             "where id=#{products.id}")
     Long update(@Param("products") Products products);
 
-    @Select("select * from shop_products where isDeleted=0,order by createTime")
+    @Select("select * from shop_products where isDeleted=0 order by createTime")
     List<Products> selectAll();
 
     @SelectProvider(type = ProductsSqlProvider.class, method = "search")
