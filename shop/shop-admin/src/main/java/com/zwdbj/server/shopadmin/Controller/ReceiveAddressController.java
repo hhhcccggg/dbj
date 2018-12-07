@@ -22,14 +22,14 @@ import java.util.List;
 @Api(description = "收货地址相关")
 public class ReceiveAddressController {
     @Autowired
-    ReceiveAddressService receiveAddressService;
+    ReceiveAddressService receiveAddressServiceImpl;
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有收货地址")
     public ResponsePageInfoData<List<ReceiveAddressModel>> findAllReceiveAddresses(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                                   @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         Page<ReceiveAddressModel> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<ReceiveAddressModel> receiveAddressModels = this.receiveAddressService.findAllReceiveAddresses();
+        List<ReceiveAddressModel> receiveAddressModels = this.receiveAddressServiceImpl.findAllReceiveAddresses();
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", receiveAddressModels, pageInfo.getTotal());
 
     }
@@ -37,7 +37,7 @@ public class ReceiveAddressController {
     @RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "查询收货地址详情")
     public ResponseData<ReceiveAddressModel> getReceiveAddressById(@PathVariable long id) {
-        ServiceStatusInfo<ReceiveAddressModel> receiveAddressModel = this.receiveAddressService.getReceiveAddressById(id);
+        ServiceStatusInfo<ReceiveAddressModel> receiveAddressModel = this.receiveAddressServiceImpl.getReceiveAddressById(id);
         if (receiveAddressModel.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,receiveAddressModel.getMsg(),receiveAddressModel.getData());
         }
@@ -48,7 +48,7 @@ public class ReceiveAddressController {
     @ApiOperation(value = "修改收货地址")
     public ResponseData<Integer> modifyReceiveAddress(@PathVariable long id,
                                                        @RequestBody ReceiveAddressModifyInput input) {
-        ServiceStatusInfo <Integer> statusInfo = this.receiveAddressService.modifyReceiveAddress(id,input);
+        ServiceStatusInfo <Integer> statusInfo = this.receiveAddressServiceImpl.modifyReceiveAddress(id,input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
@@ -58,7 +58,7 @@ public class ReceiveAddressController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiOperation(value = "添加收货地址")
     public ResponseData<Integer> addReceiveAddress(@RequestBody ReceiveAddressAddInput input) {
-        ServiceStatusInfo <Integer> statusInfo = this.receiveAddressService.addReceiveAddress(input);
+        ServiceStatusInfo <Integer> statusInfo = this.receiveAddressServiceImpl.addReceiveAddress(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
@@ -68,7 +68,7 @@ public class ReceiveAddressController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除收货地址")
     public ResponseData<Integer> notRealDeleteReceiveAddress(@PathVariable(value = "id") long id) {
-        ServiceStatusInfo <Integer> statusInfo = this.receiveAddressService.notRealDeleteReceiveAddress(id);
+        ServiceStatusInfo <Integer> statusInfo = this.receiveAddressServiceImpl.notRealDeleteReceiveAddress(id);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
