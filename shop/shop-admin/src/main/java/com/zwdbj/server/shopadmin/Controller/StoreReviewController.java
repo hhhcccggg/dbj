@@ -22,14 +22,14 @@ import java.util.List;
 @Api(description = "店铺认证相关")
 public class StoreReviewController {
     @Autowired
-    StoreReviewService storeReviewService;
+    StoreReviewService storeReviewServiceImpl;
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有店铺认证信息")
     public ResponsePageInfoData<List<BusinessSellerReviewModel>> findAllStoreReviews(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                                         @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         Page<BusinessSellerReviewModel> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<BusinessSellerReviewModel> businessSellerReviewModels = this.storeReviewService.findAllStoreReviews();
+        List<BusinessSellerReviewModel> businessSellerReviewModels = this.storeReviewServiceImpl.findAllStoreReviews();
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", businessSellerReviewModels, pageInfo.getTotal());
 
     }
@@ -37,7 +37,7 @@ public class StoreReviewController {
     @RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "查询店铺认证信息详情")
     public ResponseData<BusinessSellerReviewModel> getStoreReviewById(@PathVariable long id) {
-        ServiceStatusInfo<BusinessSellerReviewModel> businessSellerReviewModel = this.storeReviewService.getStoreReviewById(id);
+        ServiceStatusInfo<BusinessSellerReviewModel> businessSellerReviewModel = this.storeReviewServiceImpl.getStoreReviewById(id);
         if (businessSellerReviewModel.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,businessSellerReviewModel.getMsg(),businessSellerReviewModel.getData());
         }
@@ -48,7 +48,7 @@ public class StoreReviewController {
     @ApiOperation(value = "修改店铺认证信息")
     public ResponseData<Integer> modifyStoreReview(@PathVariable long id,
                                                        @RequestBody StoreReviewAddInput input) {
-        ServiceStatusInfo <Integer> statusInfo = this.storeReviewService.modifyStoreReview(id,input);
+        ServiceStatusInfo <Integer> statusInfo = this.storeReviewServiceImpl.modifyStoreReview(id,input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
@@ -58,7 +58,7 @@ public class StoreReviewController {
     @RequestMapping(value = "/add/", method = RequestMethod.POST)
     @ApiOperation(value = "添加店铺认证信息")
     public ResponseData<Integer> addStoreReview(@RequestBody StoreReviewAddInput input) {
-        ServiceStatusInfo <Integer> statusInfo = this.storeReviewService.addStoreReview(input);
+        ServiceStatusInfo <Integer> statusInfo = this.storeReviewServiceImpl.addStoreReview(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
@@ -68,7 +68,7 @@ public class StoreReviewController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除店铺认证信息")
     public ResponseData<Integer> deleteStoreReview(@PathVariable(value = "id") long businessSellerId) {
-        ServiceStatusInfo <Integer> statusInfo = this.storeReviewService.deleteStoreReview(businessSellerId);
+        ServiceStatusInfo <Integer> statusInfo = this.storeReviewServiceImpl.deleteStoreReview(businessSellerId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
