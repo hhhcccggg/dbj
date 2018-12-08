@@ -6,7 +6,7 @@ import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.living.model.*;
 import com.zwdbj.server.mobileapi.service.living.service.LivingService;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;

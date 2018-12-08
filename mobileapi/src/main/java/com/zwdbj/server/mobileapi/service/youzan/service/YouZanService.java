@@ -17,7 +17,7 @@ import com.youzan.open.sdk.gen.v3_0_1.model.YouzanUmpPromocardBuyerSearchResult;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.user.model.UserModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.youzan.model.AyouzanTradeCartAddParams;

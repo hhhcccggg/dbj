@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.appVersion.service;
 
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.appVersion.mapper.IAppVersionMapper;
 import com.zwdbj.server.mobileapi.service.appVersion.model.AppVersionDto;
 import com.zwdbj.server.mobileapi.service.appVersion.model.AppVersionInput;

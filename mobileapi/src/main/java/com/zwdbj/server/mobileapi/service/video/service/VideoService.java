@@ -5,7 +5,7 @@ import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.service.CommentService;
 import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;

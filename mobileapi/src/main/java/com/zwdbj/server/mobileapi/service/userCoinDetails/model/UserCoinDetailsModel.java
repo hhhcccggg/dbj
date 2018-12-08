@@ -3,10 +3,11 @@ package com.zwdbj.server.mobileapi.service.userCoinDetails.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel(description = "用户金币明细")
-public class UserCoinDetailsModel {
+public class UserCoinDetailsModel implements Serializable {
     @ApiModelProperty(value = "id")
     long id;
     @ApiModelProperty(value = "创建日期")

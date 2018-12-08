@@ -7,7 +7,7 @@ import com.zwdbj.server.mobileapi.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.mobileapi.service.setting.service.SettingService;
 import com.zwdbj.server.mobileapi.service.user.model.*;
 import com.zwdbj.server.mobileapi.model.user.UserToken;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.userBind.model.UserThirdAccountBindDto;
 import com.zwdbj.server.mobileapi.service.userBind.service.UserBindService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;

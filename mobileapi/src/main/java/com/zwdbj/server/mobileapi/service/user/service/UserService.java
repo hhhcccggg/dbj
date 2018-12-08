@@ -8,10 +8,11 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobUser;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.user.UserToken;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
 import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
@@ -69,6 +70,8 @@ public class UserService {
     private PetService petService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private UserAssetService userAssetService;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -203,6 +206,7 @@ public class UserService {
         if (cartStatusInfo.isSuccess()) {
             userDetailInfoDto.getShopInfoDto().setCartNum(cartStatusInfo.getData());
         }
+        userDetailInfoDto.setCoins(this.userAssetService.getCoinsByUserId(userId).getCoins());
         //判断环信账号是否已经生成
         //TODO 优化,数据库写入可以放在消息队列处理
         long currentUserId = JWTUtil.getCurrentId();
@@ -362,6 +366,11 @@ public class UserService {
             return new ServiceStatusInfo<>(401,"用户已被锁定",null);
         }
         return new ServiceStatusInfo<>(0,"",userAuthInfo);
+    }
+
+    @CacheEvict(value = "userauthinfo",key = "#userId",allEntries = true)
+    public void clearCacheUserInfo(long userId) {
+        logger.info("清理缓存"+userId);
     }
 
     public ServiceStatusInfo<Object> checkTokenValid(long userId,String reqToken) {

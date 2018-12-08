@@ -1,15 +1,22 @@
 package com.zwdbj.server.pay.wechat.wechatpay.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("微信支付统一下单")
 public class UnifiedOrderInput {
+    @ApiModelProperty("商品描述")
     private String body;
+    @ApiModelProperty("订单号")
     private String outTradeNo;
-    private String deviceInfo;
+    @ApiModelProperty("货币类型，人民币请传CNY,忽略其他类型")
     private String feeType;
+    @ApiModelProperty("总金额，单位：分")
     private int totalFee;
-    private String spbillCreateIP;
+    @ApiModelProperty("支付回调地址")
     private String notifyUrl;
+    @ApiModelProperty("交易类型，默认APP")
     private String tradeType;
-    private String productId;
 
     public String getBody() {
         return body;
@@ -25,14 +32,6 @@ public class UnifiedOrderInput {
 
     public void setOutTradeNo(String outTradeNo) {
         this.outTradeNo = outTradeNo;
-    }
-
-    public String getDeviceInfo() {
-        return deviceInfo;
-    }
-
-    public void setDeviceInfo(String deviceInfo) {
-        this.deviceInfo = deviceInfo;
     }
 
     public String getFeeType() {
@@ -51,14 +50,6 @@ public class UnifiedOrderInput {
         this.totalFee = totalFee;
     }
 
-    public String getSpbillCreateIP() {
-        return spbillCreateIP;
-    }
-
-    public void setSpbillCreateIP(String spbillCreateIP) {
-        this.spbillCreateIP = spbillCreateIP;
-    }
-
     public String getNotifyUrl() {
         return notifyUrl;
     }
@@ -73,13 +64,5 @@ public class UnifiedOrderInput {
 
     public void setTradeType(String tradeType) {
         this.tradeType = tradeType;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
     }
 }

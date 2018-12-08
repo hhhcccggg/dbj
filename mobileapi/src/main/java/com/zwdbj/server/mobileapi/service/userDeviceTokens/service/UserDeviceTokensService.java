@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.userDeviceTokens.service;
 
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.mapper.IUserDeviceTokensMapper;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokenDto;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokensInput;

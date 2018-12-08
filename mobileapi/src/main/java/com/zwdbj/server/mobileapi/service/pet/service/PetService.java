@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.service.pet.service;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.pet.mapper.IPetMapper;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.model.UpdatePetModelInput;

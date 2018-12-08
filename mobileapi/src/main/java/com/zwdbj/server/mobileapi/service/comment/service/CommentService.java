@@ -2,7 +2,6 @@ package com.zwdbj.server.mobileapi.service.comment.service;
 
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.model.HeartInput;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.mapper.ICommentMapper;
 import com.zwdbj.server.mobileapi.service.comment.model.AddCommentInput;
 import com.zwdbj.server.mobileapi.service.comment.model.AddCommentModel;
@@ -16,6 +15,7 @@ import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

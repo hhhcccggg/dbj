@@ -13,8 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserCoinTypeService {
     @Autowired
     IUserCoinTypeMapper userCoinTypeMapper;
+
     public UserCoinTypeModel getUserCoinType(String type){
         long userId = JWTUtil.getCurrentId();
+        return getUserCoinType(userId,type);
+    }
+
+    public UserCoinTypeModel getUserCoinType(long userId,String type) {
         boolean isExist = this.userCoinTypeIsExist(userId,type);
         if (!isExist){
             this.greatUserCoinType(userId,type);
