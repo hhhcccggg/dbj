@@ -4,6 +4,7 @@ import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.zwdbj.server.pay.wechat.wechatpay.WeChatConfig;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
+import com.zwdbj.server.utility.common.IP;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
@@ -94,13 +95,11 @@ public class WechatPayService {
             Map<String,String> data = new HashMap<String, String>();
             data.put("body", input.getBody());
             data.put("out_trade_no", input.getOutTradeNo());
-            data.put("device_info", input.getDeviceInfo());
             data.put("fee_type", input.getFeeType());
             data.put("total_fee", Integer.toString(input.getTotalFee()));
-            data.put("spbill_create_ip", input.getSpbillCreateIP());
+            data.put("spbill_create_ip", IP.getIpAddr());
             data.put("notify_url", input.getNotifyUrl());
             data.put("trade_type", input.getTradeType());
-            data.put("product_id", input.getProductId());
 
             Map<String,String> resp = pay.unifiedOrder(data);
             System.out.println(resp);
