@@ -17,9 +17,9 @@ public class UserAssetService {
     IUserAssetMapper userAssetMapper;
     @Autowired
     private RedisTemplate redisTemplate;
+
     @Transactional
-    public UserAssetModel getCoinsByUserId(){
-        long userId = JWTUtil.getCurrentId();
+    public UserAssetModel getCoinsByUserId(long userId) {
         boolean isExist =  this.userAssetIsExistOrNot(userId);
         if (!isExist){
             this.greatUserAsset();
@@ -31,9 +31,18 @@ public class UserAssetService {
         operations.set(key,userAssetModel);
         return userAssetModel;
     }
+
+    @Transactional
+    public UserAssetModel getCoinsByUserId(){
+        long userId = JWTUtil.getCurrentId();
+        return getCoinsByUserId(userId);
+    }
     @Transactional
     public int updateUserAsset(long coins,long remainBalance){
         long userId = JWTUtil.getCurrentId();
+        return updateUserAsset(userId,coins,remainBalance);
+    }
+    public int updateUserAsset(long userId,long coins,long remainBalance) {
         int result = this.userAssetMapper.updateUserAsset(userId,coins,remainBalance);
         if (result==1){
             this.getCoinsByUserId();

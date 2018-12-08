@@ -20,15 +20,24 @@ public class UserCoinDetailService {
     UserAssetService userAssetService;
 
     @Transactional(readOnly = true)
-    public List<UserCoinDetailsModel> getUserCoinDetails(){
-        long userId = JWTUtil.getCurrentId();
+    public List<UserCoinDetailsModel> getUserCoinDetails(long userId) {
         List<UserCoinDetailsModel> userCoinDetailsModels = this.userCoinDetailsMapper.getUserCoinDetails(userId);
         return userCoinDetailsModels;
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserCoinDetailsModel> getUserCoinDetails(){
+        long userId = JWTUtil.getCurrentId();
+        return getUserCoinDetails(userId);
     }
 
     @Transactional
     public int addUserCoinDetail(UserCoinDetailAddInput input){
         long userId = JWTUtil.getCurrentId();
+        return addUserCoinDetail(userId,input);
+    }
+    @Transactional
+    public int addUserCoinDetail(long userId,UserCoinDetailAddInput input) {
         long id = UniqueIDCreater.generateID();
         int result = this.userCoinDetailsMapper.addUserCoinDetail(id,userId,input);
         if (result==1){
@@ -36,6 +45,5 @@ public class UserCoinDetailService {
         }
         return result;
     }
-
 
 }

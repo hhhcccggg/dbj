@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.model.*;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;

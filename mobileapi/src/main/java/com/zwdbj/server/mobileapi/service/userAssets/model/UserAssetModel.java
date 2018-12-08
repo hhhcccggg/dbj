@@ -3,8 +3,10 @@ package com.zwdbj.server.mobileapi.service.userAssets.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 @ApiModel(description = "用户资产")
-public class UserAssetModel {
+public class UserAssetModel implements Serializable {
     @ApiModelProperty(value = "id")
     long id;
     @ApiModelProperty(value = "userId")

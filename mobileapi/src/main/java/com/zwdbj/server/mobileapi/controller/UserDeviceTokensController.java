@@ -2,7 +2,7 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokensInput;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.service.UserDeviceTokensService;
 import io.swagger.annotations.Api;

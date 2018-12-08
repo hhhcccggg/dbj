@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.userBind.service;
 
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.user.model.BindThirdPartyAccountInput;
 import com.zwdbj.server.mobileapi.service.userBind.mapper.IUserBindMapper;
 import com.zwdbj.server.mobileapi.service.userBind.model.UserThirdAccountBindDto;

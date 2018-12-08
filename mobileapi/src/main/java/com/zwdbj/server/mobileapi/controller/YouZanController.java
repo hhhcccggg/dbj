@@ -4,7 +4,7 @@ import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.mobileapi.model.user.UserToken;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.youzan.model.AyouzanTradeCartAddParams;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZSearchItemInput;
