@@ -2,8 +2,10 @@ package com.zwdbj.server.pay.wechat.wechatpay.service;
 
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
+import com.github.wxpay.sdk.WXPayUtil;
 import com.zwdbj.server.pay.wechat.wechatpay.WeChatConfig;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
+import com.zwdbj.server.utility.common.IP;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
@@ -83,6 +85,50 @@ public class WechatPayService {
     }
 
     /**
+     * @param prepayId 预付单ID
+     * @return 生成APP调用支付的请求数据
+     */
+    public ServiceStatusInfo<Map<String,String>> invokePayRequestInfo(String prepayId) {
+        try {
+            WeChatConfig config = chatConfig();
+            Map<String, String> reqData = new HashMap<>();
+            reqData.put("prepayid",prepayId);
+            reqData.put("package","Sign=WXPay");
+            reqData.put("appid",config.getAppID());
+            reqData.put("partnerid",config.getMchID());
+            reqData.put("noncestr",WXPayUtil.generateNonceStr());
+            reqData.put("timestamp",String.valueOf(System.currentTimeMillis()/1000));
+            reqData.put("sign", WXPayUtil.generateSignature(reqData, config.getKey(), WXPayConstants.SignType.MD5));
+            return new ServiceStatusInfo<>(0,"OK",reqData);
+        } catch ( Exception ex ) {
+            logger.info(ex.getMessage());
+        }
+        return new ServiceStatusInfo<>(1,"发生错误",null);
+    }
+
+    /**
+     * @param responsePayFromWeChat 微信支付结果通知
+     * @return 响应微信
+     */
+    public ServiceStatusInfo<String> responseWeChatPayResult(String responsePayFromWeChat) {
+        try {
+            WeChatConfig config = chatConfig();
+            WXPay pay = new WXPay(config, WXPayConstants.SignType.MD5, isSandbox);
+            Map<String,String> resData = pay.processResponseXml(responsePayFromWeChat);
+            PayResult payResult = this.parseResult(resData);
+            if (!payResult.isSuccess()) {
+                return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
+            }
+            return new ServiceStatusInfo<>(
+                    0,
+                    "OK",
+                    "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
+        } catch ( Exception ex ){
+            logger.info(ex.getMessage());
+        }
+        return new ServiceStatusInfo<>(1,"参数或者签名失败",null);
+    }
+    /**
      * @param input
      * @return 统一下单
      */
@@ -94,13 +140,11 @@ public class WechatPayService {
             Map<String,String> data = new HashMap<String, String>();
             data.put("body", input.getBody());
             data.put("out_trade_no", input.getOutTradeNo());
-            data.put("device_info", input.getDeviceInfo());
             data.put("fee_type", input.getFeeType());
             data.put("total_fee", Integer.toString(input.getTotalFee()));
-            data.put("spbill_create_ip", input.getSpbillCreateIP());
+            data.put("spbill_create_ip", IP.getIpAddr());
             data.put("notify_url", input.getNotifyUrl());
             data.put("trade_type", input.getTradeType());
-            data.put("product_id", input.getProductId());
 
             Map<String,String> resp = pay.unifiedOrder(data);
             System.out.println(resp);

@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.shiro;
 
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.user.model.UserAuthInfoModel;
 import com.zwdbj.server.utility.common.shiro.JWTToken;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -47,11 +47,19 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (!JWTUtil.verify(token, id)) {
             throw new AuthenticationException("token invalid");
         }
-        if(!userService.checkTokenValid(Long.parseLong(id),token).isSuccess()) {
+        long userId = Long.parseLong(id);
+        if(!userService.checkTokenValid(userId,token).isSuccess()) {
             logger.info("用户{"+id+"}Token无效");
             throw new AuthenticationException("用户token无效");
         }
-        ServiceStatusInfo<UserAuthInfoModel> checkStatus = userService.checkUserAuth(Long.parseLong(id));
+        ServiceStatusInfo<UserAuthInfoModel> checkStatus = null;
+        try {
+            checkStatus = userService.checkUserAuth(userId);
+        } catch ( Exception ex ) {
+            logger.info(ex.getMessage());
+            userService.clearCacheUserInfo(userId);
+            checkStatus = userService.checkUserAuth(userId);
+        }
         if (!checkStatus.isSuccess()) {
             throw new AuthenticationException(checkStatus.getMsg());
         }

@@ -1,10 +1,12 @@
 package com.zwdbj.server.mobileapi.service.video.model;
 
+import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.utility.common.DateTimeFriendly;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
+import java.util.List;
 
 @ApiModel(description = "视频数据")
 public class VideoInfoDto {
@@ -50,6 +52,7 @@ public class VideoInfoDto {
     @ApiModelProperty(value = "视频被拒下架的原因")
     String rejectMsg;
 
+
     //20180731新增
     @ApiModelProperty(value = "视频用户的头像")
     String userAvatarUrl;
@@ -71,6 +74,16 @@ public class VideoInfoDto {
     protected Date createTime;
     @ApiModelProperty(value = "时间友好显示，比如：5分前，1小时前。")
     protected String createTimeFormat;
+    @ApiModelProperty(value = "视频用户的宠物")
+    List<PetModelDto> petModelDtoList;
+
+    public List<PetModelDto> getPetModelDtoList() {
+        return petModelDtoList;
+    }
+
+    public void setPetModelDtoList(List<PetModelDto> petModelDtoList) {
+        this.petModelDtoList = petModelDtoList;
+    }
 
     public String getRejectMsg() {
         return rejectMsg;

@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.model.*;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.model.AddCommentInput;
 import com.zwdbj.server.mobileapi.service.comment.model.CommentInfoDto;
 import com.zwdbj.server.mobileapi.service.comment.service.CommentService;

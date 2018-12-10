@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.service.living.service;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.living.mapper.ILivingMapper;
 import com.zwdbj.server.mobileapi.service.living.model.*;
 import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;

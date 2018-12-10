@@ -2,7 +2,7 @@ package com.zwdbj.server.mobileapi.service.messageCenter.service;
 
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.messageCenter.mapper.IMessageCenterMapper;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageDispatchInput;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInfoDto;

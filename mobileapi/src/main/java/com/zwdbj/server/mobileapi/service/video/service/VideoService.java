@@ -2,10 +2,12 @@ package com.zwdbj.server.mobileapi.service.video.service;
 
 import com.github.pagehelper.Page;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
+import com.zwdbj.server.mobileapi.service.pet.service.PetService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.service.CommentService;
 import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
@@ -55,6 +57,8 @@ public class VideoService {
     protected StringRedisTemplate stringRedisTemplate;
     @Autowired
     protected CommentService commentService;
+    @Autowired
+    protected PetService petService;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -234,8 +238,10 @@ public class VideoService {
      */
     public List<VideoInfoDto> listByUserFollowed(long userId) {
         List<VideoInfoDto> dtos = this.videoMapper.myFollowedVideos(userId);
+        List<PetModelDto> petModelDtos = this.petService.list(userId);
         if (dtos==null) return null;
         for(VideoInfoDto dto:dtos) {
+            if (petModelDtos!=null)dto.setPetModelDtoList(petModelDtos);
             loadVideoInfoDto(dto);
         }
         return dtos;

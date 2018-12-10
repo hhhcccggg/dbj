@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.appVersion.model.AppVersionDto;
 import com.zwdbj.server.mobileapi.service.appVersion.model.AppVersionInput;
 import com.zwdbj.server.mobileapi.service.appVersion.service.AppVersionService;

@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.complain.service;
 
-import com.zwdbj.server.mobileapi.service.ServiceStatusInfo;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.complain.mapper.IComplainMapper;
 import com.zwdbj.server.mobileapi.service.complain.model.*;
 import com.zwdbj.server.mobileapi.service.living.service.LivingService;
