@@ -2,8 +2,8 @@ package com.zwdbj.server.mobileapi.service.pay.wechat.service;
 
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinDto;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinInput;
-import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
-import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
+import com.zwdbj.server.mobileapi.service.userCoinDetails.model.UserCoinDetailAddInput;
+import com.zwdbj.server.mobileapi.service.userCoinDetails.service.UserCoinDetailService;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
 import com.zwdbj.server.pay.wechat.wechatpay.service.WechatPayService;
@@ -20,6 +20,10 @@ public class WeChatService {
     private IUserAssetService userAssetServiceImpl;
     @Autowired
     private WechatPayService wechatPayService;
+    private WXPayAppCfg wxPayAppCfg;
+    public WeChatService(WXPayAppCfg cfg) {
+        this.wxPayAppCfg = cfg;
+    }
     /**
      * @param input 充值信息
      * @param userId 谁充值
@@ -45,7 +49,7 @@ public class WeChatService {
         UnifiedOrderInput unifiedOrderInput = new UnifiedOrderInput();
         unifiedOrderInput.setBody("爪子 充值"+input.getCoins()+"金币");
         unifiedOrderInput.setFeeType("CNY");
-        unifiedOrderInput.setNotifyUrl("http://j3wvd4.natappfree.cc/api/pay/weChat/payNotify");
+        unifiedOrderInput.setNotifyUrl(this.wxPayAppCfg.getPayResultCallbackUrl());
         unifiedOrderInput.setTradeType("APP");
         unifiedOrderInput.setTotalFee(rmbs);
         unifiedOrderInput.setOutTradeNo(String.valueOf(id));

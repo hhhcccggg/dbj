@@ -3,10 +3,9 @@ package com.zwdbj.server.mobileapi.controller;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinDto;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.pay.wechat.service.WeChatService;
-import com.zwdbj.server.pay.wechat.wechatpay.model.OrderQueryDto;
+import com.zwdbj.server.pay.wechat.wechatpay.model.OrderPayResultDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.OrderQueryInput;
-import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
-import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
+import com.zwdbj.server.pay.wechat.wechatpay.model.PayNotifyResult;
 import com.zwdbj.server.pay.wechat.wechatpay.service.WechatPayService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
@@ -50,9 +49,9 @@ public class PayWeChatController {
     @RequiresAuthentication
     @RequestMapping(value = "/orderQuery",method = RequestMethod.POST)
     @ApiOperation("查询订单")
-    public ResponseData<OrderQueryDto> orderQuery(OrderQueryInput input) {
+    public ResponseData<OrderPayResultDto> orderQuery(OrderQueryInput input) {
         //TODO 刷新用户金币数据
-        ServiceStatusInfo<OrderQueryDto> serviceStatusInfo = this.wechatPayService.orderQuery(input);
+        ServiceStatusInfo<OrderPayResultDto> serviceStatusInfo = this.wechatPayService.orderQuery(input);
         if(serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
         } else {
@@ -67,14 +66,15 @@ public class PayWeChatController {
             wholeStr += str;
         }
         //校验响应
-        ServiceStatusInfo<String> stringServiceStatusInfo = this.wechatPayService.responseWeChatPayResult(wholeStr);
+        ServiceStatusInfo<PayNotifyResult> stringServiceStatusInfo = this.wechatPayService.responseWeChatPayResult(wholeStr);
         OutputStream outputStream = response.getOutputStream();
         if (stringServiceStatusInfo.isSuccess()) {
             response.setStatus(200);
+            //TODO 刷新用户金币
         } else {
             response.setStatus(500);
         }
-        outputStream.write(stringServiceStatusInfo.getMsg().getBytes("UTF-8"));
+        outputStream.write(stringServiceStatusInfo.getData().getResponseWeChatXML().getBytes("UTF-8"));
     }
 
 }
