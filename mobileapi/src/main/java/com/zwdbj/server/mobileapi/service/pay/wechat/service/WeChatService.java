@@ -2,8 +2,8 @@ package com.zwdbj.server.mobileapi.service.pay.wechat.service;
 
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinDto;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinInput;
-import com.zwdbj.server.mobileapi.service.userCoinDetails.model.UserCoinDetailAddInput;
-import com.zwdbj.server.mobileapi.service.userCoinDetails.service.UserCoinDetailService;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
+import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
 import com.zwdbj.server.pay.wechat.wechatpay.service.WechatPayService;
@@ -17,7 +17,7 @@ import java.util.Map;
 @Service
 public class WeChatService {
     @Autowired
-    private UserCoinDetailService userCoinDetailService;
+    private IUserAssetService userAssetServiceImpl;
     @Autowired
     private WechatPayService wechatPayService;
     /**
@@ -38,7 +38,7 @@ public class WeChatService {
         detailInput.setExtraData("");
         detailInput.setType("PAY");
         //TODO 应该返回明细信息
-        this.userCoinDetailService.addUserCoinDetail(userId,detailInput);
+        this.userAssetServiceImpl.addUserCoinDetail(userId,detailInput);
         // 生成预付单
         // TODO 生成假的id
         long id = UniqueIDCreater.generateID();

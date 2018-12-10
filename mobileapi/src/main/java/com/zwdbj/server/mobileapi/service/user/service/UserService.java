@@ -8,7 +8,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobUser;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
-import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetService;
+import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.user.UserToken;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
@@ -71,7 +71,7 @@ public class UserService {
     @Autowired
     private ReviewService reviewService;
     @Autowired
-    private UserAssetService userAssetService;
+    private UserAssetServiceImpl userAssetServiceImpl;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -206,7 +206,7 @@ public class UserService {
         if (cartStatusInfo.isSuccess()) {
             userDetailInfoDto.getShopInfoDto().setCartNum(cartStatusInfo.getData());
         }
-        userDetailInfoDto.setCoins(this.userAssetService.getCoinsByUserId(userId).getCoins());
+        userDetailInfoDto.setCoins(this.userAssetServiceImpl.getCoinsByUserId(userId).getCoins());
         //判断环信账号是否已经生成
         //TODO 优化,数据库写入可以放在消息队列处理
         long currentUserId = JWTUtil.getCurrentId();
