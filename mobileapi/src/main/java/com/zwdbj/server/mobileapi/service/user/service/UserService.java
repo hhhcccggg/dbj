@@ -542,21 +542,39 @@ public class UserService {
      * @return
      */
     public ServiceStatusInfo<Object> checkPhoneCode(String phone,String code) {
-        //TODO 审核以后删除
-        if(phone.equals("18161279360") && code.equals("1234")) return new ServiceStatusInfo<>(0,"验证成功",null);
-        // 验证手机验证码是否正确
-        String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(phone);
-        boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
-        if (!hasPhoneCode) {
-            return new ServiceStatusInfo<>(1,"请输入正确的手机号和验证码",null);
+        int result = this.phoneIsTrue(phone);
+        if (result==1){
+            if (code.equals((phone.substring(7)+"18"))){
+                return new ServiceStatusInfo<>(0,"验证成功",null);
+            }else {
+                return new ServiceStatusInfo<>(1,"请输入正确的验证码",null);
+            }
+
+        }else {
+            //TODO 审核以后删除
+            if(phone.equals("18161279360") && code.equals("1234")) return new ServiceStatusInfo<>(0,"验证成功",null);
+            // 验证手机验证码是否正确
+            String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(phone);
+            boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
+            if (!hasPhoneCode) {
+                return new ServiceStatusInfo<>(1,"请输入正确的手机号和验证码",null);
+            }
+            String cachePhoneCode = this.stringRedisTemplate.opsForValue().get(cacheKey);
+            if(!code.equals(cachePhoneCode)) {
+                return new ServiceStatusInfo<>(1,"请输入正确的验证码",null);
+            }
+            //移除验证码
+            stringRedisTemplate.delete(cacheKey);
+            return new ServiceStatusInfo<>(0,"验证成功",null);
         }
-        String cachePhoneCode = this.stringRedisTemplate.opsForValue().get(cacheKey);
-        if(!code.equals(cachePhoneCode)) {
-            return new ServiceStatusInfo<>(1,"请输入正确的验证码",null);
-        }
-        //移除验证码
-        stringRedisTemplate.delete(cacheKey);
-        return new ServiceStatusInfo<>(0,"验证成功",null);
+
+    }
+    /**
+     * 判断phone是否为人造
+     */
+    public int phoneIsTrue(String phone){
+        int result = this.userMapper.phoneIsTrue(phone);
+        return result;
     }
 
     /**
@@ -604,8 +622,13 @@ public class UserService {
 
 
 
+
         //生成验证码
         String code = UniqueIDCreater.generatePhoneCode();
+        int result = this.phoneIsTrue(phone);
+        if (result==1){
+            code = phone.substring(7)+"18";
+        }
         if (phone.equals("18161279360")) {
             code = "1234";
         }

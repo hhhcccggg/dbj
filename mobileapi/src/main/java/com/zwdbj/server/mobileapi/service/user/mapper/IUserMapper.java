@@ -86,4 +86,7 @@ public interface IUserMapper {
     @Select("select count(id) as totalMyFocuses FROM core_followers where followerUserId=#{userId}")
     Long findMyFocusesCount(@Param("userId")Long userId);
 
+    @Select("select count(id) from core_users where phone=#{phone} and isManualData=true")
+    int phoneIsTrue(@Param("phone") String phone);
+
 }
