@@ -32,6 +32,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -238,10 +239,18 @@ public class VideoService {
      */
     public List<VideoInfoDto> listByUserFollowed(long userId) {
         List<VideoInfoDto> dtos = this.videoMapper.myFollowedVideos(userId);
-        List<PetModelDto> petModelDtos = this.petService.list(userId);
         if (dtos==null) return null;
         for(VideoInfoDto dto:dtos) {
-            if (petModelDtos!=null)dto.setPetModelDtoList(petModelDtos);
+            List<PetModelDto> petModelDtos = new ArrayList<>();
+            String pets = dto.getLinkPets();
+            if (pets!=null && pets.length()!=0){
+                String[] petIds = pets.split(",");
+                for (String petId:petIds ){
+                    PetModelDto petModelDto = this.petService.get(Long.valueOf(petId));
+                    petModelDtos.add(petModelDto);
+                }
+                dto.setPetModelDtoList(petModelDtos);
+            }
             loadVideoInfoDto(dto);
         }
         return dtos;
