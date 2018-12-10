@@ -1,4 +1,4 @@
-package com.zwdbj.server.adminserver.service.userCoinType.model;
+package com.zwdbj.server.adminserver.service.userAssets.model;
 
 
 import io.swagger.annotations.ApiModel;
