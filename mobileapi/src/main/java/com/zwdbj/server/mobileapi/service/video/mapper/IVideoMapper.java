@@ -87,4 +87,10 @@ public interface IVideoMapper {
     @Delete("delete from core_videos where id=#{id} and userId=#{userId}")
     Long deleteVideo(@Param("id")Long id,@Param("userId")Long userId);
 
+    @Select("select tipcount from core_videos where id=#{videoId}")
+    int searchTipCount(@Param("videoId") Long videoId);
+
+    @Update("update core_videos set tipCount=tipCount+1 where id={videoId}")
+    int addTipCount(@Param("video") Long videoId);
+
 }
