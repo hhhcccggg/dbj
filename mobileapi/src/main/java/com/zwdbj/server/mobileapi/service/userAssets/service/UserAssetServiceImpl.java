@@ -147,18 +147,29 @@ public class UserAssetServiceImpl implements IUserAssetService{
     @Override
     @Transactional
     public int updateUserCoinDetail(UserCoinDetailModifyInput input){
-        int result = this.userAssetMapper.updateUserCoinDetail(input);
-        if (result==1 && input.getStatus().equals("SUCCESS")){
-            result = this.updateUserCoinType(input.getType(),input.getNum());
-            if (result==1){
-                result = this.updateUserAsset(input.getNum());
-                return result;
+        long userId = JWTUtil.getCurrentId();
+        String  status = this.userAssetMapper.findUserCoinDetailById(input.getId());
+        if ("PROCESSING".equals(status)){
+            int result = this.userAssetMapper.updateUserCoinDetail(input);
+            if (result==1 && input.getStatus().equals("SUCCESS")){
+                boolean a = this.userCoinTypeIsExist(userId,"PAY");
+                if (!a)this.greatUserCoinType(userId,"PAY");
+                result = this.updateUserCoinType(userId,input.getType(),input.getNum());
+                if (result==1){
+                    boolean b = this.userAssetIsExistOrNot(userId);
+                    if (!b)this.greatUserAsset(userId);
+                    result = this.updateUserAsset(userId,input.getNum());
+                    return result;
+                }else {
+                    return 0;
+                }
             }else {
                 return 0;
             }
         }else {
             return 0;
         }
+
     }
 
 
