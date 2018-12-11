@@ -40,14 +40,14 @@ public class UserAssetServiceImpl implements IUserAssetService{
         return getCoinsByUserId(userId);
     }
     @Transactional
-    public int updateUserAsset(long coins,long remainBalance){
+    public int updateUserAsset(long coins){
         long userId = JWTUtil.getCurrentId();
-        return updateUserAsset(userId,coins,remainBalance);
+        return updateUserAsset(userId,coins);
     }
-    public int updateUserAsset(long userId,long coins,long remainBalance) {
-        int result = this.userAssetMapper.updateUserAsset(userId,coins,remainBalance);
+    public int updateUserAsset(long userId,long coins) {
+        int result = this.userAssetMapper.updateUserAsset(userId,coins);
         if (result==1){
-            this.getCoinsByUserId();
+            this.getCoinsByUserId(userId);
         }
         return result;
     }
@@ -151,7 +151,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
         if (result==1 && input.getStatus().equals("SUCCESS")){
             result = this.updateUserCoinType(input.getType(),input.getNum());
             if (result==1){
-                result = this.updateUserAsset(input.getNum(),0);
+                result = this.updateUserAsset(input.getNum());
                 return result;
             }else {
                 return 0;
@@ -161,5 +161,10 @@ public class UserAssetServiceImpl implements IUserAssetService{
         }
     }
 
+
+    public  List<BuyCoinConfigModel> findAllBuyCoinConfigs(){
+        List<BuyCoinConfigModel> buyCoinConfigModels = this.userAssetMapper.findAllBuyCoinConfigs();
+        return buyCoinConfigModels;
+    }
 
 }
