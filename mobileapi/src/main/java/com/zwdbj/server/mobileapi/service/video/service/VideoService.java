@@ -32,6 +32,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -216,12 +217,12 @@ public class VideoService {
     /**
      * 根据标签ID搜索短视频
      */
-    public List<VideoInfoDto> listByTagId(long id,int type){
+    public List<VideoInfoDto> listByTagName(String name,int type){
         List<VideoInfoDto> videoInfoDtos =null;
         if (type==0){
-            videoInfoDtos = this.videoMapper.listByTagId1(id);
+            videoInfoDtos = this.videoMapper.listByTagName1(name);
         }else if (type==1){
-            videoInfoDtos = this.videoMapper.listByTagId2(id);
+            videoInfoDtos = this.videoMapper.listByTagName2(name);
         }
         if (videoInfoDtos==null)return null;
         for (VideoInfoDto dto:videoInfoDtos) {
@@ -238,10 +239,18 @@ public class VideoService {
      */
     public List<VideoInfoDto> listByUserFollowed(long userId) {
         List<VideoInfoDto> dtos = this.videoMapper.myFollowedVideos(userId);
-        List<PetModelDto> petModelDtos = this.petService.list(userId);
         if (dtos==null) return null;
         for(VideoInfoDto dto:dtos) {
-            if (petModelDtos!=null)dto.setPetModelDtoList(petModelDtos);
+            List<PetModelDto> petModelDtos = new ArrayList<>();
+            String pets = dto.getLinkPets();
+            if (pets!=null && pets.length()!=0){
+                String[] petIds = pets.split(",");
+                for (String petId:petIds ){
+                    PetModelDto petModelDto = this.petService.get(Long.valueOf(petId));
+                    petModelDtos.add(petModelDto);
+                }
+                dto.setPetModelDtoList(petModelDtos);
+            }
             loadVideoInfoDto(dto);
         }
         return dtos;

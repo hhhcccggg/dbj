@@ -11,6 +11,16 @@ public class VideoDetailInfoDto extends VideoInfoDto {
     String shareContent;
     @ApiModelProperty(value = "分享URL")
     String shareUrl;
+    @ApiModelProperty(value = "视频获得的打赏次数")
+    long tipCount;
+
+    public long getTipCount() {
+        return tipCount;
+    }
+
+    public void setTipCount(long tipCount) {
+        this.tipCount = tipCount;
+    }
 
     public String getLinkProductUrl() {
         return linkProductUrl;

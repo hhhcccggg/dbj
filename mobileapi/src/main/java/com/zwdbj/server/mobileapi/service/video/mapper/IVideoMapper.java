@@ -37,12 +37,12 @@ public interface IVideoMapper {
     List<VideoInfoDto> listHot(@Param("conditionValue") String conditionValue);
     @Select("select * from core_videos where status=0 order by createTime desc")
     List<VideoInfoDto> listLatest();
-    @Select("select * from core_videos where tags=#{tags} order by heartCount desc")
+    @Select("select * from core_videos where tags like concat('%',#{tags},'%') order by heartCount desc")
     List<VideoInfoDto> listByTag(@Param("tags")String tag);
-    @Select("select * from core_videos where tags=(SELECT NAME FROM core_tags WHERE id=#{id}) order by heartCount desc")
-    List<VideoInfoDto> listByTagId1(@Param("id")long tagId);
-    @Select("select * from core_videos where tags=(SELECT NAME FROM core_tags WHERE id=#{id}) order by createTime desc")
-    List<VideoInfoDto> listByTagId2(@Param("id")long tagId);
+    @Select("select * from core_videos where tags like concat('%',#{tags},'%') order by heartCount desc")
+    List<VideoInfoDto> listByTagName1(@Param("tags")String tagName);
+    @Select("select * from core_videos where tags like concat('%',#{tags},'%') order by createTime desc")
+    List<VideoInfoDto> listByTagName2(@Param("tags")String tagName);
     @Select("select * from core_videos where id=#{id}")
     VideoDetailInfoDto video(@Param("id") long id);
 //    @Select("SELECT *  FROM core_videos AS t1 " +

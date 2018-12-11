@@ -10,8 +10,8 @@ public interface IUserAssetMapper {
     @Select("select * from core_userAssets where userId=#{userId}")
     UserAssetModel getCoinsByUserId(long userId);
 
-    @Update("update core_userAssets set coins=#{coins},remainBalance=#{remainBalance} where userId=#{userId}")
-    int updateUserAsset(@Param("userId") long userId,@Param("coins") long coins,@Param("remainBalance") long remainBalance);
+    @Update("update core_userAssets set coins=#{coins} where userId=#{userId}")
+    int updateUserAsset(@Param("userId") long userId,@Param("coins") long coins);
     @Insert("insert into core_userAssets(id,coins,remainBalance,userId) values(#{id},0,0,#{userId})")
     int greatUserAsset(@Param("id")long id,@Param("userId")long UserId);
     @Select("select count(id) from core_userAssets where userId=#{userId}")
@@ -29,7 +29,7 @@ public interface IUserAssetMapper {
     int updateUserCoinType(@Param("userId")long userId,@Param("type")String type,@Param("num")long num);
 
     //coinDetails
-    @Select("select * from core_userCoinDetails where userId=#{userId}")
+    @Select("select * from core_userCoinDetails where userId=#{userId} order by createTime desc")
     List<UserCoinDetailsModel> getUserCoinDetails(@Param("userId")long userId);
     @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
             "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'PROCESSING')")
@@ -40,4 +40,7 @@ public interface IUserAssetMapper {
 
     @Select("select * from core_userCoinDetails where id=#{id}")
     UserCoinDetailsModel findUserCoinDetailById(long id);
+
+    @Select("select * from core_basic_buyCoinConfigs where isDeleted=false")
+    List<BuyCoinConfigModel> findAllBuyCoinConfigs();
 }

@@ -50,10 +50,10 @@ public class TagController {
         List<TagDto> dtos = tagService.listAll();
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
     }
-    @RequestMapping(value = "/detail/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/detail",method = RequestMethod.GET)
     @ApiOperation(value = "主题详情页")
-    public ResponseData<TagDetailDto> tagDetail(@PathVariable long id){
-        TagDetailDto tagDetailDto = this.tagService.tagDetail(id);
+    public ResponseData<TagDetailDto> tagDetail(@RequestParam String name){
+        TagDetailDto tagDetailDto = this.tagService.tagDetail(name);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",tagDetailDto);
     }
 

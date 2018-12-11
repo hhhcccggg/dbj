@@ -2,6 +2,8 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.zwdbj.server.mobileapi.service.userAssets.model.BuyCoinConfigModel;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserAssetModel;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailsModel;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinTypeModel;
@@ -58,6 +60,15 @@ public class UserAssetController {
         Page<UserCoinDetailsModel> pageInfo = PageHelper.startPage(pageNo,rows);
         List<UserCoinDetailsModel> userCoinDetailsModels = this.userAssetServiceImpl.getUserCoinDetails();
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",userCoinDetailsModels,pageInfo.getTotal());
+    }
+
+    @RequestMapping(value = "/search/buyCoinConfig", method = RequestMethod.GET)
+    @ApiOperation(value = "查询可选充值金币配置列表")
+    public ResponsePageInfoData<List<BuyCoinConfigModel>> findAllBuyCoinConfigs(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                 @RequestParam(value = "rows", defaultValue = "30", required = true) int rows) {
+        Page<BuyCoinConfigModel> pageInfo = PageHelper.startPage(pageNo,rows);
+        List<BuyCoinConfigModel> result = this.userAssetServiceImpl.findAllBuyCoinConfigs();
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
     }
 
 

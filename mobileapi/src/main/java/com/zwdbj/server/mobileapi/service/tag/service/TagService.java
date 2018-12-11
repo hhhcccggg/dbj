@@ -64,8 +64,8 @@ public class TagService {
     /**
      * 主题的详情
      */
-    public TagDetailDto tagDetail(long id){
-        TagDetailDto tagDetailDto = this.tagMapper.tagDetail(id);
+    public TagDetailDto tagDetail(String name){
+        TagDetailDto tagDetailDto = this.tagMapper.tagDetail(name);
         return tagDetailDto;
     }
 
