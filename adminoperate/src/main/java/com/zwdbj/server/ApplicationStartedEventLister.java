@@ -12,7 +12,7 @@ public class ApplicationStartedEventLister implements ApplicationListener<Applic
     public void onApplicationEvent(ApplicationStartedEvent applicationStartedEvent) {
         OperateService operateService = SpringContextUtil.getBean(OperateService.class);
         StringRedisTemplate stringRedisTemplate = SpringContextUtil.getBean(StringRedisTemplate.class);
-        operateService.getRedisComment();
+        operateService.redisComments();
         operateService.userNumber();
         operateService.videoNumber();
         if (!stringRedisTemplate.hasKey("OPERATE_ALL_VIDEO_NUM")){
