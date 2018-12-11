@@ -25,7 +25,7 @@ public interface IUserAssetMapper {
     @Insert("insert into core_userCoinTypes(id,type,coins,userId) " +
             "values(#{id},#{type},0,#{userId})")
     int greatUserCoinType(@Param("id")long id,@Param("userId")long userId,@Param("type")String type);
-    @Update("update core_userCoinTypes set coins=coins+num where userId=#{userId} and type=#{type}")
+    @Update("update core_userCoinTypes set coins=coins+#{num} where userId=#{userId} and type=#{type}")
     int updateUserCoinType(@Param("userId")long userId,@Param("type")String type,@Param("num")long num);
 
     //coinDetails
