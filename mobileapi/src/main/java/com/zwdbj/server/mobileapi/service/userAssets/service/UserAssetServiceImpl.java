@@ -24,7 +24,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
     public UserAssetModel getCoinsByUserId(long userId) {
         boolean isExist =  this.userAssetIsExistOrNot(userId);
         if (!isExist){
-            this.greatUserAsset();
+            this.greatUserAsset(userId);
         }
         UserAssetModel userAssetModel= this.userAssetMapper.getCoinsByUserId(userId);
         //加入缓存
@@ -53,8 +53,13 @@ public class UserAssetServiceImpl implements IUserAssetService{
     }
     @Transactional
     public int greatUserAsset(){
-        long id = UniqueIDCreater.generateID();
         long userId = JWTUtil.getCurrentId();
+        int result = this.greatUserAsset(userId);
+        return result;
+    }
+    @Transactional
+    public int greatUserAsset(long userId){
+        long id = UniqueIDCreater.generateID();
         int result = this.userAssetMapper.greatUserAsset(id,userId);
         return result;
     }

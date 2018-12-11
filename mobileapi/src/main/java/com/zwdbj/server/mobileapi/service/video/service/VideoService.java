@@ -217,12 +217,12 @@ public class VideoService {
     /**
      * 根据标签ID搜索短视频
      */
-    public List<VideoInfoDto> listByTagId(long id,int type){
+    public List<VideoInfoDto> listByTagName(String name,int type){
         List<VideoInfoDto> videoInfoDtos =null;
         if (type==0){
-            videoInfoDtos = this.videoMapper.listByTagId1(id);
+            videoInfoDtos = this.videoMapper.listByTagName1(name);
         }else if (type==1){
-            videoInfoDtos = this.videoMapper.listByTagId2(id);
+            videoInfoDtos = this.videoMapper.listByTagName2(name);
         }
         if (videoInfoDtos==null)return null;
         for (VideoInfoDto dto:videoInfoDtos) {
