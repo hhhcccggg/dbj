@@ -193,6 +193,8 @@ public class WechatPayService {
             data.put("notify_url", input.getNotifyUrl());
             data.put("trade_type", input.getTradeType());
 
+            logger.info(data.toString());
+
             Map<String,String> resp = pay.unifiedOrder(data);
             System.out.println(resp);
             PayResult payResult = this.parseResult(resp);
@@ -230,10 +232,12 @@ public class WechatPayService {
                 dto.setTradeType(resp.get("trade_type"));
                 dto.setTradeState(resp.get("trade_state"));
                 dto.setBankType(resp.get("bank_type"));
-                dto.setTotalFee(Integer.parseInt(resp.get("total_fee")));
-                dto.setSettlementTotalFee(Integer.parseInt(resp.get("settlement_total_fee")));
+                if (dto.getTradeState().equals("SUCCESS")) {
+                    dto.setTotalFee(Integer.parseInt(resp.get("total_fee")));
+                    dto.setSettlementTotalFee(Integer.parseInt(resp.get("settlement_total_fee")));
+                    dto.setCashFee(Integer.parseInt(resp.get("cash_fee")));
+                }
                 dto.setFeeType(resp.get("fee_type"));
-                dto.setCashFee(Integer.parseInt(resp.get("cash_fee")));
                 dto.setCashFeeType(resp.get("cash_fee_type"));
                 dto.setTransactionId(resp.get("transaction_id"));
                 dto.setOutTradeNo(resp.get("out_trade_no"));
