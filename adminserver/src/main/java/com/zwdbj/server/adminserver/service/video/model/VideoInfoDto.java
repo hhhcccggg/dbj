@@ -48,6 +48,10 @@ public class VideoInfoDto {
     @ApiModelProperty(value = "视频状态")
     int status;
 
+    @ApiModelProperty(value = "视频收获的打赏次数")
+    int tipCount;
+    @ApiModelProperty(value = "视频收获的打赏金币总数")
+    int tipCoins;
     //20180731新增
     @ApiModelProperty(value = "视频用户的头像")
     String userAvatarUrl;
@@ -70,6 +74,22 @@ public class VideoInfoDto {
     protected Date createTime;
     @ApiModelProperty(value = "时间友好显示，比如：5分前，1小时前。")
     protected String createTimeFormat;
+
+    public int getTipCount() {
+        return tipCount;
+    }
+
+    public void setTipCount(int tipCount) {
+        this.tipCount = tipCount;
+    }
+
+    public int getTipCoins() {
+        return tipCoins;
+    }
+
+    public void setTipCoin(int tipCoin) {
+        this.tipCoins = tipCoin;
+    }
 
     public int getComplainCount() {
         return complainCount;
@@ -311,4 +331,5 @@ public class VideoInfoDto {
     public void setCreateTimeFormat(String createTimeFormat) {
         this.createTimeFormat = createTimeFormat;
     }
+
 }
