@@ -41,6 +41,7 @@ public class WXPayService {
         } else {
             rmbs = (input.getCoins()/10)*100;
         }
+        rmbs = 1;
         UserCoinDetailAddInput detailInput = new UserCoinDetailAddInput();
         detailInput.setTitle("充值"+input.getCoins()+"金币");
         detailInput.setNum(input.getCoins());
