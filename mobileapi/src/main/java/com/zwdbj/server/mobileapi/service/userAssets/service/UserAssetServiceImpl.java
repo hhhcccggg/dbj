@@ -149,7 +149,6 @@ public class UserAssetServiceImpl implements IUserAssetService{
     public int updateUserCoinDetail(UserCoinDetailModifyInput input){
         long userId = JWTUtil.getCurrentId();
         UserAssetNumAndStatus  u = this.userAssetMapper.findUserCoinDetailById(input.getId());
-        if (userId!=u.getUserId())return 0;
         if ("PROCESSING".equals(u.getStatus())){
             int result = this.userAssetMapper.updateUserCoinDetail(input);
             if (result==1 && input.getStatus().equals("SUCCESS")){
