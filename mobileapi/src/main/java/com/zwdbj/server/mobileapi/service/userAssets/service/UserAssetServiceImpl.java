@@ -46,9 +46,6 @@ public class UserAssetServiceImpl implements IUserAssetService{
     }
     public int updateUserAsset(long userId,long coins) {
         int result = this.userAssetMapper.updateUserAsset(userId,coins);
-        if (result==1){
-            this.getCoinsByUserId(userId);
-        }
         return result;
     }
     @Transactional
@@ -63,7 +60,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
         int result = this.userAssetMapper.greatUserAsset(id,userId);
         return result;
     }
-    @Transactional(readOnly = true)
+    @Transactional
     public boolean userAssetIsExistOrNot(long userId){
         int result = this.userAssetMapper.userAssetIsExistOrNot(userId);
         return result!=0;
@@ -98,7 +95,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
 
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public boolean userCoinTypeIsExist(long userId,String type){
         int result = this.userAssetMapper.userCoinTypeIsExist(userId,type);
         return result!=0;
@@ -118,7 +115,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
 
     //coinDetails
 
-    @Transactional(readOnly = true)
+    @Transactional
     public List<UserCoinDetailsModel> getUserCoinDetails(long userId) {
         List<UserCoinDetailsModel> userCoinDetailsModels = this.userAssetMapper.getUserCoinDetails(userId);
         return userCoinDetailsModels;
