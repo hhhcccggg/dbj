@@ -35,7 +35,12 @@ public class WXPayService {
         // TODO 解析充值模板，当前直接解析金币
         // 生成充值明细订单
         // 1:10比例充值金币，单位分
-        int rmbs = (input.getCoins()/10)*100;
+        int rmbs = 0;
+        if(this.wxPayAppCfg.isSandBox()) {
+            rmbs = 201;
+        } else {
+            rmbs = (input.getCoins()/10)*100;
+        }
         UserCoinDetailAddInput detailInput = new UserCoinDetailAddInput();
         detailInput.setTitle("充值"+input.getCoins()+"金币");
         detailInput.setNum(input.getCoins());
@@ -101,9 +106,13 @@ public class WXPayService {
         if (resultDto.getTradeState().equals("SUCCESS")) {
             UserCoinDetailModifyInput coinDetailModifyInput = new UserCoinDetailModifyInput();
             coinDetailModifyInput.setId(Long.parseLong(resultDto.getOutTradeNo()));
-            coinDetailModifyInput.setNum(
-                    resultDto.getTotalFee()/100*10
-            );
+            if (this.wxPayAppCfg.isSandBox()) {
+                coinDetailModifyInput.setNum(10);
+            } else {
+                coinDetailModifyInput.setNum(
+                        resultDto.getTotalFee() / 100 * 10
+                );
+            }
             coinDetailModifyInput.setType("PAY");
             coinDetailModifyInput.setStatus("SUCCESS");
             this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
