@@ -14,6 +14,8 @@ public class WXPayAppCfg {
     private String payResultCallbackUrl;
     @Value("${app.pay.wechat.certPath}")
     private String certPath;
+    @Value("${app.pay.wechat.test}")
+    private boolean isTest;
 
     public boolean isSandBox() {
         return isSandBox;
@@ -37,5 +39,13 @@ public class WXPayAppCfg {
 
     public void setCertPath(String certPath) {
         this.certPath = certPath;
+    }
+
+    public boolean getIsTest() {
+        return isTest;
+    }
+
+    public void setIsTest(boolean isTest) {
+        this.isTest = isTest;
     }
 }

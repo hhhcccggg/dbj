@@ -39,9 +39,12 @@ public class WXPayService {
         if(this.wxPayAppCfg.isSandBox()) {
             rmbs = 201;
         } else {
-            rmbs = (input.getCoins()/10)*100;
+            if (this.wxPayAppCfg.getIsTest()) {
+                rmbs = 1;
+            } else {
+                rmbs = (input.getCoins() / 10) * 100;
+            }
         }
-        rmbs = 1;
         UserCoinDetailAddInput detailInput = new UserCoinDetailAddInput();
         detailInput.setTitle("充值"+input.getCoins()+"金币");
         detailInput.setNum(input.getCoins());
@@ -110,9 +113,13 @@ public class WXPayService {
             if (this.wxPayAppCfg.isSandBox()) {
                 coinDetailModifyInput.setNum(10);
             } else {
-                coinDetailModifyInput.setNum(
-                        resultDto.getTotalFee() / 100 * 10
-                );
+                if (this.wxPayAppCfg.getIsTest()) {
+                    coinDetailModifyInput.setNum(10);
+                } else {
+                    coinDetailModifyInput.setNum(
+                            resultDto.getTotalFee() / 100 * 10
+                    );
+                }
             }
             coinDetailModifyInput.setType("PAY");
             coinDetailModifyInput.setStatus("SUCCESS");
