@@ -8,6 +8,7 @@ import com.zwdbj.server.adminserver.service.homepage.model.AdUserOrVideoGrowthDt
 import com.zwdbj.server.adminserver.service.tag.service.TagService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +34,25 @@ public class HomepageService {
     StringRedisTemplate stringRedisTemplate;
     private Logger logger = LoggerFactory.getLogger(HomepageService.class);
     public AdFindIncreasedDto findIncreasedAd(AdFindIncreasedInput input){
-        AdFindIncreasedDto dto = this.userService.findIncreasedUserAd(input);
-        if (dto==null) return null;
-        Long videoNum ;
-        Long verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"v";
-        if (this.stringRedisTemplate.hasKey(date)){
-            videoNum = Long.valueOf(this.stringRedisTemplate.opsForValue().get(date));
-            logger.info("videoNum="+videoNum);
-        }else {
-            videoNum = this.videoService.findIncreasedVideoAd(input.getQuantumTime());
+        long userId = JWTUtil.getCurrentId();
+        List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+        boolean flag = false;
+        for (String nickName:roles){
+            if ("datareport".equals(nickName))flag=true;
         }
-        //long dau1 = this.userService.dau();
-        long dau1 = this.dailyIncreaseAnalysisesService.dau();
+        AdFindIncreasedDto dto = this.userService.findIncreasedUserAd(input,flag);
+        if (dto==null) return null;
+        Long videoNum = this.videoService.findIncreasedVideoAd(input.getQuantumTime());
+        Long verifingVideoNum = this.videoService.findIncreasedVideoingAd(input.getQuantumTime());
+        long dau1 = this.userService.dau();
+        if (flag){
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"v";
+            if (this.stringRedisTemplate.hasKey(date)){
+                videoNum = Long.valueOf(this.stringRedisTemplate.opsForValue().get(date));
+                logger.info("videoNum="+videoNum);
+            }
+            dau1 = this.dailyIncreaseAnalysisesService.dau();
+        }
         long dau = new Double(Math.ceil(dau1/3.5)).longValue();
         long mau = new Double(Math.ceil(dau1*4.5/3.5)).longValue();
         dto.setDau(dau);

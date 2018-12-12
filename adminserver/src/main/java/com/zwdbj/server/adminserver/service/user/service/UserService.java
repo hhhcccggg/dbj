@@ -100,8 +100,8 @@ public class UserService {
         this.userMapper.updateField(fields,id);
     }
 
-    public List<UserDetailInfoDto> search(UserSearchForAdInput input) {
-        List<UserDetailInfoDto> userModelList = this.userMapper.findUsersAd(input);
+    public List<UserDetailInfoDto> search(UserSearchForAdInput input,boolean flag) {
+        List<UserDetailInfoDto> userModelList = this.userMapper.findUsersAd(input,flag);
         return userModelList;
     }
 
@@ -433,8 +433,8 @@ public class UserService {
         }
     }
 
-    public AdFindIncreasedDto findIncreasedUserAd(AdFindIncreasedInput input){
-        AdFindIncreasedDto dto = this.userMapper.findIncreasedUserAd(input);
+    public AdFindIncreasedDto findIncreasedUserAd(AdFindIncreasedInput input,boolean flag){
+        AdFindIncreasedDto dto = this.userMapper.findIncreasedUserAd(input,flag);
         return dto;
     }
     public long dau(){

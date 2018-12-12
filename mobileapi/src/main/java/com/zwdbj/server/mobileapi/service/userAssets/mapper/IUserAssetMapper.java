@@ -38,8 +38,8 @@ public interface IUserAssetMapper {
     @Update("update core_userCoinDetails set status=#{input.status},statusMsg=#{input.statusMsg} where id=#{input.id}")
     int updateUserCoinDetail(@Param("input") UserCoinDetailModifyInput input);
 
-    @Select("select status from core_userCoinDetails where id=#{id}")
-    String findUserCoinDetailById(long id);
+    @Select("select id,userId,num,status from core_userCoinDetails where id=#{id}")
+    UserAssetNumAndStatus findUserCoinDetailById(long id);
 
     @Select("select * from core_basic_buyCoinConfigs where isDeleted=false")
     List<BuyCoinConfigModel> findAllBuyCoinConfigs();
