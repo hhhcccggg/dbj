@@ -49,7 +49,7 @@ public class VideoSqlProvider {
         SQL sql = new SQL()
                 .SELECT("count(id)")
                 .FROM("core_videos")
-                .WHERE("status=0");
+                .WHERE("status=0 and isManualData=false");
         if (input==0){
             sql.WHERE("TO_DAYS(createTime) = TO_DAYS(NOW())");
         }else if (input==1){

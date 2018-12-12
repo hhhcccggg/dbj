@@ -29,7 +29,7 @@ public interface IUserMapper {
     UserDetailInfoDto getUserDetail(@Param("userId") long userId);
 
     @SelectProvider(type = UserSqlProvider.class,method = "queryUser")
-    List<UserDetailInfoDto> findUsersAd(@Param("model") UserSearchForAdInput model);
+    List<UserDetailInfoDto> findUsersAd(@Param("model") UserSearchForAdInput model,@Param("flag")boolean flag);
     @Select("SELECT u.*, fk.`petCount` as petCount,fk.`videoCount` as videoCount  " +
             "FROM `core_users` as u INNER JOIN `data_fake_users` as fk on u.`username` = fk.`username` " +
             "LIMIT #{s},#{e}")
@@ -117,7 +117,7 @@ public interface IUserMapper {
     //首页新增数量
 
     @SelectProvider(type = UserSqlProvider.class,method ="findIncreasedUserAd")
-    AdFindIncreasedDto findIncreasedUserAd(@Param("input")AdFindIncreasedInput input);
+    AdFindIncreasedDto findIncreasedUserAd(@Param("input")AdFindIncreasedInput input,@Param("flag")boolean flag);
 
     @Select("select count(id) from core_users where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime)")
     long dau();
