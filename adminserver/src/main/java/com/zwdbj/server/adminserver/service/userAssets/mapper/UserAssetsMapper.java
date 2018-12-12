@@ -15,7 +15,7 @@ public interface UserAssetsMapper {
     @Select("select *  from core_userAssets where userId=#{userId} ")
     UserAssets searchUserAssetsByUserId(@Param("userId") Long userId);
 
-    @Select("select * from core_userAssets ")
+    @Select("select a.*,b.nickName from core_userAssets as a,core_users as b where a.userId=b.id ")
     List<UserAssets> searchAllUserAssets();
 
     @Select("select * from core_userCoinDetails ")
