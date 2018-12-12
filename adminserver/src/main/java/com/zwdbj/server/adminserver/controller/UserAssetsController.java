@@ -81,11 +81,15 @@ public class UserAssetsController {
 
     @RequestMapping(value = "/searchUserCoinDetail/{userId}", method = RequestMethod.GET)
     @ApiOperation(value = "通过id查询用户资产")
-    public ResponseData<UserCoinDetail> searchByUserId(@PathVariable("userId") Long userId) {
-        ServiceStatusInfo<UserCoinDetail> serviceStatusInfo = this.userAssetsServiceImpl.searchUserCoinDetailByUserId(userId);
+    public ResponsePageInfoData<List<UserCoinDetail>> searchByUserId(@PathVariable("userId") Long userId, @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                     @RequestParam(value = "rows", defaultValue = "30", required = true) int rows) {
+        ServiceStatusInfo<List<UserCoinDetail>> serviceStatusInfo = this.userAssetsServiceImpl.searchUserCoinDetailByUserId(userId);
+        PageHelper.startPage(pageNo, rows);
+        List<UserCoinDetail> result = serviceStatusInfo.getData();
+        PageInfo<UserCoinDetail> pageInfo = new PageInfo<>(result);
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+            return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null, 0);
     }
 }

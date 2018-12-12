@@ -14,7 +14,7 @@ public interface UserAssetsService {
 
     ServiceStatusInfo<List<UserCoinDetail>> searchAllUserCoinDetail();
 
-    ServiceStatusInfo<UserCoinDetail> searchUserCoinDetailByUserId(Long userId);
+    ServiceStatusInfo<List<UserCoinDetail>> searchUserCoinDetailByUserId(Long userId);
 
     ServiceStatusInfo<List<UserCoinType>> searchAllUserCoinTyoe();
 
