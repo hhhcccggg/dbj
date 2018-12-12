@@ -110,17 +110,6 @@ public class WXPayService {
         if (resultDto.getTradeState().equals("SUCCESS")) {
             UserCoinDetailModifyInput coinDetailModifyInput = new UserCoinDetailModifyInput();
             coinDetailModifyInput.setId(Long.parseLong(resultDto.getOutTradeNo()));
-            if (this.wxPayAppCfg.isSandBox()) {
-                coinDetailModifyInput.setNum(10);
-            } else {
-                if (this.wxPayAppCfg.getIsTest()) {
-                    coinDetailModifyInput.setNum(10);
-                } else {
-                    coinDetailModifyInput.setNum(
-                            resultDto.getTotalFee() / 100 * 10
-                    );
-                }
-            }
             coinDetailModifyInput.setType("PAY");
             coinDetailModifyInput.setStatus("SUCCESS");
             this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);

@@ -248,6 +248,7 @@ public class WechatPayService {
                 return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
             }
         }catch ( Exception ex ) {
+            logger.error(ex.toString());
             logger.info(ex.getMessage());
             logger.info(ex.getStackTrace().toString());
         }
