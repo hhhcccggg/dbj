@@ -47,7 +47,7 @@ public class QuartzService {
 
 
     /**
-     * 定时每天早上5点插入增量表的时间和id
+     * jia 定时每天早上5点插入增量表的时间和id
      */
 
     public void everydayInsertTime(){

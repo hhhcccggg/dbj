@@ -8,9 +8,15 @@ import java.util.Map;
 public class DailyincreaseaSqlProvider {
     public String userGrowthAd(Map params){
         AdFindIncreasedInput input = (AdFindIncreasedInput)params.get("input");
+        Boolean flag = (Boolean)params.get("flag");
         SQL sql = new SQL()
                 .SELECT("createTime,newUsers as growthed")
                 .FROM("core_dailyIncreaseAnalysises");
+        if (flag){
+            sql.WHERE("type='FAKE'");
+        }else {
+            sql.WHERE("type='TRUTH'");
+        }
         if (input.getQuantumTime()==1){
             sql.WHERE("YEARWEEK(DATE_FORMAT(createTime,'%Y-%m-%d'))=YEARWEEK(NOW()) AND date(createTime)<=curDate()-1");
         }else if (input.getQuantumTime()==2){
@@ -24,9 +30,15 @@ public class DailyincreaseaSqlProvider {
 
     public String videoGrowthAd(Map params){
         AdFindIncreasedInput input = (AdFindIncreasedInput)params.get("input");
+        Boolean flag = (Boolean)params.get("flag");
         SQL sql = new SQL()
                 .SELECT("createTime,newVideos as growthed")
                 .FROM("core_dailyIncreaseAnalysises");
+        if (flag){
+            sql.WHERE("type='FAKE'");
+        }else {
+            sql.WHERE("type='TRUTH'");
+        }
         if (input.getQuantumTime()==1){
             sql.WHERE("YEARWEEK(DATE_FORMAT(createTime,'%Y-%m-%d'))=YEARWEEK(NOW()) AND date(createTime)<=curDate()-1");
         }else if (input.getQuantumTime()==2){

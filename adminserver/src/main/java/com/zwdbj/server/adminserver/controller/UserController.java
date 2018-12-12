@@ -97,8 +97,8 @@ public class UserController {
         long userId = JWTUtil.getCurrentId();
         List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
         boolean flag = false;
-        for (String nickName:roles){
-            if ("datareport".equals(nickName))flag=true;
+        for (String role:roles){
+            if ("datareport".equals(role))flag=true;
         }
         Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<UserDetailInfoDto> userModelList = this.userService.search(input,flag);

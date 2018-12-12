@@ -37,8 +37,8 @@ public class HomepageService {
         long userId = JWTUtil.getCurrentId();
         List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
         boolean flag = false;
-        for (String nickName:roles){
-            if ("datareport".equals(nickName))flag=true;
+        for (String role:roles){
+            if ("datareport".equals(role))flag=true;
         }
         AdFindIncreasedDto dto = this.userService.findIncreasedUserAd(input,flag);
         if (dto==null) return null;
@@ -63,12 +63,24 @@ public class HomepageService {
     }
 
     public List<AdUserOrVideoGrowthDto> userGrowthAd(AdFindIncreasedInput input){
-        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesService.userGrowthAd(input);
+        long userId = JWTUtil.getCurrentId();
+        List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+        boolean flag = false;
+        for (String role:roles){
+            if ("datareport".equals(role))flag=true;
+        }
+        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesService.userGrowthAd(input,flag);
         return growthDtos;
     }
 
     public List<AdUserOrVideoGrowthDto> videoGrowthAd(AdFindIncreasedInput input){
-        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesService.videoGrowthAd(input);
+        long userId = JWTUtil.getCurrentId();
+        List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+        boolean flag = false;
+        for (String role:roles){
+            if ("datareport".equals(role))flag=true;
+        }
+        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesService.videoGrowthAd(input,flag);
         return growthDtos;
     }
 
