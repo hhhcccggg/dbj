@@ -459,11 +459,10 @@ public class VideoService {
 
     @Transactional
     public ServiceStatusInfo<Integer> playTout(int coins, Long videoId) {
-
-
         try {
             //获取视频作者id
             Long authorId = videoMapper.findUserIdByVideoId(videoId);
+            long userId = JWTUtil.getCurrentId();
             int authorIncome = coins;
             //用户金币总数
             long counts = userAssetServiceImpl.getCoinsByUserId().getCoins();
@@ -482,9 +481,9 @@ public class VideoService {
                 addTaskInput.setTitle("视频打赏消费");
 
                 //修改打赏用户金币明细
-                userAssetServiceImpl.addUserCoinDetail(addTaskInput);
-                userAssetServiceImpl.updateUserCoinType("TASK", -coins);
-                userAssetServiceImpl.updateUserAsset( -coins, 0);
+                userAssetServiceImpl.addUserCoinDetail(userId,addTaskInput);
+                userAssetServiceImpl.updateUserCoinType(userId,"TASK", -coins);
+                userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
                 //增加视频打赏次数
                 videoMapper.addTipCount(videoId);
 
@@ -500,8 +499,8 @@ public class VideoService {
                 addTaskInput.setType("TASK");
                 addTaskInput.setTitle("视频打赏消费");
 
-                userAssetServiceImpl.addUserCoinDetail(addTaskInput);
-                userAssetServiceImpl.updateUserCoinType("TASK", -task);
+                userAssetServiceImpl.addUserCoinDetail(userId,addTaskInput);
+                userAssetServiceImpl.updateUserCoinType(userId,"TASK", -task);
 
                 int pay = (int)userAssetServiceImpl.getUserCoinType("PAY").getCoins();
                 if (pay >= coins) {
@@ -510,9 +509,9 @@ public class VideoService {
                     addPayInput.setType("PAY");
                     addTaskInput.setTitle("视频打赏消费");
 
-                    userAssetServiceImpl.addUserCoinDetail(addPayInput);
-                    userAssetServiceImpl.updateUserCoinType("PAY", -coins);
-                    userAssetServiceImpl.updateUserAsset(-authorIncome);
+                    userAssetServiceImpl.addUserCoinDetail(userId,addPayInput);
+                    userAssetServiceImpl.updateUserCoinType(userId,"PAY", -coins);
+                    userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
                     videoMapper.addTipCount(videoId);
 
                     videoAuthorIncome(authorId, authorIncome);
@@ -525,8 +524,8 @@ public class VideoService {
                     addPayInput.setType("PAY");
                     addTaskInput.setTitle("视频打赏消费");
 
-                    userAssetServiceImpl.addUserCoinDetail(addPayInput);
-                    userAssetServiceImpl.updateUserCoinType("PAY", -pay);
+                    userAssetServiceImpl.addUserCoinDetail(userId,addPayInput);
+                    userAssetServiceImpl.updateUserCoinType(userId,"PAY", -pay);
 
                     int other = (int)userAssetServiceImpl.getUserCoinType("OTHER").getCoins();
                     if (other >= coins) {
@@ -535,9 +534,9 @@ public class VideoService {
                         addOtherInput.setType("OTHER");
                         addTaskInput.setTitle("视频打赏消费");
 
-                        userAssetServiceImpl.addUserCoinDetail(addOtherInput);
-                        userAssetServiceImpl.updateUserCoinType("OTHER", -coins);
-                        userAssetServiceImpl.updateUserAsset(-authorIncome);
+                        userAssetServiceImpl.addUserCoinDetail(userId,addOtherInput);
+                        userAssetServiceImpl.updateUserCoinType(userId,"OTHER", -coins);
+                        userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
                         videoMapper.addTipCount(videoId);
 
                         videoAuthorIncome(authorId, authorIncome);
@@ -549,16 +548,16 @@ public class VideoService {
                         addOtherInput.setNum(-other);
                         addOtherInput.setType("OTHER");
                         addTaskInput.setTitle("视频打赏消费");
-                        userAssetServiceImpl.addUserCoinDetail(addOtherInput);
-                        userAssetServiceImpl.updateUserCoinType("OTHER", -other);
+                        userAssetServiceImpl.addUserCoinDetail(userId,addOtherInput);
+                        userAssetServiceImpl.updateUserCoinType(userId,"OTHER", -other);
 
                         UserCoinDetailAddInput addIncomeInput = new UserCoinDetailAddInput();
                         addIncomeInput.setNum(-coins);
                         addIncomeInput.setType("INCOME");
                         addTaskInput.setTitle("视频打赏消费");
-                        userAssetServiceImpl.addUserCoinDetail(addIncomeInput);
-                        userAssetServiceImpl.updateUserCoinType("INCOME", -coins);
-                        userAssetServiceImpl.updateUserAsset(-authorIncome );
+                        userAssetServiceImpl.addUserCoinDetail(userId,addIncomeInput);
+                        userAssetServiceImpl.updateUserCoinType(userId,"INCOME", -coins);
+                        userAssetServiceImpl.updateUserAsset(userId,-authorIncome );
                         videoMapper.addTipCount(videoId);
 
                         videoAuthorIncome(authorId, authorIncome);
