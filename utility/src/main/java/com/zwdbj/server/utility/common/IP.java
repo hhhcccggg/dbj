@@ -30,6 +30,10 @@ public class IP {
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
+        int index = ip.indexOf(",");
+        if (index!=-1) {
+            ip = ip.substring(0,index);
+        }
         return ip;
     }
 }
