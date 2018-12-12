@@ -9,7 +9,8 @@ namespace dbdesgin.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "type",
                 table: "core_dailyIncreaseAnalysises",
-                nullable: true,
+                maxLength: 20,
+                nullable: false,
                 defaultValue: "FAKE");
         }
 

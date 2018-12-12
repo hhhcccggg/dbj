@@ -334,7 +334,9 @@ namespace dbdesgin.Migrations
                         .HasDefaultValue(0L);
 
                     b.Property<string>("type")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasDefaultValue("FAKE");
 
                     b.HasKey("Id");

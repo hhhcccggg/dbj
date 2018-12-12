@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using db.common;
 
@@ -30,6 +31,8 @@ namespace dbdesgin.Models
         /// FAKE:假TRUTH:真
         /// </summary>
         /// <value>The type.</value>
+        [Required]
+        [MaxLength(20)]
         public String type { get; set; }
     }
 }

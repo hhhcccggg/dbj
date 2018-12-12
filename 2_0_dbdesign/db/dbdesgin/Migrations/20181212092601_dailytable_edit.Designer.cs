@@ -9,7 +9,7 @@ using dbdesgin.Data;
 namespace dbdesgin.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181212090919_dailytable_edit")]
+    [Migration("20181212092601_dailytable_edit")]
     partial class dailytable_edit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -336,7 +336,9 @@ namespace dbdesgin.Migrations
                         .HasDefaultValue(0L);
 
                     b.Property<string>("type")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasDefaultValue("FAKE");
 
                     b.HasKey("Id");
