@@ -152,7 +152,13 @@ public class WechatPayService {
             //解析支付结果
             OrderPayResultDto payResultDto = new OrderPayResultDto();
             payResultDto.setBankType(resData.get("bank_type"));
-            payResultDto.setCashFee(Integer.parseInt(resData.get("cash_fee")));
+            if(resData.containsKey("cash_fee")) {
+                payResultDto.setCashFee(Integer.parseInt(resData.get("cash_fee")));
+            }
+            if(resData.containsKey("total_fee")) {
+                payResultDto.setTotalFee(Integer.parseInt(resData.get("total_fee")));
+            }
+
             payResultDto.setCashFeeType(resData.get("cash_fee_type"));
             payResultDto.setFeeType(resData.get("fee_type"));
             payResultDto.setOpenId(resData.get("openid"));
@@ -161,7 +167,6 @@ public class WechatPayService {
             payResultDto.setTransactionId(resData.get("transaction_id"));
             payResultDto.setTradeType(resData.get("trade_type"));
             payResultDto.setTradeState("SUCCESS");
-            payResultDto.setTotalFee(Integer.parseInt(resData.get("total_fee")));
             notifyResult.setPayResultDto(payResultDto);
             notifyResult.setResponseWeChatXML("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
 
@@ -232,16 +237,14 @@ public class WechatPayService {
                 dto.setTradeType(resp.get("trade_type"));
                 dto.setTradeState(resp.get("trade_state"));
                 dto.setBankType(resp.get("bank_type"));
-                if (dto.getTradeState().equals("SUCCESS")) {
-                    if (resp.containsKey("total_fee")) {
-                        dto.setTotalFee(Integer.parseInt(resp.get("total_fee")));
-                    }
-                    if (resp.containsKey("settlement_total_fee")) {
-                        dto.setSettlementTotalFee(Integer.parseInt(resp.get("settlement_total_fee")));
-                    }
-                    if (resp.containsKey("cash_fee")) {
-                        dto.setCashFee(Integer.parseInt(resp.get("cash_fee")));
-                    }
+                if (resp.containsKey("total_fee")) {
+                    dto.setTotalFee(Integer.parseInt(resp.get("total_fee")));
+                }
+                if (resp.containsKey("settlement_total_fee")) {
+                    dto.setSettlementTotalFee(Integer.parseInt(resp.get("settlement_total_fee")));
+                }
+                if (resp.containsKey("cash_fee")) {
+                    dto.setCashFee(Integer.parseInt(resp.get("cash_fee")));
                 }
                 dto.setFeeType(resp.get("fee_type"));
                 dto.setCashFeeType(resp.get("cash_fee_type"));

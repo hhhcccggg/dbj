@@ -104,6 +104,7 @@ public class WXPayService {
         logger.info("收到微信支付回调："+resFromWX);
         ServiceStatusInfo<PayNotifyResult> stringServiceStatusInfo = this.wechatPayService.responseWeChatPayResult(resFromWX);
         if(!stringServiceStatusInfo.isSuccess()) {
+            logger.info(stringServiceStatusInfo.getMsg());
             return new ServiceStatusInfo<>(stringServiceStatusInfo.getCode(),stringServiceStatusInfo.getMsg(),null);
         }
         processPayResult(stringServiceStatusInfo.getData().getPayResultDto());
@@ -111,12 +112,16 @@ public class WXPayService {
     }
     @Transactional
     protected void processPayResult(OrderPayResultDto resultDto) {
+        logger.info(resultDto.toString());
         if (resultDto.getTradeState().equals("SUCCESS")) {
+            logger.info("交易成功");
             UserCoinDetailModifyInput coinDetailModifyInput = new UserCoinDetailModifyInput();
             coinDetailModifyInput.setId(Long.parseLong(resultDto.getOutTradeNo()));
             coinDetailModifyInput.setType("PAY");
             coinDetailModifyInput.setStatus("SUCCESS");
             this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
+        } else {
+            logger.info("交易失败");
         }
     }
 }
