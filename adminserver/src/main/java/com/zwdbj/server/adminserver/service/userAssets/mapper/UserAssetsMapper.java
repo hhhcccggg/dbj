@@ -22,7 +22,7 @@ public interface UserAssetsMapper {
     List<UserCoinDetail> searchAllUserCoinDetail();
 
     @Select("select * from core_userCoinDetails where userId=#{userId}")
-    UserCoinDetail searchUserCoinDetailByUserId(@Param("userId") Long userId);
+    List<UserCoinDetail> searchUserCoinDetailByUserId(@Param("userId") Long userId);
 
 
     @Select("select * from core_userCoinTypes")

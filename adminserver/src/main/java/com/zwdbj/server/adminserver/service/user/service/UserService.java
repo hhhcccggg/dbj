@@ -305,7 +305,7 @@ public class UserService {
         return userMapper.findUserById(userId);
     }
 
-    protected UserAuthInfoModel getUserAuthInfo(long userId) {
+    public UserAuthInfoModel getUserAuthInfo(long userId) {
         UserAuthInfoModel userAuthInfo = null;
         UserModel userModel = this.findUserById(userId);
         if (userModel == null) {

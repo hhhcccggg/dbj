@@ -93,14 +93,27 @@ public class UserController {
     public ResponsePageInfoData<List<UserDetailInfoDto>> users(@RequestBody UserSearchForAdInput input,
                                                                @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<UserDetailInfoDto> userModelList = this.userService.search(input);
-        long totalData = pageInfo.getTotal();
-        if (pageNo<10) {
-            userModelList = this.userService.searchTopFake((pageNo-1)*rows,rows);
+        long userId = JWTUtil.getCurrentId();
+        String[] nickNames = this.userService.getUserAuthInfo(userId).getNickName().split(",");
+        boolean flag = false;
+        for (String nickName:nickNames){
+            if ("datareport".equals(nickName))flag=true;
         }
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
-                "",userModelList,pageInfo.getTotal());
+        Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+        if (flag){
+            List<UserDetailInfoDto> userModelList = this.userService.search(input);
+            long totalData = pageInfo.getTotal();
+            if (pageNo<10) {
+                userModelList = this.userService.searchTopFake((pageNo-1)*rows,rows);
+            }
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
+                    "",userModelList,pageInfo.getTotal());
+        }else {
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
+                    "",null,pageInfo.getTotal());
+        }
+
+
     }
 
     @RequiresAuthentication
