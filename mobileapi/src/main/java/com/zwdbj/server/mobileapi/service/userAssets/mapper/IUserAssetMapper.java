@@ -10,7 +10,7 @@ public interface IUserAssetMapper {
     @Select("select * from core_userAssets where userId=#{userId}")
     UserAssetModel getCoinsByUserId(long userId);
 
-    @Update("update core_userAssets set coins=#{coins} where userId=#{userId}")
+    @Update("update core_userAssets set coins=coins+#{coins} where userId=#{userId}")
     int updateUserAsset(@Param("userId") long userId,@Param("coins") long coins);
     @Insert("insert into core_userAssets(id,coins,remainBalance,userId) values(#{id},0,0,#{userId})")
     int greatUserAsset(@Param("id")long id,@Param("userId")long UserId);
