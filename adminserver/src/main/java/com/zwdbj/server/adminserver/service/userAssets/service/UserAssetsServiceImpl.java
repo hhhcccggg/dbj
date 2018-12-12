@@ -55,8 +55,8 @@ public class UserAssetsServiceImpl implements UserAssetsService {
     }
 
     @Override
-    public ServiceStatusInfo<UserCoinDetail> searchUserCoinDetailByUserId(Long userId) {
-        UserCoinDetail result = null;
+    public ServiceStatusInfo<List<UserCoinDetail>> searchUserCoinDetailByUserId(Long userId) {
+        List<UserCoinDetail> result = null;
         try {
             result = this.userAssetsMapper.searchUserCoinDetailByUserId(userId);
             return new ServiceStatusInfo<>(0, "", result);
