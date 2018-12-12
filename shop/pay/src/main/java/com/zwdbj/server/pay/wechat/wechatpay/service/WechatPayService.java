@@ -233,9 +233,15 @@ public class WechatPayService {
                 dto.setTradeState(resp.get("trade_state"));
                 dto.setBankType(resp.get("bank_type"));
                 if (dto.getTradeState().equals("SUCCESS")) {
-                    dto.setTotalFee(Integer.parseInt(resp.get("total_fee")));
-                    dto.setSettlementTotalFee(Integer.parseInt(resp.get("settlement_total_fee")));
-                    dto.setCashFee(Integer.parseInt(resp.get("cash_fee")));
+                    if (resp.containsKey("total_fee")) {
+                        dto.setTotalFee(Integer.parseInt(resp.get("total_fee")));
+                    }
+                    if (resp.containsKey("settlement_total_fee")) {
+                        dto.setSettlementTotalFee(Integer.parseInt(resp.get("settlement_total_fee")));
+                    }
+                    if (resp.containsKey("cash_fee")) {
+                        dto.setCashFee(Integer.parseInt(resp.get("cash_fee")));
+                    }
                 }
                 dto.setFeeType(resp.get("fee_type"));
                 dto.setCashFeeType(resp.get("cash_fee_type"));
