@@ -9,6 +9,8 @@ import com.zwdbj.server.pay.wechat.wechatpay.WXPayAppCfg;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
 import com.zwdbj.server.pay.wechat.wechatpay.service.WechatPayService;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import java.util.Map;
 
 @Service
 public class WXPayService {
+    private Logger logger = LoggerFactory.getLogger(WXPayService.class);
     @Autowired
     private IUserAssetService userAssetServiceImpl;
     @Autowired
@@ -98,6 +101,7 @@ public class WXPayService {
      * @return 响应微信支付结果通知
      */
     public ServiceStatusInfo<String> responseWeChatPayResult(String resFromWX) {
+        logger.info("收到微信支付回调："+resFromWX);
         ServiceStatusInfo<PayNotifyResult> stringServiceStatusInfo = this.wechatPayService.responseWeChatPayResult(resFromWX);
         if(!stringServiceStatusInfo.isSuccess()) {
             return new ServiceStatusInfo<>(stringServiceStatusInfo.getCode(),stringServiceStatusInfo.getMsg(),null);
