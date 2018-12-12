@@ -29,13 +29,13 @@ public class DailyIncreaseAnalysisesService {
     }
 
 
-    public List<AdUserOrVideoGrowthDto> userGrowthAd(AdFindIncreasedInput input){
-            List<AdUserOrVideoGrowthDto>  growthDtos = this.dailyIncreaseAnalysisesMapper.userGrowthAd(input);
+    public List<AdUserOrVideoGrowthDto> userGrowthAd(AdFindIncreasedInput input,boolean flag){
+        List<AdUserOrVideoGrowthDto>  growthDtos = this.dailyIncreaseAnalysisesMapper.userGrowthAd(input,flag);
         return growthDtos;
     }
 
-    public List<AdUserOrVideoGrowthDto> videoGrowthAd(AdFindIncreasedInput input){
-        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesMapper.videoGrowthAd(input);
+    public List<AdUserOrVideoGrowthDto> videoGrowthAd(AdFindIncreasedInput input,boolean flag){
+        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesMapper.videoGrowthAd(input,false);
         return growthDtos;
     }
 

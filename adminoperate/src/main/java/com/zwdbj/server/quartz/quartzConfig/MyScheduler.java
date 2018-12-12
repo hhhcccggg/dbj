@@ -20,11 +20,15 @@ public class MyScheduler {
         JobKey jobKey3  = new JobKey("job3", "group02");
         JobKey jobKey4  = new JobKey("job4", "group02");
         JobKey jobKey5  = new JobKey("job5", "group02");
+        JobKey jobKey6  = new JobKey("job6", "group02");
+        JobKey jobKey7  = new JobKey("job7", "group02");
         if (!myScheduler.checkExists(jobKey1)) startJob1(myScheduler);
         if (!myScheduler.checkExists(jobKey2)) startJob2(myScheduler);
         if (!myScheduler.checkExists(jobKey3)) startJob3(myScheduler);
         if (!myScheduler.checkExists(jobKey4)) startJob4(myScheduler);
         if (!myScheduler.checkExists(jobKey5)) startJob5(myScheduler);
+        if (!myScheduler.checkExists(jobKey6)) startJob6(myScheduler);
+        if (!myScheduler.checkExists(jobKey7)) startJob7(myScheduler);
         myScheduler.start();
 
     }
@@ -81,6 +85,28 @@ public class MyScheduler {
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 15 3 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger5", "group2")
+                .withSchedule(scheduleBuilder)
+                .build();
+        scheduler.scheduleJob(jobDetail,cronTrigger);
+    }
+    private void startJob6(Scheduler scheduler) throws SchedulerException{
+        JobDetail jobDetail = JobBuilder.newJob(EverydayInsertTimeJob.class)
+                .withIdentity("job6", "group02")
+                .build();
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 50 4 * * ?");
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+                .withIdentity("trigger6", "group2")
+                .withSchedule(scheduleBuilder)
+                .build();
+        scheduler.scheduleJob(jobDetail,cronTrigger);
+    }
+    private void startJob7(Scheduler scheduler) throws SchedulerException{
+        JobDetail jobDetail = JobBuilder.newJob(EveryIncreasedUsersAndVideosJob.class)
+                .withIdentity("job7", "group02")
+                .build();
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 50 2 * * ?");
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+                .withIdentity("trigger7", "group2")
                 .withSchedule(scheduleBuilder)
                 .build();
         scheduler.scheduleJob(jobDetail,cronTrigger);
