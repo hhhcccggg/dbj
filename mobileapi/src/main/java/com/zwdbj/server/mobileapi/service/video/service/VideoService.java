@@ -426,7 +426,6 @@ public class VideoService {
             MQWorkSender.shareSender().send(workInfo);
             this.stringRedisTemplate.opsForValue().set(cacheKey,"OK",AppConfigConstant.VIDEO_WEIGHT_CALCULATE_INTERVAL,TimeUnit.SECONDS);
         } catch (Exception ex) {
-            logger.error(ex.getStackTrace().toString());
             logger.error(ex.getMessage());
         }
     }
@@ -438,7 +437,7 @@ public class VideoService {
         try {
             Long userId = JWTUtil.getCurrentId();
             videoPlayTourDto.setTipCount(videoMapper.searchTipCount(videoId));
-            videoPlayTourDto.setCoins(userAssetServiceImpl.getCoinsByUserId(userId).getCoins());
+            videoPlayTourDto.setCoins(userAssetServiceImpl.getCoinsByUserId(userId).getData());
             return new ServiceStatusInfo<>(0, "", videoPlayTourDto);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "获取打赏界面失败" + e.getMessage(), null);
@@ -448,16 +447,7 @@ public class VideoService {
     //视频作者获得的打赏
     @Transactional
     public void videoAuthorIncome(Long authorId, int income) {
-        boolean a = this.userAssetServiceImpl.userCoinTypeIsExist(authorId,"TASK");
-        if (!a)this.userAssetServiceImpl.greatUserCoinType(authorId,"TASK");
-        boolean b = this.userAssetServiceImpl.userCoinTypeIsExist(authorId,"PAY");
-        if (!b)this.userAssetServiceImpl.greatUserCoinType(authorId,"PAY");
-        boolean c = this.userAssetServiceImpl.userCoinTypeIsExist(authorId,"OTHER");
-        if (!c)this.userAssetServiceImpl.greatUserCoinType(authorId,"OTHER");
-        boolean d = this.userAssetServiceImpl.userCoinTypeIsExist(authorId,"INCOME");
-        if (!d)this.userAssetServiceImpl.greatUserCoinType(authorId,"INCOME");
-        boolean e = this.userAssetServiceImpl.userAssetIsExistOrNot(authorId);
-        if (!e)this.userAssetServiceImpl.greatUserAsset(authorId);
+        this.userAssetServiceImpl.userIsExist(authorId);
         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
         addInput.setNum(income);
         addInput.setType("INCOME");
@@ -473,27 +463,19 @@ public class VideoService {
             //获取视频作者id
             Long authorId = videoMapper.findUserIdByVideoId(videoId);
             long userId = JWTUtil.getCurrentId();
-            boolean a = this.userAssetServiceImpl.userCoinTypeIsExist(userId,"TASK");
-            if (!a)this.userAssetServiceImpl.greatUserCoinType(userId,"TASK");
-            boolean b = this.userAssetServiceImpl.userCoinTypeIsExist(userId,"PAY");
-            if (!b)this.userAssetServiceImpl.greatUserCoinType(userId,"PAY");
-            boolean c = this.userAssetServiceImpl.userCoinTypeIsExist(userId,"OTHER");
-            if (!c)this.userAssetServiceImpl.greatUserCoinType(userId,"OTHER");
-            boolean d = this.userAssetServiceImpl.userCoinTypeIsExist(userId,"INCOME");
-            if (!d)this.userAssetServiceImpl.greatUserCoinType(userId,"INCOME");
-            boolean e = this.userAssetServiceImpl.userAssetIsExistOrNot(userId);
-            if (!e)this.userAssetServiceImpl.greatUserAsset(userId);
+            //查看此用户是否存在金币账户
+            this.userAssetServiceImpl.userIsExist(userId);
             int authorIncome = coins;
             //用户金币总数
-            long counts = userAssetServiceImpl.getCoinsByUserId().getCoins();
+            long counts = userAssetServiceImpl.getCoinsByUserId().getData();
 
             if (counts < coins) {
                 return new ServiceStatusInfo<>(1, "您的金币不足，请充值金币", null);
             }
             //获取用户金币类型数量详情
-            int task = (int)userAssetServiceImpl.getUserCoinType("TASK").getCoins();
-            int pay = (int)userAssetServiceImpl.getUserCoinType("PAY").getCoins();
-            int other = (int)userAssetServiceImpl.getUserCoinType("OTHER").getCoins();
+            int task = userAssetServiceImpl.getUserCoinType(userId,"TASK").getData().intValue();
+            int pay = userAssetServiceImpl.getUserCoinType(userId,"PAY").getData().intValue();
+            int other = userAssetServiceImpl.getUserCoinType(userId,"OTHER").getData().intValue();
 
             if (task >= coins) {
                 //task类型的金币大于等于打赏数，则全部用task打赏

@@ -4,8 +4,10 @@ import com.zwdbj.server.mobileapi.service.userAssets.mapper.IUserAssetMapper;
 import com.zwdbj.server.mobileapi.service.userAssets.model.*;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,23 +21,31 @@ public class UserAssetServiceImpl implements IUserAssetService{
     IUserAssetMapper userAssetMapper;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Transactional
-    public UserAssetModel getCoinsByUserId(long userId) {
+    public  ServiceStatusInfo<Long> getCoinsByUserId(long userId) {
         boolean isExist =  this.userAssetIsExistOrNot(userId);
         if (!isExist){
             this.greatUserAsset(userId);
         }
-        UserAssetModel userAssetModel= this.userAssetMapper.getCoinsByUserId(userId);
+        /*String key = "USERASSET_"+userId;
+        Long coins;
         //加入缓存
-        String key = "USERASSET"+userAssetModel.getUserId();
-        ValueOperations<String,UserAssetModel> operations = redisTemplate.opsForValue();
-        operations.set(key,userAssetModel);
-        return userAssetModel;
+        if (!this.stringRedisTemplate.hasKey(key)){
+            coins= this.userAssetMapper.getCoinsByUserId(userId);
+            this.stringRedisTemplate.opsForValue().set(key,String.valueOf(coins));
+        }else {
+            coins = Long.valueOf(this.stringRedisTemplate.opsForValue().get(key));
+        }*/
+        Long coins= this.userAssetMapper.getCoinsByUserId(userId);
+
+        return new ServiceStatusInfo<>(0,"",coins);
     }
 
     @Transactional
-    public UserAssetModel getCoinsByUserId(){
+    public ServiceStatusInfo<Long> getCoinsByUserId(){
         long userId = JWTUtil.getCurrentId();
         return getCoinsByUserId(userId);
     }
@@ -58,6 +68,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
     public int greatUserAsset(long userId){
         long id = UniqueIDCreater.generateID();
         int result = this.userAssetMapper.greatUserAsset(id,userId);
+        this.getCoinsByUserId(userId);
         return result;
     }
     @Transactional
@@ -72,19 +83,27 @@ public class UserAssetServiceImpl implements IUserAssetService{
      */
 
     @Transactional
-    public UserCoinTypeModel getUserCoinType(String type){
+    public ServiceStatusInfo<Long> getUserCoinType(String type){
         long userId = JWTUtil.getCurrentId();
         return getUserCoinType(userId,type);
     }
 
     @Transactional
-    public UserCoinTypeModel getUserCoinType(long userId,String type) {
+    public ServiceStatusInfo<Long> getUserCoinType(long userId,String type) {
         boolean isExist = this.userCoinTypeIsExist(userId,type);
         if (!isExist){
             this.greatUserCoinType(userId,type);
         }
-        UserCoinTypeModel userCoinTypeModel = this.userAssetMapper.getUserCoinType(userId,type);
-        return userCoinTypeModel;
+        /*Long coins ;
+        String key = "USERASSET_"+type+"_"+userId;
+        if (!this.stringRedisTemplate.hasKey(key)){
+            coins= this.userAssetMapper.getUserCoinType(userId,type);
+            this.stringRedisTemplate.opsForValue().set(key,String.valueOf(coins));
+        }else {
+            coins = Long.valueOf(this.stringRedisTemplate.opsForValue().get(key));
+        }*/
+        Long coins= this.userAssetMapper.getUserCoinType(userId,type);
+        return new ServiceStatusInfo<>(0,"",coins);
     }
 
     @Transactional
@@ -185,6 +204,19 @@ public class UserAssetServiceImpl implements IUserAssetService{
     public  List<BuyCoinConfigModel> findAllBuyCoinConfigs(){
         List<BuyCoinConfigModel> buyCoinConfigModels = this.userAssetMapper.findAllBuyCoinConfigs();
         return buyCoinConfigModels;
+    }
+    public void userIsExist(long userId){
+        boolean a = this.userCoinTypeIsExist(userId,"TASK");
+        if (!a)this.greatUserCoinType(userId,"TASK");
+        boolean b = this.userCoinTypeIsExist(userId,"PAY");
+        if (!b)this.greatUserCoinType(userId,"PAY");
+        boolean c = this.userCoinTypeIsExist(userId,"OTHER");
+        if (!c)this.greatUserCoinType(userId,"OTHER");
+        boolean d = this.userCoinTypeIsExist(userId,"INCOME");
+        if (!d)this.greatUserCoinType(userId,"INCOME");
+        boolean e = this.userAssetIsExistOrNot(userId);
+        if (!e)this.greatUserAsset(userId);
+
     }
 
 }
