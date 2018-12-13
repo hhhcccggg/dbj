@@ -5,6 +5,8 @@ import com.zwdbj.server.mobileapi.service.pay.alipay.service.AlipayBizService;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.pay.alipay.AlipayService;
 import com.zwdbj.server.pay.alipay.model.AppPayResult;
+import com.zwdbj.server.pay.alipay.model.OrderQueryInput;
+import com.zwdbj.server.pay.alipay.model.OrderQueryResult;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -35,4 +37,16 @@ public class PayAlipayController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
     }
+
+    @RequiresAuthentication
+    @ApiOperation("订单查询")
+    @RequestMapping(value = "/orderQuery",method = RequestMethod.POST)
+    public ResponseData<OrderQueryResult> orderQuery(@RequestBody OrderQueryInput input) {
+        ServiceStatusInfo<OrderQueryResult> serviceStatusInfo = this.alipayBizService.orderQuery(input);
+        if (serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+    }
+
 }

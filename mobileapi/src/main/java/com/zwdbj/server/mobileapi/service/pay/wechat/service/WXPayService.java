@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.pay.wechat.service;
 
+import com.alibaba.fastjson.JSON;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
@@ -89,6 +90,7 @@ public class WXPayService {
      */
     public ServiceStatusInfo<OrderPayResultDto> orderQuery(OrderQueryInput input) {
         ServiceStatusInfo<OrderPayResultDto> serviceStatusInfo = this.wechatPayService.orderQuery(input);
+        logger.info(JSON.toJSONString(serviceStatusInfo));
         if (!serviceStatusInfo.isSuccess()) {
             return serviceStatusInfo;
         }

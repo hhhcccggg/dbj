@@ -17,6 +17,11 @@ public class ChargeCoinAlipayResult implements Serializable {
     private String timeoutExpress;
     @ApiModelProperty("订单金额，元")
     private float totalAmount;
+    /**
+     * 移动端需要的订单信息字符串
+     */
+    @ApiModelProperty("移动端需要的订单信息字符串")
+    private String orderString;
 
     public String getBody() {
         return body;
@@ -56,5 +61,13 @@ public class ChargeCoinAlipayResult implements Serializable {
 
     public void setTotalAmount(float totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getOrderString() {
+        return orderString;
+    }
+
+    public void setOrderString(String orderString) {
+        this.orderString = orderString;
     }
 }
