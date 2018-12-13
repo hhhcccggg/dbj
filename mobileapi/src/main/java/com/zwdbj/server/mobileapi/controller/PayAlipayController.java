@@ -11,6 +11,7 @@ import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class PayAlipayController {
     @Autowired
     private AlipayBizService alipayBizService;
 
+    @RequiresAuthentication
     @ApiOperation("生成充值订单")
     @RequestMapping(value = "/chargeCoins",method = RequestMethod.POST)
     public ResponseData<ChargeCoinAlipayResult> chargeCoins(@RequestBody ChargeCoinInput input) {
