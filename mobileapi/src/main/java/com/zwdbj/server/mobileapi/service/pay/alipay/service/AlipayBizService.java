@@ -7,6 +7,8 @@ import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.pay.alipay.AlipayService;
 import com.zwdbj.server.pay.alipay.model.AppPayInput;
 import com.zwdbj.server.pay.alipay.model.AppPayResult;
+import com.zwdbj.server.pay.alipay.model.OrderQueryInput;
+import com.zwdbj.server.pay.alipay.model.OrderQueryResult;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,12 +52,24 @@ public class AlipayBizService {
         BigDecimal b = new BigDecimal(amount);
         float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
         appPayInput.setTotalAmount(String.valueOf(f1));
+
+        ServiceStatusInfo<AppPayResult> serviceStatusInfo = this.alipayService.appPay(appPayInput);
+        if (!serviceStatusInfo.isSuccess()) {
+            return new ServiceStatusInfo<>(1,serviceStatusInfo.getMsg(),null);
+        }
+
         ChargeCoinAlipayResult result = new ChargeCoinAlipayResult();
         result.setBody(appPayInput.getBody());
         result.setOutTradeNo(appPayInput.getOutTradeNo());
         result.setSubject(appPayInput.getSubject());
         result.setTimeoutExpress(appPayInput.getTimeoutExpress());
         result.setTotalAmount(Float.valueOf(appPayInput.getTotalAmount()));
+        result.setOrderString(serviceStatusInfo.getData().getOrderString());
         return new ServiceStatusInfo<>(0,"OK",result);
+    }
+
+    public ServiceStatusInfo<OrderQueryResult> orderQuery(OrderQueryInput input) {
+        //TODO 处理数据增加金币
+        return this.alipayService.orderQuery(input);
     }
 }

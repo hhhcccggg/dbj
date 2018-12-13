@@ -37,6 +37,11 @@ public class AppPayResult implements Serializable {
             "以2088开头的纯16位数字")
     @JSONField(name = "seller_id")
     private String sellerId;
+    /**
+     * 移动端需要的订单信息字符串
+     */
+    @ApiModelProperty("移动端需要的订单信息字符串")
+    private String orderString;
 
     public String getOutTradeNo() {
         return outTradeNo;
@@ -68,5 +73,13 @@ public class AppPayResult implements Serializable {
 
     public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
+    }
+
+    public String getOrderString() {
+        return orderString;
+    }
+
+    public void setOrderString(String orderString) {
+        this.orderString = orderString;
     }
 }
