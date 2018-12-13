@@ -9,7 +9,7 @@ public interface IDailyIncreaseAnalysisesMapper {
     @Select("select count(createTime) from core_dailyIncreaseAnalysises where date(createTime)=curDate() and type='FAKE'")
     int isExistToday();
 
-    @Insert("insert into core_dailyIncreaseAnalysises(id) values(#{id})")
+    @Insert("insert into core_dailyIncreaseAnalysises(id,type) values(#{id},'FAKE')")
     int everydayInsertTime(@Param("id") Long id);
 
     @Update("update core_dailyIncreaseAnalysises set newUsers=#{newUsers},newVideos=#{newVideos} where date(createTime)=curDate()-1 and type='FAKE'")
