@@ -141,6 +141,19 @@ public class UserAssetServiceImpl implements IUserAssetService{
         return id;
     }
 
+    /**
+     * 内部
+     * @param userId
+     * @param input
+     * @return
+     */
+    @Transactional
+    public int addUserCoinDetailSuccess(long userId,UserCoinDetailAddInput input) {
+        long id = UniqueIDCreater.generateID();
+        int result = this.userAssetMapper.addUserCoinDetailSuccess(id,userId,input);
+        return result;
+    }
+
     @Override
     @Transactional
     public int updateUserCoinDetail(UserCoinDetailModifyInput input){

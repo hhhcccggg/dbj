@@ -90,7 +90,7 @@ public interface IVideoMapper {
     @Select("select tipcount from core_videos where id=#{videoId}")
     int searchTipCount(@Param("videoId") Long videoId);
 
-    @Update("update core_videos set tipCount=tipCount+1 where id={videoId}")
-    int addTipCount(@Param("video") Long videoId);
+    @Update("update core_videos set tipCount=tipCount+1 where id=#{id}")
+    int addTipCount(@Param("id") Long videoId);
 
 }

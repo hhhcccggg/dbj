@@ -34,6 +34,9 @@ public interface IUserAssetMapper {
     @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
             "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'PROCESSING')")
     int addUserCoinDetail(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input);
+    @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
+            "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'SUCCESS')")
+    int addUserCoinDetailSuccess(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input);
 
     @Update("update core_userCoinDetails set status=#{input.status},statusMsg=#{input.statusMsg} where id=#{input.id}")
     int updateUserCoinDetail(@Param("input") UserCoinDetailModifyInput input);
