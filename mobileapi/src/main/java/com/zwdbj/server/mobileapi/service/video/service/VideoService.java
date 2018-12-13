@@ -448,11 +448,21 @@ public class VideoService {
     //视频作者获得的打赏
     @Transactional
     public void videoAuthorIncome(Long authorId, int income) {
+        boolean a = this.userAssetServiceImpl.userCoinTypeIsExist(authorId,"TASK");
+        if (!a)this.userAssetServiceImpl.greatUserCoinType(authorId,"TASK");
+        boolean b = this.userAssetServiceImpl.userCoinTypeIsExist(authorId,"PAY");
+        if (!b)this.userAssetServiceImpl.greatUserCoinType(authorId,"PAY");
+        boolean c = this.userAssetServiceImpl.userCoinTypeIsExist(authorId,"OTHER");
+        if (!c)this.userAssetServiceImpl.greatUserCoinType(authorId,"OTHER");
+        boolean d = this.userAssetServiceImpl.userCoinTypeIsExist(authorId,"INCOME");
+        if (!d)this.userAssetServiceImpl.greatUserCoinType(authorId,"INCOME");
+        boolean e = this.userAssetServiceImpl.userAssetIsExistOrNot(authorId);
+        if (!e)this.userAssetServiceImpl.greatUserAsset(authorId);
         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
         addInput.setNum(income);
         addInput.setType("INCOME");
         addInput.setTitle("视频获得的打赏");
-        userAssetServiceImpl.addUserCoinDetail(authorId, addInput);
+        userAssetServiceImpl.addUserCoinDetailSuccess(authorId, addInput);
         userAssetServiceImpl.updateUserCoinType(authorId, "INCOME", income);
         userAssetServiceImpl.updateUserAsset(authorId, income);
     }
@@ -463,6 +473,16 @@ public class VideoService {
             //获取视频作者id
             Long authorId = videoMapper.findUserIdByVideoId(videoId);
             long userId = JWTUtil.getCurrentId();
+            boolean a = this.userAssetServiceImpl.userCoinTypeIsExist(userId,"TASK");
+            if (!a)this.userAssetServiceImpl.greatUserCoinType(userId,"TASK");
+            boolean b = this.userAssetServiceImpl.userCoinTypeIsExist(userId,"PAY");
+            if (!b)this.userAssetServiceImpl.greatUserCoinType(userId,"PAY");
+            boolean c = this.userAssetServiceImpl.userCoinTypeIsExist(userId,"OTHER");
+            if (!c)this.userAssetServiceImpl.greatUserCoinType(userId,"OTHER");
+            boolean d = this.userAssetServiceImpl.userCoinTypeIsExist(userId,"INCOME");
+            if (!d)this.userAssetServiceImpl.greatUserCoinType(userId,"INCOME");
+            boolean e = this.userAssetServiceImpl.userAssetIsExistOrNot(userId);
+            if (!e)this.userAssetServiceImpl.greatUserAsset(userId);
             int authorIncome = coins;
             //用户金币总数
             long counts = userAssetServiceImpl.getCoinsByUserId().getCoins();
@@ -472,6 +492,8 @@ public class VideoService {
             }
             //获取用户金币类型数量详情
             int task = (int)userAssetServiceImpl.getUserCoinType("TASK").getCoins();
+            int pay = (int)userAssetServiceImpl.getUserCoinType("PAY").getCoins();
+            int other = (int)userAssetServiceImpl.getUserCoinType("OTHER").getCoins();
 
             if (task >= coins) {
                 //task类型的金币大于等于打赏数，则全部用task打赏
@@ -481,7 +503,7 @@ public class VideoService {
                 addTaskInput.setTitle("视频打赏消费");
 
                 //修改打赏用户金币明细
-                userAssetServiceImpl.addUserCoinDetail(userId,addTaskInput);
+                userAssetServiceImpl.addUserCoinDetailSuccess(userId,addTaskInput);
                 userAssetServiceImpl.updateUserCoinType(userId,"TASK", -coins);
                 userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
                 //增加视频打赏次数
@@ -492,24 +514,23 @@ public class VideoService {
 
                 return new ServiceStatusInfo<>(0, "", 1);
             } else {
-                UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
-                //减去task的金币后仍需要支付的金币数
-                coins = coins - task;
-                addTaskInput.setNum(-task);
-                addTaskInput.setType("TASK");
-                addTaskInput.setTitle("视频打赏消费");
-
-                userAssetServiceImpl.addUserCoinDetail(userId,addTaskInput);
-                userAssetServiceImpl.updateUserCoinType(userId,"TASK", -task);
-
-                int pay = (int)userAssetServiceImpl.getUserCoinType("PAY").getCoins();
+                if (task!=0){
+                    UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
+                    //减去task的金币后仍需要支付的金币数
+                    coins = coins - task;
+                    addTaskInput.setNum(-task);
+                    addTaskInput.setType("TASK");
+                    addTaskInput.setTitle("视频打赏消费");
+                    userAssetServiceImpl.addUserCoinDetailSuccess(userId,addTaskInput);
+                    userAssetServiceImpl.updateUserCoinType(userId,"TASK", -task);
+                }
                 if (pay >= coins) {
                     UserCoinDetailAddInput addPayInput = new UserCoinDetailAddInput();
                     addPayInput.setNum(-coins);
                     addPayInput.setType("PAY");
-                    addTaskInput.setTitle("视频打赏消费");
+                    addPayInput.setTitle("视频打赏消费");
 
-                    userAssetServiceImpl.addUserCoinDetail(userId,addPayInput);
+                    userAssetServiceImpl.addUserCoinDetailSuccess(userId,addPayInput);
                     userAssetServiceImpl.updateUserCoinType(userId,"PAY", -coins);
                     userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
                     videoMapper.addTipCount(videoId);
@@ -518,23 +539,23 @@ public class VideoService {
 
                     return new ServiceStatusInfo<>(0, "", 1);
                 } else {
-                    coins = coins - pay;//减去pay的金币后仍需要支付的金币数
-                    UserCoinDetailAddInput addPayInput = new UserCoinDetailAddInput();
-                    addPayInput.setNum(-pay);
-                    addPayInput.setType("PAY");
-                    addTaskInput.setTitle("视频打赏消费");
+                    if (pay!=0){
+                        coins = coins - pay;//减去pay的金币后仍需要支付的金币数
+                        UserCoinDetailAddInput addPayInput = new UserCoinDetailAddInput();
+                        addPayInput.setNum(-pay);
+                        addPayInput.setType("PAY");
+                        addPayInput.setTitle("视频打赏消费");
 
-                    userAssetServiceImpl.addUserCoinDetail(userId,addPayInput);
-                    userAssetServiceImpl.updateUserCoinType(userId,"PAY", -pay);
-
-                    int other = (int)userAssetServiceImpl.getUserCoinType("OTHER").getCoins();
+                        userAssetServiceImpl.addUserCoinDetailSuccess(userId,addPayInput);
+                        userAssetServiceImpl.updateUserCoinType(userId,"PAY", -pay);
+                    }
                     if (other >= coins) {
                         UserCoinDetailAddInput addOtherInput = new UserCoinDetailAddInput();
                         addOtherInput.setNum(-coins);
                         addOtherInput.setType("OTHER");
-                        addTaskInput.setTitle("视频打赏消费");
+                        addOtherInput.setTitle("视频打赏消费");
 
-                        userAssetServiceImpl.addUserCoinDetail(userId,addOtherInput);
+                        userAssetServiceImpl.addUserCoinDetailSuccess(userId,addOtherInput);
                         userAssetServiceImpl.updateUserCoinType(userId,"OTHER", -coins);
                         userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
                         videoMapper.addTipCount(videoId);
@@ -543,31 +564,27 @@ public class VideoService {
 
                         return new ServiceStatusInfo<>(0, "", 1);
                     } else {
-                        coins = coins - other;//减去other的金币后还需要支付的金币数
-                        UserCoinDetailAddInput addOtherInput = new UserCoinDetailAddInput();
-                        addOtherInput.setNum(-other);
-                        addOtherInput.setType("OTHER");
-                        addTaskInput.setTitle("视频打赏消费");
-                        userAssetServiceImpl.addUserCoinDetail(userId,addOtherInput);
-                        userAssetServiceImpl.updateUserCoinType(userId,"OTHER", -other);
-
+                        if (other!=0){
+                            coins = coins - other;//减去other的金币后还需要支付的金币数
+                            UserCoinDetailAddInput addOtherInput = new UserCoinDetailAddInput();
+                            addOtherInput.setNum(-other);
+                            addOtherInput.setType("OTHER");
+                            addOtherInput.setTitle("视频打赏消费");
+                            userAssetServiceImpl.addUserCoinDetailSuccess(userId,addOtherInput);
+                            userAssetServiceImpl.updateUserCoinType(userId,"OTHER", -other);
+                        }
                         UserCoinDetailAddInput addIncomeInput = new UserCoinDetailAddInput();
                         addIncomeInput.setNum(-coins);
                         addIncomeInput.setType("INCOME");
-                        addTaskInput.setTitle("视频打赏消费");
-                        userAssetServiceImpl.addUserCoinDetail(userId,addIncomeInput);
+                        addIncomeInput.setTitle("视频打赏消费");
+                        userAssetServiceImpl.addUserCoinDetailSuccess(userId,addIncomeInput);
                         userAssetServiceImpl.updateUserCoinType(userId,"INCOME", -coins);
                         userAssetServiceImpl.updateUserAsset(userId,-authorIncome );
                         videoMapper.addTipCount(videoId);
-
                         videoAuthorIncome(authorId, authorIncome);
-
                         return new ServiceStatusInfo<>(0, "", 1);
                     }
-
                 }
-
-
             }
 
         } catch (Exception e) {
