@@ -15,7 +15,7 @@ public interface IDailyIncreaseAnalysisesMapper {
     @Insert("insert into core_dailyIncreaseAnalysises(id,type) values(#{id},'TRUTH')")
     int everydayInsertTime(@Param("id")Long id);
 
-    @Update("update core_dailyIncreaseAnalysises set newUsers=#{newUsers},newVideos=#{newVideos} where date(createTime)=curDate()-1 and type='TRUTH")
+    @Update("update core_dailyIncreaseAnalysises set newUsers=#{newUsers},newVideos=#{newVideos} where date(createTime)=curDate()-1 and type='TRUTH'")
     int everyIncreasedUsersAndVideos(@Param("newUsers") Long increasedUsers,@Param("newVideos") Long increasedVideos);
 
     @SelectProvider(type =DailyincreaseaSqlProvider.class,method = "userGrowthAd")
