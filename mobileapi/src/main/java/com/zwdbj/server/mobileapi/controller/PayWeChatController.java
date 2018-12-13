@@ -1,12 +1,10 @@
 package com.zwdbj.server.mobileapi.controller;
 
-import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinDto;
-import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinInput;
+import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
+import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.pay.wechat.service.WXPayService;
 import com.zwdbj.server.pay.wechat.wechatpay.model.OrderPayResultDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.OrderQueryInput;
-import com.zwdbj.server.pay.wechat.wechatpay.model.PayNotifyResult;
-import com.zwdbj.server.pay.wechat.wechatpay.service.WechatPayService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -36,8 +34,8 @@ public class PayWeChatController {
     @RequiresAuthentication
     @RequestMapping(value = "/chargeCoins",method = RequestMethod.POST)
     @ApiOperation("微信充值金币")
-    public ResponseData<ChargeCoinDto> chargeCoins(@RequestBody ChargeCoinInput input) {
-        ServiceStatusInfo<ChargeCoinDto> serviceStatusInfo = this.weChatService.chargeCoins(input,JWTUtil.getCurrentId());
+    public ResponseData<ChargeCoinWXResult> chargeCoins(@RequestBody ChargeCoinInput input) {
+        ServiceStatusInfo<ChargeCoinWXResult> serviceStatusInfo = this.weChatService.chargeCoins(input,JWTUtil.getCurrentId());
         if(serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
         } else {
