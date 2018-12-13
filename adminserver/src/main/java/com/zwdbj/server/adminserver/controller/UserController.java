@@ -100,15 +100,18 @@ public class UserController {
         for (String role:roles){
             if ("datareport".equals(role))flag=true;
         }
-        Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<UserDetailInfoDto> userModelList = this.userService.search(input,flag);
+
         if (flag){
+            Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+            List<UserDetailInfoDto> userModelList = this.userService.search(input,flag);
             if (pageNo<10) {
                 userModelList = this.userService.searchTopFake((pageNo-1)*rows,rows);
             }
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
                     "",userModelList,pageInfo.getTotal());
         }else {
+            Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+            List<UserDetailInfoDto> userModelList = this.userService.search(input,flag);
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
                     "",userModelList,pageInfo.getTotal());
         }
