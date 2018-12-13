@@ -8,6 +8,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobUser;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserAssetModel;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.user.UserToken;
@@ -206,7 +207,13 @@ public class UserService {
         if (cartStatusInfo.isSuccess()) {
             userDetailInfoDto.getShopInfoDto().setCartNum(cartStatusInfo.getData());
         }
-        userDetailInfoDto.setCoins(this.userAssetServiceImpl.getCoinsByUserId(userId).getCoins());
+        long coins ;
+        if (this.stringRedisTemplate.hasKey("USERASSET_"+userId)){
+            coins = Long.valueOf(this.stringRedisTemplate.opsForValue().get("USERASSET_"+userId));
+        }else {
+            coins = this.userAssetServiceImpl.getCoinsByUserId(userId).getData();
+        }
+        userDetailInfoDto.setCoins(coins);
         //判断环信账号是否已经生成
         //TODO 优化,数据库写入可以放在消息队列处理
         long currentUserId = JWTUtil.getCurrentId();
