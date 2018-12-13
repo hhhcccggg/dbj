@@ -72,7 +72,7 @@ public interface IVideoMapper {
     Long findIncreasedVideoingAd(@Param("input") int input);
 
 
-    @Select("select count(id) from core_videos where status=0 and date(createTime)=curDate()-1")
+    @Select("select count(id) from core_videos where status=0 and date(createTime)=curDate()-1 and isManualData=false")
     Long everyIncreasedVideos();
 
     //审核相关

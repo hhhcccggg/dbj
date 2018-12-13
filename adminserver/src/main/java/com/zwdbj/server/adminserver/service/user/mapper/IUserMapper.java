@@ -121,7 +121,7 @@ public interface IUserMapper {
 
     @Select("select count(id) from core_users where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime)")
     long dau();
-    @Select("select count(id) from core_users where date(createTime)=curDate()-1")
+    @Select("select count(id) from core_users where date(createTime)=curDate()-1 and isManualData=false")
     Long everyIncreasedUsers();
 
     //审核相关
