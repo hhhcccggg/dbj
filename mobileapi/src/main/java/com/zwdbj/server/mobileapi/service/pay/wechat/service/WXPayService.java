@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.pay.wechat.service;
 
-import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinDto;
-import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinInput;
+import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
+import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
@@ -34,7 +34,7 @@ public class WXPayService {
      * @return 返回预付信息
      */
     @Transactional
-    public ServiceStatusInfo<ChargeCoinDto> chargeCoins(ChargeCoinInput input, long userId) {
+    public ServiceStatusInfo<ChargeCoinWXResult> chargeCoins(ChargeCoinInput input, long userId) {
         // TODO 解析充值模板，当前直接解析金币
         // 生成充值明细订单
         // 1:10比例充值金币，单位分
@@ -73,14 +73,14 @@ public class WXPayService {
         if (!mapServiceStatusInfo.isSuccess()) {
             return new ServiceStatusInfo<>(1,mapServiceStatusInfo.getMsg(),null);
         }
-        ChargeCoinDto chargeCoinDto = new ChargeCoinDto();
-        chargeCoinDto.setPrepayId(unifiedOrderDtoServiceStatusInfo.getData().getPrepayId());
-        chargeCoinDto.setNonceStr(mapServiceStatusInfo.getData().get("noncestr"));
-        chargeCoinDto.setPackageN(mapServiceStatusInfo.getData().get("package"));
-        chargeCoinDto.setSign(mapServiceStatusInfo.getData().get("sign"));
-        chargeCoinDto.setTimestamp(mapServiceStatusInfo.getData().get("timestamp"));
-        chargeCoinDto.setOutTradeNo(String.valueOf(id));
-        return new ServiceStatusInfo<>(0,"OK",chargeCoinDto);
+        ChargeCoinWXResult chargeCoinWXResult = new ChargeCoinWXResult();
+        chargeCoinWXResult.setPrepayId(unifiedOrderDtoServiceStatusInfo.getData().getPrepayId());
+        chargeCoinWXResult.setNonceStr(mapServiceStatusInfo.getData().get("noncestr"));
+        chargeCoinWXResult.setPackageN(mapServiceStatusInfo.getData().get("package"));
+        chargeCoinWXResult.setSign(mapServiceStatusInfo.getData().get("sign"));
+        chargeCoinWXResult.setTimestamp(mapServiceStatusInfo.getData().get("timestamp"));
+        chargeCoinWXResult.setOutTradeNo(String.valueOf(id));
+        return new ServiceStatusInfo<>(0,"OK", chargeCoinWXResult);
     }
 
     /**
