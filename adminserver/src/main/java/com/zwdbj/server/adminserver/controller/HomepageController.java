@@ -54,7 +54,7 @@ public class HomepageController {
 
     @RequestMapping(value = "/dbj/userGrowthExcel", method = RequestMethod.POST)
     @RequiresAuthentication
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE, RoleIdentity.DATA_REPORT_ROLE}, logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @ApiOperation(value = "导出用户增长趋势excel表")
     public void userGrowthExcel(@RequestBody AdFindIncreasedInput input, HttpServletResponse response) {
         homepageService.userGrowthAdExcel(input, response);
@@ -76,7 +76,7 @@ public class HomepageController {
 
     @RequestMapping(value = "/dbj/videoGrowthExcel", method = RequestMethod.POST)
     @RequiresAuthentication
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE, RoleIdentity.DATA_REPORT_ROLE}, logical = Logical.OR)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @ApiOperation(value = "导出短视频增长趋势excel表")
     public void videoGrowthExcel(@RequestBody AdFindIncreasedInput input, HttpServletResponse response) {
         homepageService.videoGrowthAdExcel(input, response);
