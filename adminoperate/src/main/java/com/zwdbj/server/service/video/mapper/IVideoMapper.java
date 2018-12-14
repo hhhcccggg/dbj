@@ -42,8 +42,8 @@ public interface IVideoMapper {
     @Update("update core_videos set longitude=#{longitude},latitude=#{latitude},address=#{address} where id=#{id}")
     int updateVideoAddress(@Param("id") long id, @Param("longitude") float longitude, @Param("latitude") float latitude, @Param("address") String address);
 
-    @Select("select count(id) as growthed,createTime from core_videos where isManualData=0 and createTime between date_add(now(),INTERVAL -1 HOUR) and now()")
-    Long videoGrowthAd();
+    @Select("select count(id) as growthed from core_videos where isManualData=0 and createTime between date_add(now(),INTERVAL -1 HOUR) and now()")
+    long videoGrowthAd();
 
 
 }
