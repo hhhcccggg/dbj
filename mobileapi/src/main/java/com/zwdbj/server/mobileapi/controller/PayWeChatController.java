@@ -45,7 +45,7 @@ public class PayWeChatController {
     @RequiresAuthentication
     @RequestMapping(value = "/orderQuery",method = RequestMethod.POST)
     @ApiOperation("查询订单")
-    public ResponseData<OrderPayResultDto> orderQuery(OrderQueryInput input) {
+    public ResponseData<OrderPayResultDto> orderQuery(@RequestBody OrderQueryInput input) {
         ServiceStatusInfo<OrderPayResultDto> serviceStatusInfo = this.weChatService.orderQuery(input);
         if(serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
