@@ -6,8 +6,8 @@ import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInpu
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.pay.alipay.AlipayService;
-import com.zwdbj.server.pay.alipay.model.AppPayInput;
-import com.zwdbj.server.pay.alipay.model.AppPayResult;
+import com.zwdbj.server.pay.alipay.model.AliAppPayInput;
+import com.zwdbj.server.pay.alipay.model.AliAppPayResult;
 import com.zwdbj.server.pay.alipay.model.AliOrderQueryInput;
 import com.zwdbj.server.pay.alipay.model.AliOrderQueryResult;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -45,27 +45,27 @@ public class AlipayBizService {
         detailInput.setExtraData("");
         detailInput.setType("PAY");
         long id = this.userAssetServiceImpl.addUserCoinDetail(userId,detailInput);
-        AppPayInput appPayInput = new AppPayInput();
-        appPayInput.setBody("充值"+input.getCoins()+"金币");
-        appPayInput.setSubject("充值金币");
-        appPayInput.setOutTradeNo(String.valueOf(id));
-        appPayInput.setTimeoutExpress("15m");
+        AliAppPayInput aliAppPayInput = new AliAppPayInput();
+        aliAppPayInput.setBody("充值"+input.getCoins()+"金币");
+        aliAppPayInput.setSubject("充值金币");
+        aliAppPayInput.setOutTradeNo(String.valueOf(id));
+        aliAppPayInput.setTimeoutExpress("15m");
         float amount = rmbs/100f;
         BigDecimal b = new BigDecimal(amount);
         float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
-        appPayInput.setTotalAmount(String.valueOf(f1));
+        aliAppPayInput.setTotalAmount(String.valueOf(f1));
 
-        ServiceStatusInfo<AppPayResult> serviceStatusInfo = this.alipayService.appPay(appPayInput);
+        ServiceStatusInfo<AliAppPayResult> serviceStatusInfo = this.alipayService.appPay(aliAppPayInput);
         if (!serviceStatusInfo.isSuccess()) {
             return new ServiceStatusInfo<>(1,serviceStatusInfo.getMsg(),null);
         }
 
         ChargeCoinAlipayResult result = new ChargeCoinAlipayResult();
-        result.setBody(appPayInput.getBody());
-        result.setOutTradeNo(appPayInput.getOutTradeNo());
-        result.setSubject(appPayInput.getSubject());
-        result.setTimeoutExpress(appPayInput.getTimeoutExpress());
-        result.setTotalAmount(Float.valueOf(appPayInput.getTotalAmount()));
+        result.setBody(aliAppPayInput.getBody());
+        result.setOutTradeNo(aliAppPayInput.getOutTradeNo());
+        result.setSubject(aliAppPayInput.getSubject());
+        result.setTimeoutExpress(aliAppPayInput.getTimeoutExpress());
+        result.setTotalAmount(Float.valueOf(aliAppPayInput.getTotalAmount()));
         result.setOrderString(serviceStatusInfo.getData().getOrderString());
         return new ServiceStatusInfo<>(0,"OK",result);
     }

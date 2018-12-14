@@ -10,7 +10,7 @@ import java.io.Serializable;
  * APP支付结果
  */
 @ApiModel("APP支付结果")
-public class AppPayResult implements Serializable {
+public class AliAppPayResult implements Serializable {
     /**
      * 商户订单号
      */
