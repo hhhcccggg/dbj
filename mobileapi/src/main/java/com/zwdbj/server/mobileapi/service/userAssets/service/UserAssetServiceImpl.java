@@ -219,4 +219,27 @@ public class UserAssetServiceImpl implements IUserAssetService{
 
     }
 
+
+    //视频的打赏详情
+    /**
+     * 视频的打赏详情
+     */
+    public ServiceStatusInfo<List<VideoTipDetails>> getVideoTipDetails(Long videoId) {
+        List<VideoTipDetails> result = null;
+        try {
+            result = this.userAssetMapper.findVideoTipDetails(videoId);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询视频打赏详情失败" + e.getMessage(), null);
+        }
+    }
+
+    public int addVideoTipDetail(long videoId,long userId,int tipCoins){
+            long id = UniqueIDCreater.generateID();
+            int result = this.userAssetMapper.addVideoTipDetail(id,videoId,userId,tipCoins);
+            return result;
+    }
+
+
+
 }
