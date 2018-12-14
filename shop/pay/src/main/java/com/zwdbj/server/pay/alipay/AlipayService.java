@@ -5,15 +5,13 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeAppPayRequest;
-import com.alipay.api.request.AlipayTradePrecreateRequest;
 import com.alipay.api.request.AlipayTradeQueryRequest;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
-import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.zwdbj.server.pay.alipay.model.AppPayInput;
 import com.zwdbj.server.pay.alipay.model.AppPayResult;
-import com.zwdbj.server.pay.alipay.model.OrderQueryInput;
-import com.zwdbj.server.pay.alipay.model.OrderQueryResult;
+import com.zwdbj.server.pay.alipay.model.AliOrderQueryInput;
+import com.zwdbj.server.pay.alipay.model.AliOrderQueryResult;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,14 +56,20 @@ public class AlipayService {
      * @param input 订单查询参数
      * @return 返回订单情况
      */
-    public ServiceStatusInfo<OrderQueryResult> orderQuery(OrderQueryInput input) {
+    public ServiceStatusInfo<AliOrderQueryResult> orderQuery(AliOrderQueryInput input) {
         try {
             AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
             String json = JSON.toJSONString(input);
             request.setBizContent(json);
             AlipayTradeQueryResponse response = alipayClient.execute(request);
             if (response.isSuccess()) {
-                return new ServiceStatusInfo<>(0,"OK",(OrderQueryResult)response);
+                AliOrderQueryResult aliOrderQueryResult = new AliOrderQueryResult();
+                aliOrderQueryResult.setBuyerPayAmount(response.getBuyerPayAmount());
+                aliOrderQueryResult.setOutTradeNo(response.getOutTradeNo());
+                aliOrderQueryResult.setTotalAmount(response.getTotalAmount());
+                aliOrderQueryResult.setTradeNo(response.getTradeNo());
+                aliOrderQueryResult.setTradeStatus(response.getTradeStatus());
+                return new ServiceStatusInfo<>(0,"OK",aliOrderQueryResult);
             } else {
                 logger.warn(response.getCode());
                 logger.warn(response.getMsg());

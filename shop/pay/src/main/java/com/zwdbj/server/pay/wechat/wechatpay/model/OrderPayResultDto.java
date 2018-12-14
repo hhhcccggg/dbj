@@ -1,6 +1,7 @@
 package com.zwdbj.server.pay.wechat.wechatpay.model;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 订单支付结果
@@ -67,6 +68,13 @@ public class OrderPayResultDto {
      * 对当前查询订单状态的描述和下一步操作的指引
      */
     private String tradeStateDesc;
+    @ApiModelProperty("移动端可以根据此字段判定是否交易支付成功")
+    private boolean isPay;
+
+    public boolean isPay() {
+        isPay = this.getTradeState().equals("SUCCESS");
+        return isPay;
+    }
 
     public String getOpenId() {
         return openId;

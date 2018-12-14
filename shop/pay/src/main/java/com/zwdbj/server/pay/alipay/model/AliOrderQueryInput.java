@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 订单查询请求参数
  */
 @ApiModel("订单查询")
-public class OrderQueryInput implements Serializable {
+public class AliOrderQueryInput implements Serializable {
     /**
      * 商户订单号
      */

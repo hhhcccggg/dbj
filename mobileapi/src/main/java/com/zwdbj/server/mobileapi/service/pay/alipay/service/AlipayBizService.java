@@ -8,10 +8,9 @@ import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.pay.alipay.AlipayService;
 import com.zwdbj.server.pay.alipay.model.AppPayInput;
 import com.zwdbj.server.pay.alipay.model.AppPayResult;
-import com.zwdbj.server.pay.alipay.model.OrderQueryInput;
-import com.zwdbj.server.pay.alipay.model.OrderQueryResult;
+import com.zwdbj.server.pay.alipay.model.AliOrderQueryInput;
+import com.zwdbj.server.pay.alipay.model.AliOrderQueryResult;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import org.omg.CORBA.OBJ_ADAPTER;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +70,8 @@ public class AlipayBizService {
         return new ServiceStatusInfo<>(0,"OK",result);
     }
 
-    public ServiceStatusInfo<OrderQueryResult> orderQuery(OrderQueryInput input) {
-        ServiceStatusInfo<OrderQueryResult> serviceStatusInfo = this.alipayService.orderQuery(input);
+    public ServiceStatusInfo<AliOrderQueryResult> orderQuery(AliOrderQueryInput input) {
+        ServiceStatusInfo<AliOrderQueryResult> serviceStatusInfo = this.alipayService.orderQuery(input);
         if (!serviceStatusInfo.isSuccess()) {
             logger.warn(serviceStatusInfo.getMsg());
             return serviceStatusInfo;
