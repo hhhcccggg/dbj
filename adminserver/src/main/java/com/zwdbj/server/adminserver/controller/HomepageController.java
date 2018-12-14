@@ -77,7 +77,7 @@ public class HomepageController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", dtos, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/dbj/videoGrowthExcel", method = RequestMethod.POST)
+    @RequestMapping(value = "/dbj/videoGrowthExcel", method = RequestMethod.GET)
     @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @ApiOperation(value = "导出短视频增长趋势excel表")
