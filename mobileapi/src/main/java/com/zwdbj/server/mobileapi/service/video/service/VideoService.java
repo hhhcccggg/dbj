@@ -433,7 +433,7 @@ public class VideoService {
 
     public ServiceStatusInfo<VideoPlayTourDto> getPlayTout(Long videoId) {
 
-        VideoPlayTourDto videoPlayTourDto = null;
+        VideoPlayTourDto videoPlayTourDto = new VideoPlayTourDto();
         try {
             Long userId = JWTUtil.getCurrentId();
             videoPlayTourDto.setTipCount(videoMapper.searchTipCount(videoId));
@@ -490,6 +490,8 @@ public class VideoService {
                 userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
                 //增加视频打赏次数
                 videoMapper.addTipCount(videoId);
+                //增加视频获得的打赏详情
+                this.userAssetServiceImpl.addVideoTipDetail(videoId,userId,coins);
 
                 //修改视频作者金币明细
                 videoAuthorIncome(authorId, authorIncome);
@@ -515,6 +517,8 @@ public class VideoService {
                     userAssetServiceImpl.addUserCoinDetailSuccess(userId,addPayInput);
                     userAssetServiceImpl.updateUserCoinType(userId,"PAY", -coins);
                     userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
+                    //增加视频获得的打赏详情
+                    this.userAssetServiceImpl.addVideoTipDetail(videoId,userId,coins);
                     videoMapper.addTipCount(videoId);
 
                     videoAuthorIncome(authorId, authorIncome);
@@ -540,6 +544,8 @@ public class VideoService {
                         userAssetServiceImpl.addUserCoinDetailSuccess(userId,addOtherInput);
                         userAssetServiceImpl.updateUserCoinType(userId,"OTHER", -coins);
                         userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
+                        //增加视频获得的打赏详情
+                        this.userAssetServiceImpl.addVideoTipDetail(videoId,userId,coins);
                         videoMapper.addTipCount(videoId);
 
                         videoAuthorIncome(authorId, authorIncome);
@@ -562,6 +568,8 @@ public class VideoService {
                         userAssetServiceImpl.addUserCoinDetailSuccess(userId,addIncomeInput);
                         userAssetServiceImpl.updateUserCoinType(userId,"INCOME", -coins);
                         userAssetServiceImpl.updateUserAsset(userId,-authorIncome );
+                        //增加视频获得的打赏详情
+                        this.userAssetServiceImpl.addVideoTipDetail(videoId,userId,coins);
                         videoMapper.addTipCount(videoId);
                         videoAuthorIncome(authorId, authorIncome);
                         return new ServiceStatusInfo<>(0, "", 1);

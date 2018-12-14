@@ -46,4 +46,15 @@ public interface IUserAssetMapper {
 
     @Select("select * from core_basic_buyCoinConfigs where isDeleted=false")
     List<BuyCoinConfigModel> findAllBuyCoinConfigs();
+
+    //视频
+
+    @Select("select v.*,u.nickName from core_video_videoTipDetails as v," +
+            "(select id,nickName from core_users) as u where v.videoId=#{videoId} and v.userId=u.id")
+    List<VideoTipDetails> findVideoTipDetails(@Param("videoId") Long videoId);
+
+    @Insert("insert into core_video_videoTipDetails(id,videoId,userId,tipCoin) values(#{id},#{videoId},#{userId},#{tipCoin})")
+    int addVideoTipDetail(@Param("id") long id,@Param("videoId") long videoId,@Param("userId") long userId,@Param("tipCoin") int tipCoin);
+
+
 }
