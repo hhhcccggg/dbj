@@ -31,6 +31,9 @@ namespace dbdesgin.Data
         public DbSet<UserCoinType> userCoinTypes { get; set; }
         public DbSet<UserCoinDetail> UserCoinDetails { get; set; }
 
+        public DbSet<EnCashPayAccount> EnCashPayAccounts { get; set; }
+        public DbSet<EnCashMentDetail> EnCashMentDetails { get; set; }
+
         public DbSet<ResourceRefGoods> ResourceRefGoods { get; set; }
 
         public DbSet<Role> Roles { get; set; }
@@ -98,12 +101,29 @@ namespace dbdesgin.Data
             userCoinTypeEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
             userCoinTypeEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
             userCoinTypeEntity.HasIndex(c => c.userId);
+            userCoinTypeEntity.Property(c => c.lockedCoins).HasDefaultValue(0);
             // userCoinDetail
             var userCoinDetailEntity = modelBuilder.Entity<UserCoinDetail>();
             userCoinDetailEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             userCoinDetailEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
             userCoinDetailEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
             userCoinDetailEntity.HasIndex(c => c.userId);
+            userCoinDetailEntity.HasIndex(c => c.tradeNo);
+            // enCashMentAccountEntity
+            var enCashMentAccountEntity = modelBuilder.Entity<EnCashPayAccount>();
+            enCashMentAccountEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            enCashMentAccountEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            enCashMentAccountEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            enCashMentAccountEntity.Property(cw => cw.isLocked).HasDefaultValue(false);
+            enCashMentAccountEntity.HasIndex(cw => cw.userId);
+            // enCashMentDetailEntity
+            var enCashMentDetailEntity = modelBuilder.Entity<EnCashMentDetail>();
+            enCashMentDetailEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            enCashMentDetailEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            enCashMentDetailEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            enCashMentDetailEntity.HasIndex(cw => cw.userId);
+            enCashMentDetailEntity.Property(cw => cw.isAllowedEnCash).HasDefaultValue(false);
+            enCashMentDetailEntity.HasIndex(cw => cw.tradeNo);
 
 
             //User

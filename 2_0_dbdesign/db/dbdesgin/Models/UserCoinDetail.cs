@@ -29,7 +29,7 @@ namespace dbdesgin.Models
         [MaxLength(1024)]
         public String extraData { get; set; }
         /// <summary>
-        /// TASK:任务;PAY:充值;INCOME:收益;OTHER:其他
+        /// TASK:任务;PAY:充值;INCOME:收益;OTHER:其他;ENCASH:提现
         /// </summary>
         /// <value>The type.</value>
         [Required]
@@ -54,5 +54,17 @@ namespace dbdesgin.Models
         /// <value>The status message.</value>
         [MaxLength(1024)]
         public String statusMsg { get; set; }
+        /// <summary>
+        /// 微信或者支付宝充值流水号，唯一，不能重复
+        /// </summary>
+        /// <value>The trade no.</value>
+        [MaxLength(128)]
+        public String tradeNo { get; set; }
+        /// <summary>
+        /// 交易类型WECHAT：微信；ALIPAY：支付宝
+        /// </summary>
+        /// <value>The type of the trade.</value>
+        [MaxLength(50)]
+        public String tradeType { get; set; }
     }
 }

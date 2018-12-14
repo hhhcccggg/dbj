@@ -28,5 +28,11 @@ namespace dbdesgin.Models
         /// </summary>
         /// <value>The user identifier.</value>
         public long userId { get; set; }
+        /// <summary>
+        /// 锁住的金币，锁住的金币不可用
+        /// 比如：金币在提现中等这样的场景
+        /// </summary>
+        /// <value>The locked coins.</value>
+        public long lockedCoins { get; set; }
     }
 }
