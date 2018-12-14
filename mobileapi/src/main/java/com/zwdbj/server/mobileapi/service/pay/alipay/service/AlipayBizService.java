@@ -11,6 +11,7 @@ import com.zwdbj.server.pay.alipay.model.AppPayResult;
 import com.zwdbj.server.pay.alipay.model.OrderQueryInput;
 import com.zwdbj.server.pay.alipay.model.OrderQueryResult;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 @Service
 public class AlipayBizService {
@@ -79,6 +81,23 @@ public class AlipayBizService {
         processPayResult(input.getOutTradeNo(),isSuccess);
         return serviceStatusInfo;
     }
+
+    public ServiceStatusInfo<Object> paramsRsaCheckV1(Map<String,String> params) {
+        logger.info("==支付宝支付回调信息==");
+        logger.info(params.toString());
+        logger.info("==支付宝支付回调信息==");
+        ServiceStatusInfo<Object> serviceStatusInfo = this.alipayService.paramsRsaCheckV1(params);
+        if(serviceStatusInfo.isSuccess()) {
+            String tradeNo = params.get("out_trade_no");
+            boolean isSuccess = false;
+            if (params.containsKey("trade_status")) {
+                isSuccess = params.get("trade_status").equals("TRADE_SUCCESS");
+            }
+            processPayResult(tradeNo, isSuccess);
+        }
+        return serviceStatusInfo;
+    }
+
     @Transactional
     protected void processPayResult(String tradeNo,boolean isSuccess) {
         if (!isSuccess) return;

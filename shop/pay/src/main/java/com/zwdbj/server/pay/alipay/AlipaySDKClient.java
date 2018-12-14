@@ -10,6 +10,8 @@ public class AlipaySDKClient {
 
     private AlipayClient alipayClient;
 
+    private static String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkl34++HOjwVvxKq/LCFB9Tu5gHNF5QJ0LQrd6FjmrNklfOlyJnrZqKnlo4XrBPFMVDsmN+mI5MMvUPkDlZZ+0DIA+xd3TYeAWk/Lt2ebNrpv11CGxZiVXnoMsVFl0gBijtLGqwgeyJWXbAHAgLq8N7nFXlXbqmyOx6jSWWSvR3Tea5NIIa9AO/vLvje8QQwCezX2J/xzOpAast9h+HvgHdf06SzcoLOXLhg42CM+R3sBLVycLAHk8YZZLBRk+7nZOHz142R0pCdlA/YGtyuNd5a4B4nhVzWlbmuF85EE9P4Q20rRbrveovx1jBd+vNGBJOBPOZRQAgXGbOdTkfp66QIDAQAB";
+
     private static AlipaySDKClient ourInstance = new AlipaySDKClient();
     public static AlipaySDKClient getInstance() {
         return ourInstance;
@@ -46,8 +48,16 @@ public class AlipaySDKClient {
                         "vSBZeGGq+Obp78mIqvbj2zA=",
                 "json",
                 "UTF-8",
-                "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkl34++HOjwVvxKq/LCFB9Tu5gHNF5QJ0LQrd6FjmrNklfOlyJnrZqKnlo4XrBPFMVDsmN+mI5MMvUPkDlZZ+0DIA+xd3TYeAWk/Lt2ebNrpv11CGxZiVXnoMsVFl0gBijtLGqwgeyJWXbAHAgLq8N7nFXlXbqmyOx6jSWWSvR3Tea5NIIa9AO/vLvje8QQwCezX2J/xzOpAast9h+HvgHdf06SzcoLOXLhg42CM+R3sBLVycLAHk8YZZLBRk+7nZOHz142R0pCdlA/YGtyuNd5a4B4nhVzWlbmuF85EE9P4Q20rRbrveovx1jBd+vNGBJOBPOZRQAgXGbOdTkfp66QIDAQAB",
+                publicKey,
                 "RSA2");
+    }
+
+    public static String getPublicKey() {
+        return publicKey;
+    }
+
+    public static void setPublicKey(String publicKey) {
+        AlipaySDKClient.publicKey = publicKey;
     }
 
     public AlipayClient getAlipayClient() {

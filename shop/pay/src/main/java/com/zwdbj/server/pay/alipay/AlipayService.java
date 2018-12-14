@@ -3,6 +3,7 @@ package com.zwdbj.server.pay.alipay;
 import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
+import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeAppPayRequest;
 import com.alipay.api.request.AlipayTradePrecreateRequest;
 import com.alipay.api.request.AlipayTradeQueryRequest;
@@ -17,6 +18,8 @@ import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class AlipayService {
@@ -75,6 +78,22 @@ public class AlipayService {
             logger.info(ex.getErrMsg());
             logger.info(ex.getErrCode());
             return new ServiceStatusInfo<>(1,"查询失败("+ex.getErrCode()+")",null);
+        }
+    }
+
+    public ServiceStatusInfo<Object> paramsRsaCheckV1(Map<String,String> params) {
+        try {
+            boolean flag = AlipaySignature.rsaCheckV1(params, AlipaySDKClient.getPublicKey(), "UTF-8");
+            if (flag) {
+                return new ServiceStatusInfo<>(0, "OK", params);
+            } else {
+                return new ServiceStatusInfo<>(1,"签名校验失败",null);
+            }
+        } catch ( AlipayApiException ex ) {
+            logger.info(ex.getLocalizedMessage());
+            logger.info(ex.getErrMsg());
+            logger.info(ex.getErrCode());
+            return new ServiceStatusInfo<>(1,"签名校验失败("+ex.getErrCode()+")",null);
         }
     }
 
