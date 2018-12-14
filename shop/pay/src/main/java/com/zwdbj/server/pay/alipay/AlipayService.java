@@ -8,8 +8,8 @@ import com.alipay.api.request.AlipayTradeAppPayRequest;
 import com.alipay.api.request.AlipayTradeQueryRequest;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
-import com.zwdbj.server.pay.alipay.model.AppPayInput;
-import com.zwdbj.server.pay.alipay.model.AppPayResult;
+import com.zwdbj.server.pay.alipay.model.AliAppPayInput;
+import com.zwdbj.server.pay.alipay.model.AliAppPayResult;
 import com.zwdbj.server.pay.alipay.model.AliOrderQueryInput;
 import com.zwdbj.server.pay.alipay.model.AliOrderQueryResult;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -27,14 +27,14 @@ public class AlipayService {
      * @param input
      * @return 阿里支付预下单
      */
-    public ServiceStatusInfo<AppPayResult> appPay(AppPayInput input) {
+    public ServiceStatusInfo<AliAppPayResult> appPay(AliAppPayInput input) {
         try {
             AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
             String bizJson = JSON.toJSONString(input);
             request.setBizContent(bizJson);
             AlipayTradeAppPayResponse response = alipayClient.sdkExecute(request);
             if (response.isSuccess()) {
-                AppPayResult result = new AppPayResult();
+                AliAppPayResult result = new AliAppPayResult();
                 result.setOutTradeNo(response.getOutTradeNo());
                 result.setSellerId(response.getSellerId());
                 result.setTotalAmount(response.getTotalAmount());
