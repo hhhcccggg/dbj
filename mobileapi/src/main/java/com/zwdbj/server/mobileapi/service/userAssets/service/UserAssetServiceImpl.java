@@ -83,13 +83,13 @@ public class UserAssetServiceImpl implements IUserAssetService{
      */
 
     @Transactional
-    public ServiceStatusInfo<Long> getUserCoinType(String type){
+    public ServiceStatusInfo<UserCoinTypeModel> getUserCoinType(String type){
         long userId = JWTUtil.getCurrentId();
         return getUserCoinType(userId,type);
     }
 
     @Transactional
-    public ServiceStatusInfo<Long> getUserCoinType(long userId,String type) {
+    public ServiceStatusInfo<UserCoinTypeModel> getUserCoinType(long userId,String type) {
         boolean isExist = this.userCoinTypeIsExist(userId,type);
         if (!isExist){
             this.greatUserCoinType(userId,type);
@@ -102,8 +102,9 @@ public class UserAssetServiceImpl implements IUserAssetService{
         }else {
             coins = Long.valueOf(this.stringRedisTemplate.opsForValue().get(key));
         }*/
-        Long coins= this.userAssetMapper.getUserCoinType(userId,type);
-        return new ServiceStatusInfo<>(0,"",coins);
+        UserCoinTypeModel model= this.userAssetMapper.getUserCoinType(userId,type);
+        if (model!=null)model.setMoney(model.getCoins()*10);
+        return new ServiceStatusInfo<>(0,"",model);
     }
 
     @Transactional
