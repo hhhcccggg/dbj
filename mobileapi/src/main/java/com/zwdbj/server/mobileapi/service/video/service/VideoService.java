@@ -459,6 +459,7 @@ public class VideoService {
 
     @Transactional
     public ServiceStatusInfo<Integer> playTout(int coins, Long videoId) {
+        //TODO 金币变动时 考虑到线程安全，需要加锁
         try {
             //获取视频作者id
             Long authorId = videoMapper.findUserIdByVideoId(videoId);
