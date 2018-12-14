@@ -83,6 +83,8 @@ public class AlipayBizService {
     }
 
     public ServiceStatusInfo<Object> paramsRsaCheckV1(Map<String,String> params) {
+        //TODO 安全性校验
+        //TODO 异步处理
         logger.info("==支付宝支付回调信息==");
         logger.info(params.toString());
         logger.info("==支付宝支付回调信息==");
