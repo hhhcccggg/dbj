@@ -228,8 +228,9 @@ public class WechatPayService {
             } else { //商户单号
                 reqData.put("out_trade_no",input.getTransactionId());
             }
+            logger.info("ORDERQUERY>>"+reqData.toString());
             Map<String,String> resp = pay.orderQuery(reqData);
-            logger.info(resp.toString());
+            logger.info("ORDERQUERY>>"+resp.toString());
             PayResult payResult = this.parseResult(resp);
             if (payResult.isSuccess()) {
                 OrderPayResultDto dto = new OrderPayResultDto();
@@ -260,7 +261,8 @@ public class WechatPayService {
             logger.error(ex.toString());
             logger.info(ex.getMessage());
             logger.info(ex.getStackTrace().toString());
+            logger.info(ex.getLocalizedMessage());
+            return new ServiceStatusInfo<>(1,"来自微信查询失败",null);
         }
-        return new ServiceStatusInfo<>(1,"查询失败",null);
     }
 }
