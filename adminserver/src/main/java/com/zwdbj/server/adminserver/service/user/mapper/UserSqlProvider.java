@@ -143,6 +143,9 @@ public class UserSqlProvider {
         if (model.getRoleName() !=null && model.getRoleName().length()>0){
             sql.WHERE(String.format("r.roleName='%s'",model.getRoleName()));
         }
+        if (model.getStartTime() !=null && model.getEndTime() !=null){
+            sql.WHERE(String.format("u.createTime between '%s' and '%s'",model.getStartTime(),model.getEndTime()));
+        }
         sql.ORDER_BY("u.id desc");
         return sql.toString();
     }

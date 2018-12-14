@@ -3,8 +3,10 @@ package com.zwdbj.server.adminserver.service.video.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 @ApiModel(description = "视频打赏详情")
-public class VideoTipDetails {
+public class VideoTipDetails implements Serializable {
     @ApiModelProperty(value = "id")
     Long id;
     @ApiModelProperty(value = "videoId")
