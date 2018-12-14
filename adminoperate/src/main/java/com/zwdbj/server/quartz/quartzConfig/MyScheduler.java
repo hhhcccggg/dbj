@@ -124,8 +124,9 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(EveryHourSearchUserAndVideo.class)
                 .withIdentity("job8", "group02")
                 .build();
-//        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 0/1 * * ?");
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0/1 * * * ?");
+
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 0/1 * * ?");
+//      CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0/1 * * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger8", "group2")
                 .withSchedule(scheduleBuilder)

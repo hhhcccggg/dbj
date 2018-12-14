@@ -444,33 +444,35 @@ public class QuartzService {
      */
     public void everyHourSearchUserAndVideoGrowthed() {
         try {
-            //获取当前整时
+            //获取当前时间
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
+            String nowTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
+
+            //获取当天零时
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
-            String nowTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").format(calendar.getTime());
-
-            //获取零时
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            String zeroTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").format(calendar.getTime());
+            String zeroTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
 
             //查询用户每小时增量
             String userGrowth = this.dailyIncreaseAnalysisesService.userGrowthAd().toString();
-//
             //查询视频每小时增量
-//            Long videoGrowth = this.dailyIncreaseAnalysisesService.videoGrowthAd();
+            Long videoGrowth = this.dailyIncreaseAnalysisesService.videoGrowthAd();
 
             logger.info(zeroTime + "---------每日零时时间");
-            //将当天0时时间作为hash名，key为当前时间，value为增长量,设置key过期时间为7天
-//            redisTemplate.opsForHash().put(zeroTime + "videoGrowth", nowTime+"videoGrowth", videoGrowth);
-//            redisTemplate.expire(zeroTime + "videoGrowth", 7, TimeUnit.DAYS);
-//            logger.info(nowTime + "---------添加每小时视频增量成功");
-            redisTemplate.opsForHash().put(zeroTime + "userGrowth", nowTime + "userGrowth", userGrowth);
-            redisTemplate.expire(zeroTime + "userGrowth", 7, TimeUnit.DAYS);
+            //将当天0时时间作为hash名，key为当前时间，value为增长量, 设置key过期时间为7天
             logger.info("h--" + zeroTime + "userGrowth");
             logger.info("hk--" + nowTime + "userGrowth");
-            logger.info("添加每小时用户增量成功");
+            redisTemplate.opsForHash().put(zeroTime + "videoGrowth", nowTime + "videoGrowth", videoGrowth);
+            redisTemplate.expire(zeroTime + "videoGrowth", 7, TimeUnit.DAYS);
+            logger.info("查询每小时用户增量成功");
+
+            logger.info("h--" + zeroTime + "videoGrowth");
+            logger.info("hk--" + nowTime + "videorowth");
+            redisTemplate.opsForHash().put(zeroTime + "userGrowth", nowTime + "userGrowth", userGrowth);
+            redisTemplate.expire(zeroTime + "userGrowth", 7, TimeUnit.DAYS);
+            logger.info("查询每小时视频增量成功");
 
         } catch (Exception e) {
             logger.error("每小时更新用户，视频增长量失败" + e.getMessage());

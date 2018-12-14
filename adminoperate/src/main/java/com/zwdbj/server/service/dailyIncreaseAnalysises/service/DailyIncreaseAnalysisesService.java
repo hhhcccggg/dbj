@@ -34,9 +34,9 @@ public class DailyIncreaseAnalysisesService {
         return userGrowthed;
     }
 
-//    public Long videoGrowthAd() {
-//        Long videoGrowthed = this.dailyIncreaseAnalysisesMapper.videoGrowthAd();
-//        return videoGrowthed;
-//    }
+    public Long videoGrowthAd() {
+        Long videoGrowthed = this.dailyIncreaseAnalysisesMapper.videoGrowthAd();
+        return videoGrowthed;
+    }
 
 }

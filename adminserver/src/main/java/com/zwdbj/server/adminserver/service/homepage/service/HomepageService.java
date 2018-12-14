@@ -87,7 +87,7 @@ public class HomepageService {
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
-                String zeroTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").format(calendar.getTime());
+                String zeroTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
                 logger.info("zeroTime--" + zeroTime);
                 //从redis中获取当前天的用户增量
                 Map results = redisTemplate.opsForHash().entries(zeroTime + "userGrowth");
@@ -97,9 +97,9 @@ public class HomepageService {
                 while (it.hasNext()) {
                     String key = (String) it.next();
                     logger.info("key----" + key);
-                    Long value = (Long) results.get(key);
+                    Long value = Long.valueOf((String) results.get(key));
                     key = key.replace("userGrowth", "");
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date date = simpleDateFormat.parse(key);
                     growthDto.setCreateTime(date);
                     growthDto.setGrowthed(value);
@@ -166,7 +166,7 @@ public class HomepageService {
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
-                String zeroTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").format(calendar.getTime());
+                String zeroTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
                 //从redis中获取当前天的用户增量
                 Map results = redisTemplate.opsForHash().entries(zeroTime + "videoGrowth");
                 AdUserOrVideoGrowthDto growthDto = new AdUserOrVideoGrowthDto();
@@ -174,9 +174,9 @@ public class HomepageService {
                 Iterator it = set.iterator();
                 while (it.hasNext()) {
                     String key = (String) it.next();
-                    Long value = (Long) results.get(key);
+                    Long value = Long.valueOf((String) results.get(key));
                     key = key.replace("videoGrowth", "");
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date date = simpleDateFormat.parse(key);
                     growthDto.setCreateTime(date);
                     growthDto.setGrowthed(value);
