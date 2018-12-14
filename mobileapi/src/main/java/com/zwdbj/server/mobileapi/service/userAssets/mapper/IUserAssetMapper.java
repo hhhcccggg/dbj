@@ -29,7 +29,7 @@ public interface IUserAssetMapper {
     int updateUserCoinType(@Param("userId")long userId,@Param("type")String type,@Param("num")long num);
 
     //coinDetails
-    @Select("select * from core_userCoinDetails where userId=#{userId} order by createTime desc")
+    @Select("select * from core_userCoinDetails where userId=#{userId} and status='SUCCESS' order by createTime desc")
     List<UserCoinDetailsModel> getUserCoinDetails(@Param("userId")long userId);
     @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
             "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'PROCESSING')")

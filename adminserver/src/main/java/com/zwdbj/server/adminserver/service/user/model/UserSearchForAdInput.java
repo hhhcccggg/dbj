@@ -3,6 +3,8 @@ package com.zwdbj.server.adminserver.service.user.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 @ApiModel("用户搜索(Ad)")
 public class UserSearchForAdInput {
     @ApiModelProperty("是否已经认证:-1>>所有；0：未认证1：已认证")
@@ -15,6 +17,27 @@ public class UserSearchForAdInput {
     String keyWords;
     @ApiModelProperty("角色名称:market,admin,finance,normal null")
     String roleName;
+    @ApiModelProperty("查询的开始时间")
+    String startTime;
+    @ApiModelProperty("查询的结束时间")
+    String endTime;
+
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public String getRoleName() {
         return roleName;

@@ -71,7 +71,7 @@ public class VideoController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", videoInfoDto);
     }
 
-    @RequestMapping(value = "/videoTipDetails/{videoId}")
+    @RequestMapping(value = "/videoTipDetails/{videoId}",method = RequestMethod.GET)
     @ApiModelProperty(value = "获取视频打赏金币详情")
     public ResponsePageInfoData<List<VideoTipDetails>> videoTipDetails(@PathVariable("videoId") Long videoId,
                                                                        @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,

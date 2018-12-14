@@ -35,7 +35,7 @@ public class DailyIncreaseAnalysisesService {
     }
 
     public List<AdUserOrVideoGrowthDto> videoGrowthAd(AdFindIncreasedInput input,boolean flag){
-        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesMapper.videoGrowthAd(input,false);
+        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesMapper.videoGrowthAd(input,flag);
         return growthDtos;
     }
 

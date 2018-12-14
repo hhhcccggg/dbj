@@ -61,7 +61,7 @@ public interface IVideoMapper {
 
     @Select("select v.*,u.nickName from core_video_videoTipDetails as v," +
             "(select id,nickName from core_users) as u where v.videoId=#{videoId} and v.userId=u.id")
-    List<VideoTipDetails> findVideoTipDetails(@Param("video") Long video);
+    List<VideoTipDetails> findVideoTipDetails(@Param("videoId") Long videoId);
     //后台首页
 
     @SelectProvider(type = VideoSqlProvider.class, method = "findIncreasedVideoAd")

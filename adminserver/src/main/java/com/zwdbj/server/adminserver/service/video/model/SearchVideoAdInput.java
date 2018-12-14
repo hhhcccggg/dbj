@@ -3,6 +3,9 @@ package com.zwdbj.server.adminserver.service.video.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @ApiModel(description = "搜索视频")
 public class SearchVideoAdInput {
     @ApiModelProperty(value = "视频状态，-1：所有，0：正常的,1:未审核,2:下架,3:待审核")
@@ -17,6 +20,27 @@ public class SearchVideoAdInput {
     String roleName;
     @ApiModelProperty(value = "排序规则,1:浏览次数,2:点赞次数,3:评论次数,4:转发次数,5:举报次数")
     int orderRule;
+
+    @ApiModelProperty("查询的开始时间")
+    String startTime;
+    @ApiModelProperty("查询的结束时间")
+    String endTime;
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public int getOrderRule() {
         return orderRule;
