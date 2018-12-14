@@ -114,7 +114,7 @@ public class WXPayService {
     }
     @Transactional
     protected void processPayResult(OrderPayResultDto resultDto) {
-        logger.info(resultDto.toString());
+        logger.info("处理微信支付结果"+resultDto.toString());
         if (resultDto.getTradeState().equals("SUCCESS")) {
             logger.info("交易成功");
             UserCoinDetailModifyInput coinDetailModifyInput = new UserCoinDetailModifyInput();
