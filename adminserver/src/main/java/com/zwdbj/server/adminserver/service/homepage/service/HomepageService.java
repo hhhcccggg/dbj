@@ -16,14 +16,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class HomepageService {
@@ -38,6 +38,8 @@ public class HomepageService {
     TagService tagService;
     @Autowired
     StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    RedisTemplate<String, String> redisTemplate;
     private Logger logger = LoggerFactory.getLogger(HomepageService.class);
 
     public AdFindIncreasedDto findIncreasedAd(AdFindIncreasedInput input) {
@@ -70,14 +72,50 @@ public class HomepageService {
     }
 
     public List<AdUserOrVideoGrowthDto> userGrowthAd(AdFindIncreasedInput input) {
-        long userId = JWTUtil.getCurrentId();
-        List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
-        boolean flag = false;
-        for (String role : roles) {
-            if ("datareport".equals(role)) flag = true;
+        try {
+            long userId = JWTUtil.getCurrentId();
+            List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+            List<AdUserOrVideoGrowthDto> growthDtos = new ArrayList<>();
+            boolean flag = false;
+            for (String role : roles) {
+                if ("datareport".equals(role)) flag = true;
+            }
+            if (input.getQuantumTime() == 0) {//查询当前日的增量
+                //获取当前零时
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(new Date());
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                String zeroTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
+                logger.info("zeroTime--" + zeroTime);
+                //从redis中获取当前天的用户增量
+                Map results = redisTemplate.opsForHash().entries(zeroTime + "userGrowth");
+                AdUserOrVideoGrowthDto growthDto = new AdUserOrVideoGrowthDto();
+                Set set = results.keySet();
+                Iterator it = set.iterator();
+                while (it.hasNext()) {
+                    String key = (String) it.next();
+                    logger.info("key----" + key);
+                    Long value = Long.valueOf((String) results.get(key));
+                    key = key.replace("userGrowth", "");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date date = simpleDateFormat.parse(key);
+                    growthDto.setCreateTime(date);
+                    growthDto.setGrowthed(value);
+                    growthDtos.add(growthDto);
+                }
+                return growthDtos;
+
+            }
+            growthDtos = this.dailyIncreaseAnalysisesService.userGrowthAd(input, flag);
+            return growthDtos;
+
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
         }
-        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesService.userGrowthAd(input, flag);
-        return growthDtos;
+
     }
 
 
@@ -88,7 +126,9 @@ public class HomepageService {
         String fileName = "";
 
         try {
-            if (input.getQuantumTime() == 1) {
+            if (input.getQuantumTime() == 0) {
+                fileName = "本日用户视频增长量.xls";
+            } else if (input.getQuantumTime() == 1) {
                 fileName = "本周用户增长量.xls";
             } else if (input.getQuantumTime() == 2) {
                 fileName = "本月用户增长量.xls";
@@ -111,14 +151,47 @@ public class HomepageService {
 
 
     public List<AdUserOrVideoGrowthDto> videoGrowthAd(AdFindIncreasedInput input) {
-        long userId = JWTUtil.getCurrentId();
-        List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
-        boolean flag = false;
-        for (String role : roles) {
-            if ("datareport".equals(role)) flag = true;
+        try {
+            long userId = JWTUtil.getCurrentId();
+            List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+            List<AdUserOrVideoGrowthDto> growthDtos = new ArrayList<>();
+            boolean flag = false;
+            for (String role : roles) {
+                if ("datareport".equals(role)) flag = true;
+            }
+            if (input.getQuantumTime() == 0) {//查询当前日的增量
+                //获取当前零时
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(new Date());
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                String zeroTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
+                //从redis中获取当前天的用户增量
+                Map results = redisTemplate.opsForHash().entries(zeroTime + "videoGrowth");
+                AdUserOrVideoGrowthDto growthDto = new AdUserOrVideoGrowthDto();
+                Set set = results.keySet();
+                Iterator it = set.iterator();
+                while (it.hasNext()) {
+                    String key = (String) it.next();
+                    Long value = Long.valueOf((String) results.get(key));
+                    key = key.replace("videoGrowth", "");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date date = simpleDateFormat.parse(key);
+                    growthDto.setCreateTime(date);
+                    growthDto.setGrowthed(value);
+                    growthDtos.add(growthDto);
+                }
+                return growthDtos;
+
+            }
+            growthDtos = this.dailyIncreaseAnalysisesService.videoGrowthAd(input, flag);
+            return growthDtos;
+
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
         }
-        List<AdUserOrVideoGrowthDto> growthDtos = this.dailyIncreaseAnalysisesService.videoGrowthAd(input, flag);
-        return growthDtos;
     }
 
     //导出短视频增长量表
@@ -128,7 +201,9 @@ public class HomepageService {
         String fileName = "";
 
         try {
-            if (input.getQuantumTime() == 1) {
+            if (input.getQuantumTime() == 0) {
+                fileName = "本日视频增长量.xls";
+            } else if (input.getQuantumTime() == 1) {
                 fileName = "本周视频增长量.xls";
             } else if (input.getQuantumTime() == 2) {
                 fileName = "本月视频增长量.xls";

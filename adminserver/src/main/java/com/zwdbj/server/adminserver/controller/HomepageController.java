@@ -48,6 +48,7 @@ public class HomepageController {
                                                                            @RequestParam(value = "rows", required = true, defaultValue = "31") int rows) {
         Page<AdUserOrVideoGrowthDto> pageInfo = PageHelper.startPage(pageNo, rows);
         List<AdUserOrVideoGrowthDto> dtos = this.homepageService.userGrowthAd(input);
+        System.out.println(dtos);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", dtos, pageInfo.getTotal());
     }
 
@@ -56,7 +57,7 @@ public class HomepageController {
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE, RoleIdentity.DATA_REPORT_ROLE}, logical = Logical.OR)
     @ApiOperation(value = "导出用户增长趋势excel表")
     public void userGrowthExcel(@RequestBody AdFindIncreasedInput input, HttpServletResponse response) {
-      homepageService.userGrowthAdExcel(input, response);
+        homepageService.userGrowthAdExcel(input, response);
 
 
     }
