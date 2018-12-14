@@ -36,9 +36,9 @@ public class AppPushService {
         //消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
         try {
             if (pushData == null) return true;
-            if (pushData.getMessageType()==0) {
+            if (pushData.getMessageType()==0) {//获取推送消息类型
                 String pushTitle = "爪子提醒";
-                String pushDescription = pushData.getMsgContent();
+                String pushDescription = pushData.getMsgContent();//获取消息文本内容
                 PushMessage pushMessage = new PushMessage();
                 pushMessage.setPushId(pushData.getPushId());
                 PushXGExtraMessage pushXGExtraMessage = new PushXGExtraMessage();

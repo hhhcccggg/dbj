@@ -1,6 +1,9 @@
 package com.zwdbj.server.service.dailyIncreaseAnalysises.service;
 
 import com.zwdbj.server.service.dailyIncreaseAnalysises.mapper.IDailyIncreaseAnalysisesMapper;
+import com.zwdbj.server.service.user.mapper.IUserMapper;
+import com.zwdbj.server.service.user.service.UserService;
+import com.zwdbj.server.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +12,10 @@ import org.springframework.stereotype.Service;
 public class DailyIncreaseAnalysisesService {
     @Autowired
     IDailyIncreaseAnalysisesMapper dailyIncreaseAnalysisesMapper;
-
+    @Autowired
+    UserService userService;
+    @Autowired
+    VideoService videoService;
 
     //后台首页
     public int isExistToday() {
@@ -30,12 +36,12 @@ public class DailyIncreaseAnalysisesService {
     }
 
     public Long userGrowthAd() {
-        Long userGrowthed = this.dailyIncreaseAnalysisesMapper.userGrowthAd();
+        Long userGrowthed = this.userService.userGrowth();
         return userGrowthed;
     }
 
     public Long videoGrowthAd() {
-        Long videoGrowthed = this.dailyIncreaseAnalysisesMapper.videoGrowthAd();
+        Long videoGrowthed = this.videoService.videoGrowth();
         return videoGrowthed;
     }
 

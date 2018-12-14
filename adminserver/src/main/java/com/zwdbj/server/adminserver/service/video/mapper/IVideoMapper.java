@@ -98,4 +98,7 @@ public interface IVideoMapper {
 
     @SelectProvider(type = VideoSqlProvider.class, method = "findAllVideoNum")
     int findAllVideoNum(@Param("model") SearchVideoAdInput model);
+
+
+
 }
