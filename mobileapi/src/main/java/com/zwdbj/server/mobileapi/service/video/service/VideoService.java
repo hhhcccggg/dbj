@@ -473,9 +473,9 @@ public class VideoService {
                 return new ServiceStatusInfo<>(1, "您的金币不足，请充值金币", null);
             }
             //获取用户金币类型数量详情
-            int task = userAssetServiceImpl.getUserCoinType(userId,"TASK").getData().intValue();
-            int pay = userAssetServiceImpl.getUserCoinType(userId,"PAY").getData().intValue();
-            int other = userAssetServiceImpl.getUserCoinType(userId,"OTHER").getData().intValue();
+            int task = (int)userAssetServiceImpl.getUserCoinType(userId,"TASK").getData().getCoins();
+            int pay = (int)userAssetServiceImpl.getUserCoinType(userId,"PAY").getData().getCoins();
+            int other = (int)userAssetServiceImpl.getUserCoinType(userId,"OTHER").getData().getCoins();
 
             if (task >= coins) {
                 //task类型的金币大于等于打赏数，则全部用task打赏

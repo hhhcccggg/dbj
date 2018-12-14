@@ -44,8 +44,8 @@ public class UserAssetController {
     @RequestMapping(value = "/myCoinsByType",method = RequestMethod.GET)
     @ApiOperation(value = "根据金币分类得到我的金币资产")
     @RequiresAuthentication
-    public ResponseData<Long> getUserCoinType(@RequestParam String type){
-        ServiceStatusInfo<Long> info =  this.userAssetServiceImpl.getUserCoinType(type);
+    public ResponseData<UserCoinTypeModel> getUserCoinType(@RequestParam String type){
+        ServiceStatusInfo<UserCoinTypeModel> info =  this.userAssetServiceImpl.getUserCoinType(type);
         if (info.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",info.getData());
         }else {

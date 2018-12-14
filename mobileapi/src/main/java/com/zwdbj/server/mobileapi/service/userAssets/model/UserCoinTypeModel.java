@@ -15,6 +15,15 @@ public class UserCoinTypeModel implements Serializable {
     long coins;
     @ApiModelProperty(value = "userId")
     long userId;
+    @ApiModelProperty(value = "可提现的金额")
+    long money;
+    public long getMoney() {
+        return money;
+    }
+
+    public void setMoney(long money) {
+        this.money = money;
+    }
 
     public long getId() {
         return id;
