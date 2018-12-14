@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.service.pay.alipay.service;
 import com.zwdbj.server.mobileapi.service.pay.alipay.model.ChargeCoinAlipayResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.pay.alipay.AlipayService;
 import com.zwdbj.server.pay.alipay.model.AppPayInput;
@@ -69,7 +70,23 @@ public class AlipayBizService {
     }
 
     public ServiceStatusInfo<OrderQueryResult> orderQuery(OrderQueryInput input) {
-        //TODO 处理数据增加金币
-        return this.alipayService.orderQuery(input);
+        ServiceStatusInfo<OrderQueryResult> serviceStatusInfo = this.alipayService.orderQuery(input);
+        if (!serviceStatusInfo.isSuccess()) {
+            logger.warn(serviceStatusInfo.getMsg());
+            return serviceStatusInfo;
+        }
+        boolean isSuccess = serviceStatusInfo.getData().getTradeStatus().equals("TRADE_SUCCESS");
+        processPayResult(input.getOutTradeNo(),isSuccess);
+        return serviceStatusInfo;
+    }
+    @Transactional
+    protected void processPayResult(String tradeNo,boolean isSuccess) {
+        if (!isSuccess) return;
+        long id = Long.parseLong(tradeNo);
+        UserCoinDetailModifyInput coinDetailModifyInput = new UserCoinDetailModifyInput();
+        coinDetailModifyInput.setId(id);
+        coinDetailModifyInput.setType("PAY");
+        coinDetailModifyInput.setStatus("SUCCESS");
+        this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
     }
 }
