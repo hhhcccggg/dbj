@@ -91,7 +91,7 @@ public class UserService {
         return this.userMapper.getNullPhone();
     }
 
-    public Long userGrowth() {
+    public long userGrowth() {
         return this.userMapper.userGrowthAd();
     }
 }

@@ -456,9 +456,9 @@ public class QuartzService {
             String zeroTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
 
             //查询用户每小时增量
-            String userGrowth = this.dailyIncreaseAnalysisesService.userGrowthAd().toString();
+            String userGrowth = String.valueOf(this.dailyIncreaseAnalysisesService.userGrowthAd());
             //查询视频每小时增量
-            Long videoGrowth = this.dailyIncreaseAnalysisesService.videoGrowthAd();
+            String videoGrowth = String.valueOf(this.dailyIncreaseAnalysisesService.videoGrowthAd());
 
             logger.info(zeroTime + "---------每日零时时间");
             //将当天0时时间作为hash名，key为当前时间，value为增长量, 设置key过期时间为7天

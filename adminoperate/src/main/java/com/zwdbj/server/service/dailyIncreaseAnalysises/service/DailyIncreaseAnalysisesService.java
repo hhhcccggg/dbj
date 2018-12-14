@@ -35,13 +35,13 @@ public class DailyIncreaseAnalysisesService {
         return this.dailyIncreaseAnalysisesMapper.updateVideoNum(videoNum);
     }
 
-    public Long userGrowthAd() {
-        Long userGrowthed = this.userService.userGrowth();
+    public long userGrowthAd() {
+        long userGrowthed = this.userService.userGrowth();
         return userGrowthed;
     }
 
     public Long videoGrowthAd() {
-        Long videoGrowthed = this.videoService.videoGrowth();
+        long videoGrowthed = this.videoService.videoGrowth();
         return videoGrowthed;
     }
 
