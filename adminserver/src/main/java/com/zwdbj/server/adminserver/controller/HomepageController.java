@@ -52,12 +52,15 @@ public class HomepageController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", dtos, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/dbj/userGrowthExcel", method = RequestMethod.POST)
+    @RequestMapping(value = "/dbj/userGrowthExcel", method = RequestMethod.GET)
     @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @ApiOperation(value = "导出用户增长趋势excel表")
-    public void userGrowthExcel(@RequestBody AdFindIncreasedInput input, HttpServletResponse response) {
-        homepageService.userGrowthAdExcel(input, response);
+    public void userGrowthExcel(@RequestParam("quantumTime") int quantumTime, HttpServletResponse response) {
+        AdFindIncreasedInput adFindIncreasedInput = new AdFindIncreasedInput();
+        adFindIncreasedInput.setQuantumTime(quantumTime);
+        adFindIncreasedInput.setTof(false);
+        homepageService.userGrowthAdExcel(adFindIncreasedInput, response);
 
 
     }
@@ -78,8 +81,11 @@ public class HomepageController {
     @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @ApiOperation(value = "导出短视频增长趋势excel表")
-    public void videoGrowthExcel(@RequestBody AdFindIncreasedInput input, HttpServletResponse response) {
-        homepageService.videoGrowthAdExcel(input, response);
+    public void videoGrowthExcel(@RequestParam("quantumTime") int quantumTime, HttpServletResponse response) {
+        AdFindIncreasedInput adFindIncreasedInput = new AdFindIncreasedInput();
+        adFindIncreasedInput.setQuantumTime(quantumTime);
+        adFindIncreasedInput.setTof(false);
+        homepageService.videoGrowthAdExcel(adFindIncreasedInput, response);
 
     }
 
