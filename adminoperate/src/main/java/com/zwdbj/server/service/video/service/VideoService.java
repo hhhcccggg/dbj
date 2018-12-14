@@ -72,7 +72,7 @@ public class VideoService {
         this.videoMapper.updateVideoAddress(id, longitude, latitude, address);
     }
 
-    public Long videoGrowth() {
+    public long videoGrowth() {
         return this.videoMapper.videoGrowthAd();
     }
 }

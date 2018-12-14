@@ -44,6 +44,6 @@ public interface IUserMapper {
     @Select("select id from core_users where phone is null and isManualData=true")
     List<Long> getNullPhone();
 
-    @Select("select count(id) as growthed,createTime from core_users where isManualData=0 and createTime between date_add(now(),INTERVAL -1 HOUR) and now()")
-    Long userGrowthAd();
+    @Select("select count(id) as growthed from core_users where isManualData=0 and createTime between date_add(now(),INTERVAL -1 HOUR) and now()")
+    long userGrowthAd();
 }
