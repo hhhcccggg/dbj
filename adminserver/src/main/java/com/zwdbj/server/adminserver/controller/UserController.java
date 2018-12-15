@@ -98,7 +98,9 @@ public class UserController {
         List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
         boolean flag = false;
         for (String role:roles){
-            if ("datareport".equals(role))flag=true;
+            if ("datareport".equals(role)){
+                flag=true;
+            }
         }
         Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<UserDetailInfoDto> userModelList = this.userService.search(input,flag);

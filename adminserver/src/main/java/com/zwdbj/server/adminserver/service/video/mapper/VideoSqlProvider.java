@@ -140,7 +140,7 @@ public class VideoSqlProvider {
         if (model.getRoleName()!=null && model.getRoleName().length()>0) {
             sql.WHERE(String.format("r.roleName='%s'",model.getRoleName()));
         }
-        if (model.getStartTime() !=null && model.getEndTime() !=null){
+        if (model.getStartTime() !=null  && model.getStartTime().length()!=0 && model.getEndTime() !=null && model.getEndTime().length()!=0){
             sql.WHERE(String.format("u.createTime between '%s' and '%s'",model.getStartTime(),model.getEndTime()));
         }
         if (model.getOrderRule()!=-1){
@@ -197,7 +197,7 @@ public class VideoSqlProvider {
         if (model.getRoleName()!=null && model.getRoleName().length()>0) {
             sql.WHERE(String.format("r.roleName='%s'",model.getRoleName()));
         }
-        if (model.getStartTime() !=null && model.getEndTime() !=null){
+        if (model.getStartTime() !=null  && model.getStartTime().length()!=0 && model.getEndTime() !=null && model.getEndTime().length()!=0){
             sql.WHERE(String.format("u.createTime between '%s' and '%s'",model.getStartTime(),model.getEndTime()));
         }
         return sql.toString();
