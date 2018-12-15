@@ -6,10 +6,7 @@ import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInpu
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.pay.alipay.AlipayService;
-import com.zwdbj.server.pay.alipay.model.AliAppPayInput;
-import com.zwdbj.server.pay.alipay.model.AliAppPayResult;
-import com.zwdbj.server.pay.alipay.model.AliOrderQueryInput;
-import com.zwdbj.server.pay.alipay.model.AliOrderQueryResult;
+import com.zwdbj.server.pay.alipay.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,6 +94,14 @@ public class AlipayBizService {
             processPayResult(tradeNo, isSuccess);
         }
         return serviceStatusInfo;
+    }
+
+    public ServiceStatusInfo<AliTransferResult> transfer(AliTransferInput input) {
+        return alipayService.transfer(input);
+    }
+
+    public ServiceStatusInfo<AliTransferQueryResult> transferQuery(AliTransferQueryInput input) {
+        return alipayService.transferQuery(input);
     }
 
     @Transactional
