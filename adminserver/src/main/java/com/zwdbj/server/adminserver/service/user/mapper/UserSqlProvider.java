@@ -140,10 +140,10 @@ public class UserSqlProvider {
         if (model.getIsReviewed()!=-1) {
             sql.WHERE(String.format("u.isReviewed=%d",model.getIsReviewed()));
         }
-        if (model.getRoleName() !=null && model.getRoleName().length()>0){
+        if (model.getRoleName() !=null  && model.getRoleName().length()>0){
             sql.WHERE(String.format("r.roleName='%s'",model.getRoleName()));
         }
-        if (model.getStartTime() !=null && model.getEndTime() !=null){
+        if (model.getStartTime() !=null  && model.getStartTime().length()!=0 && model.getEndTime() !=null && model.getEndTime().length()!=0){
             sql.WHERE(String.format("u.createTime between '%s' and '%s'",model.getStartTime(),model.getEndTime()));
         }
         sql.ORDER_BY("u.id desc");
