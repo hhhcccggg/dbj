@@ -447,7 +447,7 @@ public class QuartzService {
             //获取当前时间
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
-            String nowTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
+            String nowTime = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
 
             //获取当天零时
             calendar.set(Calendar.HOUR_OF_DAY, 0);

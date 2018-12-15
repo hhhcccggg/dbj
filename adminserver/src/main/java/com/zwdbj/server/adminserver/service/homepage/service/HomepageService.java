@@ -99,7 +99,7 @@ public class HomepageService {
                     logger.info("key----" + key);
                     Long value = Long.valueOf((String) results.get(key));
                     key = key.replace("userGrowth", "");
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
                     Date date = simpleDateFormat.parse(key);
                     growthDto.setCreateTime(date);
                     growthDto.setGrowthed(value);
@@ -176,7 +176,7 @@ public class HomepageService {
                     String key = (String) it.next();
                     Long value = Long.valueOf((String) results.get(key));
                     key = key.replace("videoGrowth", "");
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
                     Date date = simpleDateFormat.parse(key);
                     growthDto.setCreateTime(date);
                     growthDto.setGrowthed(value);
