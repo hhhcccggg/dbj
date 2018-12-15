@@ -4,14 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.alipay.api.request.AlipayFundTransOrderQueryRequest;
+import com.alipay.api.request.AlipayFundTransToaccountTransferRequest;
 import com.alipay.api.request.AlipayTradeAppPayRequest;
 import com.alipay.api.request.AlipayTradeQueryRequest;
+import com.alipay.api.response.AlipayFundTransOrderQueryResponse;
+import com.alipay.api.response.AlipayFundTransToaccountTransferResponse;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
-import com.zwdbj.server.pay.alipay.model.AppPayInput;
-import com.zwdbj.server.pay.alipay.model.AppPayResult;
-import com.zwdbj.server.pay.alipay.model.AliOrderQueryInput;
-import com.zwdbj.server.pay.alipay.model.AliOrderQueryResult;
+import com.zwdbj.server.pay.alipay.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,14 +28,14 @@ public class AlipayService {
      * @param input
      * @return 阿里支付预下单
      */
-    public ServiceStatusInfo<AppPayResult> appPay(AppPayInput input) {
+    public ServiceStatusInfo<AliAppPayResult> appPay(AliAppPayInput input) {
         try {
             AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
             String bizJson = JSON.toJSONString(input);
             request.setBizContent(bizJson);
             AlipayTradeAppPayResponse response = alipayClient.sdkExecute(request);
             if (response.isSuccess()) {
-                AppPayResult result = new AppPayResult();
+                AliAppPayResult result = new AliAppPayResult();
                 result.setOutTradeNo(response.getOutTradeNo());
                 result.setSellerId(response.getSellerId());
                 result.setTotalAmount(response.getTotalAmount());
@@ -101,4 +102,66 @@ public class AlipayService {
         }
     }
 
+    /**
+     * 支付宝账号之间转账
+     * @param input 转账输入参数
+     * @return 返回转账结果
+     */
+    public ServiceStatusInfo<AliTransferResult> transfer(AliTransferInput input) {
+        try {
+            AlipayFundTransToaccountTransferRequest request = new AlipayFundTransToaccountTransferRequest();
+            String json = JSON.toJSONString(input);
+            request.setBizContent(json);
+            AlipayFundTransToaccountTransferResponse response = alipayClient.execute(request);
+            if (response.isSuccess()) {
+                AliTransferResult transferResult = new AliTransferResult();
+                transferResult.setOrderId(response.getOrderId());
+                transferResult.setOutBizNo(response.getOutBizNo());
+                transferResult.setPayDate(response.getPayDate());
+                return new ServiceStatusInfo<>(0,"OK",transferResult);
+            }
+            logger.warn(response.getMsg());
+            logger.warn(response.getCode());
+            return new ServiceStatusInfo<>(1,response.getMsg()+","+response.getSubMsg(),null);
+        } catch (AlipayApiException ex) {
+            logger.warn(ex.getLocalizedMessage());
+            logger.warn(ex.getErrCode());
+            logger.warn(ex.getErrMsg());
+            return new ServiceStatusInfo<>(1,ex.getErrMsg()+"("+ex.getErrCode()+")",null);
+        }
+    }
+
+    /**
+     * 查询转账结果
+     * @param input 查询转账参数
+     * @return 返回转账结果
+     */
+    public ServiceStatusInfo<AliTransferQueryResult> transferQuery(AliTransferQueryInput input) {
+        try {
+            AlipayFundTransOrderQueryRequest request = new AlipayFundTransOrderQueryRequest();
+            String json = JSON.toJSONString(input);
+            request.setBizContent(json);
+            AlipayFundTransOrderQueryResponse response = alipayClient.execute(request);
+            if (response.isSuccess()) {
+                AliTransferQueryResult queryResult = new AliTransferQueryResult();
+                queryResult.setOrderId(response.getOrderId());
+                queryResult.setStatus(response.getStatus());
+                queryResult.setPayDate(response.getPayDate());
+                queryResult.setArrivalTimeEnd(response.getArrivalTimeEnd());
+                queryResult.setOrderFee(response.getOrderFee());
+                queryResult.setFailReason(response.getFailReason());
+                queryResult.setOutBizNo(response.getOutBizNo());
+                queryResult.setErrorCode(response.getErrorCode());
+                return new ServiceStatusInfo<>(0,"OK",queryResult);
+            }
+            logger.warn(response.getMsg());
+            logger.warn(response.getCode());
+            return new ServiceStatusInfo<>(1,response.getMsg()+","+response.getSubMsg(),null);
+        } catch (AlipayApiException ex) {
+            logger.warn(ex.getLocalizedMessage());
+            logger.warn(ex.getErrCode());
+            logger.warn(ex.getErrMsg());
+            return new ServiceStatusInfo<>(1,ex.getErrMsg()+"("+ex.getErrCode()+")",null);
+        }
+    }
 }
