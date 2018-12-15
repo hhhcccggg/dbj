@@ -35,6 +35,7 @@ public class AliTransferResult implements Serializable {
 
     public boolean isTransferred() {
         isTransferred = (this.getOrderId()!=null&&!this.getOrderId().isEmpty()) && (this.getPayDate()!=null&&!this.getPayDate().isEmpty());
+        return isTransferred;
     }
 
     public String getOutBizNo() {
