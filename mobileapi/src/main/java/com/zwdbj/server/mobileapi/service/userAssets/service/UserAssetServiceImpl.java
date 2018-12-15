@@ -132,6 +132,11 @@ public class UserAssetServiceImpl implements IUserAssetService{
         int result = this.userAssetMapper.updateUserCoinType(userId,type,num);
         return result;
     }
+    @Transactional
+    public int updateUserCoinTypeForEnCash(long userId,String type,int num){
+        int result = this.userAssetMapper.updateUserCoinTypeForEnCash(userId,type,num,-num);
+        return result;
+    }
 
     //coinDetails
 
@@ -159,6 +164,12 @@ public class UserAssetServiceImpl implements IUserAssetService{
         long id = UniqueIDCreater.generateID();
         this.userAssetMapper.addUserCoinDetail(id,userId,input);
         return id;
+    }
+    @Transactional
+    public int addUserCoinDetailForEnCash(long userId,UserCoinDetailAddInput input,String tradeNo) {
+        long id = UniqueIDCreater.generateID();
+        int result = this.userAssetMapper.addUserCoinDetailForEnCash(id,userId,input,tradeNo);
+        return result;
     }
 
     /**
@@ -272,6 +283,63 @@ public class UserAssetServiceImpl implements IUserAssetService{
             return new ServiceStatusInfo<>(1,"解绑失败",0);
         }
     }
+
+    /**
+     * 获取我的提现账户
+     * @return
+     */
+    public List<EnCashAccountModel> getMyEnCashAccounts(){
+        long userId =JWTUtil.getCurrentId();
+        List<EnCashAccountModel> models = this.userAssetMapper.getMyEnCashAccounts(userId);
+        return models;
+    }
+
+    /**
+     * 提现
+     * @param input
+     * @return
+     */
+    @Transactional
+    public ServiceStatusInfo<Integer> enCashMyCoins(EnCashInput input){
+        try {
+            long id = UniqueIDCreater.generateID();
+            int coins = input.getRmbs()/10;
+            long userId = JWTUtil.getCurrentId();
+            long allCoins = this.getUserCoinType(userId,"INCOME").getData().getCoins();
+            if (allCoins<coins){
+                return new ServiceStatusInfo<>(1,"没有足够的金币进行提现",null);
+            }
+            //增加提现详情
+            int result = this.userAssetMapper.addEnCashDetail(id,userId,coins,input);
+            int result2 = 0;
+            if (result==1){
+                UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+                userCoinDetailAddInput.setNum(-coins);
+                userCoinDetailAddInput.setTitle("提现"+coins+"金币");
+                userCoinDetailAddInput.setType("ENCASH");
+                userCoinDetailAddInput.setExtraData("");
+                //提现时增加金币详情
+                result = this.addUserCoinDetailForEnCash(userId,userCoinDetailAddInput,String.valueOf(id));
+                if (result==1){
+                    //提现时更新类别金币总数
+                    result = this.updateUserCoinTypeForEnCash(userId,"INCOME",-coins);
+                    if (result==1){
+                        //提现时更新金币总数
+                        result2 = this.updateUserAsset(userId,-coins);
+                    }
+                }
+            }
+            if (result2==0){
+                return new ServiceStatusInfo<>(1,"提现失败",result2);
+            }else {
+                return new ServiceStatusInfo<>(0,"",result2);
+            }
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"提现失败",null);
+        }
+
+    }
+
 
 
 
