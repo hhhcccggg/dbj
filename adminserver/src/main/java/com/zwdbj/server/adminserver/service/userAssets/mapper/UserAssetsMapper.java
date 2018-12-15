@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.userAssets.mapper;
 
 
+import com.zwdbj.server.adminserver.service.userAssets.model.EnCashMentDetailModel;
 import com.zwdbj.server.adminserver.service.userAssets.model.UserAssets;
 import com.zwdbj.server.adminserver.service.userAssets.model.UserCoinDetail;
 import com.zwdbj.server.adminserver.service.userAssets.model.UserCoinType;
@@ -30,4 +31,12 @@ public interface UserAssetsMapper {
 
     @Select("select * from core_userCoinTypes where userId=#{userId}")
     UserCoinType searchUserCoinTpyesByUserId(@Param("userId") Long userId);
+
+    @Select("select * from core_enCashMentDetails where isAllowedEnCash=0 and status='PROCESSING'")
+    List<EnCashMentDetailModel> getAllVerifyEnCashs();
+    @Select("select * from core_enCashMentDetails where id=#{id}")
+    EnCashMentDetailModel getVerifyEnCashById(@Param("id")long id);
+
+    @Select("select uniqueId from core_enCashAccounts where id=#{id}")
+    String getUniqueIdById(@Param("id")long id);
 }
