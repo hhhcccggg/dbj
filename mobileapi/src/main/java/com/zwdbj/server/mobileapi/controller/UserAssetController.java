@@ -87,6 +87,29 @@ public class UserAssetController {
         }
     }
 
+    @RequestMapping(value = "/search/thirds", method = RequestMethod.GET)
+    @ApiOperation(value = "提现:获取提现的第三方账户")
+    public ResponsePageInfoData<List<EnCashAccountModel>> getMyEnCashAccounts(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                              @RequestParam(value = "rows", defaultValue = "30", required = true) int rows){
+        Page<EnCashAccountModel> pageInfo = PageHelper.startPage(pageNo,rows);
+        List<EnCashAccountModel> models = this.userAssetServiceImpl.getMyEnCashAccounts();
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", models, pageInfo.getTotal());
+    }
+
+    @RequestMapping(value = "/enCash", method = RequestMethod.POST)
+    @ApiOperation(value = "提现")
+    public ResponseData<Integer> enCashMyCoins(@RequestBody EnCashInput input){
+        ServiceStatusInfo<Integer> info = this.userAssetServiceImpl.enCashMyCoins(input);
+        if (info.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",info.getData());
+        }else {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"提现失败",null);
+        }
+
+    }
+
+
+
 
 
 }

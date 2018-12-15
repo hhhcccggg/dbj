@@ -27,6 +27,8 @@ public interface IUserAssetMapper {
     int greatUserCoinType(@Param("id")long id,@Param("userId")long userId,@Param("type")String type);
     @Update("update core_userCoinTypes set coins=coins+#{num} where userId=#{userId} and type=#{type}")
     int updateUserCoinType(@Param("userId")long userId,@Param("type")String type,@Param("num")long num);
+    @Update("update core_userCoinTypes set coins=coins+#{num},lockedCoins=lockedCoins+#{lockedCoins} where userId=#{userId} and type=#{type}")
+    int updateUserCoinTypeForEnCash(@Param("userId")long userId,@Param("type")String type,@Param("num")long num,@Param("lockedCoins")int lockedCoins);
 
     //coinDetails
     @Select("select * from core_userCoinDetails where userId=#{userId} and status='SUCCESS' order by createTime desc")
@@ -34,9 +36,16 @@ public interface IUserAssetMapper {
     @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
             "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'PROCESSING')")
     int addUserCoinDetail(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input);
+
+    @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status,tradeNo) " +
+            "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'PROCESSING',#{tradeNo})")
+    int addUserCoinDetailForEnCash(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input,@Param("tradeNo")String tradeNo);
+
     @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
             "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'SUCCESS')")
     int addUserCoinDetailSuccess(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input);
+
+
 
     @Update("update core_userCoinDetails set status=#{input.status},statusMsg=#{input.statusMsg} where id=#{input.id}")
     int updateUserCoinDetail(@Param("input") UserCoinDetailModifyInput input);
@@ -64,6 +73,13 @@ public interface IUserAssetMapper {
 
     @Delete("delete from core_enCashAccounts where id=#{id}")
     int unBandingThird(@Param("id")long id);
+
+    @Select("select * from core_enCashAccounts where userId=#{userId}")
+    List<EnCashAccountModel> getMyEnCashAccounts(@Param("userId")long userId);
+
+    @Insert("insert into core_enCashMentDetails(id,userId,coins,rmbs,payAccountId,payAccountType,status) " +
+            "values(#{id},#{userId},#{coins},#{input.rmbs},#{input.payAccountId},#{input.payAccountType},'REVIEWING')")
+    int addEnCashDetail(@Param("id")long id,@Param("userId")long userId,@Param("coins")int coins,@Param("input")EnCashInput input);
 
 
 }
