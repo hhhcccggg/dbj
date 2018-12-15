@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.userAssets.service;
 
+import com.zwdbj.server.adminserver.service.userAssets.model.EnCashMentDetailModel;
 import com.zwdbj.server.adminserver.service.userAssets.model.UserAssets;
 import com.zwdbj.server.adminserver.service.userAssets.model.UserCoinDetail;
 import com.zwdbj.server.adminserver.service.userAssets.model.UserCoinType;
@@ -19,4 +20,8 @@ public interface UserAssetsService {
     ServiceStatusInfo<List<UserCoinType>> searchAllUserCoinTyoe();
 
     ServiceStatusInfo<UserCoinType> searchUserCoinTypeByUserId(Long userId);
+    List<EnCashMentDetailModel> getAllVerifyEnCashs();
+    ServiceStatusInfo<EnCashMentDetailModel> getVerifyEnCashById(long id);
+
+    ServiceStatusInfo<Integer> verifyEnCash(long id);
 }

@@ -9,8 +9,8 @@ import java.io.Serializable;
 public class EnCashInput implements Serializable {
     @ApiModelProperty(value = "账号类型：ALIPAY:支付宝账号;WECHAT:微信账号,更多扩展")
     String payAccountType;
-    @ApiModelProperty(value = "账号")
-    String payAccountId;
+    @ApiModelProperty(value = "提现账号id")
+    long payAccountId;
     @ApiModelProperty(value = "提现的金额")
     int rmbs;
 
@@ -22,11 +22,12 @@ public class EnCashInput implements Serializable {
         this.payAccountType = payAccountType;
     }
 
-    public String getPayAccountId() {
+
+    public long getPayAccountId() {
         return payAccountId;
     }
 
-    public void setPayAccountId(String payAccountId) {
+    public void setPayAccountId(long payAccountId) {
         this.payAccountId = payAccountId;
     }
 
