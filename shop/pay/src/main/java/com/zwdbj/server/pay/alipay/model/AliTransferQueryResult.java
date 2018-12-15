@@ -27,6 +27,11 @@ public class AliTransferQueryResult implements Serializable {
     @JSONField(name = "status")
     private String status;
     /**
+     * 是否转账成功
+     */
+    @ApiModelProperty("是否转账成功")
+    private boolean isTransferred;
+    /**
      * 支付时间，格式为yyyy-MM-dd HH:mm:ss，转账失败不返回
      */
     @ApiModelProperty("支付时间，格式为yyyy-MM-dd HH:mm:ss，转账失败不返回")
@@ -72,6 +77,11 @@ public class AliTransferQueryResult implements Serializable {
             "查询成功不返回。 对于退票订单，不返回该参数")
     @JSONField(name = "error_code")
     private String errorCode;
+
+    public boolean isTransferred() {
+        isTransferred = this.getStatus().equals("SUCCESS");
+        return isTransferred;
+    }
 
     public String getOrderId() {
         return orderId;
