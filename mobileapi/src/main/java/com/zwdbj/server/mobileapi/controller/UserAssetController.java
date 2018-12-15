@@ -2,11 +2,7 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.zwdbj.server.mobileapi.service.userAssets.model.BuyCoinConfigModel;
-import com.zwdbj.server.mobileapi.service.userAssets.model.UserAssetModel;
-import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailsModel;
-import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinTypeModel;
+import com.zwdbj.server.mobileapi.service.userAssets.model.*;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -16,10 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -71,6 +64,29 @@ public class UserAssetController {
         List<BuyCoinConfigModel> result = this.userAssetServiceImpl.findAllBuyCoinConfigs();
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
     }
+
+    @RequestMapping(value = "/banding/third", method = RequestMethod.POST)
+    @ApiOperation(value = "提现:绑定第三方平台")
+    public ResponseData<Integer> bandingThird(@RequestBody BandingThirdInput input){
+        ServiceStatusInfo<Integer> info = this.userAssetServiceImpl.bandingThird(input);
+        if (info.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",info.getData());
+        }else {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"绑定失败",null);
+        }
+    }
+
+    @RequestMapping(value = "/unBanding/third/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "提现:解绑第三方平台，id为提现第三方支付账号的id")
+    public ResponseData<Integer> unBandingThird(@PathVariable long id){
+        ServiceStatusInfo<Integer> info = this.userAssetServiceImpl.unBandingThird(id);
+        if (info.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",info.getData());
+        }else {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"解绑失败",null);
+        }
+    }
+
 
 
 }
