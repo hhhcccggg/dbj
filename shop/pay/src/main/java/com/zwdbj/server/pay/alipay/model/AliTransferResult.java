@@ -27,6 +27,15 @@ public class AliTransferResult implements Serializable {
     @ApiModelProperty("支付时间：格式为yyyy-MM-dd HH:mm:ss，仅转账成功返回")
     @JSONField(name = "pay_date")
     private String payDate;
+    /**
+     * 是否转账成功
+     */
+    @ApiModelProperty("是否转账成功")
+    private boolean isTransferred;
+
+    public boolean isTransferred() {
+        isTransferred = (this.getOrderId()!=null&&!this.getOrderId().isEmpty()) && (this.getPayDate()!=null&&!this.getPayDate().isEmpty());
+    }
 
     public String getOutBizNo() {
         return outBizNo;
