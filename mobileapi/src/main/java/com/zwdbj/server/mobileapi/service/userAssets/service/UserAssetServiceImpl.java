@@ -242,5 +242,37 @@ public class UserAssetServiceImpl implements IUserAssetService{
     }
 
 
+    /**
+     * 提现：绑定第三方支付平台
+     * @param input
+     * @return
+     */
+    public ServiceStatusInfo<Integer> bandingThird(BandingThirdInput input){
+        try {
+            long id = UniqueIDCreater.generateID();
+            long userId = JWTUtil.getCurrentId();
+            int result = this.userAssetMapper.bandingThird(id,userId,input);
+            return new ServiceStatusInfo<>(0,"",result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"绑定失败",0);
+        }
+    }
+
+
+    /**
+     *
+     * @param id core_enCashAccounts中的ID
+     * @return
+     */
+    public ServiceStatusInfo<Integer> unBandingThird(long id){
+        try {
+            int result = this.userAssetMapper.unBandingThird(id);
+            return new ServiceStatusInfo<>(0,"",result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"解绑失败",0);
+        }
+    }
+
+
 
 }

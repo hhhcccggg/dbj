@@ -56,5 +56,14 @@ public interface IUserAssetMapper {
     @Insert("insert into core_video_videoTipDetails(id,videoId,userId,tipCoin) values(#{id},#{videoId},#{userId},#{tipCoin})")
     int addVideoTipDetail(@Param("id") long id,@Param("videoId") long videoId,@Param("userId") long userId,@Param("tipCoin") int tipCoin);
 
+    //提现：绑定第三方支付平台
+
+    @Insert("insert into core_enCashAccounts(id,userId,type,uniqueId,name,avatarUrl,accessToken,expireIn) " +
+            "values(#{id},#{userId},#{input.type},#{input.uniqueId},#{input.name},avatarUrl,accessToken,expireIn)")
+    int bandingThird(@Param("id")long id,@Param("userId")long userId,@Param("input")BandingThirdInput input);
+
+    @Delete("delete from core_enCashAccounts where id=#{id}")
+    int unBandingThird(@Param("id")long id);
+
 
 }
