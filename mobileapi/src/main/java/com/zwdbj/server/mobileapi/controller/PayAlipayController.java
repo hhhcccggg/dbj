@@ -80,4 +80,15 @@ public class PayAlipayController {
         }
     }
 
+    @RequiresAuthentication
+    @ApiOperation("登录签名信息")
+    @RequestMapping(value = "/authSign",method = RequestMethod.POST)
+    public ResponseData<AliAuthInfoResult> authSign(@RequestBody AliAuthInfoInput input) {
+        ServiceStatusInfo<AliAuthInfoResult> serviceStatusInfo = this.alipayBizService.authSign(input);
+        if (serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+    }
+
 }

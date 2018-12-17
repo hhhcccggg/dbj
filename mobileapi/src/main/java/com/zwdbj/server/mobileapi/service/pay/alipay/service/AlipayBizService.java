@@ -104,6 +104,10 @@ public class AlipayBizService {
         return alipayService.transferQuery(input);
     }
 
+    public ServiceStatusInfo<AliAuthInfoResult> authSign(AliAuthInfoInput input) {
+        return alipayService.authSign(input);
+    }
+
     @Transactional
     protected void processPayResult(String tradeNo,boolean isSuccess) {
         if (!isSuccess) return;
