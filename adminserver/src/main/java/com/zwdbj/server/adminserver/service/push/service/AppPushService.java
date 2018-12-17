@@ -97,7 +97,7 @@ public class AppPushService {
         pushMessage.setType(type);
         pushMessage.setPushId(pushData.getPushId());
         PushXGExtraMessage pushXGExtraMessage = new PushXGExtraMessage();
-        pushXGExtraMessage.setMessageType(type);
+        pushXGExtraMessage.setMessageType(pushResDataContent.getType());
         pushXGExtraMessage.setResId(pushResDataContent.getId());
         pushXGExtraMessage.setResType(pushResDataContent.getType());
         pushMessage.setExtraData(pushXGExtraMessage);
@@ -139,9 +139,9 @@ public class AppPushService {
                 return null;
             }
             pushResDataContent.setTitle(detailInfoDto.getTitle());
-            pushResDataContent.setId(resId);
-            pushResDataContent.setType(type);
         }
+        pushResDataContent.setId(resId);
+        pushResDataContent.setType(type);
         return pushResDataContent;
     }
 
