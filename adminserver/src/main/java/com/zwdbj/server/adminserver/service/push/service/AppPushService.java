@@ -139,9 +139,9 @@ public class AppPushService {
                 return null;
             }
             pushResDataContent.setTitle(detailInfoDto.getTitle());
-            pushResDataContent.setId(resId);
-            pushResDataContent.setType(type);
         }
+        pushResDataContent.setId(resId);
+        pushResDataContent.setType(type);
         return pushResDataContent;
     }
 
