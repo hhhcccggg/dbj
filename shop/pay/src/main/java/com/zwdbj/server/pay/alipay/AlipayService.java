@@ -4,14 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.alipay.api.request.AlipayFundTransOrderQueryRequest;
-import com.alipay.api.request.AlipayFundTransToaccountTransferRequest;
-import com.alipay.api.request.AlipayTradeAppPayRequest;
-import com.alipay.api.request.AlipayTradeQueryRequest;
-import com.alipay.api.response.AlipayFundTransOrderQueryResponse;
-import com.alipay.api.response.AlipayFundTransToaccountTransferResponse;
-import com.alipay.api.response.AlipayTradeAppPayResponse;
-import com.alipay.api.response.AlipayTradeQueryResponse;
+import com.alipay.api.request.*;
+import com.alipay.api.response.*;
 import com.zwdbj.server.pay.alipay.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
@@ -158,6 +152,28 @@ public class AlipayService {
             logger.warn(response.getCode());
             return new ServiceStatusInfo<>(1,response.getMsg()+","+response.getSubMsg(),null);
         } catch (AlipayApiException ex) {
+            logger.warn(ex.getLocalizedMessage());
+            logger.warn(ex.getErrCode());
+            logger.warn(ex.getErrMsg());
+            return new ServiceStatusInfo<>(1,ex.getErrMsg()+"("+ex.getErrCode()+")",null);
+        }
+    }
+
+    public ServiceStatusInfo<AliAuthInfoResult> authSign(AliAuthInfoInput input) {
+        try {
+            AlipayUserInfoAuthRequest request = new AlipayUserInfoAuthRequest();
+            String json = JSON.toJSONString(input);
+            request.setBizContent(json);
+            AlipayUserInfoAuthResponse response = alipayClient.sdkExecute(request);
+            if (response.isSuccess()) {
+                AliAuthInfoResult result = new AliAuthInfoResult();
+                result.setAuthString(response.getBody());
+                return new ServiceStatusInfo<>(0,"OK",result);
+            } else {
+                logger.info(response.getCode()+","+response.getMsg());
+                return new ServiceStatusInfo<>(1,"获取失败("+response.getCode()+")",null);
+            }
+        } catch ( AlipayApiException ex ) {
             logger.warn(ex.getLocalizedMessage());
             logger.warn(ex.getErrCode());
             logger.warn(ex.getErrMsg());
