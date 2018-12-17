@@ -213,10 +213,10 @@ public class VideoController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/playTour", method = RequestMethod.GET)
+    @RequestMapping(value = "/playTour", method = RequestMethod.POST)
     @ApiOperation(value = "打赏金币")
-    public ResponseData<Integer> playTour(@RequestParam("coins") int coins, @RequestParam("videoId") Long video) {
-        ServiceStatusInfo<Integer> serviceStatusInfo = videoService.playTout(coins, video);
+    public ResponseData<Integer> playTour(@RequestBody VideoPlayTourInput input) {
+        ServiceStatusInfo<Integer> serviceStatusInfo = videoService.playTout(input.getCoins(), input.getVideoId());
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
