@@ -97,7 +97,7 @@ public class AppPushService {
         pushMessage.setType(type);
         pushMessage.setPushId(pushData.getPushId());
         PushXGExtraMessage pushXGExtraMessage = new PushXGExtraMessage();
-        pushXGExtraMessage.setMessageType(pushData.getMessageType());
+        pushXGExtraMessage.setMessageType(type);
         pushXGExtraMessage.setResId(pushResDataContent.getId());
         pushXGExtraMessage.setResType(pushResDataContent.getType());
         pushMessage.setExtraData(pushXGExtraMessage);
