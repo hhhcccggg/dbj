@@ -13,6 +13,7 @@ import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -110,19 +111,23 @@ public class UserAssetsServiceImpl implements UserAssetsService {
         }
     }
 
+    @Transactional
     public int updateEnCashStatus(long id,String status,boolean isAllowedEnCash){
         return this.userAssetsMapper.updateEnCashStatus(id,status,isAllowedEnCash);
     }
 
 
+    @Transactional
     public int updateCoinDetailStatus(String tradeNo,String status){
         return this.userAssetsMapper.updateCoinDetailStatus(tradeNo,status);
     }
 
+    @Transactional
     public int updateUserCoinTypeByUserId(long userId,String type,int coins,int lockedCoins){
         return this.userAssetsMapper.updateUserCoinTypeByUserId(userId,type,coins,lockedCoins);
     }
 
+    @Transactional
     public int updateUserCoinByUserId(long userId,int coins){
         return this.userAssetsMapper.updateUserCoinByUserId(userId,coins);
     }
@@ -130,6 +135,7 @@ public class UserAssetsServiceImpl implements UserAssetsService {
 
 
     @Override
+    @Transactional
     public ServiceStatusInfo<Integer> verifyEnCash(long id,long userId) {
         try {
             EnCashMentDetailModel model = this.getVerifyEnCashById(id).getData();
@@ -140,6 +146,8 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             input.setPayeeAccount(uniqueId);
             input.setAmount(String.valueOf(model.getRmbs()/100.0));
             input.setRemark("爪子APP提现");
+            long lockedCoins = this.searchUserCoinTypeByUserId(userId).getData().getLockedCoins();
+            if (lockedCoins<model.getCoins())return new ServiceStatusInfo<>(1, "提现失败:", null);
             ServiceStatusInfo<AliTransferResult> aliInfo = this.alipayService.transfer(input);
             long enCashDetailId = Long.valueOf(aliInfo.getData().getOutBizNo());
             if (aliInfo.isSuccess() && aliInfo.getData().isTransferred()){

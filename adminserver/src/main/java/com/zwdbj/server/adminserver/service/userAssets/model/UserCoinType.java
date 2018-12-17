@@ -14,6 +14,16 @@ public class UserCoinType {
     Long coins;
     @ApiModelProperty(value = "用户id")
     Long userId;
+    @ApiModelProperty(value = "用户冻结的金币")
+    long lockedCoins;
+
+    public long getLockedCoins() {
+        return lockedCoins;
+    }
+
+    public void setLockedCoins(long lockedCoins) {
+        this.lockedCoins = lockedCoins;
+    }
 
     public Long getId() {
         return id;
