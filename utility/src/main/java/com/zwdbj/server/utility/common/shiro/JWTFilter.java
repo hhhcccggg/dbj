@@ -12,9 +12,14 @@ import java.io.IOException;
 
 public class JWTFilter extends BasicHttpAuthenticationFilter {
 
-    private String getAuthToken(String authToken) {
-        if (authToken == null) return null;
-        if (!authToken.startsWith("Bearer ")) return null;
+    private String getAuthTokenByHeader(String authToken,HttpServletRequest request) {
+        String accessTokenKey = "accesstoken";
+        String accessToken = request.getParameter(accessTokenKey);
+        if (authToken == null && (accessToken == null || accessToken.isEmpty())) return null;
+        if(authToken==null) return accessToken;
+        if (!authToken.startsWith("Bearer ")) {
+            return accessToken;
+        };
         return authToken.replace("Bearer ","");
     }
 
@@ -22,7 +27,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest)request;
         String authHeader = req.getHeader(BasicHttpAuthenticationFilter.AUTHORIZATION_HEADER);
-        String authorization = getAuthToken(authHeader);
+        String authorization = getAuthTokenByHeader(authHeader,req);
         return authorization != null;
     }
 
@@ -30,7 +35,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest req = (HttpServletRequest)request;
         String authHeader = req.getHeader(BasicHttpAuthenticationFilter.AUTHORIZATION_HEADER);
-        String authorization = getAuthToken(authHeader);
+        String authorization = getAuthTokenByHeader(authHeader,req);
         JWTToken token = new JWTToken(authorization);
         getSubject(request, response).login(token);
         return true;
