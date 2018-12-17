@@ -91,10 +91,10 @@ public class HomepageService {
                 logger.info("zeroTime--" + zeroTime);
                 //从redis中获取当前天的用户增量
                 Map results = redisTemplate.opsForHash().entries(zeroTime + "userGrowth");
-                AdUserOrVideoGrowthDto growthDto = new AdUserOrVideoGrowthDto();
                 Set set = results.keySet();
                 Iterator it = set.iterator();
                 while (it.hasNext()) {
+                    AdUserOrVideoGrowthDto growthDto = new AdUserOrVideoGrowthDto();
                     String key = (String) it.next();
                     logger.info("key----" + key);
                     Long value = Long.valueOf((String) results.get(key));
@@ -169,10 +169,10 @@ public class HomepageService {
                 String zeroTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
                 //从redis中获取当前天的用户增量
                 Map results = redisTemplate.opsForHash().entries(zeroTime + "videoGrowth");
-                AdUserOrVideoGrowthDto growthDto = new AdUserOrVideoGrowthDto();
                 Set set = results.keySet();
                 Iterator it = set.iterator();
                 while (it.hasNext()) {
+                    AdUserOrVideoGrowthDto growthDto = new AdUserOrVideoGrowthDto();
                     String key = (String) it.next();
                     Long value = Long.valueOf((String) results.get(key));
                     key = key.replace("videoGrowth", "");
