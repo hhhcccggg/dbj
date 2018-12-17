@@ -39,7 +39,6 @@ public class AppPushService {
             if (pushData.getMessageType()==0) {//获取推送消息类型
                 String pushTitle = "爪子提醒";
                 String pushDescription = pushData.getMsgContent();//获取消息文本内容
-                int type = 0;
                 PushMessage pushMessage = new PushMessage();
                 pushMessage.setPushId(pushData.getPushId());
                 PushXGExtraMessage pushXGExtraMessage = new PushXGExtraMessage();
@@ -51,7 +50,7 @@ public class AppPushService {
                 pushMessage.setRefUrl(pushData.getRefUrl());
                 pushMessage.setTitle(pushTitle);
                 this.pushMessage(pushMessage,0);
-                logger.info("推送的类型:"+type+"推送消息title:"+pushTitle+",内容："+pushDescription);
+                logger.info("推送消息title:"+pushTitle+",内容："+pushDescription);
             } else {
                 return this.pushOneToOne(pushData);
             }
@@ -65,7 +64,6 @@ public class AppPushService {
     protected boolean pushOneToOne(QueueWorkInfoModel.QueueWorkPush pushData) {
         String pushTitle = "爪子提醒";
         String pushDescription = pushData.getMsgContent();
-        int type = 0;
         if (pushData.getCreatorUserId()==0 || pushData.getToUserId()==0) {
             logger.warn("推送消息失败编号:"+pushData.getPushId()+"没有创建者或者目的用户");
             return true;
@@ -77,15 +75,12 @@ public class AppPushService {
             if (pushResDataContent == null) return true;
         }
         if (pushData.getMessageType() == 1) {
-            type=1;
             pushTitle = "收到新点赞";
             pushDescription = String.format("你的作品《%s》收到新点赞",pushResDataContent.getTitle());
         } else if (pushData.getMessageType() == 3) {
-            type=3;
             pushTitle = "收到新评论";
             pushDescription = String.format("你的作品《%s》收到新评论",pushResDataContent.getTitle());
         } else if (pushData.getMessageType() == 2) {
-            type=2;
             pushTitle = "新粉丝通知";
             pushDescription = "又有人悄悄关注了你，快去看看！";
         }
@@ -94,10 +89,9 @@ public class AppPushService {
         
 
         PushMessage pushMessage = new PushMessage();
-        pushMessage.setType(type);
         pushMessage.setPushId(pushData.getPushId());
         PushXGExtraMessage pushXGExtraMessage = new PushXGExtraMessage();
-        pushXGExtraMessage.setMessageType(type);
+        pushXGExtraMessage.setMessageType(pushData.getMessageType());
         pushXGExtraMessage.setResId(pushResDataContent.getId());
         pushXGExtraMessage.setResType(pushResDataContent.getType());
         pushMessage.setExtraData(pushXGExtraMessage);
@@ -139,9 +133,10 @@ public class AppPushService {
                 return null;
             }
             pushResDataContent.setTitle(detailInfoDto.getTitle());
+            pushResDataContent.setId(resId);
+            pushResDataContent.setType(type);
         }
-        pushResDataContent.setId(resId);
-        pushResDataContent.setType(type);
+
         return pushResDataContent;
     }
 
@@ -180,12 +175,10 @@ public class AppPushService {
             xgiosMessage.setContent(message.getMsgContent());
             xgiosMessage.setTitle(message.getTitle());
             xgiosMessage.setCustom(message.getExtraData());
-            xgiosMessage.setType(message.getType());
             xgiosMessage.setAps("{\"alert\": \""+message.getMsgContent()+"\",\"badge\": 1}");
             xgMessage.setMessage(xgiosMessage);
         } else {
             PushXGAndroidMessage androidMessage = new PushXGAndroidMessage();
-            androidMessage.setType(message.getType());
             androidMessage.setTitle(message.getTitle());
             androidMessage.setContent(message.getMsgContent());
             androidMessage.setCustom_content(message.getExtraData());
