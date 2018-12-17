@@ -23,5 +23,5 @@ public interface UserAssetsService {
     List<EnCashMentDetailModel> getAllVerifyEnCashs();
     ServiceStatusInfo<EnCashMentDetailModel> getVerifyEnCashById(long id);
 
-    ServiceStatusInfo<Integer> verifyEnCash(long id);
+    ServiceStatusInfo<Integer> verifyEnCash(long id,long userId);
 }

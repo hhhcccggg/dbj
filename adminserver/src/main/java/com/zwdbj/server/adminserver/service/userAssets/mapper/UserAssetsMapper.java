@@ -8,6 +8,7 @@ import com.zwdbj.server.adminserver.service.userAssets.model.UserCoinType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -39,4 +40,16 @@ public interface UserAssetsMapper {
 
     @Select("select uniqueId from core_enCashAccounts where id=#{id}")
     String getUniqueIdById(@Param("id")long id);
+
+    @Update("update core_enCashMentDetails set isAllowedEnCash=#{isAllowedEnCash},status=#{status} where id=#{id}")
+    int updateEnCashStatus(@Param("id")long id,@Param("status")String status,@Param("isAllowedEnCash")boolean isAllowedEnCash);
+
+    @Update("update core_userCoinDetails set status=#{status} where tradeNo=#{tradeNo}")
+    int updateCoinDetailStatus(@Param("tradeNo")String tradeNo,@Param("status")String status);
+
+    @Update("update core_userCoinTypes set coins=coins+#{coins},lockedCoins=lockedCoins+#{lockedCoins} where userId=#{userId} and type=#{type}")
+    int updateUserCoinTypeByUserId(@Param("userId")long userId,@Param("type")String type,@Param("coins")int coins,@Param("lockedCoins")int lockedCoins );
+
+    @Update("update core_userAssets set coins=coins+#{coins} where userId=#{userId}")
+    int updateUserCoinByUserId(@Param("userId")long userId,@Param("coins")int coins);
 }

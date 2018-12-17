@@ -139,8 +139,8 @@ public class UserAssetsController {
     @ApiOperation(value = "审核id查询需要审核的提现详情")
     @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
-    public ResponseData<Integer> verifyEnCash(@PathVariable long id){
-        ServiceStatusInfo<Integer> info = this.userAssetsServiceImpl.verifyEnCash(id);
+    public ResponseData<Integer> verifyEnCash(@PathVariable long id,@RequestParam long userId){
+        ServiceStatusInfo<Integer> info = this.userAssetsServiceImpl.verifyEnCash(id,userId);
         if (info.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",info.getData());
         }else {

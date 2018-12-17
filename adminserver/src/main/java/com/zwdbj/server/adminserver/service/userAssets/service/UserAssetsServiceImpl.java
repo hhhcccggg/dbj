@@ -8,6 +8,8 @@ import com.zwdbj.server.adminserver.service.userAssets.model.UserCoinDetail;
 import com.zwdbj.server.adminserver.service.userAssets.model.UserCoinType;
 import com.zwdbj.server.pay.alipay.AlipayService;
 import com.zwdbj.server.pay.alipay.model.AliTransferInput;
+import com.zwdbj.server.pay.alipay.model.AliTransferResult;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,8 +110,27 @@ public class UserAssetsServiceImpl implements UserAssetsService {
         }
     }
 
+    public int updateEnCashStatus(long id,String status,boolean isAllowedEnCash){
+        return this.userAssetsMapper.updateEnCashStatus(id,status,isAllowedEnCash);
+    }
+
+
+    public int updateCoinDetailStatus(String tradeNo,String status){
+        return this.userAssetsMapper.updateCoinDetailStatus(tradeNo,status);
+    }
+
+    public int updateUserCoinTypeByUserId(long userId,String type,int coins,int lockedCoins){
+        return this.userAssetsMapper.updateUserCoinTypeByUserId(userId,type,coins,lockedCoins);
+    }
+
+    public int updateUserCoinByUserId(long userId,int coins){
+        return this.userAssetsMapper.updateUserCoinByUserId(userId,coins);
+    }
+
+
+
     @Override
-    public ServiceStatusInfo<Integer> verifyEnCash(long id) {
+    public ServiceStatusInfo<Integer> verifyEnCash(long id,long userId) {
         try {
             EnCashMentDetailModel model = this.getVerifyEnCashById(id).getData();
             String uniqueId =  this.userAssetsMapper.getUniqueIdById(model.getPayAccountId());
@@ -119,10 +140,20 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             input.setPayeeAccount(uniqueId);
             input.setAmount(String.valueOf(model.getRmbs()/100.0));
             input.setRemark("爪子APP提现");
-            this.alipayService.transfer(input);
-            return new ServiceStatusInfo<>(0,"",1);
-
-
+            ServiceStatusInfo<AliTransferResult> aliInfo = this.alipayService.transfer(input);
+            long enCashDetailId = Long.valueOf(aliInfo.getData().getOutBizNo());
+            if (aliInfo.isSuccess() && aliInfo.getData().isTransferred()){
+                this.updateEnCashStatus(enCashDetailId,"SUCCESS",true);
+                this.updateCoinDetailStatus(aliInfo.getData().getOutBizNo(),"SUCCESS");
+                this.updateUserCoinTypeByUserId(userId,"INCOME",0,-model.getCoins());
+                return new ServiceStatusInfo<>(0,"",1);
+            }else {
+                this.updateEnCashStatus(enCashDetailId,"FAILED",false);
+                this.updateCoinDetailStatus(aliInfo.getData().getOutBizNo(),"FAILED");
+                this.updateUserCoinTypeByUserId(userId,"INCOME",model.getCoins(),-model.getCoins());
+                this.updateUserCoinByUserId(userId,model.getCoins());
+                return new ServiceStatusInfo<>(1,"提现失败",0);
+            }
 
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "提现失败:" + e.getMessage(), null);
