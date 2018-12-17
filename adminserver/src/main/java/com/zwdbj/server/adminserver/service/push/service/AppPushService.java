@@ -188,7 +188,7 @@ public class AppPushService {
             androidMessage.setType(message.getType());
             androidMessage.setTitle(message.getTitle());
             androidMessage.setContent(message.getMsgContent());
-            androidMessage.setCustom(message.getExtraData());
+            androidMessage.setCustom_content(message.getExtraData());
             xgMessage.setMessage(androidMessage);
         }
         jsonBody = JSON.toJSONString(xgMessage);
