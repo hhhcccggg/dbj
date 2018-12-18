@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.service.push.model;
 
 import java.io.Serializable;
 
-public class PushDeviceType implements Serializable {
+public class PushAndroidDevice implements Serializable {
     private PushXGExtraMessage custom_content;
 
     public PushXGExtraMessage getCustom_content() {
