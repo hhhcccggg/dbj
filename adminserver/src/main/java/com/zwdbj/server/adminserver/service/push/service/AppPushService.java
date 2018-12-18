@@ -174,14 +174,16 @@ public class AppPushService {
             PushXGIOSMessage xgiosMessage = new PushXGIOSMessage();
             xgiosMessage.setContent(message.getMsgContent());
             xgiosMessage.setTitle(message.getTitle());
-            xgiosMessage.setCustom(message.getExtraData());
-            xgiosMessage.setAps("{\"alert\": \""+message.getMsgContent()+"\",\"badge\": 1}");
+            PushIosDevice iosDevice = new PushIosDevice();
+            iosDevice.setAps("{\"alert\": \""+message.getMsgContent()+"\",\"badge\": 1}");
+            iosDevice.setCustom(message.getExtraData());
+            xgiosMessage.setIos(iosDevice);
             xgMessage.setMessage(xgiosMessage);
         } else {
             PushXGAndroidMessage androidMessage = new PushXGAndroidMessage();
             androidMessage.setTitle(message.getTitle());
             androidMessage.setContent(message.getMsgContent());
-            PushDeviceType deviceType = new PushDeviceType();
+            PushAndroidDevice deviceType = new PushAndroidDevice();
             deviceType.setCustom_content(message.getExtraData());
             androidMessage.setAndroid(deviceType);
             xgMessage.setMessage(androidMessage);

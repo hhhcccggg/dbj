@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class PushXGAndroidMessage implements Serializable {
     private String title;
     private String content;
-    private PushDeviceType android;
+    private PushAndroidDevice android;
     @ApiModelProperty(value = "消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播")
     private int type;
 
@@ -36,11 +36,11 @@ public class PushXGAndroidMessage implements Serializable {
         this.content = content;
     }
 
-    public PushDeviceType getAndroid() {
+    public PushAndroidDevice getAndroid() {
         return android;
     }
 
-    public void setAndroid(PushDeviceType android) {
+    public void setAndroid(PushAndroidDevice android) {
         this.android = android;
     }
 }
