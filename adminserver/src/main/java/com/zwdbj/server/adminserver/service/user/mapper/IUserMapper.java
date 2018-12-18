@@ -119,7 +119,7 @@ public interface IUserMapper {
     @SelectProvider(type = UserSqlProvider.class,method ="findIncreasedUserAd")
     AdFindIncreasedDto findIncreasedUserAd(@Param("input")AdFindIncreasedInput input,@Param("flag")boolean flag);
 
-    @Select("select count(id) from core_users where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime)")
+    @Select("select count(id) from core_users where isManualData=0 and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime)")
     long dau();
     @Select("select count(id) from core_users where date(createTime)=curDate()-1 and isManualData=false")
     Long everyIncreasedUsers();

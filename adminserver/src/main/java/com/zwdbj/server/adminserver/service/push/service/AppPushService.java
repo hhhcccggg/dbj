@@ -92,11 +92,15 @@ public class AppPushService {
         pushMessage.setPushId(pushData.getPushId());
         PushXGExtraMessage pushXGExtraMessage = new PushXGExtraMessage();
         pushXGExtraMessage.setMessageType(pushData.getMessageType());
-        pushXGExtraMessage.setResId(pushResDataContent.getId());
-        pushXGExtraMessage.setResType(pushResDataContent.getType());
+        if (pushResDataContent!=null){
+            pushXGExtraMessage.setResId(pushResDataContent.getId());
+            pushXGExtraMessage.setResType(pushResDataContent.getType());
+        }
         pushMessage.setExtraData(pushXGExtraMessage);
         pushMessage.setMsgContent(pushDescription);
-        pushMessage.setRefUrl(pushData.getRefUrl());
+        if (pushData.getRefUrl()!=null && pushData.getRefUrl().length()!=0){
+            pushMessage.setRefUrl(pushData.getRefUrl());
+        }
         pushMessage.setTitle(pushTitle);
         this.pushMessage(pushMessage,pushData.getToUserId());
 
