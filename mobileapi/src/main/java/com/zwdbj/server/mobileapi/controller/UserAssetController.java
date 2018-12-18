@@ -15,6 +15,7 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.Oneway;
 import java.util.List;
 
 @RestController
@@ -57,6 +58,7 @@ public class UserAssetController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",userCoinDetailsModels,pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/search/buyCoinConfig", method = RequestMethod.GET)
     @ApiOperation(value = "查询可选充值金币配置列表")
     public ResponsePageInfoData<List<BuyCoinConfigModel>> findAllBuyCoinConfigs(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
@@ -66,6 +68,18 @@ public class UserAssetController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
+    @RequestMapping(value = "/bindAliAccount",method = RequestMethod.POST)
+    @ApiOperation("绑定支付宝账号")
+    public ResponseData<Object> bindAliAccount(@RequestBody AliAccountBindInput input) {
+        ServiceStatusInfo<Object> serviceStatusInfo = this.userAssetServiceImpl.bindAliAccount(input,JWTUtil.getCurrentId());
+        if (serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",null);
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+    }
+
+    @RequiresAuthentication
     @RequestMapping(value = "/banding/third", method = RequestMethod.POST)
     @ApiOperation(value = "提现:绑定第三方平台")
     public ResponseData<Integer> bandingThird(@RequestBody BandingThirdInput input){
@@ -78,6 +92,7 @@ public class UserAssetController {
         }
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/unBanding/third/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "提现:解绑第三方平台，id为提现第三方支付账号的id")
     public ResponseData<Integer> unBandingThird(@PathVariable long id){
@@ -98,6 +113,7 @@ public class UserAssetController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", models, pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/enCash", method = RequestMethod.POST)
     @ApiOperation(value = "提现")
     public ResponseData<Integer> enCashMyCoins(@RequestBody EnCashInput input){

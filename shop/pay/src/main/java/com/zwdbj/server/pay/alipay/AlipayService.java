@@ -188,4 +188,43 @@ public class AlipayService {
             return new ServiceStatusInfo<>(1,ex.getErrMsg()+"("+ex.getErrCode()+")",null);
         }
     }
+
+    public ServiceStatusInfo<AlipaySystemOauthTokenResponse> accessToken(String authCode,String userId) {
+        try {
+            AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
+            request.setGrantType("authorization_code");
+            request.setCode(authCode);
+            AlipaySystemOauthTokenResponse response = alipayClient.execute(request);
+            if (response.isSuccess()) {
+                return new ServiceStatusInfo<>(0,"OK",response);
+            }
+            logger.warn(response.getMsg());
+            logger.warn(response.getCode());
+            return new ServiceStatusInfo<>(1,response.getMsg()+","+response.getSubMsg(),null);
+        } catch ( AlipayApiException ex ) {
+            logger.warn(ex.getLocalizedMessage());
+            logger.warn(ex.getErrCode());
+            logger.warn(ex.getErrMsg());
+            return new ServiceStatusInfo<>(1,ex.getErrMsg()+"("+ex.getErrCode()+")",null);
+        }
+    }
+
+    public ServiceStatusInfo<AlipayUserInfoShareResponse> userInfo(String accessToken) {
+        try {
+            AlipayUserInfoShareRequest request = new AlipayUserInfoShareRequest();
+            AlipayUserInfoShareResponse response = alipayClient.execute(request,accessToken);
+            if (response.isSuccess()) {
+                return new ServiceStatusInfo<>(0,"OK",response);
+            }
+            logger.warn(response.getMsg());
+            logger.warn(response.getCode());
+            return new ServiceStatusInfo<>(1,response.getMsg()+","+response.getSubMsg(),null);
+        } catch ( AlipayApiException ex ) {
+            logger.warn(ex.getLocalizedMessage());
+            logger.warn(ex.getErrCode());
+            logger.warn(ex.getErrMsg());
+            return new ServiceStatusInfo<>(1,ex.getErrMsg()+"("+ex.getErrCode()+")",null);
+        }
+    }
+
 }
