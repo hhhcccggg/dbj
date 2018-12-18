@@ -181,7 +181,9 @@ public class AppPushService {
             PushXGAndroidMessage androidMessage = new PushXGAndroidMessage();
             androidMessage.setTitle(message.getTitle());
             androidMessage.setContent(message.getMsgContent());
-            androidMessage.setCustom_content(JSON.toJSONString(message.getExtraData()));
+            PushDeviceType deviceType = new PushDeviceType();
+            deviceType.setCustom_content(message.getExtraData());
+            androidMessage.setAndroid(deviceType);
             xgMessage.setMessage(androidMessage);
         }
         jsonBody = JSON.toJSONString(xgMessage);
