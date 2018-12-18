@@ -258,14 +258,15 @@ public class UserAssetServiceImpl implements IUserAssetService{
      * @param input
      * @return
      */
-    public ServiceStatusInfo<Integer> bandingThird(BandingThirdInput input){
+    public ServiceStatusInfo<Integer> bandingThird(long userId,BandingThirdInput input){
         try {
+            List<EnCashAccountModel> models = this.getMyEnCashAccounts(userId);
+            if (models!=null) return  new ServiceStatusInfo<>(1,"已经绑定了提现账号",0);
             long id = UniqueIDCreater.generateID();
-            long userId = JWTUtil.getCurrentId();
             int result = this.userAssetMapper.bandingThird(id,userId,input);
             return new ServiceStatusInfo<>(0,"",result);
         }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"绑定失败",0);
+            return new ServiceStatusInfo<>(1,"绑定失败",null);
         }
     }
 
@@ -290,6 +291,9 @@ public class UserAssetServiceImpl implements IUserAssetService{
      */
     public List<EnCashAccountModel> getMyEnCashAccounts(){
         long userId =JWTUtil.getCurrentId();
+        return getMyEnCashAccounts(userId);
+    }
+    public List<EnCashAccountModel> getMyEnCashAccounts(long userId){
         List<EnCashAccountModel> models = this.userAssetMapper.getMyEnCashAccounts(userId);
         return models;
     }
