@@ -2,7 +2,7 @@ package com.zwdbj.server.pay.alipay.model;
 
 import java.io.Serializable;
 
-public class AliAuthInfoResult implements Serializable {
+public class AliAppAuthLoginResult implements Serializable {
     private String authString;
 
     public String getAuthString() {

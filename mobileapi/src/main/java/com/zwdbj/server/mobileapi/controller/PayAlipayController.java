@@ -80,11 +80,10 @@ public class PayAlipayController {
         }
     }
 
-    @RequiresAuthentication
-    @ApiOperation("登录签名信息")
-    @RequestMapping(value = "/authSign",method = RequestMethod.POST)
-    public ResponseData<AliAuthInfoResult> authSign(@RequestBody AliAuthInfoInput input) {
-        ServiceStatusInfo<AliAuthInfoResult> serviceStatusInfo = this.alipayBizService.authSign(input);
+    @ApiOperation("支付宝APP快捷登录签名信息")
+    @RequestMapping(value = "/appAuthLoginSign",method = RequestMethod.POST)
+    public ResponseData<AliAppAuthLoginResult> appAuthLoginSign() {
+        ServiceStatusInfo<AliAppAuthLoginResult> serviceStatusInfo = this.alipayBizService.appAuthLoginSign();
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",serviceStatusInfo.getData());
         }

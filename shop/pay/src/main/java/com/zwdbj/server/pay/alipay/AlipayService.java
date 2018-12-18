@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class AlipayService {
@@ -159,20 +161,26 @@ public class AlipayService {
         }
     }
 
-    public ServiceStatusInfo<AliAuthInfoResult> authSign(AliAuthInfoInput input) {
+    public ServiceStatusInfo<AliAppAuthLoginResult> appAuthLoginSign() {
         try {
-            AlipayUserInfoAuthRequest request = new AlipayUserInfoAuthRequest();
-            String json = JSON.toJSONString(input);
-            request.setBizContent(json);
-            AlipayUserInfoAuthResponse response = alipayClient.sdkExecute(request);
-            if (response.isSuccess()) {
-                AliAuthInfoResult result = new AliAuthInfoResult();
-                result.setAuthString(response.getBody());
-                return new ServiceStatusInfo<>(0,"OK",result);
-            } else {
-                logger.info(response.getCode()+","+response.getMsg());
-                return new ServiceStatusInfo<>(1,"获取失败("+response.getCode()+")",null);
-            }
+            Map<String,String> reqData = new HashMap<>();
+            reqData.put("apiname","com.alipay.account.auth");
+            reqData.put("method","alipay.open.auth.sdk.code.get");
+            reqData.put("app_id",AlipaySDKClient.getAppId());
+            reqData.put("app_name","mc");
+            reqData.put("biz_type","openservice");
+            reqData.put("pid","2088231225893489");
+            reqData.put("product_id","APP_FAST_LOGIN");
+            reqData.put("scope","kuaijie");
+            reqData.put("target_id",UUID.randomUUID().toString());
+            reqData.put("scope","kuaijie");
+            reqData.put("sign_type","RSA2");
+            String signTxt = AlipaySignature.rsaSign(reqData,AlipaySDKClient.getPrivateKey(),"UTF-8");
+            reqData.put("sign",signTxt);
+            String resultStr = AlipaySignature.getSignContent(reqData);
+            AliAppAuthLoginResult result = new AliAppAuthLoginResult();
+            result.setAuthString(resultStr);
+            return new ServiceStatusInfo<>(0,"OK",result);
         } catch ( AlipayApiException ex ) {
             logger.warn(ex.getLocalizedMessage());
             logger.warn(ex.getErrCode());

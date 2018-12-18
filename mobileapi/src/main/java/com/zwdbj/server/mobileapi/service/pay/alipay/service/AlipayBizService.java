@@ -104,8 +104,8 @@ public class AlipayBizService {
         return alipayService.transferQuery(input);
     }
 
-    public ServiceStatusInfo<AliAuthInfoResult> authSign(AliAuthInfoInput input) {
-        return alipayService.authSign(input);
+    public ServiceStatusInfo<AliAppAuthLoginResult> appAuthLoginSign() {
+        return alipayService.appAuthLoginSign();
     }
 
     @Transactional

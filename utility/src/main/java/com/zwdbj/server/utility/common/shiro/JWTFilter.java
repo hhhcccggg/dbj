@@ -13,6 +13,7 @@ import java.io.IOException;
 public class JWTFilter extends BasicHttpAuthenticationFilter {
 
     private String getAuthTokenByHeader(String authToken,HttpServletRequest request) {
+        System.out.println(request.getRequestURI());
         String accessTokenKey = "accesstoken";
         String accessToken = request.getParameter(accessTokenKey);
         if (authToken == null && (accessToken == null || accessToken.isEmpty())) return null;
