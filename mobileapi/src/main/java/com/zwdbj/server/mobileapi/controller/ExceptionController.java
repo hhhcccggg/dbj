@@ -38,7 +38,8 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseData globalException(HttpServletRequest request, Throwable ex) {
         logger.warn(ex.getMessage());
-        logger.warn(ex.getStackTrace().toString());
+        logger.warn(ex.getLocalizedMessage());
+        ex.printStackTrace();
         return new ResponseData<String>(500, "服务器内部异常", null);
     }
 
