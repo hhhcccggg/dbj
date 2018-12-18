@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using db.common;
 
@@ -8,7 +9,7 @@ namespace dbdesgin.Models
     /// 数据每日增长情况
     /// </summary>
     [Table("core_dailyIncreaseAnalysises")]
-    public class DailyIncreaseAnalysis : BaseModelWithTime<long> 
+    public class DailyIncreaseAnalysis : BaseModelWithTime<long>
     {
         /// <summary>
         /// 新增的用户数
@@ -26,5 +27,12 @@ namespace dbdesgin.Models
         /// </summary>
         /// <value>The new orders.</value>
         public long newOrders { get; set; }
+        /// <summary>
+        /// FAKE:假TRUTH:真
+        /// </summary>
+        /// <value>The type.</value>
+        [Required]
+        [MaxLength(20)]
+        public String type { get; set; }
     }
 }

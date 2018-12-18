@@ -7,15 +7,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class WeChatConfig implements WXPayConfig {
+public class WeChatPayConfig implements WXPayConfig {
 
-    private static volatile WeChatConfig payCfg = null;
-    public static WeChatConfig payConfig() {
+    private static volatile WeChatPayConfig payCfg = null;
+    public static WeChatPayConfig payConfig(String certPath) {
         if (payCfg == null) {
-            synchronized (WeChatConfig.class) {
+            synchronized (WeChatPayConfig.class) {
                 if (payCfg == null) {
                     try {
-                        payCfg = new WeChatConfig();
+                        payCfg = new WeChatPayConfig(certPath);
                     } catch ( Exception ex ) {
                         System.out.println(ex.getMessage());
                     }
@@ -24,17 +24,15 @@ public class WeChatConfig implements WXPayConfig {
         }
         return payCfg;
     }
-    public static WeChatConfig sandBoxPayConfig(String sandBoxKey) throws Exception {
-        WeChatConfig sandBoxConfig = new WeChatConfig();
+    public static WeChatPayConfig sandBoxPayConfig(String sandBoxKey,String certPath) throws Exception {
+        WeChatPayConfig sandBoxConfig = new WeChatPayConfig(certPath);
         sandBoxConfig.setKey(sandBoxKey);
         return sandBoxConfig;
     }
 
     private byte[] certData;
     private String key;
-    public WeChatConfig() throws Exception {
-        //TODO 需要调试此模块请联系李明儒获取证书
-        String certPath = "/Users/limingru/.ssh/apiclient_cert.p12";
+    public WeChatPayConfig(String certPath) throws Exception {
         File file = new File(certPath);
         InputStream certStream = new FileInputStream(file);
         this.certData = new byte[(int) file.length()];

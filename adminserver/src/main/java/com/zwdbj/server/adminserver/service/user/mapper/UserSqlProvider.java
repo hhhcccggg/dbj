@@ -12,10 +12,14 @@ public class UserSqlProvider {
 
     public String findIncreasedUserAd(Map params){
         AdFindIncreasedInput input = (AdFindIncreasedInput)params.get("input");
+        Boolean flag = (Boolean)params.get("flag");
         SQL sql = new SQL()
                 .SELECT("count(id) as userNum ")
                 .FROM("core_users")
                 .WHERE("isSuper=0");
+        if (!flag){
+            sql.WHERE("isManualData=false");
+        }
         if (input.getQuantumTime()==0){
             sql.WHERE("TO_DAYS(createTime) = TO_DAYS(NOW())");
         }else if (input.getQuantumTime()==1){
@@ -112,10 +116,14 @@ public class UserSqlProvider {
 
     public String queryUser(Map params) {
         UserSearchForAdInput model = (UserSearchForAdInput)params.get("model");
+        Boolean flag = (Boolean) params.get("flag");
         SQL sql = new SQL()
                 .SELECT("u.*,(SELECT COUNT(id) FROM core_pets AS pet WHERE pet.userId = u.id) AS petCount,(SELECT COUNT(id) FROM core_videos AS vd WHERE vd.userId = u.id) AS videoCount")
                 .FROM("core_users u")
                 .LEFT_OUTER_JOIN("core_userRoles r on r.userId=u.id");
+        if (!flag){
+            sql.WHERE("u.isManualData=false");
+        }
         if (model.getKeyWords() !=null && model.getKeyWords().length()>0 ) {
             sql.WHERE(String.format("u.id like '%s'", ("%" + model.getKeyWords() + "%")))
                     .OR()
@@ -132,8 +140,11 @@ public class UserSqlProvider {
         if (model.getIsReviewed()!=-1) {
             sql.WHERE(String.format("u.isReviewed=%d",model.getIsReviewed()));
         }
-        if (model.getRoleName() !=null && model.getRoleName().length()>0){
+        if (model.getRoleName() !=null  && model.getRoleName().length()>0){
             sql.WHERE(String.format("r.roleName='%s'",model.getRoleName()));
+        }
+        if (model.getStartTime() !=null  && model.getStartTime().length()!=0 && model.getEndTime() !=null && model.getEndTime().length()!=0){
+            sql.WHERE(String.format("u.createTime between '%s' and '%s'",model.getStartTime(),model.getEndTime()));
         }
         sql.ORDER_BY("u.id desc");
         return sql.toString();

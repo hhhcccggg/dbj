@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 @ApiModel("金币充值结果，包括了预付订单等信息")
-public class ChargeCoinDto implements Serializable {
+public class ChargeCoinWXResult implements Serializable {
     @ApiModelProperty("预支付交易会话ID")
     private String prepayId;
     @ApiModelProperty("扩展字段，暂填写固定值Sign=WXPay")

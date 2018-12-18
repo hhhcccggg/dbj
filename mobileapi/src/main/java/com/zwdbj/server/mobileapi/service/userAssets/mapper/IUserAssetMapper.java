@@ -7,10 +7,10 @@ import java.util.List;
 
 @Mapper
 public interface IUserAssetMapper {
-    @Select("select * from core_userAssets where userId=#{userId}")
-    UserAssetModel getCoinsByUserId(long userId);
+    @Select("select coins from core_userAssets where userId=#{userId}")
+    Long getCoinsByUserId(long userId);
 
-    @Update("update core_userAssets set coins=#{coins} where userId=#{userId}")
+    @Update("update core_userAssets set coins=coins+#{coins} where userId=#{userId}")
     int updateUserAsset(@Param("userId") long userId,@Param("coins") long coins);
     @Insert("insert into core_userAssets(id,coins,remainBalance,userId) values(#{id},0,0,#{userId})")
     int greatUserAsset(@Param("id")long id,@Param("userId")long UserId);
@@ -25,22 +25,61 @@ public interface IUserAssetMapper {
     @Insert("insert into core_userCoinTypes(id,type,coins,userId) " +
             "values(#{id},#{type},0,#{userId})")
     int greatUserCoinType(@Param("id")long id,@Param("userId")long userId,@Param("type")String type);
-    @Update("update core_userCoinTypes set coins=coins+num where userId=#{userId} and type=#{type}")
+    @Update("update core_userCoinTypes set coins=coins+#{num} where userId=#{userId} and type=#{type}")
     int updateUserCoinType(@Param("userId")long userId,@Param("type")String type,@Param("num")long num);
+    @Update("update core_userCoinTypes set coins=coins+#{num},lockedCoins=lockedCoins+#{lockedCoins} where userId=#{userId} and type=#{type}")
+    int updateUserCoinTypeForEnCash(@Param("userId")long userId,@Param("type")String type,@Param("num")long num,@Param("lockedCoins")int lockedCoins);
 
     //coinDetails
-    @Select("select * from core_userCoinDetails where userId=#{userId} order by createTime desc")
+    @Select("select * from core_userCoinDetails where userId=#{userId} and status='SUCCESS' order by createTime desc")
     List<UserCoinDetailsModel> getUserCoinDetails(@Param("userId")long userId);
     @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
             "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'PROCESSING')")
     int addUserCoinDetail(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input);
 
+    @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status,tradeNo) " +
+            "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'PROCESSING',#{tradeNo})")
+    int addUserCoinDetailForEnCash(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input,@Param("tradeNo")String tradeNo);
+
+    @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
+            "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'SUCCESS')")
+    int addUserCoinDetailSuccess(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input);
+
+
+
     @Update("update core_userCoinDetails set status=#{input.status},statusMsg=#{input.statusMsg} where id=#{input.id}")
     int updateUserCoinDetail(@Param("input") UserCoinDetailModifyInput input);
 
-    @Select("select * from core_userCoinDetails where id=#{id}")
-    UserCoinDetailsModel findUserCoinDetailById(long id);
+    @Select("select id,userId,num,status from core_userCoinDetails where id=#{id}")
+    UserAssetNumAndStatus findUserCoinDetailById(long id);
 
     @Select("select * from core_basic_buyCoinConfigs where isDeleted=false")
     List<BuyCoinConfigModel> findAllBuyCoinConfigs();
+
+    //视频
+
+    @Select("select v.*,u.nickName from core_video_videoTipDetails as v," +
+            "(select id,nickName from core_users) as u where v.videoId=#{videoId} and v.userId=u.id")
+    List<VideoTipDetails> findVideoTipDetails(@Param("videoId") Long videoId);
+
+    @Insert("insert into core_video_videoTipDetails(id,videoId,userId,tipCoin) values(#{id},#{videoId},#{userId},#{tipCoin})")
+    int addVideoTipDetail(@Param("id") long id,@Param("videoId") long videoId,@Param("userId") long userId,@Param("tipCoin") int tipCoin);
+
+    //提现：绑定第三方支付平台
+
+    @Insert("insert into core_enCashAccounts(id,userId,type,uniqueId,name,avatarUrl,accessToken,expireIn) " +
+            "values(#{id},#{userId},#{input.type},#{input.uniqueId},#{input.name},avatarUrl,accessToken,expireIn)")
+    int bandingThird(@Param("id")long id,@Param("userId")long userId,@Param("input")BandingThirdInput input);
+
+    @Delete("delete from core_enCashAccounts where id=#{id}")
+    int unBandingThird(@Param("id")long id);
+
+    @Select("select * from core_enCashAccounts where userId=#{userId}")
+    List<EnCashAccountModel> getMyEnCashAccounts(@Param("userId")long userId);
+
+    @Insert("insert into core_enCashMentDetails(id,userId,coins,rmbs,payAccountId,payAccountType,status) " +
+            "values(#{id},#{userId},#{coins},#{input.rmbs},#{input.payAccountId},#{input.payAccountType},'REVIEWING')")
+    int addEnCashDetail(@Param("id")long id,@Param("userId")long userId,@Param("coins")int coins,@Param("input")EnCashInput input);
+
+
 }

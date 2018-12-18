@@ -63,6 +63,7 @@ public class UserController {
     @RequiresAuthentication
     @RequestMapping(value = "/detail/{userId}",method = RequestMethod.GET)
     @ApiOperation(value = "获取用户详情")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE,RoleIdentity.DATA_REPORT_ROLE},logical = Logical.OR)
     public ResponseData<UserDetailInfoDto> userDetail(@PathVariable long userId) {
         UserDetailInfoDto userDetailInfoDto = this.userService.getUserDetail(userId);
         if (userDetailInfoDto == null) {
@@ -93,14 +94,28 @@ public class UserController {
     public ResponsePageInfoData<List<UserDetailInfoDto>> users(@RequestBody UserSearchForAdInput input,
                                                                @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<UserDetailInfoDto> userModelList = this.userService.search(input);
-        long totalData = pageInfo.getTotal();
-        if (pageNo<10) {
-            userModelList = this.userService.searchTopFake((pageNo-1)*rows,rows);
+        long userId = JWTUtil.getCurrentId();
+        List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+        boolean flag = false;
+        for (String role:roles){
+            if ("datareport".equals(role)){
+                flag=true;
+            }
         }
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
-                "",userModelList,pageInfo.getTotal());
+        Page<UserDetailInfoDto> pageInfo = PageHelper.startPage(pageNo,rows);
+        List<UserDetailInfoDto> userModelList = this.userService.search(input,flag);
+        if (flag){
+            if (pageNo<10) {
+                userModelList = this.userService.searchTopFake((pageNo-1)*rows,rows);
+            }
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
+                    "",userModelList,pageInfo.getTotal());
+        }else {
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,
+                    "",userModelList,pageInfo.getTotal());
+        }
+
+
     }
 
     @RequiresAuthentication

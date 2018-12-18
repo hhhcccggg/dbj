@@ -8,8 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 public class UserCoinDetailModifyInput {
     @ApiModelProperty(value = "id")
     long id;
-    @ApiModelProperty(value = "改变的金币数")
-    int num;
     @ApiModelProperty(value = "TASK:任务;PAY:充值;INCOME:收益;OTHER:其他")
     String type;
     @ApiModelProperty(value = "SUCCESS:成功；FAILED：失败; PROCESSING：处理中")
@@ -23,14 +21,6 @@ public class UserCoinDetailModifyInput {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
     }
 
     public String getType() {

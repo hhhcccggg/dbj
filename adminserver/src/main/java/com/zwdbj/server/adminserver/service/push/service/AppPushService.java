@@ -36,9 +36,9 @@ public class AppPushService {
         //消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
         try {
             if (pushData == null) return true;
-            if (pushData.getMessageType()==0) {
+            if (pushData.getMessageType()==0) {//获取推送消息类型
                 String pushTitle = "爪子提醒";
-                String pushDescription = pushData.getMsgContent();
+                String pushDescription = pushData.getMsgContent();//获取消息文本内容
                 PushMessage pushMessage = new PushMessage();
                 pushMessage.setPushId(pushData.getPushId());
                 PushXGExtraMessage pushXGExtraMessage = new PushXGExtraMessage();
@@ -136,6 +136,7 @@ public class AppPushService {
             pushResDataContent.setId(resId);
             pushResDataContent.setType(type);
         }
+
         return pushResDataContent;
     }
 
@@ -173,14 +174,18 @@ public class AppPushService {
             PushXGIOSMessage xgiosMessage = new PushXGIOSMessage();
             xgiosMessage.setContent(message.getMsgContent());
             xgiosMessage.setTitle(message.getTitle());
-            xgiosMessage.setCustom(message.getExtraData());
-            xgiosMessage.setAps("{\"alert\": \""+message.getMsgContent()+"\",\"badge\": 1}");
+            PushIosDevice iosDevice = new PushIosDevice();
+            iosDevice.setAps("{\"alert\": \""+message.getMsgContent()+"\",\"badge\": 1}");
+            iosDevice.setCustom(message.getExtraData());
+            xgiosMessage.setIos(iosDevice);
             xgMessage.setMessage(xgiosMessage);
         } else {
             PushXGAndroidMessage androidMessage = new PushXGAndroidMessage();
             androidMessage.setTitle(message.getTitle());
             androidMessage.setContent(message.getMsgContent());
-            androidMessage.setCustom(message.getExtraData());
+            PushAndroidDevice deviceType = new PushAndroidDevice();
+            deviceType.setCustom_content(message.getExtraData());
+            androidMessage.setAndroid(deviceType);
             xgMessage.setMessage(androidMessage);
         }
         jsonBody = JSON.toJSONString(xgMessage);

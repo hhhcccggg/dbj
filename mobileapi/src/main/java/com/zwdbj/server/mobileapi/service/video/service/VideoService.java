@@ -4,6 +4,8 @@ import com.github.pagehelper.Page;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
+import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
@@ -60,6 +62,8 @@ public class VideoService {
     protected CommentService commentService;
     @Autowired
     protected PetService petService;
+    @Autowired
+    protected UserAssetServiceImpl userAssetServiceImpl;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -422,8 +426,160 @@ public class VideoService {
             MQWorkSender.shareSender().send(workInfo);
             this.stringRedisTemplate.opsForValue().set(cacheKey,"OK",AppConfigConstant.VIDEO_WEIGHT_CALCULATE_INTERVAL,TimeUnit.SECONDS);
         } catch (Exception ex) {
-            logger.error(ex.getStackTrace().toString());
             logger.error(ex.getMessage());
+        }
+    }
+
+
+    public ServiceStatusInfo<VideoPlayTourDto> getPlayTout(Long videoId) {
+
+        VideoPlayTourDto videoPlayTourDto = new VideoPlayTourDto();
+        try {
+            Long userId = JWTUtil.getCurrentId();
+            videoPlayTourDto.setTipCount(videoMapper.searchTipCount(videoId));
+            videoPlayTourDto.setCoins(userAssetServiceImpl.getCoinsByUserId(userId).getData());
+            return new ServiceStatusInfo<>(0, "", videoPlayTourDto);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "获取打赏界面失败" + e.getMessage(), null);
+        }
+    }
+
+    //视频作者获得的打赏
+    @Transactional
+    public void videoAuthorIncome(Long authorId, int income) {
+        this.userAssetServiceImpl.userIsExist(authorId);
+        UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
+        addInput.setNum(income);
+        addInput.setType("INCOME");
+        addInput.setTitle("视频获得的打赏");
+        userAssetServiceImpl.addUserCoinDetailSuccess(authorId, addInput);
+        userAssetServiceImpl.updateUserCoinType(authorId, "INCOME", income);
+        userAssetServiceImpl.updateUserAsset(authorId, income);
+    }
+
+    @Transactional
+    public ServiceStatusInfo<Integer> playTout(int coins, Long videoId) {
+        //TODO 金币变动时 考虑到线程安全，需要加锁
+        try {
+            //获取视频作者id
+            Long authorId = videoMapper.findUserIdByVideoId(videoId);
+            long userId = JWTUtil.getCurrentId();
+            //查看此用户是否存在金币账户
+            this.userAssetServiceImpl.userIsExist(userId);
+            int authorIncome = coins;
+            //用户金币总数
+            long counts = userAssetServiceImpl.getCoinsByUserId().getData();
+
+            if (counts < coins) {
+                return new ServiceStatusInfo<>(1, "您的金币不足，请充值金币", null);
+            }
+            //获取用户金币类型数量详情
+            int task = (int)userAssetServiceImpl.getUserCoinType(userId,"TASK").getData().getCoins();
+            int pay = (int)userAssetServiceImpl.getUserCoinType(userId,"PAY").getData().getCoins();
+            int other = (int)userAssetServiceImpl.getUserCoinType(userId,"OTHER").getData().getCoins();
+
+            if (task >= coins) {
+                //task类型的金币大于等于打赏数，则全部用task打赏
+                UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
+                addTaskInput.setNum(-coins);
+                addTaskInput.setType("TASK");
+                addTaskInput.setTitle("视频打赏消费");
+
+                //修改打赏用户金币明细
+                userAssetServiceImpl.addUserCoinDetailSuccess(userId,addTaskInput);
+                userAssetServiceImpl.updateUserCoinType(userId,"TASK", -coins);
+                userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
+                //增加视频打赏次数
+                videoMapper.addTipCount(videoId);
+                //增加视频获得的打赏详情
+                this.userAssetServiceImpl.addVideoTipDetail(videoId,userId,coins);
+
+                //修改视频作者金币明细
+                videoAuthorIncome(authorId, authorIncome);
+
+                return new ServiceStatusInfo<>(0, "", 1);
+            } else {
+                if (task!=0){
+                    UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
+                    //减去task的金币后仍需要支付的金币数
+                    coins = coins - task;
+                    addTaskInput.setNum(-task);
+                    addTaskInput.setType("TASK");
+                    addTaskInput.setTitle("视频打赏消费");
+                    userAssetServiceImpl.addUserCoinDetailSuccess(userId,addTaskInput);
+                    userAssetServiceImpl.updateUserCoinType(userId,"TASK", -task);
+                }
+                if (pay >= coins) {
+                    UserCoinDetailAddInput addPayInput = new UserCoinDetailAddInput();
+                    addPayInput.setNum(-coins);
+                    addPayInput.setType("PAY");
+                    addPayInput.setTitle("视频打赏消费");
+
+                    userAssetServiceImpl.addUserCoinDetailSuccess(userId,addPayInput);
+                    userAssetServiceImpl.updateUserCoinType(userId,"PAY", -coins);
+                    userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
+                    //增加视频获得的打赏详情
+                    this.userAssetServiceImpl.addVideoTipDetail(videoId,userId,coins);
+                    videoMapper.addTipCount(videoId);
+
+                    videoAuthorIncome(authorId, authorIncome);
+
+                    return new ServiceStatusInfo<>(0, "", 1);
+                } else {
+                    if (pay!=0){
+                        coins = coins - pay;//减去pay的金币后仍需要支付的金币数
+                        UserCoinDetailAddInput addPayInput = new UserCoinDetailAddInput();
+                        addPayInput.setNum(-pay);
+                        addPayInput.setType("PAY");
+                        addPayInput.setTitle("视频打赏消费");
+
+                        userAssetServiceImpl.addUserCoinDetailSuccess(userId,addPayInput);
+                        userAssetServiceImpl.updateUserCoinType(userId,"PAY", -pay);
+                    }
+                    if (other >= coins) {
+                        UserCoinDetailAddInput addOtherInput = new UserCoinDetailAddInput();
+                        addOtherInput.setNum(-coins);
+                        addOtherInput.setType("OTHER");
+                        addOtherInput.setTitle("视频打赏消费");
+
+                        userAssetServiceImpl.addUserCoinDetailSuccess(userId,addOtherInput);
+                        userAssetServiceImpl.updateUserCoinType(userId,"OTHER", -coins);
+                        userAssetServiceImpl.updateUserAsset(userId,-authorIncome);
+                        //增加视频获得的打赏详情
+                        this.userAssetServiceImpl.addVideoTipDetail(videoId,userId,coins);
+                        videoMapper.addTipCount(videoId);
+
+                        videoAuthorIncome(authorId, authorIncome);
+
+                        return new ServiceStatusInfo<>(0, "", 1);
+                    } else {
+                        if (other!=0){
+                            coins = coins - other;//减去other的金币后还需要支付的金币数
+                            UserCoinDetailAddInput addOtherInput = new UserCoinDetailAddInput();
+                            addOtherInput.setNum(-other);
+                            addOtherInput.setType("OTHER");
+                            addOtherInput.setTitle("视频打赏消费");
+                            userAssetServiceImpl.addUserCoinDetailSuccess(userId,addOtherInput);
+                            userAssetServiceImpl.updateUserCoinType(userId,"OTHER", -other);
+                        }
+                        UserCoinDetailAddInput addIncomeInput = new UserCoinDetailAddInput();
+                        addIncomeInput.setNum(-coins);
+                        addIncomeInput.setType("INCOME");
+                        addIncomeInput.setTitle("视频打赏消费");
+                        userAssetServiceImpl.addUserCoinDetailSuccess(userId,addIncomeInput);
+                        userAssetServiceImpl.updateUserCoinType(userId,"INCOME", -coins);
+                        userAssetServiceImpl.updateUserAsset(userId,-authorIncome );
+                        //增加视频获得的打赏详情
+                        this.userAssetServiceImpl.addVideoTipDetail(videoId,userId,coins);
+                        videoMapper.addTipCount(videoId);
+                        videoAuthorIncome(authorId, authorIncome);
+                        return new ServiceStatusInfo<>(0, "", 1);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "打赏失败" + e.getMessage(), null);
         }
     }
 

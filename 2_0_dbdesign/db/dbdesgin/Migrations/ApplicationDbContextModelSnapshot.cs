@@ -333,9 +333,134 @@ namespace dbdesgin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0L);
 
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasDefaultValue("FAKE");
+
                     b.HasKey("Id");
 
                     b.ToTable("core_dailyIncreaseAnalysises");
+                });
+
+            modelBuilder.Entity("dbdesgin.Models.EnCashMentDetail", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("coins");
+
+                    b.Property<string>("extraData");
+
+                    b.Property<bool>("isAllowedEnCash")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("payAccountId");
+
+                    b.Property<string>("payAccountType")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("resultReason")
+                        .HasMaxLength(512);
+
+                    b.Property<int>("rmbs");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("tradeNo");
+
+                    b.Property<long>("userId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("tradeNo");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("core_enCashMentDetails");
+                });
+
+            modelBuilder.Entity("dbdesgin.Models.EnCashPayAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("accessToken")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("avatarUrl")
+                        .HasMaxLength(512);
+
+                    b.Property<long>("expireIn");
+
+                    b.Property<bool>("isLocked")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<string>("uniqueId")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<long>("userId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("core_enCashAccounts");
                 });
 
             modelBuilder.Entity("dbdesgin.Models.Follower", b =>
@@ -1163,6 +1288,12 @@ namespace dbdesgin.Migrations
                         .IsRequired()
                         .HasMaxLength(512);
 
+                    b.Property<string>("tradeNo")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("tradeType")
+                        .HasMaxLength(50);
+
                     b.Property<string>("type")
                         .IsRequired()
                         .HasMaxLength(20);
@@ -1170,6 +1301,8 @@ namespace dbdesgin.Migrations
                     b.Property<long>("userId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("tradeNo");
 
                     b.HasIndex("userId");
 
@@ -1202,6 +1335,10 @@ namespace dbdesgin.Migrations
                     b.Property<bool>("isManualData")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
+
+                    b.Property<long>("lockedCoins")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0L);
 
                     b.Property<string>("type")
                         .IsRequired()

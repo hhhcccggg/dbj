@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.service.pay.wechat.model;
+package com.zwdbj.server.mobileapi.service.pay.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
