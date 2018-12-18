@@ -176,6 +176,7 @@ public class AppPushService {
         }
         if (type.equals("ios")) {
             PushXGIOSMessage xgiosMessage = new PushXGIOSMessage();
+            xgiosMessage.setEnvironment(AppConfigConstant.PUSH_ENV);
             xgiosMessage.setContent(message.getMsgContent());
             xgiosMessage.setTitle(message.getTitle());
             PushIosDevice iosDevice = new PushIosDevice();
