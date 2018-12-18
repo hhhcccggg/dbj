@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.controller;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.mobileapi.model.user.UserToken;
+import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.youzan.model.AyouzanTradeCartAddParams;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;
