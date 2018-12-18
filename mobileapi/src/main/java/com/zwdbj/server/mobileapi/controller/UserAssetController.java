@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.service.userAssets.model.*;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
@@ -68,7 +69,8 @@ public class UserAssetController {
     @RequestMapping(value = "/banding/third", method = RequestMethod.POST)
     @ApiOperation(value = "提现:绑定第三方平台")
     public ResponseData<Integer> bandingThird(@RequestBody BandingThirdInput input){
-        ServiceStatusInfo<Integer> info = this.userAssetServiceImpl.bandingThird(input);
+        long userId = JWTUtil.getCurrentId();
+        ServiceStatusInfo<Integer> info = this.userAssetServiceImpl.bandingThird(userId,input);
         if (info.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",info.getData());
         }else {
