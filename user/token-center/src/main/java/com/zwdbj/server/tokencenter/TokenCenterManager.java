@@ -1,6 +1,7 @@
 package com.zwdbj.server.tokencenter;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -8,26 +9,38 @@ import com.zwdbj.server.utility.model.ServiceStatusCode;
 =======
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 >>>>>>> 剥离授权业务
+=======
+import com.zwdbj.server.tokencenter.model.UserToken;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
+import com.zwdbj.server.utility.model.ServiceStatusCode;
+>>>>>>> 增加用户授权相关
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 增加用户授权相关
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
 @Service
+<<<<<<< HEAD
 =======
 
 import java.util.concurrent.TimeUnit;
 
 >>>>>>> 剥离授权业务
+=======
+>>>>>>> 增加用户授权相关
 public class TokenCenterManager {
     @Autowired
     private RedisTemplate redisTemplate;
     private Logger logger = LoggerFactory.getLogger(TokenCenterManager.class);
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     private String userTokenKey(String id) {
@@ -126,94 +139,99 @@ public class TokenCenterManager {
     }
     private String userInfoKey(long id) {
         return "tokencenter_userinfo_"+String.valueOf(id);
+=======
+
+    private String userTokenKey(String id) {
+        return "user_t_"+id;
+>>>>>>> 增加用户授权相关
     }
-    /**
-     * 获取token
-     * @param infoModel 基本用户信息
-     * @return token信息
-     */
-    public ServiceStatusInfo<TokenInfoModel> fetchToken(AuthUserInfoModel infoModel) {
-        TokenInfoModel tokenInfoModel = new TokenInfoModel();
-        tokenInfoModel.setAccessToken(JWTUtil.sign(String.valueOf(infoModel.getId())));
-        tokenInfoModel.setExpireTime(JWTUtil.EXPIRE_TIME);
-        this.redisTemplate.opsForValue().set(tokenKey(infoModel.getId()),tokenInfoModel,JWTUtil.EXPIRE_TIME,TimeUnit.SECONDS);
-        this.redisTemplate.opsForValue().set(userInfoKey(infoModel.getId()),infoModel,JWTUtil.EXPIRE_TIME,TimeUnit.SECONDS);
-        return new ServiceStatusInfo<>(0,"OK",tokenInfoModel);
+    private String userInfoKey(String id) {
+        return "user_info_"+id;
     }
 
     /**
-     * 依据token获取用户信息
+     * 校验token是否有效
      * @param accessToken token
-     * @return 返回用户信息，如果token已失效，返回失败
+     * @return 返回结果
      */
-    public ServiceStatusInfo<AuthUserInfoModel> userInfo(String accessToken) {
-        String userId =JWTUtil.getId(accessToken);
-        if (userId == null || userId.isEmpty()) {
-            return new ServiceStatusInfo<>(1,"token无效",null);
+    public ServiceStatusInfo<Object> checkToken(String accessToken) {
+        String id = JWTUtil.getId(accessToken);
+        if (id == null || id.isEmpty()) {
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_UNAUTH,"凭证无效",null);
         }
-        long id = Long.parseLong(userId);
-        return userInfo(id);
+        if (!JWTUtil.verify(accessToken,id)) {
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_UNAUTH,"凭证无效",null);
+        }
+        ServiceStatusInfo<Object> objectServiceStatusInfo = accessToken(id);
+        if (!objectServiceStatusInfo.isSuccess()) {
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_UNAUTH,"凭证无效",null);
+        }
+        if (!objectServiceStatusInfo.getData().toString().equals(accessToken)) {
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_UNAUTH,"凭证无效",null);
+        }
+        return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"OK",id);
     }
 
     /**
-     *
-     * @param userId
+     * 为指定用户颁发token
+     * @param id
+     * @param authUserManager
      * @return
      */
-    public ServiceStatusInfo<AuthUserInfoModel> userInfo(long id) {
-        try {
-            if (!this.redisTemplate.hasKey(tokenKey(id))) {
-                return new ServiceStatusInfo<>(401,"token无效",null);
-            }
-            if (!this.redisTemplate.hasKey(userInfoKey(id))) {
-                return new ServiceStatusInfo<>(401,"token无效",null);
-            }
-            AuthUserInfoModel userInfoModel = (AuthUserInfoModel)this.redisTemplate.opsForValue().get(userInfoKey(id));
-            if (userInfoModel == null) {
-                this.redisTemplate.delete(userInfo(id));
-                this.redisTemplate.delete(tokenKey(id));
-                return new ServiceStatusInfo<>(401,"token无效",null);
-            }
-            return new ServiceStatusInfo<>(0,"OK",userInfoModel);
-        }catch ( Exception ex ) {
-            this.redisTemplate.delete(userInfo(id));
-            this.redisTemplate.delete(tokenKey(id));
-            logger.warn(ex.getMessage());
-            return new ServiceStatusInfo<>(500,ex.getMessage(),null);
-        }
+    public ServiceStatusInfo<UserToken> fetchToken(String id,IAuthUserManager authUserManager) {
+        String token = JWTUtil.sign(id);
+        this.redisTemplate.opsForValue().set(userTokenKey(id),token,JWTUtil.EXPIRE_TIME,TimeUnit.SECONDS);
+        this.redisTemplate.opsForValue().set(userInfoKey(id),authUserManager.get(id),JWTUtil.EXPIRE_TIME,TimeUnit.SECONDS);
+        UserToken userToken = new UserToken();
+        userToken.setAccessToken(token);
+        userToken.setExpireTime(JWTUtil.EXPIRE_TIME);
+        return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"OK",userToken);
     }
+
+    /**
+     * 退出
+     * @param id
+     * @return
+     */
+    public ServiceStatusInfo<Object> logout(String id) {
+        this.redisTemplate.delete(userTokenKey(id));
+        this.redisTemplate.delete(userInfoKey(id));
+        return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"OK",null);
+    }
+
     /**
      * 刷新用户信息
-     * @param infoModel
+     * @param id
+     * @param authUserManager
      * @return
      */
-    public ServiceStatusInfo<Object> updateUserInfo(AuthUserInfoModel infoModel) {
-        this.redisTemplate.opsForValue().set(userInfoKey(infoModel.getId()),infoModel,JWTUtil.EXPIRE_TIME,TimeUnit.SECONDS);
-        return new ServiceStatusInfo<>(0,"OK",null);
-    }
-    /**
-     * 注销
-     * @param accessToken
-     * @return
-     */
-    public ServiceStatusInfo<Object> logout(String accessToken) {
-        String userId =JWTUtil.getId(accessToken);
-        if (userId == null || userId.isEmpty()) {
-            return new ServiceStatusInfo<>(0,"OK",null);
-        }
-        return logout(Long.parseLong(userId));
+    public ServiceStatusInfo<Object> refreshUserInfo(String id,IAuthUserManager authUserManager) {
+        this.redisTemplate.opsForValue().set(userInfoKey(id),authUserManager.get(id),JWTUtil.EXPIRE_TIME,TimeUnit.SECONDS);
+        return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"OK",null);
     }
 
     /**
-     * 注销
-     * @param userId
-     * @return
+     * 获取指定用户token
+     * @param id 用户id
+     * @return 返回凭证
      */
+<<<<<<< HEAD
     public ServiceStatusInfo<Object> logout(long userId) {
         this.redisTemplate.delete(tokenKey(userId));
         this.redisTemplate.delete(userInfo(userId));
         return new ServiceStatusInfo<>(0,"OK",null);
 >>>>>>> 剥离授权业务
+=======
+    protected ServiceStatusInfo<Object> accessToken(String id) {
+        if (!this.redisTemplate.hasKey(userTokenKey(id))) {
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_UNAUTH,"凭证无效",null);
+        }
+        Object token = this.redisTemplate.opsForValue().get(userTokenKey(id));
+        if (token == null || ((String)token).isEmpty()) {
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_UNAUTH,"凭证无效",null);
+        }
+        return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"OK",token);
+>>>>>>> 增加用户授权相关
     }
 
 }
