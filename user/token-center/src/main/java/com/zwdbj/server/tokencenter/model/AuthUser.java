@@ -1,49 +1,21 @@
-package com.zwdbj.server.tokencenter;
+package com.zwdbj.server.tokencenter.model;
 
 import java.io.Serializable;
 
-/**
- * 基本用户信息
- */
-public class AuthUserInfoModel implements Serializable {
-    /**
-     * 用户ID
-     */
-    private long id;
-    /**
-     * 用户名
-     */
+public class AuthUser implements Serializable {
+    private String id;
     private String username;
-    /**
-     * 昵称
-     */
-    private String nickName;
-    /**
-     * 电子邮件
-     */
     private String email;
-    /**
-     * 电话
-     */
     private String phone;
-    /**
-     * 用户是否禁止登陆
-     */
     private boolean isLocked;
-    /**
-     * 角色列表
-     */
     private String[] roles;
-    /**
-     * 权限列表
-     */
     private String[] permissions;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,14 +25,6 @@ public class AuthUserInfoModel implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
     }
 
     public String getEmail() {
