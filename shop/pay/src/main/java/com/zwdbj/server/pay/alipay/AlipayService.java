@@ -173,7 +173,7 @@ public class AlipayService {
             reqData.put("product_id","APP_FAST_LOGIN");
             reqData.put("scope","kuaijie");
             reqData.put("target_id",UUID.randomUUID().toString());
-            reqData.put("scope","kuaijie");
+            reqData.put("auth_type","AUTHACCOUNT");
             reqData.put("sign_type","RSA2");
             String signTxt = AlipaySignature.rsaSign(reqData,AlipaySDKClient.getPrivateKey(),"UTF-8");
             reqData.put("sign",signTxt);
