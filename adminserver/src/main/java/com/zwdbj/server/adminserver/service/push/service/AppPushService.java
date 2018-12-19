@@ -64,6 +64,7 @@ public class AppPushService {
     protected boolean pushOneToOne(QueueWorkInfoModel.QueueWorkPush pushData) {
         String pushTitle = "爪子提醒";
         String pushDescription = pushData.getMsgContent();
+        int type = 0;
         if (pushData.getCreatorUserId()==0 || pushData.getToUserId()==0) {
             logger.warn("推送消息失败编号:"+pushData.getPushId()+"没有创建者或者目的用户");
             return true;
@@ -75,12 +76,15 @@ public class AppPushService {
             if (pushResDataContent == null) return true;
         }
         if (pushData.getMessageType() == 1) {
+            type=1;
             pushTitle = "收到新点赞";
             pushDescription = String.format("你的作品《%s》收到新点赞",pushResDataContent.getTitle());
         } else if (pushData.getMessageType() == 3) {
+            type=3;
             pushTitle = "收到新评论";
             pushDescription = String.format("你的作品《%s》收到新评论",pushResDataContent.getTitle());
         } else if (pushData.getMessageType() == 2) {
+            type=2;
             pushTitle = "新粉丝通知";
             pushDescription = "又有人悄悄关注了你，快去看看！";
         }
@@ -89,6 +93,7 @@ public class AppPushService {
         
 
         PushMessage pushMessage = new PushMessage();
+        pushMessage.setType(type);
         pushMessage.setPushId(pushData.getPushId());
         PushXGExtraMessage pushXGExtraMessage = new PushXGExtraMessage();
         pushXGExtraMessage.setMessageType(pushData.getMessageType());
@@ -164,34 +169,46 @@ public class AppPushService {
         settingRequestHeader(builder,type);
         String jsonBody = "";
         PushXGMessage xgMessage = new PushXGMessage();
+        Message mag = new Message();
+        mag.setTitle(message.getTitle());
+        mag.setContent(message.getMsgContent());
         xgMessage.setPlatform(type);
-        xgMessage.setEnvironment(AppConfigConstant.PUSH_ENV);
         if (isAll) {
             xgMessage.setAudience_type("all");
         } else  {
             xgMessage.setAudience_type("account");
-            List<String> accounts = new ArrayList<>();
+            ArrayList<String> accounts = new ArrayList<>();
             accounts.add(String.valueOf(toUserId));
             xgMessage.setAccount_list(accounts);
         }
         if (type.equals("ios")) {
+            if ("dev".equals(AppConfigConstant.PUSH_ENV)){
+                xgMessage.setEnvironment(Environment.dev);
+            }
             PushXGIOSMessage xgiosMessage = new PushXGIOSMessage();
-            xgiosMessage.setEnvironment(AppConfigConstant.PUSH_ENV);
-            xgiosMessage.setContent(message.getMsgContent());
-            xgiosMessage.setTitle(message.getTitle());
-            PushIosDevice iosDevice = new PushIosDevice();
-            iosDevice.setAps("{\"alert\": \""+message.getMsgContent()+"\",\"badge\": 1}");
-            iosDevice.setCustom(message.getExtraData());
-            xgiosMessage.setIos(iosDevice);
-            xgMessage.setMessage(xgiosMessage);
+            Aps aps = new Aps();
+            Alert alert = new Alert();
+            alert.setSubtitle(message.getMsgContent());
+            aps.setAlert(alert);
+            aps.setBadge_type(1);
+            xgiosMessage.setAps(aps);
+            xgiosMessage.setCustom(JSON.toJSONString(message.getExtraData()));
+            mag.setIos(xgiosMessage);
+            xgMessage.setMessage(mag);
         } else {
             PushXGAndroidMessage androidMessage = new PushXGAndroidMessage();
-            androidMessage.setTitle(message.getTitle());
-            androidMessage.setContent(message.getMsgContent());
-            PushAndroidDevice deviceType = new PushAndroidDevice();
-            deviceType.setCustom_content(message.getExtraData());
-            androidMessage.setAndroid(deviceType);
-            xgMessage.setMessage(androidMessage);
+            androidMessage.setCustom_content(JSON.toJSONString(message.getExtraData()));
+            ClickAction action = new ClickAction();
+            if (message.getType()==1){
+                action.setActivity("com.zwdbj.aichongpai.ui.message.LikeActivity");
+            }else if (message.getType()==2){
+                action.setActivity("com.zwdbj.aichongpai.ui.message.FansActivity");
+            }else if (message.getType()==3){
+                action.setActivity("com.zwdbj.aichongpai.ui.message.CommentsActivity");
+            }
+            androidMessage.setAction(action);
+            mag.setAndroid(androidMessage);
+            xgMessage.setMessage(mag);
         }
         jsonBody = JSON.toJSONString(xgMessage);
         builder.post(RequestBody.create(MediaType.parse("application/json"),jsonBody));

@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.middleware.mq;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-import com.zwdbj.server.adminserver.service.push.service.AppPushService2;
+import com.zwdbj.server.adminserver.service.push.service.AppPushService;
 import com.zwdbj.server.adminserver.service.review.service.LivingReviewService;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
@@ -87,7 +87,7 @@ public class MQWorkReceiver extends MQConnection {
         } else if (info.getWorkType()==QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.PUSH) {
             QueueWorkInfoModel.QueueWorkPush pushInfo = info.getPushData();
             //处理推送数据
-            AppPushService2 pushService = SpringContextUtil.getBean(AppPushService2.class);
+            AppPushService pushService = SpringContextUtil.getBean(AppPushService.class);
             pushService.push(pushInfo);
             logger.info("[MQ]处理完推送数据");
             channel.basicAck(envelope.getDeliveryTag(),false);
