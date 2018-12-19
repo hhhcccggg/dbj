@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.model.user;
+package com.zwdbj.server.tokencenter.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

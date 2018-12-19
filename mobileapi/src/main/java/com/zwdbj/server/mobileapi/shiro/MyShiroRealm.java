@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.shiro;
 
+import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.user.model.UserAuthInfoModel;
 import com.zwdbj.server.utility.common.shiro.JWTToken;
@@ -29,6 +30,10 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Autowired
     @Lazy
     private UserService userService;
+    @Autowired
+    @Lazy
+    private TokenCenterManager tokenCenterManager;
+
     private Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
 
     @Override
@@ -38,20 +43,13 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        //TODO 增加数据缓存
         String token = (String)authenticationToken.getCredentials();
-        String id = JWTUtil.getId(token);
-        if (id == null) {
-            throw new AuthenticationException("token invalid");
+        ServiceStatusInfo<Object> checkTokenResult = this.tokenCenterManager.checkToken(token);
+        if (!checkTokenResult.isSuccess()) {
+            throw new AuthenticationException(checkTokenResult.getMsg());
         }
-        if (!JWTUtil.verify(token, id)) {
-            throw new AuthenticationException("token invalid");
-        }
-        long userId = Long.parseLong(id);
-        if(!userService.checkTokenValid(userId,token).isSuccess()) {
-            logger.info("用户{"+id+"}Token无效");
-            throw new AuthenticationException("用户token无效");
-        }
+        long userId = Long.parseLong(checkTokenResult.getData().toString());
+
         ServiceStatusInfo<UserAuthInfoModel> checkStatus = null;
         try {
             checkStatus = userService.checkUserAuth(userId);
@@ -67,7 +65,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         HttpServletRequest request = requestAttributes.getRequest();
         String url = request.getRequestURI();
         List<String> roles = checkStatus.getData().getRoles();
-        logger.info("用户{"+id+"}请求url{"+url+"}");
+        logger.info("用户{"+userId+"}请求url{"+url+"}");
         return new SimpleAuthenticationInfo(token, token, "my_realm");
     }
 
