@@ -464,6 +464,7 @@ public class VideoService {
             //获取视频作者id
             Long authorId = videoMapper.findUserIdByVideoId(videoId);
             long userId = JWTUtil.getCurrentId();
+            if (authorId==userId)return new ServiceStatusInfo<>(1, "不能给自己打赏", null);
             //查看此用户是否存在金币账户
             this.userAssetServiceImpl.userIsExist(userId);
             int authorIncome = coins;

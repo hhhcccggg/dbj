@@ -136,7 +136,7 @@ public class UserAssetsController {
     }
 
     @RequestMapping(value = "/verify/verifyEnCash/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "审核id查询需要审核的提现详情")
+    @ApiOperation(value = "根据id审核的提现详情")
     @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
     public ResponseData<Integer> verifyEnCash(@PathVariable long id,@RequestParam long userId){
