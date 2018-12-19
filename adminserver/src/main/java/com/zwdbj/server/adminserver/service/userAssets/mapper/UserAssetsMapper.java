@@ -33,7 +33,7 @@ public interface UserAssetsMapper {
     @Select("select * from core_userCoinTypes where userId=#{userId}")
     UserCoinType searchUserCoinTpyesByUserId(@Param("userId") Long userId);
 
-    @Select("select * from core_enCashMentDetails where isAllowedEnCash=0 and status='PROCESSING'")
+    @Select("select * from core_enCashMentDetails where isAllowedEnCash=0 and status='REVIEWING'")
     List<EnCashMentDetailModel> getAllVerifyEnCashs();
     @Select("select * from core_enCashMentDetails where id=#{id}")
     EnCashMentDetailModel getVerifyEnCashById(@Param("id")long id);

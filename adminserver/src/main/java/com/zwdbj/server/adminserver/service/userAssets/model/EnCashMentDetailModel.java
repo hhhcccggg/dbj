@@ -24,7 +24,7 @@ public class EnCashMentDetailModel implements Serializable {
     long payAccountId;
     @ApiModelProperty(value = "第三方支付的类型")
     String payAccountType;
-    @ApiModelProperty(value = "提现的状态")
+    @ApiModelProperty(value = "提现状态 REVIEWING：审核中;SUCCESS：成功；PROCESSING：处理中；FAILED：失败")
     String status;
     @ApiModelProperty(value = "提现的结果原因")
     String resultReason;
