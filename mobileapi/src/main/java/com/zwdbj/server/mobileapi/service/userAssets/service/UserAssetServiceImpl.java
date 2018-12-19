@@ -220,9 +220,9 @@ public class UserAssetServiceImpl implements IUserAssetService{
 
 
     public  List<BuyCoinConfigModel> findAllBuyCoinConfigs(){
-        List<BuyCoinConfigModel> buyCoinConfigModels = this.userAssetMapper.findAllBuyCoinConfigs();
-        return buyCoinConfigModels;
+        return this.userAssetMapper.findAllBuyCoinConfigs();
     }
+
     public void userIsExist(long userId){
         boolean a = this.userCoinTypeIsExist(userId,"TASK");
         if (!a)this.greatUserCoinType(userId,"TASK");

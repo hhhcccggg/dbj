@@ -99,17 +99,20 @@ public class YouZanService {
             sexType = 1;
         }
 
+        String openUserId = String.valueOf(userId);
+
 
         String url = String.format("https://uic.youzan.com/sso/open/login?kdt_id=%s&client_id=%s&" +
                         "client_secret=%s&open_user_id=%s&nick_name=%s&gender=%d&telephone=%s&avatar=%s",
                 AppConfigConstant.YOUZAN_BIND_SHOP_ID,
                 AppConfigConstant.YOUZAN_CLIENT_ID,
                 AppConfigConstant.YOUZAN_SECRECT,
-                String.valueOf(userId),
+                openUserId,
                 userModel.getNickName(),
                 sexType,
                 userModel.getPhone(),
                 userModel.getAvatarUrl());
+        logger.info(url);
 
 
         Request request = new Request.Builder()
@@ -121,6 +124,7 @@ public class YouZanService {
             if (response.isSuccessful()) {
 
                 String jsonStr = response.body().string();
+                logger.info("返回》》"+jsonStr);
                 JSONObject jsonObject = JSONObject.parseObject(jsonStr);
                 int code = jsonObject.getInteger("code");
                 String msg = jsonObject.getString("msg");

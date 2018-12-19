@@ -200,7 +200,7 @@ public class UserService {
         userDetailInfoDto.getShopInfoDto().setLotteryTicketCount(this.youZanService.lotteryTicketCount(userId).getData());
         userDetailInfoDto.getShopInfoDto().setCartUrl("https://h5.youzan.com/wsctrade/cart?kdt_id="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
         userDetailInfoDto.getShopInfoDto().setLotteryUrl("https://h5.youzan.com/wscump/coupon/list?kdtId="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
-        userDetailInfoDto.getShopInfoDto().setOrderUrl("https://h5.youzan.com/v2/orders/all?kdt_id="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
+        userDetailInfoDto.getShopInfoDto().setOrderUrl("https://h5.youzan.com/wsctrade/order/list?kdt_id="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
         //购物车
         ServiceStatusInfo<Integer> cartStatusInfo = this.youZanService.cartNum(userId);
         if (cartStatusInfo.isSuccess()) {
