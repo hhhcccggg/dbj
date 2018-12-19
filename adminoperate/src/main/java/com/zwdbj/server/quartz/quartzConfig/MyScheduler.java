@@ -140,7 +140,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(RealEveryDayUserAndVideoGrowth.class)
                 .withIdentity("job9", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 58 17 * * ?");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 10 18 * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger9", "group2")
                 .withSchedule(scheduleBuilder)
