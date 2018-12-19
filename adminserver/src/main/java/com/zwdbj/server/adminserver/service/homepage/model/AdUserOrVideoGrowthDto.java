@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.service.homepage.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 @ApiModel(description = "用户或者短视频增长量")
@@ -24,6 +25,7 @@ public class AdUserOrVideoGrowthDto {
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime=new Date(createTime.getTime()+28800000);
+        this.createTime = new Date(createTime.getTime() + 28800000);
     }
+
 }
