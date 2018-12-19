@@ -480,4 +480,36 @@ public class QuartzService {
 
     }
 
+
+    public void realEveryDayUserAndVideoGrowth() {
+        try {
+            logger.info("realEveryDayUserAndVideoGrowth开始执行");
+            Date startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-10-27 00:00:00");
+            logger.info("startTime" + startDate.toString());
+            Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-12-19 00:00:00");
+            logger.info("endTime" + endDate.toString());
+            Date date = startDate;
+            Calendar c = Calendar.getInstance();
+            int users = 0;
+            int videos = 0;
+            while (true) {
+                users = this.userService.userDayGrowthed(date);
+                logger.info("users---" + users);
+                videos = this.videoService.videoDayGrowthed(date);
+                logger.info("videos---" + videos);
+                this.dailyIncreaseAnalysisesService.addUserAndVideoDayGrowth(date, users, videos);
+                c.setTime(date);
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                date = c.getTime();
+                logger.info("当前时间" + date.toString());
+                if (date.equals(endDate)) {
+                    break;
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
