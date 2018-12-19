@@ -100,9 +100,6 @@ public class YouZanService {
         }
 
         String openUserId = String.valueOf(userId);
-        if (userModel.getThirdOpenId()!=null&&!userModel.getThirdOpenId().isEmpty()) {
-            openUserId = userModel.getThirdOpenId();
-        }
 
 
         String url = String.format("https://uic.youzan.com/sso/open/login?kdt_id=%s&client_id=%s&" +
@@ -127,6 +124,7 @@ public class YouZanService {
             if (response.isSuccessful()) {
 
                 String jsonStr = response.body().string();
+                logger.info("返回》》"+jsonStr);
                 JSONObject jsonObject = JSONObject.parseObject(jsonStr);
                 int code = jsonObject.getInteger("code");
                 String msg = jsonObject.getString("msg");
