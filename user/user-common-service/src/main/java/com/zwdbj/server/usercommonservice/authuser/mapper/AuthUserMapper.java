@@ -1,4 +1,4 @@
-package com.zwdbj.server.authuser.mapper;
+package com.zwdbj.server.usercommonservice.authuser.mapper;
 
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import org.apache.ibatis.annotations.Select;
