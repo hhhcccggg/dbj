@@ -85,10 +85,10 @@ public class UserAssetsServiceImpl implements UserAssetsService {
     }
 
     @Override
-    public ServiceStatusInfo<UserCoinType> searchUserCoinTypeByUserId(Long userId) {
+    public ServiceStatusInfo<UserCoinType> searchUserCoinTypeByUserId(Long userId,String type) {
         UserCoinType result = null;
         try {
-            result = this.userAssetsMapper.searchUserCoinTpyesByUserId(userId);
+            result = this.userAssetsMapper.searchUserCoinTpyesByUserId(userId,type);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "通过用户id分类型查询用户金币总额失败" + e.getMessage(), result);
@@ -153,7 +153,7 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             input.setPayeeAccount(uniqueId);
             input.setAmount(String.valueOf(model.getRmbs()/100.0));
             input.setRemark("爪子APP提现");
-            long lockedCoins = this.searchUserCoinTypeByUserId(userId).getData().getLockedCoins();
+            long lockedCoins = this.searchUserCoinTypeByUserId(userId,"INCOME").getData().getLockedCoins();
             if (lockedCoins<model.getCoins()){
                 this.updateEnCashStatus(id,"FAILED",false);
                 this.updateCoinDetailStatus(String.valueOf(id),"FAILED");
