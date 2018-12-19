@@ -1,6 +1,6 @@
-package com.zwdbj.server.authuser.service;
+package com.zwdbj.server.usercommonservice.authuser.service;
 
-import com.zwdbj.server.authuser.mapper.AuthUserMapper;
+import com.zwdbj.server.usercommonservice.authuser.mapper.AuthUserMapper;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import org.springframework.stereotype.Service;
