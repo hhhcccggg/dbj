@@ -169,6 +169,9 @@ public class AppPushService {
         settingRequestHeader(builder,type);
         String jsonBody = "";
         PushXGMessage xgMessage = new PushXGMessage();
+        Message mag = new Message();
+        mag.setTitle(message.getTitle());
+        mag.setContent(message.getMsgContent());
         xgMessage.setPlatform(type);
         if (isAll) {
             xgMessage.setAudience_type("all");
@@ -183,20 +186,18 @@ public class AppPushService {
                 xgMessage.setEnvironment(Environment.dev);
             }
             PushXGIOSMessage xgiosMessage = new PushXGIOSMessage();
-            xgiosMessage.setContent(message.getMsgContent());
-            xgiosMessage.setTitle(message.getTitle());
-            PushIosDevice iosDevice = new PushIosDevice();
-            iosDevice.setAps("{\"alert\": \""+message.getMsgContent()+"\",\"badge\": 1}");
-            iosDevice.setCustom(message.getExtraData());
-            xgiosMessage.setIos(iosDevice);
-            xgMessage.setMessage(xgiosMessage);
+            Aps aps = new Aps();
+            Alert alert = new Alert();
+            alert.setSubtitle(message.getMsgContent());
+            aps.setAlert(alert);
+            aps.setBadge_type(1);
+            xgiosMessage.setAps(aps);
+            xgiosMessage.setCustom(JSON.toJSONString(message.getExtraData()));
+            mag.setIos(xgiosMessage);
+            xgMessage.setMessage(mag);
         } else {
             PushXGAndroidMessage androidMessage = new PushXGAndroidMessage();
-            androidMessage.setTitle(message.getTitle());
-            androidMessage.setContent(message.getMsgContent());
-            PushAndroidDevice deviceType = new PushAndroidDevice();
-            deviceType.setCustom_content(message.getExtraData());
-            androidMessage.setAndroid(deviceType);
+            androidMessage.setCustom_content(JSON.toJSONString(message.getExtraData()));
             ClickAction action = new ClickAction();
             if (message.getType()==1){
                 action.setActivity("com.zwdbj.aichongpai.ui.message.LikeActivity");
@@ -206,7 +207,8 @@ public class AppPushService {
                 action.setActivity("com.zwdbj.aichongpai.ui.message.CommentsActivity");
             }
             androidMessage.setAction(action);
-            xgMessage.setMessage(androidMessage);
+            mag.setAndroid(androidMessage);
+            xgMessage.setMessage(mag);
         }
         jsonBody = JSON.toJSONString(xgMessage);
         builder.post(RequestBody.create(MediaType.parse("application/json"),jsonBody));
