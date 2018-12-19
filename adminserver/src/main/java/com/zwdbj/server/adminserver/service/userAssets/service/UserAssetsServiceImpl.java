@@ -139,6 +139,13 @@ public class UserAssetsServiceImpl implements UserAssetsService {
     public ServiceStatusInfo<Integer> verifyEnCash(long id,long userId) {
         try {
             EnCashMentDetailModel model = this.getVerifyEnCashById(id).getData();
+            if (userId!=model.getUserId()){
+                this.updateEnCashStatus(id,"FAILED",false);
+                this.updateCoinDetailStatus(String.valueOf(id),"FAILED");
+                this.updateUserCoinTypeByUserId(userId,"INCOME",model.getCoins(),-model.getCoins());
+                this.updateUserCoinByUserId(userId,model.getCoins());
+                return new ServiceStatusInfo<>(1, "提现失败0:用户id不一致:", null);
+            }
             String uniqueId =  this.userAssetsMapper.getUniqueIdById(model.getPayAccountId());
             AliTransferInput input = new AliTransferInput();
             input.setOutBizNo(String.valueOf(id));
@@ -147,7 +154,13 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             input.setAmount(String.valueOf(model.getRmbs()/100.0));
             input.setRemark("爪子APP提现");
             long lockedCoins = this.searchUserCoinTypeByUserId(userId).getData().getLockedCoins();
-            if (lockedCoins<model.getCoins())return new ServiceStatusInfo<>(1, "提现失败:", null);
+            if (lockedCoins<model.getCoins()){
+                this.updateEnCashStatus(id,"FAILED",false);
+                this.updateCoinDetailStatus(String.valueOf(id),"FAILED");
+                this.updateUserCoinTypeByUserId(userId,"INCOME",model.getCoins(),-model.getCoins());
+                this.updateUserCoinByUserId(userId,model.getCoins());
+                return new ServiceStatusInfo<>(1, "提现失败1:", null);
+            }
             ServiceStatusInfo<AliTransferResult> aliInfo = this.alipayService.transfer(input);
             long enCashDetailId = Long.valueOf(aliInfo.getData().getOutBizNo());
             if (aliInfo.isSuccess() && aliInfo.getData().isTransferred()){
@@ -160,7 +173,7 @@ public class UserAssetsServiceImpl implements UserAssetsService {
                 this.updateCoinDetailStatus(aliInfo.getData().getOutBizNo(),"FAILED");
                 this.updateUserCoinTypeByUserId(userId,"INCOME",model.getCoins(),-model.getCoins());
                 this.updateUserCoinByUserId(userId,model.getCoins());
-                return new ServiceStatusInfo<>(1,"提现失败",0);
+                return new ServiceStatusInfo<>(1,"提现失败2:第三方返回失败",0);
             }
 
         }catch (Exception e){
