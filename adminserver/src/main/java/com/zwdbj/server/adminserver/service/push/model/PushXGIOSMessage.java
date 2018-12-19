@@ -1,47 +1,47 @@
 package com.zwdbj.server.adminserver.service.push.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PushXGIOSMessage implements Serializable {
 
-    private PushIosDevice ios;
-    private String title;
-    private String content;
-    @ApiModelProperty(value = "消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播")
-    private int type;
+    @JsonProperty(value = "aps", required = true)
+    @ApiModelProperty(notes = "苹果推送服务(APNs)特有的消息体字段")
+    private Aps aps;
 
+    @JsonProperty(value = "custom")
+    @ApiModelProperty(notes = "自定义下发的参数")
+    private String custom;
 
-    public int getType() {
-        return type;
+    @JsonProperty(value = "xg")
+    @ApiModelProperty(notes = "系统保留key，应避免使用")
+    private String xg;
+
+    public Aps getAps() {
+        return aps;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setAps(Aps aps) {
+        this.aps = aps;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCustom() {
+        return custom;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCustom(String custom) {
+        this.custom = custom;
     }
 
-    public String getContent() {
-        return content;
+    public String getXg() {
+        return xg;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public PushIosDevice getIos() {
-        return ios;
-    }
-
-    public void setIos(PushIosDevice ios) {
-        this.ios = ios;
+    public void setXg(String xg) {
+        this.xg = xg;
     }
 }
