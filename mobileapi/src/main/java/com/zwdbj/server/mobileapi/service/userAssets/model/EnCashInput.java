@@ -32,10 +32,10 @@ public class EnCashInput implements Serializable {
     }
 
     public int getRmbs() {
-        return rmbs;
+        return 10;
     }
 
     public void setRmbs(int rmbs) {
-        this.rmbs = rmbs;
+        this.rmbs = 10;
     }
 }

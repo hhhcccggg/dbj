@@ -19,7 +19,7 @@ public class UserCoinDetail {
 
     @ApiModelProperty(value = "用户Id")
     Long userId;
-    @ApiModelProperty(value = "状态")
+    @ApiModelProperty(value = "状态: SUCCESS:成功；FAILED：失败; PROCESSING：处理中")
     String status;
     @ApiModelProperty(value = "状态原因说明")
     String statusMsg;
