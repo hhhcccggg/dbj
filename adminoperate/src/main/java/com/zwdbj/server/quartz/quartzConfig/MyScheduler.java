@@ -23,6 +23,7 @@ public class MyScheduler {
         JobKey jobKey6 = new JobKey("job6", "group02");
         JobKey jobKey7 = new JobKey("job7", "group02");
         JobKey jobKey8 = new JobKey("job8", "group02");
+        JobKey jobKey9 = new JobKey("job9", "group02");
         if (!myScheduler.checkExists(jobKey1)) startJob1(myScheduler);
         if (!myScheduler.checkExists(jobKey2)) startJob2(myScheduler);
         if (!myScheduler.checkExists(jobKey3)) startJob3(myScheduler);
@@ -31,6 +32,7 @@ public class MyScheduler {
         if (!myScheduler.checkExists(jobKey6)) startJob6(myScheduler);
         if (!myScheduler.checkExists(jobKey7)) startJob7(myScheduler);
         if (!myScheduler.checkExists(jobKey8)) startJob8(myScheduler);
+        if (!myScheduler.checkExists(jobKey9)) startJob9(myScheduler);
         myScheduler.start();
 
     }
@@ -134,5 +136,16 @@ public class MyScheduler {
         scheduler.scheduleJob(jobDetail, cronTrigger);
     }
 
+    private void startJob9(Scheduler scheduler) throws SchedulerException {
+        JobDetail jobDetail = JobBuilder.newJob(RealEveryDayUserAndVideoGrowth.class)
+                .withIdentity("job9", "group02")
+                .build();
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 58 17 * * ?");
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+                .withIdentity("trigger9", "group2")
+                .withSchedule(scheduleBuilder)
+                .build();
+        scheduler.scheduleJob(jobDetail, cronTrigger);
+    }
 
 }

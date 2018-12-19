@@ -2,6 +2,8 @@ package com.zwdbj.server.service.dailyIncreaseAnalysises.mapper;
 
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
+
 
 @Mapper
 public interface IDailyIncreaseAnalysisesMapper {
@@ -21,8 +23,10 @@ public interface IDailyIncreaseAnalysisesMapper {
 //    @Select("select sum(newUsers) as growthed,createTime from core_dailyIncreaseAnalysises where  createTime between date_add(now(),INTERVAL -1 HOUR) and now()")
 //    Long userGrowthAd();
 
-//    @Select("select sum(newVideos) as growthed,createTime from core_dailyIncreaseAnalysises where createTime between date_add(now(),INTERVAL -1 HOUR) and now()")
+    //    @Select("select sum(newVideos) as growthed,createTime from core_dailyIncreaseAnalysises where createTime between date_add(now(),INTERVAL -1 HOUR) and now()")
 //    Long videoGrowthAd();
-
+    @Insert("insert into core_dailyIncreaseAnalysises (id,createTime,newUsers,newVideos,type)" +
+            " values(#{id},#{createTime},#{userDayGrowth},#{videoDayGrowth},'TRUTH')")
+    Long createDaily(@Param("id") Long id, @Param("createTime") Date createTime, @Param("userDayGrowth") int userDayGrowth, @Param("videoDayGrowth") int videoDayGrowth);
 
 }

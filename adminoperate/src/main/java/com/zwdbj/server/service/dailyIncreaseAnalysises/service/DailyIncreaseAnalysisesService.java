@@ -8,6 +8,8 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class DailyIncreaseAnalysisesService {
     @Autowired
@@ -45,4 +47,8 @@ public class DailyIncreaseAnalysisesService {
         return videoGrowthed;
     }
 
+    public void addUserAndVideoDayGrowth(Date date, int userNowDayGrowth, int videoNowDayGrowth) {
+        Long id = UniqueIDCreater.generateID();
+        this.dailyIncreaseAnalysisesMapper.createDaily(id, date, userNowDayGrowth, videoNowDayGrowth);
+    }
 }

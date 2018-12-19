@@ -2,6 +2,7 @@ package com.zwdbj.server.service.user.service;
 
 import com.zwdbj.server.operate.oprateService.OperateService;
 import com.zwdbj.server.service.user.mapper.IUserMapper;
+import com.zwdbj.server.service.user.model.UserDayGrowth;
 import com.zwdbj.server.service.userBind.service.UserBindService;
 import com.zwdbj.server.utility.common.SHAEncrypt;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -93,6 +94,10 @@ public class UserService {
 
     public long userGrowth() {
         return this.userMapper.userGrowthAd();
+    }
+
+    public int userDayGrowthed(Date date) {
+        return this.userMapper.userDayGrowthed(date);
     }
 }
 
