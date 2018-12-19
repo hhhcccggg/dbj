@@ -115,6 +115,7 @@ public class YouZanService {
                 sexType,
                 userModel.getPhone(),
                 userModel.getAvatarUrl());
+        logger.info(url);
 
 
         Request request = new Request.Builder()
