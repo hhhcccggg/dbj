@@ -86,6 +86,7 @@ public class UserService {
     @CacheEvict(value = "userauthinfo", key = "#id", allEntries = true)
     public void updateField(String fields, long id) {
         this.userMapper.updateField(fields, id);
+        this.tokenCenterManager.refreshUserInfo(String.valueOf(id), iAuthUserManagerImpl);
     }
 
 
@@ -554,6 +555,7 @@ public class UserService {
             return new ServiceStatusInfo<>(1, "手机号已经被其他账号绑定", null);
         }
         this.userMapper.updateField("IsPhoneVerification=true,phone='" + phone + "'", userId);
+        this.tokenCenterManager.refreshUserInfo(String.valueOf(userId), iAuthUserManagerImpl);
         return new ServiceStatusInfo<>(0, "绑定成功", null);
     }
 
