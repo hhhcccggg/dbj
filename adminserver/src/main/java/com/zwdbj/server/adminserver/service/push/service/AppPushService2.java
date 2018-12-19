@@ -32,7 +32,7 @@ public class AppPushService2 {
     protected UserService userService;
     @Autowired
     protected VideoService videoService;
-    protected Logger logger = LoggerFactory.getLogger(AppPushService.class);
+    protected Logger logger = LoggerFactory.getLogger(AppPushService2.class);
     protected final OkHttpClient client = new OkHttpClient();
     @Autowired
     private UserDeviceTokensService userDeviceTokensService;
