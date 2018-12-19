@@ -3,13 +3,15 @@ package com.zwdbj.server.usercommonservice.authuser.service;
 import com.zwdbj.server.usercommonservice.authuser.mapper.AuthUserMapper;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
 
 @Service
-public class IAuthUserManagerImpl implements IAuthUserManager {
+@Primary
+public class AuthUserManagerImpl implements IAuthUserManager {
     @Resource
     private AuthUserMapper authUserMapper;
 

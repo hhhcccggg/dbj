@@ -6,7 +6,9 @@ import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.mobileapi.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.mobileapi.service.setting.service.SettingService;
 import com.zwdbj.server.mobileapi.service.user.model.*;
+import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.UserToken;
+import com.zwdbj.server.usercommonservice.authuser.service.AuthUserManagerImpl;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.userBind.model.UserThirdAccountBindDto;
 import com.zwdbj.server.mobileapi.service.userBind.service.UserBindService;
@@ -40,6 +42,10 @@ public class UserController {
     private SettingService settingService;
     @Autowired
     private UserBindService userBindService;
+    @Autowired
+    private AuthUserManagerImpl iAuthUserManager;
+    @Autowired
+    private TokenCenterManager tokenCenterManager;
 
     @RequiresAuthentication
     @RequestMapping(value = "/pushSetting", method = RequestMethod.POST)
@@ -84,8 +90,7 @@ public class UserController {
     @ApiOperation(value = "第三方登录")
     public ResponseData<UserLoginInfoDto> loginByThird(@RequestBody BindThirdPartyAccountInput input) {
         UserModel userModel = userService.regUserByOpenId(input);
-        String token = JWTUtil.sign(String.valueOf(userModel.getId()));
-        UserToken userToken = new UserToken(token, JWTUtil.EXPIRE_TIME);
+        UserToken userToken = this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManager).getData();
         UserLoginInfoDto userLoginInfo = new UserLoginInfoDto();
         userLoginInfo.setUserToken(userToken);
         userLoginInfo.setEmail(userModel.getEmail());
@@ -93,8 +98,7 @@ public class UserController {
         userLoginInfo.setPhone(userModel.getPhone());
         userLoginInfo.setAvatarUrl(userModel.getAvatarUrl());
         userLoginInfo.setUsername(userModel.getUsername());
-        this.userService.saveUserTokenToCache(userModel.getId(), token);
-        return new ResponseData<UserLoginInfoDto>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
     }
 
     @RequiresAuthentication
@@ -135,8 +139,9 @@ public class UserController {
     public ResponseData<UserLoginInfoDto> AuthByPhone(@RequestBody PhoneCodeInput input) {
         ServiceStatusInfo<UserModel> serviceStatusInfo = userService.loginByPhone(input.getPhone(), input.getCode());
         if (serviceStatusInfo.isSuccess()) {
-            String token = JWTUtil.sign(String.valueOf(serviceStatusInfo.getData().getId()));
-            UserToken userToken = new UserToken(token, JWTUtil.EXPIRE_TIME);
+            UserToken userToken = this.tokenCenterManager
+                    .fetchToken(String.valueOf(serviceStatusInfo.getData().getId()),this.iAuthUserManager)
+                    .getData();
             UserLoginInfoDto userLoginInfo = new UserLoginInfoDto();
             userLoginInfo.setUserToken(userToken);
             userLoginInfo.setEmail(serviceStatusInfo.getData().getEmail());
@@ -144,10 +149,9 @@ public class UserController {
             userLoginInfo.setPhone(serviceStatusInfo.getData().getPhone());
             userLoginInfo.setAvatarUrl(serviceStatusInfo.getData().getAvatarUrl());
             userLoginInfo.setUsername(serviceStatusInfo.getData().getUsername());
-            this.userService.saveUserTokenToCache(serviceStatusInfo.getData().getId(), token);
-            return new ResponseData<UserLoginInfoDto>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
         } else {
-            return new ResponseData<UserLoginInfoDto>(ResponseDataCode.STATUS_UNAUTH, serviceStatusInfo.getMsg(), null);
+            return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, serviceStatusInfo.getMsg(), null);
         }
     }
 
