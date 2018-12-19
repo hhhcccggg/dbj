@@ -10,6 +10,8 @@ public class PushXGAndroidMessage implements Serializable {
     private PushAndroidDevice android;
     @ApiModelProperty(value = "消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播")
     private int type;
+    @ApiModelProperty(notes = "设置点击通知栏之后的行为，默认为打开app")
+    private ClickAction action;
 
 
     public int getType() {
@@ -42,5 +44,13 @@ public class PushXGAndroidMessage implements Serializable {
 
     public void setAndroid(PushAndroidDevice android) {
         this.android = android;
+    }
+
+    public ClickAction getAction() {
+        return action;
+    }
+
+    public void setAction(ClickAction action) {
+        this.action = action;
     }
 }

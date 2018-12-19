@@ -1,9 +1,11 @@
+/*
 package com.zwdbj.server.adminserver.service.push.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tencent.xinge.*;
 import com.tencent.xinge.bean.*;
+import com.tencent.xinge.bean.ClickAction;
 import com.tencent.xinge.bean.ios.Alert;
 import com.tencent.xinge.bean.ios.Aps;
 import com.tencent.xinge.push.app.PushAppRequest;
@@ -232,3 +234,4 @@ public class AppPushService2 {
 
 
 }
+*/

@@ -1,5 +1,8 @@
 package com.zwdbj.server.adminserver.service.push.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 public class PushXGMessage implements Serializable {
@@ -9,7 +12,9 @@ public class PushXGMessage implements Serializable {
     private Object message;
     private String message_type;
     private Object account_list;
-    private String environment;
+    @JsonProperty("environment")
+    @ApiModelProperty(value = "用户指定推送环境，仅限iOS平台推送使用")
+    private Environment environment = Environment.product;
     private int badge_type;
 
     public PushXGMessage() {
@@ -57,11 +62,11 @@ public class PushXGMessage implements Serializable {
         this.account_list = account_list;
     }
 
-    public String getEnvironment() {
+    public Environment getEnvironment() {
         return environment;
     }
 
-    public void setEnvironment(String environment) {
+    public void setEnvironment(Environment environment) {
         this.environment = environment;
     }
 
