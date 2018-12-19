@@ -24,12 +24,9 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-<<<<<<< HEAD
-=======
     <dependency>
         <groupId>com.zwdbj.server</groupId>
         <artifactId>user-common-service</artifactId>
         <version>1.0-SNAPSHOT</version>
     </dependency>
->>>>>>> 增加模块引用
 </project>
