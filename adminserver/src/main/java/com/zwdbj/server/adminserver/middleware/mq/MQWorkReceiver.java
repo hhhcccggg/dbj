@@ -3,7 +3,6 @@ package com.zwdbj.server.adminserver.middleware.mq;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-import com.zwdbj.server.adminserver.service.push.service.AppPushService;
 import com.zwdbj.server.adminserver.service.push.service.AppPushService2;
 import com.zwdbj.server.adminserver.service.review.service.LivingReviewService;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
