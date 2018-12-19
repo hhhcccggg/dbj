@@ -82,8 +82,6 @@ public class UserService {
 
 
     // 用户
-
-    @CacheEvict(value = "userauthinfo", key = "#id", allEntries = true)
     public void updateField(String fields, long id) {
         this.userMapper.updateField(fields, id);
         this.tokenCenterManager.refreshUserInfo(String.valueOf(id), iAuthUserManagerImpl);
@@ -91,7 +89,7 @@ public class UserService {
 
 
     public ServiceStatusInfo<Object> logout(long userId) {
-        this.flushUserToken(userId);
+        this.tokenCenterManager.logout(String.valueOf(userId));
         return new ServiceStatusInfo<>(0, "注销成功", null);
     }
 
@@ -263,7 +261,6 @@ public class UserService {
         logger.info("我是用户" + userId + "详情中的粉丝和关注总量加入缓存" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
     }
 
-    @CacheEvict(value = "userauthinfo", key = "#userId", allEntries = true)
     public ServiceStatusInfo<Object> updateUserInfo(long userId, UpdateUserInfoInput input) {
         try {
             String imageKey = input.getAvatarKey();
@@ -332,76 +329,6 @@ public class UserService {
         return userMapper.findUserById(userId);
     }
 
-    protected UserAuthInfoModel getUserAuthInfo(long userId) {
-        UserAuthInfoModel userAuthInfo = null;
-        UserModel userModel = this.findUserById(userId);
-        if (userModel == null) {
-            return null;
-        }
-        logger.info("从数据库加载{" + userId + "}数据");
-        userAuthInfo = new UserAuthInfoModel();
-        userAuthInfo.setId(userModel.getId());
-        userAuthInfo.setUsername(userModel.getUsername());
-        userAuthInfo.setAvatarUrl(userModel.getAvatarUrl());
-        userAuthInfo.setEmail(userModel.getEmail());
-        userAuthInfo.setPhone(userModel.getPhone());
-        userAuthInfo.setNickName(userModel.getNickName());
-        userAuthInfo.setSex(userModel.getSex());
-        userAuthInfo.setReviewed(userModel.isReviewed());
-        userAuthInfo.setLivingOpen(userModel.isLivingOpen());
-        userAuthInfo.setLiving(userModel.isLiving());
-        userAuthInfo.setLivingId(userModel.getLivingId());
-        userAuthInfo.setLocked(userModel.isLocked());
-        userAuthInfo.setEmailVerification(userModel.isEmailVerification());
-        userAuthInfo.setPhoneVerification(userModel.isPhoneVerification());
-        return userAuthInfo;
-    }
-
-    protected ServiceStatusInfo<UserAuthInfoModel> userAuthInfo(long userId) {
-        UserAuthInfoModel userAuthInfo = null;
-        try {
-            userAuthInfo = this.getUserAuthInfo(userId);
-            if (userAuthInfo == null) {
-                return new ServiceStatusInfo<>(404, "用户不存在", null);
-            }
-        } catch (Exception ex) {
-            return new ServiceStatusInfo<>(500, "用户不存在", null);
-        }
-        return new ServiceStatusInfo<>(0, "", userAuthInfo);
-    }
-
-    @Cacheable(value = "userauthinfo", key = "#userId")
-    public ServiceStatusInfo<UserAuthInfoModel> checkUserAuth(long userId) {
-        ServiceStatusInfo<UserAuthInfoModel> serviceStatusInfo = this.userAuthInfo(userId);
-        if (!serviceStatusInfo.isSuccess()) {
-            return new ServiceStatusInfo<>(serviceStatusInfo.getCode(), serviceStatusInfo.getMsg(), null);
-        }
-        UserAuthInfoModel userAuthInfo = serviceStatusInfo.getData();
-        if (userAuthInfo == null) {
-            return new ServiceStatusInfo<>(404, "用户不存在", null);
-        }
-        if (userAuthInfo.isLocked()) {
-            return new ServiceStatusInfo<>(401, "用户已被锁定", null);
-        }
-        return new ServiceStatusInfo<>(0, "", userAuthInfo);
-    }
-
-    @CacheEvict(value = "userauthinfo", key = "#userId", allEntries = true)
-    public void clearCacheUserInfo(long userId) {
-        logger.info("清理缓存" + userId);
-    }
-
-    public ServiceStatusInfo<Object> checkTokenValid(long userId, String reqToken) {
-        String token = this.getUserTokenFromCache(userId);
-        if (token == null || token.length() == 0) {
-            return new ServiceStatusInfo<>(404, "未找到token", null);
-        }
-        if (!token.equals(reqToken)) {
-            return new ServiceStatusInfo<>(404, "未找到token", null);
-        }
-        return new ServiceStatusInfo<>(0, "", null);
-    }
-
     public ServiceStatusInfo<UserLoginInfoDto> loginByUserPwd(String username, String password) {
         boolean isLogined = false;
         UserModel userModel = null;
@@ -414,15 +341,15 @@ public class UserService {
         }
         if (isLogined && userModel != null) {
             UserLoginInfoDto infoDto = new UserLoginInfoDto();
-            String token = JWTUtil.sign(String.valueOf(userModel.getId()));
-            UserToken userToken = new UserToken(token, JWTUtil.EXPIRE_TIME);
+            UserToken userToken = this.tokenCenterManager.
+                    fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManagerImpl)
+                    .getData();
             infoDto.setUserToken(userToken);
             infoDto.setEmail(userModel.getEmail());
             infoDto.setAvatarUrl(userModel.getAvatarUrl());
             infoDto.setId(userModel.getId());
             infoDto.setPhone(userModel.getPhone());
             infoDto.setUsername(userModel.getUsername());
-            this.saveUserTokenToCache(userModel.getId(), token);
             return new ServiceStatusInfo<>(0, "登录成功", infoDto);
         } else {
             return new ServiceStatusInfo<>(1, "用户名或密码错误!", null);
@@ -718,25 +645,6 @@ public class UserService {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public void saveUserTokenToCache(long userId, String token) {
-        String userTokenKey = "user.token.cacheKey";
-        this.redisTemplate.opsForHash().put(userTokenKey, String.valueOf(userId), token);
-    }
-
-    public String getUserTokenFromCache(long userId) {
-        String userTokenKey = "user.token.cacheKey";
-        if (!this.redisTemplate.opsForHash().hasKey(userTokenKey, String.valueOf(userId))) {
-            return null;
-        }
-        String token = (String) this.redisTemplate.opsForHash().get(userTokenKey, String.valueOf(userId));
-        return token;
-    }
-
-    public void flushUserToken(long userId) {
-        String userTokenKey = "user.token.cacheKey";
-        this.redisTemplate.opsForHash().delete(userTokenKey, String.valueOf(userId));
     }
 
 }

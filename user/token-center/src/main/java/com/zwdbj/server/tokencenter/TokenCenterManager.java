@@ -1,5 +1,6 @@
 package com.zwdbj.server.tokencenter;
 
+import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusCode;
@@ -84,6 +85,14 @@ public class TokenCenterManager {
     public ServiceStatusInfo<Object> refreshUserInfo(String id,IAuthUserManager authUserManager) {
         this.redisTemplate.opsForValue().set(userInfoKey(id),authUserManager.get(id),JWTUtil.EXPIRE_TIME,TimeUnit.SECONDS);
         return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"OK",null);
+    }
+
+    public ServiceStatusInfo<AuthUser> fetchUser(String id) {
+        Object obj = this.redisTemplate.opsForValue().get(userInfoKey(id));
+        if (obj == null) {
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_UNAUTH,"未找到用户",null);
+        }
+        return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"OK",(AuthUser)obj);
     }
 
     /**
