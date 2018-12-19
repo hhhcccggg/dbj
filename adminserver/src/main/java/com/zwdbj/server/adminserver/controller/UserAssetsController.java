@@ -74,8 +74,8 @@ public class UserAssetsController {
     @ApiOperation(value = "通过id分类查询用户金币总额")
     @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
-    public ResponseData<UserCoinType> searchUserCoinTypeByUserId(@PathVariable("userId") Long userId) {
-        ServiceStatusInfo<UserCoinType> serviceStatusInfo = this.userAssetsServiceImpl.searchUserCoinTypeByUserId(userId);
+    public ResponseData<UserCoinType> searchUserCoinTypeByUserId(@PathVariable("userId") Long userId,@RequestParam String type) {
+        ServiceStatusInfo<UserCoinType> serviceStatusInfo = this.userAssetsServiceImpl.searchUserCoinTypeByUserId(userId,type);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
