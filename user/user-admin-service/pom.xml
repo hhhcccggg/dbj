@@ -18,11 +18,14 @@
             <artifactId>token-center</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>com.zwdbj.server</groupId>
             <artifactId>user-common-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+=======
+>>>>>>> 增加模块
     </dependencies>
 
 </project>
