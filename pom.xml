@@ -22,6 +22,9 @@
         <module>shop/shop-common-service</module>
         <module>shop/pay</module>
         <module>user/token-center</module>
+        <module>user/user-admin-service</module>
+        <module>user/user-api-service</module>
+        <module>user/user-common-service</module>
     </modules>
 
     <parent>
