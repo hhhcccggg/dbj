@@ -19,13 +19,19 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 增加模块引用
         <dependency>
             <groupId>com.zwdbj.server</groupId>
             <artifactId>user-common-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+<<<<<<< HEAD
 =======
 >>>>>>> 增加模块
+=======
+>>>>>>> 增加模块引用
     </dependencies>
 
 </project>
