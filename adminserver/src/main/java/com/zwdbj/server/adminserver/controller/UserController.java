@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.adminserver.identity.RoleIdentity;
+import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.model.*;
 import com.zwdbj.server.adminserver.model.*;
 import com.zwdbj.server.adminserver.service.setting.model.AppPushSettingModel;
@@ -19,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -26,6 +29,8 @@ import java.util.List;
 @Api(description = "用户相关", value = "User")
 public class UserController {
     private UserService userService;
+    @Autowired
+    private TokenCenterManager tokenCenterManager;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -97,7 +102,7 @@ public class UserController {
                                                                @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         long userId = JWTUtil.getCurrentId();
-        List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+        List<String> roles = new ArrayList<>(Arrays.asList(this.tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getRoles()));
         boolean flag = false;
         for (String role : roles) {
             if ("datareport".equals(role)) {
