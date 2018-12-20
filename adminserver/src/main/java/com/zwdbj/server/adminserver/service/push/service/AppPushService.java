@@ -194,6 +194,10 @@ public class AppPushService {
             aps.setBadge_type(1);
             xgiosMessage.setAps(aps);
             xgiosMessage.setCustom(JSON.toJSONString(message.getExtraData()));
+            xgMessage.setPlatform("ios");
+            if ("dev".equals(AppConfigConstant.PUSH_ENV)){
+                xgMessage.setEnvironment(Environment.dev);
+            }
             mag.setIos(xgiosMessage);
             xgMessage.setMessage(mag);
         } else {//安卓推送消息体
