@@ -2,7 +2,6 @@ package com.zwdbj.server.adminserver.service.push.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.push.model.*;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
@@ -10,6 +9,7 @@ import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdUserDeviceT
 import com.zwdbj.server.adminserver.service.userDeviceTokens.service.UserDeviceTokensService;
 import com.zwdbj.server.adminserver.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 @Service
 public class AppPushService {
