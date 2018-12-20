@@ -46,4 +46,7 @@ public interface IUserMapper {
 
     @Select("select count(id) as growthed from core_users where isManualData=0 and createTime between date_add(now(),INTERVAL -1 HOUR) and now()")
     long userGrowthAd();
+
+    @Select("select count(id) as growthed from core_users where isManualData=0 and createTime between date_add(#{date},INTERVAL -1 DAY) and #{date}")
+    int userDayGrowthed(@Param("date") Date date);
 }

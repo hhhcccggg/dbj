@@ -16,6 +16,7 @@ public class UserModel {
     private boolean isEmailVerification;
     private boolean isPhoneVerification;
     private boolean isLivingWatch;
+    private String thirdOpenId;
 
 
 
@@ -149,5 +150,13 @@ public class UserModel {
 
     public void setPhoneVerification(boolean phoneVerification) {
         isPhoneVerification = phoneVerification;
+    }
+
+    public String getThirdOpenId() {
+        return thirdOpenId;
+    }
+
+    public void setThirdOpenId(String thirdOpenId) {
+        this.thirdOpenId = thirdOpenId;
     }
 }

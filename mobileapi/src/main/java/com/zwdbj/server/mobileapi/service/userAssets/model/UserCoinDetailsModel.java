@@ -18,7 +18,7 @@ public class UserCoinDetailsModel implements Serializable {
     int num;
     @ApiModelProperty(value = "附加数据")
     String extraData;
-    @ApiModelProperty(value = "TASK:任务;PAY:充值;INCOME:收益;OTHER:其他")
+    @ApiModelProperty(value = "TASK:任务;PAY:充值;INCOME:收益;OTHER:其他 提现;ENCASH")
     String type;
     @ApiModelProperty(value = "userId")
     long userId;

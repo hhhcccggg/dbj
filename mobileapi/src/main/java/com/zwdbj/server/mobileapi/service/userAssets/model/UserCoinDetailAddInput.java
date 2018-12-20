@@ -15,6 +15,20 @@ public class UserCoinDetailAddInput implements Serializable {
     String extraData;
     @ApiModelProperty(value = "TASK:任务;PAY:充值;INCOME:收益;OTHER:其他")
     String type;
+    @ApiModelProperty(value = "SUCCESS:成功；FAILED：失败; PROCESSING：处理中")
+    String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public UserCoinDetailAddInput() {
+        this.status = "PROCESSING";
+    }
 
     public String getTitle() {
         return title;

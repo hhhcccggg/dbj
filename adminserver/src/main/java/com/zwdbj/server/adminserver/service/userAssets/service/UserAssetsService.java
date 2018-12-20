@@ -19,7 +19,7 @@ public interface UserAssetsService {
 
     ServiceStatusInfo<List<UserCoinType>> searchAllUserCoinTyoe();
 
-    ServiceStatusInfo<UserCoinType> searchUserCoinTypeByUserId(Long userId);
+    ServiceStatusInfo<UserCoinType> searchUserCoinTypeByUserId(Long userId,String type);
     List<EnCashMentDetailModel> getAllVerifyEnCashs();
     ServiceStatusInfo<EnCashMentDetailModel> getVerifyEnCashById(long id);
 

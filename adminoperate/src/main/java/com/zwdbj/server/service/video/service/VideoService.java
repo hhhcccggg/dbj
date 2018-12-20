@@ -2,12 +2,14 @@ package com.zwdbj.server.service.video.service;
 
 import com.zwdbj.server.service.dataVideos.model.DataVideosDto;
 import com.zwdbj.server.service.video.mapper.IVideoMapper;
+import com.zwdbj.server.service.video.model.VideoDayGrowth;
 import com.zwdbj.server.service.video.model.VideoHeartAndPlayCountDto;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -74,5 +76,9 @@ public class VideoService {
 
     public long videoGrowth() {
         return this.videoMapper.videoGrowthAd();
+    }
+
+    public int videoDayGrowthed(Date date) {
+        return this.videoMapper.videoDayGrowthed(date);
     }
 }

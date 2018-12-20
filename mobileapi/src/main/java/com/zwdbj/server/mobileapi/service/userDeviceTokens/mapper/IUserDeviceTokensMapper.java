@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface IUserDeviceTokensMapper {
-    @Select("select count(deviceToken) from core_userDeviceTokens where deviceType=#{deviceType} " +
+    @Select("select count(id) from core_userDeviceTokens where userId=#{userId}and deviceType=#{deviceType} " +
             "and deviceToken=#{deviceToken}")
-    int deviceTokenIsExist(@Param("deviceType")String deviceType,@Param("deviceToken")String deviceToken);
+    int deviceTokenIsExist(@Param("userId")long userId,@Param("deviceType")String deviceType,@Param("deviceToken")String deviceToken);
 
     @Insert("insert into core_userDeviceTokens(id,userId,deviceToken,deviceType,deviceName) " +
             "values(#{id},#{input.userId},#{input.deviceToken},#{input.deviceType},#{input.deviceName})")

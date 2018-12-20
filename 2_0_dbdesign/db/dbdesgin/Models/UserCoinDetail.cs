@@ -61,7 +61,7 @@ namespace dbdesgin.Models
         [MaxLength(128)]
         public String tradeNo { get; set; }
         /// <summary>
-        /// 交易类型WECHAT：微信；ALIPAY：支付宝
+        /// 交易类型WECHAT：微信；ALIPAY：支付宝；APPLEPAY：苹果支付
         /// </summary>
         /// <value>The type of the trade.</value>
         [MaxLength(50)]

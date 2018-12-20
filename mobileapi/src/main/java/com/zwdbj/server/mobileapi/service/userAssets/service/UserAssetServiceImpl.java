@@ -1,7 +1,11 @@
 package com.zwdbj.server.mobileapi.service.userAssets.service;
 
+import com.alipay.api.response.AlipaySystemOauthTokenResponse;
+import com.alipay.api.response.AlipayUserInfoShareResponse;
+import com.zwdbj.server.mobileapi.service.pay.alipay.service.AlipayBizService;
 import com.zwdbj.server.mobileapi.service.userAssets.mapper.IUserAssetMapper;
 import com.zwdbj.server.mobileapi.service.userAssets.model.*;
+import com.zwdbj.server.pay.alipay.AlipayService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -23,6 +27,8 @@ public class UserAssetServiceImpl implements IUserAssetService{
     private RedisTemplate redisTemplate;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private AlipayService alipayService;
 
     @Transactional
     public  ServiceStatusInfo<Long> getCoinsByUserId(long userId) {
@@ -214,9 +220,9 @@ public class UserAssetServiceImpl implements IUserAssetService{
 
 
     public  List<BuyCoinConfigModel> findAllBuyCoinConfigs(){
-        List<BuyCoinConfigModel> buyCoinConfigModels = this.userAssetMapper.findAllBuyCoinConfigs();
-        return buyCoinConfigModels;
+        return this.userAssetMapper.findAllBuyCoinConfigs();
     }
+
     public void userIsExist(long userId){
         boolean a = this.userCoinTypeIsExist(userId,"TASK");
         if (!a)this.greatUserCoinType(userId,"TASK");
@@ -252,20 +258,49 @@ public class UserAssetServiceImpl implements IUserAssetService{
             return result;
     }
 
+    /**
+     * 绑定支付宝账号
+     * @param input
+     * @param userId 谁需要绑定支付宝账号
+     * @return 返回成功或失败
+     */
+    public ServiceStatusInfo<Object> bindAliAccount(AliAccountBindInput input,long userId) {
+        ServiceStatusInfo<AlipaySystemOauthTokenResponse> accessTokenRes = this.alipayService.accessToken(input.getAuthCode(),input.getUserId());
+        if (!accessTokenRes.isSuccess()) {
+            return new ServiceStatusInfo<>(1,accessTokenRes.getMsg(),null);
+        }
+        ServiceStatusInfo<AlipayUserInfoShareResponse> userInfoRes = this.alipayService.userInfo(accessTokenRes.getData().getAccessToken());
+        if (!userInfoRes.isSuccess()) {
+            return new ServiceStatusInfo<>(1,userInfoRes.getMsg(),null);
+        }
+        BandingThirdInput bandingThirdInput = new BandingThirdInput();
+        bandingThirdInput.setAccessToken(accessTokenRes.getData().getAccessToken());
+        bandingThirdInput.setAvatarUrl(userInfoRes.getData().getAvatar());
+        bandingThirdInput.setExpireIn(Long.parseLong(accessTokenRes.getData().getExpiresIn()));
+        bandingThirdInput.setName(userInfoRes.getData().getNickName());
+        bandingThirdInput.setUniqueId(userInfoRes.getData().getUserId());
+        bandingThirdInput.setType("ALIPAY");
+        ServiceStatusInfo<Integer> result = this.bandingThird(userId,bandingThirdInput);
+        if (result.isSuccess()) {
+            return new ServiceStatusInfo<>(0,"",null);
+        }
+        return new ServiceStatusInfo<>(1,result.getMsg(),null);
+    }
 
     /**
      * 提现：绑定第三方支付平台
      * @param input
      * @return
      */
-    public ServiceStatusInfo<Integer> bandingThird(BandingThirdInput input){
+    public ServiceStatusInfo<Integer> bandingThird(long userId,BandingThirdInput input){
         try {
+            List<EnCashAccountModel> models = this.getMyEnCashAccounts(userId);
+            if (models.size()>0) return  new ServiceStatusInfo<>(1,"已经绑定了提现账号",0);
             long id = UniqueIDCreater.generateID();
-            long userId = JWTUtil.getCurrentId();
             int result = this.userAssetMapper.bandingThird(id,userId,input);
             return new ServiceStatusInfo<>(0,"",result);
         }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"绑定失败",0);
+            return new ServiceStatusInfo<>(1,"绑定失败",null);
         }
     }
 
@@ -290,8 +325,17 @@ public class UserAssetServiceImpl implements IUserAssetService{
      */
     public List<EnCashAccountModel> getMyEnCashAccounts(){
         long userId =JWTUtil.getCurrentId();
+        return getMyEnCashAccounts(userId);
+    }
+    public List<EnCashAccountModel> getMyEnCashAccounts(long userId){
         List<EnCashAccountModel> models = this.userAssetMapper.getMyEnCashAccounts(userId);
         return models;
+    }
+    /**
+     * 根据id获取提现账户
+     */
+    public EnCashAccountModel  getEnCashAccountById(long id){
+        return this.userAssetMapper.getEnCashAccountById(id);
     }
 
     /**
@@ -302,6 +346,11 @@ public class UserAssetServiceImpl implements IUserAssetService{
     @Transactional
     public ServiceStatusInfo<Integer> enCashMyCoins(EnCashInput input){
         try {
+            //校验提现账户是否正确后存在
+            EnCashAccountModel enCashAccountModel = this.getEnCashAccountById(input.getPayAccountId());
+            if (enCashAccountModel==null || enCashAccountModel.getUniqueId()==null ||enCashAccountModel.getUniqueId().length()==0){
+                return new ServiceStatusInfo<>(1,"没有找到提现账户",null);
+            }
             long id = UniqueIDCreater.generateID();
             int coins = input.getRmbs()/10;
             long userId = JWTUtil.getCurrentId();

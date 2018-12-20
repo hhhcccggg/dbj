@@ -1,16 +1,23 @@
 package com.zwdbj.server.adminserver.service.push.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class PushXGMessage implements Serializable {
 
     private String audience_type;
     private String platform;
-    private Object message;
+    private Message message;
     private String message_type;
-    private Object account_list;
-    private String environment;
+    private ArrayList<String> account_list;
+    @JsonProperty("environment")
+    @ApiModelProperty(value = "用户指定推送环境，仅限iOS平台推送使用")
+    private Environment environment = Environment.product;
     private int badge_type;
+
 
     public PushXGMessage() {
         this.message_type = "notify";
@@ -33,11 +40,11 @@ public class PushXGMessage implements Serializable {
         this.platform = platform;
     }
 
-    public Object getMessage() {
+    public Message getMessage() {
         return message;
     }
 
-    public void setMessage(Object message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 
@@ -49,19 +56,19 @@ public class PushXGMessage implements Serializable {
         this.message_type = message_type;
     }
 
-    public Object getAccount_list() {
+    public ArrayList<String> getAccount_list() {
         return account_list;
     }
 
-    public void setAccount_list(Object account_list) {
+    public void setAccount_list(ArrayList<String> account_list) {
         this.account_list = account_list;
     }
 
-    public String getEnvironment() {
+    public Environment getEnvironment() {
         return environment;
     }
 
-    public void setEnvironment(String environment) {
+    public void setEnvironment(Environment environment) {
         this.environment = environment;
     }
 

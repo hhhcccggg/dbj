@@ -98,11 +98,20 @@ namespace dbdesgin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
 
+                    b.Property<string>("productId")
+                        .HasMaxLength(128);
+
                     b.Property<int>("rmbs");
 
                     b.Property<string>("title")
                         .IsRequired()
                         .HasMaxLength(30);
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasDefaultValue("ANDROID");
 
                     b.HasKey("Id");
 

@@ -10,16 +10,20 @@ public class SettingService {
     @Autowired
     private RedisTemplate redisTemplate;
     private static String appPushSettingCacheHashKey = "setting_push_hash_cache_key";
+
     public AppPushSettingModel get(long userId) {
-        boolean isExist = this.redisTemplate.opsForHash().hasKey(appPushSettingCacheHashKey,String.valueOf(userId));
+        //判断redis中是否已存在当前用户的推送设置，存在则取出，不存在则设置为默认设置并存入redis
+        boolean isExist = this.redisTemplate.opsForHash().hasKey(appPushSettingCacheHashKey, String.valueOf(userId));
         if (isExist) {
-            AppPushSettingModel settingModel = (AppPushSettingModel)this.redisTemplate.opsForHash().get(appPushSettingCacheHashKey,String.valueOf(userId));
+            AppPushSettingModel settingModel = (AppPushSettingModel) this.redisTemplate.opsForHash().get(appPushSettingCacheHashKey, String.valueOf(userId));
             return settingModel;
         }
         AppPushSettingModel defaultPushSetting = defaultPushSetting();
-        this.redisTemplate.opsForHash().put(appPushSettingCacheHashKey,String.valueOf(userId),defaultPushSetting);
+        this.redisTemplate.opsForHash().put(appPushSettingCacheHashKey, String.valueOf(userId), defaultPushSetting);
         return defaultPushSetting;
     }
+
+    //默认推送设置
     protected AppPushSettingModel defaultPushSetting() {
         AppPushSettingModel appPushSettingModel = new AppPushSettingModel();
         appPushSettingModel.setCommentIsOpen(true);
@@ -30,12 +34,14 @@ public class SettingService {
         appPushSettingModel.setNewFollowerIsOpen(true);
         return appPushSettingModel;
     }
-    public AppPushSettingModel set(AppPushSettingModel model,long userId) {
+
+    public AppPushSettingModel set(AppPushSettingModel model, long userId) {
         AppPushSettingModel innerModel = model;
         if (innerModel == null) {
             innerModel = defaultPushSetting();
         }
-        this.redisTemplate.opsForHash().put(appPushSettingCacheHashKey,String.valueOf(userId),innerModel);
+        //将用户推送设置存入redis中
+        this.redisTemplate.opsForHash().put(appPushSettingCacheHashKey, String.valueOf(userId), innerModel);
         return innerModel;
     }
 }

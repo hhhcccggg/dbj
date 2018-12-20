@@ -5,6 +5,7 @@ import com.zwdbj.server.service.dataVideos.model.DataVideosDto;
 import com.zwdbj.server.service.video.model.VideoHeartAndPlayCountDto;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -45,5 +46,6 @@ public interface IVideoMapper {
     @Select("select count(id) as growthed from core_videos where isManualData=0 and createTime between date_add(now(),INTERVAL -1 HOUR) and now()")
     long videoGrowthAd();
 
-
+    @Select("select count(id) as growthed from core_videos where isManualData=0 and createTime between date_add(#{date},INTERVAL -1 DAY) and #{date}")
+    int videoDayGrowthed(@Param("date") Date date);
 }
