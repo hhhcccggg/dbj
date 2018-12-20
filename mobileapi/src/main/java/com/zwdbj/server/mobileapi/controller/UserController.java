@@ -90,20 +90,7 @@ public class UserController {
     @ApiOperation(value = "第三方登录")
     public ResponseData<UserLoginInfoDto> loginByThird(@RequestBody BindThirdPartyAccountInput input) {
         UserModel userModel = userService.regUserByOpenId(input);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         UserToken userToken = this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManager).getData();
-=======
-        String token = JWTUtil.sign(String.valueOf(userModel.getId()));
-        UserToken userToken = new UserToken(token, JWTUtil.EXPIRE_TIME);
->>>>>>> Merge branch 'hechenggang' of http://git.zwdbj.com:3000/petserver/petserverapp into hechenggang
-=======
-        UserToken userToken = this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManager).getData();
->>>>>>> 迁移授权代码
-=======
-        UserToken userToken = this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManager).getData();
->>>>>>> 2e87937a224a9e7c58771ce798086830e54bddcd
         UserLoginInfoDto userLoginInfo = new UserLoginInfoDto();
         userLoginInfo.setUserToken(userToken);
         userLoginInfo.setEmail(userModel.getEmail());
@@ -111,20 +98,7 @@ public class UserController {
         userLoginInfo.setPhone(userModel.getPhone());
         userLoginInfo.setAvatarUrl(userModel.getAvatarUrl());
         userLoginInfo.setUsername(userModel.getUsername());
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
-=======
-        this.userService.saveUserTokenToCache(userModel.getId(), token);
-        return new ResponseData<UserLoginInfoDto>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
->>>>>>> Merge branch 'hechenggang' of http://git.zwdbj.com:3000/petserver/petserverapp into hechenggang
-=======
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
->>>>>>> 迁移授权代码
-=======
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
->>>>>>> 2e87937a224a9e7c58771ce798086830e54bddcd
     }
 
     @RequiresAuthentication
@@ -165,26 +139,9 @@ public class UserController {
     public ResponseData<UserLoginInfoDto> AuthByPhone(@RequestBody PhoneCodeInput input) {
         ServiceStatusInfo<UserModel> serviceStatusInfo = userService.loginByPhone(input.getPhone(), input.getCode());
         if (serviceStatusInfo.isSuccess()) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             UserToken userToken = this.tokenCenterManager
                     .fetchToken(String.valueOf(serviceStatusInfo.getData().getId()),this.iAuthUserManager)
                     .getData();
-=======
-            String token = JWTUtil.sign(String.valueOf(serviceStatusInfo.getData().getId()));
-            UserToken userToken = new UserToken(token, JWTUtil.EXPIRE_TIME);
->>>>>>> Merge branch 'hechenggang' of http://git.zwdbj.com:3000/petserver/petserverapp into hechenggang
-=======
-            UserToken userToken = this.tokenCenterManager
-                    .fetchToken(String.valueOf(serviceStatusInfo.getData().getId()),this.iAuthUserManager)
-                    .getData();
->>>>>>> 迁移授权代码
-=======
-            UserToken userToken = this.tokenCenterManager
-                    .fetchToken(String.valueOf(serviceStatusInfo.getData().getId()),this.iAuthUserManager)
-                    .getData();
->>>>>>> 2e87937a224a9e7c58771ce798086830e54bddcd
             UserLoginInfoDto userLoginInfo = new UserLoginInfoDto();
             userLoginInfo.setUserToken(userToken);
             userLoginInfo.setEmail(serviceStatusInfo.getData().getEmail());
@@ -192,20 +149,7 @@ public class UserController {
             userLoginInfo.setPhone(serviceStatusInfo.getData().getPhone());
             userLoginInfo.setAvatarUrl(serviceStatusInfo.getData().getAvatarUrl());
             userLoginInfo.setUsername(serviceStatusInfo.getData().getUsername());
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
-=======
-            this.userService.saveUserTokenToCache(serviceStatusInfo.getData().getId(), token);
-            return new ResponseData<UserLoginInfoDto>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
->>>>>>> Merge branch 'hechenggang' of http://git.zwdbj.com:3000/petserver/petserverapp into hechenggang
-=======
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
->>>>>>> 迁移授权代码
-=======
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
->>>>>>> 2e87937a224a9e7c58771ce798086830e54bddcd
         } else {
             return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, serviceStatusInfo.getMsg(), null);
         }

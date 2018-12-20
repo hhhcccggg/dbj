@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.controller;
 
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.adminserver.model.user.UserToken;
+import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import io.swagger.annotations.Api;
