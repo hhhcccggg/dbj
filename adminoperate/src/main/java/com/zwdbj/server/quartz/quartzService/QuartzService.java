@@ -486,7 +486,7 @@ public class QuartzService {
             logger.info("realEveryDayUserAndVideoGrowth开始执行");
             Date startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-10-27 00:00:00");
             logger.info("startTime" + startDate.toString());
-            Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-12-19 00:00:00");
+            Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-12-20 00:00:00");
             logger.info("endTime" + endDate.toString());
             Date date = startDate;
             Calendar c = Calendar.getInstance();
