@@ -8,6 +8,7 @@ import com.zwdbj.server.adminserver.service.homepage.model.AdUserOrVideoGrowthDt
 import com.zwdbj.server.adminserver.service.tag.service.TagService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -40,11 +41,13 @@ public class HomepageService {
     StringRedisTemplate stringRedisTemplate;
     @Autowired
     RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    private TokenCenterManager tokenCenterManager;
     private Logger logger = LoggerFactory.getLogger(HomepageService.class);
 
     public AdFindIncreasedDto findIncreasedAd(AdFindIncreasedInput input) {
         long userId = JWTUtil.getCurrentId();
-        List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+        List<String> roles = new ArrayList<>(Arrays.asList(this.tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getRoles()));
         boolean flag = false;
         for (String role : roles) {
             if ("datareport".equals(role)) flag = true;
@@ -74,7 +77,7 @@ public class HomepageService {
     public List<AdUserOrVideoGrowthDto> userGrowthAd(AdFindIncreasedInput input) {
         try {
             long userId = JWTUtil.getCurrentId();
-            List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+            List<String> roles = new ArrayList<>(Arrays.asList(this.tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getRoles()));
             List<AdUserOrVideoGrowthDto> growthDtos = new ArrayList<>();
             boolean flag = false;
             for (String role : roles) {
@@ -153,7 +156,7 @@ public class HomepageService {
     public List<AdUserOrVideoGrowthDto> videoGrowthAd(AdFindIncreasedInput input) {
         try {
             long userId = JWTUtil.getCurrentId();
-            List<String> roles = this.userService.getUserAuthInfo(userId).getRoles();
+            List<String> roles = new ArrayList<>(Arrays.asList(this.tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getRoles()));
             List<AdUserOrVideoGrowthDto> growthDtos = new ArrayList<>();
             boolean flag = false;
             for (String role : roles) {

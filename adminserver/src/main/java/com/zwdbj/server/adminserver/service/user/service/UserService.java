@@ -80,12 +80,14 @@ public class UserService {
         return this.userMapper.permissionsByRole(roleName);
     }
 
-    @CacheEvict(value = "userauthinfo", key = "#userId", allEntries = true)
     public long setRole(long userId, String roleName) {
-        return this.userMapper.setRole(userId, roleName, UniqueIDCreater.generateID());
+        long result = this.userMapper.setRole(userId, roleName, UniqueIDCreater.generateID());
+        if (result>0) {
+            this.tokenCenterManager.refreshUserInfo(String.valueOf(userId), iAuthUserManagerImpl);
+        }
+        return result;
     }
 
-    @CacheEvict(value = "userauthinfo", allEntries = true)
     public long setPermission(String roleName, String permissionName) {
         return this.userMapper.setPermission(roleName, permissionName, UniqueIDCreater.generateID());
     }
@@ -101,8 +103,10 @@ public class UserService {
 
     // 用户
     public void updateField(String fields, long id) {
-        this.tokenCenterManager.refreshUserInfo(String.valueOf(id), iAuthUserManagerImpl);
-        this.userMapper.updateField(fields, id);
+        long result = this.userMapper.updateField(fields, id);
+        if (result>0) {
+            this.tokenCenterManager.refreshUserInfo(String.valueOf(id), iAuthUserManagerImpl);
+        }
     }
 
     public List<UserDetailInfoDto> search(UserSearchForAdInput input, boolean flag) {
@@ -137,13 +141,17 @@ public class UserService {
 
     public ServiceStatusInfo<Object> lock(ResourceOpenInput<Long> input) {
         long result = this.userMapper.lock(input);
-        this.tokenCenterManager.refreshUserInfo(String.valueOf(input.getId()), iAuthUserManagerImpl);
+        if (result>0) {
+            this.tokenCenterManager.refreshUserInfo(String.valueOf(input.getId()), iAuthUserManagerImpl);
+        }
         return new ServiceStatusInfo<>(0, "", null);
     }
 
     public ServiceStatusInfo<Object> review(ResourceOpenInput<Long> input) {
-        this.tokenCenterManager.refreshUserInfo(String.valueOf(input.getId()), iAuthUserManagerImpl);
         long result = this.userMapper.review(input);
+        if (result>0) {
+            this.tokenCenterManager.refreshUserInfo(String.valueOf(input.getId()), iAuthUserManagerImpl);
+        }
         return new ServiceStatusInfo<>(0, "", result);
     }
 
@@ -165,7 +173,7 @@ public class UserService {
     }
 
     public ServiceStatusInfo<Object> logout(long userId) {
-        // TODO 实现账号退出逻辑
+        this.tokenCenterManager.logout(String.valueOf(userId));
         return new ServiceStatusInfo<>(0, "注销成功", null);
     }
 
@@ -311,62 +319,6 @@ public class UserService {
 
     public UserModel findUserById(long userId) {
         return userMapper.findUserById(userId);
-    }
-
-    public UserAuthInfoModel getUserAuthInfo(long userId) {
-        UserAuthInfoModel userAuthInfo = null;
-        UserModel userModel = this.findUserById(userId);
-        if (userModel == null) {
-            return null;
-        }
-        logger.info("从数据库加载{" + userId + "}数据");
-        userAuthInfo = new UserAuthInfoModel();
-        userAuthInfo.setRoles(this.roles(userId));
-        userAuthInfo.setPermissions(this.permissions(userId));
-        userAuthInfo.setId(userModel.getId());
-        userAuthInfo.setUsername(userModel.getUsername());
-        userAuthInfo.setAvatarUrl(userModel.getAvatarUrl());
-        userAuthInfo.setEmail(userModel.getEmail());
-        userAuthInfo.setPhone(userModel.getPhone());
-        userAuthInfo.setNickName(userModel.getNickName());
-        userAuthInfo.setSex(userModel.getSex());
-        userAuthInfo.setReviewed(userModel.isReviewed());
-        userAuthInfo.setLivingOpen(userModel.isLivingOpen());
-        userAuthInfo.setLiving(userModel.isLiving());
-        userAuthInfo.setLivingId(userModel.getLivingId());
-        userAuthInfo.setLocked(userModel.isLocked());
-        userAuthInfo.setEmailVerification(userModel.isEmailVerification());
-        userAuthInfo.setPhoneVerification(userModel.isPhoneVerification());
-        return userAuthInfo;
-    }
-
-    protected ServiceStatusInfo<UserAuthInfoModel> userAuthInfo(long userId) {
-        UserAuthInfoModel userAuthInfo = null;
-        try {
-            userAuthInfo = this.getUserAuthInfo(userId);
-            if (userAuthInfo == null) {
-                return new ServiceStatusInfo<>(404, "用户不存在", null);
-            }
-        } catch (Exception ex) {
-            return new ServiceStatusInfo<>(500, "用户不存在", null);
-        }
-        return new ServiceStatusInfo<>(0, "", userAuthInfo);
-    }
-
-    @Cacheable(value = "userauthinfo", key = "#userId")
-    public ServiceStatusInfo<UserAuthInfoModel> checkUserAuth(long userId) {
-        ServiceStatusInfo<UserAuthInfoModel> serviceStatusInfo = this.userAuthInfo(userId);
-        if (!serviceStatusInfo.isSuccess()) {
-            return new ServiceStatusInfo<>(serviceStatusInfo.getCode(), serviceStatusInfo.getMsg(), null);
-        }
-        UserAuthInfoModel userAuthInfo = serviceStatusInfo.getData();
-        if (userAuthInfo == null) {
-            return new ServiceStatusInfo<>(404, "用户不存在", null);
-        }
-        if (userAuthInfo.isLocked()) {
-            return new ServiceStatusInfo<>(401, "用户已被锁定", null);
-        }
-        return new ServiceStatusInfo<>(0, "", userAuthInfo);
     }
 
     public long regAdminUser(String password) {
