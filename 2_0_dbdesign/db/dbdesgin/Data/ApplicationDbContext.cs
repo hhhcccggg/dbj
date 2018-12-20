@@ -226,6 +226,7 @@ namespace dbdesgin.Data
             buyCoinConfigEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
             buyCoinConfigEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
             buyCoinConfigEntity.Property(cw => cw.orderIndex).HasDefaultValue(0);
+            buyCoinConfigEntity.Property(cw => cw.type).HasDefaultValue("ANDROID");
             //Pet
             var petEntity = modelBuilder.Entity<Pet>();
             petEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
