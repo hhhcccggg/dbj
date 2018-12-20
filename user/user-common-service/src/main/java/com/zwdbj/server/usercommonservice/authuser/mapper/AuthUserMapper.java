@@ -1,8 +1,8 @@
 package com.zwdbj.server.usercommonservice.authuser.mapper;
 
 import com.zwdbj.server.tokencenter.model.AuthUser;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.mapstruct.Mapper;
 
 @Mapper
 public interface AuthUserMapper {

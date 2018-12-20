@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.user.model;
 
-import com.zwdbj.server.adminserver.model.user.UserToken;
+import com.zwdbj.server.tokencenter.model.UserToken;
 
 public class UserLoginInfoDto {
     protected UserToken userToken;
