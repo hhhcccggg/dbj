@@ -27,14 +27,9 @@ public class UserDeviceTokensService {
                if (result==0)return new ServiceStatusInfo<>(1,"插入失败","插入失败");
                return new ServiceStatusInfo<>(0,"插入成功","插入成功"+result+"条");
            }else {
-              int tokenCount =  this.deviceTokenIsExist(userId,input.getDeviceType(),input.getDeviceToken());
-              if (tokenCount==0){
                  result =  this.updateTokenByUserId(input);
                  if (result==0)return new ServiceStatusInfo<>(1,"更新失败","更新失败");
                  return new ServiceStatusInfo<>(0,"更新成功","更新成功"+result+"条");
-              }else {
-                  return new ServiceStatusInfo<>(0,"",null);
-              }
            }
         }else {
             result = this.deleteIt(input);

@@ -11,6 +11,7 @@ import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.adminserver.service.youzan.model.YZItemDto;
 import com.zwdbj.server.adminserver.service.youzan.model.YZSearchItemInput;
 import com.zwdbj.server.adminserver.service.youzan.service.YouZanService;
+import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -28,9 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/video")
@@ -44,6 +43,8 @@ public class VideoController {
     StringRedisTemplate stringRedisTemplate;
     @Autowired
     UserService userService;
+    @Autowired
+    private TokenCenterManager tokenCenterManager;
     private Logger logger = LoggerFactory.getLogger(VideoController.class);
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
@@ -124,7 +125,7 @@ public class VideoController {
                                                              @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                              @RequestParam(value = "rows", required = true, defaultValue = "13") int rows) {
         Long id = JWTUtil.getCurrentId();
-        List<String> roles = this.userService.getUserAuthInfo(id).getRoles();
+        List<String> roles = new ArrayList<>(Arrays.asList(this.tokenCenterManager.fetchUser(String.valueOf(id)).getData().getRoles()));
         //
         int videoNum = this.videoService.findAllVideoNum(input);//真实视频数量
         List<VideoInfoDto> videoModelDtos;

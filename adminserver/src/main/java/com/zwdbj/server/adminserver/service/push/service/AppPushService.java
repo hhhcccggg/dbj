@@ -49,6 +49,7 @@ public class AppPushService {
                 pushMessage.setMsgContent(pushDescription);
                 pushMessage.setRefUrl(pushData.getRefUrl());
                 pushMessage.setTitle(pushTitle);
+                pushMessage.setType(type);
                 this.pushMessage(pushMessage, 0);
                 logger.info("推送的类型:" + type + "推送消息title:" + pushTitle + ",内容：" + pushDescription);
             } else {
@@ -96,12 +97,16 @@ public class AppPushService {
         pushMessage.setType(type);
         pushMessage.setPushId(pushData.getPushId());
         PushXGExtraMessage pushXGExtraMessage = new PushXGExtraMessage();
-        pushXGExtraMessage.setMessageType(type);
-        pushXGExtraMessage.setResId(pushResDataContent.getId());
-        pushXGExtraMessage.setResType(pushResDataContent.getType());
+        pushXGExtraMessage.setMessageType(pushData.getMessageType());
+        if (pushResDataContent!=null){
+            pushXGExtraMessage.setResId(pushResDataContent.getId());
+            pushXGExtraMessage.setResType(pushResDataContent.getType());
+        }
         pushMessage.setExtraData(pushXGExtraMessage);
         pushMessage.setMsgContent(pushDescription);
-        pushMessage.setRefUrl(pushData.getRefUrl());
+        if (pushData.getRefUrl()!=null && pushData.getRefUrl().length()!=0){
+            pushMessage.setRefUrl(pushData.getRefUrl());
+        }
         pushMessage.setTitle(pushTitle);
         this.pushMessage(pushMessage, pushData.getToUserId());
 
@@ -193,6 +198,10 @@ public class AppPushService {
             aps.setBadge_type(1);
             xgiosMessage.setAps(aps);
             xgiosMessage.setCustom(JSON.toJSONString(message.getExtraData()));
+            xgMessage.setPlatform("ios");
+            if ("dev".equals(AppConfigConstant.PUSH_ENV)){
+                xgMessage.setEnvironment(Environment.dev);
+            }
             mag.setIos(xgiosMessage);
             xgMessage.setMessage(mag);
         } else {//安卓推送消息体
@@ -208,6 +217,7 @@ public class AppPushService {
             }
             androidMessage.setAction(action);
             mag.setAndroid(androidMessage);
+            xgMessage.setPlatform("android");
             xgMessage.setMessage(mag);
         }
         //将请求参数封装为json上传给后台

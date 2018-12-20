@@ -32,5 +32,18 @@ namespace dbdesgin.Models
         /// </summary>
         /// <value>The index of the order.</value>
         public int orderIndex { get; set; }
+        /// <summary>
+        /// 平台类型：IOS:苹果，ANDROID：安卓, WECHATMINAPP：微信小程序
+        /// </summary>
+        /// <value>The type.</value>
+        [Required]
+        [MaxLength(20)]
+        public string type { get; set; }
+        /// <summary>
+        /// 产品ID，针对苹果内购有效
+        /// </summary>
+        /// <value>The product identifier.</value>
+        [MaxLength(128)]
+        public string productId { get; set; }
     }
 }
