@@ -92,6 +92,7 @@ public class UserController {
         UserModel userModel = userService.regUserByOpenId(input);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         UserToken userToken = this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManager).getData();
 =======
         String token = JWTUtil.sign(String.valueOf(userModel.getId()));
@@ -100,6 +101,9 @@ public class UserController {
 =======
         UserToken userToken = this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManager).getData();
 >>>>>>> 迁移授权代码
+=======
+        UserToken userToken = this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManager).getData();
+>>>>>>> 2e87937a224a9e7c58771ce798086830e54bddcd
         UserLoginInfoDto userLoginInfo = new UserLoginInfoDto();
         userLoginInfo.setUserToken(userToken);
         userLoginInfo.setEmail(userModel.getEmail());
@@ -107,6 +111,7 @@ public class UserController {
         userLoginInfo.setPhone(userModel.getPhone());
         userLoginInfo.setAvatarUrl(userModel.getAvatarUrl());
         userLoginInfo.setUsername(userModel.getUsername());
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
@@ -117,6 +122,9 @@ public class UserController {
 =======
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
 >>>>>>> 迁移授权代码
+=======
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
+>>>>>>> 2e87937a224a9e7c58771ce798086830e54bddcd
     }
 
     @RequiresAuthentication
@@ -159,6 +167,7 @@ public class UserController {
         if (serviceStatusInfo.isSuccess()) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             UserToken userToken = this.tokenCenterManager
                     .fetchToken(String.valueOf(serviceStatusInfo.getData().getId()),this.iAuthUserManager)
                     .getData();
@@ -171,6 +180,11 @@ public class UserController {
                     .fetchToken(String.valueOf(serviceStatusInfo.getData().getId()),this.iAuthUserManager)
                     .getData();
 >>>>>>> 迁移授权代码
+=======
+            UserToken userToken = this.tokenCenterManager
+                    .fetchToken(String.valueOf(serviceStatusInfo.getData().getId()),this.iAuthUserManager)
+                    .getData();
+>>>>>>> 2e87937a224a9e7c58771ce798086830e54bddcd
             UserLoginInfoDto userLoginInfo = new UserLoginInfoDto();
             userLoginInfo.setUserToken(userToken);
             userLoginInfo.setEmail(serviceStatusInfo.getData().getEmail());
@@ -178,6 +192,7 @@ public class UserController {
             userLoginInfo.setPhone(serviceStatusInfo.getData().getPhone());
             userLoginInfo.setAvatarUrl(serviceStatusInfo.getData().getAvatarUrl());
             userLoginInfo.setUsername(serviceStatusInfo.getData().getUsername());
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
@@ -188,6 +203,9 @@ public class UserController {
 =======
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
 >>>>>>> 迁移授权代码
+=======
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "登录成功", userLoginInfo);
+>>>>>>> 2e87937a224a9e7c58771ce798086830e54bddcd
         } else {
             return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, serviceStatusInfo.getMsg(), null);
         }
