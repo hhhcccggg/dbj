@@ -137,8 +137,8 @@ public class UserAssetsServiceImpl implements UserAssetsService {
     @Override
     @Transactional
     public ServiceStatusInfo<Integer> verifyEnCash(long id,long userId) {
+        EnCashMentDetailModel model = this.getVerifyEnCashById(id).getData();
         try {
-            EnCashMentDetailModel model = this.getVerifyEnCashById(id).getData();
             if (userId!=model.getUserId()){
                 this.updateEnCashStatus(id,"FAILED",false);
                 this.updateCoinDetailStatus(String.valueOf(id),"FAILED");
@@ -175,7 +175,6 @@ public class UserAssetsServiceImpl implements UserAssetsService {
                 this.updateUserCoinByUserId(userId,model.getCoins());
                 return new ServiceStatusInfo<>(1,"提现失败2:第三方返回失败",0);
             }
-
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "提现失败:" + e.getMessage(), null);
         }

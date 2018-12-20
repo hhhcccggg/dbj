@@ -77,6 +77,9 @@ public interface IUserAssetMapper {
     @Select("select * from core_enCashAccounts where userId=#{userId}")
     List<EnCashAccountModel> getMyEnCashAccounts(@Param("userId")long userId);
 
+    @Select("select * from core_enCashAccounts where id=#{id}")
+    EnCashAccountModel getEnCashAccountById(@Param("id")long id);
+
     @Insert("insert into core_enCashMentDetails(id,userId,coins,rmbs,payAccountId,payAccountType,status) " +
             "values(#{id},#{userId},#{coins},10,#{input.payAccountId},#{input.payAccountType},'REVIEWING')")
     int addEnCashDetail(@Param("id")long id,@Param("userId")long userId,@Param("coins")int coins,@Param("input")EnCashInput input);

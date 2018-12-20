@@ -170,16 +170,16 @@ public class AppPushService {
         String jsonBody = "";
         //推送到信鸽后台的请求参数
         PushXGMessage xgMessage = new PushXGMessage();
-        //设置客户端平台类型 android ios
-        xgMessage.setPlatform(type);
-        xgMessage.setEnvironment(AppConfigConstant.PUSH_ENV);
+        Message mag = new Message();
+        mag.setTitle(message.getTitle());
+        mag.setContent(message.getMsgContent());
         if (isAll) {
             //设置推送目标 all：全量推送
             xgMessage.setAudience_type("all");
         } else {
             //设置单设备推送
             xgMessage.setAudience_type("account");
-            List<String> accounts = new ArrayList<>();
+            ArrayList<String> accounts = new ArrayList<>();
             accounts.add(String.valueOf(toUserId));
             //设置账号列表推送
             xgMessage.setAccount_list(accounts);
@@ -187,19 +187,29 @@ public class AppPushService {
         //设置ios推送消息体
         if (type.equals("ios")) {
             PushXGIOSMessage xgiosMessage = new PushXGIOSMessage();
-            xgiosMessage.setContent(message.getMsgContent());
-            xgiosMessage.setTitle(message.getTitle());
-            xgiosMessage.setCustom(message.getExtraData());
-            xgiosMessage.setType(message.getType());
-            xgiosMessage.setAps("{\"alert\": \"" + message.getMsgContent() + "\",\"badge\": 1}");
-            xgMessage.setMessage(xgiosMessage);
+            Aps aps = new Aps();
+            Alert alert = new Alert();
+            alert.setSubtitle(message.getMsgContent());
+            aps.setAlert(alert);
+            aps.setBadge_type(1);
+            xgiosMessage.setAps(aps);
+            xgiosMessage.setCustom(JSON.toJSONString(message.getExtraData()));
+            mag.setIos(xgiosMessage);
+            xgMessage.setMessage(mag);
         } else {//安卓推送消息体
             PushXGAndroidMessage androidMessage = new PushXGAndroidMessage();
-            androidMessage.setType(message.getType());
-            androidMessage.setTitle(message.getTitle());
-            androidMessage.setContent(message.getMsgContent());
-            androidMessage.setCustom(message.getExtraData());
-            xgMessage.setMessage(androidMessage);
+            androidMessage.setCustom_content(JSON.toJSONString(message.getExtraData()));
+            ClickAction action = new ClickAction();
+            if (message.getType()==1){
+                action.setActivity("com.zwdbj.aichongpai.ui.message.LikeActivity");
+            }else if (message.getType()==2){
+                action.setActivity("com.zwdbj.aichongpai.ui.message.FansActivity");
+            }else if (message.getType()==3){
+                action.setActivity("com.zwdbj.aichongpai.ui.message.CommentsActivity");
+            }
+            androidMessage.setAction(action);
+            mag.setAndroid(androidMessage);
+            xgMessage.setMessage(mag);
         }
         //将请求参数封装为json上传给后台
         jsonBody = JSON.toJSONString(xgMessage);
