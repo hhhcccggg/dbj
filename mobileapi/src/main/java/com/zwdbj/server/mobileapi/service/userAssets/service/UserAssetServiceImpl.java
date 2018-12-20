@@ -331,6 +331,12 @@ public class UserAssetServiceImpl implements IUserAssetService{
         List<EnCashAccountModel> models = this.userAssetMapper.getMyEnCashAccounts(userId);
         return models;
     }
+    /**
+     * 根据id获取提现账户
+     */
+    public EnCashAccountModel  getEnCashAccountById(long id){
+        return this.userAssetMapper.getEnCashAccountById(id);
+    }
 
     /**
      * 提现
@@ -340,6 +346,11 @@ public class UserAssetServiceImpl implements IUserAssetService{
     @Transactional
     public ServiceStatusInfo<Integer> enCashMyCoins(EnCashInput input){
         try {
+            //校验提现账户是否正确后存在
+            EnCashAccountModel enCashAccountModel = this.getEnCashAccountById(input.getPayAccountId());
+            if (enCashAccountModel==null || enCashAccountModel.getUniqueId()==null ||enCashAccountModel.getUniqueId().length()==0){
+                return new ServiceStatusInfo<>(1,"没有找到提现账户",null);
+            }
             long id = UniqueIDCreater.generateID();
             int coins = input.getRmbs()/10;
             long userId = JWTUtil.getCurrentId();

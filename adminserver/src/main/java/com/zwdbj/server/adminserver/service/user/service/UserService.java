@@ -9,7 +9,7 @@ import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.adminserver.easemob.api.EaseMobUser;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
-import com.zwdbj.server.adminserver.model.user.UserToken;
+import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
