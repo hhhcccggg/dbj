@@ -18,4 +18,20 @@ public class ResponseMsg {
     //21006	receipt合法，但是订阅已过期。服务器接收到这个状态码时，receipt数据仍然会解码并一起发送
     //21007	receipt是Sandbox receipt，但却发送至生产系统的验证服务
     //21008	receipt是生产receipt，但却发送至Sandbox环境的验证服务
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }
