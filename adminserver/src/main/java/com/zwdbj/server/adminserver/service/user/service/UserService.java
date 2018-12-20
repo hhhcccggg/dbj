@@ -54,7 +54,6 @@ public class UserService {
 
 
     @Transactional
-    @CacheEvict(value = "userauthinfo", key = "#userId", allEntries = true)
     public ServiceStatusInfo<Object> setRolesForUser(long userId, List<EntityKeyModel<String>> roles) {
         //TODO 检查角色是否在系统中
         if (roles.size() <= 0) return new ServiceStatusInfo<>(1, "请至少指定一个角色", null);
@@ -101,9 +100,8 @@ public class UserService {
 
 
     // 用户
-
-    @CacheEvict(value = "userauthinfo", key = "#id", allEntries = true)
     public void updateField(String fields, long id) {
+        this.tokenCenterManager.refreshUserInfo(String.valueOf(id), iAuthUserManagerImpl);
         this.userMapper.updateField(fields, id);
     }
 
@@ -137,14 +135,14 @@ public class UserService {
         }
     }
 
-    @CacheEvict(value = "userauthinfo", key = "#input.id", allEntries = true)
     public ServiceStatusInfo<Object> lock(ResourceOpenInput<Long> input) {
         long result = this.userMapper.lock(input);
+        this.tokenCenterManager.refreshUserInfo(String.valueOf(input.getId()), iAuthUserManagerImpl);
         return new ServiceStatusInfo<>(0, "", null);
     }
 
-    @CacheEvict(value = "userauthinfo", key = "#input.id", allEntries = true)
     public ServiceStatusInfo<Object> review(ResourceOpenInput<Long> input) {
+        this.tokenCenterManager.refreshUserInfo(String.valueOf(input.getId()), iAuthUserManagerImpl);
         long result = this.userMapper.review(input);
         return new ServiceStatusInfo<>(0, "", result);
     }
@@ -191,7 +189,6 @@ public class UserService {
     /**
      * 处理举报用户
      */
-    @CacheEvict(value = "userauthinfo", key = "#id", allEntries = true)
     public ServiceStatusInfo<Long> doUComplainInfoAd(Long id, AdDoUserComplainInput input) {
         Long result = 0L;
         try {
