@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,16 +28,25 @@ public class PurchaseService {
     @Autowired
     IUserAssetService userAssetServiceImpl;
     private Logger logger = LoggerFactory.getLogger(PurchaseService.class);
-    private URL url;
     private BufferedReader reader = null;
     private String result = "";
+    private static final String url_sandbox = "https://sandbox.itunes.apple.com/verifyReceipt";
+    private static final String url_verify = "https://buy.itunes.apple.com/verifyReceipt";
 
     public ServiceStatusInfo<Object> purchaseStatus(RequestMsg requestMsg) {
         String json = JSONObject.toJSONString(requestMsg.getReceipt());
+        String url = "";
         try {
+            if (requestMsg.getType()==0){
+                url=url_sandbox;
+            }else {
+                url=url_verify;
+            }
+            /*SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, new TrustManager[] { new TrustAnyTrustManager() }, new java.security.SecureRandom());*/
             //苹果服务器url
-            url = new URL(" https://buy.itunes.apple.com/verifyReceipt ");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            URL console  = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) console.openConnection();
 
             //设置是否向connection输出
             conn.setDoInput(true);
@@ -43,6 +54,7 @@ public class PurchaseService {
 
             //设置请求方式为post
             conn.setRequestMethod("POST");
+            conn.setRequestProperty("Proxy-Connection", "Keep-Alive");
 
             conn.setUseCaches(false);
             conn.setInstanceFollowRedirects(true);
