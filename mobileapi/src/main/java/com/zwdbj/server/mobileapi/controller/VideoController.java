@@ -50,14 +50,24 @@ public class VideoController {
                                                             @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
         Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
         List<VideoInfoDto> videos = videoService.listHot(pageInfo);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videos,pageInfo.getTotal());
+        //TODO 临时处理,V1.0.4修正
+        if(JWTUtil.getCurrentId()>0) {
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, Long.MAX_VALUE);
+        } else {
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, pageInfo.getTotal());
+        }
     }
     @RequestMapping(value = "/listHot1",method = RequestMethod.GET)
     @ApiOperation(value = "获取短视频推荐列表(使用此接口)")
     public ResponsePageInfoData<List<VideoInfoDto>> listHot1(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo) {
         Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, 30);
         List<VideoInfoDto> videos = videoService.listHot(pageInfo);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videos,pageInfo.getTotal());
+        //TODO 临时处理,V1.0.4修正
+        if(JWTUtil.getCurrentId()>0) {
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, Long.MAX_VALUE);
+        } else {
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, pageInfo.getTotal());
+        }
     }
 
     @RequestMapping(value = "/listLatest",method = RequestMethod.GET)
