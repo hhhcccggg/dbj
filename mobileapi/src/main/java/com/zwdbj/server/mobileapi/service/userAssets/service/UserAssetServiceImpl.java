@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -149,7 +150,21 @@ public class UserAssetServiceImpl implements IUserAssetService{
     @Transactional
     public List<UserCoinDetailsModel> getUserCoinDetails(long userId) {
         List<UserCoinDetailsModel> userCoinDetailsModels = this.userAssetMapper.getUserCoinDetails(userId);
-        return userCoinDetailsModels;
+        List<UserCoinDetailsModel> u = new ArrayList<>();
+        for (UserCoinDetailsModel model:userCoinDetailsModels){
+            if (model.getType().equals("ENCASH")){
+                u.add(model);
+            }else if (model.getType().equals("TASK")){
+                u.add(model);
+            }else if (model.getType().equals("INCOME")){
+                u.add(model);
+            }else if (model.getType().equals("OTHER")){
+                u.add(model);
+            }else if (model.getType().equals("PAY") && model.getStatus().equals("SUCCESS")){
+                u.add(model);
+            }
+        }
+        return u;
     }
 
     @Transactional(readOnly = true)
