@@ -48,11 +48,10 @@ public class VideoController {
     @ApiOperation(value = "获取短视频推荐列表")
     public ResponsePageInfoData<List<VideoInfoDto>> listHot(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                             @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        //TODO 临时处理,V1.0.4修正
-        if(JWTUtil.getCurrentId()>0) {
+        /*if(JWTUtil.getCurrentId()>0) {
             List<VideoInfoDto> videos = videoService.listHot(null,rows);
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, 1000000);
-        } else {
+        } else*/ {
             Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
             List<VideoInfoDto> videos = videoService.listHot(pageInfo,rows);
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, pageInfo.getTotal());
@@ -61,11 +60,10 @@ public class VideoController {
     @RequestMapping(value = "/listHot1",method = RequestMethod.GET)
     @ApiOperation(value = "获取短视频推荐列表(使用此接口)")
     public ResponsePageInfoData<List<VideoInfoDto>> listHot1(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo) {
-        //TODO 临时处理,V1.0.4修正
-        if(JWTUtil.getCurrentId()>0) {
+        /*if(JWTUtil.getCurrentId()>0) {
             List<VideoInfoDto> videos = videoService.listHot(null,30);
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, 1000000);
-        } else {
+        } else*/ {
             Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, 30);
             List<VideoInfoDto> videos = videoService.listHot(pageInfo,30);
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, pageInfo.getTotal());
