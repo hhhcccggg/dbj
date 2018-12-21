@@ -56,8 +56,7 @@ public class VideoRandRecommendService {
             int cn = count;
             if (count>num) {
                 cn = num;
-            }
-            if (num>count && num < count * 2) {
+            } else if (num>count && num < count * 2) {
                 cn = num;
             }
             lst = this.redisTemplate.opsForSet().randomMembers(diffcacheKey,cn);
