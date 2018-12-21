@@ -150,6 +150,7 @@ public class VideoService {
         long userId = JWTUtil.getCurrentId();
         if (userId>0) {
             List<Long> videoIDS = this.videoRandRecommendService.fetchVideo("u_"+String.valueOf(userId),pageInfo.getPageSize());
+            if(videoIDS.size()==0) return new ArrayList<>();
             List<VideoInfoDto> recommendVideos = this.videoMapper.listIds(StringUtils.join(videoIDS.toArray(),","));
             if (recommendVideos!=null) {
                 for (VideoInfoDto dto:recommendVideos) {
