@@ -39,6 +39,7 @@ public class VideoRandRecommendService {
         String diffcacheKey = "randvideo.all.user.diff."+userId;
         int num = this.redisTemplate.opsForSet().differenceAndStore(videosCacheKey,userCacheKey,diffcacheKey).intValue();
         List<Long> lst = null;
+        logger.info("num="+num);
         logger.info(userCacheKey);
         logger.info(diffcacheKey);
         if (num==0) {
