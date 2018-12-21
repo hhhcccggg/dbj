@@ -33,8 +33,8 @@ public interface IUserAssetMapper {
     //coinDetails
     @Select("select * from core_userCoinDetails where userId=#{userId} order by createTime desc")
     List<UserCoinDetailsModel> getUserCoinDetails(@Param("userId")long userId);
-    @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
-            "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},#{input.status})")
+    @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status,tradeNo,tradeType) " +
+            "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},#{input.status},#{input.tradeNo},#{input.tradeType})")
     int addUserCoinDetail(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input);
 
     @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status,tradeNo) " +
@@ -47,7 +47,7 @@ public interface IUserAssetMapper {
 
 
 
-    @Update("update core_userCoinDetails set status=#{input.status},statusMsg=#{input.statusMsg} where id=#{input.id}")
+    @Update("update core_userCoinDetails set status=#{input.status},statusMsg=#{input.statusMsg}, tradeNo=#{input.tradeNo} where id=#{input.id}")
     int updateUserCoinDetail(@Param("input") UserCoinDetailModifyInput input);
 
     @Select("select id,userId,num,status from core_userCoinDetails where id=#{id}")

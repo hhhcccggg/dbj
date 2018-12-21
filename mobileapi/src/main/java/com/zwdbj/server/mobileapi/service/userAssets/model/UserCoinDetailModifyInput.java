@@ -14,6 +14,16 @@ public class UserCoinDetailModifyInput {
     String status;
     @ApiModelProperty(value = "状态原因说明")
     String statusMsg;
+    @ApiModelProperty(value = "微信或者支付宝充值流水号，唯一，不能重复")
+    String tradeNo;
+
+    public String getTradeNo() {
+        return tradeNo;
+    }
+
+    public void setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+    }
 
     public long getId() {
         return id;

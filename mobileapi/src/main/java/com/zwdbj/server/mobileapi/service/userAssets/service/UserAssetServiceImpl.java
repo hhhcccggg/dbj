@@ -193,29 +193,41 @@ public class UserAssetServiceImpl implements IUserAssetService{
 
     @Override
     @Transactional
-    public int updateUserCoinDetail(UserCoinDetailModifyInput input){
-        UserAssetNumAndStatus  u = this.userAssetMapper.findUserCoinDetailById(input.getId());
-        if ("PROCESSING".equals(u.getStatus())){
-            int result = this.userAssetMapper.updateUserCoinDetail(input);
-            if (result==1 && input.getStatus().equals("SUCCESS")){
-                boolean a = this.userCoinTypeIsExist(u.getUserId(),"PAY");
-                if (!a)this.greatUserCoinType(u.getUserId(),"PAY");
-                result = this.updateUserCoinType(u.getUserId(),input.getType(),u.getNum());
-                if (result==1){
+    public int updateUserCoinDetail(UserCoinDetailModifyInput input) {
+        UserAssetNumAndStatus u = this.userAssetMapper.findUserCoinDetailById(input.getId());
+        int result = 0;
+        if ("PROCESSING".equals(u.getStatus())) {
+            result = this.userAssetMapper.updateUserCoinDetail(input);
+            if (result == 1 && input.getStatus().equals("SUCCESS")) {
+                boolean a = this.userCoinTypeIsExist(u.getUserId(), "PAY");
+                if (!a) this.greatUserCoinType(u.getUserId(), "PAY");
+                result = this.updateUserCoinType(u.getUserId(), input.getType(), u.getNum());
+                if (result == 1) {
                     boolean b = this.userAssetIsExistOrNot(u.getUserId());
-                    if (!b)this.greatUserAsset(u.getUserId());
-                    result = this.updateUserAsset(u.getUserId(),u.getNum());
+                    if (!b) this.greatUserAsset(u.getUserId());
+                    result = this.updateUserAsset(u.getUserId(), u.getNum());
                     return result;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
+                return 0;
+            }
+        } else if ("SUCCESS".equals(u.getStatus())) {
+            boolean a = this.userCoinTypeIsExist(u.getUserId(), "PAY");
+            if (!a) this.greatUserCoinType(u.getUserId(), "PAY");
+            result = this.updateUserCoinType(u.getUserId(), input.getType(), u.getNum());
+            if (result == 1) {
+                boolean b = this.userAssetIsExistOrNot(u.getUserId());
+                if (!b) this.greatUserAsset(u.getUserId());
+                result = this.updateUserAsset(u.getUserId(), u.getNum());
+                return result;
+            } else {
                 return 0;
             }
         }else {
             return 0;
         }
-
     }
 
 

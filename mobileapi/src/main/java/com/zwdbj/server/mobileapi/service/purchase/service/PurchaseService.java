@@ -1,12 +1,17 @@
 package com.zwdbj.server.mobileapi.service.purchase.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zwdbj.server.mobileapi.service.purchase.model.Receipt;
 import com.zwdbj.server.mobileapi.service.purchase.model.RequestMsg;
 import com.zwdbj.server.mobileapi.service.purchase.model.ResponseMsg;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
+import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.apache.http.util.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -18,12 +23,14 @@ import java.net.URL;
 
 @Service
 public class PurchaseService {
+    @Autowired
+    IUserAssetService userAssetServiceImpl;
     private Logger logger = LoggerFactory.getLogger(PurchaseService.class);
     private URL url;
     private BufferedReader reader = null;
     private String result = "";
 
-    public ServiceStatusInfo<ResponseMsg> purchaseStatus(RequestMsg requestMsg) {
+    public ServiceStatusInfo<Object> purchaseStatus(RequestMsg requestMsg) {
         String json = JSONObject.toJSONString(requestMsg);
         try {
             //苹果服务器url
@@ -56,8 +63,28 @@ public class PurchaseService {
             if (conn.getResponseCode() == 200) {
                 reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 result = reader.readLine();
+                // TODO 添加金币详情及其他表的金币数据
+                /*Receipt receipt = (Receipt) JSONObject.parse(result);
+                UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
+                addInput.setTitle("充值"+receipt+"金币");
+                addInput.setNum(input.getCoins());
+                addInput.setExtraData(result);
+                addInput.setType("PAY");
+                addInput.setTradeNo("");
+                addInput.setTradeType("APPLEPAY");
+                addInput.setStatus("SUCCESS");
+                long id = this.userAssetServiceImpl.addUserCoinDetail(userId,addInput);
+                UserCoinDetailModifyInput coinDetailModifyInput = new UserCoinDetailModifyInput();
+                coinDetailModifyInput.setId(id);
+                coinDetailModifyInput.setType("PAY");
+                coinDetailModifyInput.setStatus("SUCCESS");
+                coinDetailModifyInput.setTradeNo("");
+                this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);*/
+                logger.info(result);
+
+
             }
-            return new ServiceStatusInfo<>(0, "", (ResponseMsg) JSONObject.parse(result));
+            return new ServiceStatusInfo<>(0, "", JSONObject.parse(result));
 
         } catch (Exception e) {
             logger.info(e.getMessage());
