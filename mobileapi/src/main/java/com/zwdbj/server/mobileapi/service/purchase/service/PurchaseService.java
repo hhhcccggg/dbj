@@ -31,7 +31,7 @@ public class PurchaseService {
     private String result = "";
 
     public ServiceStatusInfo<Object> purchaseStatus(RequestMsg requestMsg) {
-        String json = JSONObject.toJSONString(requestMsg);
+        String json = JSONObject.toJSONString(requestMsg.getReceipt());
         try {
             //苹果服务器url
             url = new URL(" https://buy.itunes.apple.com/verifyReceipt ");
