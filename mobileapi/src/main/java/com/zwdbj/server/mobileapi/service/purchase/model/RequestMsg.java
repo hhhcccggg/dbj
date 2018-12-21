@@ -23,6 +23,16 @@ public class RequestMsg {
     //交易标识符
     @ApiModelProperty(value = "交易标识符")
     private String transactionIdentifier;
+    @ApiModelProperty(value = "type 0:沙盒测试   1::正式环境")
+    int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public String getProductIdentifier() {
         return productIdentifier;
