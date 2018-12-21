@@ -141,7 +141,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(OnceLoadRandVideos.class)
                 .withIdentity("job10", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 16 21 12 ? 2018");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 4 16 21 12 ? 2018");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger10", "group2")
                 .withSchedule(scheduleBuilder)
