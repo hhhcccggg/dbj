@@ -349,10 +349,10 @@ public class OperateService {
     }
 
     public void allReviewedVideosToCache() {
-//        List<Long> ids = this.videoService.getAllReviewedVideos();
-//        for (Long id:ids) {
-//            this.videoRandRecommendService.pushNewVideo(id);
-//        }
+        List<Long> ids = this.videoService.getAllReviewedVideos();
+        for (Long id:ids) {
+            this.videoRandRecommendService.pushNewVideo(id);
+        }
     }
 
     public void allVideoNum(){

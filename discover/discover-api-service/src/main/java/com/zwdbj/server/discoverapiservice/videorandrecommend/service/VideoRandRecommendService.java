@@ -1,5 +1,7 @@
 package com.zwdbj.server.discoverapiservice.videorandrecommend.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ public class VideoRandRecommendService {
     @Autowired
     private RedisTemplate redisTemplate;
     private String videosCacheKey = "randvideo.all";
+    private Logger logger = LoggerFactory.getLogger(VideoRandRecommendService.class);
     private String userLoadedVideoCacheKey(String id) {
         return "randvideo.all.user."+id;
     }
@@ -36,6 +39,8 @@ public class VideoRandRecommendService {
         String diffcacheKey = "randvideo.all.user.diff."+userId;
         int num = this.redisTemplate.opsForSet().differenceAndStore(videosCacheKey,userCacheKey,diffcacheKey).intValue();
         List<Long> lst = null;
+        logger.info(userCacheKey);
+        logger.info(diffcacheKey);
         if (num==0) {
             this.redisTemplate.opsForSet().pop(userCacheKey,this.redisTemplate.opsForSet().size(userCacheKey));
             lst = this.redisTemplate.opsForSet().randomMembers(videosCacheKey,count);
