@@ -40,8 +40,8 @@ public class PurchaseService {
      * 苹果内购支付
      * @Title: doIosRequest
      * @Description:Ios客户端内购支付
-     * @param  TransactionID ：交易单号  需要客户端传过来的参数1
-     * @param  payload：需要客户端传过来的参数2
+     * @param  TransactionID ：交易标识符
+     * @param  payload：二次验证的重要依据 receipt
      * @throws
      */
     public ServiceStatusInfo<Map<String, Object>> doIosRequest(String TransactionID, String payload, long userId) throws Exception {
@@ -78,7 +78,7 @@ public class PurchaseService {
 /************************************************+自己的业务逻辑**********************************************************/
                     //如果单号一致  则保存到数据库
                     if(TransactionID.equals(transaction_id)){
-                        String [] moneys = product_id.split("\\.");
+                        String [] moneys = product_id.split("_");
                         map.put("money", moneys[moneys.length-1]);
                     }
 /************************************************+自己的业务逻辑end**********************************************************/
