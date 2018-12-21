@@ -42,7 +42,11 @@ public class VideoRandRecommendService {
         logger.info(userCacheKey);
         logger.info(diffcacheKey);
         if (num==0) {
-            this.redisTemplate.opsForSet().pop(userCacheKey,this.redisTemplate.opsForSet().size(userCacheKey));
+            long size = this.redisTemplate.opsForSet().size(userCacheKey);
+            logger.info("总长度"+size);
+            if (size>0) {
+                this.redisTemplate.opsForSet().pop(userCacheKey, size);
+            }
             lst = this.redisTemplate.opsForSet().randomMembers(videosCacheKey,count);
         } else {
             int cn = count;
