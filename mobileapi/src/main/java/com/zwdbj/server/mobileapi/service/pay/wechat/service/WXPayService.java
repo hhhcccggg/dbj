@@ -54,6 +54,8 @@ public class WXPayService {
         detailInput.setNum(input.getCoins());
         detailInput.setExtraData("");
         detailInput.setType("PAY");
+        detailInput.setTradeNo("");
+        detailInput.setTradeType("WECHAT");
         long id = this.userAssetServiceImpl.addUserCoinDetail(userId,detailInput);
         // 生成预付单
         UnifiedOrderInput unifiedOrderInput = new UnifiedOrderInput();
@@ -121,6 +123,7 @@ public class WXPayService {
             coinDetailModifyInput.setId(Long.parseLong(resultDto.getOutTradeNo()));
             coinDetailModifyInput.setType("PAY");
             coinDetailModifyInput.setStatus("SUCCESS");
+            coinDetailModifyInput.setTradeNo(resultDto.getTransactionId());
             this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
         } else {
             logger.info("交易失败");
