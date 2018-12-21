@@ -1,5 +1,6 @@
 package com.zwdbj.server.operate.oprateService;
 
+import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.service.comment.service.CommentService;
 import com.zwdbj.server.service.pet.service.PetService;
 import com.zwdbj.server.service.user.service.UserService;
@@ -36,6 +37,8 @@ public class OperateService {
     PetService petService;
     @Autowired
     UserDeviceTokensService userDeviceTokensService;
+    @Autowired
+    VideoRandRecommendService videoRandRecommendService;
 
     private Logger logger = LoggerFactory.getLogger(OperateService.class);
 
@@ -343,6 +346,13 @@ public class OperateService {
     }
     public void get1300Videos(){
         this.videoService.get1300Videos();
+    }
+
+    public void allReviewedVideosToCache() {
+        List<Long> ids = this.videoService.getAllReviewedVideos();
+        for (Long id:ids) {
+            this.videoRandRecommendService.pushNewVideo(id);
+        }
     }
 
     public void allVideoNum(){

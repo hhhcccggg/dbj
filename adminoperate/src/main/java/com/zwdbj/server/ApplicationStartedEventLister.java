@@ -15,6 +15,7 @@ public class ApplicationStartedEventLister implements ApplicationListener<Applic
         operateService.redisComments();
         operateService.userNumber();
         operateService.videoNumber();
+        operateService.allReviewedVideosToCache();
         if (!stringRedisTemplate.hasKey("OPERATE_ALL_VIDEO_NUM")){
             operateService.allVideoNum();
             System.out.println("allVideoNum");

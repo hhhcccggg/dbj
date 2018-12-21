@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.service.video.service;
 
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
+import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
@@ -44,6 +45,8 @@ public class VideoService {
     protected ResRefGoodsService resRefGoodsService;
     @Autowired
     protected TagService tagService;
+    @Autowired
+    protected VideoRandRecommendService videoRandRecommendService;
     private Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     //短视频关联商品
@@ -78,6 +81,15 @@ public class VideoService {
         Long result = 0L;
         try {
             result = this.videoMapper.verityAd(id, input);
+            try {
+                if (input.getStatus() == 0) {
+                    this.videoRandRecommendService.pushNewVideo(id);
+                } else {
+                    this.videoRandRecommendService.popVideo(id);
+                }
+            } catch ( Exception ex ) {
+                logger.warn(ex.getMessage());
+            }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "创建失败：" + e.getMessage(), result);
@@ -211,9 +223,12 @@ public class VideoService {
     public void updateReview(Long id, String reviewResultType) {
         if ("pass".equals(reviewResultType)) {
             this.videoMapper.passVideoReview(id);
+            this.videoRandRecommendService.pushNewVideo(id);
         } else if ("block".equals(reviewResultType)) {
             this.videoMapper.blockVideoReview(id);
+            this.videoRandRecommendService.popVideo(id);
         } else if ("review".equals(reviewResultType)) {
+            this.videoRandRecommendService.popVideo(id);
             this.videoMapper.peopleVideoReview(id);
         } else {
             throw new RuntimeException("无数据+reviewResultType:::null");

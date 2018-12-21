@@ -25,6 +25,7 @@
         <module>user/user-admin-service</module>
         <module>user/user-api-service</module>
         <module>user/user-common-service</module>
+        <module>discover/discover-api-service</module>
     </modules>
 
     <parent>
