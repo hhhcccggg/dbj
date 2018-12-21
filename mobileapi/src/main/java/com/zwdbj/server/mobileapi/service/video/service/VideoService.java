@@ -149,7 +149,7 @@ public class VideoService {
     public List<VideoInfoDto> listHot(Page<VideoInfoDto> pageInfo) {
         long userId = JWTUtil.getCurrentId();
         if (userId>0) {
-            List<Long> videoIDS = this.videoRandRecommendService.fetchVideo(String.valueOf(userId),pageInfo.getPageSize());
+            List<Long> videoIDS = this.videoRandRecommendService.fetchVideo("u_"+String.valueOf(userId),pageInfo.getPageSize());
             List<VideoInfoDto> recommendVideos = this.videoMapper.listIds(StringUtils.join(videoIDS.toArray(),","));
             if (recommendVideos!=null) {
                 for (VideoInfoDto dto:recommendVideos) {
