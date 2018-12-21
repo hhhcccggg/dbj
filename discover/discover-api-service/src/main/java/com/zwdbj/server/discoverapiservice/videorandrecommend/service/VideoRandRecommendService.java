@@ -57,6 +57,9 @@ public class VideoRandRecommendService {
             if (count>num) {
                 cn = num;
             }
+            if (num>count && num < count * 2) {
+                cn = num;
+            }
             lst = this.redisTemplate.opsForSet().randomMembers(diffcacheKey,cn);
         }
         for (Long l: lst) {
