@@ -1,8 +1,8 @@
 package com.zwdbj.server.service.video.service;
 
+import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.service.dataVideos.model.DataVideosDto;
 import com.zwdbj.server.service.video.mapper.IVideoMapper;
-import com.zwdbj.server.service.video.model.VideoDayGrowth;
 import com.zwdbj.server.service.video.model.VideoHeartAndPlayCountDto;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ public class VideoService {
     IVideoMapper videoMapper;
     @Autowired
     RedisTemplate<String, String> redisTemplate;
+
 
     public List<VideoHeartAndPlayCountDto> findHeartAndPlayCount() {
         List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoMapper.findHeartAndPlayCount();
@@ -69,6 +70,13 @@ public class VideoService {
             this.redisTemplate.opsForList().leftPush("TEMP_1300_VIDEOS", String.valueOf(id));
         }
     }
+
+    public List<Long> getAllReviewedVideos() {
+        List<Long> videos = this.videoMapper.getAllReviewedVideos();
+        return videos;
+    }
+
+
 
     public void updateVideoAddress(long id, float longitude, float latitude, String address) {
         this.videoMapper.updateVideoAddress(id, longitude, latitude, address);
