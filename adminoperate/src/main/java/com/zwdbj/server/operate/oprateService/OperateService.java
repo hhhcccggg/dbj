@@ -350,6 +350,7 @@ public class OperateService {
 
     public void allReviewedVideosToCache() {
         List<Long> ids = this.videoService.getAllReviewedVideos();
+        logger.info("读取到的视频数量："+ids.size());
         for (Long id:ids) {
             this.videoRandRecommendService.pushNewVideo(id);
         }

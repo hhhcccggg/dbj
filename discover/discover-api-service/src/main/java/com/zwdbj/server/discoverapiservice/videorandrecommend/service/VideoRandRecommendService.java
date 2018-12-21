@@ -25,7 +25,10 @@ public class VideoRandRecommendService {
      * @param id
      */
     public void pushNewVideo(Long id) {
-        this.redisTemplate.opsForSet().add(videosCacheKey,id);
+        if (!this.redisTemplate.opsForSet().isMember(videosCacheKey,id)) {
+            logger.info("新增视频"+id);
+            this.redisTemplate.opsForSet().add(videosCacheKey, id);
+        }
     }
 
     /**
@@ -46,7 +49,7 @@ public class VideoRandRecommendService {
             long size = this.redisTemplate.opsForSet().size(userCacheKey);
             logger.info("总长度"+size);
             if (size>0) {
-                this.redisTemplate.opsForSet().pop(userCacheKey, size);
+                this.redisTemplate.delete(userCacheKey);
             }
             lst = this.redisTemplate.opsForSet().randomMembers(videosCacheKey,count);
         } else {
