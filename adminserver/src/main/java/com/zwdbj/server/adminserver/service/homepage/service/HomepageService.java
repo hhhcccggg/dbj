@@ -45,6 +45,8 @@ public class HomepageService {
     private TokenCenterManager tokenCenterManager;
     private Logger logger = LoggerFactory.getLogger(HomepageService.class);
 
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+
     public AdFindIncreasedDto findIncreasedAd(AdFindIncreasedInput input) {
         long userId = JWTUtil.getCurrentId();
         List<String> roles = new ArrayList<>(Arrays.asList(this.tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getRoles()));
@@ -90,7 +92,7 @@ public class HomepageService {
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
-                String zeroTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
+                String zeroTime = simpleDateFormat.format(calendar.getTime());
                 logger.info("zeroTime--" + zeroTime);
                 //从redis中获取当前天的用户增量
                 Map results = redisTemplate.opsForHash().entries(zeroTime + "userGrowth");
@@ -169,7 +171,7 @@ public class HomepageService {
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
-                String zeroTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(calendar.getTime());
+                String zeroTime = simpleDateFormat.format(calendar.getTime());
                 //从redis中获取当前天的用户增量
                 Map results = redisTemplate.opsForHash().entries(zeroTime + "videoGrowth");
                 Set set = results.keySet();
@@ -247,6 +249,7 @@ public class HomepageService {
     //获取HSSFWorkbook对象
     public static HSSFWorkbook getHSSFWorkbook(String sheetName, String title[], List<AdUserOrVideoGrowthDto> values, HSSFWorkbook wb) {
 
+
         // 第一步，创建一个HSSFWorkbook，对应一个Excel文件
         if (wb == null) {
             wb = new HSSFWorkbook();
@@ -277,7 +280,10 @@ public class HomepageService {
             row = sheet.createRow(i + 1);
             //将内容按顺序赋给对应的列对象
             row.createCell(0).setCellValue(values.get(i).getGrowthed());
-            row.createCell(1).setCellValue(values.get(i).getCreateTime());
+
+            row.createCell(1).setCellValue(simpleDateFormat.format(values.get(i).getCreateTime()));
+
+
         }
         return wb;
     }

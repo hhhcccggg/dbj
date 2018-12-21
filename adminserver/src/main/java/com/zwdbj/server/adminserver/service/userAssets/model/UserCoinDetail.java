@@ -24,6 +24,9 @@ public class UserCoinDetail {
     @ApiModelProperty(value = "状态原因说明")
     String statusMsg;
 
+    @ApiModelProperty(value = "微信或者支付宝流水号")
+    String tradeNo;
+    @ApiModelProperty(value = "ta")
     public Long getId() {
         return id;
     }
