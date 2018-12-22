@@ -460,6 +460,7 @@ public class VideoService {
     @Transactional
     public ServiceStatusInfo<Integer> playTout(int coins, Long videoId) {
         //TODO 金币变动时 考虑到线程安全，需要加锁
+        if (coins<0 || coins>100000000)return new ServiceStatusInfo<>(1, "您输入的金币数量有误", null);
         try {
             //获取视频作者id
             Long authorId = videoMapper.findUserIdByVideoId(videoId);
@@ -470,8 +471,7 @@ public class VideoService {
             int authorIncome = coins;
             //用户金币总数
             long counts = userAssetServiceImpl.getCoinsByUserId().getData();
-
-            if (counts < coins) {
+            if (counts<0 || counts < coins) {
                 return new ServiceStatusInfo<>(1, "您的金币不足，请充值金币", null);
             }
             //获取用户金币类型数量详情
@@ -579,7 +579,7 @@ public class VideoService {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return new ServiceStatusInfo<>(1, "打赏失败" + e.getMessage(), null);
         }
     }
