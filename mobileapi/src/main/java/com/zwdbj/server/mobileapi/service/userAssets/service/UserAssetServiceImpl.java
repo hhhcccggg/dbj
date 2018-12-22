@@ -417,6 +417,11 @@ public class UserAssetServiceImpl implements IUserAssetService{
     }
 
 
+    @Override
+    public BuyCoinConfigModel findCoinConfigByProductId(String productId,String type){
+        return this.userAssetMapper.findCoinConfigByProductId(productId,type);
+    }
+
 
 
 }
