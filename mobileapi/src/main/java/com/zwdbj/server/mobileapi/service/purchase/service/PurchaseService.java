@@ -86,7 +86,7 @@ public class PurchaseService {
                     int a = 0;
                     if(TransactionID.equals(transaction_id)){
                         logger.info("*************************我是业务逻辑*************************");
-                       /* BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(product_id,"IOS");
+                        BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(product_id,"IOS");
                         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
                         addInput.setTitle(coinConfigModel.getTitle());
                         addInput.setNum(coinConfigModel.getCoins());
@@ -101,9 +101,7 @@ public class PurchaseService {
                         coinDetailModifyInput.setType("PAY");
                         coinDetailModifyInput.setStatus("SUCCESS");
                         coinDetailModifyInput.setTradeNo(transaction_id);
-                       a =  this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);*/
-                       return new ServiceStatusInfo<>(0,"充值金币成功",responseMsg);
-
+                       a =  this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
                     }
 /************************************************+自己的业务逻辑end**********************************************************/
                     if(a!=0){//用户金币数量新增成功
