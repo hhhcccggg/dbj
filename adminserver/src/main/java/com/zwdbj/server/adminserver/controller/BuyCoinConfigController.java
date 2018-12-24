@@ -23,7 +23,7 @@ public class BuyCoinConfigController {
     @Resource
     private BuyCoinConfigService buyCoinConfigServiceImpl;
 
-    @RequestMapping(value = "/search/#{type}", method = RequestMethod.GET)
+    @RequestMapping(value = "/search/{type}", method = RequestMethod.GET)
     @ApiOperation(value = "通过平台类型查询可选充值金币配置列表")
     public ResponsePageInfoData<List<BuyCoinConfig>> search(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
                                                             @RequestParam(value = "rows", defaultValue = "30", required = true) int rows,
