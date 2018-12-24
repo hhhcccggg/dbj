@@ -63,8 +63,8 @@ public class BuyCoinConfigServiceImpl implements BuyCoinConfigService {
     }
 
     @Override
-    public ServiceStatusInfo<BuyCoinConfig> searchAll() {
-        BuyCoinConfig result = null;
+    public ServiceStatusInfo<List<BuyCoinConfig>> searchAll() {
+        List<BuyCoinConfig> result = null;
         try {
             result = this.buyCoinConfigMapper.searchAll();
             return new ServiceStatusInfo<>(0, "", result);

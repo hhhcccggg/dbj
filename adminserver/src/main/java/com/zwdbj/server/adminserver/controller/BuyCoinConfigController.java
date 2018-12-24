@@ -36,8 +36,8 @@ public class BuyCoinConfigController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有可选充值金币配置列表")
-    public ResponseData<BuyCoinConfig> searchById() {
-        ServiceStatusInfo<BuyCoinConfig> serviceStatusInfo = this.buyCoinConfigServiceImpl.searchAll();
+    public ResponseData<List<BuyCoinConfig>> search() {
+        ServiceStatusInfo<List<BuyCoinConfig>> serviceStatusInfo = this.buyCoinConfigServiceImpl.searchAll();
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
