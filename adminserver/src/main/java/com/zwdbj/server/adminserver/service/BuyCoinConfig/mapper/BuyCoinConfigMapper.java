@@ -13,7 +13,7 @@ public interface BuyCoinConfigMapper {
     List<BuyCoinConfig> searchByType(@Param("type") String type);
 
     @Select("select * from core_basic_buyCoinConfigs where isDeleted=0 order by coins")
-    BuyCoinConfig searchAll();
+    List<BuyCoinConfig> searchAll();
 
     @Update("update core_basic_buyCoinConfigs set isDeleted=1, deleteTime=now() where id=#{id}")
     Long deleteById(@Param("id") Long id);

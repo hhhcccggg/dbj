@@ -15,5 +15,5 @@ public interface BuyCoinConfigService {
 
     ServiceStatusInfo<List<BuyCoinConfig>> searchByType(String type);
 
-    ServiceStatusInfo<BuyCoinConfig> searchAll();
+    ServiceStatusInfo<List<BuyCoinConfig>> searchAll();
 }
