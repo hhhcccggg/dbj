@@ -65,7 +65,7 @@ public class UserAssetController {
                                                                                 @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
                                                                                 @RequestParam(value = "rows", defaultValue = "30", required = true) int rows) {
         Page<BuyCoinConfigModel> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<BuyCoinConfigModel> result = this.userAssetServiceImpl.findAllBuyCoinConfigs();
+        List<BuyCoinConfigModel> result = this.userAssetServiceImpl.findAllBuyCoinConfigs(type);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
     }
 
