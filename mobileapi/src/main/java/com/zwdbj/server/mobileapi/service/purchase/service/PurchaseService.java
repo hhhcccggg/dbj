@@ -81,7 +81,7 @@ public class PurchaseService {
                     //如果单号一致  则保存到数据库
                     int a = 0;
                     if(TransactionID.equals(transaction_id)){
-                        BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(product_id,"IOS");
+                       /* BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(product_id,"IOS");
                         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
                         addInput.setTitle(coinConfigModel.getTitle());
                         addInput.setNum(coinConfigModel.getCoins());
@@ -96,7 +96,8 @@ public class PurchaseService {
                         coinDetailModifyInput.setType("PAY");
                         coinDetailModifyInput.setStatus("SUCCESS");
                         coinDetailModifyInput.setTradeNo(transaction_id);
-                       a =  this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
+                       a =  this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);*/
+                       return new ServiceStatusInfo<>(0,"充值金币成功",responseMsg);
 
                     }
 /************************************************+自己的业务逻辑end**********************************************************/
