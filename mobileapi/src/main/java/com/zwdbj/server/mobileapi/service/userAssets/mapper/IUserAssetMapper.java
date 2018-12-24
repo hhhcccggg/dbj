@@ -53,8 +53,8 @@ public interface IUserAssetMapper {
     @Select("select id,userId,num,status from core_userCoinDetails where id=#{id}")
     UserAssetNumAndStatus findUserCoinDetailById(long id);
 
-    @Select("select * from core_basic_buyCoinConfigs where isDeleted=false")
-    List<BuyCoinConfigModel> findAllBuyCoinConfigs();
+    @Select("select * from core_basic_buyCoinConfigs where isDeleted=false and type=#{type}")
+    List<BuyCoinConfigModel> findAllBuyCoinConfigs(@Param("type") String type);
 
     //视频
 
