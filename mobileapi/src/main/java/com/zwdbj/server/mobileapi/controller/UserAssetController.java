@@ -60,7 +60,7 @@ public class UserAssetController {
 
     @RequiresAuthentication
     @RequestMapping(value = "/search/buyCoinConfig", method = RequestMethod.GET)
-    @ApiOperation(value = "查询可选充值金币配置列表")
+    @ApiOperation(value = "查询可选充值金币配置列表  (type平台类型：IOS:苹果，ANDROID：安卓, WECHATMINAPP：微信小程序) ")
     public ResponsePageInfoData<List<BuyCoinConfigModel>> findAllBuyCoinConfigs(@RequestParam String type,
                                                                                 @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
                                                                                 @RequestParam(value = "rows", defaultValue = "30", required = true) int rows) {

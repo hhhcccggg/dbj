@@ -17,7 +17,7 @@ public class BuyCoinConfigModel {
     int orderIndex;
     @ApiModelProperty(value = "苹果内购，产品的id")
     String productId;
-    @ApiModelProperty(value = "type")
+    @ApiModelProperty(value = "type平台类型：IOS:苹果，ANDROID：安卓, WECHATMINAPP：微信小程序")
     String type;
 
     public String getProductId() {
