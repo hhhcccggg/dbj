@@ -186,6 +186,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
         this.userAssetMapper.addUserCoinDetail(id,userId,input);
         return id;
     }
+
     @Transactional
     public int addUserCoinDetailForEnCash(long userId,UserCoinDetailAddInput input,String tradeNo) {
         long id = UniqueIDCreater.generateID();
