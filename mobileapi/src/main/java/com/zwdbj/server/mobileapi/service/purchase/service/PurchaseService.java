@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.purchase.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zwdbj.server.mobileapi.service.purchase.model.Receipt;
 import com.zwdbj.server.mobileapi.service.purchase.model.RequestMsg;
@@ -72,15 +73,19 @@ public class PurchaseService {
                 if (status==0){ // 前端所提供的收据是有效的    验证成功
                     String r_receipt = job.getString("receipt");
                     JSONObject returnJson = JSONObject.parseObject(r_receipt);
-                    String in_app = returnJson.getString("in_app");
-                    JSONObject in_appJson = JSONObject.parseObject(in_app.substring(1, in_app.length()-1));
-
+                    JSONArray in_appJsons = returnJson.getJSONArray("in_app");
+                    int size = in_appJsons.size();
+                    //String in_app = returnJson.getString("in_app");
+                    //JSONObject in_appJson = JSONObject.parseObject(in_app.substring(1, in_app.length()-1));
+                    JSONObject in_appJson = in_appJsons.getJSONObject(size-1);
                     String product_id = in_appJson.getString("product_id");
+                    responseMsg.setProduct_id(product_id);
                     String transaction_id = in_appJson.getString("transaction_id");   // 订单号
 /************************************************+自己的业务逻辑**********************************************************/
                     //如果单号一致  则保存到数据库
                     int a = 0;
                     if(TransactionID.equals(transaction_id)){
+                        logger.info("*************************我是业务逻辑*************************");
                        /* BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(product_id,"IOS");
                         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
                         addInput.setTitle(coinConfigModel.getTitle());
