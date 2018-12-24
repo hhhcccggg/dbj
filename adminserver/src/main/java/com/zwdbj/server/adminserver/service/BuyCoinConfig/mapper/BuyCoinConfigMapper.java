@@ -9,11 +9,11 @@ import java.util.List;
 @Mapper
 public interface BuyCoinConfigMapper {
 
-    @Select("select * from core_basic_buyCoinConfigs where isDeleted=0 and type=#{type} ")
-    List<BuyCoinConfig> searchAll(@Param("type") String type);
+    @Select("select * from core_basic_buyCoinConfigs where isDeleted=0 and type=#{type} order by coins ")
+    List<BuyCoinConfig> searchByType(@Param("type") String type);
 
-    @Select("select * from core_basic_buyCoinConfigs where id=#{id}")
-    BuyCoinConfig searchById(@Param("id") Long id);
+    @Select("select * from core_basic_buyCoinConfigs where isDeleted=0 order by coins")
+    BuyCoinConfig searchAll();
 
     @Update("update core_basic_buyCoinConfigs set isDeleted=1, deleteTime=now() where id=#{id}")
     Long deleteById(@Param("id") Long id);

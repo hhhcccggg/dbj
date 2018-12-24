@@ -52,10 +52,10 @@ public class BuyCoinConfigServiceImpl implements BuyCoinConfigService {
     }
 
     @Override
-    public ServiceStatusInfo<List<BuyCoinConfig>> searchAll(String type) {
+    public ServiceStatusInfo<List<BuyCoinConfig>> searchByType(String type) {
         List<BuyCoinConfig> result = null;
         try {
-            result = this.buyCoinConfigMapper.searchAll(type);
+            result = this.buyCoinConfigMapper.searchByType(type);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询可选金币充值列表失败" + e.getMessage(), result);
@@ -63,10 +63,10 @@ public class BuyCoinConfigServiceImpl implements BuyCoinConfigService {
     }
 
     @Override
-    public ServiceStatusInfo<BuyCoinConfig> searchById(Long id) {
+    public ServiceStatusInfo<BuyCoinConfig> searchAll() {
         BuyCoinConfig result = null;
         try {
-            result = this.buyCoinConfigMapper.searchById(id);
+            result = this.buyCoinConfigMapper.searchAll();
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "通过id查询可选金币充值列表失败" + e.getMessage(), result);
