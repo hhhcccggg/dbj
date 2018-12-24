@@ -23,20 +23,21 @@ public class BuyCoinConfigController {
     @Resource
     private BuyCoinConfigService buyCoinConfigServiceImpl;
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    @ApiOperation(value = "查询可选充值金币配置列表")
+    @RequestMapping(value = "/search/#{type}", method = RequestMethod.GET)
+    @ApiOperation(value = "通过平台类型查询可选充值金币配置列表")
     public ResponsePageInfoData<List<BuyCoinConfig>> search(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
-                                                            @RequestParam(value = "rows", defaultValue = "30", required = true) int rows) {
+                                                            @RequestParam(value = "rows", defaultValue = "30", required = true) int rows,
+                                                            @PathVariable(value = "type") String type) {
         PageHelper.startPage(pageNo, rows);
-        List<BuyCoinConfig> result = this.buyCoinConfigServiceImpl.searchAll().getData();
+        List<BuyCoinConfig> result = this.buyCoinConfigServiceImpl.searchByType(type).getData();
         PageInfo pageInfo = new PageInfo(result);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/search/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "通过id查询可选充值金币配置列表")
-    public ResponseData<BuyCoinConfig> searchById(@PathVariable("id") Long id) {
-        ServiceStatusInfo<BuyCoinConfig> serviceStatusInfo = this.buyCoinConfigServiceImpl.searchById(id);
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @ApiOperation(value = "查询所有可选充值金币配置列表")
+    public ResponseData<BuyCoinConfig> searchById() {
+        ServiceStatusInfo<BuyCoinConfig> serviceStatusInfo = this.buyCoinConfigServiceImpl.searchAll();
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -53,7 +54,7 @@ public class BuyCoinConfigController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除可选充值金币配置列表")
     public ResponseData<Long> delete(@PathVariable("id") Long id) {
         ServiceStatusInfo<Long> serviceStatusInfo = this.buyCoinConfigServiceImpl.deleteById(id);
@@ -63,7 +64,7 @@ public class BuyCoinConfigController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改可选充值金币配置列表")
     public ResponseData<Long> update(@RequestBody BuyCoinConfig buyCoinConfig) {
         ServiceStatusInfo<Long> serviceStatusInfo = this.buyCoinConfigServiceImpl.update(buyCoinConfig);
