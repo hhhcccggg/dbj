@@ -25,7 +25,7 @@ public class BuyCoinConfigServiceImpl implements BuyCoinConfigService {
             result = this.buyCoinConfigMapper.create(id, buyCoinConfig);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "创建可选金币充值列表失败"+e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "创建可选金币充值列表失败" + e.getMessage(), result);
         }
     }
 
@@ -36,7 +36,7 @@ public class BuyCoinConfigServiceImpl implements BuyCoinConfigService {
             result = this.buyCoinConfigMapper.update(buyCoinConfig);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "修改可选金币充值列表失败"+e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "修改可选金币充值列表失败" + e.getMessage(), result);
         }
     }
 
@@ -47,18 +47,18 @@ public class BuyCoinConfigServiceImpl implements BuyCoinConfigService {
             result = this.buyCoinConfigMapper.deleteById(id);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "删除可选金币充值列表失败"+e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "删除可选金币充值列表失败" + e.getMessage(), result);
         }
     }
 
     @Override
-    public ServiceStatusInfo<List<BuyCoinConfig>> searchAll() {
+    public ServiceStatusInfo<List<BuyCoinConfig>> searchAll(String type) {
         List<BuyCoinConfig> result = null;
         try {
-            result = this.buyCoinConfigMapper.searchAll();
+            result = this.buyCoinConfigMapper.searchAll(type);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "查询可选金币充值列表失败"+e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "查询可选金币充值列表失败" + e.getMessage(), result);
         }
     }
 
@@ -69,7 +69,7 @@ public class BuyCoinConfigServiceImpl implements BuyCoinConfigService {
             result = this.buyCoinConfigMapper.searchById(id);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "通过id查询可选金币充值列表失败"+e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "通过id查询可选金币充值列表失败" + e.getMessage(), result);
         }
     }
 }

@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper
 public interface BuyCoinConfigMapper {
 
-    @Select("select * from core_basic_buyCoinConfigs where isDeleted=0 ")
-    List<BuyCoinConfig> searchAll();
+    @Select("select * from core_basic_buyCoinConfigs where isDeleted=0 and type=#{type} ")
+    List<BuyCoinConfig> searchAll(@Param("type") String type);
 
     @Select("select * from core_basic_buyCoinConfigs where id=#{id}")
     BuyCoinConfig searchById(@Param("id") Long id);
@@ -20,11 +20,12 @@ public interface BuyCoinConfigMapper {
 
     @Update("update core_basic_buyCoinConfigs set coins=#{buyCoinConfig.coins}," +
             "rmbs=#{buyCoinConfig.rmbs},title=#{buyCoinConfig.title}," +
-            "orderIndex=#{buyCoinConfig.orderIndex}")
+            "orderIndex=#{buyCoinConfig.orderIndex},type=#{buyCoinConfig.type},productId=#{buyCoinConfig.productId})")
     Long update(@Param("buyCoinConfig") BuyCoinConfig buyCoinConfig);
 
-    @Insert("insert into core_basic_buyCoinConfigs(id,coins,rmbs,title,orderIndex) " +
-            "values(#{id},#{buyCoinConfig.coins},#{buyCoinConfig.rmbs},#{buyCoinConfig.title},#{buyCoinConfig.orderIndex}) ")
+    @Insert("insert into core_basic_buyCoinConfigs(id,coins,rmbs,title,orderIndex,type,productId) " +
+            "values(#{id},#{buyCoinConfig.coins},#{buyCoinConfig.rmbs},#{buyCoinConfig.title},#{buyCoinConfig.orderIndex}," +
+            "#{buyCoinConfig.type},#{buyCoinConfig.productId}) ")
     Long create(@Param("id") Long id, @Param("buyCoinConfig") BuyCoinConfigAdd buyCoinConfig);
 
 
