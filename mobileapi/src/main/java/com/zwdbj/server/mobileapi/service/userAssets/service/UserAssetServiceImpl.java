@@ -206,6 +206,25 @@ public class UserAssetServiceImpl implements IUserAssetService{
         int result = this.userAssetMapper.addUserCoinDetailSuccess(id,userId,input);
         return result;
     }
+    @Override
+    public long addUserCoinDetailOnce(long userId, UserCoinDetailAddInput input) {
+        long id = UniqueIDCreater.generateID();
+        int result = this.userAssetMapper.addUserCoinDetailSuccess(id,userId,input);
+        if (result==1 && input.getStatus().equals("SUCCESS")){
+            boolean a = this.userCoinTypeIsExist(userId, "PAY");
+            if (!a) this.greatUserCoinType(userId, "PAY");
+            result = this.updateUserCoinType(userId, input.getType(), input.getNum());
+            if (result == 1) {
+                boolean b = this.userAssetIsExistOrNot(userId);
+                if (!b) this.greatUserAsset(userId);
+                result = this.updateUserAsset(userId, input.getNum());
+                if (result==1){
+                    return id;
+                }
+            }
+        }
+        return 0;
+    }
 
     @Override
     @Transactional
@@ -229,19 +248,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
             } else {
                 return 0;
             }
-        } else if ("SUCCESS".equals(u.getStatus())) {
-            boolean a = this.userCoinTypeIsExist(u.getUserId(), "PAY");
-            if (!a) this.greatUserCoinType(u.getUserId(), "PAY");
-            result = this.updateUserCoinType(u.getUserId(), input.getType(), u.getNum());
-            if (result == 1) {
-                boolean b = this.userAssetIsExistOrNot(u.getUserId());
-                if (!b) this.greatUserAsset(u.getUserId());
-                result = this.updateUserAsset(u.getUserId(), u.getNum());
-                return result;
-            } else {
-                return 0;
-            }
-        }else {
+        } else {
             return 0;
         }
     }
@@ -422,7 +429,6 @@ public class UserAssetServiceImpl implements IUserAssetService{
     public BuyCoinConfigModel findCoinConfigByProductId(String productId,String type){
         return this.userAssetMapper.findCoinConfigByProductId(productId,type);
     }
-
 
 
 }

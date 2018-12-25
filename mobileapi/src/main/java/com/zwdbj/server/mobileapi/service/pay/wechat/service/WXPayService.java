@@ -56,6 +56,7 @@ public class WXPayService {
         detailInput.setType("PAY");
         detailInput.setTradeNo("");
         detailInput.setTradeType("WECHAT");
+        detailInput.setStatus("PROCESSING");
         long id = this.userAssetServiceImpl.addUserCoinDetail(userId,detailInput);
         // 生成预付单
         UnifiedOrderInput unifiedOrderInput = new UnifiedOrderInput();

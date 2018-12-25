@@ -43,7 +43,7 @@ public class AlipayBizService {
         detailInput.setType("PAY");
         detailInput.setTradeNo("");
         detailInput.setTradeType("ALIPAY");
-
+        detailInput.setStatus("PROCESSING");
         long id = this.userAssetServiceImpl.addUserCoinDetail(userId,detailInput);
         AliAppPayInput aliAppPayInput = new AliAppPayInput();
         aliAppPayInput.setBody("充值"+input.getCoins()+"金币");
