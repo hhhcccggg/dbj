@@ -20,7 +20,8 @@ public interface BuyCoinConfigMapper {
 
     @Update("update core_basic_buyCoinConfigs set coins=#{buyCoinConfig.coins}," +
             "rmbs=#{buyCoinConfig.rmbs},title=#{buyCoinConfig.title}," +
-            "orderIndex=#{buyCoinConfig.orderIndex},type=#{buyCoinConfig.type},productId=#{buyCoinConfig.productId})")
+            "orderIndex=#{buyCoinConfig.orderIndex},type=#{buyCoinConfig.type},productId=#{buyCoinConfig.productId}" +
+            "where id=#{buyCoinConfig.id}")
     Long update(@Param("buyCoinConfig") BuyCoinConfig buyCoinConfig);
 
     @Insert("insert into core_basic_buyCoinConfigs(id,coins,rmbs,title,orderIndex,type,productId) " +
