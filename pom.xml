@@ -17,6 +17,7 @@
         <module>probuf</module>
         <module>adminoperate</module>
         <module>shop/shop-api</module>
+        <module>shop/shop-admin</module>
         <module>shop/shop-api-service</module>
         <module>shop/shop-admin-service</module>
         <module>shop/shop-common-service</module>
@@ -53,13 +54,6 @@
             <artifactId>pili-sdk-java</artifactId>
             <version>2.1.4</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.youzanyun</groupId>
-            <artifactId>open-sdk-java</artifactId>
-            <version>1.0</version>
-        </dependency>
-
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
