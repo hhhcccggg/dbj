@@ -7,12 +7,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class CategoryService {
     @Autowired
     ICategoryMapper categoryMapper;
+
     public List<CategoryDto> search(CategorySearchInput input) {
         List<CategoryDto> dtos = this.categoryMapper.search(input);
         return dtos;
     }
+
+
+
 }

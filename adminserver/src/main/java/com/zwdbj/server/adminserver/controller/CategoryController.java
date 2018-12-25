@@ -63,7 +63,7 @@ public class CategoryController {
     @ApiOperation("修改分类的名字")
     @RequiresRoles(RoleIdentity.ADMIN_ROLE)
     public ResponseData<Long> editCategoryAd(@PathVariable Long id,
-                                             @RequestBody AdNewCategoryInput input){
+                                             @RequestBody AdNewCategoryNameInput input){
         ServiceStatusInfo<Long> statusInfo = this.categoryService.editCategoryAd(id,input);
         if (statusInfo.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());

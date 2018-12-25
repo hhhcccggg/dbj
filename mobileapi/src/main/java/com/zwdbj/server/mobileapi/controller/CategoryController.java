@@ -18,11 +18,14 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+
     @ApiOperation("分类列表")
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ResponseData<List<CategoryDto>> search(@RequestBody CategorySearchInput input) {
         List<CategoryDto> dtos = this.categoryService.search(input);
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dtos);
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", dtos);
     }
+
+
 
 }
