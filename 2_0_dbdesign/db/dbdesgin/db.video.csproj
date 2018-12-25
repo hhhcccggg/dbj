@@ -9,6 +9,7 @@
     <None Remove="sql\v1__init_base.sql" />
     <None Remove="sql\V5__video_ishiddenlocation.sql" />
     <None Remove="V10_dailytable_edit.sql" />
+    <None Remove="V10__dailytable_edit.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
