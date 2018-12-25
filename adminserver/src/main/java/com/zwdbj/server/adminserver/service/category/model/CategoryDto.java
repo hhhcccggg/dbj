@@ -11,6 +11,28 @@ public class CategoryDto {
     String name;
     @ApiModelProperty("是否还有子分类。isHaveNextNode==true?'该分类下有子分类':'该分类下没有子分类'")
     boolean isHaveNextNode;
+    @ApiModelProperty("iconUrl")
+    String iconUrl;
+
+    @ApiModelProperty("排序")
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    int orderIndex;
+
+    public int getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(int orderIndex) {
+        this.orderIndex = orderIndex;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
 
     public long getId() {
         return id;
