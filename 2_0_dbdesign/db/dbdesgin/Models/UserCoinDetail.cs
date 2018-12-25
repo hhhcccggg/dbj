@@ -26,7 +26,6 @@ namespace dbdesgin.Models
         /// 附加数据
         /// </summary>
         /// <value>The extra data.</value>
-        [MaxLength(1024)]
         public String extraData { get; set; }
         /// <summary>
         /// TASK:任务;PAY:充值;INCOME:收益;OTHER:其他;ENCASH:提现
