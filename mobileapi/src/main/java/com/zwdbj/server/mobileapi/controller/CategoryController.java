@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.controller;
 
+import com.zwdbj.server.mobileapi.service.category.service.PetCategoryService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.mobileapi.service.category.model.*;
@@ -17,12 +18,16 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    PetCategoryService petCategoryService;
 
     @ApiOperation("分类列表")
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ResponseData<List<CategoryDto>> search(@RequestBody CategorySearchInput input) {
         List<CategoryDto> dtos = this.categoryService.search(input);
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dtos);
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", dtos);
     }
+
+
 
 }
