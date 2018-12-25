@@ -45,7 +45,7 @@ public class CategoryService {
 
 
     @Transactional
-    public ServiceStatusInfo<Long> editCategoryAd(Long id,AdNewCategoryInput input){
+    public ServiceStatusInfo<Long> editCategoryAd(Long id,AdNewCategoryNameInput input){
         //TODO 检查title是否在系统存在
         Long result = 0L;
         try {
