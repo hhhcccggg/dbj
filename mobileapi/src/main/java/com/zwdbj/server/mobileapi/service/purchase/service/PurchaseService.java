@@ -42,14 +42,14 @@ public class PurchaseService {
      * 苹果内购支付
      * @Title: doIosRequest
      * @Description:Ios客户端内购支付
-     * @param  TransactionID ：交易标识符
+     * @param  transactionID ：交易标识符
      * @param  payload：二次验证的重要依据 receipt
      * @throws
      */
-    public ServiceStatusInfo<ResponseMsg> doIosRequest(String TransactionID, String payload, long userId) throws Exception {
+    public ServiceStatusInfo<ResponseMsg> doIosRequest(String transactionID, String payload, long userId) throws Exception {
         try {
             ResponseMsg responseMsg = new ResponseMsg();
-            logger.info("客户端传过来的值1："+TransactionID+"客户端传过来的值2："+payload);
+            logger.info("客户端传过来的值1："+transactionID+"客户端传过来的值2："+payload);
 
             String verifyResult =  IosVerifyUtil.buyAppVerify(payload,1); 			//1.先线上测试    发送平台验证
             if (verifyResult == null) {   											// 苹果服务器没有返回验证结果
@@ -84,7 +84,7 @@ public class PurchaseService {
 /************************************************+自己的业务逻辑**********************************************************/
                     //如果单号一致  则保存到数据库
                     int a = 0;
-                    if(TransactionID.equals(transaction_id)){
+                    if(transactionID.equals(transaction_id)){
                         logger.info("*************************我是业务逻辑*************************");
                         BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(product_id,"IOS");
                         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
@@ -95,13 +95,8 @@ public class PurchaseService {
                         addInput.setTradeNo(transaction_id);
                         addInput.setTradeType("APPLEPAY");
                         addInput.setStatus("SUCCESS");
-                        long id = this.userAssetServiceImpl.addUserCoinDetail(userId,addInput);
-                        UserCoinDetailModifyInput coinDetailModifyInput = new UserCoinDetailModifyInput();
-                        coinDetailModifyInput.setId(id);
-                        coinDetailModifyInput.setType("PAY");
-                        coinDetailModifyInput.setStatus("SUCCESS");
-                        coinDetailModifyInput.setTradeNo(transaction_id);
-                       a =  this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
+                        long id = this.userAssetServiceImpl.addUserCoinDetailOnce(userId,addInput);
+                        if (id!=0)a=1;
                     }
 /************************************************+自己的业务逻辑end**********************************************************/
                     if(a!=0){//用户金币数量新增成功
