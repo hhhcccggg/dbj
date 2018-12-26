@@ -10,6 +10,7 @@ public class CategorySearchInput {
     @ApiModelProperty(value = "查询此分类节点下的子分类，如果从根节点查询，此字段传0")
     long parentId;
 
+
     public int getType() {
         return type;
     }

@@ -13,7 +13,7 @@ public interface BuyCoinConfigService {
 
     ServiceStatusInfo<Long> deleteById(Long id);
 
-    ServiceStatusInfo<List<BuyCoinConfig>> searchAll();
+    ServiceStatusInfo<List<BuyCoinConfig>> searchByType(String type);
 
-    ServiceStatusInfo<BuyCoinConfig> searchById(Long id);
+    ServiceStatusInfo<List<BuyCoinConfig>> searchAll();
 }

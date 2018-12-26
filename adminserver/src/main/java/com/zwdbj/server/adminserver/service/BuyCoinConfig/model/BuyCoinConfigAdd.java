@@ -14,7 +14,26 @@ public class BuyCoinConfigAdd {
     String title;
     @ApiModelProperty(value = "排序")
     int orderIndex;
+    @ApiModelProperty(value = "平台类型")//IOS,ANDROID,WECHATMINAPP
+    String type;
+    @ApiModelProperty(value = "产品id")
+    String productId;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 
     public int getCoins() {
         return coins;

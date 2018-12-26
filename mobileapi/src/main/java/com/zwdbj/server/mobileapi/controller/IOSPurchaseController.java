@@ -8,10 +8,8 @@ import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @Api(description = "ios内购验证相关")
 @RestController
@@ -23,8 +21,8 @@ public class IOSPurchaseController {
 
     @RequestMapping(value = "/purchase", method = RequestMethod.POST)
     @ApiOperation(value = "二次验证")
-    public ResponseData<ResponseMsg> purchase(@RequestBody RequestMsg requestMsg) {
-        ServiceStatusInfo statusInfo = this.purchaseServiceImpl.purchaseStatus(requestMsg);
+    public ResponseData<ResponseMsg> purchase (@RequestBody RequestMsg requestMsg, @RequestParam long userId) throws Exception{
+        ServiceStatusInfo statusInfo = this.purchaseServiceImpl.doIosRequest(requestMsg.getTransactionIdentifier(),requestMsg.getReceipt(),userId);
         if (statusInfo.isSuccess()) {
             return new ResponseData(0, "", statusInfo.getData());
         }

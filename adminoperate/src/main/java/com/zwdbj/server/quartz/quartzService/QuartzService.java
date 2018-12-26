@@ -480,6 +480,11 @@ public class QuartzService {
 
     }
 
+    public void onceLoadRandVideos() {
+        logger.info("缓存所有已审核视频");
+        this.operateService.allReviewedVideosToCache();
+    }
+
 
     public void realEveryDayUserAndVideoGrowth() {
         try {

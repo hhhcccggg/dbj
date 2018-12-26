@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -149,7 +150,21 @@ public class UserAssetServiceImpl implements IUserAssetService{
     @Transactional
     public List<UserCoinDetailsModel> getUserCoinDetails(long userId) {
         List<UserCoinDetailsModel> userCoinDetailsModels = this.userAssetMapper.getUserCoinDetails(userId);
-        return userCoinDetailsModels;
+        List<UserCoinDetailsModel> u = new ArrayList<>();
+        for (UserCoinDetailsModel model:userCoinDetailsModels){
+            if (model.getType().equals("ENCASH")){
+                u.add(model);
+            }else if (model.getType().equals("TASK")){
+                u.add(model);
+            }else if (model.getType().equals("INCOME")){
+                u.add(model);
+            }else if (model.getType().equals("OTHER")){
+                u.add(model);
+            }else if (model.getType().equals("PAY") && model.getStatus().equals("SUCCESS")){
+                u.add(model);
+            }
+        }
+        return u;
     }
 
     @Transactional(readOnly = true)
@@ -171,6 +186,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
         this.userAssetMapper.addUserCoinDetail(id,userId,input);
         return id;
     }
+
     @Transactional
     public int addUserCoinDetailForEnCash(long userId,UserCoinDetailAddInput input,String tradeNo) {
         long id = UniqueIDCreater.generateID();
@@ -190,37 +206,56 @@ public class UserAssetServiceImpl implements IUserAssetService{
         int result = this.userAssetMapper.addUserCoinDetailSuccess(id,userId,input);
         return result;
     }
+    @Override
+    public long addUserCoinDetailOnce(long userId, UserCoinDetailAddInput input) {
+        long id = UniqueIDCreater.generateID();
+        int result = this.userAssetMapper.addUserCoinDetailSuccess(id,userId,input);
+        if (result==1 && input.getStatus().equals("SUCCESS")){
+            boolean a = this.userCoinTypeIsExist(userId, "PAY");
+            if (!a) this.greatUserCoinType(userId, "PAY");
+            result = this.updateUserCoinType(userId, input.getType(), input.getNum());
+            if (result == 1) {
+                boolean b = this.userAssetIsExistOrNot(userId);
+                if (!b) this.greatUserAsset(userId);
+                result = this.updateUserAsset(userId, input.getNum());
+                if (result==1){
+                    return id;
+                }
+            }
+        }
+        return 0;
+    }
 
     @Override
     @Transactional
-    public int updateUserCoinDetail(UserCoinDetailModifyInput input){
-        UserAssetNumAndStatus  u = this.userAssetMapper.findUserCoinDetailById(input.getId());
-        if ("PROCESSING".equals(u.getStatus())){
-            int result = this.userAssetMapper.updateUserCoinDetail(input);
-            if (result==1 && input.getStatus().equals("SUCCESS")){
-                boolean a = this.userCoinTypeIsExist(u.getUserId(),"PAY");
-                if (!a)this.greatUserCoinType(u.getUserId(),"PAY");
-                result = this.updateUserCoinType(u.getUserId(),input.getType(),u.getNum());
-                if (result==1){
+    public int updateUserCoinDetail(UserCoinDetailModifyInput input) {
+        UserAssetNumAndStatus u = this.userAssetMapper.findUserCoinDetailById(input.getId());
+        int result = 0;
+        if ("PROCESSING".equals(u.getStatus())) {
+            result = this.userAssetMapper.updateUserCoinDetail(input);
+            if (result == 1 && input.getStatus().equals("SUCCESS")) {
+                boolean a = this.userCoinTypeIsExist(u.getUserId(), "PAY");
+                if (!a) this.greatUserCoinType(u.getUserId(), "PAY");
+                result = this.updateUserCoinType(u.getUserId(), input.getType(), u.getNum());
+                if (result == 1) {
                     boolean b = this.userAssetIsExistOrNot(u.getUserId());
-                    if (!b)this.greatUserAsset(u.getUserId());
-                    result = this.updateUserAsset(u.getUserId(),u.getNum());
+                    if (!b) this.greatUserAsset(u.getUserId());
+                    result = this.updateUserAsset(u.getUserId(), u.getNum());
                     return result;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
             return 0;
         }
-
     }
 
 
-    public  List<BuyCoinConfigModel> findAllBuyCoinConfigs(){
-        return this.userAssetMapper.findAllBuyCoinConfigs();
+    public  List<BuyCoinConfigModel> findAllBuyCoinConfigs(String type){
+        return this.userAssetMapper.findAllBuyCoinConfigs(type);
     }
 
     public void userIsExist(long userId){
@@ -390,6 +425,10 @@ public class UserAssetServiceImpl implements IUserAssetService{
     }
 
 
+    @Override
+    public BuyCoinConfigModel findCoinConfigByProductId(String productId,String type){
+        return this.userAssetMapper.findCoinConfigByProductId(productId,type);
+    }
 
 
 }

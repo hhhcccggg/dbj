@@ -41,6 +41,9 @@ public class AlipayBizService {
         detailInput.setNum(input.getCoins());
         detailInput.setExtraData("");
         detailInput.setType("PAY");
+        detailInput.setTradeNo("");
+        detailInput.setTradeType("ALIPAY");
+        detailInput.setStatus("PROCESSING");
         long id = this.userAssetServiceImpl.addUserCoinDetail(userId,detailInput);
         AliAppPayInput aliAppPayInput = new AliAppPayInput();
         aliAppPayInput.setBody("充值"+input.getCoins()+"金币");
@@ -74,7 +77,7 @@ public class AlipayBizService {
             return serviceStatusInfo;
         }
         boolean isSuccess = serviceStatusInfo.getData().getTradeStatus().equals("TRADE_SUCCESS");
-        processPayResult(input.getOutTradeNo(),isSuccess);
+        processPayResult(serviceStatusInfo.getData().getOutTradeNo(),serviceStatusInfo.getData().getTradeNo(),isSuccess);
         return serviceStatusInfo;
     }
 
@@ -86,12 +89,13 @@ public class AlipayBizService {
         logger.info("==支付宝支付回调信息==");
         ServiceStatusInfo<Object> serviceStatusInfo = this.alipayService.paramsRsaCheckV1(params);
         if(serviceStatusInfo.isSuccess()) {
-            String tradeNo = params.get("out_trade_no");
+            String outTradeNo = params.get("out_trade_no");
+            String tradeNo = params.get("trade_no");
             boolean isSuccess = false;
             if (params.containsKey("trade_status")) {
                 isSuccess = params.get("trade_status").equals("TRADE_SUCCESS");
             }
-            processPayResult(tradeNo, isSuccess);
+            processPayResult(outTradeNo,tradeNo, isSuccess);
         }
         return serviceStatusInfo;
     }
@@ -109,13 +113,14 @@ public class AlipayBizService {
     }
 
     @Transactional
-    protected void processPayResult(String tradeNo,boolean isSuccess) {
+    protected void processPayResult(String outTradeNo, String tradeNo,boolean isSuccess) {
         if (!isSuccess) return;
-        long id = Long.parseLong(tradeNo);
+        long id = Long.parseLong(outTradeNo);
         UserCoinDetailModifyInput coinDetailModifyInput = new UserCoinDetailModifyInput();
         coinDetailModifyInput.setId(id);
         coinDetailModifyInput.setType("PAY");
         coinDetailModifyInput.setStatus("SUCCESS");
+        coinDetailModifyInput.setTradeNo(tradeNo);
         this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
     }
 }

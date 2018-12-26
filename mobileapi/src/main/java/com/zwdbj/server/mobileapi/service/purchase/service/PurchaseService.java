@@ -1,77 +1,119 @@
 package com.zwdbj.server.mobileapi.service.purchase.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zwdbj.server.mobileapi.service.purchase.model.Receipt;
 import com.zwdbj.server.mobileapi.service.purchase.model.RequestMsg;
 import com.zwdbj.server.mobileapi.service.purchase.model.ResponseMsg;
+import com.zwdbj.server.mobileapi.service.purchase.util.IosVerifyUtil;
+import com.zwdbj.server.mobileapi.service.userAssets.model.BuyCoinConfigModel;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
+import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.apache.http.util.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import javax.net.ssl.*;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 @Service
 public class PurchaseService {
+    @Autowired
+    IUserAssetService userAssetServiceImpl;
     private Logger logger = LoggerFactory.getLogger(PurchaseService.class);
-    private URL url;
-    private BufferedReader reader = null;
-    private String result = "";
 
-    public ServiceStatusInfo<ResponseMsg> purchaseStatus(RequestMsg requestMsg) {
-        String json = JSONObject.toJSONString(requestMsg);
+
+
+
+
+    /**
+     * @throws Exception
+     * 苹果内购支付
+     * @Title: doIosRequest
+     * @Description:Ios客户端内购支付
+     * @param  transactionID ：交易标识符
+     * @param  payload：二次验证的重要依据 receipt
+     * @throws
+     */
+    public ServiceStatusInfo<ResponseMsg> doIosRequest(String transactionID, String payload, long userId) throws Exception {
         try {
-            //苹果服务器url
-            url = new URL(" https://buy.itunes.apple.com/verifyReceipt ");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            ResponseMsg responseMsg = new ResponseMsg();
+            logger.info("客户端传过来的值1："+transactionID+"客户端传过来的值2："+payload);
 
-            //设置是否向connection输出
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+            String verifyResult =  IosVerifyUtil.buyAppVerify(payload,1); 			//1.先线上测试    发送平台验证
+            if (verifyResult == null) {   											// 苹果服务器没有返回验证结果
+                logger.info("无订单信息!");
+            } else {  	    														// 苹果验证有返回结果
+                logger.info("线上，苹果平台返回JSON:"+verifyResult);
+                JSONObject job = JSONObject.parseObject(verifyResult);
+                String states = job.getString("status");
 
-            //设置请求方式为post
-            conn.setRequestMethod("POST");
+                if("21007".equals(states)){									//是沙盒环境，应沙盒测试，否则执行下面
+                    verifyResult =  IosVerifyUtil.buyAppVerify(payload,0);			//2.再沙盒测试  发送平台验证
+                    logger.info("沙盒环境，苹果平台返回JSON:"+verifyResult);
+                    job = JSONObject.parseObject(verifyResult);
+                    states = job.getString("status");
+                }
+                int status = Integer.valueOf(states);
+                responseMsg.setStatus(status);
+                responseMsg.setReceipt(verifyResult);
 
-            conn.setUseCaches(false);
-            conn.setInstanceFollowRedirects(true);
-            //设置文件类型
-            conn.setRequestProperty("content-Type", "application/json");
-            //设置接受类型
-            conn.setRequestProperty("accept", "application/json");
-
-            if (json != null && !TextUtils.isEmpty(json)) {
-                byte[] writeBytes = json.getBytes();
-                conn.setRequestProperty("Content-Length", String.valueOf(writeBytes.length));
-                OutputStream outwritestream = conn.getOutputStream();
-                outwritestream.write(json.getBytes());
-                outwritestream.flush();
-                outwritestream.close();
-
-            }
-            if (conn.getResponseCode() == 200) {
-                reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                result = reader.readLine();
-            }
-            return new ServiceStatusInfo<>(0, "", (ResponseMsg) JSONObject.parse(result));
-
-        } catch (Exception e) {
-            logger.info(e.getMessage());
-            return new ServiceStatusInfo<>(1, "购买失败" + e.getMessage(), null);
-        } finally {
-            if (reader != null) {
-
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    logger.info(e.getMessage());
+                logger.info("苹果平台返回值：job"+job);
+                if (status==0){ // 前端所提供的收据是有效的    验证成功
+                    String r_receipt = job.getString("receipt");
+                    JSONObject returnJson = JSONObject.parseObject(r_receipt);
+                    JSONArray in_appJsons = returnJson.getJSONArray("in_app");
+                    int size = in_appJsons.size();
+                    //String in_app = returnJson.getString("in_app");
+                    //JSONObject in_appJson = JSONObject.parseObject(in_app.substring(1, in_app.length()-1));
+                    JSONObject in_appJson = in_appJsons.getJSONObject(size-1);
+                    String product_id = in_appJson.getString("product_id");
+                    responseMsg.setProduct_id(product_id);
+                    String transaction_id = in_appJson.getString("transaction_id");   // 订单号
+/************************************************+自己的业务逻辑**********************************************************/
+                    //如果单号一致  则保存到数据库
+                    int a = 0;
+                    if(transactionID.equals(transaction_id)){
+                        logger.info("*************************我是业务逻辑*************************");
+                        BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(product_id,"IOS");
+                        UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
+                        addInput.setTitle(coinConfigModel.getTitle());
+                        addInput.setNum(coinConfigModel.getCoins());
+                        addInput.setExtraData(r_receipt);
+                        addInput.setType("PAY");
+                        addInput.setTradeNo(transaction_id);
+                        addInput.setTradeType("APPLEPAY");
+                        addInput.setStatus("SUCCESS");
+                        long id = this.userAssetServiceImpl.addUserCoinDetailOnce(userId,addInput);
+                        if (id!=0)a=1;
+                    }
+/************************************************+自己的业务逻辑end**********************************************************/
+                    if(a!=0){//用户金币数量新增成功
+                        return new ServiceStatusInfo<>(0,"充值金币成功",responseMsg);
+                    }else{
+                        return new ServiceStatusInfo<>(1,"充值金币失败",responseMsg);
+                    }
+                } else {
+                    return new ServiceStatusInfo<>(1,"receipt数据有问题",responseMsg);
                 }
             }
+
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            return new ServiceStatusInfo<>(1,"出现异常"+e.getMessage(),null);
         }
+        return null;
 
     }
 

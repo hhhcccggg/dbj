@@ -23,7 +23,7 @@ public class MyScheduler {
         JobKey jobKey6 = new JobKey("job6", "group02");
         JobKey jobKey7 = new JobKey("job7", "group02");
         JobKey jobKey8 = new JobKey("job8", "group02");
-        JobKey jobKey9 = new JobKey("job9", "group02");
+        JobKey jobKey10 = new JobKey("job10", "group02");
         if (!myScheduler.checkExists(jobKey1)) startJob1(myScheduler);
         if (!myScheduler.checkExists(jobKey2)) startJob2(myScheduler);
         if (!myScheduler.checkExists(jobKey3)) startJob3(myScheduler);
@@ -32,7 +32,7 @@ public class MyScheduler {
         if (!myScheduler.checkExists(jobKey6)) startJob6(myScheduler);
         if (!myScheduler.checkExists(jobKey7)) startJob7(myScheduler);
         if (!myScheduler.checkExists(jobKey8)) startJob8(myScheduler);
-        if (!myScheduler.checkExists(jobKey9)) startJob9(myScheduler);
+        if (!myScheduler.checkExists(jobKey10)) startJob10(myScheduler);
         myScheduler.start();
 
     }
@@ -136,13 +136,14 @@ public class MyScheduler {
         scheduler.scheduleJob(jobDetail, cronTrigger);
     }
 
-    private void startJob9(Scheduler scheduler) throws SchedulerException {
-        JobDetail jobDetail = JobBuilder.newJob(RealEveryDayUserAndVideoGrowth.class)
-                .withIdentity("job9", "group02")
+
+    private void startJob10(Scheduler scheduler) throws SchedulerException {
+        JobDetail jobDetail = JobBuilder.newJob(OnceLoadRandVideos.class)
+                .withIdentity("job10", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 18 17 20 12 ? 2018");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 15 16 21 12 ? 2018");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
-                .withIdentity("trigger9", "group2")
+                .withIdentity("trigger10", "group2")
                 .withSchedule(scheduleBuilder)
                 .build();
         scheduler.scheduleJob(jobDetail, cronTrigger);

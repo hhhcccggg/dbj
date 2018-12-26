@@ -5,7 +5,8 @@ import io.swagger.annotations.ApiModel;
 //苹果服务器返回的验证信息
 @ApiModel(description = "二次验证返回的验证信息")
 public class ResponseMsg {
-    private Receipt receipt;
+    private String receipt;
+    private String product_id;
 
 
     //返回的状态码
@@ -19,11 +20,20 @@ public class ResponseMsg {
     //21007	receipt是Sandbox receipt，但却发送至生产系统的验证服务
     //21008	receipt是生产receipt，但却发送至Sandbox环境的验证服务
 
-    public Receipt getReceipt() {
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
+    }
+
+    public String getReceipt() {
         return receipt;
     }
 
-    public void setReceipt(Receipt receipt) {
+    public void setReceipt(String receipt) {
         this.receipt = receipt;
     }
 

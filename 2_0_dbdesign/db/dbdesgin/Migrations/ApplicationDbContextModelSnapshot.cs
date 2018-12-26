@@ -1277,8 +1277,7 @@ namespace dbdesgin.Migrations
                         .HasColumnName("isDeleted")
                         .HasDefaultValue(false);
 
-                    b.Property<string>("extraData")
-                        .HasMaxLength(1024);
+                    b.Property<string>("extraData");
 
                     b.Property<bool>("isManualData")
                         .ValueGeneratedOnAdd()

@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.video.service;
 
 import com.github.pagehelper.Page;
+import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
@@ -27,6 +28,7 @@ import com.zwdbj.server.mobileapi.model.HeartInput;
 import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -64,6 +67,8 @@ public class VideoService {
     protected PetService petService;
     @Autowired
     protected UserAssetServiceImpl userAssetServiceImpl;
+    @Autowired
+    protected VideoRandRecommendService videoRandRecommendService;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -141,7 +146,19 @@ public class VideoService {
         return videoInfoDtos;
     }
 
-    public List<VideoInfoDto> listHot(Page<VideoInfoDto> pageInfo) {
+    public List<VideoInfoDto> listHot(Page<VideoInfoDto> pageInfo,int pageSize) {
+//        long userId = JWTUtil.getCurrentId();
+//        if (userId>0) {
+//            List<Long> videoIDS = this.videoRandRecommendService.fetchVideo("u_"+String.valueOf(userId),pageSize);
+//            if(videoIDS.size()==0) return new ArrayList<>();
+//            List<VideoInfoDto> recommendVideos = this.videoMapper.listIds(StringUtils.join(videoIDS.toArray(),","));
+//            if (recommendVideos!=null) {
+//                for (VideoInfoDto dto:recommendVideos) {
+//                    loadVideoInfoDto(dto);
+//                }
+//            }
+//            return recommendVideos;
+//        }
         boolean isNeedGetCommend = pageInfo.getPageNum()<4;
         String recommendIds = null;
         if (this.stringRedisTemplate.hasKey(AppConfigConstant.REDIS_VIDEO_RECOMMEND_KEY) && isNeedGetCommend) {
@@ -328,6 +345,11 @@ public class VideoService {
         Long heart = this.heartService.deleteVideoHeart(id);
         Long comment = this.commentService.deleteVideoComments(id);
         if (video!=0 ){
+            try {
+                this.videoRandRecommendService.popVideo(id);
+            } catch ( Exception ex ) {
+                logger.info(ex.getMessage());
+            }
             return new ServiceStatusInfo<>(0,"删除成功",null);
         }else {
             return new ServiceStatusInfo<>(1,"删除失败",null);
@@ -460,6 +482,7 @@ public class VideoService {
     @Transactional
     public ServiceStatusInfo<Integer> playTout(int coins, Long videoId) {
         //TODO 金币变动时 考虑到线程安全，需要加锁
+        if (coins<0 || coins>100000000)return new ServiceStatusInfo<>(1, "您输入的金币数量有误", null);
         try {
             //获取视频作者id
             Long authorId = videoMapper.findUserIdByVideoId(videoId);
@@ -470,8 +493,7 @@ public class VideoService {
             int authorIncome = coins;
             //用户金币总数
             long counts = userAssetServiceImpl.getCoinsByUserId().getData();
-
-            if (counts < coins) {
+            if (counts<0 || counts < coins) {
                 return new ServiceStatusInfo<>(1, "您的金币不足，请充值金币", null);
             }
             //获取用户金币类型数量详情
@@ -579,7 +601,7 @@ public class VideoService {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return new ServiceStatusInfo<>(1, "打赏失败" + e.getMessage(), null);
         }
     }

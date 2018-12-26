@@ -33,8 +33,8 @@ public interface IUserAssetMapper {
     //coinDetails
     @Select("select * from core_userCoinDetails where userId=#{userId} order by createTime desc")
     List<UserCoinDetailsModel> getUserCoinDetails(@Param("userId")long userId);
-    @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
-            "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},#{input.status})")
+    @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status,tradeNo,tradeType) " +
+            "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},#{input.status},#{input.tradeNo},#{input.tradeType})")
     int addUserCoinDetail(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input);
 
     @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status,tradeNo) " +
@@ -47,14 +47,14 @@ public interface IUserAssetMapper {
 
 
 
-    @Update("update core_userCoinDetails set status=#{input.status},statusMsg=#{input.statusMsg} where id=#{input.id}")
+    @Update("update core_userCoinDetails set status=#{input.status},statusMsg=#{input.statusMsg}, tradeNo=#{input.tradeNo} where id=#{input.id}")
     int updateUserCoinDetail(@Param("input") UserCoinDetailModifyInput input);
 
     @Select("select id,userId,num,status from core_userCoinDetails where id=#{id}")
     UserAssetNumAndStatus findUserCoinDetailById(long id);
 
-    @Select("select * from core_basic_buyCoinConfigs where isDeleted=false")
-    List<BuyCoinConfigModel> findAllBuyCoinConfigs();
+    @Select("select * from core_basic_buyCoinConfigs where isDeleted=false and type=#{type}")
+    List<BuyCoinConfigModel> findAllBuyCoinConfigs(@Param("type") String type);
 
     //视频
 
@@ -83,6 +83,9 @@ public interface IUserAssetMapper {
     @Insert("insert into core_enCashMentDetails(id,userId,coins,rmbs,payAccountId,payAccountType,status) " +
             "values(#{id},#{userId},#{coins},10,#{input.payAccountId},#{input.payAccountType},'REVIEWING')")
     int addEnCashDetail(@Param("id")long id,@Param("userId")long userId,@Param("coins")int coins,@Param("input")EnCashInput input);
+
+    @Select("select * from core_basic_buyCoinConfigs where productId=#{productId} and type=#{type}")
+    BuyCoinConfigModel findCoinConfigByProductId(@Param("productId")String productId,@Param("type")String type);
 
 
 }
