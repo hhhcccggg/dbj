@@ -11,8 +11,6 @@ import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImp
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
-import com.zwdbj.server.utility.consulLock.unit.CheckTtl;
-import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.service.CommentService;
 import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
