@@ -76,11 +76,20 @@ public class PurchaseService {
                     JSONArray in_appJsons = returnJson.getJSONArray("in_app");
                     int size = in_appJsons.size();
                     logger.info("size:"+size);
-                    JSONObject in_appJson = in_appJsons.getJSONObject(size-1);
-                    String product_id = in_appJson.getString("product_id");
-                    responseMsg.setProduct_id(product_id);
-                    String transaction_id = in_appJson.getString("transaction_id");   // 订单号
-                    responseMsg.setTransactionId(transaction_id);
+                    JSONObject in_appJson = null;
+                    String product_id = "";
+                    String transaction_id = "";// 订单号
+                    for (int i=0;i<size;i++){
+                        in_appJson = in_appJsons.getJSONObject(i);
+                        product_id = in_appJson.getString("product_id");
+                        transaction_id = in_appJson.getString("transaction_id");// 订单号
+                        if (transaction_id.equals(transactionID)){
+                            logger.info("transaction_id:"+transaction_id);
+                            responseMsg.setProduct_id(product_id);
+                            responseMsg.setTransactionId(transaction_id);
+                            break;
+                        }
+                    }
 
  /************************************************+自己的业务逻辑**********************************************************/
                     int a = 0;
@@ -97,13 +106,14 @@ public class PurchaseService {
                         addInput.setTradeType("APPLEPAY");
                         addInput.setStatus("SUCCESS");
                         id = this.userAssetServiceImpl.addUserCoinDetailOnce(userId,addInput);
-                        if (id!=0)a=1;
-                        if(a!=0){//用户金币数量新增成功
-                            return new ServiceStatusInfo<>(0,"充值金币成功",responseMsg);
-                        }else{
-                            return new ServiceStatusInfo<>(1,"充值金币失败",responseMsg);
-                        }
-                    }else {
+
+                    }
+                    if (id!=0)a=1;
+                    if(a!=0){//用户金币数量新增成功
+                        return new ServiceStatusInfo<>(0,"充值金币成功",responseMsg);
+                    }else{
+                        return new ServiceStatusInfo<>(1,"充值金币失败",responseMsg);
+                    }/*else {
                         logger.info("*************************我是业务逻辑22222222*************************");
                         //查看数据库是否已经增加该transactionId的金币交易
                         boolean b = this.userAssetServiceImpl.findCoinDetailByTrade(transaction_id,"APPLEPAY");
@@ -127,7 +137,7 @@ public class PurchaseService {
                                 return new ServiceStatusInfo<>(1,"充值金币失败",responseMsg);
                             }
                         }
-                    }
+                    }*/
 
 /************************************************+自己的业务逻辑end**********************************************************/
 
