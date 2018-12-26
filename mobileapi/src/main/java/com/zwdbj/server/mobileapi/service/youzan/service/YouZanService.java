@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.youzan.service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.youzan.open.sdk.client.auth.Token;
 import com.youzan.open.sdk.client.core.DefaultYZClient;
@@ -255,11 +256,12 @@ public class YouZanService {
         YouzanUmpPromocardBuyerSearch youzanUmpPromocardBuyerSearch = new YouzanUmpPromocardBuyerSearch();
         youzanUmpPromocardBuyerSearch.setAPIParams(youzanUmpPromocardBuyerSearchParams);
         try {
-            YouzanUmpPromocardBuyerSearchResult result = client.invoke(youzanUmpPromocardBuyerSearch);
-            if (result == null) {
-                logger.info("未找到用户{" + userId + "}的优惠券信息");
-            }
-            return new ServiceStatusInfo<>(0, "", result == null ? 0 : result.getCards().length);
+            String jsonStr = client.execute(youzanUmpPromocardBuyerSearch);
+            JSON json = JSON.parseObject(jsonStr);
+            JSONArray jsonArray = ((JSONObject) json).getJSONArray("response");
+            int count = jsonArray.size();
+            logger.info("找到用户{" + userId + "}的"+count+"个优惠券信息");
+            return new ServiceStatusInfo<>(0, "", count);
         } catch ( Exception ex ) {
             logger.warn(ex.getMessage());
             return new ServiceStatusInfo<>(0, "", 0);
