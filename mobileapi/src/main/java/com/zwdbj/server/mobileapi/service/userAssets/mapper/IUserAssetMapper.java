@@ -42,7 +42,7 @@ public interface IUserAssetMapper {
     int addUserCoinDetailForEnCash(@Param("id")long id, @Param("userId")long userId, @Param("input") UserCoinDetailAddInput input,@Param("tradeNo")String tradeNo);
 
 
-    @Select("select count(id) from core_userCoinDetails where tradeNo=#{tradeNo} and tradeType=#{tradeType} and status='SUCCESS'")
+    @Select("select count(id) from core_userCoinDetails where tradeNo=#{tradeNo} and tradeType=#{tradeType}")
     int findCoinDetailByTrade(@Param("tradeNo")String tradeNo,@Param("tradeType")String tradeType);
     @Insert("insert into core_userCoinDetails(id,title,num,extraData,type,userId,status) " +
             "values(#{id},#{input.title},#{input.num},#{input.extraData},#{input.type},#{userId},'SUCCESS')")
