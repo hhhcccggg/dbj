@@ -8,11 +8,11 @@ public class AdNewCategoryInput {
     @ApiModelProperty(value = "分类的名称")
     String name;
     //0:宠物分类
-    @ApiModelProperty(value = "分类类型")
+    @ApiModelProperty(value = "分类类型 分类,-1:全部,0:宠物,1:其他")
     int type;
     @ApiModelProperty("iconUrl")
     String iconUrl;
-    @ApiModelProperty("状态")
+    @ApiModelProperty("状态 0:正常 1：下线")
     int status;
     @ApiModelProperty("排序")
     int orderIndex;

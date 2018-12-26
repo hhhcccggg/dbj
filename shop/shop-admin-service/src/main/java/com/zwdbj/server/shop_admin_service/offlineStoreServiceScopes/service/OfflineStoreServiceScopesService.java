@@ -15,7 +15,7 @@ public interface OfflineStoreServiceScopesService {
 
     ServiceStatusInfo<List<OfflineStoreServiceScopes>> select();
 
-    ServiceStatusInfo<OfflineStoreServiceScopes> selectById(Long id);
+    ServiceStatusInfo< List<OfflineStoreServiceScopes>> selectByofflineStoreId(Long offlineStoreId);
 
 
 }

@@ -26,4 +26,8 @@ public class AppController {
         dto.setAppLivingOpen(true);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dto);
     }
+    @RequestMapping(value = "/health",method = RequestMethod.GET)
+    public String health() {
+        return "OK";
+    }
 }

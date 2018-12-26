@@ -2,6 +2,7 @@ package com.zwdbj.server.shop_admin_service.businessSellers.service;
 
 import com.zwdbj.server.shop_admin_service.businessSellers.mapper.IBusinessSellerMapper;
 import com.zwdbj.server.shop_admin_service.businessSellers.model.BusinessSellerAddInput;
+import com.zwdbj.server.shop_admin_service.businessSellers.model.BusinessSellerDto;
 import com.zwdbj.server.shop_admin_service.businessSellers.model.BusinessSellerModel;
 import com.zwdbj.server.shop_admin_service.businessSellers.model.BusinessSellerModifyInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -18,8 +19,8 @@ public class BusinessSellerServiceImpl implements BusinessSellerService{
     @Resource
     IBusinessSellerMapper businessSellerMapper;
     @Override
-    public List<BusinessSellerModel> findAllBusinessSellers() {
-        List<BusinessSellerModel> businessSellerModels = this.businessSellerMapper.findAllBusinessSellers();
+    public List<BusinessSellerDto> findAllBusinessSellers() {
+        List<BusinessSellerDto> businessSellerModels = this.businessSellerMapper.findAllBusinessSellers();
         return businessSellerModels;
     }
 
@@ -61,21 +62,23 @@ public class BusinessSellerServiceImpl implements BusinessSellerService{
     public ServiceStatusInfo<Integer> deleteBusinessSellers(long id) {
         try {
             int result = this.businessSellerMapper.deleteBusinessSellers(id);
-            if (result==0)return new ServiceStatusInfo<>(1,"删除商铺失败",result);
-            return new ServiceStatusInfo<>(0,"删除商铺成功",result);
+            if (result==0)return new ServiceStatusInfo<>(1,"下架商铺失败",result);
+            return new ServiceStatusInfo<>(0,"下架商铺成功",result);
         }catch (Exception e){
-            return  new ServiceStatusInfo<>(1,"删除商铺失败"+e.getMessage(),null);
+            return  new ServiceStatusInfo<>(1,"下架商铺失败"+e.getMessage(),null);
         }
     }
 
     @Override
-    public ServiceStatusInfo<Integer> notRealDeleteBusinessSellers(long id) {
+    public ServiceStatusInfo<Integer> closeBusinessSellers(long id) {
         try {
-            int result = this.businessSellerMapper.notTrueDelete(id);
-            if (result==0)return new ServiceStatusInfo<>(1,"删除商铺失败",result);
-            return new ServiceStatusInfo<>(0,"删除商铺成功",result);
+            int result = this.businessSellerMapper.closeBusinessSellers(id);
+            if (result==0)return new ServiceStatusInfo<>(1,"关闭商铺失败",result);
+            return new ServiceStatusInfo<>(0,"关闭商铺成功",result);
         }catch (Exception e){
-            return  new ServiceStatusInfo<>(1,"删除商铺失败"+e.getMessage(),null);
+            return  new ServiceStatusInfo<>(1,"关闭商铺失败"+e.getMessage(),null);
         }
     }
+
+
 }

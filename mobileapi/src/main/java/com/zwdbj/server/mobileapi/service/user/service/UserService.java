@@ -198,6 +198,14 @@ public class UserService {
         return this.getUserDetail(userId);
     }
 
+    public String getPhone(long userId) {
+        UserModel userModel = this.userMapper.findUserById(userId);
+        if (userModel!=null) {
+            return userModel.getPhone();
+        }
+        return null;
+    }
+
     public UserDetailInfoDto getUserDetail(long userId) {
         //TODO 增加缓存数据
         UserDetailInfoDto userDetailInfoDto = this.userMapper.getUserDetail(userId);
