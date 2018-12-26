@@ -73,10 +73,10 @@ public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreService
     }
 
     @Override
-    public ServiceStatusInfo<OfflineStoreServiceScopes> selectById(Long id) {
-        OfflineStoreServiceScopes offlineStoreServiceScopes = null;
+    public ServiceStatusInfo< List<OfflineStoreServiceScopes>> selectByofflineStoreId(Long offlineStoreId) {
+        List<OfflineStoreServiceScopes> offlineStoreServiceScopes = null;
         try {
-            offlineStoreServiceScopes = mapper.selectById(id);
+            offlineStoreServiceScopes = mapper.selectByofflineStoreId(offlineStoreId);
             return new ServiceStatusInfo<>(0, "", offlineStoreServiceScopes);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "通过id查询线下门店服务范围失败" + e.getMessage(), null);

@@ -5,11 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "门店其他服务")
 public class OfflineStoreExtraServices {
-    @ApiModelProperty(value = "id")
-    Long id;
-    @ApiModelProperty(value = "")
+    @ApiModelProperty("id")
+    long id;
+    @ApiModelProperty(value = "商家id")
     Long offlineStoreId;
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "额外服务id")
     Long extraServiceId;
     /// <summary>
     /// 0:正常1：非正常

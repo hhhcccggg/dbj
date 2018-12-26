@@ -17,6 +17,16 @@ public class BusinessSellerAddInput {
     String contactName;
     @ApiModelProperty(value = "联系人的手机号码")
     String contactPhone;
+    @ApiModelProperty("城市id")
+    int cityId;
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
 
     public String getContactName() {
         return contactName;

@@ -16,7 +16,7 @@ public class OfflineStoreServiceScopes {
     /// 分类ID
     /// </summary>
     /// <value>The service scope identifier.</value>
-    @ApiModelProperty(value = "分类ID")
+    @ApiModelProperty(value = "服务分类ID")
     long serviceScopeId;
     @ApiModelProperty(value = "notes")
     String notes;

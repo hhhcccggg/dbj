@@ -10,7 +10,7 @@ public class AdNewCategoryNameInput {
 
     @ApiModelProperty("iconUrl")
     String iconUrl;
-    @ApiModelProperty("状态")
+    @ApiModelProperty("状态 0:正常 1：下线")
     int status;
 
     public String getName() {

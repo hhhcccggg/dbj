@@ -15,11 +15,10 @@ public interface OfflineStoreServiceScopesMapper {
     Long create(@Param("id") Long id, @Param("offlineStoreServiceScopes") OfflineStoreServiceScopes offlineStoreServiceScopes);
 
     @Update("update o2o_offlineStoreServiceScopes set " +
-            "offlineStoreId=#{offlineStoreServiceScopes.offlineStoreId}," +
-            "serviceScopeId=#{offlineStoreServiceScopes.serviceScopeId}," +
             "notes=#{offlineStoreServiceScopes.notes}," +
-            "status=#{offlineStoreServiceScopes.status}" +
-            " where id=#{offlineStoreServiceScopes.id}")
+            "status=#{offlineStoreServiceScopes.status} " +
+            "where offlineStoreId=#{offlineStoreServiceScopes.offlineStoreId} " +
+            "and serviceScopeId=#{offlineStoreServiceScopes.serviceScopeId}")
     Long update(@Param("offlineStoreServiceScopes") OfflineStoreServiceScopes offlineStoreServiceScopes);
 
 
@@ -29,8 +28,8 @@ public interface OfflineStoreServiceScopesMapper {
     @Select("select * from o2o_offlineStoreServiceScopes where isDeleted=0 order by createTime")
     List<OfflineStoreServiceScopes> select();
 
-    @Select(("select * from o2o_offlineStoreServiceScopes where id=#{id}"))
-    OfflineStoreServiceScopes selectById(@Param("id") Long id);
+    @Select(("select * from o2o_offlineStoreServiceScopes where offlineStoreId=#{offlineStoreId} and isDeleted=0"))
+    List<OfflineStoreServiceScopes> selectByofflineStoreId(@Param("offlineStoreId") Long offlineStoreId);
 
 
 }

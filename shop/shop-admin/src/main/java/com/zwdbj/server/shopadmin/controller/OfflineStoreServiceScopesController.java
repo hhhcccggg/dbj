@@ -64,11 +64,11 @@ public class OfflineStoreServiceScopesController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", list, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/select/{offlineStoreId}", method = RequestMethod.GET)
     @ApiOperation(value = "通过Id查询线下门店服务范围")
-    public ResponseData<OfflineStoreServiceScopes> selectById(@PathVariable("id") Long id) {
+    public ResponseData<List<OfflineStoreServiceScopes>> selectById(@PathVariable("offlineStoreId") Long offlineStoreId) {
 
-        ServiceStatusInfo<OfflineStoreServiceScopes> serviceStatusInfo = offlineStoreServiceScopesServiceImpl.selectById(id);
+        ServiceStatusInfo<List<OfflineStoreServiceScopes>> serviceStatusInfo = offlineStoreServiceScopesServiceImpl.selectByofflineStoreId(offlineStoreId);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
