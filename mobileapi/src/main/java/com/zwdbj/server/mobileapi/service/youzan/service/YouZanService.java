@@ -244,10 +244,11 @@ public class YouZanService {
 
         youzanUmpPromocardBuyerSearchParams.setStatus("VALID");
 //        youzanUmpPromocardBuyerSearchParams.setFansId(userId);
-        youzanUmpPromocardBuyerSearchParams.setOpenUserId(String.valueOf(userId));
         String phone = this.userService.getPhone(userId);
         if (phone!=null && !phone.isEmpty()) {
             youzanUmpPromocardBuyerSearchParams.setMobile(Long.valueOf(phone));
+        } else {
+            youzanUmpPromocardBuyerSearchParams.setOpenUserId(String.valueOf(userId));
         }
 
         YouzanUmpPromocardBuyerSearch youzanUmpPromocardBuyerSearch = new YouzanUmpPromocardBuyerSearch();
