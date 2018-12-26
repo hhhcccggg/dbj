@@ -15,7 +15,7 @@ public class AdBasicCategoryDto {
     Long userId;
     @ApiModelProperty(value = "分类创建者，如果是系统内置分类，此字段保持为null")
     Long username;
-    @ApiModelProperty(value = "分类的类型 默认为0:宠物类型")
+    @ApiModelProperty(value = "分类的类型 默认为0:宠物类型 分类,-1:全部,0:宠物,1:其他")
     int type;
     @ApiModelProperty(value = "品种数")
     Long sonCount;

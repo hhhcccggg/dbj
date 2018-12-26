@@ -13,7 +13,7 @@ public class CategoryDto {
     boolean isHaveNextNode;
     @ApiModelProperty("iconUrl")
     String iconUrl;
-    @ApiModelProperty("状态")
+    @ApiModelProperty("状态,0:正常 1：下线")
     int status;
     @ApiModelProperty("排序")
     int orderIndex;
