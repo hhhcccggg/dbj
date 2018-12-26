@@ -195,6 +195,18 @@ public class UserAssetServiceImpl implements IUserAssetService{
     }
 
     /**
+     * 根据交易号查询金币是否
+     * @param tradeNo
+     * @param tradeType
+     * @return
+     */
+    @Override
+    public boolean findCoinDetailByTrade(String tradeNo, String tradeType) {
+        int a = this.userAssetMapper.findCoinDetailByTrade(tradeNo,tradeType);
+        return a>0;
+    }
+
+    /**
      * 内部
      * @param userId
      * @param input
@@ -209,7 +221,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
     @Override
     public long addUserCoinDetailOnce(long userId, UserCoinDetailAddInput input) {
         long id = UniqueIDCreater.generateID();
-        int result = this.userAssetMapper.addUserCoinDetailSuccess(id,userId,input);
+        int result = this.userAssetMapper.addUserCoinDetail(id,userId,input);
         if (result==1 && input.getStatus().equals("SUCCESS")){
             boolean a = this.userCoinTypeIsExist(userId, "PAY");
             if (!a) this.greatUserCoinType(userId, "PAY");

@@ -75,17 +75,18 @@ public class PurchaseService {
                     JSONObject returnJson = JSONObject.parseObject(r_receipt);
                     JSONArray in_appJsons = returnJson.getJSONArray("in_app");
                     int size = in_appJsons.size();
-                    //String in_app = returnJson.getString("in_app");
-                    //JSONObject in_appJson = JSONObject.parseObject(in_app.substring(1, in_app.length()-1));
+                    logger.info("size:"+size);
                     JSONObject in_appJson = in_appJsons.getJSONObject(size-1);
                     String product_id = in_appJson.getString("product_id");
                     responseMsg.setProduct_id(product_id);
                     String transaction_id = in_appJson.getString("transaction_id");   // 订单号
-/************************************************+自己的业务逻辑**********************************************************/
-                    //如果单号一致  则保存到数据库
+                    responseMsg.setTransactionId(transaction_id);
+ /************************************************+自己的业务逻辑**********************************************************/
                     int a = 0;
+                    long id=0L;
+                    //如果单号一致  则保存到数据库
                     if(transactionID.equals(transaction_id)){
-                        logger.info("*************************我是业务逻辑*************************");
+                        logger.info("*************************我是业务逻辑11111111*************************");
                         BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(product_id,"IOS");
                         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
                         addInput.setTitle(coinConfigModel.getTitle());
@@ -95,15 +96,48 @@ public class PurchaseService {
                         addInput.setTradeNo(transaction_id);
                         addInput.setTradeType("APPLEPAY");
                         addInput.setStatus("SUCCESS");
-                        long id = this.userAssetServiceImpl.addUserCoinDetailOnce(userId,addInput);
+                        id = this.userAssetServiceImpl.addUserCoinDetailOnce(userId,addInput);
                         if (id!=0)a=1;
-                    }
+                        if(a!=0){//用户金币数量新增成功
+                            return new ServiceStatusInfo<>(0,"充值金币成功",responseMsg);
+                        }else{
+                            return new ServiceStatusInfo<>(1,"充值金币失败",responseMsg);
+                        }
+                    }else { //循环遍历
+                        logger.info("*************************我是业务逻辑22222222*************************");
+                        for (int i=size-1;i>=0;i--){
+                            JSONObject appJson = in_appJsons.getJSONObject(i);
+                            String productId = appJson.getString("product_id");
+                            responseMsg.setProduct_id(productId);
+                            String transactionId = appJson.getString("transaction_id");   // 订单号
+                            responseMsg.setTransactionId(transactionId);
+                            //查看数据库是否已经增加该transactionId的金币交易
+                            boolean b = this.userAssetServiceImpl.findCoinDetailByTrade(transactionId,"APPLEPAY");
+                            if (b){ //如果存在
+                                return new ServiceStatusInfo<>(0,"充值金币成功",responseMsg);
+                            }else {  //如果不存在 就增加金币
+                                BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(productId,"IOS");
+                                UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
+                                addInput.setTitle(coinConfigModel.getTitle());
+                                addInput.setNum(coinConfigModel.getCoins());
+                                addInput.setExtraData(r_receipt);
+                                addInput.setType("PAY");
+                                addInput.setTradeNo(transactionId);
+                                addInput.setTradeType("APPLEPAY");
+                                addInput.setStatus("SUCCESS");
+                                id = this.userAssetServiceImpl.addUserCoinDetailOnce(userId,addInput);
+                                if (id!=0)a=1;
+                                if(a!=0){//用户金币数量新增成功
+                                    return new ServiceStatusInfo<>(0,"充值金币成功",responseMsg);
+                                }else{
+                                    return new ServiceStatusInfo<>(1,"充值金币失败",responseMsg);
+                                }
+                            }
+
 /************************************************+自己的业务逻辑end**********************************************************/
-                    if(a!=0){//用户金币数量新增成功
-                        return new ServiceStatusInfo<>(0,"充值金币成功",responseMsg);
-                    }else{
-                        return new ServiceStatusInfo<>(1,"充值金币失败",responseMsg);
-                    }
+                        }
+                        }
+
                 } else {
                     return new ServiceStatusInfo<>(1,"receipt数据有问题",responseMsg);
                 }
