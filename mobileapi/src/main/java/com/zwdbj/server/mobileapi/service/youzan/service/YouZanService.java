@@ -11,9 +11,9 @@ import com.youzan.open.sdk.client.oauth.OAuthFactory;
 import com.youzan.open.sdk.client.oauth.OAuthType;
 import com.youzan.open.sdk.gen.v3_0_0.api.*;
 import com.youzan.open.sdk.gen.v3_0_0.model.*;
-import com.youzan.open.sdk.gen.v3_0_1.api.YouzanUmpPromocardBuyerSearch;
-import com.youzan.open.sdk.gen.v3_0_1.model.YouzanUmpPromocardBuyerSearchParams;
-import com.youzan.open.sdk.gen.v3_0_1.model.YouzanUmpPromocardBuyerSearchResult;
+import com.youzan.open.sdk.gen.v3_0_0.api.YouzanUmpPromocardBuyerSearch;
+import com.youzan.open.sdk.gen.v3_0_0.model.YouzanUmpPromocardBuyerSearchParams;
+import com.youzan.open.sdk.gen.v3_0_0.model.YouzanUmpPromocardBuyerSearchResult;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
@@ -245,19 +245,25 @@ public class YouZanService {
         youzanUmpPromocardBuyerSearchParams.setStatus("VALID");
 //        youzanUmpPromocardBuyerSearchParams.setFansId(userId);
         String phone = this.userService.getPhone(userId);
+        phone = "18161279360";
         if (phone!=null && !phone.isEmpty()) {
             youzanUmpPromocardBuyerSearchParams.setMobile(Long.valueOf(phone));
         } else {
-            youzanUmpPromocardBuyerSearchParams.setOpenUserId(String.valueOf(userId));
+            youzanUmpPromocardBuyerSearchParams.setOpenUserId(userId);
         }
 
         YouzanUmpPromocardBuyerSearch youzanUmpPromocardBuyerSearch = new YouzanUmpPromocardBuyerSearch();
         youzanUmpPromocardBuyerSearch.setAPIParams(youzanUmpPromocardBuyerSearchParams);
-        YouzanUmpPromocardBuyerSearchResult result = client.invoke(youzanUmpPromocardBuyerSearch);
-        if (result==null) {
-            logger.info("未找到用户{"+userId+"}的优惠券信息");
+        try {
+            YouzanUmpPromocardBuyerSearchResult result = client.invoke(youzanUmpPromocardBuyerSearch);
+            if (result == null) {
+                logger.info("未找到用户{" + userId + "}的优惠券信息");
+            }
+            return new ServiceStatusInfo<>(0, "", result == null ? 0 : result.getCards().length);
+        } catch ( Exception ex ) {
+            logger.warn(ex.getMessage());
+            return new ServiceStatusInfo<>(0, "", 0);
         }
-        return new ServiceStatusInfo<>(0,"",result==null?0:result.getCards().length);
     }
 
     public ServiceStatusInfo<Integer> cartNum(long userId) {
