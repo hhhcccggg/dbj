@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 
-@ApiModel(value = "店铺的信息")
+@ApiModel(value = "店铺信息详情")
 public class BusinessSellerModel {
     @ApiModelProperty(value = "店铺id")
     long id;

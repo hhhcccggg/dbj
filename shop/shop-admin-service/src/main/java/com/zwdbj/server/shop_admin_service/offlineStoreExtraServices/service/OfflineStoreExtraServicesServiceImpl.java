@@ -68,10 +68,10 @@ public class OfflineStoreExtraServicesServiceImpl implements OfflineStoreExtraSe
     }
 
     @Override
-    public ServiceStatusInfo<OfflineStoreExtraServices> selectById(Long id) {
-        OfflineStoreExtraServices result = null;
+    public ServiceStatusInfo<List<OfflineStoreExtraServices>> selectByofflineStoreId(Long offlineStoreId) {
+        List<OfflineStoreExtraServices> result = null;
         try {
-            result = mapper.selectById(id);
+            result = mapper.selectByofflineStoreId(offlineStoreId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "通过id查询门店其他服务失败" + e.getMessage(), result);
