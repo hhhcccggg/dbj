@@ -11,6 +11,7 @@ import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImp
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
+import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.service.CommentService;
 import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
@@ -486,12 +487,11 @@ public class VideoService {
         //TODO 金币变动时 考虑到线程安全，需要加锁
         if (coins<0 || coins>100000000)return new ServiceStatusInfo<>(1, "您输入的金币数量有误", null);
         long userId = JWTUtil.getCurrentId();
-        /*String key = String.valueOf(userId)+ Calendar.getInstance().getTimeInMillis();
+        String key = String.valueOf(userId)+ videoId;
         ConsulClient consulClient = new ConsulClient("localhost", 8500);	// 创建与Consul的连接
-        CheckTtl checkTtl = new CheckTtl("checkId:"+key, consulClient); // session的健康检查，用来清理失效session占用的锁
-        Lock lock = new Lock(consulClient, "lockKey:"+key, checkTtl);*/
+        Lock lock = new Lock(consulClient, "mobileapi","playTout-lockKey:"+key);
         try {
-            //if (lock.lock(true,500L,null)){
+            if (lock.lock(true,500L,3)){
 
                 //获取视频作者id
                 Long authorId = videoMapper.findUserIdByVideoId(videoId);
@@ -593,13 +593,13 @@ public class VideoService {
                         }
                     }
                 }
-            //}
+            }
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "打赏失败" + e.getMessage(), null);
-        }/*finally {
+        }finally {
             lock.unlock();
         }
-        return new ServiceStatusInfo<>(1, "打赏失败" , null);*/
+        return new ServiceStatusInfo<>(1, "打赏失败" , null);
     }
 
 }

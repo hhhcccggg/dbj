@@ -69,6 +69,26 @@ public class AppConfig {
     private String xgIOSSecrect;
     @Value("${app.h5.mobile-url}")
     private String h5MobileUrl;
+    @Value("${spring.cloud.consul.host}")
+    private String consulHost;
+    @Value("${spring.cloud.consul.port}")
+    private int consulPort;
+
+    public String getConsulHost() {
+        return consulHost;
+    }
+
+    public void setConsulHost(String consulHost) {
+        this.consulHost = consulHost;
+    }
+
+    public int getConsulPort() {
+        return consulPort;
+    }
+
+    public void setConsulPort(int consulPort) {
+        this.consulPort = consulPort;
+    }
 
     public String getPushEnv() {
         return pushEnv;
