@@ -246,7 +246,6 @@ public class YouZanService {
         youzanUmpPromocardBuyerSearchParams.setStatus("VALID");
 //        youzanUmpPromocardBuyerSearchParams.setFansId(userId);
         String phone = this.userService.getPhone(userId);
-        phone = "18161279360";
         if (phone!=null && !phone.isEmpty()) {
             youzanUmpPromocardBuyerSearchParams.setMobile(Long.valueOf(phone));
         } else {
