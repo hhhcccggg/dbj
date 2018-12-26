@@ -76,15 +76,15 @@ public class PurchaseService {
                     JSONArray in_appJsons = returnJson.getJSONArray("in_app");
                     int size = in_appJsons.size();
                     logger.info("size:"+size);
-
- /************************************************+自己的业务逻辑**********************************************************/
-                    int a = 0;
-                    long id=0L;
                     JSONObject in_appJson = in_appJsons.getJSONObject(size-1);
                     String product_id = in_appJson.getString("product_id");
                     responseMsg.setProduct_id(product_id);
                     String transaction_id = in_appJson.getString("transaction_id");   // 订单号
                     responseMsg.setTransactionId(transaction_id);
+
+ /************************************************+自己的业务逻辑**********************************************************/
+                    int a = 0;
+                    long id=0L;
                     if(transactionID.equals(transaction_id)){
                         logger.info("*************************我是业务逻辑11111111*************************");
                         BuyCoinConfigModel coinConfigModel = this.userAssetServiceImpl.findCoinConfigByProductId(product_id,"IOS");
