@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 public class ResponseMsg {
     private String receipt;
     private String product_id;
+    private String transactionId;
 
 
     //返回的状态码
@@ -20,6 +21,14 @@ public class ResponseMsg {
     //21007	receipt是Sandbox receipt，但却发送至生产系统的验证服务
     //21008	receipt是生产receipt，但却发送至Sandbox环境的验证服务
 
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
 
     public String getProduct_id() {
         return product_id;
