@@ -488,12 +488,12 @@ public class VideoService {
         //TODO 金币变动时 考虑到线程安全，需要加锁
         if (coins<0 || coins>100000000)return new ServiceStatusInfo<>(1, "您输入的金币数量有误", null);
         long userId = JWTUtil.getCurrentId();
-        String key = String.valueOf(userId)+ Calendar.getInstance().getTimeInMillis();
+        /*String key = String.valueOf(userId)+ Calendar.getInstance().getTimeInMillis();
         ConsulClient consulClient = new ConsulClient("localhost", 8500);	// 创建与Consul的连接
         CheckTtl checkTtl = new CheckTtl("checkId:"+key, consulClient); // session的健康检查，用来清理失效session占用的锁
-        Lock lock = new Lock(consulClient, "lockKey:"+key, checkTtl);
+        Lock lock = new Lock(consulClient, "lockKey:"+key, checkTtl);*/
         try {
-            if (lock.lock(true,500L,null)){
+            //if (lock.lock(true,500L,null)){
 
                 //获取视频作者id
                 Long authorId = videoMapper.findUserIdByVideoId(videoId);
@@ -595,13 +595,13 @@ public class VideoService {
                         }
                     }
                 }
-            }
+            //}
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "打赏失败" + e.getMessage(), null);
-        }finally {
+        }/*finally {
             lock.unlock();
         }
-        return new ServiceStatusInfo<>(1, "打赏失败" , null);
+        return new ServiceStatusInfo<>(1, "打赏失败" , null);*/
     }
 
 }

@@ -1,3 +1,4 @@
+/*
 package com.zwdbj.server.utility.consulLock.unit;
 
 import com.ecwid.consul.v1.ConsulClient;
@@ -90,3 +91,4 @@ public class CheckTtl {
 
     }
 }
+*/
