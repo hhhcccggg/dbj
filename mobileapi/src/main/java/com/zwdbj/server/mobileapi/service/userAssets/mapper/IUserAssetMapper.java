@@ -71,7 +71,7 @@ public interface IUserAssetMapper {
     //提现：绑定第三方支付平台
 
     @Insert("insert into core_enCashAccounts(id,userId,type,uniqueId,name,avatarUrl,accessToken,expireIn) " +
-            "values(#{id},#{userId},#{input.type},#{input.uniqueId},#{input.name},avatarUrl,accessToken,expireIn)")
+            "values(#{id},#{userId},#{input.type},#{input.uniqueId},#{input.name},#{input.avatarUrl},#{input.accessToken},#{input.expireIn})")
     int bandingThird(@Param("id")long id,@Param("userId")long userId,@Param("input")BandingThirdInput input);
 
     @Delete("delete from core_enCashAccounts where id=#{id}")
