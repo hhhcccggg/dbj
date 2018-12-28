@@ -14,6 +14,8 @@ import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
+import com.zwdbj.server.utility.model.ResponseData;
+import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
 import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
@@ -32,7 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -337,12 +338,17 @@ public class UserService {
         return userMapper.findUserById(userId);
     }
 
-    public ServiceStatusInfo<UserLoginInfoDto> loginByUserPwd(String username, String password) {
+    public ServiceStatusInfo<UserLoginInfoDto> loginByPwd(String phone, String password) {
         boolean isLogined = false;
         UserModel userModel = null;
         try {
+            String regEx = "^0?(13|14|15|18|17|19)[0-9]{9}$";
+            Pattern r = Pattern.compile(regEx);
+            Matcher m1 = r.matcher(phone);
+            boolean rs1 = m1.matches();
+            if (rs1 == false ) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
             String encodePassword = SHAEncrypt.encryptSHA(password);
-            userModel = this.userMapper.findUserByUserPwd(username, encodePassword);
+            userModel = this.userMapper.findUserByPwd(phone, encodePassword);
             isLogined = userModel != null;
         } catch (Exception ex) {
             isLogined = false;
@@ -654,6 +660,96 @@ public class UserService {
             return false;
         }
     }
+
+    public ServiceStatusInfo<Integer> phoneIsRegOrNot(PhoneCodeInput input){
+        try {
+            ServiceStatusInfo<Object> statusInfo = this.checkPhoneCode(input.getPhone(),input.getCode());
+            if (statusInfo.isSuccess()){
+                int result = this.userMapper.phoneIsRegOrNot(input.getPhone());
+                if (result!=0){
+                    result = this.userMapper.phoneIsHavePWD(input.getPhone());
+                    if (result==0){
+                        return  new ServiceStatusInfo<>(0,"",201);
+                    }else {
+                        return  new ServiceStatusInfo<>(0,"",202);
+                    }
+                }else {
+                    return  new ServiceStatusInfo<>(0,"",100);
+                }
+            }else {
+                new ResponseData<>(ResponseDataCode.STATUS_ERROR, "验证失败，请输入正确的手机号和验证码", null);
+            }
+
+        }catch (Exception e){
+            return  new ServiceStatusInfo<>(1,"出现异常："+e.getMessage(),null);
+        }
+        return null;
+    }
+
+    public ServiceStatusInfo<Integer> regUser(RegUserInput input){
+        try {
+            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{2,11}$";
+            Pattern r = Pattern.compile(regEx);
+            Matcher m1 = r.matcher(input.getPassword());
+            Matcher m2 = r.matcher(input.getPasswordTwo());
+            boolean rs1 = m1.matches();
+            boolean rs2 = m2.matches();
+            if (rs1 == false || rs2==false) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
+            int result=0;
+            String password = SHAEncrypt.encryptSHA(input.getPassword());
+            if (input.getPassword().equals(input.getPasswordTwo())){
+                if (input.getType()==100){
+                    long id = UniqueIDCreater.generateID();
+                    String userName = UniqueIDCreater.generateUserName();
+                    result = this.userMapper.regUser(id,userName,input.getPhone(),password);
+                    if (result==0)return new ServiceStatusInfo<>(1,"注册失败",0);
+                    return new ServiceStatusInfo<>(0,"注册成功",result);
+                }else if (input.getType()==201){
+                    UserModel userModel = this.findUserByPhone(input.getPhone());
+                    if (userModel==null)return new ServiceStatusInfo<>(1,"此手机号还没有注册，请注册账号",null);
+                    result = (int)this.userMapper.updateField("password="+password,userModel.getId());
+                    if (result==0)return new ServiceStatusInfo<>(1,"完善密码失败",0);
+                    return new ServiceStatusInfo<>(0,"完善密码成功",result);
+                }else if (input.getType()==202){
+                    return  new ServiceStatusInfo<>(1,"该手机号码已经注册",null);
+                }else {
+                    return  new ServiceStatusInfo<>(1,"请重新填写验证码",null);
+                }
+            }else {
+                return  new ServiceStatusInfo<>(1,"两次输入的密码不一致，请确认",null);
+            }
+        }catch (Exception e){
+            return  new ServiceStatusInfo<>(1,"出现异常："+e.getMessage(),null);
+        }
+
+    }
+
+    public  ServiceStatusInfo<Integer> getMyNewPWD(NewMyPasswordInput input){
+
+        try {
+            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{2,11}$";
+            Pattern r = Pattern.compile(regEx);
+            Matcher m1 = r.matcher(input.getPassword());
+            Matcher m2 = r.matcher(input.getPasswordTwo());
+            boolean rs1 = m1.matches();
+            boolean rs2 = m2.matches();
+            if (rs1 == false || rs2==false) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
+            int result=0;
+            String password = SHAEncrypt.encryptSHA(input.getPassword());
+            if (input.getPassword().equals(input.getPasswordTwo())){
+                UserModel userModel = this.findUserByPhone(input.getPhone());
+                if (userModel==null)return new ServiceStatusInfo<>(1,"此手机号还没有注册，请注册账号",null);
+                result = (int)this.userMapper.updateField("password="+password,userModel.getId());
+                if (result==0)return new ServiceStatusInfo<>(1,"找回密码失败",0);
+                return new ServiceStatusInfo<>(0,"找回密码成功",result);
+            }else {
+                return  new ServiceStatusInfo<>(1,"两次输入的密码不一致，请确认",null);
+            }
+        }catch (Exception e){
+            return  new ServiceStatusInfo<>(1,"出现异常："+e.getMessage(),null);
+        }
+    }
+
 
 }
 
