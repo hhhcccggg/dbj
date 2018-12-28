@@ -23,7 +23,7 @@ namespace db.shop.Models.shop
         /// <value>The delivery fee.</value>
         public float deliveryFee { get; set; }
         /// <summary>
-        /// 交易状态，1、未付款2、已付款3、未发货、已发货5、申请退款6、已退款7、交易成功8、交易关闭
+        /// 交易状态，1、未付款2、已付款3、未发货、4已发货5、申请退款6、已退款7、交易成功8、交易关闭
         /// </summary>
         /// <value>The status.</value>
         public int status { get; set; }
