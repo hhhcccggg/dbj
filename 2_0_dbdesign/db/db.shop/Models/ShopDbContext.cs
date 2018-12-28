@@ -22,8 +22,7 @@ namespace db.shop.Models
         #endregion
 
         #region shop
-        public DbSet<BusinessSeller> BusinessSellers { get; set; }
-        public DbSet<BusinessSellerReview> BusinessSellerReviews { get; set; }
+        public DbSet<Store> BusinessSellers { get; set; }
         public DbSet<DeliveryTemplate> DeliveryTemplates { get; set; }
         public DbSet<DeliveryTemplateScope> deliveryTemplateScopes { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -63,9 +62,9 @@ namespace db.shop.Models
             offstoreStaff.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             offstoreStaff.Property(c => c.IsDeleted).HasDefaultValue(false);
             offstoreStaff.Property(cw => cw.isManualData).HasDefaultValue(false);
-            offstoreStaff.Property(cw => cw.isSuperStar).HasDefaultValue(false);
+            offstoreStaff.Property(cw => cw.superStar).HasDefaultValue(false);
 
-            var businessSeller = modelBuilder.Entity<BusinessSeller>();
+            var businessSeller = modelBuilder.Entity<Store>();
             businessSeller.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             businessSeller.Property(c => c.IsDeleted).HasDefaultValue(false);
             businessSeller.Property(cw => cw.isManualData).HasDefaultValue(false);
@@ -77,14 +76,8 @@ namespace db.shop.Models
             businessSeller.Property(cw => cw.expireTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             businessSeller.Property(cw => cw.grade).HasDefaultValue(0);
             businessSeller.Property(cw => cw.status).HasDefaultValue(0);
-            businessSeller.Property(cw => cw.isReviewed).HasDefaultValue(false);
-            businessSeller.Property(cw => cw.isStopService).HasDefaultValue(false);
-
-            var businessSellerReview = modelBuilder.Entity<BusinessSellerReview>();
-            businessSellerReview.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
-            businessSellerReview.Property(c => c.IsDeleted).HasDefaultValue(false);
-            businessSellerReview.Property(cw => cw.isManualData).HasDefaultValue(false);
-            businessSellerReview.Property(cw => cw.status).HasDefaultValue(0);
+            businessSeller.Property(cw => cw.reviewed).HasDefaultValue(false);
+            businessSeller.Property(cw => cw.stopService).HasDefaultValue(false);
 
             var deliveryTemplate = modelBuilder.Entity<DeliveryTemplate>();
             deliveryTemplate.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
@@ -113,11 +106,11 @@ namespace db.shop.Models
             product.Property(cw => cw.priceUp).HasDefaultValue(0);
             product.Property(cw => cw.priceDown).HasDefaultValue(0);
             product.Property(cw => cw.productGroupId).HasDefaultValue(0);
-            product.Property(cw => cw.isJoinMemberDiscount).HasDefaultValue(false);
-            product.Property(cw => cw.isNeedDelivery).HasDefaultValue(true);
+            product.Property(cw => cw.joinMemberDiscount).HasDefaultValue(false);
+            product.Property(cw => cw.needDelivery).HasDefaultValue(true);
             product.Property(cw => cw.universalDeliveryPrice).HasDefaultValue(10);
             product.Property(cw => cw.deliverytemplateId).HasDefaultValue(0);
-            product.Property(cw => cw.isPublish).HasDefaultValue(false);
+            product.Property(cw => cw.publish).HasDefaultValue(false);
             product.Property(cw => cw.specifyPublishTime).HasDefaultValue(0);
             product.Property(cw => cw.weight).HasDefaultValue(0);
 
@@ -168,7 +161,7 @@ namespace db.shop.Models
             receiveAddress.Property(c => c.IsDeleted).HasDefaultValue(false);
             receiveAddress.Property(cw => cw.isManualData).HasDefaultValue(false);
             receiveAddress.Property(cw => cw.cityId).HasDefaultValue(0);
-            receiveAddress.Property(cw => cw.isDefault).HasDefaultValue(false);
+            receiveAddress.Property(cw => cw.defaultAddr).HasDefaultValue(false);
             #endregion
         }
     }

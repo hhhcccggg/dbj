@@ -8,25 +8,36 @@ namespace db.shop.Models.shop
     public class ProductOrder:db.common.BaseModelWithTime<long>
     {
         /// <summary>
-        /// 实付金额，单位为元，精确到小数点2位
+        /// 实付金额，单位为分
         /// </summary>
         /// <value>The payment.</value>
-        public float payment { get; set; }
+        public int payment { get; set; }
         /// <summary>
-        /// 支付类型，1、在线支付2、货到付款
+        /// 支付类型，BANK:银行卡WECHAT:微信ALIPAY:支付宝
         /// </summary>
         /// <value>The type of the payment.</value>
-        public int paymentType { get; set; }
+        [MaxLength(128)]
+        [Required]
+        public string paymentType { get; set; }
         /// <summary>
-        /// 邮费，单位元，精确到小数点2位
+        /// 邮费，单位分
         /// </summary>
         /// <value>The delivery fee.</value>
-        public float deliveryFee { get; set; }
+        public int deliveryFee { get; set; }
         /// <summary>
-        /// 交易状态，1、未付款2、已付款3、未发货、已发货5、申请退款6、已退款7、交易成功8、交易关闭
+        /// 交易状态
+        /// STATE_WAIT_BUYER_PAY（交易创建，等待买家付款）
+        /// STATE_BUYER_PAYED (买家已付款)
+        /// STATE_SELLER_DELIVERIED（卖家已发货，等待买家收货)
+        /// STATE_BUYER_DELIVERIED（买家已确认收货)
+        /// STATE_REFUNDING（退款中)
+        /// STATE_SUCCESS（交易成功)
+        /// STATE_CLOSED(交易关闭)
         /// </summary>
         /// <value>The status.</value>
-        public int status { get; set; }
+        [Required]
+        [MaxLength(128)]
+        public String status { get; set; }
         /// <summary>
         /// 交易更新时间
         /// </summary>
@@ -61,13 +72,13 @@ namespace db.shop.Models.shop
         /// 物流名字
         /// </summary>
         /// <value>The name of the delivery.</value>
-        [MaxLength(30)]
+        [MaxLength(128)]
         public String deliveryName { get; set; }
         /// <summary>
         /// 物流类型，主要是物流公司
         /// </summary>
         /// <value>The type of the delivery.</value>
-        [MaxLength(30)]
+        [MaxLength(50)]
         public String deliveryType { get; set; }
         /// <summary>
         /// 物流单号
@@ -76,7 +87,11 @@ namespace db.shop.Models.shop
         [MaxLength(128)]
         public String deliveryCode { get; set; }
         public long userId { get; set; }
-        public long sellerId { get; set; }
+        /// <summary>
+        /// 店铺Id
+        /// </summary>
+        /// <value>The store identifier.</value>
+        public long storeId { get; set; }
         /// <summary>
         /// 买家留言
         /// </summary>

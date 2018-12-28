@@ -14,7 +14,7 @@ namespace db.shop.Models.o2o
         /// </summary>
         /// <value>The day.</value>
         public int day { get; set; }
-        public long offlineStoreId { get; set; }
+        public long storeId { get; set; }
         /// <summary>
         /// 营业时间，单位秒
         /// </summary>

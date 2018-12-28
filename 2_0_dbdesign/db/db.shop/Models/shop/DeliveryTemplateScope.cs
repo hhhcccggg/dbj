@@ -17,8 +17,16 @@ namespace db.shop.Models.shop
         [Required]
         public String deliveryArea { get; set; }
         public int item { get; set; }
-        public float itemPrice { get; set; }
+        /// <summary>
+        /// 价格，单位分
+        /// </summary>
+        /// <value>The item price.</value>
+        public int itemPrice { get; set; }
         public int overItem { get; set; }
-        public float overItemPrice { get; set; }
+        /// <summary>
+        /// 价格，单位分
+        /// </summary>
+        /// <value>The over item price.</value>
+        public int overItemPrice { get; set; }
     }
 }

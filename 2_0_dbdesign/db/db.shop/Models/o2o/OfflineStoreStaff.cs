@@ -10,12 +10,7 @@ namespace db.shop.Models.o2o
     [Table("o2o_offlineStoreStaffs")]
     public class OfflineStoreStaff: db.common.BaseModelWithTime<long>
     {
-        public long offlineStoreId { get; set; }
+        public long storeId { get; set; }
         public long userId { get; set; }
-        /// <summary>
-        /// 是否为代言人
-        /// </summary>
-        /// <value><c>true</c> if is super star; otherwise, <c>false</c>.</value>
-        public bool isSuperStar { get; set; }
     }
 }

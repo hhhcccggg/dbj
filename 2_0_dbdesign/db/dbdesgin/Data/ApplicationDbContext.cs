@@ -213,6 +213,7 @@ namespace dbdesgin.Data
             videoEntity.Property(c=>c.isManualRecommend).HasDefaultValue(false);
             videoEntity.HasIndex(c => c.userId);
             videoEntity.Property(cw => cw.tipCount).HasDefaultValue(0);
+            videoEntity.Property(cw => cw.type).HasDefaultValue("USER");
             //videoTipDetail
             var videoTipDetailEntity = modelBuilder.Entity<VideoTipDetail>();
             videoTipDetailEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
@@ -246,6 +247,14 @@ namespace dbdesgin.Data
             commentEntity.Property(c => c.resourceTypeId).HasDefaultValue(0);
             commentEntity.Property(c => c.refCommentId).HasDefaultValue(0);
             commentEntity.Property(c => c.isOwner).HasDefaultValue(false);
+            commentEntity.Property(c => c.rate).HasDefaultValue(0.0f);
+            //CommentExtraData
+            var commentExtraDataEntity = modelBuilder.Entity<CommentExtraData>();
+            commentExtraDataEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            commentExtraDataEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            commentExtraDataEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            commentExtraDataEntity.Property(c => c.type).HasDefaultValue("VIDEO");
+            commentExtraDataEntity.Property(c => c.dataId).HasDefaultValue(0);
 
             //Heart
             var heartEntity = modelBuilder.Entity<Heart>();

@@ -15,7 +15,7 @@ namespace dbdesgin.Models
         /// <value>The coins.</value>
         public long coins { get; set; }
         /// <summary>
-        /// 用户余额
+        /// 用户人民币余额，单位分
         /// </summary>
         /// <value>The remain balance.</value>
         public long remainBalance { get; set; }

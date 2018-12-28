@@ -4,15 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace db.shop.Models.shop
 {
-    [Table("shop_businessSellers")]
-    public class BusinessSeller :db.common.BaseModelWithTime<long>
+    /// <summary>
+    /// 店铺
+    /// </summary>
+    [Table("shop_stores")]
+    public class Store :db.common.BaseModelWithTime<long>
     {
         /// <summary>
         /// 店铺编号
         /// </summary>
         /// <value>The seller number.</value>
         [MaxLength(128)]
-        public String sellerNumber { get; set; }
+        public String storeNumber { get; set; }
         /// <summary>
         /// 名称
         /// </summary>
@@ -52,10 +55,12 @@ namespace db.shop.Models.shop
         [MaxLength(512)]
         public String address { get; set; }
         /// <summary>
-        /// 店铺类型1:自营商家2:第三方商家4:线下门店
+        /// 店铺类型>>SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
         /// </summary>
         /// <value>The type.</value>
-        public int type { get; set; }
+        [MaxLength(50)]
+        [Required]
+        public string type { get; set; }
         /// <summary>
         /// 店铺等级
         /// </summary>
@@ -88,7 +93,7 @@ namespace db.shop.Models.shop
         /// 综合评分
         /// </summary>
         /// <value>The grade.</value>
-        public float grade { get; set; }
+        public int grade { get; set; }
         /// <summary>
         /// 0：正常1：关闭
         /// </summary>
@@ -98,12 +103,12 @@ namespace db.shop.Models.shop
         /// 是否已审核通过
         /// </summary>
         /// <value><c>true</c> if is reviewed; otherwise, <c>false</c>.</value>
-        public bool isReviewed { get; set; }
+        public bool reviewed { get; set; }
         /// <summary>
         /// 是否停止服务
         /// </summary>
         /// <value><c>true</c> if is stop service; otherwise, <c>false</c>.</value>
-        public bool isStopService { get; set; }
+        public bool stopService { get; set; }
         /// <summary>
         /// 封面图
         /// </summary>
@@ -116,5 +121,12 @@ namespace db.shop.Models.shop
         /// <value>The cover images.</value>
         [MaxLength(1024)]
         public String coverImages { get; set; }
+        /// <summary>
+        /// 法律主体，也就是该店铺属于谁
+        /// 卖家ID
+        /// 企业标识
+        /// </summary>
+        /// <value>The legal subject identifier.</value>
+        public long legalSubjectId { get; set; }
     }
 }
