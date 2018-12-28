@@ -16,8 +16,8 @@ public interface IUserMapper {
     @Select("select * from core_users where thirdOpenId=#{openId} and loginType=#{type}")
     UserModel findUserByOpenId(@Param("openId") String openId,@Param("type") int type);
 
-    @Select("select * from core_users where username=#{username} and password=#{password}")
-    UserModel findUserByUserPwd(@Param("username") String username, @Param("password") String password);
+    @Select("select * from core_users where phone=#{phone} and password=#{password}")
+    UserModel findUserByPwd(@Param("phone") String phone, @Param("password") String password);
     @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,IsPhoneVerification) values(#{id},#{phone},#{username},'爪子用户'," +
             "'http://res.pet.zwdbj.com/default_avatar.png',true)")
     long regByPhone(@Param("phone") String phone,@Param("id") long id,@Param("username") String username);
@@ -88,5 +88,13 @@ public interface IUserMapper {
 
     @Select("select count(id) from core_users where phone=#{phone} and isManualData=true")
     int phoneIsTrue(@Param("phone") String phone);
+
+    @Select("select count(id) from core_users where phone=#{phone} and isManualData=0")
+    int phoneIsRegOrNot(@Param("phone")String phone);
+    @Select("select count(id) from core_users where phone=#{phone} and isManualData=0 and password is not null")
+    int phoneIsHavePWD(@Param("phone")String phone);
+    @Insert("insert into core_users(id,phone,password,username,nickName,avatarUrl,IsPhoneVerification) " +
+            "values(#{id},#{phone},#{password},#{username},'爪子用户','http://res.pet.zwdbj.com/default_avatar.png',true)")
+    int regUser(@Param("id")long id,@Param("username")String userName,@Param("phone")String phone,@Param("password")String password);
 
 }

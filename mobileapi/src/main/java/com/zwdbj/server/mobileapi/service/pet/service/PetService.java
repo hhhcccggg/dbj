@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class PetService {
@@ -55,6 +57,11 @@ public class PetService {
     }
 
     public ServiceStatusInfo<Long> add(UpdatePetModelInput input,long userId) {
+        String regEx = "^(?!_)(?!.*?_$)[a-zA-Z0-9_\\u4e00-\\u9fa5]{1,20}$";
+        Pattern r = Pattern.compile(regEx);
+        Matcher m1 = r.matcher(input.getNickName());
+        boolean rs1 = m1.matches();
+        if (rs1 == false ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
         String imageKey = input.getAvatar();
         if (!(imageKey == null || imageKey.equals(""))) {
             input.setAvatar(this.qiniuService.url(imageKey));
@@ -70,6 +77,11 @@ public class PetService {
     }
 
     public ServiceStatusInfo<Long> update(UpdatePetModelInput input) {
+        String regEx = "^(?!_)(?!.*?_$)[a-zA-Z0-9_\\u4e00-\\u9fa5]{1,20}$";
+        Pattern r = Pattern.compile(regEx);
+        Matcher m1 = r.matcher(input.getNickName());
+        boolean rs1 = m1.matches();
+        if (rs1 == false ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
         String imageKey = input.getAvatar();
         if (!(imageKey == null || imageKey.equals(""))) {
             input.setAvatar(this.qiniuService.url(imageKey));
