@@ -148,8 +148,8 @@ public class VideoController {
     @RequestMapping(value = "/heart",method = RequestMethod.POST)
     @ApiOperation(value = "视频点赞")
     @RequiresAuthentication
-    public ResponseData<Object> heart(@RequestBody HeartInput input) {
-        ServiceStatusInfo<Object> statusInfo = this.videoService.heart(input);
+    public ResponseData<VideoHeartStatusDto> heart(@RequestBody HeartInput input) {
+        ServiceStatusInfo<VideoHeartStatusDto> statusInfo = this.videoService.heart(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
@@ -159,11 +159,11 @@ public class VideoController {
     @RequiresAuthentication
     @RequestMapping(value = "/listByUserFollowed/{userId}",method = RequestMethod.GET)
     @ApiOperation(value = "获取我关注的用户的视频列表")
-    public ResponsePageInfoData<List<VideoInfoDto>> listByUserFollowed(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
+    public ResponsePageInfoData<List<VideoDetailInfoDto>> listByUserFollowed(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                                        @RequestParam(value = "rows",required = true,defaultValue = "30") int rows,
                                                                        @PathVariable long userId) {
-        Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
-        List<VideoInfoDto> dtos = this.videoService.listByUserFollowed(userId);
+        Page<VideoDetailInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
+        List<VideoDetailInfoDto> dtos = this.videoService.listByUserFollowed(userId);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageInfo.getTotal());
     }
     @RequestMapping(value = "/videosByUser/{userId}",method = RequestMethod.GET)
