@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace db.shop.Models.o2o
 {
     /// <summary>
-    /// 门店员工，或者代言人
+    /// 代言人
     /// </summary>
     [Table("o2o_offlineStoreStaffs")]
     public class OfflineStoreStaff: db.common.BaseModelWithTime<long>
