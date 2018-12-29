@@ -30,7 +30,7 @@ public class AlipayService {
             String bizJson = JSON.toJSONString(input);
             request.setBizContent(bizJson);
             //  异步回调
-            request.setNotifyUrl("http://dev.api.zwdbj.com/m/api/pay/alipay/payNotify");
+            //request.setNotifyUrl("http://dev.api.zwdbj.com/m/api/pay/alipay/payNotify");
             AlipayTradeAppPayResponse response = alipayClient.sdkExecute(request);
             if (response.isSuccess()) {
                 AliAppPayResult result = new AliAppPayResult();
