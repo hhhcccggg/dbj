@@ -401,9 +401,10 @@ public class UserAssetServiceImpl implements IUserAssetService{
             if (enCashAccountModel==null || enCashAccountModel.getUniqueId()==null ||enCashAccountModel.getUniqueId().length()==0){
                 return new ServiceStatusInfo<>(1,"没有找到提现账户",null);
             }
+            long userId = JWTUtil.getCurrentId();
+            if (userId!=enCashAccountModel.getUserId())return new ServiceStatusInfo<>(1,"没有找到提现账户",null);
             long id = UniqueIDCreater.generateID();
             int coins = input.getRmbs()/10;
-            long userId = JWTUtil.getCurrentId();
             long allCoins = this.getUserCoinType(userId,"INCOME").getData().getCoins();
             if (allCoins<coins){
                 return new ServiceStatusInfo<>(1,"没有足够的金币进行提现",null);
