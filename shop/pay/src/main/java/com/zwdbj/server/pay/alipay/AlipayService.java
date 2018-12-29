@@ -86,7 +86,7 @@ public class AlipayService {
 
     public ServiceStatusInfo<Object> paramsRsaCheckV1(Map<String,String> params) {
         try {
-            boolean flag = AlipaySignature.rsaCheckV1(params, AlipaySDKClient.getPublicKey(), "UTF-8");
+            boolean flag = AlipaySignature.rsaCheckV1(params, AlipaySDKClient.getPublicKey(), "UTF-8","RSA2");
             if (flag) {
                 return new ServiceStatusInfo<>(0, "OK", params);
             } else {
