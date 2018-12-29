@@ -4,6 +4,7 @@ using System.Text;
 using dbdesgin.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using db.video.Models;
 
 namespace dbdesgin.Data
 {
@@ -15,6 +16,7 @@ namespace dbdesgin.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Tenant> Tenants { get; set; }
         public DbSet<UserDeviceToken> UserDeviceTokens { get; set; }
         public DbSet<UserThirdAccountBind> UserThirdAccountBinds { get; set; }
         public DbSet<Pet> Pets { get; set; }
@@ -125,7 +127,13 @@ namespace dbdesgin.Data
             enCashMentDetailEntity.Property(cw => cw.isAllowedEnCash).HasDefaultValue(false);
             enCashMentDetailEntity.HasIndex(cw => cw.tradeNo);
 
-
+            //Tenant
+            var tenantEntity = modelBuilder.Entity<Tenant>();
+            tenantEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            tenantEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            tenantEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            tenantEntity.HasIndex(cw => cw.identifyName);
+            tenantEntity.Property(cw => cw.legalSubjectId).HasDefaultValue(0);
             //User
             var userEntity = modelBuilder.Entity<User>();
             userEntity.HasIndex(g => g.UserName)

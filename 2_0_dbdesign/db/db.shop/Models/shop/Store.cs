@@ -127,6 +127,7 @@ namespace db.shop.Models.shop
         /// 企业标识
         /// </summary>
         /// <value>The legal subject identifier.</value>
+        [Required]
         public long legalSubjectId { get; set; }
     }
 }

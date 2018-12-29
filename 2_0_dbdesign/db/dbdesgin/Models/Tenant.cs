@@ -27,6 +27,7 @@ namespace db.video.Models
         public String identifyName { get; set; }
         /// <summary>
         /// 电商系统中的商户ID
+        /// 如果是0，则表示没有电商系统关联
         /// </summary>
         /// <value>The legal subject identifier.</value>
         public long legalSubjectId { get; set; }
