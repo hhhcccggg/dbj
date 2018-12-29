@@ -10,6 +10,7 @@ import com.zwdbj.server.pay.alipay.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,6 +20,8 @@ import java.util.UUID;
 @Service
 public class AlipayService {
     private AlipayClient alipayClient = AlipaySDKClient.getInstance().getAlipayClient();
+    @Autowired
+    private AliPayConfig aliPayConfig;
     private Logger logger = LoggerFactory.getLogger(AlipayService.class);
     /**
      * @param input
@@ -30,7 +33,7 @@ public class AlipayService {
             String bizJson = JSON.toJSONString(input);
             request.setBizContent(bizJson);
             //  异步回调
-            request.setNotifyUrl("http://dev.api.zwdbj.com/m/api/pay/alipay/payNotify");
+            request.setNotifyUrl(this.aliPayConfig.getPayResultCallbackUrl());
             AlipayTradeAppPayResponse response = alipayClient.sdkExecute(request);
             if (response.isSuccess()) {
                 AliAppPayResult result = new AliAppPayResult();
