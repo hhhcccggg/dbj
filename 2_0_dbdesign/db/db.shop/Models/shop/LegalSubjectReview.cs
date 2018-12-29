@@ -45,6 +45,7 @@ namespace db.shop.Models.shop
         /// 商户Id
         /// </summary>
         /// <value>The offline store identifier.</value>
+        [Required]
         public long legalSubjectId { get; set; }
     }
 }

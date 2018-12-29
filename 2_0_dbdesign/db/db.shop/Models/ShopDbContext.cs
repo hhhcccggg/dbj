@@ -22,7 +22,9 @@ namespace db.shop.Models
         #endregion
 
         #region shop
-        public DbSet<Store> BusinessSellers { get; set; }
+        public DbSet<Store> Stores { get; set; }
+        public DbSet<LegalSubject> LegalSubjects { get; set; }
+        public DbSet<LegalSubjectReview> LegalSubjectReviews { get; set; }
         public DbSet<DeliveryTemplate> DeliveryTemplates { get; set; }
         public DbSet<DeliveryTemplateScope> deliveryTemplateScopes { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -62,22 +64,36 @@ namespace db.shop.Models
             offstoreStaff.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             offstoreStaff.Property(c => c.IsDeleted).HasDefaultValue(false);
             offstoreStaff.Property(cw => cw.isManualData).HasDefaultValue(false);
-            offstoreStaff.Property(cw => cw.superStar).HasDefaultValue(false);
 
-            var businessSeller = modelBuilder.Entity<Store>();
-            businessSeller.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
-            businessSeller.Property(c => c.IsDeleted).HasDefaultValue(false);
-            businessSeller.Property(cw => cw.isManualData).HasDefaultValue(false);
-            businessSeller.Property(cw => cw.recommendIndex).HasDefaultValue(0);
-            businessSeller.Property(cw => cw.longitude).HasDefaultValue(0);
-            businessSeller.Property(cw => cw.latitude).HasDefaultValue(0);
-            businessSeller.Property(cw => cw.type).HasDefaultValue(0);
-            businessSeller.Property(cw => cw.level).HasDefaultValue(0);
-            businessSeller.Property(cw => cw.expireTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
-            businessSeller.Property(cw => cw.grade).HasDefaultValue(0);
-            businessSeller.Property(cw => cw.status).HasDefaultValue(0);
-            businessSeller.Property(cw => cw.reviewed).HasDefaultValue(false);
-            businessSeller.Property(cw => cw.stopService).HasDefaultValue(false);
+            var legalSubject = modelBuilder.Entity<LegalSubject>();
+            legalSubject.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            legalSubject.Property(c => c.IsDeleted).HasDefaultValue(false);
+            legalSubject.Property(cw => cw.isManualData).HasDefaultValue(false);
+            legalSubject.Property(cw => cw.status).HasDefaultValue(1);
+            legalSubject.Property(cw => cw.reviewed).HasDefaultValue(false);
+            legalSubject.Property(cw => cw.status).HasDefaultValue(1);
+
+            var legalSubjectReview = modelBuilder.Entity<LegalSubjectReview>();
+            legalSubjectReview.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            legalSubjectReview.Property(c => c.IsDeleted).HasDefaultValue(false);
+            legalSubjectReview.Property(cw => cw.isManualData).HasDefaultValue(false);
+            legalSubjectReview.HasIndex(cw => cw.identifyId);
+
+
+            var storeEntity = modelBuilder.Entity<Store>();
+            storeEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            storeEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            storeEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+            storeEntity.Property(cw => cw.recommendIndex).HasDefaultValue(0);
+            storeEntity.Property(cw => cw.longitude).HasDefaultValue(0);
+            storeEntity.Property(cw => cw.latitude).HasDefaultValue(0);
+            storeEntity.Property(cw => cw.type).HasDefaultValue(0);
+            storeEntity.Property(cw => cw.level).HasDefaultValue(0);
+            storeEntity.Property(cw => cw.expireTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            storeEntity.Property(cw => cw.grade).HasDefaultValue(0);
+            storeEntity.Property(cw => cw.status).HasDefaultValue(0);
+            storeEntity.Property(cw => cw.reviewed).HasDefaultValue(false);
+            storeEntity.Property(cw => cw.stopService).HasDefaultValue(false);
 
             var deliveryTemplate = modelBuilder.Entity<DeliveryTemplate>();
             deliveryTemplate.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
@@ -144,6 +160,7 @@ namespace db.shop.Models
             productOrder.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             productOrder.Property(c => c.IsDeleted).HasDefaultValue(false);
             productOrder.Property(cw => cw.isManualData).HasDefaultValue(false);
+            productOrder.HasIndex(cw => cw.status);
 
             var productOrderItem = modelBuilder.Entity<ProductOrderItem>();
             productOrderItem.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");

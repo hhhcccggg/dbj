@@ -14,5 +14,11 @@ namespace dbdesgin.Models
         [Required]
         [MaxLength(50)]
         public string permissionName { get; set; }
+        /// <summary>
+        /// 租户ID
+        /// 如果为空，则是系统账号
+        /// </summary>
+        /// <value>The tenant identifier.</value>
+        public long? tenantId { get; set; }
     }
 }
