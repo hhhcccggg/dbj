@@ -3,8 +3,8 @@ package com.zwdbj.server.shopadmin.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zwdbj.server.shop_admin_service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
-import com.zwdbj.server.shop_admin_service.offlineStoreServiceScopes.service.OfflineStoreServiceScopesService;
+import com.zwdbj.server.shop_admin_service.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
+import com.zwdbj.server.shop_admin_service.service.offlineStoreServiceScopes.service.OfflineStoreServiceScopesService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;

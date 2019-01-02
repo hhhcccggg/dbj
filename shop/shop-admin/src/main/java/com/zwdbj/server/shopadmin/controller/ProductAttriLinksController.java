@@ -3,8 +3,8 @@ package com.zwdbj.server.shopadmin.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zwdbj.server.shop_admin_service.productAttriLinks.model.ProductAttriLinks;
-import com.zwdbj.server.shop_admin_service.productAttriLinks.service.ProductAttriLinksService;
+import com.zwdbj.server.shop_admin_service.service.productAttriLinks.model.ProductAttriLinks;
+import com.zwdbj.server.shop_admin_service.service.productAttriLinks.service.ProductAttriLinksService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;

@@ -2,8 +2,8 @@ package com.zwdbj.server.shopadmin.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zwdbj.server.shop_admin_service.productBrands.model.ProductBrands;
-import com.zwdbj.server.shop_admin_service.productBrands.service.ProductBrandsService;
+import com.zwdbj.server.shop_admin_service.service.productBrands.model.ProductBrands;
+import com.zwdbj.server.shop_admin_service.service.productBrands.service.ProductBrandsService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;

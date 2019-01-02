@@ -2,9 +2,9 @@ package com.zwdbj.server.shopadmin.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zwdbj.server.shop_admin_service.products.model.Products;
-import com.zwdbj.server.shop_admin_service.products.model.SearchProducts;
-import com.zwdbj.server.shop_admin_service.products.service.ProductService;
+import com.zwdbj.server.shop_admin_service.service.products.model.Products;
+import com.zwdbj.server.shop_admin_service.service.products.model.SearchProducts;
+import com.zwdbj.server.shop_admin_service.service.products.service.ProductService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
@@ -23,8 +23,8 @@ public class ProductsController {
     @Autowired
     private ProductService productServiceImpl;
 
-    @RequestMapping(value = "/select", method = RequestMethod.GET)
-    @ApiOperation(value = "查询所有商品")
+    @RequestMapping(value = "/onSale", method = RequestMethod.GET)
+    @ApiOperation(value = "查询销售中商品")
     public ResponsePageInfoData<List<Products>> findAllProducts(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                 @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
 

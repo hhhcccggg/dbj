@@ -2,8 +2,8 @@ package com.zwdbj.server.shopadmin.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.shop_admin_service.deliveryTemplateScopes.model.DeliveryTemplateScopesModel;
-import com.zwdbj.server.shop_admin_service.deliveryTemplateScopes.service.IDeliveryTemplateScopesService;
+import com.zwdbj.server.shop_admin_service.service.deliveryTemplateScopes.model.DeliveryTemplateScopesModel;
+import com.zwdbj.server.shop_admin_service.service.deliveryTemplateScopes.service.IDeliveryTemplateScopesService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
@@ -23,56 +23,56 @@ public class DeliveryTemplateScopesController {
     @Autowired
     IDeliveryTemplateScopesService deliveryTemplateScopesServiceImpl;
 
-    @RequestMapping(value = "/select",method = RequestMethod.GET)
+    @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation("查询所有的配送区域")
     public ResponsePageInfoData<List<DeliveryTemplateScopesModel>> findAllDeliveryTemplateScopes(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
-                                                                                                 @RequestParam(value = "rows", required = true, defaultValue = "30") int rows){
-        Page<DeliveryTemplateScopesModel> pageInfo = PageHelper.startPage(pageNo,rows);
+                                                                                                 @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
+        Page<DeliveryTemplateScopesModel> pageInfo = PageHelper.startPage(pageNo, rows);
         List<DeliveryTemplateScopesModel> deliveryTemplateScopesModels = deliveryTemplateScopesServiceImpl.findAllDeliveryTemplateScopes();
-        return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL,"",deliveryTemplateScopesModels,pageInfo.getTotal());
+        return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", deliveryTemplateScopesModels, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/select/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
     @ApiOperation("查询一条配送区域信息")
-    public ResponseData<DeliveryTemplateScopesModel> getDeliveryTemplatesById(@PathVariable long id){
+    public ResponseData<DeliveryTemplateScopesModel> getDeliveryTemplatesById(@PathVariable long id) {
         ServiceStatusInfo<DeliveryTemplateScopesModel> deliveryTemplateScopesModel = deliveryTemplateScopesServiceImpl.findDeliveryTemplateScopesById(id);
         if (deliveryTemplateScopesModel.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,deliveryTemplateScopesModel.getMsg(),deliveryTemplateScopesModel.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, deliveryTemplateScopesModel.getMsg(), deliveryTemplateScopesModel.getData());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,deliveryTemplateScopesModel.getMsg(),null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, deliveryTemplateScopesModel.getMsg(), null);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建配送区域信息")
     @ResponseBody
-    public ResponseData<Integer> addDeliveryTemplates(DeliveryTemplateScopesModel model){
+    public ResponseData<Integer> addDeliveryTemplates(DeliveryTemplateScopesModel model) {
         ServiceStatusInfo<Integer> serviceStatusInfo = deliveryTemplateScopesServiceImpl.addDeliveryTemplates(model);
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,serviceStatusInfo.getMsg(),serviceStatusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     @ApiOperation(value = "删除物流信息")
     @ResponseBody
-    public ResponseData<Integer> deleteDeliveryTemplatesById(@RequestParam("id") long id){
+    public ResponseData<Integer> deleteDeliveryTemplatesById(@RequestParam("id") long id) {
         ServiceStatusInfo<Integer> serviceStatusInfo = deliveryTemplateScopesServiceImpl.deleteDeliveryTemplateScopesById(id);
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,serviceStatusInfo.getMsg(),serviceStatusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改物流信息")
     @ResponseBody
-    public ResponseData<Integer> updateDeliveryTemplates(DeliveryTemplateScopesModel model){
+    public ResponseData<Integer> updateDeliveryTemplates(DeliveryTemplateScopesModel model) {
         ServiceStatusInfo<Integer> serviceStatusInfo = deliveryTemplateScopesServiceImpl.updateDeliveryTemplatesScopes(model);
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,serviceStatusInfo.getMsg(),serviceStatusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
 }
