@@ -31,6 +31,7 @@ message QueueWorkShopLegalSubjectData{
     string phone = 3 ; //店主手机号
     string contactNumber = 4;//店铺联系电话
     int64 legalSubjectId = 5; //电商系统中的商户ID
+    int32 type = 6; //1为添加商铺，2为修改商铺，3为删除商铺
 }
 
 message QueueWorkHeart {

@@ -43,6 +43,10 @@ public interface IUserMapper {
     int greateUserByTenant(@Param("id") long id,@Param("username") String username,@Param("password") String password,
                            @Param("nickName") String nickName,@Param("phone") String phone,
                            @Param("tenantId") long tenantId,@Param("isSuper") boolean isSuper);
+
+    @Update("update core_users set isSuper=0 where tenantId=#{tenantId} and isSuper=1")
+    int modifyUserByTenantId(@Param("tenantId")long tenantId);
+
     @Insert("insert into core_users(id,username,nickname,phone,avatarUrl,isSuper,isManager,sex) " +
                    "values(#{userId},#{input.userName},#{input.userName},#{input.phone}," +
                    "'http://res.pet.zwdbj.com/default_avatar.png',false,true,#{input.gender})")

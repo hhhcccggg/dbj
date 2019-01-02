@@ -142,6 +142,9 @@ public class UserService {
         }
 
     }
+    public int modifyUserByTenantId(long tenantId){
+        return this.userMapper.modifyUserByTenantId(tenantId);
+    }
 
 
     @Transactional
