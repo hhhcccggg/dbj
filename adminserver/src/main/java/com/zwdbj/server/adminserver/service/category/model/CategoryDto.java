@@ -5,18 +5,18 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "分类(平台所有的分类)")
 public class CategoryDto {
-    @ApiModelProperty("分类ID")
-    long id;
-    @ApiModelProperty("分类名")
-    String name;
-    @ApiModelProperty("是否还有子分类。isHaveNextNode==true?'该分类下有子分类':'该分类下没有子分类'")
-    boolean isHaveNextNode;
-    @ApiModelProperty("iconUrl")
-    String iconUrl;
-    @ApiModelProperty("状态,0:正常 1：下线")
-    int status;
-    @ApiModelProperty("排序")
-    int orderIndex;
+        @ApiModelProperty("分类ID")
+        long id;
+        @ApiModelProperty("分类名")
+        String name;
+        @ApiModelProperty("是否还有子分类。isHaveNextNode==true?'该分类下有子分类':'该分类下没有子分类'")
+        boolean isHaveNextNode;
+        @ApiModelProperty("iconUrl")
+        String iconUrl;
+        @ApiModelProperty("状态,0:正常 1：下线")
+        int status;
+        @ApiModelProperty("排序")
+        int orderIndex;
 
     public int getStatus() {
         return status;
