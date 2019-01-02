@@ -31,7 +31,7 @@ namespace dbdesgin.Models
         /// 被评论目标资源ID，比如视频ID、商品ID等
         /// </summary>
         /// <value>The resource identifier.</value>
-        public long    { get; set; }
+        public long resourceOwnerId { get; set; }
         /// <summary>
         /// 0:针对视频评论1:针对下线商家服务评论2：针对商家产品的评论
         /// </summary>
