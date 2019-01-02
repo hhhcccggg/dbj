@@ -36,6 +36,13 @@ public interface IUserMapper {
     List<UserDetailInfoDto> findUsersFakeAd(@Param("s") int s,@Param("e") int e);
     @SelectProvider(type = UserSqlProvider.class,method = "marketListAd")
     List<UserDetailInfoDto> marketListAd(@Param("input") AdMarketUserInput input);
+
+    @Insert("insert into core_users(id,username,nickName,avatarUrl,password,phone,isPhoneVerification,isSuper,tenantId) " +
+            "values(#{id},#{username},#{nickName},'http://res.pet.zwdbj.com/default_avatar.png',#{password}," +
+            "#{phone},true,#{isSuper},#{tenantId})")
+    int greateUserByTenant(@Param("id") long id,@Param("username") String username,@Param("password") String password,
+                           @Param("nickName") String nickName,@Param("phone") String phone,
+                           @Param("tenantId") long tenantId,@Param("isSuper") boolean isSuper);
     @Insert("insert into core_users(id,username,nickname,phone,avatarUrl,isSuper,isManager,sex) " +
                    "values(#{userId},#{input.userName},#{input.userName},#{input.phone}," +
                    "'http://res.pet.zwdbj.com/default_avatar.png',false,true,#{input.gender})")

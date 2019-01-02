@@ -123,6 +123,26 @@ public class UserService {
         return userInfoDtoList;
     }
 
+    /**
+     *
+     * @param nickName
+     * @param phone
+     * @param tenantId
+     * @param isSuper 是否为店主
+     * @return
+     */
+    public int greateUserByTenant (String nickName,String phone,long tenantId,boolean isSuper){
+        try {
+            long id = UniqueIDCreater.generateID();
+            String username = UniqueIDCreater.generateUserName();
+            String password = SHAEncrypt.encryptSHA(phone.substring(8)+"123456");
+            return this.userMapper.greateUserByTenant(id,username,password,nickName,phone,tenantId,isSuper);
+        }catch (Exception e){
+            throw new RuntimeException("异常");
+        }
+
+    }
+
 
     @Transactional
     public ServiceStatusInfo<Long> newMarketAd(AdNewMarketInput input) {

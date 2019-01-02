@@ -1,5 +1,7 @@
 package com.zwdbj.server.shopapi.controller;
 
+import com.zwdbj.server.utility.model.ResponseData;
+import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.shop_common_service.logistics.model.Logistics;
 import com.zwdbj.server.shop_common_service.logistics.service.ILogisticsService;
@@ -18,15 +20,18 @@ public class HomeController {
     }
 
     @Autowired
-    ILogisticsService logisticsService;
+    ILogisticsService logisticsServiceImpl;
 
     @Autowired
     RedisTemplate redisTemplate;
 
     @RequestMapping(value = "logistics",method = RequestMethod.GET)
-    public ServiceStatusInfo<Logistics> getLogistics(){
-        ServiceStatusInfo<Logistics> logistics = logisticsService.selectLogistics("73106644852000","zto");
-        return logistics;
+    public ResponseData<Logistics> getLogistics(){
+        ServiceStatusInfo<Logistics> logistics = logisticsServiceImpl.selectLogistics("73106644852000","zto");
+        if (logistics.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", logistics.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, logistics.getMsg(), null);
     }
 
 }
