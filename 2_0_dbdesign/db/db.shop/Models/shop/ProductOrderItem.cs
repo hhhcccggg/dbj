@@ -27,5 +27,5 @@ namespace db.shop.Models.shop
         /// </summary>
         /// <value>The total fee.</value>
         public int totalFee { get; set; }
-
+    }
 }
