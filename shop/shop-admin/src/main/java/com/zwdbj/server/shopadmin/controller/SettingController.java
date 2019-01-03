@@ -46,7 +46,7 @@ public class SettingController {
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/openHour", method = RequestMethod.GET)
+    @RequestMapping(value = "/openScope", method = RequestMethod.GET)
     @ApiOperation(value = "查询服务范围")
     public ResponseData<List<ServiceScopes>> selectServiceScopes() {
         long id = JWTUtil.getCurrentId();
