@@ -14,7 +14,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/products/dbj")
@@ -27,7 +30,6 @@ public class ProductsController {
     @ApiOperation(value = "查询销售中商品")
     public ResponsePageInfoData<List<Products>> findAllProducts(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                 @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
-
         PageHelper.startPage(pageNo, rows);
         List<Products> productsList = this.productServiceImpl.selectAll().getData();
         PageInfo<Products> pageInfo = new PageInfo(productsList);
@@ -37,7 +39,21 @@ public class ProductsController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建商品")
-    public ResponseData<Long> createProducts(@RequestBody Products products) {
+    public ResponseData<Long> createProducts(@RequestBody Products products ,
+                                             @RequestParam(value = "originalPrice",required = true) float originalPrice,
+                                             @RequestParam(value = "promotionPrice",required = true) float promotionPrice,
+                                             @RequestParam(value = "festivalCanUse",required = true) boolean festivalCanUse,
+                                             @RequestParam(value = "specHoursValid",required = false) int specHoursValid,
+                                             @RequestParam(value = "validDays",required = false) int validDays,
+                                             @RequestParam(value = "validStartTime",required = false) Date validStartTime,
+                                             @RequestParam(value = "validEndTime",required = false) Date validEndTime,
+                                             @RequestParam(value = "validType",required = true) String validType,
+                                             HttpServletRequest request
+
+    ) {
+        //店铺Id先固定
+        Long storeId = 110L;
+        products.setStoreId(storeId);
         ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.createProducts(products);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
@@ -90,8 +106,8 @@ public class ProductsController {
 
     @GetMapping(value = "/selectById/{id}")
     @ApiOperation(value = "查询单个商品")
-    public ResponseData<Products> selectById(@PathVariable long id){
-        ServiceStatusInfo<Products> serviceStatusInfo = this.productServiceImpl.selectById(id);
+    public ResponseData<Map<String,Object>> selectById(@PathVariable long id){
+        ServiceStatusInfo<Map<String,Object>> serviceStatusInfo = this.productServiceImpl.selectById(id);
         if(serviceStatusInfo.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

@@ -9,6 +9,8 @@ public class Products {
     Long id;
     @ApiModelProperty(value = "商品类型")
     Long productType;
+    @ApiModelProperty(value = "产品详细类型")
+    String productDetailType;
     @ApiModelProperty(value = "商品编码")
     String numberId;
     @ApiModelProperty(value = "商品名称")
@@ -62,6 +64,24 @@ public class Products {
     float weight;
     @ApiModelProperty(value = "备注")
     String notes;
+    @ApiModelProperty(value = "是否限购")
+    int limitPerPerson;
+
+    public String getProductDetailType() {
+        return productDetailType;
+    }
+
+    public void setProductDetailType(String productDetailType) {
+        this.productDetailType = productDetailType;
+    }
+
+    public int getLimitPerPerson() {
+        return limitPerPerson;
+    }
+
+    public void setLimitPerPerson(int limitPerPerson) {
+        this.limitPerPerson = limitPerPerson;
+    }
 
     public Long getId() {
         return id;

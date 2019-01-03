@@ -32,4 +32,7 @@ public interface IProductSKUsMapper {
 
     @Select("select * from shop_productskus where id=#{id}")
     ProductSKUs selectById(@Param("id")Long id);
+
+    @Select("select * from shop_productskus where productId=#{productId}")
+    ProductSKUs selectByProductId(@Param("productId")Long productId);
 }

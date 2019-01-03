@@ -1,11 +1,13 @@
 package com.zwdbj.server.shop_admin_service.service.products.service;
 
 
+import com.zwdbj.server.shop_admin_service.service.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.shop_admin_service.service.products.model.Products;
 import com.zwdbj.server.shop_admin_service.service.products.model.SearchProducts;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
     ServiceStatusInfo<Long> createProducts(Products products);
@@ -30,7 +32,7 @@ public interface ProductService {
      * @param id
      * @return
      */
-    ServiceStatusInfo<Products> selectById(long id);
+    ServiceStatusInfo<Map<String,Object>> selectById(long id);
 
     /**
      * 批量删除商品

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -25,16 +27,27 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ServiceStatusInfo<Long> createProducts(Products products) {
+        if(products.getProductType() != 0 && products.getProductType() != 1){
+            return new ServiceStatusInfo<>(1, "创建失败：产品类型不正确", null);
+        }
+        if(!"DELIVERY".equals(products.getProductDetailType()) && !"NODELIVERY".equals(products.getProductDetailType())
+                && !"CARD".equals(products.getProductDetailType()) && !"CASHCOUPON".equals(products.getProductDetailType())){
+            return new ServiceStatusInfo<>(1, "创建失败：产品详细类型不正确", null);
+        }
         //生成唯一id
         long id = UniqueIDCreater.generateID();
         Long result = 0L;
-
         try {
             result = this.iProductMapper.createProducts(id, products);
             if(result>0){
-                ProductSKUs productSKUs = new ProductSKUs();
-                productSKUs.setProductId(id);
-                iProductSKUsMapper.createProductSKUs(UniqueIDCreater.generateID(),productSKUs);
+                //productSKUs.setProductId(id);
+               // iProductSKUsMapper.createProductSKUs(UniqueIDCreater.generateID(),productSKUs);
+                if("CARD".equals(products.getProductDetailType())){
+
+                }
+                if("CASHCOUPON".equals(products.getProductDetailType())){
+
+                }
             }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
@@ -76,8 +89,6 @@ public class ProductServiceImpl implements ProductService {
         catch (Exception e){
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),result);
         }
-
-
     }
 
     @Override
@@ -103,10 +114,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ServiceStatusInfo<Products> selectById(long id) {
+    public ServiceStatusInfo<Map<String,Object>> selectById(long id) {
         try{
-            Products result =this.iProductMapper.selectById(id);
-            return new ServiceStatusInfo<>(0, "", result);
+            Map<String,Object> map = new HashMap<>();
+            Products products =this.iProductMapper.selectById(id);
+            map.put("products",products);
+            map.put("productsSKU",this.iProductSKUsMapper.selectByProductId(products.getId()));
+            return new ServiceStatusInfo<>(0, "", map);
         }catch(Exception e){
             return new ServiceStatusInfo<>(0, "查询单个商品失败"+e.getMessage(), null);
         }
