@@ -6,11 +6,12 @@ import com.zwdbj.server.shop_admin_service.service.products.model.Products;
 import com.zwdbj.server.shop_admin_service.service.products.model.SearchProducts;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
-    ServiceStatusInfo<Long> createProducts(Products products);
+    ServiceStatusInfo<Long> createProducts(Products products, float originalPrice, float promotionPrice, boolean festivalCanUse, int specHoursValid, int validDays, Date validStartTime,Date validEndTime,String validType);
 
     ServiceStatusInfo<Long> deleteProductsById(Long id);
 

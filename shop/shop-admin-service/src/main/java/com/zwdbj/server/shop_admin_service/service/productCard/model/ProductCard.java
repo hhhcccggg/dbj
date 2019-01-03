@@ -34,16 +34,29 @@ public class ProductCard {
     @ApiModelProperty(value = "生效后指定时间范围内生效")
     Date validEndTime;
 
-    int productId;
+    Long productId;
 
     @ApiModelProperty(value = "存在规格有特殊定制?")
     long productSKUId;
 
-    public int getProductId() {
+    public ProductCard() {
+    }
+
+    public ProductCard(boolean festivalCanUse, String validType, int specHoursValid, int validDays, Date validStartTime, Date validEndTime, Long productId) {
+        this.festivalCanUse = festivalCanUse;
+        this.validType = validType;
+        this.specHoursValid = specHoursValid;
+        this.validDays = validDays;
+        this.validStartTime = validStartTime;
+        this.validEndTime = validEndTime;
+        this.productId = productId;
+    }
+
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 

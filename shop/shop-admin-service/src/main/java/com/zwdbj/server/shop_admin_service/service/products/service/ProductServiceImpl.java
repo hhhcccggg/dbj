@@ -1,6 +1,10 @@
 package com.zwdbj.server.shop_admin_service.service.products.service;
 
 
+import com.zwdbj.server.shop_admin_service.service.productCard.mapper.IProductCardMapper;
+import com.zwdbj.server.shop_admin_service.service.productCard.model.ProductCard;
+import com.zwdbj.server.shop_admin_service.service.productCashCoupon.mapper.IProductCashCouponMapper;
+import com.zwdbj.server.shop_admin_service.service.productCashCoupon.model.ProductCashCoupon;
 import com.zwdbj.server.shop_admin_service.service.productSKUs.mapper.IProductSKUsMapper;
 import com.zwdbj.server.shop_admin_service.service.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.shop_admin_service.service.products.mapper.IProductsMapper;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +30,16 @@ public class ProductServiceImpl implements ProductService {
     @Resource
     protected IProductSKUsMapper iProductSKUsMapper;
 
+    @Resource
+    protected IProductCardMapper iProductCardMapper;
+
+    @Resource
+    protected IProductCashCouponMapper iProductCashCouponMapper;
+
     @Override
-    public ServiceStatusInfo<Long> createProducts(Products products) {
+    public ServiceStatusInfo<Long> createProducts(Products products, float originalPrice, float promotionPrice,
+                                                  boolean festivalCanUse, int specHoursValid, int validDays,
+                                                  Date validStartTime, Date validEndTime, String validType) {
         if(products.getProductType() != 0 && products.getProductType() != 1){
             return new ServiceStatusInfo<>(1, "创建失败：产品类型不正确", null);
         }
@@ -34,20 +47,39 @@ public class ProductServiceImpl implements ProductService {
                 && !"CARD".equals(products.getProductDetailType()) && !"CASHCOUPON".equals(products.getProductDetailType())){
             return new ServiceStatusInfo<>(1, "创建失败：产品详细类型不正确", null);
         }
+        if("CARD".equals(products.getProductDetailType()) || "CASHCOUPON".equals(products.getProductDetailType())){
+            if("PAY_VALIDED".equals(validType) && specHoursValid <= 0 && validDays <=-1 && validStartTime == null && validEndTime==null){
+                return new ServiceStatusInfo<>(1, "创建失败：PAY_VALIDED生效类型不正确", null);
+            }
+            if("PAY_NEXTDAY_VALIDED".equals(validType) && validDays <=-1 && validStartTime == null && validEndTime==null){
+                return new ServiceStatusInfo<>(1, "创建失败：PAY_NEXTDAY_VALIDED生效类型不正确", null);
+            }
+            if("PAY_SPEC_HOUR_VALIDED".equals(validType) && validStartTime == null && validEndTime==null){
+                return new ServiceStatusInfo<>(1, "创建失败：PAY_SPEC_HOUR_VALIDED生效类型不正确", null);
+            }
+        }
         //生成唯一id
         long id = UniqueIDCreater.generateID();
         Long result = 0L;
         try {
             result = this.iProductMapper.createProducts(id, products);
             if(result>0){
-                //productSKUs.setProductId(id);
-               // iProductSKUsMapper.createProductSKUs(UniqueIDCreater.generateID(),productSKUs);
+                ProductSKUs productSKUs = new ProductSKUs();
+                productSKUs.setProductId(id);
+                productSKUs.setWeight(products.getWeight());
+                productSKUs.setInventory(products.getInventory());
+                productSKUs.setOriginalPrice(originalPrice);
+                productSKUs.setPromotionPrice(promotionPrice);
+                iProductSKUsMapper.createProductSKUs(UniqueIDCreater.generateID(),productSKUs);
                 if("CARD".equals(products.getProductDetailType())){
-
+                    ProductCard productCard = new ProductCard(festivalCanUse,validType,specHoursValid,validDays,validStartTime,validEndTime,id);
+                    this.iProductCardMapper.createProductCard(UniqueIDCreater.generateID(),productCard);
                 }
                 if("CASHCOUPON".equals(products.getProductDetailType())){
-
+                    ProductCashCoupon productCashCoupon = new ProductCashCoupon(festivalCanUse,validType,specHoursValid,validDays,validStartTime,validEndTime,id);
+                    this.iProductCashCouponMapper.createProductCashCoupon(UniqueIDCreater.generateID(),productCashCoupon);
                 }
+
             }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {

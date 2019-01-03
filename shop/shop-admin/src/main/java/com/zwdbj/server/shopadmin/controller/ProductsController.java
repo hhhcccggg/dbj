@@ -43,18 +43,18 @@ public class ProductsController {
                                              @RequestParam(value = "originalPrice",required = true) float originalPrice,
                                              @RequestParam(value = "promotionPrice",required = true) float promotionPrice,
                                              @RequestParam(value = "festivalCanUse",required = true) boolean festivalCanUse,
-                                             @RequestParam(value = "specHoursValid",required = false) int specHoursValid,
-                                             @RequestParam(value = "validDays",required = false) int validDays,
+                                             @RequestParam(value = "specHoursValid",required = false,defaultValue = "0") int specHoursValid,
+                                             @RequestParam(value = "validDays",required = false,defaultValue = "-1") int validDays,
                                              @RequestParam(value = "validStartTime",required = false) Date validStartTime,
                                              @RequestParam(value = "validEndTime",required = false) Date validEndTime,
-                                             @RequestParam(value = "validType",required = true) String validType,
-                                             HttpServletRequest request
+                                             @RequestParam(value = "validType",required = true) String validType
 
     ) {
         //店铺Id先固定
         Long storeId = 110L;
         products.setStoreId(storeId);
-        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.createProducts(products);
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.createProducts(products,originalPrice,promotionPrice,
+                festivalCanUse,specHoursValid,validDays, validStartTime, validEndTime,validType);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

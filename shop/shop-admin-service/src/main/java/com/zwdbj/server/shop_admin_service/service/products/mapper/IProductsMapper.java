@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface IProductsMapper {
     @Insert("insert into shop_products(id," +
-            "productType,numberId,name,subName,searchName,marketName," +
+            "productType,productDetailType,numberId,name,subName,searchName,marketName," +
             "sellerPoint,categoryId,categoryLevel," +
             "brandId,shareDesc,storeId,commentCount,grade,sales,inventory,priceUp," +
             "priceDown,imageUrls,videoUrl,productGroupId,joinMemberDiscount," +
@@ -20,6 +20,7 @@ public interface IProductsMapper {
             "specifyPublishTime,detailDescription,weight,notes) values(" +
             "#{id}," +
             "#{products.productType}," +
+            "#{products.productDetailType}," +
             "#{products.numberId}," +
             "#{products.name}," +
             "#{products.subName}," +
