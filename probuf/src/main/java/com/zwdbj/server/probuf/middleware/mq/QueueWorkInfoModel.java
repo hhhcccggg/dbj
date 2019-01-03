@@ -2522,7 +2522,7 @@ public final class QueueWorkInfoModel {
 
     /**
      * <pre>
-     *商家的店铺名
+     *商家名
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -2530,7 +2530,7 @@ public final class QueueWorkInfoModel {
     java.lang.String getName();
     /**
      * <pre>
-     *商家的店铺名
+     *商家名
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -2558,7 +2558,7 @@ public final class QueueWorkInfoModel {
 
     /**
      * <pre>
-     *店主手机号
+     *商家联系人手机号
      * </pre>
      *
      * <code>string phone = 3;</code>
@@ -2566,7 +2566,7 @@ public final class QueueWorkInfoModel {
     java.lang.String getPhone();
     /**
      * <pre>
-     *店主手机号
+     *商家联系人手机号
      * </pre>
      *
      * <code>string phone = 3;</code>
@@ -2576,7 +2576,7 @@ public final class QueueWorkInfoModel {
 
     /**
      * <pre>
-     *店铺联系电话
+     *商家联系电话
      * </pre>
      *
      * <code>string contactNumber = 4;</code>
@@ -2584,7 +2584,7 @@ public final class QueueWorkInfoModel {
     java.lang.String getContactNumber();
     /**
      * <pre>
-     *店铺联系电话
+     *商家联系电话
      * </pre>
      *
      * <code>string contactNumber = 4;</code>
@@ -2609,6 +2609,96 @@ public final class QueueWorkInfoModel {
      * <code>int32 type = 6;</code>
      */
     int getType();
+
+    /**
+     * <pre>
+     *城市id
+     * </pre>
+     *
+     * <code>int32 cityId = 7;</code>
+     */
+    int getCityId();
+
+    /**
+     * <pre>
+     *商家的类型:P:个人；B:企业
+     * </pre>
+     *
+     * <code>string legalType = 8;</code>
+     */
+    java.lang.String getLegalType();
+    /**
+     * <pre>
+     *商家的类型:P:个人；B:企业
+     * </pre>
+     *
+     * <code>string legalType = 8;</code>
+     */
+    com.google.protobuf.ByteString
+        getLegalTypeBytes();
+
+    /**
+     * <pre>
+     *商家法人姓名
+     * </pre>
+     *
+     * <code>string leagalRepresentativeName = 9;</code>
+     */
+    java.lang.String getLeagalRepresentativeName();
+    /**
+     * <pre>
+     *商家法人姓名
+     * </pre>
+     *
+     * <code>string leagalRepresentativeName = 9;</code>
+     */
+    com.google.protobuf.ByteString
+        getLeagalRepresentativeNameBytes();
+
+    /**
+     * <pre>
+     *商家法人身份证号码
+     * </pre>
+     *
+     * <code>string leagalRepresentativeID = 10;</code>
+     */
+    java.lang.String getLeagalRepresentativeID();
+    /**
+     * <pre>
+     *商家法人身份证号码
+     * </pre>
+     *
+     * <code>string leagalRepresentativeID = 10;</code>
+     */
+    com.google.protobuf.ByteString
+        getLeagalRepresentativeIDBytes();
+
+    /**
+     * <pre>
+     *店铺主营类目
+     * </pre>
+     *
+     * <code>int64 categoryId = 11;</code>
+     */
+    long getCategoryId();
+
+    /**
+     * <pre>
+     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+     * </pre>
+     *
+     * <code>string storeType = 12;</code>
+     */
+    java.lang.String getStoreType();
+    /**
+     * <pre>
+     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+     * </pre>
+     *
+     * <code>string storeType = 12;</code>
+     */
+    com.google.protobuf.ByteString
+        getStoreTypeBytes();
   }
   /**
    * Protobuf type {@code QueueWorkShopLegalSubjectData}
@@ -2629,6 +2719,12 @@ public final class QueueWorkInfoModel {
       contactNumber_ = "";
       legalSubjectId_ = 0L;
       type_ = 0;
+      cityId_ = 0;
+      legalType_ = "";
+      leagalRepresentativeName_ = "";
+      leagalRepresentativeID_ = "";
+      categoryId_ = 0L;
+      storeType_ = "";
     }
 
     @java.lang.Override
@@ -2696,6 +2792,40 @@ public final class QueueWorkInfoModel {
               type_ = input.readInt32();
               break;
             }
+            case 56: {
+
+              cityId_ = input.readInt32();
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              legalType_ = s;
+              break;
+            }
+            case 74: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              leagalRepresentativeName_ = s;
+              break;
+            }
+            case 82: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              leagalRepresentativeID_ = s;
+              break;
+            }
+            case 88: {
+
+              categoryId_ = input.readInt64();
+              break;
+            }
+            case 98: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeType_ = s;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2724,7 +2854,7 @@ public final class QueueWorkInfoModel {
     private volatile java.lang.Object name_;
     /**
      * <pre>
-     *商家的店铺名
+     *商家名
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -2743,7 +2873,7 @@ public final class QueueWorkInfoModel {
     }
     /**
      * <pre>
-     *商家的店铺名
+     *商家名
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -2808,7 +2938,7 @@ public final class QueueWorkInfoModel {
     private volatile java.lang.Object phone_;
     /**
      * <pre>
-     *店主手机号
+     *商家联系人手机号
      * </pre>
      *
      * <code>string phone = 3;</code>
@@ -2827,7 +2957,7 @@ public final class QueueWorkInfoModel {
     }
     /**
      * <pre>
-     *店主手机号
+     *商家联系人手机号
      * </pre>
      *
      * <code>string phone = 3;</code>
@@ -2850,7 +2980,7 @@ public final class QueueWorkInfoModel {
     private volatile java.lang.Object contactNumber_;
     /**
      * <pre>
-     *店铺联系电话
+     *商家联系电话
      * </pre>
      *
      * <code>string contactNumber = 4;</code>
@@ -2869,7 +2999,7 @@ public final class QueueWorkInfoModel {
     }
     /**
      * <pre>
-     *店铺联系电话
+     *商家联系电话
      * </pre>
      *
      * <code>string contactNumber = 4;</code>
@@ -2914,6 +3044,200 @@ public final class QueueWorkInfoModel {
       return type_;
     }
 
+    public static final int CITYID_FIELD_NUMBER = 7;
+    private int cityId_;
+    /**
+     * <pre>
+     *城市id
+     * </pre>
+     *
+     * <code>int32 cityId = 7;</code>
+     */
+    public int getCityId() {
+      return cityId_;
+    }
+
+    public static final int LEGALTYPE_FIELD_NUMBER = 8;
+    private volatile java.lang.Object legalType_;
+    /**
+     * <pre>
+     *商家的类型:P:个人；B:企业
+     * </pre>
+     *
+     * <code>string legalType = 8;</code>
+     */
+    public java.lang.String getLegalType() {
+      java.lang.Object ref = legalType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        legalType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家的类型:P:个人；B:企业
+     * </pre>
+     *
+     * <code>string legalType = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLegalTypeBytes() {
+      java.lang.Object ref = legalType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        legalType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LEAGALREPRESENTATIVENAME_FIELD_NUMBER = 9;
+    private volatile java.lang.Object leagalRepresentativeName_;
+    /**
+     * <pre>
+     *商家法人姓名
+     * </pre>
+     *
+     * <code>string leagalRepresentativeName = 9;</code>
+     */
+    public java.lang.String getLeagalRepresentativeName() {
+      java.lang.Object ref = leagalRepresentativeName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        leagalRepresentativeName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家法人姓名
+     * </pre>
+     *
+     * <code>string leagalRepresentativeName = 9;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLeagalRepresentativeNameBytes() {
+      java.lang.Object ref = leagalRepresentativeName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        leagalRepresentativeName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LEAGALREPRESENTATIVEID_FIELD_NUMBER = 10;
+    private volatile java.lang.Object leagalRepresentativeID_;
+    /**
+     * <pre>
+     *商家法人身份证号码
+     * </pre>
+     *
+     * <code>string leagalRepresentativeID = 10;</code>
+     */
+    public java.lang.String getLeagalRepresentativeID() {
+      java.lang.Object ref = leagalRepresentativeID_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        leagalRepresentativeID_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家法人身份证号码
+     * </pre>
+     *
+     * <code>string leagalRepresentativeID = 10;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLeagalRepresentativeIDBytes() {
+      java.lang.Object ref = leagalRepresentativeID_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        leagalRepresentativeID_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CATEGORYID_FIELD_NUMBER = 11;
+    private long categoryId_;
+    /**
+     * <pre>
+     *店铺主营类目
+     * </pre>
+     *
+     * <code>int64 categoryId = 11;</code>
+     */
+    public long getCategoryId() {
+      return categoryId_;
+    }
+
+    public static final int STORETYPE_FIELD_NUMBER = 12;
+    private volatile java.lang.Object storeType_;
+    /**
+     * <pre>
+     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+     * </pre>
+     *
+     * <code>string storeType = 12;</code>
+     */
+    public java.lang.String getStoreType() {
+      java.lang.Object ref = storeType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+     * </pre>
+     *
+     * <code>string storeType = 12;</code>
+     */
+    public com.google.protobuf.ByteString
+        getStoreTypeBytes() {
+      java.lang.Object ref = storeType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -2944,6 +3268,24 @@ public final class QueueWorkInfoModel {
       if (type_ != 0) {
         output.writeInt32(6, type_);
       }
+      if (cityId_ != 0) {
+        output.writeInt32(7, cityId_);
+      }
+      if (!getLegalTypeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, legalType_);
+      }
+      if (!getLeagalRepresentativeNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, leagalRepresentativeName_);
+      }
+      if (!getLeagalRepresentativeIDBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, leagalRepresentativeID_);
+      }
+      if (categoryId_ != 0L) {
+        output.writeInt64(11, categoryId_);
+      }
+      if (!getStoreTypeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, storeType_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2971,6 +3313,26 @@ public final class QueueWorkInfoModel {
       if (type_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(6, type_);
+      }
+      if (cityId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, cityId_);
+      }
+      if (!getLegalTypeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, legalType_);
+      }
+      if (!getLeagalRepresentativeNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, leagalRepresentativeName_);
+      }
+      if (!getLeagalRepresentativeIDBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, leagalRepresentativeID_);
+      }
+      if (categoryId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(11, categoryId_);
+      }
+      if (!getStoreTypeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, storeType_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3000,6 +3362,18 @@ public final class QueueWorkInfoModel {
           == other.getLegalSubjectId());
       result = result && (getType()
           == other.getType());
+      result = result && (getCityId()
+          == other.getCityId());
+      result = result && getLegalType()
+          .equals(other.getLegalType());
+      result = result && getLeagalRepresentativeName()
+          .equals(other.getLeagalRepresentativeName());
+      result = result && getLeagalRepresentativeID()
+          .equals(other.getLeagalRepresentativeID());
+      result = result && (getCategoryId()
+          == other.getCategoryId());
+      result = result && getStoreType()
+          .equals(other.getStoreType());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -3024,6 +3398,19 @@ public final class QueueWorkInfoModel {
           getLegalSubjectId());
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
       hash = (53 * hash) + getType();
+      hash = (37 * hash) + CITYID_FIELD_NUMBER;
+      hash = (53 * hash) + getCityId();
+      hash = (37 * hash) + LEGALTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getLegalType().hashCode();
+      hash = (37 * hash) + LEAGALREPRESENTATIVENAME_FIELD_NUMBER;
+      hash = (53 * hash) + getLeagalRepresentativeName().hashCode();
+      hash = (37 * hash) + LEAGALREPRESENTATIVEID_FIELD_NUMBER;
+      hash = (53 * hash) + getLeagalRepresentativeID().hashCode();
+      hash = (37 * hash) + CATEGORYID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCategoryId());
+      hash = (37 * hash) + STORETYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreType().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3165,6 +3552,18 @@ public final class QueueWorkInfoModel {
 
         type_ = 0;
 
+        cityId_ = 0;
+
+        legalType_ = "";
+
+        leagalRepresentativeName_ = "";
+
+        leagalRepresentativeID_ = "";
+
+        categoryId_ = 0L;
+
+        storeType_ = "";
+
         return this;
       }
 
@@ -3193,6 +3592,12 @@ public final class QueueWorkInfoModel {
         result.contactNumber_ = contactNumber_;
         result.legalSubjectId_ = legalSubjectId_;
         result.type_ = type_;
+        result.cityId_ = cityId_;
+        result.legalType_ = legalType_;
+        result.leagalRepresentativeName_ = leagalRepresentativeName_;
+        result.leagalRepresentativeID_ = leagalRepresentativeID_;
+        result.categoryId_ = categoryId_;
+        result.storeType_ = storeType_;
         onBuilt();
         return result;
       }
@@ -3256,6 +3661,28 @@ public final class QueueWorkInfoModel {
         if (other.getType() != 0) {
           setType(other.getType());
         }
+        if (other.getCityId() != 0) {
+          setCityId(other.getCityId());
+        }
+        if (!other.getLegalType().isEmpty()) {
+          legalType_ = other.legalType_;
+          onChanged();
+        }
+        if (!other.getLeagalRepresentativeName().isEmpty()) {
+          leagalRepresentativeName_ = other.leagalRepresentativeName_;
+          onChanged();
+        }
+        if (!other.getLeagalRepresentativeID().isEmpty()) {
+          leagalRepresentativeID_ = other.leagalRepresentativeID_;
+          onChanged();
+        }
+        if (other.getCategoryId() != 0L) {
+          setCategoryId(other.getCategoryId());
+        }
+        if (!other.getStoreType().isEmpty()) {
+          storeType_ = other.storeType_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -3286,7 +3713,7 @@ public final class QueueWorkInfoModel {
       private java.lang.Object name_ = "";
       /**
        * <pre>
-       *商家的店铺名
+       *商家名
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -3305,7 +3732,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *商家的店铺名
+       *商家名
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -3325,7 +3752,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *商家的店铺名
+       *商家名
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -3342,7 +3769,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *商家的店铺名
+       *商家名
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -3355,7 +3782,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *商家的店铺名
+       *商家名
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -3464,7 +3891,7 @@ public final class QueueWorkInfoModel {
       private java.lang.Object phone_ = "";
       /**
        * <pre>
-       *店主手机号
+       *商家联系人手机号
        * </pre>
        *
        * <code>string phone = 3;</code>
@@ -3483,7 +3910,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *店主手机号
+       *商家联系人手机号
        * </pre>
        *
        * <code>string phone = 3;</code>
@@ -3503,7 +3930,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *店主手机号
+       *商家联系人手机号
        * </pre>
        *
        * <code>string phone = 3;</code>
@@ -3520,7 +3947,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *店主手机号
+       *商家联系人手机号
        * </pre>
        *
        * <code>string phone = 3;</code>
@@ -3533,7 +3960,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *店主手机号
+       *商家联系人手机号
        * </pre>
        *
        * <code>string phone = 3;</code>
@@ -3553,7 +3980,7 @@ public final class QueueWorkInfoModel {
       private java.lang.Object contactNumber_ = "";
       /**
        * <pre>
-       *店铺联系电话
+       *商家联系电话
        * </pre>
        *
        * <code>string contactNumber = 4;</code>
@@ -3572,7 +3999,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *店铺联系电话
+       *商家联系电话
        * </pre>
        *
        * <code>string contactNumber = 4;</code>
@@ -3592,7 +4019,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *店铺联系电话
+       *商家联系电话
        * </pre>
        *
        * <code>string contactNumber = 4;</code>
@@ -3609,7 +4036,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *店铺联系电话
+       *商家联系电话
        * </pre>
        *
        * <code>string contactNumber = 4;</code>
@@ -3622,7 +4049,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *店铺联系电话
+       *商家联系电话
        * </pre>
        *
        * <code>string contactNumber = 4;</code>
@@ -3711,6 +4138,438 @@ public final class QueueWorkInfoModel {
       public Builder clearType() {
         
         type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int cityId_ ;
+      /**
+       * <pre>
+       *城市id
+       * </pre>
+       *
+       * <code>int32 cityId = 7;</code>
+       */
+      public int getCityId() {
+        return cityId_;
+      }
+      /**
+       * <pre>
+       *城市id
+       * </pre>
+       *
+       * <code>int32 cityId = 7;</code>
+       */
+      public Builder setCityId(int value) {
+        
+        cityId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *城市id
+       * </pre>
+       *
+       * <code>int32 cityId = 7;</code>
+       */
+      public Builder clearCityId() {
+        
+        cityId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object legalType_ = "";
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public java.lang.String getLegalType() {
+        java.lang.Object ref = legalType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          legalType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLegalTypeBytes() {
+        java.lang.Object ref = legalType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          legalType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public Builder setLegalType(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        legalType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public Builder clearLegalType() {
+        
+        legalType_ = getDefaultInstance().getLegalType();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public Builder setLegalTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        legalType_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object leagalRepresentativeName_ = "";
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public java.lang.String getLeagalRepresentativeName() {
+        java.lang.Object ref = leagalRepresentativeName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          leagalRepresentativeName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLeagalRepresentativeNameBytes() {
+        java.lang.Object ref = leagalRepresentativeName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          leagalRepresentativeName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public Builder setLeagalRepresentativeName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        leagalRepresentativeName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public Builder clearLeagalRepresentativeName() {
+        
+        leagalRepresentativeName_ = getDefaultInstance().getLeagalRepresentativeName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public Builder setLeagalRepresentativeNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        leagalRepresentativeName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object leagalRepresentativeID_ = "";
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public java.lang.String getLeagalRepresentativeID() {
+        java.lang.Object ref = leagalRepresentativeID_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          leagalRepresentativeID_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLeagalRepresentativeIDBytes() {
+        java.lang.Object ref = leagalRepresentativeID_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          leagalRepresentativeID_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public Builder setLeagalRepresentativeID(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        leagalRepresentativeID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public Builder clearLeagalRepresentativeID() {
+        
+        leagalRepresentativeID_ = getDefaultInstance().getLeagalRepresentativeID();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public Builder setLeagalRepresentativeIDBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        leagalRepresentativeID_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long categoryId_ ;
+      /**
+       * <pre>
+       *店铺主营类目
+       * </pre>
+       *
+       * <code>int64 categoryId = 11;</code>
+       */
+      public long getCategoryId() {
+        return categoryId_;
+      }
+      /**
+       * <pre>
+       *店铺主营类目
+       * </pre>
+       *
+       * <code>int64 categoryId = 11;</code>
+       */
+      public Builder setCategoryId(long value) {
+        
+        categoryId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *店铺主营类目
+       * </pre>
+       *
+       * <code>int64 categoryId = 11;</code>
+       */
+      public Builder clearCategoryId() {
+        
+        categoryId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object storeType_ = "";
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public java.lang.String getStoreType() {
+        java.lang.Object ref = storeType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public com.google.protobuf.ByteString
+          getStoreTypeBytes() {
+        java.lang.Object ref = storeType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public Builder setStoreType(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public Builder clearStoreType() {
+        
+        storeType_ = getDefaultInstance().getStoreType();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public Builder setStoreTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeType_ = value;
         onChanged();
         return this;
       }
@@ -8737,26 +9596,30 @@ public final class QueueWorkInfoModel {
       "\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_REVIEW_RE" +
       "SULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESULT\020\004\022\036\n\032" +
       "QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014VIDEO_WE" +
-      "IGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\"\220\001\n\035Queue" +
+      "IGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\"\234\002\n\035Queue" +
       "WorkShopLegalSubjectData\022\014\n\004name\030\001 \001(\t\022\025" +
       "\n\rcontactPerson\030\002 \001(\t\022\r\n\005phone\030\003 \001(\t\022\025\n\r" +
       "contactNumber\030\004 \001(\t\022\026\n\016legalSubjectId\030\005 " +
-      "\001(\003\022\014\n\004type\030\006 \001(\005\"[\n\016QueueWorkHeart\022\022\n\nr" +
-      "esourceId\030\001 \001(\t\022\024\n\014resourceType\030\002 \001(\t\022\016\n" +
-      "\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n\022QueueW" +
-      "orkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004code\030\002 \001(" +
-      "\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 \001(\003\022\025\n\rc" +
-      "reatorUserId\030\002 \001(\003\022\022\n\nmsgContent\030\003 \001(\t\022\023" +
-      "\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001(\t\022\020\n\010t" +
-      "oUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001(\005\"G\n\032Qu" +
-      "eueWorkQiniuReviewResult\022\025\n\rresultConten" +
-      "t\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037QueueWork" +
-      "QiniuWaitReviewResData\022\022\n\nresContent\030\001 \001" +
-      "(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resType\030\003 \001(\005\022" +
-      "\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(\005\"&\n\030Que" +
-      "ueWorkVideoWeightData\022\n\n\002id\030\001 \001(\003B;\n%com" +
-      ".zwdbj.server.probuf.middleware.mqB\022Queu" +
-      "eWorkInfoModelb\006proto3"
+      "\001(\003\022\014\n\004type\030\006 \001(\005\022\016\n\006cityId\030\007 \001(\005\022\021\n\tleg" +
+      "alType\030\010 \001(\t\022 \n\030leagalRepresentativeName" +
+      "\030\t \001(\t\022\036\n\026leagalRepresentativeID\030\n \001(\t\022\022" +
+      "\n\ncategoryId\030\013 \001(\003\022\021\n\tstoreType\030\014 \001(\t\"[\n" +
+      "\016QueueWorkHeart\022\022\n\nresourceId\030\001 \001(\t\022\024\n\014r" +
+      "esourceType\030\002 \001(\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unH" +
+      "eart\030\004 \001(\010\"1\n\022QueueWorkPhoneCode\022\r\n\005phon" +
+      "e\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"\226\001\n\rQueueWorkPush\022" +
+      "\016\n\006pushId\030\001 \001(\003\022\025\n\rcreatorUserId\030\002 \001(\003\022\022" +
+      "\n\nmsgContent\030\003 \001(\t\022\023\n\013dataContent\030\004 \001(\t\022" +
+      "\016\n\006refUrl\030\005 \001(\t\022\020\n\010toUserId\030\006 \001(\003\022\023\n\013mes" +
+      "sageType\030\007 \001(\005\"G\n\032QueueWorkQiniuReviewRe" +
+      "sult\022\025\n\rresultContent\030\001 \001(\t\022\022\n\nretryCoun" +
+      "t\030\002 \001(\005\"|\n\037QueueWorkQiniuWaitReviewResDa" +
+      "ta\022\022\n\nresContent\030\001 \001(\t\022\022\n\nbucketName\030\002 \001" +
+      "(\t\022\017\n\007resType\030\003 \001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010d" +
+      "ataType\030\005 \001(\005\"&\n\030QueueWorkVideoWeightDat" +
+      "a\022\n\n\002id\030\001 \001(\003B;\n%com.zwdbj.server.probuf" +
+      ".middleware.mqB\022QueueWorkInfoModelb\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -8781,7 +9644,7 @@ public final class QueueWorkInfoModel {
     internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkShopLegalSubjectData_descriptor,
-        new java.lang.String[] { "Name", "ContactPerson", "Phone", "ContactNumber", "LegalSubjectId", "Type", });
+        new java.lang.String[] { "Name", "ContactPerson", "Phone", "ContactNumber", "LegalSubjectId", "Type", "CityId", "LegalType", "LeagalRepresentativeName", "LeagalRepresentativeID", "CategoryId", "StoreType", });
     internal_static_QueueWorkHeart_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_QueueWorkHeart_fieldAccessorTable = new

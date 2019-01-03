@@ -116,10 +116,10 @@ public class MQWorkReceiver extends MQConnection {
             logger.info("[MQ]收到数据类型:"+info.getWorkType()+"处理视频权重");
             channel.basicAck(envelope.getDeliveryTag(),false);
         }
-        else {
+        /*else {
             logger.info("[MQ]收到数据类型:"+info.getWorkType()+"后端暂时没有合适的服务处理");
             channel.basicAck(envelope.getDeliveryTag(),false);
-        }
+        }*/
 
     }
 }
