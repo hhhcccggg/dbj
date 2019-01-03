@@ -23,5 +23,6 @@
     <Compile Remove="Migrations\20181127081047_init.cs" />
     <Compile Remove="Migrations\20181127081654_init.cs" />
     <Compile Remove="Models\shop\BusinessSellerReview.cs" />
+    <Compile Remove="Migrations\20181229013941_init.cs" />
   </ItemGroup>
 </Project>

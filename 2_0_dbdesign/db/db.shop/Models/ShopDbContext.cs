@@ -28,11 +28,15 @@ namespace db.shop.Models
         public DbSet<DeliveryTemplate> DeliveryTemplates { get; set; }
         public DbSet<DeliveryTemplateScope> deliveryTemplateScopes { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCard> ProductCards { get; set; }
         public DbSet<ProductAttri> ProductAttris { get; set; }
         public DbSet<ProductAttriLink> ProductAttriLinks { get; set; }
         public DbSet<ProductAttriValue> ProductAttriValues { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<ProductCart> ProductCarts { get; set; }
+        public DbSet<DiscountCoupon> DiscountCoupons { get; set; }
+        public DbSet<UserDiscountCoupon> UserDiscountCoupons { get; set; }
+        public DbSet<ProductCashCoupon> ProductCashCoupons { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
         public DbSet<ProductOrderItem> ProductOrderItems { get; set; }
         public DbSet<ProductSKU> GetProductSKUs { get; set; }
@@ -129,6 +133,30 @@ namespace db.shop.Models
             product.Property(cw => cw.publish).HasDefaultValue(false);
             product.Property(cw => cw.specifyPublishTime).HasDefaultValue(0);
             product.Property(cw => cw.weight).HasDefaultValue(0);
+            product.Property(cw => cw.limitPerPerson).HasDefaultValue(0);
+
+            var productCard = modelBuilder.Entity<ProductCard>();
+            productCard.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            productCard.Property(c => c.IsDeleted).HasDefaultValue(false);
+            productCard.Property(cw => cw.isManualData).HasDefaultValue(false);
+            productCard.Property(cw => cw.festivalCanUse).HasDefaultValue(true);
+
+            var productCashCoupon = modelBuilder.Entity<ProductCashCoupon>();
+            productCashCoupon.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            productCashCoupon.Property(c => c.IsDeleted).HasDefaultValue(false);
+            productCashCoupon.Property(cw => cw.isManualData).HasDefaultValue(false);
+            productCashCoupon.Property(cw => cw.festivalCanUse).HasDefaultValue(true);
+
+            var discountCoupon = modelBuilder.Entity<DiscountCoupon>();
+            discountCoupon.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            discountCoupon.Property(c => c.IsDeleted).HasDefaultValue(false);
+            discountCoupon.Property(cw => cw.isManualData).HasDefaultValue(false);
+
+            var userDiscountCoupon = modelBuilder.Entity<UserDiscountCoupon>();
+            userDiscountCoupon.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            userDiscountCoupon.Property(c => c.IsDeleted).HasDefaultValue(false);
+            userDiscountCoupon.Property(cw => cw.isManualData).HasDefaultValue(false);
+
 
             var productAttri = modelBuilder.Entity<ProductAttri>();
             productAttri.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");

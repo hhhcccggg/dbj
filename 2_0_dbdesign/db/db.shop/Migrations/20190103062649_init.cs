@@ -179,6 +179,33 @@ namespace db.shop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "shop_discountCoupons",
+                columns: table => new
+                {
+                    id = table.Column<long>(maxLength: 128, nullable: false),
+                    createTime = table.Column<DateTime>(type: "timestamp", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                    isDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    deleteTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    isManualData = table.Column<bool>(nullable: false, defaultValue: false),
+                    name = table.Column<string>(maxLength: 50, nullable: false),
+                    couponCount = table.Column<int>(nullable: false),
+                    discountType = table.Column<string>(maxLength: 128, nullable: false),
+                    discountValue = table.Column<int>(nullable: false),
+                    limitMoney = table.Column<int>(nullable: false),
+                    limitGetPerPerson = table.Column<int>(nullable: false),
+                    useInfo = table.Column<string>(nullable: true),
+                    onlySupportOriginProduct = table.Column<bool>(nullable: false),
+                    validStartTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    validEndTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    storeId = table.Column<long>(nullable: true),
+                    legalSubjectId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_discountCoupons", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "shop_productAttriLinks",
                 columns: table => new
                 {
@@ -254,6 +281,30 @@ namespace db.shop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "shop_productCards",
+                columns: table => new
+                {
+                    id = table.Column<long>(maxLength: 128, nullable: false),
+                    createTime = table.Column<DateTime>(type: "timestamp", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                    isDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    deleteTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    isManualData = table.Column<bool>(nullable: false, defaultValue: false),
+                    festivalCanUse = table.Column<bool>(nullable: false, defaultValue: true),
+                    useInfo = table.Column<string>(maxLength: 1024, nullable: true),
+                    validType = table.Column<string>(maxLength: 128, nullable: false),
+                    specHoursValid = table.Column<int>(nullable: false),
+                    validDays = table.Column<int>(nullable: false),
+                    validStartTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    validEndTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    productId = table.Column<long>(nullable: false),
+                    productSKUId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_productCards", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "shop_productCarts",
                 columns: table => new
                 {
@@ -275,6 +326,31 @@ namespace db.shop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_shop_productCarts", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "shop_productCashCoupons",
+                columns: table => new
+                {
+                    id = table.Column<long>(maxLength: 128, nullable: false),
+                    createTime = table.Column<DateTime>(type: "timestamp", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                    isDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    deleteTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    isManualData = table.Column<bool>(nullable: false, defaultValue: false),
+                    couponValue = table.Column<int>(nullable: false),
+                    festivalCanUse = table.Column<bool>(nullable: false, defaultValue: true),
+                    useInfo = table.Column<string>(maxLength: 1024, nullable: true),
+                    validType = table.Column<string>(maxLength: 128, nullable: false),
+                    specHoursValid = table.Column<int>(nullable: false),
+                    validDays = table.Column<int>(nullable: false),
+                    validStartTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    validEndTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    productId = table.Column<long>(nullable: false),
+                    productSKUId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_productCashCoupons", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -310,6 +386,8 @@ namespace db.shop.Migrations
                     isManualData = table.Column<bool>(nullable: false, defaultValue: false),
                     payment = table.Column<int>(nullable: false),
                     paymentType = table.Column<string>(maxLength: 128, nullable: false),
+                    thirdPaymentTradeNo = table.Column<string>(maxLength: 512, nullable: false),
+                    thirdPaymentTradeNotes = table.Column<string>(nullable: true),
                     deliveryFee = table.Column<int>(nullable: false),
                     status = table.Column<string>(maxLength: 128, nullable: false),
                     updateTime = table.Column<DateTime>(type: "timestamp", nullable: true),
@@ -341,6 +419,7 @@ namespace db.shop.Migrations
                     deleteTime = table.Column<DateTime>(type: "timestamp", nullable: true),
                     isManualData = table.Column<bool>(nullable: false, defaultValue: false),
                     productType = table.Column<int>(nullable: false, defaultValue: 0),
+                    productDetailType = table.Column<string>(maxLength: 128, nullable: false),
                     numberId = table.Column<string>(maxLength: 128, nullable: true),
                     name = table.Column<string>(maxLength: 128, nullable: false),
                     subName = table.Column<string>(maxLength: 512, nullable: true),
@@ -369,7 +448,8 @@ namespace db.shop.Migrations
                     specifyPublishTime = table.Column<long>(nullable: false, defaultValue: 0L),
                     detailDescription = table.Column<string>(nullable: true),
                     weight = table.Column<int>(nullable: false, defaultValue: 0),
-                    notes = table.Column<string>(maxLength: 512, nullable: true)
+                    notes = table.Column<string>(maxLength: 512, nullable: true),
+                    limitPerPerson = table.Column<int>(nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -470,6 +550,24 @@ namespace db.shop.Migrations
                     table.PrimaryKey("PK_shop_stores", x => x.id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "shop_userDiscountCoupons",
+                columns: table => new
+                {
+                    id = table.Column<long>(maxLength: 128, nullable: false),
+                    createTime = table.Column<DateTime>(type: "timestamp", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                    isDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    deleteTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    isManualData = table.Column<bool>(nullable: false, defaultValue: false),
+                    couponId = table.Column<long>(nullable: false),
+                    userId = table.Column<long>(nullable: false),
+                    state = table.Column<string>(maxLength: 128, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_userDiscountCoupons", x => x.id);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_LegalSubjectReviews_identifyId",
                 table: "LegalSubjectReviews",
@@ -508,6 +606,9 @@ namespace db.shop.Migrations
                 name: "shop_deliveryTemplateScopes");
 
             migrationBuilder.DropTable(
+                name: "shop_discountCoupons");
+
+            migrationBuilder.DropTable(
                 name: "shop_productAttriLinks");
 
             migrationBuilder.DropTable(
@@ -520,7 +621,13 @@ namespace db.shop.Migrations
                 name: "shop_productBrands");
 
             migrationBuilder.DropTable(
+                name: "shop_productCards");
+
+            migrationBuilder.DropTable(
                 name: "shop_productCarts");
+
+            migrationBuilder.DropTable(
+                name: "shop_productCashCoupons");
 
             migrationBuilder.DropTable(
                 name: "shop_productOrderItems");
@@ -539,6 +646,9 @@ namespace db.shop.Migrations
 
             migrationBuilder.DropTable(
                 name: "shop_stores");
+
+            migrationBuilder.DropTable(
+                name: "shop_userDiscountCoupons");
         }
     }
 }
