@@ -106,4 +106,14 @@ public class ProductServiceImpl implements ProductService {
             return new ServiceStatusInfo<>(1, "上下架失败" + e.getMessage(), 0L);
         }
     }
+
+    @Override
+    public ServiceStatusInfo<Products> selectById(long id) {
+        try{
+            Products result =this.iProductMapper.selectById(id);
+            return new ServiceStatusInfo<>(0, "", result);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(0, "查询单个商品失败"+e.getMessage(), null);
+        }
+    }
 }

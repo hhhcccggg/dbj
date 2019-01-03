@@ -81,10 +81,20 @@ public class ProductsController {
     @ApiOperation(value = "批量商品上下架")
     public ResponseData<Long> updatePublish(@RequestParam(value = "id", required =true ) Long[] id ,
                                             @RequestParam(value = "publish" ,required = true) boolean publish){
-        ServiceStatusInfo<Long> serviceStatusInfo = productServiceImpl.updatePublish(id,publish);
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updatePublish(id,publish);
         if(serviceStatusInfo.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
+    }
+
+    @GetMapping(value = "/selectById/{id}")
+    @ApiOperation(value = "查询单个商品")
+    public ResponseData<Products> selectById(@PathVariable long id){
+        ServiceStatusInfo<Products> serviceStatusInfo = this.productServiceImpl.selectById(id);
+        if(serviceStatusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg() , null);
     }
 }

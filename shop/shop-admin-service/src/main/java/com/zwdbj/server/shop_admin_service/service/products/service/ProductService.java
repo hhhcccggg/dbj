@@ -25,4 +25,10 @@ public interface ProductService {
      */
     ServiceStatusInfo<Long> updatePublish(Long[] id , boolean publish);
 
+    /**
+     * 查询单个商品
+     * @param id
+     * @return
+     */
+    ServiceStatusInfo<Products> selectById(long id);
 }
