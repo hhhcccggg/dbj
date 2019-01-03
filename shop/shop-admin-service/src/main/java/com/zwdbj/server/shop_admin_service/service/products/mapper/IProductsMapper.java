@@ -95,7 +95,7 @@ public interface IProductsMapper {
 
 
     @UpdateProvider(type = ProductsSqlProvider.class , method = "updatePublish")
-    Long updatePublish(Long[] id, boolean publish);
+    Long updatePublishs(Long[] id, boolean publish);
 
     @Select("select * from shop_products where id=#{id} and isDeleted=0")
     Products selectById(@Param("id") long id);

@@ -23,7 +23,7 @@ public interface ProductService {
      * @param publish
      * @return
      */
-    ServiceStatusInfo<Long> updatePublish(Long[] id , boolean publish);
+    ServiceStatusInfo<Long> updatePublishs(Long[] id , boolean publish);
 
     /**
      * 查询单个商品

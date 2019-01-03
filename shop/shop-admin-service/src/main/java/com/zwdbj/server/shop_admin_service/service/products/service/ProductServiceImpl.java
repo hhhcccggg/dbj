@@ -98,9 +98,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ServiceStatusInfo<Long> updatePublish(Long[] id, boolean publish) {
+    public ServiceStatusInfo<Long> updatePublishs(Long[] id, boolean publish) {
         try {
-            long result = this.iProductMapper.updatePublish(id,publish);
+            long result = this.iProductMapper.updatePublishs(id,publish);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "上下架失败" + e.getMessage(), 0L);
