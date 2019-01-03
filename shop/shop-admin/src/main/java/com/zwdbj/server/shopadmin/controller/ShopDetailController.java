@@ -1,5 +1,6 @@
 package com.zwdbj.server.shopadmin.controller;
 
+import com.zwdbj.server.shop_admin_service.service.shopdetail.model.StoreServiceCategory;
 import com.zwdbj.server.shop_admin_service.service.shopdetail.model.OpeningHours;
 import com.zwdbj.server.shop_admin_service.service.shopdetail.model.StoreDto;
 import com.zwdbj.server.shop_admin_service.service.shopdetail.service.ShopDetailService;
@@ -96,5 +97,46 @@ public class ShopDetailController {
         }
         return new ResponseData<>(1, statusInfo.getMsg(), null);
 
+    }
+
+    @RequestMapping(value = "/extraService", method = RequestMethod.GET)
+    @ApiOperation(value = "展示店铺额外服务范围")
+    public ResponseData<List<StoreServiceCategory>> showExtraServices() {
+        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.shopDetailServiceImpl.findExtraService(1L);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
+    }
+
+    @RequestMapping(value = "/modifyExtraService", method = RequestMethod.POST)
+    @ApiOperation(value = "修改店铺额外服务范围")
+    public ResponseData<Long> modifyExtraService(@RequestBody List<StoreServiceCategory> storeServiceCategory) {
+
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyExtraService(1L, storeServiceCategory);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
+    }
+
+    @RequestMapping(value = "/searchAllExtraService", method = RequestMethod.GET)
+    @ApiOperation(value = "查询所有额外服务范围")
+    public ResponseData<List<StoreServiceCategory>> searchAllExtraService() {
+        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.shopDetailServiceImpl.findExtraService(1L);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
+    }
+
+    @RequestMapping(value = "/serviceScopes", method = RequestMethod.GET)
+    @ApiOperation(value = "展示店铺服务范围")
+    public ResponseData<List<StoreServiceCategory>> showserviceScopes() {
+        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.shopDetailServiceImpl.findServiceScope(1L);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
 }
