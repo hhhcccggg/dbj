@@ -3,16 +3,24 @@ package com.zwdbj.server.shop_admin_service.service.legalSubject.service;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.shop_admin_service.service.legalSubject.mapper.ILegalSubjectMapper;
 import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectModel;
+import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectReviewModel;
+import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectSearchInput;
+import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectVerityInput;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LegalSubjectServiceImpl implements ILegalSubjectService {
     @Autowired
     ILegalSubjectMapper legalSubjectMapper;
     protected Logger logger = LoggerFactory.getLogger(LegalSubjectServiceImpl.class);
+
+
     @Override
     public boolean handleLegalSubject(QueueWorkInfoModel.QueueWorkShopLegalSubjectData data) {
         try {
@@ -60,5 +68,34 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
     }
     public LegalSubjectModel getLegalSubjectById(long id){
         return this.legalSubjectMapper.getLegalSubjectById(id);
+    }
+
+    @Override
+    public List<LegalSubjectModel> getLegalSubjects(LegalSubjectSearchInput input) {
+        List<LegalSubjectModel> legalSubjectModels = this.legalSubjectMapper.getLegalSubjects(input);
+        return legalSubjectModels;
+    }
+    @Override
+    public List<LegalSubjectModel> getUnReviewedLegalSubjects(LegalSubjectSearchInput input) {
+        List<LegalSubjectModel> legalSubjectModels = this.legalSubjectMapper.getUnReviewedLegalSubjects(input);
+        return legalSubjectModels;
+    }
+
+    @Override
+    public ServiceStatusInfo<Integer> verityUnReviewed(long id, LegalSubjectVerityInput input) {
+        int result = 0;
+        try {
+            result = this.legalSubjectMapper.verityUnReviewed(id,input);
+            // TODO 需不需要这里把店铺也审核了？
+            return new ServiceStatusInfo<>(0, "审核完毕", result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "审核出现异常：" + e.getMessage(), result);
+        }
+    }
+
+    @Override
+    public List<LegalSubjectReviewModel> getReviewsByLegalSubjectId(long id) {
+        List<LegalSubjectReviewModel> legalSubjectReviewModels = this.legalSubjectMapper.getReviewsByLegalSubjectId(id);
+        return legalSubjectReviewModels;
     }
 }

@@ -2,7 +2,12 @@ package com.zwdbj.server.shop_admin_service.service.legalSubject.mapper;
 
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectModel;
+import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectReviewModel;
+import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectSearchInput;
+import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectVerityInput;
 import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface ILegalSubjectMapper {
@@ -20,4 +25,14 @@ public interface ILegalSubjectMapper {
 
     @Select("select * from core_legalSubjects where id=#{id} and isDeleted=0")
     LegalSubjectModel getLegalSubjectById(@Param("id")long id);
+
+    @SelectProvider(type =LegalSubjectSQLProvider.class ,method = "searchSql")
+    List<LegalSubjectModel> getLegalSubjects(@Param("input")LegalSubjectSearchInput input);
+    @SelectProvider(type =LegalSubjectSQLProvider.class ,method = "searchUnReviewedSql")
+    List<LegalSubjectModel> getUnReviewedLegalSubjects(@Param("input")LegalSubjectSearchInput input);
+    @Update("update core_legalSubjects set reviewed=#{input.reviewed},rejectMsg=#{input.rejectMsg} where id=#{id}")
+    int verityUnReviewed(@Param("id")long id, @Param("input")LegalSubjectVerityInput input);
+
+    @Select("select * from LegalSubjectReviews where legalSubjectId=#{legalSubjectId}")
+    List<LegalSubjectReviewModel> getReviewsByLegalSubjectId(@Param("legalSubjectId")long legalSubjectId);
 }
