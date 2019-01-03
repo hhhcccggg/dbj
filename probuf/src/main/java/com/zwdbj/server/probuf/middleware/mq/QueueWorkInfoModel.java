@@ -2600,6 +2600,15 @@ public final class QueueWorkInfoModel {
      * <code>int64 legalSubjectId = 5;</code>
      */
     long getLegalSubjectId();
+
+    /**
+     * <pre>
+     *1为添加商铺，2为修改商铺，3为删除商铺
+     * </pre>
+     *
+     * <code>int32 type = 6;</code>
+     */
+    int getType();
   }
   /**
    * Protobuf type {@code QueueWorkShopLegalSubjectData}
@@ -2619,6 +2628,7 @@ public final class QueueWorkInfoModel {
       phone_ = "";
       contactNumber_ = "";
       legalSubjectId_ = 0L;
+      type_ = 0;
     }
 
     @java.lang.Override
@@ -2679,6 +2689,11 @@ public final class QueueWorkInfoModel {
             case 40: {
 
               legalSubjectId_ = input.readInt64();
+              break;
+            }
+            case 48: {
+
+              type_ = input.readInt32();
               break;
             }
           }
@@ -2886,6 +2901,19 @@ public final class QueueWorkInfoModel {
       return legalSubjectId_;
     }
 
+    public static final int TYPE_FIELD_NUMBER = 6;
+    private int type_;
+    /**
+     * <pre>
+     *1为添加商铺，2为修改商铺，3为删除商铺
+     * </pre>
+     *
+     * <code>int32 type = 6;</code>
+     */
+    public int getType() {
+      return type_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -2913,6 +2941,9 @@ public final class QueueWorkInfoModel {
       if (legalSubjectId_ != 0L) {
         output.writeInt64(5, legalSubjectId_);
       }
+      if (type_ != 0) {
+        output.writeInt32(6, type_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2936,6 +2967,10 @@ public final class QueueWorkInfoModel {
       if (legalSubjectId_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(5, legalSubjectId_);
+      }
+      if (type_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, type_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2963,6 +2998,8 @@ public final class QueueWorkInfoModel {
           .equals(other.getContactNumber());
       result = result && (getLegalSubjectId()
           == other.getLegalSubjectId());
+      result = result && (getType()
+          == other.getType());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -2985,6 +3022,8 @@ public final class QueueWorkInfoModel {
       hash = (37 * hash) + LEGALSUBJECTID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getLegalSubjectId());
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getType();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3124,6 +3163,8 @@ public final class QueueWorkInfoModel {
 
         legalSubjectId_ = 0L;
 
+        type_ = 0;
+
         return this;
       }
 
@@ -3151,6 +3192,7 @@ public final class QueueWorkInfoModel {
         result.phone_ = phone_;
         result.contactNumber_ = contactNumber_;
         result.legalSubjectId_ = legalSubjectId_;
+        result.type_ = type_;
         onBuilt();
         return result;
       }
@@ -3210,6 +3252,9 @@ public final class QueueWorkInfoModel {
         }
         if (other.getLegalSubjectId() != 0L) {
           setLegalSubjectId(other.getLegalSubjectId());
+        }
+        if (other.getType() != 0) {
+          setType(other.getType());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -3628,6 +3673,44 @@ public final class QueueWorkInfoModel {
       public Builder clearLegalSubjectId() {
         
         legalSubjectId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int type_ ;
+      /**
+       * <pre>
+       *1为添加商铺，2为修改商铺，3为删除商铺
+       * </pre>
+       *
+       * <code>int32 type = 6;</code>
+       */
+      public int getType() {
+        return type_;
+      }
+      /**
+       * <pre>
+       *1为添加商铺，2为修改商铺，3为删除商铺
+       * </pre>
+       *
+       * <code>int32 type = 6;</code>
+       */
+      public Builder setType(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *1为添加商铺，2为修改商铺，3为删除商铺
+       * </pre>
+       *
+       * <code>int32 type = 6;</code>
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
         onChanged();
         return this;
       }
@@ -8654,26 +8737,26 @@ public final class QueueWorkInfoModel {
       "\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_REVIEW_RE" +
       "SULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESULT\020\004\022\036\n\032" +
       "QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014VIDEO_WE" +
-      "IGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\"\202\001\n\035Queue" +
+      "IGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\"\220\001\n\035Queue" +
       "WorkShopLegalSubjectData\022\014\n\004name\030\001 \001(\t\022\025" +
       "\n\rcontactPerson\030\002 \001(\t\022\r\n\005phone\030\003 \001(\t\022\025\n\r" +
       "contactNumber\030\004 \001(\t\022\026\n\016legalSubjectId\030\005 " +
-      "\001(\003\"[\n\016QueueWorkHeart\022\022\n\nresourceId\030\001 \001(" +
-      "\t\022\024\n\014resourceType\030\002 \001(\t\022\016\n\006userId\030\003 \001(\003\022" +
-      "\017\n\007unHeart\030\004 \001(\010\"1\n\022QueueWorkPhoneCode\022\r" +
-      "\n\005phone\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"\226\001\n\rQueueWor" +
-      "kPush\022\016\n\006pushId\030\001 \001(\003\022\025\n\rcreatorUserId\030\002" +
-      " \001(\003\022\022\n\nmsgContent\030\003 \001(\t\022\023\n\013dataContent\030" +
-      "\004 \001(\t\022\016\n\006refUrl\030\005 \001(\t\022\020\n\010toUserId\030\006 \001(\003\022" +
-      "\023\n\013messageType\030\007 \001(\005\"G\n\032QueueWorkQiniuRe" +
-      "viewResult\022\025\n\rresultContent\030\001 \001(\t\022\022\n\nret" +
-      "ryCount\030\002 \001(\005\"|\n\037QueueWorkQiniuWaitRevie" +
-      "wResData\022\022\n\nresContent\030\001 \001(\t\022\022\n\nbucketNa" +
-      "me\030\002 \001(\t\022\017\n\007resType\030\003 \001(\005\022\016\n\006dataId\030\004 \001(" +
-      "\003\022\020\n\010dataType\030\005 \001(\005\"&\n\030QueueWorkVideoWei" +
-      "ghtData\022\n\n\002id\030\001 \001(\003B;\n%com.zwdbj.server." +
-      "probuf.middleware.mqB\022QueueWorkInfoModel" +
-      "b\006proto3"
+      "\001(\003\022\014\n\004type\030\006 \001(\005\"[\n\016QueueWorkHeart\022\022\n\nr" +
+      "esourceId\030\001 \001(\t\022\024\n\014resourceType\030\002 \001(\t\022\016\n" +
+      "\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n\022QueueW" +
+      "orkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004code\030\002 \001(" +
+      "\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 \001(\003\022\025\n\rc" +
+      "reatorUserId\030\002 \001(\003\022\022\n\nmsgContent\030\003 \001(\t\022\023" +
+      "\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001(\t\022\020\n\010t" +
+      "oUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001(\005\"G\n\032Qu" +
+      "eueWorkQiniuReviewResult\022\025\n\rresultConten" +
+      "t\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037QueueWork" +
+      "QiniuWaitReviewResData\022\022\n\nresContent\030\001 \001" +
+      "(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resType\030\003 \001(\005\022" +
+      "\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(\005\"&\n\030Que" +
+      "ueWorkVideoWeightData\022\n\n\002id\030\001 \001(\003B;\n%com" +
+      ".zwdbj.server.probuf.middleware.mqB\022Queu" +
+      "eWorkInfoModelb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -8698,7 +8781,7 @@ public final class QueueWorkInfoModel {
     internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkShopLegalSubjectData_descriptor,
-        new java.lang.String[] { "Name", "ContactPerson", "Phone", "ContactNumber", "LegalSubjectId", });
+        new java.lang.String[] { "Name", "ContactPerson", "Phone", "ContactNumber", "LegalSubjectId", "Type", });
     internal_static_QueueWorkHeart_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_QueueWorkHeart_fieldAccessorTable = new
