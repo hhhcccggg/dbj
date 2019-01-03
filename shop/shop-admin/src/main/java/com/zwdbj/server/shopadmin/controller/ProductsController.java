@@ -76,4 +76,15 @@ public class ProductsController {
         PageInfo<Products> pageInfo = new PageInfo(productsList);
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", productsList, pageInfo.getTotal());
     }
+
+    @PostMapping(value = "/updatePublish")
+    @ApiOperation(value = "批量商品上下架")
+    public ResponseData<Long> updatePublish(@RequestParam(value = "id", required =true ) Long[] id ,
+                                            @RequestParam(value = "publish" ,required = true) boolean publish){
+        ServiceStatusInfo<Long> serviceStatusInfo = productServiceImpl.updatePublish(id,publish);
+        if(serviceStatusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
+    }
 }

@@ -32,4 +32,25 @@ public class ProductsSqlProvider {
 System.out.println(sql.toString());
         return sql.toString();
     }
+
+    public String updatePublish(Map map){
+        Long[] id = (Long[]) map.get("id");
+        boolean publish = (boolean) map.get("publish");
+        SQL sql = new SQL()
+                .UPDATE("shop_products")
+                .SET("publish = "+publish);
+        if(publish){
+            sql.SET("specifyPublishTime = now()");
+        }
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < id.length; i++) {
+            stringBuffer.append("id="+id[i]);
+            if(i+1 != id.length)stringBuffer.append(" or ");
+        }
+        sql.WHERE(stringBuffer.toString());
+        sql.AND();
+        sql.WHERE("isDeleted=0");
+        System.out.println(sql.toString());
+        return sql.toString();
+    }
 }

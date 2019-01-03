@@ -17,4 +17,12 @@ public interface ProductService {
     ServiceStatusInfo<List<Products>> selectAll();
     ServiceStatusInfo<List<Products>> searchProducts(SearchProducts searchProduct);
 
+    /**
+     * 批量商品上下架
+     * @param id
+     * @param publish
+     * @return
+     */
+    ServiceStatusInfo<Long> updatePublish(Long[] id , boolean publish);
+
 }

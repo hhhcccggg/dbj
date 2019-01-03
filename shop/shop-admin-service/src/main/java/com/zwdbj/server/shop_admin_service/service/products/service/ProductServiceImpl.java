@@ -96,4 +96,14 @@ public class ProductServiceImpl implements ProductService {
             return  new ServiceStatusInfo<>(1,"搜索失败"+e.getMessage(),result);
         }
     }
+
+    @Override
+    public ServiceStatusInfo<Long> updatePublish(Long[] id, boolean publish) {
+        try {
+            long result = this.iProductMapper.updatePublish(id,publish);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "上下架失败" + e.getMessage(), 0L);
+        }
+    }
 }

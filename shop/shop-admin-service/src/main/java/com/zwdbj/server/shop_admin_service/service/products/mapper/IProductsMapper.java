@@ -92,6 +92,10 @@ public interface IProductsMapper {
             "from shop_products as a,shop_productSKUs as b where a.storeId=#{storeId} and " +
             "b.productId=a.id and a.publish=0")
     List<ProductsDto> notOnSales(@PathVariable("storeId") long storeId);
+
+
+    @UpdateProvider(type = ProductsSqlProvider.class , method = "updatePublish")
+    Long updatePublish(Long[] id, boolean publish);
 }
 
 
