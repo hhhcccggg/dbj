@@ -16,6 +16,17 @@ namespace db.shop.Models.shop
         /// <value>The type of the product.</value>
         public int productType { get; set; }
         /// <summary>
+        /// 产品详细类型
+        /// DELIVERY: 实物产品
+        /// NODELIVERY:虚拟商品(不需要物流)
+        /// CARD:卡券(服务中套餐)，关联[ProductCard]表
+        /// CASHCOUPON:代金券，类似70抵100，关联[ProductCashCoupon]表
+        /// </summary>
+        /// <value>The type of the product detail.</value>
+        [Required]
+        [MaxLength(128)]
+        public String productDetailType { get; set; }
+        /// <summary>
         /// 产品编码
         /// </summary>
         /// <value>The number identifier.</value>
@@ -36,6 +47,7 @@ namespace db.shop.Models.shop
         /// <value>The seller point.</value>
         [MaxLength(512)]
         public String sellerPoint { get; set; }
+        [Required]
         public long categoryId { get; set; }
         [MaxLength(1024)]
         public String categoryLevel { get; set; }
@@ -147,5 +159,12 @@ namespace db.shop.Models.shop
         /// <value>The notes.</value>
         [MaxLength(512)]
         public String notes { get; set; }
+        /// <summary>
+        /// 是否限购
+        /// 0：表示不限购
+        /// 大于0数字表示没人只能买商品的数量
+        /// </summary>
+        /// <value>The limit per person.</value>
+        public int limitPerPerson { get; set; }
     }
 }

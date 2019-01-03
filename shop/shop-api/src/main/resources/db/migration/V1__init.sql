@@ -127,6 +127,27 @@ CREATE TABLE `shop_deliveryTemplateScopes` (
     CONSTRAINT `PK_shop_deliveryTemplateScopes` PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `shop_discountCoupons` (
+    `id` bigint NOT NULL,
+    `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `isDeleted` bit NOT NULL DEFAULT FALSE,
+    `deleteTime` timestamp NULL,
+    `isManualData` bit NOT NULL DEFAULT FALSE,
+    `name` varchar(50) NOT NULL,
+    `couponCount` int NOT NULL,
+    `discountType` varchar(128) NOT NULL,
+    `discountValue` int NOT NULL,
+    `limitMoney` int NOT NULL,
+    `limitGetPerPerson` int NOT NULL,
+    `useInfo` longtext NULL,
+    `onlySupportOriginProduct` bit NOT NULL,
+    `validStartTime` timestamp NULL,
+    `validEndTime` timestamp NULL,
+    `storeId` bigint NULL,
+    `legalSubjectId` bigint NULL,
+    CONSTRAINT `PK_shop_discountCoupons` PRIMARY KEY (`id`)
+);
+
 CREATE TABLE `shop_productAttriLinks` (
     `id` bigint NOT NULL,
     `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
@@ -178,6 +199,24 @@ CREATE TABLE `shop_productBrands` (
     CONSTRAINT `PK_shop_productBrands` PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `shop_productCards` (
+    `id` bigint NOT NULL,
+    `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `isDeleted` bit NOT NULL DEFAULT FALSE,
+    `deleteTime` timestamp NULL,
+    `isManualData` bit NOT NULL DEFAULT FALSE,
+    `festivalCanUse` bit NOT NULL DEFAULT TRUE,
+    `useInfo` varchar(1024) NULL,
+    `validType` varchar(128) NOT NULL,
+    `specHoursValid` int NOT NULL,
+    `validDays` int NOT NULL,
+    `validStartTime` timestamp NULL,
+    `validEndTime` timestamp NULL,
+    `productId` bigint NOT NULL,
+    `productSKUId` bigint NULL,
+    CONSTRAINT `PK_shop_productCards` PRIMARY KEY (`id`)
+);
+
 CREATE TABLE `shop_productCarts` (
     `id` bigint NOT NULL,
     `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
@@ -194,6 +233,25 @@ CREATE TABLE `shop_productCarts` (
     `ua` varchar(128) NULL,
     `expireTime` bigint NOT NULL,
     CONSTRAINT `PK_shop_productCarts` PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `shop_productCashCoupons` (
+    `id` bigint NOT NULL,
+    `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `isDeleted` bit NOT NULL DEFAULT FALSE,
+    `deleteTime` timestamp NULL,
+    `isManualData` bit NOT NULL DEFAULT FALSE,
+    `couponValue` int NOT NULL,
+    `festivalCanUse` bit NOT NULL DEFAULT TRUE,
+    `useInfo` varchar(1024) NULL,
+    `validType` varchar(128) NOT NULL,
+    `specHoursValid` int NOT NULL,
+    `validDays` int NOT NULL,
+    `validStartTime` timestamp NULL,
+    `validEndTime` timestamp NULL,
+    `productId` bigint NOT NULL,
+    `productSKUId` bigint NULL,
+    CONSTRAINT `PK_shop_productCashCoupons` PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `shop_productOrderItems` (
@@ -220,6 +278,8 @@ CREATE TABLE `shop_productOrders` (
     `isManualData` bit NOT NULL DEFAULT FALSE,
     `payment` int NOT NULL,
     `paymentType` varchar(128) NOT NULL,
+    `thirdPaymentTradeNo` varchar(512) NOT NULL,
+    `thirdPaymentTradeNotes` longtext NULL,
     `deliveryFee` int NOT NULL,
     `status` varchar(128) NOT NULL,
     `updateTime` timestamp NULL,
@@ -245,6 +305,7 @@ CREATE TABLE `shop_products` (
     `deleteTime` timestamp NULL,
     `isManualData` bit NOT NULL DEFAULT FALSE,
     `productType` int NOT NULL DEFAULT 0,
+    `productDetailType` varchar(128) NOT NULL,
     `numberId` varchar(128) NULL,
     `name` varchar(128) NOT NULL,
     `subName` varchar(512) NULL,
@@ -274,6 +335,7 @@ CREATE TABLE `shop_products` (
     `detailDescription` longtext NULL,
     `weight` int NOT NULL DEFAULT 0,
     `notes` varchar(512) NULL,
+    `limitPerPerson` int NOT NULL DEFAULT 0,
     CONSTRAINT `PK_shop_products` PRIMARY KEY (`id`)
 );
 
@@ -353,10 +415,22 @@ CREATE TABLE `shop_stores` (
     CONSTRAINT `PK_shop_stores` PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `shop_userDiscountCoupons` (
+    `id` bigint NOT NULL,
+    `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `isDeleted` bit NOT NULL DEFAULT FALSE,
+    `deleteTime` timestamp NULL,
+    `isManualData` bit NOT NULL DEFAULT FALSE,
+    `couponId` bigint NOT NULL,
+    `userId` bigint NOT NULL,
+    `state` varchar(128) NOT NULL,
+    CONSTRAINT `PK_shop_userDiscountCoupons` PRIMARY KEY (`id`)
+);
+
 CREATE INDEX `IX_LegalSubjectReviews_identifyId` ON `LegalSubjectReviews` (`identifyId`);
 
 CREATE INDEX `IX_shop_productOrders_status` ON `shop_productOrders` (`status`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20181229013941_init', '2.1.2-rtm-30932');
+VALUES ('20190103062649_init', '2.1.2-rtm-30932');
 
