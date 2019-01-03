@@ -23,7 +23,7 @@ public interface ICategoryMapper {
             "#{input.iconUrl},#{input.status},#{input.orderIndex})")
     Long addCategoryAd2(@Param("id") Long id, @Param("input") AdNewCategoryInput input, @Param("parentId") Long parentId);
 
-    @Update("update core_categories set name=#{input.name},iconUdr=#{input.iconUrl},status=#{input.status} where id=#{id}")
+    @Update("update core_categories set name=#{input.name},iconUrl=#{input.iconUrl},status=#{input.status} where id=#{id}")
     Long editCategoryAd(@Param("id") Long id, @Param("input") AdNewCategoryNameInput input);
 
     @Select("select * from core_categories where parentId=#{parentId}")

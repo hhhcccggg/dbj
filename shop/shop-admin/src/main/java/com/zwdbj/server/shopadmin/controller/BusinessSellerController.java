@@ -3,11 +3,11 @@ package com.zwdbj.server.shopadmin.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.shop_admin_service.businessSellers.model.BusinessSellerAddInput;
-import com.zwdbj.server.shop_admin_service.businessSellers.model.BusinessSellerDto;
-import com.zwdbj.server.shop_admin_service.businessSellers.model.BusinessSellerModel;
-import com.zwdbj.server.shop_admin_service.businessSellers.model.BusinessSellerModifyInput;
-import com.zwdbj.server.shop_admin_service.businessSellers.service.BusinessSellerService;
+import com.zwdbj.server.shop_admin_service.service.businessSellers.model.BusinessSellerAddInput;
+import com.zwdbj.server.shop_admin_service.service.businessSellers.model.BusinessSellerDto;
+import com.zwdbj.server.shop_admin_service.service.businessSellers.model.BusinessSellerModel;
+import com.zwdbj.server.shop_admin_service.service.businessSellers.model.BusinessSellerModifyInput;
+import com.zwdbj.server.shop_admin_service.service.businessSellers.service.BusinessSellerService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;

@@ -2,10 +2,10 @@ package com.zwdbj.server.shopadmin.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.shop_admin_service.receiveAddress.model.ReceiveAddressAddInput;
-import com.zwdbj.server.shop_admin_service.receiveAddress.model.ReceiveAddressModel;
-import com.zwdbj.server.shop_admin_service.receiveAddress.model.ReceiveAddressModifyInput;
-import com.zwdbj.server.shop_admin_service.receiveAddress.service.ReceiveAddressService;
+import com.zwdbj.server.shop_admin_service.service.receiveAddress.model.ReceiveAddressAddInput;
+import com.zwdbj.server.shop_admin_service.service.receiveAddress.model.ReceiveAddressModel;
+import com.zwdbj.server.shop_admin_service.service.receiveAddress.model.ReceiveAddressModifyInput;
+import com.zwdbj.server.shop_admin_service.service.receiveAddress.service.ReceiveAddressService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
