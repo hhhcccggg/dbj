@@ -12,4 +12,11 @@ public interface ProductSKUsService {
     ServiceStatusInfo<Long> updateProductSKUs(ProductSKUs productSKUs);
 
     ServiceStatusInfo<List<ProductSKUs>> selectAll();
+
+    /**
+     * 根据ID查询
+     * @param id
+     * @return
+     */
+    ServiceStatusInfo<ProductSKUs> selectById(Long id);
 }

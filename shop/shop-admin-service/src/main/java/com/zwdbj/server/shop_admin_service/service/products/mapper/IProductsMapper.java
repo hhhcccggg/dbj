@@ -14,9 +14,9 @@ public interface IProductsMapper {
     @Insert("insert into shop_products(id," +
             "productType,numberId,name,subName,searchName,marketName," +
             "sellerPoint,categoryId,categoryLevel," +
-            "brandId,shareDesc,sellerId,commentCount,grade,sales,inventory,priceUp," +
-            "priceDown,imageUrls,videoUrl,productGroupId,isJoinMemberDiscount," +
-            "isNeedDelivery,universalDeliveryPrice,deliverytemplateId,isPublish," +
+            "brandId,shareDesc,storeId,commentCount,grade,sales,inventory,priceUp," +
+            "priceDown,imageUrls,videoUrl,productGroupId,joinMemberDiscount," +
+            "needDelivery,universalDeliveryPrice,deliverytemplateId,publish," +
             "specifyPublishTime,detailDescription,weight,notes) values(" +
             "#{id}," +
             "#{products.productType}," +
@@ -30,7 +30,7 @@ public interface IProductsMapper {
             "#{products.categoryLevel}," +
             "#{products.brandId}," +
             "#{products.shareDesc}," +
-            "#{products.sellerId}," +
+            "#{products.storeId}," +
             "#{products.commentCount}," +
             "#{products.grade}," +
             "#{products.sales}," +

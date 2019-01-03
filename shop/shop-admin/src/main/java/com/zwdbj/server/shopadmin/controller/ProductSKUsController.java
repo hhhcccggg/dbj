@@ -67,4 +67,15 @@ public class ProductSKUsController {
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", productSKUsList, pageInfo.getTotal());
 
     }
+
+    @GetMapping(value = "/select/{id}")
+    @ApiOperation(value = "查询单个商品的SKU")
+    public ResponseData<ProductSKUs> selectById(@PathVariable Long id){
+        ServiceStatusInfo<ProductSKUs> serviceStatusInfo = productSKUsServiceImpl.selectById(id);
+        if(serviceStatusInfo.isSuccess()){
+            return new ResponseData(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
+        }
+        return new ResponseData(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+    }
+
 }

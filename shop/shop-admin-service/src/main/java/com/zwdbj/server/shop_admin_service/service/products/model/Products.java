@@ -25,7 +25,7 @@ public class Products {
     @ApiModelProperty(value = "分享描述")
     String shareDesc;
     @ApiModelProperty(value = "卖家编号")
-    long sellerId;
+    long storeId;
     @ApiModelProperty(value = "评论数")
     long commentCount;
     @ApiModelProperty(value = "评分")
@@ -167,12 +167,12 @@ public class Products {
         this.shareDesc = shareDesc;
     }
 
-    public long getSellerId() {
-        return sellerId;
+    public long getStoreId() {
+        return storeId;
     }
 
-    public void setSellerId(long sellerId) {
-        this.sellerId = sellerId;
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
     }
 
     public long getCommentCount() {

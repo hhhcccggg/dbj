@@ -1,6 +1,8 @@
 package com.zwdbj.server.shop_admin_service.service.products.service;
 
 
+import com.zwdbj.server.shop_admin_service.service.productSKUs.mapper.IProductSKUsMapper;
+import com.zwdbj.server.shop_admin_service.service.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.shop_admin_service.service.products.mapper.IProductsMapper;
 import com.zwdbj.server.shop_admin_service.service.products.model.Products;
 import com.zwdbj.server.shop_admin_service.service.products.model.SearchProducts;
@@ -18,6 +20,9 @@ public class ProductServiceImpl implements ProductService {
     @Resource
     protected IProductsMapper iProductMapper;
 
+    @Resource
+    protected IProductSKUsMapper iProductSKUsMapper;
+
     @Override
     public ServiceStatusInfo<Long> createProducts(Products products) {
         //生成唯一id
@@ -26,6 +31,11 @@ public class ProductServiceImpl implements ProductService {
 
         try {
             result = this.iProductMapper.createProducts(id, products);
+            if(result>0){
+                ProductSKUs productSKUs = new ProductSKUs();
+                productSKUs.setProductId(id);
+                iProductSKUsMapper.createProductSKUs(UniqueIDCreater.generateID(),productSKUs);
+            }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "创建失败：" + e.getMessage(), result);
@@ -38,6 +48,10 @@ public class ProductServiceImpl implements ProductService {
         Long result = 0L;
         try {
             result = this.iProductMapper.deleteProduct(id);
+            //删除商品时一并删除商品的sku
+            if(result>0){
+                iProductSKUsMapper.deleteByProductId(id);
+            }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "删除失败" + e.getMessage(), result);
