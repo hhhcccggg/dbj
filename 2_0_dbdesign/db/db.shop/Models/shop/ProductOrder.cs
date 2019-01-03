@@ -20,6 +20,18 @@ namespace db.shop.Models.shop
         [Required]
         public string paymentType { get; set; }
         /// <summary>
+        /// 第三方支付流水号: 微信、支付宝流水号、银行卡流水号
+        /// </summary>
+        /// <value>The third payment trade no.</value>
+        [Required]
+        [MaxLength(512)]
+        public string thirdPaymentTradeNo { get; set; }
+        /// <summary>
+        /// 第三方支付交易原始信息
+        /// </summary>
+        /// <value>The third payment trade notes.</value>
+        public string thirdPaymentTradeNotes { get; set; }
+        /// <summary>
         /// 邮费，单位分
         /// </summary>
         /// <value>The delivery fee.</value>
@@ -31,6 +43,9 @@ namespace db.shop.Models.shop
         /// STATE_SELLER_DELIVERIED（卖家已发货，等待买家收货)
         /// STATE_BUYER_DELIVERIED（买家已确认收货)
         /// STATE_REFUNDING（退款中)
+        /// STATE_REFUND_SUCCESS（退款成功)
+        /// STATE_UNUSED (未使用，虚拟商品有效)
+        /// STATE_USED (已使用，虚拟商品有效)
         /// STATE_SUCCESS（交易成功)
         /// STATE_CLOSED(交易关闭)
         /// </summary>

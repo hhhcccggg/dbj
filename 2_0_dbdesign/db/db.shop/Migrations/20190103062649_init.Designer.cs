@@ -9,7 +9,7 @@ using db.shop.Models;
 namespace db.shop.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20181229013941_init")]
+    [Migration("20190103062649_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -266,6 +266,68 @@ namespace db.shop.Migrations
                     b.ToTable("shop_deliveryTemplateScopes");
                 });
 
+            modelBuilder.Entity("db.shop.Models.shop.DiscountCoupon", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("couponCount");
+
+                    b.Property<string>("discountType")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<int>("discountValue");
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<long?>("legalSubjectId");
+
+                    b.Property<int>("limitGetPerPerson");
+
+                    b.Property<int>("limitMoney");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("onlySupportOriginProduct");
+
+                    b.Property<long?>("storeId");
+
+                    b.Property<string>("useInfo");
+
+                    b.Property<DateTime?>("validEndTime")
+                        .HasColumnName("validEndTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<DateTime?>("validStartTime")
+                        .HasColumnName("validStartTime")
+                        .HasColumnType("timestamp");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("shop_discountCoupons");
+                });
+
             modelBuilder.Entity("db.shop.Models.shop.LegalSubject", b =>
                 {
                     b.Property<long>("Id")
@@ -471,6 +533,10 @@ namespace db.shop.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
 
+                    b.Property<int>("limitPerPerson")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0);
+
                     b.Property<string>("marketName")
                         .HasMaxLength(512);
 
@@ -495,6 +561,10 @@ namespace db.shop.Migrations
                     b.Property<int>("priceUp")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
+
+                    b.Property<string>("productDetailType")
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<long>("productGroupId")
                         .ValueGeneratedOnAdd()
@@ -707,6 +777,63 @@ namespace db.shop.Migrations
                     b.ToTable("shop_productBrands");
                 });
 
+            modelBuilder.Entity("db.shop.Models.shop.ProductCard", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("festivalCanUse")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("productId");
+
+                    b.Property<long?>("productSKUId");
+
+                    b.Property<int>("specHoursValid");
+
+                    b.Property<string>("useInfo")
+                        .HasMaxLength(1024);
+
+                    b.Property<int>("validDays");
+
+                    b.Property<DateTime?>("validEndTime")
+                        .HasColumnName("validEndTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<DateTime?>("validStartTime")
+                        .HasColumnName("validStartTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("validType")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("shop_productCards");
+                });
+
             modelBuilder.Entity("db.shop.Models.shop.ProductCart", b =>
                 {
                     b.Property<long>("Id")
@@ -755,6 +882,65 @@ namespace db.shop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("shop_productCarts");
+                });
+
+            modelBuilder.Entity("db.shop.Models.shop.ProductCashCoupon", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("couponValue");
+
+                    b.Property<bool>("festivalCanUse")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("productId");
+
+                    b.Property<long?>("productSKUId");
+
+                    b.Property<int>("specHoursValid");
+
+                    b.Property<string>("useInfo")
+                        .HasMaxLength(1024);
+
+                    b.Property<int>("validDays");
+
+                    b.Property<DateTime?>("validEndTime")
+                        .HasColumnName("validEndTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<DateTime?>("validStartTime")
+                        .HasColumnName("validStartTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("validType")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("shop_productCashCoupons");
                 });
 
             modelBuilder.Entity("db.shop.Models.shop.ProductOrder", b =>
@@ -827,6 +1013,12 @@ namespace db.shop.Migrations
                         .HasMaxLength(128);
 
                     b.Property<long>("storeId");
+
+                    b.Property<string>("thirdPaymentTradeNo")
+                        .IsRequired()
+                        .HasMaxLength(512);
+
+                    b.Property<string>("thirdPaymentTradeNotes");
 
                     b.Property<DateTime?>("updateTime")
                         .HasColumnName("updateTime")
@@ -1132,6 +1324,44 @@ namespace db.shop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("shop_stores");
+                });
+
+            modelBuilder.Entity("db.shop.Models.shop.UserDiscountCoupon", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("couponId");
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("state")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<long>("userId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("shop_userDiscountCoupons");
                 });
 #pragma warning restore 612, 618
         }
