@@ -12,9 +12,9 @@ public class ProductsSqlProvider {
                 .SELECT("*")
                 .FROM("shop_products");
         if (searchProduct.getName() != null) {
-            sql.WHERE("name=" + searchProduct.getName());
+            sql.WHERE("name='" + searchProduct.getName()+"'");
         } else if (searchProduct.getNumberId() != null) {
-            sql.WHERE("numberId=" + searchProduct.getNumberId());
+            sql.WHERE("numberId='" + searchProduct.getNumberId()+"'");
         } else if (searchProduct.getPriceDown() != 0) {
             sql.WHERE("priceDown>=" + searchProduct.getPriceDown());
         } else if (searchProduct.getPriceUp() != 0) {

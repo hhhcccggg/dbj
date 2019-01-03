@@ -60,13 +60,13 @@ public interface IProductsMapper {
             "#{products.subName},searchName=#{products.searchName}," +
             "marketName=#{products.marketName},sellerPoint=#{products.sellerPoint}," +
             "categoryId=#{products.categoryId},categoryLevel=#{products.categoryLevel}," +
-            "brandId=#{products.brandId},shareDesc=#{products.shareDesc},sellerId=#{products.sellerId}," +
+            "brandId=#{products.brandId},shareDesc=#{products.shareDesc},storeId=#{products.storeId}," +
             "commentCount=#{products.commentCount},grade=#{products.grade},sales=#{products.sales}," +
             "inventory=#{products.inventory},priceUp=#{products.priceUp}," +
             "priceDown=#{products.priceDown},imageUrls=#{products.priceDown},videoUrl=#{products.videoUrl}," +
-            "productGroupId=#{products.productGroupId},isJoinMemberDiscount=#{products.isJoinMemberDiscount}," +
-            "isNeedDelivery=#{products.isNeedDelivery},universalDeliveryPrice=#{products.universalDeliveryPrice}," +
-            "deliverytemplateId=#{products.deliverytemplateId},isPublish=#{products.isPublish}," +
+            "productGroupId=#{products.productGroupId},joinMemberDiscount=#{products.isJoinMemberDiscount}," +
+            "needDelivery=#{products.isNeedDelivery},universalDeliveryPrice=#{products.universalDeliveryPrice}," +
+            "deliverytemplateId=#{products.deliverytemplateId},publish=#{products.isPublish}," +
             "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription}," +
             "weight=#{products.weight},notes=#{products.notes}" +
             "where id=#{products.id}")
