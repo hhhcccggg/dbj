@@ -26,12 +26,20 @@ message QueueWorkInfo {
     QueueWorkShopLegalSubjectData shopLegalSubjectData = 8; //数据
 }
 message QueueWorkShopLegalSubjectData{
-    string name = 1; //商家的店铺名
+    string name = 1; //商家名
     string contactPerson = 2; //商家店主的名字
-    string phone = 3 ; //店主手机号
-    string contactNumber = 4;//店铺联系电话
+    string phone = 3 ; //商家联系人手机号
+    string contactNumber = 4;//商家联系电话
     int64 legalSubjectId = 5; //电商系统中的商户ID
     int32 type = 6; //1为添加商铺，2为修改商铺，3为删除商铺
+    int32 cityId = 7; //城市id
+    string legalType = 8; //商家的类型:P:个人；B:企业
+    string leagalRepresentativeName = 9; //商家法人姓名
+    string leagalRepresentativeID = 10; //商家法人身份证号码
+    int64  categoryId = 11; //店铺主营类目
+    string storeType = 12; //店铺类型>>SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+
+
 }
 
 message QueueWorkHeart {

@@ -88,14 +88,28 @@ public class UserTenantService {
 
     private void putMQ(ModifyUserTenantInput input,long legalSubjectId,int type){
         try {
-            QueueWorkInfoModel.QueueWorkShopLegalSubjectData data = QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder()
-                    .setContactNumber(input.getContactNumber())
-                    .setContactPerson(input.getUsername())
-                    .setLegalSubjectId(legalSubjectId)
-                    .setName(input.getName())
-                    .setPhone(input.getPhone())
-                    .setType(type)
-                    .build();
+            QueueWorkInfoModel.QueueWorkShopLegalSubjectData data;
+            if (type==3){
+                data = QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder()
+                        .setLegalSubjectId(legalSubjectId)
+                        .build();
+            }else {
+                data = QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder()
+                        .setContactNumber(input.getContactNumber())
+                        .setContactPerson(input.getUsername())
+                        .setLegalSubjectId(legalSubjectId)
+                        .setName(input.getName())
+                        .setPhone(input.getPhone())
+                        .setType(type)
+                        .setCityId(input.getCityId())
+                        .setLegalType(input.getLegalType())
+                        .setLeagalRepresentativeName(input.getLeagalRepresentativeName())
+                        .setLeagalRepresentativeID(input.getLeagalRepresentativeID())
+                        .setStoreType(input.getStoreType())
+                        .setCategoryId(input.getCategoryId())
+                        .build();
+            }
+
             QueueWorkInfoModel.QueueWorkInfo workInfo = QueueWorkInfoModel.QueueWorkInfo.newBuilder()
                     .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SHOP_LEGAL_SUBJECT)
                     .setShopLegalSubjectData(data)
