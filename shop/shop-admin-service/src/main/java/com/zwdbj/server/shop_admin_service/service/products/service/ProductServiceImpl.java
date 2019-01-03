@@ -48,10 +48,6 @@ public class ProductServiceImpl implements ProductService {
         Long result = 0L;
         try {
             result = this.iProductMapper.deleteProduct(id);
-            //删除商品时一并删除商品的sku
-            if(result>0){
-                iProductSKUsMapper.deleteByProductId(id);
-            }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "删除失败" + e.getMessage(), result);
@@ -75,7 +71,6 @@ public class ProductServiceImpl implements ProductService {
         List<Products> result=null;
         try {
             result =this.iProductMapper.selectAll();
-            System.out.println(result);
             return new ServiceStatusInfo<>(0,"",result);
         }
         catch (Exception e){
@@ -114,6 +109,16 @@ public class ProductServiceImpl implements ProductService {
             return new ServiceStatusInfo<>(0, "", result);
         }catch(Exception e){
             return new ServiceStatusInfo<>(0, "查询单个商品失败"+e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<Long> deleteByProducts(Long[] id) {
+        try {
+            long result = this.iProductMapper.deleteByProducts(id);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "批量失败" + e.getMessage(), 0L);
         }
     }
 }

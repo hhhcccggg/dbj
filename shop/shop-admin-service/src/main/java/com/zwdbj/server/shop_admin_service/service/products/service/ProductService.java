@@ -31,4 +31,11 @@ public interface ProductService {
      * @return
      */
     ServiceStatusInfo<Products> selectById(long id);
+
+    /**
+     * 批量删除商品
+     * @param id
+     * @return
+     */
+    ServiceStatusInfo<Long> deleteByProducts(Long[] id);
 }

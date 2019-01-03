@@ -98,4 +98,14 @@ public class ProductsController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg() , null);
     }
 
+    @PostMapping(value = "/deleteByProducts")
+    @ApiOperation(value = "批量删除商品")
+    public ResponseData<Long> deleteByProducts(@RequestParam(value = "id" , required = true) Long[] id){
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.deleteByProducts(id);
+        if(serviceStatusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg() , null);
+    }
+
 }

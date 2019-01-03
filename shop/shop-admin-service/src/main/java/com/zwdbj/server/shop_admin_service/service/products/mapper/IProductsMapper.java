@@ -69,7 +69,7 @@ public interface IProductsMapper {
             "deliverytemplateId=#{products.deliverytemplateId},publish=#{products.isPublish}," +
             "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription}," +
             "weight=#{products.weight},notes=#{products.notes}" +
-            "where id=#{products.id}")
+            "where id=#{products.id} and isDeleted=0")
     Long update(@Param("products") Products products);
 
     @Select("select * from shop_products where isDeleted=0 order by createTime")
@@ -99,6 +99,9 @@ public interface IProductsMapper {
 
     @Select("select * from shop_products where id=#{id} and isDeleted=0")
     Products selectById(@Param("id") long id);
+
+    @DeleteProvider(type = ProductsSqlProvider.class , method = "deleteByProducts")
+    Long deleteByProducts(@Param("id") Long[] id);
 }
 
 
