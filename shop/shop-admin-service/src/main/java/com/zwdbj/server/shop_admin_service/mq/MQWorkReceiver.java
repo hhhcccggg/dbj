@@ -4,6 +4,8 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.shop_admin_service.service.legalSubject.service.ILegalSubjectService;
+import com.zwdbj.server.shop_admin_service.service.legalSubject.service.LegalSubjectServiceImpl;
 import com.zwdbj.server.utility.common.SpringContextUtil;
 
 import java.io.IOException;
@@ -74,28 +76,10 @@ public class MQWorkReceiver extends MQConnection {
 
     protected void processData(QueueWorkInfoModel.QueueWorkInfo info,Envelope envelope) throws IOException {
         logger.info("[MQ]收到数据类型:"+info.getWorkType());
-        if (info.getWorkType()==QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE) {
-
-            channel.basicAck(envelope.getDeliveryTag(),false);
-        } else if (info.getWorkType()==QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.PUSH) {
-
-            channel.basicAck(envelope.getDeliveryTag(),false);
-        } else if (info.getWorkType()==QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.QINIU_VIDEO_IMG_REVIEW_RESULT){ //七牛图片&视频审核返回的结果
-
-            logger.info("[MQ]七牛图片&视频审核返回的结果");
-            channel.basicAck(envelope.getDeliveryTag(),false);
-        } else if (info.getWorkType()==QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.QINIU_LIVE_REVIEW_RESULT){ //七牛直播审核返回的结果
-            logger.info("[MQ]七牛直播鉴黄审核返回的结果");
-            channel.basicAck(envelope.getDeliveryTag(),false);
-        } else if (info.getWorkType()==QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.QINIU_RES_WAIT_REVIEW_DATA){
-            logger.info("[MQ]收到数据类型:"+info.getWorkType()+"七牛图片&视频审核返回的结果");
-            channel.basicAck(envelope.getDeliveryTag(),false);
-        } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.VIDEO_WEIGHT) {
-            logger.info("[MQ]收到数据类型:"+info.getWorkType()+"处理视频权重");
-            channel.basicAck(envelope.getDeliveryTag(),false);
-        }
-        else {
-            logger.info("[MQ]收到数据类型:"+info.getWorkType()+"后端暂时没有合适的服务处理");
+        if (info.getWorkType()==QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SHOP_LEGAL_SUBJECT) {
+            ILegalSubjectService legalSubjectServiceImpl = SpringContextUtil.getBean(LegalSubjectServiceImpl.class);
+            legalSubjectServiceImpl.handleLegalSubject(info.getShopLegalSubjectData());
+            logger.info("[MQ]接收店铺和店主的信息返回的结果");
             channel.basicAck(envelope.getDeliveryTag(),false);
         }
 

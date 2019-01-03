@@ -17,6 +17,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ShopAdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ShopAdminApplication.class, args);
+        SpringApplication app = new SpringApplication(ShopAdminApplication.class);
+        app.addListeners(new ApplicationStartedEventLister());
+        ConfigurableApplicationContext applicationContext = app.run(args);
     }
 }
