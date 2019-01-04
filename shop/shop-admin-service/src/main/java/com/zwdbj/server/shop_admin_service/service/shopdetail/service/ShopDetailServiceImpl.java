@@ -137,4 +137,23 @@ public class ShopDetailServiceImpl implements ShopDetailService {
         }
 
     }
+
+    @Override
+    public ServiceStatusInfo<Long> modifyServiceScopes(long storeId, List<StoreServiceCategory> list) {
+        Long result = 0L;
+
+        try {
+            //先删除原来数据
+            result += this.shopDetailMapper.deleteStoreServiceScopes(storeId);
+            //再插入新数据
+            for (StoreServiceCategory e : list) {
+                Long id = UniqueIDCreater.generateID();
+                result += this.shopDetailMapper.createStoreServiceScopes(id, storeId, e.getId());
+            }
+            return new ServiceStatusInfo<>(0, "", result);
+
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "修改店铺服务范围失败" + e.getMessage(), null);
+        }
+    }
 }

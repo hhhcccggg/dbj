@@ -26,5 +26,5 @@ public interface ShopDetailService {
 
     ServiceStatusInfo<List<StoreServiceCategory>> findServiceScope(long storeId);
 
-
+    ServiceStatusInfo<Long> modifyServiceScopes(long storeId, List<StoreServiceCategory> list);
 }

@@ -43,8 +43,6 @@ public interface ShopDetailMapper {
     List<Long> selectExtraServiceId(@PathVariable("storeId") long storeId);
 
 
-
-
     @Delete("delete from o2o_offlineStoreExtraServices where o2o.storeId=#{storeId} ")
     Long deleteStoreExtraService(@PathVariable("storeId") long storeId);
 
@@ -52,5 +50,13 @@ public interface ShopDetailMapper {
             "values(#{id},#{storeId},#{extraServiceId})")
     Long createStoreExtraService(@PathVariable("id") long id, @PathVariable("storeId") long storeId,
                                  @PathVariable("extraServiceId") long extraServiceId);
+
+    @Delete("delete from o2o_offlineStoreServiceScopes where o2o.storeId=#{storeId} ")
+    Long deleteStoreServiceScopes(@PathVariable("storeId") long storeId);
+
+    @Insert("insert into o2o_offlineStoreServiceScopes (id,storeId,extraServiceId) " +
+            "values(#{id},#{storeId},#{extraServiceId})")
+    Long createStoreServiceScopes(@PathVariable("id") long id, @PathVariable("storeId") long storeId,
+                                  @PathVariable("extraServiceId") long extraServiceId);
 
 }
