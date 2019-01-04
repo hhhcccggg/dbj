@@ -6,6 +6,7 @@ import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubje
 import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectReviewModel;
 import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectSearchInput;
 import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectVerityInput;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,6 +69,11 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
     }
     public LegalSubjectModel getLegalSubjectById(long id){
         return this.legalSubjectMapper.getLegalSubjectById(id);
+    }
+
+    public void addShopStore(QueueWorkInfoModel.QueueWorkShopLegalSubjectData data){
+        long id = UniqueIDCreater.generateID();
+        //this.legalSubjectMapper.addShopStore();
     }
 
     @Override
