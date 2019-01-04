@@ -1,9 +1,9 @@
 package com.zwdbj.server.adminserver.controller.shop;
 
-import com.zwdbj.server.shop_admin_service.service.shopdetail.model.OpeningHours;
-import com.zwdbj.server.shop_admin_service.service.shopdetail.model.StoreDto;
-import com.zwdbj.server.shop_admin_service.service.shopdetail.model.StoreServiceCategory;
-import com.zwdbj.server.shop_admin_service.service.shopdetail.service.ShopDetailService;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.OpeningHours;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.StoreDto;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.StoreServiceCategory;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.service.ShopDetailService;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;

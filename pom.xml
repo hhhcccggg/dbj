@@ -16,9 +16,6 @@
         <module>apigateway</module>
         <module>probuf</module>
         <module>adminoperate</module>
-        <module>shop/shop-api-service</module>
-        <module>shop/shop-admin-service</module>
-        <module>shop/shop-common-service</module>
         <module>shop/pay</module>
         <module>user/token-center</module>
         <module>user/user-admin-service</module>

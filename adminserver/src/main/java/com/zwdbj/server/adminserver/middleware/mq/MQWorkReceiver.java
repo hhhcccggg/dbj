@@ -6,10 +6,10 @@ import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.adminserver.service.push.service.AppPushService;
 import com.zwdbj.server.adminserver.service.review.service.LivingReviewService;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.service.ILegalSubjectService;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.service.LegalSubjectServiceImpl;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
-import com.zwdbj.server.shop_admin_service.service.legalSubject.service.ILegalSubjectService;
-import com.zwdbj.server.shop_admin_service.service.legalSubject.service.LegalSubjectServiceImpl;
 import com.zwdbj.server.utility.common.SpringContextUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 
