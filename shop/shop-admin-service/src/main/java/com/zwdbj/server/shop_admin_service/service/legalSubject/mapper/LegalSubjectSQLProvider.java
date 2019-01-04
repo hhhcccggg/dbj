@@ -10,7 +10,7 @@ public class LegalSubjectSQLProvider {
         LegalSubjectSearchInput input = (LegalSubjectSearchInput)params.get("input");
         SQL sql = new SQL().
                 SELECT("*")
-                .FROM("core_legalSubjects")
+                .FROM("shop_legalSubjects")
                 .WHERE("reviewed=1");
         if (input.getStatus()!=-1){
             sql.WHERE("status=#{input.status}");
@@ -38,7 +38,7 @@ public class LegalSubjectSQLProvider {
         LegalSubjectSearchInput input = (LegalSubjectSearchInput)params.get("input");
         SQL sql = new SQL().
                 SELECT("*")
-                .FROM("core_legalSubjects")
+                .FROM("shop_legalSubjects")
                 .WHERE("reviewed=0");
         if (input.getStatus()!=-1){
             sql.WHERE("status=#{input.status}");
