@@ -9,7 +9,7 @@ public class OfflineStoreStaffs {
     @ApiModelProperty(value = "id")
     Long id;
     @ApiModelProperty(value = "线下门店id")
-    long offlineStoreId;
+    long storeId;
     @ApiModelProperty(value = "用户id")
     long userId;
     /// <summary>
@@ -28,12 +28,12 @@ public class OfflineStoreStaffs {
         this.id = id;
     }
 
-    public long getOfflineStoreId() {
-        return offlineStoreId;
+    public long getStoreId() {
+        return storeId;
     }
 
-    public void setOfflineStoreId(long offlineStoreId) {
-        this.offlineStoreId = offlineStoreId;
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
     }
 
     public long getUserId() {
