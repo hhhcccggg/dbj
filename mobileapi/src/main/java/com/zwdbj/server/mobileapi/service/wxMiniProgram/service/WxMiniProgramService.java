@@ -24,11 +24,12 @@ public class WxMiniProgramService {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String bodyJSON = response.body().string();
-                JSONObject jsonObject = JSON.parseObject(bodyJSON);
-                int errcode = jsonObject.getInteger("errcode");
-                String msg = jsonObject.getString("errmsg");
-                logger.info("errcode:"+errcode+",errmsg:"+msg);
-                return new ServiceStatusInfo<>(0,msg,bodyJSON);
+                //JSONObject jsonObject = JSON.parseObject(bodyJSON);
+                /*int errcode = jsonObject.getInteger("errcode");
+                String msg = jsonObject.getString("errmsg");*/
+                //logger.info("errcode:"+errcode+",errmsg:"+msg);
+                logger.info(bodyJSON);
+                return new ServiceStatusInfo<>(0,"",bodyJSON);
             } else {
                 return new ServiceStatusInfo<>(1,response.message(),"");
             }
