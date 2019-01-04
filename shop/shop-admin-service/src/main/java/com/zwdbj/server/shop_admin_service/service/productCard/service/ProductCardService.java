@@ -11,11 +11,4 @@ public interface ProductCardService {
      * @return
      */
     ServiceStatusInfo<Long> create(ProductCard productCard);
-
-    /**
-     * 修改
-     * @param productCard
-     * @return
-     */
-    ServiceStatusInfo<Long> update(ProductCard productCard);
 }

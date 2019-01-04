@@ -1,10 +1,7 @@
 package com.zwdbj.server.shop_admin_service.service.productCashCoupon.mapper;
 
 import com.zwdbj.server.shop_admin_service.service.productCashCoupon.model.ProductCashCoupon;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface IProductCashCouponMapper {
@@ -15,7 +12,7 @@ public interface IProductCashCouponMapper {
      * @param productCashCoupon
      * @return
      */
-    @Insert("INSERT INTO `dbj_server_shop`.`shop_productcashcoupons` (" +
+    @Insert("INSERT INTO `shop_productcashcoupons` (" +
             "`id`,`couponValue`,`festivalCanUse`,`useInfo`,`validType`,`specHoursValid`,`validDays`,`validStartTime`,`validEndTime`," +
             "`productId`,`productSKUId`)" +
             "VALUES" +
@@ -24,11 +21,23 @@ public interface IProductCashCouponMapper {
 
 
     /**
-     * 修改
+     * 根据productId修改
      * @param productCashCoupon
      * @return
      */
-    Long updateProductCashCoupon(ProductCashCoupon productCashCoupon);
+    @Update("UPDATE `shop_productcashcoupons`" +
+            "SET " +
+            " `couponValue` = #{productCashCoupon.couponValue}," +
+            " `festivalCanUse` =  #{productCashCoupon.festivalCanUse}," +
+            " `useInfo` =  #{productCashCoupon.useInfo}," +
+            " `validType` =  #{productCashCoupon.validType}," +
+            " `specHoursValid` =  #{productCashCoupon.specHoursValid}," +
+            " `validDays` =  #{productCashCoupon.validDays}," +
+            " `validStartTime` =  #{productCashCoupon.validStartTime}," +
+            " `validEndTime` =  #{productCashCoupon.validEndTime}," +
+            "WHERE" +
+            "(`productId` = #{productCashCoupon.productId});")
+    Long updateByProductIdByProductCashCoupon(@Param("productCashCoupon") ProductCashCoupon productCashCoupon);
 
     /**
      * 根据productId查询

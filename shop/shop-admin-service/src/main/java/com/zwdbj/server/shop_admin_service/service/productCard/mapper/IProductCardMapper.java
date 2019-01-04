@@ -1,10 +1,7 @@
 package com.zwdbj.server.shop_admin_service.service.productCard.mapper;
 
 import com.zwdbj.server.shop_admin_service.service.productCard.model.ProductCard;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface IProductCardMapper {
@@ -40,11 +37,22 @@ public interface IProductCardMapper {
     Long createProductCard(@Param("id")long id, @Param("productCard")ProductCard productCard);
 
     /**
-     * 修改
+     * 根据productId修改
      * @param productCard
      * @return
      */
-    Long updateProductCard(ProductCard productCard);
+    @Update("UPDATE `shop_productcards`" +
+            "SET " +
+            " `festivalCanUse` = #{productCard.festivalCanUse}," +
+            " `useInfo` = #{productCard.useInfo}," +
+            " `validType` = #{productCard.validType}," +
+            " `specHoursValid` = #{productCard.specHoursValid}," +
+            " `validDays` = #{productCard.validDays}," +
+            " `validStartTime` = #{productCard.validStartTime}," +
+            " `validEndTime` = #{productCard.validEndTime}" +
+            "WHERE" +
+            "(`productId` = #{productCard.productId})")
+    Long updateByProductIdByProductCard(@Param("productCard") ProductCard productCard);
 
 
     /**
