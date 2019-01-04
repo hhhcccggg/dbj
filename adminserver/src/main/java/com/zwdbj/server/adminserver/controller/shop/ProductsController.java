@@ -86,15 +86,15 @@ public class ProductsController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "删除商品")
-    public ResponseData<Long> deleteProducts(@PathVariable Long id) {
-        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.deleteProductsById(id);
-        if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
-        }
-        return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
-    }
+//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+//    @ApiOperation(value = "删除商品")
+//    public ResponseData<Long> deleteProducts(@PathVariable Long id) {
+//        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.deleteProductsById(id);
+//        if (serviceStatusInfo.isSuccess()) {
+//            return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+//        }
+//        return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
+//    }
 
     @ApiOperation(value = "修改商品")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
