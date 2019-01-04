@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.controller.shop;
 
-import com.zwdbj.server.shop_common_service.logistics.model.Logistics;
-import com.zwdbj.server.shop_common_service.logistics.service.ILogisticsService;
+import com.zwdbj.server.logistics.model.Logistics;
+import com.zwdbj.server.logistics.service.ILogisticsService;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -2,9 +2,9 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zwdbj.server.shop_admin_service.service.productSKUs.model.ProductSKUs;
-import com.zwdbj.server.shop_admin_service.service.productSKUs.service.ProductSKUsService;
-import com.zwdbj.server.shop_admin_service.service.products.model.Products;
+import com.zwdbj.server.adminserver.service.shop.service.productSKUs.model.ProductSKUs;
+import com.zwdbj.server.adminserver.service.shop.service.productSKUs.service.ProductSKUsService;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;

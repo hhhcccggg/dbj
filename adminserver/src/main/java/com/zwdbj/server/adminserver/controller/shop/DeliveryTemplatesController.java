@@ -2,8 +2,8 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.shop_admin_service.service.deliveryTemplates.model.DeliveryTemplatesModel;
-import com.zwdbj.server.shop_admin_service.service.deliveryTemplates.service.IDeliveryTemplatesService;
+import com.zwdbj.server.adminserver.service.shop.service.deliveryTemplates.model.DeliveryTemplatesModel;
+import com.zwdbj.server.adminserver.service.shop.service.deliveryTemplates.service.IDeliveryTemplatesService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;

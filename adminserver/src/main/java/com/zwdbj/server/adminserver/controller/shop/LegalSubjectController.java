@@ -2,11 +2,11 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectModel;
-import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectReviewModel;
-import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectSearchInput;
-import com.zwdbj.server.shop_admin_service.service.legalSubject.model.LegalSubjectVerityInput;
-import com.zwdbj.server.shop_admin_service.service.legalSubject.service.ILegalSubjectService;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectModel;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectReviewModel;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectSearchInput;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectVerityInput;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.service.ILegalSubjectService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;

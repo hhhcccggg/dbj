@@ -1,8 +1,8 @@
 package com.zwdbj.server.adminserver.controller.shop;
 
-import com.zwdbj.server.shop_admin_service.service.homepage.model.OrderTrend;
-import com.zwdbj.server.shop_admin_service.service.homepage.model.TodayOverview;
-import com.zwdbj.server.shop_admin_service.service.homepage.service.HomePageService;
+import com.zwdbj.server.adminserver.service.shop.service.homepage.model.OrderTrend;
+import com.zwdbj.server.adminserver.service.shop.service.homepage.model.TodayOverview;
+import com.zwdbj.server.adminserver.service.shop.service.homepage.service.HomePageService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;

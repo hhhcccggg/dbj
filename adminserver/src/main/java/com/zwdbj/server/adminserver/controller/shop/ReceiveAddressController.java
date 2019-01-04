@@ -2,10 +2,10 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.shop_admin_service.service.receiveAddress.model.ReceiveAddressAddInput;
-import com.zwdbj.server.shop_admin_service.service.receiveAddress.model.ReceiveAddressModel;
-import com.zwdbj.server.shop_admin_service.service.receiveAddress.model.ReceiveAddressModifyInput;
-import com.zwdbj.server.shop_admin_service.service.receiveAddress.service.ReceiveAddressService;
+import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressAddInput;
+import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
+import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModifyInput;
+import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.service.ReceiveAddressService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
@@ -27,7 +27,7 @@ public class ReceiveAddressController {
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有收货地址")
     public ResponsePageInfoData<List<ReceiveAddressModel>> findAllReceiveAddresses(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
-                                                                                  @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
+                                                                                   @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         Page<ReceiveAddressModel> pageInfo = PageHelper.startPage(pageNo,rows);
         List<ReceiveAddressModel> receiveAddressModels = this.receiveAddressServiceImpl.findAllReceiveAddresses();
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", receiveAddressModels, pageInfo.getTotal());

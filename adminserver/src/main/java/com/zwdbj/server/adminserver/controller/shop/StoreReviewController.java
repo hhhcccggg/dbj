@@ -3,9 +3,9 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.shop_admin_service.service.storeReview.model.BusinessSellerReviewModel;
-import com.zwdbj.server.shop_admin_service.service.storeReview.model.StoreReviewAddInput;
-import com.zwdbj.server.shop_admin_service.service.storeReview.service.StoreReviewService;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.StoreReviewAddInput;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.service.StoreReviewService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
@@ -27,7 +27,7 @@ public class StoreReviewController {
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有店铺认证信息")
     public ResponsePageInfoData<List<BusinessSellerReviewModel>> findAllStoreReviews(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
-                                                                                        @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
+                                                                                     @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         Page<BusinessSellerReviewModel> pageInfo = PageHelper.startPage(pageNo,rows);
         List<BusinessSellerReviewModel> businessSellerReviewModels = this.storeReviewServiceImpl.findAllStoreReviews();
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", businessSellerReviewModels, pageInfo.getTotal());

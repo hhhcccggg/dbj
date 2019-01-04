@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.controller.shop;
 
-import com.zwdbj.server.shop_common_service.logistics.model.Logistics;
-import com.zwdbj.server.shop_common_service.logistics.service.ILogisticsService;
+import com.zwdbj.server.logistics.model.Logistics;
+import com.zwdbj.server.logistics.service.ILogisticsService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
