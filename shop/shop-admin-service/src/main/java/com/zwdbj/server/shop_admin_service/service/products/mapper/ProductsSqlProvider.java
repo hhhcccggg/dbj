@@ -12,9 +12,9 @@ public class ProductsSqlProvider {
                 .SELECT("*")
                 .FROM("shop_products");
         if (searchProduct.getName() != null) {
-            sql.WHERE("name=" + searchProduct.getName());
+            sql.WHERE("name='" + searchProduct.getName()+"'");
         } else if (searchProduct.getNumberId() != null) {
-            sql.WHERE("numberId=" + searchProduct.getNumberId());
+            sql.WHERE("numberId='" + searchProduct.getNumberId()+"'");
         } else if (searchProduct.getPriceDown() != 0) {
             sql.WHERE("priceDown>=" + searchProduct.getPriceDown());
         } else if (searchProduct.getPriceUp() != 0) {
@@ -31,5 +31,48 @@ public class ProductsSqlProvider {
         sql.ORDER_BY("createTime");
 System.out.println(sql.toString());
         return sql.toString();
+    }
+
+    /**
+     * 批量上下架
+     * @param map
+     * @return
+     */
+    public String updatePublish(Map map){
+        Long[] id = (Long[]) map.get("id");
+        boolean publish = (boolean) map.get("publish");
+        SQL sql = new SQL()
+                .UPDATE("shop_products")
+                .SET("publish = "+publish);
+        if(publish){
+            sql.SET("specifyPublishTime = now()");
+        }
+        sql.WHERE(stringSqlUtil(id));
+        sql.AND();
+        sql.WHERE("isDeleted=0");
+        System.out.println(sql.toString());
+        return sql.toString();
+    }
+
+    /**
+     * 批量删除方法
+     * @param map
+     * @return
+     */
+    public String deleteByProducts(Map map){
+        Long[] id = (Long[]) map.get("id");
+        SQL sql = new SQL().UPDATE("shop_products").SET("isDeleted=1").SET("deleteTime=now()");
+        sql.WHERE(stringSqlUtil(id));
+        System.out.println(sql.toString());
+        return sql.toString();
+    }
+
+    public String stringSqlUtil(Long[] id){
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < id.length; i++) {
+            stringBuffer.append("id="+id[i]);
+            if(i+1 != id.length)stringBuffer.append(" or ");
+        }
+        return stringBuffer.toString();
     }
 }

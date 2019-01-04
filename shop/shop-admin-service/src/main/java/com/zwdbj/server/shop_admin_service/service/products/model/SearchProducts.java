@@ -18,9 +18,9 @@ public class SearchProducts {
     @ApiModelProperty(value = "销量下限")
     long salseDown;
     @ApiModelProperty(value = "商品价格上限")
-    float priceUp;
+    long priceUp;
     @ApiModelProperty(value = "商品价格下限")
-    float priceDown;
+    long priceDown;
     @ApiModelProperty(value = "商品分组")
     long productGroupId;
 
@@ -64,19 +64,19 @@ public class SearchProducts {
         this.salseDown = salseDown;
     }
 
-    public float getPriceUp() {
+    public long getPriceUp() {
         return priceUp;
     }
 
-    public void setPriceUp(float priceUp) {
+    public void setPriceUp(long priceUp) {
         this.priceUp = priceUp;
     }
 
-    public float getPriceDown() {
+    public long getPriceDown() {
         return priceDown;
     }
 
-    public void setPriceDown(float priceDown) {
+    public void setPriceDown(long priceDown) {
         this.priceDown = priceDown;
     }
 

@@ -12,14 +12,15 @@ import java.util.List;
 @Mapper
 public interface IProductsMapper {
     @Insert("insert into shop_products(id," +
-            "productType,numberId,name,subName,searchName,marketName," +
+            "productType,productDetailType,numberId,name,subName,searchName,marketName," +
             "sellerPoint,categoryId,categoryLevel," +
-            "brandId,shareDesc,sellerId,commentCount,grade,sales,inventory,priceUp," +
-            "priceDown,imageUrls,videoUrl,productGroupId,isJoinMemberDiscount," +
-            "isNeedDelivery,universalDeliveryPrice,deliverytemplateId,isPublish," +
+            "brandId,shareDesc,storeId,commentCount,grade,sales,inventory,priceUp," +
+            "priceDown,imageUrls,videoUrl,productGroupId,joinMemberDiscount," +
+            "needDelivery,universalDeliveryPrice,deliverytemplateId,publish," +
             "specifyPublishTime,detailDescription,weight,notes) values(" +
             "#{id}," +
             "#{products.productType}," +
+            "#{products.productDetailType}," +
             "#{products.numberId}," +
             "#{products.name}," +
             "#{products.subName}," +
@@ -30,7 +31,7 @@ public interface IProductsMapper {
             "#{products.categoryLevel}," +
             "#{products.brandId}," +
             "#{products.shareDesc}," +
-            "#{products.sellerId}," +
+            "#{products.storeId}," +
             "#{products.commentCount}," +
             "#{products.grade}," +
             "#{products.sales}," +
@@ -60,16 +61,16 @@ public interface IProductsMapper {
             "#{products.subName},searchName=#{products.searchName}," +
             "marketName=#{products.marketName},sellerPoint=#{products.sellerPoint}," +
             "categoryId=#{products.categoryId},categoryLevel=#{products.categoryLevel}," +
-            "brandId=#{products.brandId},shareDesc=#{products.shareDesc},sellerId=#{products.sellerId}," +
+            "brandId=#{products.brandId},shareDesc=#{products.shareDesc},storeId=#{products.storeId}," +
             "commentCount=#{products.commentCount},grade=#{products.grade},sales=#{products.sales}," +
             "inventory=#{products.inventory},priceUp=#{products.priceUp}," +
             "priceDown=#{products.priceDown},imageUrls=#{products.priceDown},videoUrl=#{products.videoUrl}," +
-            "productGroupId=#{products.productGroupId},isJoinMemberDiscount=#{products.isJoinMemberDiscount}," +
-            "isNeedDelivery=#{products.isNeedDelivery},universalDeliveryPrice=#{products.universalDeliveryPrice}," +
-            "deliverytemplateId=#{products.deliverytemplateId},isPublish=#{products.isPublish}," +
+            "productGroupId=#{products.productGroupId},joinMemberDiscount=#{products.isJoinMemberDiscount}," +
+            "needDelivery=#{products.isNeedDelivery},universalDeliveryPrice=#{products.universalDeliveryPrice}," +
+            "deliverytemplateId=#{products.deliverytemplateId},publish=#{products.isPublish}," +
             "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription}," +
             "weight=#{products.weight},notes=#{products.notes}" +
-            "where id=#{products.id}")
+            "where id=#{products.id} and isDeleted=0")
     Long update(@Param("products") Products products);
 
     @Select("select * from shop_products where isDeleted=0 order by createTime")
@@ -92,6 +93,16 @@ public interface IProductsMapper {
             "from shop_products as a,shop_productSKUs as b where a.storeId=#{storeId} and " +
             "b.productId=a.id and a.publish=0")
     List<ProductsDto> notOnSales(@PathVariable("storeId") long storeId);
+
+
+    @UpdateProvider(type = ProductsSqlProvider.class , method = "updatePublish")
+    Long updatePublishs(Long[] id, boolean publish);
+
+    @Select("select * from shop_products where id=#{id} and isDeleted=0")
+    Products selectById(@Param("id") long id);
+
+    @DeleteProvider(type = ProductsSqlProvider.class , method = "deleteByProducts")
+    Long deleteByProducts(@Param("id") Long[] id);
 }
 
 

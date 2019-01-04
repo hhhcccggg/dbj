@@ -13,8 +13,8 @@ public interface IProductBrandsMapper {
             "#{productBrands.description},#{productBrands.orderIndex})")
     Long createProductBrands(@Param("id") Long id, @Param("productBrands") ProductBrands productBrands);
 
-    @Update("upate shop_productBrands set name=#{productBrands.name}," +
-            "imageUrl=#{productBrands.imageUrl},description=#{productBrands.description},”" +
+    @Update("update shop_productBrands set name=#{productBrands.name}," +
+            "imageUrl=#{productBrands.imageUrl},description=#{productBrands.description}," +
             "orderIndex=#{productBrands.orderIndex} where id=#{productBrands.id}")
     Long updateProductBrands(@Param("productBrands") ProductBrands productBrands);
 

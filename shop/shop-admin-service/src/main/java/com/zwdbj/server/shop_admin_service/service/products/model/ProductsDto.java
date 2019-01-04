@@ -21,5 +21,5 @@ public class ProductsDto {
     @ApiModelProperty(value = "创建时间")
     Date createTime;
     @ApiModelProperty(value = "单价")
-    int originalPrice;
+    long originalPrice;
 }

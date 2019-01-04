@@ -14,7 +14,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/products/dbj")
@@ -27,7 +30,6 @@ public class ProductsController {
     @ApiOperation(value = "查询销售中商品")
     public ResponsePageInfoData<List<Products>> findAllProducts(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                 @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
-
         PageHelper.startPage(pageNo, rows);
         List<Products> productsList = this.productServiceImpl.selectAll().getData();
         PageInfo<Products> pageInfo = new PageInfo(productsList);
@@ -37,8 +39,22 @@ public class ProductsController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建商品")
-    public ResponseData<Long> createProducts(@RequestBody Products products) {
-        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.createProducts(products);
+    public ResponseData<Long> createProducts(@RequestBody Products products ,
+                                             @RequestParam(value = "originalPrice",required = true) long originalPrice,
+                                             @RequestParam(value = "promotionPrice",required = true) long promotionPrice,
+                                             @RequestParam(value = "festivalCanUse",required = true) boolean festivalCanUse,
+                                             @RequestParam(value = "specHoursValid",required = false,defaultValue = "0") int specHoursValid,
+                                             @RequestParam(value = "validDays",required = false,defaultValue = "-1") int validDays,
+                                             @RequestParam(value = "validStartTime",required = false) Date validStartTime,
+                                             @RequestParam(value = "validEndTime",required = false) Date validEndTime,
+                                             @RequestParam(value = "validType",required = true) String validType
+
+    ) {
+        //店铺Id先固定
+        Long storeId = 110L;
+        products.setStoreId(storeId);
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.createProducts(products,originalPrice,promotionPrice,
+                festivalCanUse,specHoursValid,validDays, validStartTime, validEndTime,validType);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -76,4 +92,36 @@ public class ProductsController {
         PageInfo<Products> pageInfo = new PageInfo(productsList);
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", productsList, pageInfo.getTotal());
     }
+
+    @PostMapping(value = "/updatePublishs")
+    @ApiOperation(value = "批量商品上下架")
+    public ResponseData<Long> updatePublishs(@RequestParam(value = "id", required =true ) Long[] id ,
+                                            @RequestParam(value = "publish" ,required = true) boolean publish){
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updatePublishs(id,publish);
+        if(serviceStatusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
+    }
+
+    @GetMapping(value = "/selectById/{id}")
+    @ApiOperation(value = "查询单个商品")
+    public ResponseData<Map<String,Object>> selectById(@PathVariable long id){
+        ServiceStatusInfo<Map<String,Object>> serviceStatusInfo = this.productServiceImpl.selectById(id);
+        if(serviceStatusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg() , null);
+    }
+
+    @PostMapping(value = "/deleteByProducts")
+    @ApiOperation(value = "批量删除商品")
+    public ResponseData<Long> deleteByProducts(@RequestParam(value = "id" , required = true) Long[] id){
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.deleteByProducts(id);
+        if(serviceStatusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg() , null);
+    }
+
 }
