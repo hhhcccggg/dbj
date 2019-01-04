@@ -17,7 +17,6 @@ public class WXMiniProgramController {
     @Autowired
     WxMiniProgramService wxMiniProgramService;
 
-    @RequiresAuthentication
     @RequestMapping(value = "/code2Session", method = RequestMethod.GET)
     @ApiOperation(value = "通过临时登录凭证 code获得openId")
     public ResponseData<Object> getOpenIdByCode(@RequestParam String code) {
