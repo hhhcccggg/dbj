@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
     protected IProductCashCouponMapper iProductCashCouponMapper;
 
     @Override
-    public ServiceStatusInfo<Long> createProducts(Products products, float originalPrice, float promotionPrice,
+    public ServiceStatusInfo<Long> createProducts(Products products, long originalPrice, long promotionPrice,
                                                   boolean festivalCanUse, int specHoursValid, int validDays,
                                                   Date validStartTime, Date validEndTime, String validType) {
         if(products.getProductType() != 0 && products.getProductType() != 1){
@@ -48,6 +48,9 @@ public class ProductServiceImpl implements ProductService {
             return new ServiceStatusInfo<>(1, "创建失败：产品详细类型不正确", null);
         }
         if("CARD".equals(products.getProductDetailType()) || "CASHCOUPON".equals(products.getProductDetailType())){
+            if(!"PAY_VALIDED".equals(validType) || !"PAY_VALIDED".equals(validType) && !"PAY_SPEC_HOUR_VALIDED".equals(validType)){
+                return new ServiceStatusInfo<>(1, "创建失败：validType类型不正确", null);
+            }
             if("PAY_VALIDED".equals(validType) && specHoursValid <= 0 && validDays <=-1 && validStartTime == null && validEndTime==null){
                 return new ServiceStatusInfo<>(1, "创建失败：PAY_VALIDED生效类型不正确", null);
             }
@@ -152,6 +155,8 @@ public class ProductServiceImpl implements ProductService {
             Products products =this.iProductMapper.selectById(id);
             map.put("products",products);
             map.put("productsSKU",this.iProductSKUsMapper.selectByProductId(products.getId()));
+            map.put("productCard",this.iProductCardMapper.selectByProductId(products.getId()));
+            map.put("productCashCoupon",this.iProductCashCouponMapper.selectByProductId(products.getId()));
             return new ServiceStatusInfo<>(0, "", map);
         }catch(Exception e){
             return new ServiceStatusInfo<>(0, "查询单个商品失败"+e.getMessage(), null);

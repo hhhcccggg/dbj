@@ -31,15 +31,15 @@ public class Products {
     @ApiModelProperty(value = "评论数")
     long commentCount;
     @ApiModelProperty(value = "评分")
-    float grade;
+    long grade;
     @ApiModelProperty(value = "销量")
     long sales;
     @ApiModelProperty(value = "库存")
     long inventory;
     @ApiModelProperty(value = "商品价格上限")
-    float priceUp;
+    long priceUp;
     @ApiModelProperty(value = "商品价格下限")
-    float priceDown;
+    long priceDown;
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
     @ApiModelProperty(value = "商品视频URL")
@@ -51,7 +51,7 @@ public class Products {
     @ApiModelProperty(value = "是否需要物流")
     boolean isNeedDelivery;
     @ApiModelProperty("通用物流价格")
-    float universalDeliveryPrice;
+    long universalDeliveryPrice;
     @ApiModelProperty(value = "物流模板")
     long deliverytemplateId;
     @ApiModelProperty(value = "是否上架")
@@ -61,7 +61,7 @@ public class Products {
     @ApiModelProperty(value = "商品详情")
     String detailDescription;
     @ApiModelProperty(value = "重量Kg")
-    float weight;
+    long weight;
     @ApiModelProperty(value = "备注")
     String notes;
     @ApiModelProperty(value = "是否限购")
@@ -203,11 +203,11 @@ public class Products {
         this.commentCount = commentCount;
     }
 
-    public float getGrade() {
+    public long getGrade() {
         return grade;
     }
 
-    public void setGrade(float grade) {
+    public void setGrade(long grade) {
         this.grade = grade;
     }
 
@@ -227,19 +227,19 @@ public class Products {
         this.inventory = inventory;
     }
 
-    public float getPriceUp() {
+    public long getPriceUp() {
         return priceUp;
     }
 
-    public void setPriceUp(float priceUp) {
+    public void setPriceUp(long priceUp) {
         this.priceUp = priceUp;
     }
 
-    public float getPriceDown() {
+    public long getPriceDown() {
         return priceDown;
     }
 
-    public void setPriceDown(float priceDown) {
+    public void setPriceDown(long priceDown) {
         this.priceDown = priceDown;
     }
 
@@ -283,11 +283,11 @@ public class Products {
         isNeedDelivery = needDelivery;
     }
 
-    public float getUniversalDeliveryPrice() {
+    public long getUniversalDeliveryPrice() {
         return universalDeliveryPrice;
     }
 
-    public void setUniversalDeliveryPrice(float universalDeliveryPrice) {
+    public void setUniversalDeliveryPrice(long universalDeliveryPrice) {
         this.universalDeliveryPrice = universalDeliveryPrice;
     }
 
@@ -323,11 +323,11 @@ public class Products {
         this.detailDescription = detailDescription;
     }
 
-    public float getWeight() {
+    public long getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(long weight) {
         this.weight = weight;
     }
 

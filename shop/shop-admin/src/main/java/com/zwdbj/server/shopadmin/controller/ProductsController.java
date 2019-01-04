@@ -40,8 +40,8 @@ public class ProductsController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建商品")
     public ResponseData<Long> createProducts(@RequestBody Products products ,
-                                             @RequestParam(value = "originalPrice",required = true) float originalPrice,
-                                             @RequestParam(value = "promotionPrice",required = true) float promotionPrice,
+                                             @RequestParam(value = "originalPrice",required = true) long originalPrice,
+                                             @RequestParam(value = "promotionPrice",required = true) long promotionPrice,
                                              @RequestParam(value = "festivalCanUse",required = true) boolean festivalCanUse,
                                              @RequestParam(value = "specHoursValid",required = false,defaultValue = "0") int specHoursValid,
                                              @RequestParam(value = "validDays",required = false,defaultValue = "-1") int validDays,

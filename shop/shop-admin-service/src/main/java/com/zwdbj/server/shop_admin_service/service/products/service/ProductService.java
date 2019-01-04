@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
-    ServiceStatusInfo<Long> createProducts(Products products, float originalPrice, float promotionPrice, boolean festivalCanUse, int specHoursValid, int validDays, Date validStartTime,Date validEndTime,String validType);
+    ServiceStatusInfo<Long> createProducts(Products products, long originalPrice, long promotionPrice, boolean festivalCanUse, int specHoursValid, int validDays, Date validStartTime,Date validEndTime,String validType);
 
     ServiceStatusInfo<Long> deleteProductsById(Long id);
 
