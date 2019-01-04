@@ -53,7 +53,9 @@ public interface HomePageMapper {
 //            "GROUP BY createTime ORDER BY createTime")
 //    List<VideoTrend> videoWeekTrend(@PathVariable("offlineStoreId") long offlineStoreId);
 
-
+    //查询对应店铺的代言人
+    @Select("select o2o.userId from o2o_offlineStoreStaffs  as o2o where o2o.storeId=#{storeId}")
+    List<Long> selectSuperStar(@PathVariable("storeId") long storeId);
 }
 
 

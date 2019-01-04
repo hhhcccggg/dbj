@@ -16,6 +16,7 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -26,73 +27,94 @@ public class CategoryController {
     CategoryService categoryService;
 
     @ApiOperation("分类列表")
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ResponseData<List<CategoryDto>> search(@RequestBody CategorySearchInput input) {
         List<CategoryDto> dtos = this.categoryService.search(input);
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dtos);
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", dtos);
     }
 
     @RequiresAuthentication
-    @RequestMapping(value = "/dbj/basicCategory",method = RequestMethod.POST)
+    @RequestMapping(value = "/dbj/basicCategory", method = RequestMethod.POST)
     @ApiOperation("基本分类信息列表")
     @RequiresRoles(RoleIdentity.ADMIN_ROLE)
-    public ResponsePageInfoData<List<AdBasicCategoryDto>>  basicCompalinAd(@RequestBody AdBasicCategoryInput input,
-                                                                           @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                                           @RequestParam(value = "rows",required = true,defaultValue = "13") int rows){
-        Page<AdBasicCategoryDto> pageInfo = PageHelper.startPage(pageNo,rows);
+    public ResponsePageInfoData<List<AdBasicCategoryDto>> basicCompalinAd(@RequestBody AdBasicCategoryInput input,
+                                                                          @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                                          @RequestParam(value = "rows", required = true, defaultValue = "13") int rows) {
+        Page<AdBasicCategoryDto> pageInfo = PageHelper.startPage(pageNo, rows);
         List<AdBasicCategoryDto> categoryDtos = this.categoryService.basicCompalinAd(input);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",categoryDtos,pageInfo.getTotal());
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", categoryDtos, pageInfo.getTotal());
     }
 
     @RequiresAuthentication
-    @RequestMapping(value = {"/dbj/basicCategory/add","/dbj/basicCategory/add/{id}"},method = RequestMethod.POST)
+    @RequestMapping(value = {"/dbj/basicCategory/add", "/dbj/basicCategory/add/{id}"}, method = RequestMethod.POST)
     @ApiOperation("新建基本分类信息列表")
     @RequiresRoles(RoleIdentity.ADMIN_ROLE)
-    public ResponseData<Long> addCategoryAd(@PathVariable(required = false)Long id,
-                                            @RequestBody AdNewCategoryInput input){
-        ServiceStatusInfo<Long> statusInfo = this.categoryService.addCategoryAd(id,input);
+    public ResponseData<Long> addCategoryAd(@PathVariable(required = false) Long id,
+                                            @RequestBody AdNewCategoryInput input) {
+        ServiceStatusInfo<Long> statusInfo = this.categoryService.addCategoryAd(id, input);
 
-        if (statusInfo.isSuccess()){
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
 
     @RequiresAuthentication
-    @RequestMapping(value = "/dbj/basicCategory/edit/{id}",method = RequestMethod.POST)
+    @RequestMapping(value = "/dbj/basicCategory/edit/{id}", method = RequestMethod.POST)
     @ApiOperation("修改分类的名字")
     @RequiresRoles(RoleIdentity.ADMIN_ROLE)
     public ResponseData<Long> editCategoryAd(@PathVariable Long id,
-                                             @RequestBody AdNewCategoryNameInput input){
-        ServiceStatusInfo<Long> statusInfo = this.categoryService.editCategoryAd(id,input);
-        if (statusInfo.isSuccess()){
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+                                             @RequestBody AdNewCategoryNameInput input) {
+        ServiceStatusInfo<Long> statusInfo = this.categoryService.editCategoryAd(id, input);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
 
     @RequiresAuthentication
-    @RequestMapping(value = "/dbj/categoryDetails/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/dbj/categoryDetails/{id}", method = RequestMethod.GET)
     @ApiOperation("查看分类的品种")
     @RequiresRoles(RoleIdentity.ADMIN_ROLE)
     public ResponsePageInfoData<List<AdBasicCategoryDto>> categoryDetailsAd(@PathVariable Long id,
-                                                                            @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                                            @RequestParam(value = "rows",required = true,defaultValue = "13") int rows){
-        Page<AdBasicCategoryDto> pageInfo = PageHelper.startPage(pageNo,rows);
+                                                                            @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                                            @RequestParam(value = "rows", required = true, defaultValue = "13") int rows) {
+        Page<AdBasicCategoryDto> pageInfo = PageHelper.startPage(pageNo, rows);
         List<AdBasicCategoryDto> categoryDtos = this.categoryService.categoryDetailsAd(id);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",categoryDtos,pageInfo.getTotal());
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", categoryDtos, pageInfo.getTotal());
     }
 
     @RequiresAuthentication
-    @RequestMapping(value = "/dbj/delCategory/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/dbj/delCategory/{id}", method = RequestMethod.GET)
     @ApiOperation("删除分类的品种")
     @RequiresRoles(RoleIdentity.ADMIN_ROLE)
-    public ResponseData<Long> delCategoryAd(@PathVariable Long id){
+    public ResponseData<Long> delCategoryAd(@PathVariable Long id) {
         ServiceStatusInfo<Long> statusInfo = this.categoryService.delCategoryAd(id);
-        if (statusInfo.isSuccess()){
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
 
+    //远程调用接口
+    @RequestMapping(value = "/dbj/searchCategory", method = RequestMethod.GET)
+    @ApiOperation("通过id查找分类")
+    public ResponseData<List<StoreServiceCategory>> storeExtraService(@RequestParam(value = "param") String param) {
+        String[] strs = param.split(",");
+        List<String> list = Arrays.asList(strs);
+        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.searchCategory(list);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
+    }
+    @RequestMapping(value = "/dbj/allExtraService", method = RequestMethod.GET)
+    @ApiOperation("查找所有额外服务名称")
+    public ResponseData<List<StoreServiceCategory>> allExtraService() {
+        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.allExtraService();
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
+    }
 }

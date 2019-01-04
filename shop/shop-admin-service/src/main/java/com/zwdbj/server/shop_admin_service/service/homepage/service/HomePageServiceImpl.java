@@ -68,6 +68,9 @@ public class HomePageServiceImpl implements HomePageService {
 //    public ServiceStatusInfo<List<VideoTrend>> selectVideoDayTrend(long sellerId) {
 //        List<VideoTrend> result = null;
 //        try {
+//            //查询店铺代言人的userId
+//            List<Long> userIds = this.homePageMapper.selectSuperStar(sellerId);
+//            //调用http远程服务查询
 //            result = this.homePageMapper.videoDayTrend(sellerId);
 //            return new ServiceStatusInfo<>(0, "", result);
 //        } catch (Exception e) {
