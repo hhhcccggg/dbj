@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace db.shop.Models.shop
 {
     /// <summary>
     /// 主体需要审核的资料
     /// </summary>
+    [Table("shop_legalSubjectReviews")]
     public class LegalSubjectReview:db.common.BaseModelWithTime<long>
     {
         /// <summary>

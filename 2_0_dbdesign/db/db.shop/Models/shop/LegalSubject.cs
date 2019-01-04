@@ -7,7 +7,7 @@ namespace db.shop.Models.shop
     /// <summary>
     /// 商家
     /// </summary>
-    [Table("core_legalSubjects")]
+    [Table("shop_legalSubjects")]
     public class LegalSubject : db.common.BaseModelWithTime<long>
     {
         /// <summary>

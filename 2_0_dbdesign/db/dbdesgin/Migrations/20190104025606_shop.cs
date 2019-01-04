@@ -1,69 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace db.shop.Migrations
+namespace dbdesgin.Migrations
 {
-    public partial class init : Migration
+    public partial class shop : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "core_legalSubjects",
-                columns: table => new
-                {
-                    id = table.Column<long>(maxLength: 128, nullable: false),
-                    createTime = table.Column<DateTime>(type: "timestamp", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP()"),
-                    isDeleted = table.Column<bool>(nullable: false, defaultValue: false),
-                    deleteTime = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    isManualData = table.Column<bool>(nullable: false, defaultValue: false),
-                    name = table.Column<string>(maxLength: 128, nullable: false),
-                    subName = table.Column<string>(maxLength: 128, nullable: true),
-                    marketName = table.Column<string>(maxLength: 128, nullable: true),
-                    description = table.Column<string>(maxLength: 2048, nullable: true),
-                    corpId = table.Column<string>(maxLength: 512, nullable: true),
-                    leagalRepresentativeName = table.Column<string>(maxLength: 128, nullable: false),
-                    leagalRepresentativeID = table.Column<string>(maxLength: 512, nullable: false),
-                    logoUrl = table.Column<string>(maxLength: 512, nullable: true),
-                    contactAddress = table.Column<string>(maxLength: 1024, nullable: true),
-                    regAddress = table.Column<string>(nullable: true),
-                    cityId = table.Column<int>(nullable: false),
-                    cityLevel = table.Column<string>(maxLength: 512, nullable: true),
-                    contactName = table.Column<string>(maxLength: 50, nullable: false),
-                    contactPhone = table.Column<string>(maxLength: 50, nullable: false),
-                    qq = table.Column<string>(maxLength: 50, nullable: true),
-                    wechat = table.Column<string>(maxLength: 50, nullable: true),
-                    status = table.Column<int>(nullable: false, defaultValue: 1),
-                    reviewed = table.Column<bool>(nullable: false, defaultValue: false),
-                    reviewMsg = table.Column<string>(maxLength: 2048, nullable: true),
-                    type = table.Column<string>(maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_core_legalSubjects", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LegalSubjectReviews",
-                columns: table => new
-                {
-                    id = table.Column<long>(maxLength: 128, nullable: false),
-                    createTime = table.Column<DateTime>(type: "timestamp", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP()"),
-                    isDeleted = table.Column<bool>(nullable: false, defaultValue: false),
-                    deleteTime = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    isManualData = table.Column<bool>(nullable: false, defaultValue: false),
-                    identifyId = table.Column<string>(maxLength: 128, nullable: false),
-                    title = table.Column<string>(maxLength: 128, nullable: false),
-                    keyId = table.Column<string>(maxLength: 1024, nullable: true),
-                    reviewData = table.Column<string>(nullable: false),
-                    status = table.Column<int>(nullable: false),
-                    rejectMsg = table.Column<string>(maxLength: 512, nullable: true),
-                    legalSubjectId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LegalSubjectReviews", x => x.id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "o2o_offlineStoreExtraServices",
                 columns: table => new
@@ -203,6 +146,63 @@ namespace db.shop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_shop_discountCoupons", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "shop_legalSubjectReviews",
+                columns: table => new
+                {
+                    id = table.Column<long>(maxLength: 128, nullable: false),
+                    createTime = table.Column<DateTime>(type: "timestamp", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                    isDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    deleteTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    isManualData = table.Column<bool>(nullable: false, defaultValue: false),
+                    identifyId = table.Column<string>(maxLength: 128, nullable: false),
+                    title = table.Column<string>(maxLength: 128, nullable: false),
+                    keyId = table.Column<string>(maxLength: 1024, nullable: true),
+                    reviewData = table.Column<string>(nullable: false),
+                    status = table.Column<int>(nullable: false),
+                    rejectMsg = table.Column<string>(maxLength: 512, nullable: true),
+                    legalSubjectId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_legalSubjectReviews", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "shop_legalSubjects",
+                columns: table => new
+                {
+                    id = table.Column<long>(maxLength: 128, nullable: false),
+                    createTime = table.Column<DateTime>(type: "timestamp", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                    isDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    deleteTime = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    isManualData = table.Column<bool>(nullable: false, defaultValue: false),
+                    name = table.Column<string>(maxLength: 128, nullable: false),
+                    subName = table.Column<string>(maxLength: 128, nullable: true),
+                    marketName = table.Column<string>(maxLength: 128, nullable: true),
+                    description = table.Column<string>(maxLength: 2048, nullable: true),
+                    corpId = table.Column<string>(maxLength: 512, nullable: true),
+                    leagalRepresentativeName = table.Column<string>(maxLength: 128, nullable: false),
+                    leagalRepresentativeID = table.Column<string>(maxLength: 512, nullable: false),
+                    logoUrl = table.Column<string>(maxLength: 512, nullable: true),
+                    contactAddress = table.Column<string>(maxLength: 1024, nullable: true),
+                    regAddress = table.Column<string>(nullable: true),
+                    cityId = table.Column<int>(nullable: false),
+                    cityLevel = table.Column<string>(maxLength: 512, nullable: true),
+                    contactName = table.Column<string>(maxLength: 50, nullable: false),
+                    contactPhone = table.Column<string>(maxLength: 50, nullable: false),
+                    qq = table.Column<string>(maxLength: 50, nullable: true),
+                    wechat = table.Column<string>(maxLength: 50, nullable: true),
+                    status = table.Column<int>(nullable: false, defaultValue: 1),
+                    reviewed = table.Column<bool>(nullable: false, defaultValue: false),
+                    reviewMsg = table.Column<string>(maxLength: 2048, nullable: true),
+                    type = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_legalSubjects", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -569,8 +569,8 @@ namespace db.shop.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LegalSubjectReviews_identifyId",
-                table: "LegalSubjectReviews",
+                name: "IX_shop_legalSubjectReviews_identifyId",
+                table: "shop_legalSubjectReviews",
                 column: "identifyId");
 
             migrationBuilder.CreateIndex(
@@ -581,12 +581,6 @@ namespace db.shop.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "core_legalSubjects");
-
-            migrationBuilder.DropTable(
-                name: "LegalSubjectReviews");
-
             migrationBuilder.DropTable(
                 name: "o2o_offlineStoreExtraServices");
 
@@ -607,6 +601,12 @@ namespace db.shop.Migrations
 
             migrationBuilder.DropTable(
                 name: "shop_discountCoupons");
+
+            migrationBuilder.DropTable(
+                name: "shop_legalSubjectReviews");
+
+            migrationBuilder.DropTable(
+                name: "shop_legalSubjects");
 
             migrationBuilder.DropTable(
                 name: "shop_productAttriLinks");
