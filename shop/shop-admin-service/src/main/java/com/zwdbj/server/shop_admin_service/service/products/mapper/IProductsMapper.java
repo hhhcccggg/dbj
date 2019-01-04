@@ -79,6 +79,9 @@ public interface IProductsMapper {
     @SelectProvider(type = ProductsSqlProvider.class, method = "search")
     List<Products> search(@Param("searchProducts") SearchProducts searchProducts);
 
+    @SelectProvider(type = ProductsSqlProvider.class, method = "searchCondition")
+    List<Products> searchCondition(@Param("searchProducts") SearchProducts searchProducts , @Param("type") int type);
+
     @Select("select a.id,a.name,b.originalPrice,b.inventory b.sales,a.commentCount,b.createTime " +
             "from shop_products as a,shop_productSKUs as b where a.storeId=#{storeId} and " +
             "b.productId=a.id and a.publish=1 and b.inventory>0")

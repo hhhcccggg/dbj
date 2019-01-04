@@ -181,7 +181,18 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    public ServiceStatusInfo judgeProducts(Products products,String validType,int specHoursValid , int validDays,Date validStartTime,Date validEndTime){
+    @Override
+    public ServiceStatusInfo<List<Products>> searchCondition(SearchProducts searchProduct, int type) {
+        List<Products> result=null;
+        try {
+            result =this.iProductMapper.searchCondition(searchProduct,type);
+            return new ServiceStatusInfo<>(0,"",result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),result);
+        }
+    }
+
+    public ServiceStatusInfo judgeProducts(Products products, String validType, int specHoursValid , int validDays, Date validStartTime, Date validEndTime){
         if(products.getProductType() != 0 && products.getProductType() != 1){
             return new ServiceStatusInfo<>(1, "创建失败：产品类型不正确", null);
         }

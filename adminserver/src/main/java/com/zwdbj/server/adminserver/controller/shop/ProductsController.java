@@ -29,12 +29,37 @@ public class ProductsController {
     @RequestMapping(value = "/onSale", method = RequestMethod.GET)
     @ApiOperation(value = "查询销售中商品")
     public ResponsePageInfoData<List<Products>> findAllProducts(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
-                                                                @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
-        PageHelper.startPage(pageNo, rows);
-        List<Products> productsList = this.productServiceImpl.selectAll().getData();
+                                                                @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
+                                                                SearchProducts searchProduct) {
+        PageHelper.startPage(pageNo,rows);
+        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(searchProduct,1);
+        List<Products> productsList = serviceStatusInfo.getData();
         PageInfo<Products> pageInfo = new PageInfo(productsList);
-        return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", productsList, pageInfo.getTotal());
+        return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), productsList, pageInfo.getTotal());
+    }
 
+    @GetMapping(value = "/onSellOut")
+    @ApiOperation(value = "查询售完商品")
+    public ResponsePageInfoData<List<Products>> findSellOut(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                            @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
+                                                            SearchProducts searchProduct){
+        PageHelper.startPage(pageNo,rows);
+        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(new SearchProducts(),2);
+        List<Products> productsList = serviceStatusInfo.getData();
+        PageInfo<Products> pageInfo = new PageInfo(productsList);
+        return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), productsList, pageInfo.getTotal());
+    }
+
+    @GetMapping(value = "/onToStayOn")
+    @ApiOperation(value = "查询待上架商品")
+    public ResponsePageInfoData<List<Products>> findToStayOn(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                            @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
+                                                            SearchProducts searchProduct){
+        PageHelper.startPage(pageNo,rows);
+        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(searchProduct,3);
+        List<Products> productsList = serviceStatusInfo.getData();
+        PageInfo<Products> pageInfo = new PageInfo(productsList);
+        return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), productsList, pageInfo.getTotal());
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)

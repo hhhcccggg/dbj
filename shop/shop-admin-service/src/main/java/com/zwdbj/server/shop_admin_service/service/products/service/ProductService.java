@@ -41,4 +41,13 @@ public interface ProductService {
      * @return
      */
     ServiceStatusInfo<Long> deleteByProducts(Long[] id);
+
+    /**
+     * 根据条件查询数据
+     * @param searchProduct
+     * @param type 1销售中 2已售完 3待上架
+     * @return
+     */
+    ServiceStatusInfo<List<Products>> searchCondition(SearchProducts searchProduct,int type);
+
 }
