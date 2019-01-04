@@ -1,17 +1,15 @@
 package com.zwdbj.server.adminserver.service.userTenant.service;
 
-import com.zwdbj.server.adminserver.middleware.mq.MQWorkSender;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.ShopTenantModel;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.service.ILegalSubjectService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.userTenant.mapper.IUserTenantMapper;
-import com.zwdbj.server.adminserver.service.userTenant.model.ModifyUserTenantInput;
-import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantInput;
-import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantModel;
-import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantSearchInput;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.adminserver.service.userTenant.model.*;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,11 +19,14 @@ public class UserTenantService {
     IUserTenantMapper userTenantMapper;
     @Autowired
     UserService userService;
+    @Autowired
+    ILegalSubjectService legalSubjectServiceImpl;
 
     public List<UserTenantModel> getUserTenants(UserTenantSearchInput input){
         List<UserTenantModel> userTenantModels = this.userTenantMapper.getUserTenants(input);
         return  userTenantModels;
     }
+    @Transactional
     public ServiceStatusInfo<Integer> addUserTenant(UserTenantInput input){
         try {
             //检验租户标识是否存在
@@ -37,8 +38,8 @@ public class UserTenantService {
             if (a==0)return new ServiceStatusInfo<>(1,"租户创建失败",null);
             int b = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,true);
             if (b==0)return new ServiceStatusInfo<>(1,"租户用户创建失败",null);
-            //  加入消息队列
-            this.putMQ(input,legalSubjectId,1);
+            int c = this.legalSubjectServiceImpl.addLegalSubject(legalSubjectId,input);
+            if (c==0)return new ServiceStatusInfo<>(1,"租户商户创建失败",null);
             return  new ServiceStatusInfo<>(0,"租户创建成功",1);
         }catch (Exception e){
             return  new ServiceStatusInfo<>(1,"租户创建出现异常"+e.getMessage(),null);
@@ -54,8 +55,8 @@ public class UserTenantService {
             if (b==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
             int c = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,true);
             if (c==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
-            //  加入消息队列
-            this.putMQ(input,legalSubjectId,2);
+            int d = this.legalSubjectServiceImpl.modifyBasicLegalSubject(legalSubjectId,input);
+            if (d==0)return new ServiceStatusInfo<>(1,"租户商户修改失败",null);
             return  new ServiceStatusInfo<>(0,"修改租户成功",1);
         }catch (Exception e){
             return  new ServiceStatusInfo<>(1,"修改租户失败"+e.getMessage(),null);
@@ -65,60 +66,46 @@ public class UserTenantService {
     public UserTenantModel getUserTenantById(long id){
         return this.userTenantMapper.getUserTenantById(id);
     }
+    public ServiceStatusInfo<TenantDetailModel> getDetailTenantById(long id){
+        try {
+            TenantDetailModel model = this.userTenantMapper.getDetailTenantById(id);
+            ShopTenantModel shopTenantModel= this.legalSubjectServiceImpl.getDetailTenant(model.getLegalSubjectId());
+            if (shopTenantModel!=null){
+                model.setCategoryId(shopTenantModel.getCategoryId());
+                model.setCityId(shopTenantModel.getCityId());
+                model.setExpireTime(shopTenantModel.getExpireTime());
+                model.setLeagalRepresentativeID(shopTenantModel.getLeagalRepresentativeID());
+                model.setLeagalRepresentativeName(shopTenantModel.getLeagalRepresentativeName());
+                model.setLegalType(shopTenantModel.getLegalType());
+                model.setStoreType(shopTenantModel.getStoreType());
+                model.setNickName(shopTenantModel.getContactName());
+                model.setPhone(shopTenantModel.getContactPhone());
+            }
+            return new ServiceStatusInfo<>(0,"",model);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"出现异常:"+e.getMessage(),null);
+        }
+
+
+    }
 
     public ServiceStatusInfo<Integer> deleteUserTenant(long id){
         try {
             UserTenantModel model = this.getUserTenantById(id);
-            if (model==null)return new ServiceStatusInfo<>(1,"租户修改失败",null);
+            if (model==null)return new ServiceStatusInfo<>(1,"该租户不存在",null);
             int b = this.userService.modifyUserByTenantId(id);
-            if (b==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
-            ModifyUserTenantInput input = new ModifyUserTenantInput();
-            input.setContactNumber("");
-            input.setName(model.getName());
-            input.setPhone(model.getPhone());
-            input.setUsername(model.getNickName());
-            //加入消息队列
-            this.putMQ(input,model.getLegalSubjectId(),3);
+            if (b==0)return new ServiceStatusInfo<>(1,"租户用户修改失败",null);
+            //假删
+            int d  = this.userTenantMapper.delTenantById(id);
+            if (d==0)return new ServiceStatusInfo<>(1,"租户删除失败",null);
+            //假删
+            int c = this.legalSubjectServiceImpl.delLegalSubject(model.getLegalSubjectId());
+            if (c==0)return new ServiceStatusInfo<>(1,"租户商户修改失败",null);
             return  new ServiceStatusInfo<>(0,"删除租户成功",1);
 
         }catch (Exception e){
             return  new ServiceStatusInfo<>(1,"删除租户失败"+e.getMessage(),null);
         }
-    }
-
-    private void putMQ(ModifyUserTenantInput input,long legalSubjectId,int type){
-        try {
-            QueueWorkInfoModel.QueueWorkShopLegalSubjectData data;
-            if (type==3){
-                data = QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder()
-                        .setLegalSubjectId(legalSubjectId)
-                        .build();
-            }else {
-                data = QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder()
-                        .setContactNumber(input.getContactNumber())
-                        .setContactPerson(input.getUsername())
-                        .setLegalSubjectId(legalSubjectId)
-                        .setName(input.getName())
-                        .setPhone(input.getPhone())
-                        .setType(type)
-                        .setCityId(input.getCityId())
-                        .setLegalType(input.getLegalType())
-                        .setLeagalRepresentativeName(input.getLeagalRepresentativeName())
-                        .setLeagalRepresentativeID(input.getLeagalRepresentativeID())
-                        .setStoreType(input.getStoreType())
-                        .setCategoryId(input.getCategoryId())
-                        .build();
-            }
-
-            QueueWorkInfoModel.QueueWorkInfo workInfo = QueueWorkInfoModel.QueueWorkInfo.newBuilder()
-                    .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SHOP_LEGAL_SUBJECT)
-                    .setShopLegalSubjectData(data)
-                    .build();
-            MQWorkSender.shareSender().send(workInfo);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
     }
 
 }

@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.service.userTenant.model;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,6 +21,7 @@ public class UserTenantModel implements Serializable {
     private String identifyName;
     @ApiModelProperty(value = "电商系统中的商户ID")
     private long legalSubjectId;
+
 
     public long getId() {
         return id;

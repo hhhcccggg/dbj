@@ -3,10 +3,7 @@ package com.zwdbj.server.adminserver.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.adminserver.identity.RoleIdentity;
-import com.zwdbj.server.adminserver.service.userTenant.model.ModifyUserTenantInput;
-import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantInput;
-import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantModel;
-import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantSearchInput;
+import com.zwdbj.server.adminserver.service.userTenant.model.*;
 import com.zwdbj.server.adminserver.service.userTenant.service.UserTenantService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -32,7 +29,7 @@ public class UserTenantController {
 
 
     @RequiresAuthentication
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ApiOperation(value = "查询租户")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponsePageInfoData<List<UserTenantModel>> getUserTenants(@RequestBody UserTenantSearchInput input,
@@ -41,6 +38,18 @@ public class UserTenantController {
         Page<UserTenantModel> pageInfo = PageHelper.startPage(pageNo, rows);
         List<UserTenantModel> userTenantModels = this.userTenantService.getUserTenants(input);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", userTenantModels, pageInfo.getTotal());
+    }
+
+    @RequiresAuthentication
+    @RequestMapping(value = "/search/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "根据租户id查询租户详细信息")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
+    public ResponseData<TenantDetailModel> getDetailTenantById(@PathVariable long id) {
+        ServiceStatusInfo<TenantDetailModel> statusInfo = this.userTenantService.getDetailTenantById(id);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "租户添加成功", statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
 
     @RequiresAuthentication
