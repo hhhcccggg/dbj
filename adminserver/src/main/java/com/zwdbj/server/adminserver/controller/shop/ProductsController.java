@@ -12,6 +12,7 @@ import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -44,8 +45,8 @@ public class ProductsController {
                                              @RequestParam(value = "festivalCanUse",required = true) boolean festivalCanUse,
                                              @RequestParam(value = "specHoursValid",required = false,defaultValue = "0") int specHoursValid,
                                              @RequestParam(value = "validDays",required = false,defaultValue = "-1") int validDays,
-                                             @RequestParam(value = "validStartTime",required = false) Date validStartTime,
-                                             @RequestParam(value = "validEndTime",required = false) Date validEndTime,
+                                             @RequestParam(value = "validStartTime",required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") Date validStartTime,
+                                             @RequestParam(value = "validEndTime",required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") Date validEndTime,
                                              @RequestParam(value = "validType",required = true) String validType
 
     ) {
@@ -72,8 +73,17 @@ public class ProductsController {
 
     @ApiOperation(value = "修改商品")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseData<Long> updateProducts(@RequestBody Products products) {
-        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updateProducts(products);
+    public ResponseData<Long> updateProducts(@RequestBody Products products,
+                                             @RequestParam(value = "originalPrice",required = true) long originalPrice,
+                                             @RequestParam(value = "promotionPrice",required = true) long promotionPrice,
+                                             @RequestParam(value = "festivalCanUse",required = true) boolean festivalCanUse,
+                                             @RequestParam(value = "specHoursValid",required = false,defaultValue = "0") int specHoursValid,
+                                             @RequestParam(value = "validDays",required = false,defaultValue = "-1") int validDays,
+                                             @RequestParam(value = "validStartTime",required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") Date validStartTime,
+                                             @RequestParam(value = "validEndTime",required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") Date validEndTime,
+                                             @RequestParam(value = "validType",required = true) String validType) {
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updateProducts(products,originalPrice,promotionPrice,
+                festivalCanUse,specHoursValid,validDays, validStartTime, validEndTime,validType);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

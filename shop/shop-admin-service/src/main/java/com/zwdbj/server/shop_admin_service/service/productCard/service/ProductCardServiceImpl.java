@@ -24,13 +24,4 @@ public class ProductCardServiceImpl implements ProductCardService{
         }
     }
 
-    @Override
-    public ServiceStatusInfo<Long> update(ProductCard productCard) {
-        try {
-            Long result = this.iProductCardMapper.updateProductCard(productCard);
-            return new ServiceStatusInfo<>(0, "", result);
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "修改失败" + e.getMessage(), 0L);
-        }
-    }
 }

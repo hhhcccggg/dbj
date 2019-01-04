@@ -15,7 +15,7 @@ public interface ProductService {
 
     ServiceStatusInfo<Long> deleteProductsById(Long id);
 
-    ServiceStatusInfo<Long> updateProducts(Products products);
+    ServiceStatusInfo<Long> updateProducts(Products products, long originalPrice, long promotionPrice, boolean festivalCanUse, int specHoursValid, int validDays, Date validStartTime,Date validEndTime,String validType);
 
     ServiceStatusInfo<List<Products>> selectAll();
     ServiceStatusInfo<List<Products>> searchProducts(SearchProducts searchProduct);
