@@ -138,10 +138,10 @@ public class MyScheduler {
 
 
     private void startJob10(Scheduler scheduler) throws SchedulerException {
-        JobDetail jobDetail = JobBuilder.newJob(OnceLoadRandVideos.class)
+        JobDetail jobDetail = JobBuilder.newJob(TempGreatUserJob.class)
                 .withIdentity("job10", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 15 16 21 12 ? 2018");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 8 12 04 01 ? 2019");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger10", "group2")
                 .withSchedule(scheduleBuilder)

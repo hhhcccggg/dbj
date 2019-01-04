@@ -35,7 +35,7 @@ public class AdVideoTagDto {
     }
 
     public void setResNumber(Long resNumber) {
-        this.resNumber = resNumber*20;
+        this.resNumber = resNumber*43;
     }
 
     public int getIsDeleted() {
