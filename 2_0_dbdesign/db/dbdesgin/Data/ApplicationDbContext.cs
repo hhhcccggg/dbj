@@ -44,6 +44,8 @@ namespace dbdesgin.Data
         public DbSet<ProductOrderItem> ProductOrderItems { get; set; }
         public DbSet<ProductSKU> GetProductSKUs { get; set; }
         public DbSet<ReceiveAddress> ReceiveAddresses { get; set; }
+        public DbSet<LegalSubjectAsset> LegalSubjectAssets { get; set; }
+        public DbSet<LegalSubjectAssetDetail> LegalSubjectAssetDetails { get; set; }
         #endregion
 
         public DbSet<User> Users { get; set; }
@@ -451,6 +453,7 @@ namespace dbdesgin.Data
             product.Property(cw => cw.specifyPublishTime).HasDefaultValue(0);
             product.Property(cw => cw.weight).HasDefaultValue(0);
             product.Property(cw => cw.limitPerPerson).HasDefaultValue(0);
+            product.Property(cw => cw.supportCoin).HasDefaultValue(false);
 
             var productCard = modelBuilder.Entity<ProductCard>();
             productCard.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
@@ -506,6 +509,7 @@ namespace dbdesgin.Data
             productOrder.Property(c => c.IsDeleted).HasDefaultValue(false);
             productOrder.Property(cw => cw.isManualData).HasDefaultValue(false);
             productOrder.HasIndex(cw => cw.status);
+            productOrder.Property(cw => cw.useCoin).HasDefaultValue(0);
 
             var productOrderItem = modelBuilder.Entity<ProductOrderItem>();
             productOrderItem.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
@@ -524,6 +528,20 @@ namespace dbdesgin.Data
             receiveAddress.Property(cw => cw.isManualData).HasDefaultValue(false);
             receiveAddress.Property(cw => cw.cityId).HasDefaultValue(0);
             receiveAddress.Property(cw => cw.defaultAddr).HasDefaultValue(false);
+
+
+            var legalSubjectAsset = modelBuilder.Entity<LegalSubjectAsset>();
+            legalSubjectAsset.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            legalSubjectAsset.Property(c => c.IsDeleted).HasDefaultValue(false);
+            legalSubjectAsset.Property(cw => cw.isManualData).HasDefaultValue(false);
+
+            var legalSubjectAssetDetail = modelBuilder.Entity<LegalSubjectAssetDetail>();
+            legalSubjectAssetDetail.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            legalSubjectAssetDetail.Property(c => c.IsDeleted).HasDefaultValue(false);
+            legalSubjectAssetDetail.Property(cw => cw.isManualData).HasDefaultValue(false);
+            legalSubjectAssetDetail.Property(cw => cw.type).HasDefaultValue("SHOP");
+
+
             #endregion
         }
 
