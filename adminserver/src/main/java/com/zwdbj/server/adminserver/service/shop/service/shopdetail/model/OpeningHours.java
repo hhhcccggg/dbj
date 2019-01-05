@@ -5,8 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(value = "营业时间")
 public class OpeningHours {
-    @ApiModelProperty(value = "id")
-    long id;
+
     /// <summary>
     /// 周几：1|2|3|4|5|6|7
     /// </summary>
@@ -28,13 +27,7 @@ public class OpeningHours {
     @ApiModelProperty(value = "下班时间")
     int closeTime;
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public int getDay() {
         return day;

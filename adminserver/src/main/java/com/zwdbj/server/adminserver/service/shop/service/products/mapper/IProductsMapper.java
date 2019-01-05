@@ -4,7 +4,6 @@ import com.zwdbj.server.adminserver.service.shop.service.products.model.Products
 import com.zwdbj.server.adminserver.service.shop.service.products.model.ProductsDto;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -85,17 +84,17 @@ public interface IProductsMapper {
     @Select("select a.id,a.name,b.originalPrice,b.inventory b.sales,a.commentCount,b.createTime " +
             "from shop_products as a,shop_productSKUs as b where a.storeId=#{storeId} and " +
             "b.productId=a.id and a.publish=1 and b.inventory>0")
-    List<ProductsDto> onSales(@PathVariable("storeId") long storeId);
+    List<ProductsDto> onSales(@Param("storeId") long storeId);
 
     @Select("select a.id,a.name,b.originalPrice,b.inventory b.sales,a.commentCount,b.createTime " +
             "from shop_products as a,shop_productSKUs as b where a.storeId=#{storeId} and " +
             "b.productId=a.id and a.publish=1 and b.inventory=0")
-    List<ProductsDto> sellOut(@PathVariable("storeId") long storeId);
+    List<ProductsDto> sellOut(@Param("storeId") long storeId);
 
     @Select("select a.id,a.name,b.originalPrice,b.inventory b.sales,a.commentCount,b.createTime " +
             "from shop_products as a,shop_productSKUs as b where a.storeId=#{storeId} and " +
             "b.productId=a.id and a.publish=0")
-    List<ProductsDto> notOnSales(@PathVariable("storeId") long storeId);
+    List<ProductsDto> notOnSales(@Param("storeId") long storeId);
 
 
     @UpdateProvider(type = ProductsSqlProvider.class , method = "updatePublish")

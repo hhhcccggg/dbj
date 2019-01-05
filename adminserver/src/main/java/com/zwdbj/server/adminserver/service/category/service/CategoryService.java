@@ -79,11 +79,12 @@ public class CategoryService {
         }
     }
 
-    public ServiceStatusInfo<List<StoreServiceCategory>> searchCategory(List<String> list) {
+
+    public ServiceStatusInfo<List<StoreServiceCategory>> searchCategory(List<Long> list) {
         List<StoreServiceCategory> result = new ArrayList<>();
         try {
-            for (String id : list) {
-                StoreServiceCategory storeServiceCategory = categoryMapper.searchCategory(Long.parseLong(id));
+            for (Long id : list) {
+                StoreServiceCategory storeServiceCategory = categoryMapper.searchCategory(id);
                 result.add(storeServiceCategory);
             }
             return new ServiceStatusInfo<>(0, "", result);

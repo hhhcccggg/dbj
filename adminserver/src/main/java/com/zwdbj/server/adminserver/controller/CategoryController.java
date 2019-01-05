@@ -96,18 +96,19 @@ public class CategoryController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
 
-    //远程调用接口
     @RequestMapping(value = "/dbj/searchCategory", method = RequestMethod.GET)
     @ApiOperation("通过id查找分类")
-    public ResponseData<List<StoreServiceCategory>> storeExtraService(@RequestParam(value = "param") String param) {
-        String[] strs = param.split(",");
-        List<String> list = Arrays.asList(strs);
-        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.searchCategory(list);
+    public ResponseData<List<StoreServiceCategory>> storeExtraService(@RequestParam(value = "param") List<Long> param) {
+
+        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.searchCategory(param);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
+
+
+
     @RequestMapping(value = "/dbj/allExtraService", method = RequestMethod.GET)
     @ApiOperation("查找所有额外服务名称")
     public ResponseData<List<StoreServiceCategory>> allExtraService() {
