@@ -677,7 +677,7 @@ public class UserService {
                     return  new ServiceStatusInfo<>(0,"",100);
                 }
             }else {
-                new ResponseData<>(1, "验证失败，请输入正确的手机号和验证码", null);
+                new ServiceStatusInfo<>(1, "验证失败，请输入正确的手机号和验证码", null);
             }
 
         }catch (Exception e){
