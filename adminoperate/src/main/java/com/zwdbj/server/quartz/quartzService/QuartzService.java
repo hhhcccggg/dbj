@@ -121,9 +121,9 @@ public class QuartzService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date createTime = null;
             int newUserNum = 0;
-            for (int i = 1; i < 5; i++) {
+            for (int i = 1; i < 6; i++) {
                 newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2019-01-0" + i + "u"));
-                createTime = sdf.parse("2019-01-0" + i + " 20:00:00");
+                createTime = sdf.parse("2019-01-0" + i + " 10:00:00");
                 this.forGreatVestUser(newUserNum, createTime);
             }
         } catch (Exception e) {
