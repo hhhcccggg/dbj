@@ -11,6 +11,19 @@ public class AuthUser implements Serializable {
     private String[] roles;
     private String[] permissions;
 
+    /**
+     * 当前租户ID
+     */
+    private long tenantId;
+    /**
+     * 当前租户的标识
+     */
+    private String identifyTenantName;
+    /**
+     * 当前商户id
+     */
+    private long legalSubjectId;
+
     public String getId() {
         return id;
     }
@@ -65,5 +78,29 @@ public class AuthUser implements Serializable {
 
     public void setPermissions(String[] permissions) {
         this.permissions = permissions;
+    }
+
+    public long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getIdentifyTenantName() {
+        return identifyTenantName;
+    }
+
+    public void setIdentifyTenantName(String identifyTenantName) {
+        this.identifyTenantName = identifyTenantName;
+    }
+
+    public long getLegalSubjectId() {
+        return legalSubjectId;
+    }
+
+    public void setLegalSubjectId(long legalSubjectId) {
+        this.legalSubjectId = legalSubjectId;
     }
 }
