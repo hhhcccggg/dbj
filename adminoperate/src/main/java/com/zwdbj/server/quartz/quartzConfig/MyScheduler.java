@@ -141,7 +141,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(TempGreatUserJob.class)
                 .withIdentity("job10", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 8 12 04 01 ? 2019");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 13 10 05 01 ? 2019");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger10", "group2")
                 .withSchedule(scheduleBuilder)
