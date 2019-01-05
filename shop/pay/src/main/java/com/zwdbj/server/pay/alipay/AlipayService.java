@@ -10,6 +10,7 @@ import com.zwdbj.server.pay.alipay.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,6 +20,8 @@ import java.util.UUID;
 @Service
 public class AlipayService {
     private AlipayClient alipayClient = AlipaySDKClient.getInstance().getAlipayClient();
+    @Autowired
+    private AliPayConfig aliPayConfig;
     private Logger logger = LoggerFactory.getLogger(AlipayService.class);
     /**
      * @param input
@@ -29,6 +32,8 @@ public class AlipayService {
             AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
             String bizJson = JSON.toJSONString(input);
             request.setBizContent(bizJson);
+            //  异步回调
+            request.setNotifyUrl(this.aliPayConfig.getPayResultCallbackUrl());
             AlipayTradeAppPayResponse response = alipayClient.sdkExecute(request);
             if (response.isSuccess()) {
                 AliAppPayResult result = new AliAppPayResult();
@@ -84,7 +89,7 @@ public class AlipayService {
 
     public ServiceStatusInfo<Object> paramsRsaCheckV1(Map<String,String> params) {
         try {
-            boolean flag = AlipaySignature.rsaCheckV1(params, AlipaySDKClient.getPublicKey(), "UTF-8");
+            boolean flag = AlipaySignature.rsaCheckV1(params, AlipaySDKClient.getPublicKey(), "UTF-8","RSA2");
             if (flag) {
                 return new ServiceStatusInfo<>(0, "OK", params);
             } else {

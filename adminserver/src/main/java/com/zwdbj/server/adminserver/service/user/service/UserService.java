@@ -9,6 +9,7 @@ import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.adminserver.easemob.api.EaseMobUser;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
+import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mapper.OfflineStoreStaffsMapper;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
@@ -50,6 +51,9 @@ public class UserService {
     TokenCenterManager tokenCenterManager;
     @Autowired
     IAuthUserManager iAuthUserManagerImpl;
+    @Autowired
+    OfflineStoreStaffsMapper offlineStoreStaffsMapper;
+
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
 
@@ -121,6 +125,29 @@ public class UserService {
     public List<UserDetailInfoDto> marketListAd(AdMarketUserInput input) {
         List<UserDetailInfoDto> userInfoDtoList = this.userMapper.marketListAd(input);
         return userInfoDtoList;
+    }
+
+    /**
+     *
+     * @param nickName
+     * @param phone
+     * @param tenantId
+     * @param isSuper 是否为店主
+     * @return
+     */
+    public int greateUserByTenant (String nickName,String phone,long tenantId,boolean isSuper){
+        try {
+            long id = UniqueIDCreater.generateID();
+            String username = UniqueIDCreater.generateUserName();
+            String password = SHAEncrypt.encryptSHA(phone.substring(8)+"123456");
+            return this.userMapper.greateUserByTenant(id,username,password,nickName,phone,tenantId,isSuper);
+        }catch (Exception e){
+            throw new RuntimeException("异常");
+        }
+
+    }
+    public int modifyUserByTenantId(long tenantId){
+        return this.userMapper.modifyUserByTenantId(tenantId);
     }
 
 
@@ -441,6 +468,95 @@ public class UserService {
         return this.userMapper.getVestUserIds2();
     }
 
+    /**
+     * 商家的员工查询
+     * @param userShopSearchInput
+     * @param tenantId
+     * @return
+     */
+    public ServiceStatusInfo<List<UserShopSelectInput>> selectStaff(UserShopSearchInput userShopSearchInput,long tenantId){
+        try{
+            return new ServiceStatusInfo(0,"",this.userMapper.selectStaff(userShopSearchInput,tenantId));
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ServiceStatusInfo(1,"查询失败"+e.getMessage(),null);
+        }
+    }
+
+    /**
+     * 创建该商家下的员工
+     * @param createUserInput
+     * @param tenantId
+     * @return
+     */
+    public ServiceStatusInfo<Long> createUserShop(CreateUserInput createUserInput,long tenantId){
+        if(createUserInput.getPhone()== null || createUserInput.getPhone().trim().length()==0){
+            return new ServiceStatusInfo<>(1, "创建失败:手机号不能为空", 0L);
+        }
+        if(createUserInput.getName()== null || createUserInput.getName().trim().length()==0){
+            return new ServiceStatusInfo<>(1, "创建失败:姓名不能为空", 0L);
+        }
+        Long isExist = this.userMapper.phoneIsExist(createUserInput.getPhone());
+        if (isExist == 1) {
+            return new ServiceStatusInfo<>(1, "创建失败:手机号已注册", isExist);
+        }
+        createUserInput.setUserName(UniqueIDCreater.generateUserName());
+        long id = UniqueIDCreater.generateID();
+
+        try{
+            String password = SHAEncrypt.encryptSHA("123456");
+            long result = this.userMapper.createUserShop(createUserInput, id, password,tenantId);
+            //成功发短信
+            return new ServiceStatusInfo<>(0, "", result);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1, "添加失败"+e.getMessage(), 0L);
+        }
+    }
+
+    /**
+     * 批量删除员工假删
+     * @param id
+     * @param tenantId
+     * @return
+     */
+    public ServiceStatusInfo<Long> deleteByIds(int[] id ,long tenantId){
+        try{
+            long result = this.userMapper.deleteByIds(id,tenantId);
+            return new ServiceStatusInfo<>(0, "", result);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1, "批量删除失败"+e.getMessage(), 0L);
+        }
+    }
+
+    /**
+     * 批量设置为代言人
+     * @param id
+     * @param tenantId
+     * @return
+     */
+    public ServiceStatusInfo<Long> setRepresent(long[] id ,long tenantId){
+        try{
+            long result = this.offlineStoreStaffsMapper.setRepresent(id,tenantId);
+            return new ServiceStatusInfo<>(0, "", result);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1, "批量设置失败"+e.getMessage(), 0L);
+        }
+    }
+
+    /**
+     * 取消代言人
+     * @param id
+     * @param tenantId
+     * @return
+     */
+    public ServiceStatusInfo<Long> cancelRepresent(long[] id ,long tenantId){
+        try{
+            long result = this.offlineStoreStaffsMapper.cancelRepresent(id,tenantId);
+            return new ServiceStatusInfo<>(0, "", result);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1, "批量取消失败"+e.getMessage(), 0L);
+        }
+    }
 
 }
 

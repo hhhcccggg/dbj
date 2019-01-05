@@ -121,19 +121,9 @@ public class QuartzService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date createTime = null;
             int newUserNum = 0;
-            if (this.stringRedisTemplate.hasKey("2018-12-1t")) {
-                newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2018-12-1t"));
-                createTime = sdf.parse("2018-12-01 20:00:00");
-                this.forGreatVestUser(newUserNum, createTime);
-            }
-            for (int i = 1; i < 10; i++) {
-                newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2018-11-" + i + "t"));
-                createTime = sdf.parse("2018-11-0" + i + " 20:00:00");
-                this.forGreatVestUser(newUserNum, createTime);
-            }
-            for (int i = 10; i < 25; i++) {
-                newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2018-11-" + i + "t"));
-                createTime = sdf.parse("2018-11-" + i + " 20:00:00");
+            for (int i = 1; i < 5; i++) {
+                newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2019-01-0" + i + "u"));
+                createTime = sdf.parse("2019-01-0" + i + " 20:00:00");
                 this.forGreatVestUser(newUserNum, createTime);
             }
         } catch (Exception e) {

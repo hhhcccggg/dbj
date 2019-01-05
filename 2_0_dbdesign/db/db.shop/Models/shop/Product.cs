@@ -16,6 +16,17 @@ namespace db.shop.Models.shop
         /// <value>The type of the product.</value>
         public int productType { get; set; }
         /// <summary>
+        /// 产品详细类型
+        /// DELIVERY: 实物产品
+        /// NODELIVERY:虚拟商品(不需要物流)
+        /// CARD:卡券(服务中套餐)，关联[ProductCard]表
+        /// CASHCOUPON:代金券，类似70抵100，关联[ProductCashCoupon]表
+        /// </summary>
+        /// <value>The type of the product detail.</value>
+        [Required]
+        [MaxLength(128)]
+        public String productDetailType { get; set; }
+        /// <summary>
         /// 产品编码
         /// </summary>
         /// <value>The number identifier.</value>
@@ -36,6 +47,7 @@ namespace db.shop.Models.shop
         /// <value>The seller point.</value>
         [MaxLength(512)]
         public String sellerPoint { get; set; }
+        [Required]
         public long categoryId { get; set; }
         [MaxLength(1024)]
         public String categoryLevel { get; set; }
@@ -51,10 +63,10 @@ namespace db.shop.Models.shop
         [MaxLength(512)]
         public String shareDesc { get; set; }
         /// <summary>
-        /// 卖家编号
+        /// 店铺ID
         /// </summary>
         /// <value>The seller identifier.</value>
-        public long sellerId { get; set; }
+        public long storeId { get; set; }
         /// <summary>
         /// 评论数
         /// </summary>
@@ -64,7 +76,7 @@ namespace db.shop.Models.shop
         /// 评分
         /// </summary>
         /// <value>The grade.</value>
-        public float grade { get; set; }
+        public int grade { get; set; }
         /// <summary>
         /// 销量
         /// </summary>
@@ -76,15 +88,15 @@ namespace db.shop.Models.shop
         /// <value>The inventory.</value>
         public long inventory { get; set; }
         /// <summary>
-        /// 产品价格上限
+        /// 产品价格上限,单位分
         /// </summary>
         /// <value>The price up.</value>
-        public float priceUp { get; set; }
+        public int priceUp { get; set; }
         /// <summary>
-        /// 产品价格下限
+        /// 产品价格下限,单位分
         /// </summary>
         /// <value>The price down.</value>
-        public float priceDown { get; set; }
+        public int priceDown { get; set; }
         /// <summary>
         /// 产品图，图片地址json数组
         /// </summary>
@@ -105,17 +117,17 @@ namespace db.shop.Models.shop
         /// 是否参与会员打折
         /// </summary>
         /// <value><c>true</c> if is join member discount; otherwise, <c>false</c>.</value>
-        public bool isJoinMemberDiscount { get; set; }
+        public bool joinMemberDiscount { get; set; }
         /// <summary>
         /// 是否需要物流
         /// </summary>
         /// <value><c>true</c> if is need delivery; otherwise, <c>false</c>.</value>
-        public bool isNeedDelivery { get; set; }
+        public bool needDelivery { get; set; }
         /// <summary>
-        /// 通用物流价格
+        /// 通用物流价格,单位分
         /// </summary>
         /// <value>The universal delivery price.</value>
-        public float universalDeliveryPrice { get; set; }
+        public int universalDeliveryPrice { get; set; }
         /// <summary>
         /// 物流模板
         /// </summary>
@@ -125,7 +137,7 @@ namespace db.shop.Models.shop
         /// 是否上架
         /// </summary>
         /// <value><c>true</c> if is publish; otherwise, <c>false</c>.</value>
-        public bool isPublish { get; set; }
+        public bool publish { get; set; }
         /// <summary>
         /// 指定上架时间，时间戳,单位秒
         /// </summary>
@@ -137,15 +149,22 @@ namespace db.shop.Models.shop
         /// <value>The detail description.</value>
         public String detailDescription { get; set; }
         /// <summary>
-        /// 重量kg
+        /// 重量g克
         /// </summary>
         /// <value>The weight.</value>
-        public float weight { get; set; }
+        public int weight { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
         /// <value>The notes.</value>
         [MaxLength(512)]
         public String notes { get; set; }
+        /// <summary>
+        /// 是否限购
+        /// 0：表示不限购
+        /// 大于0数字表示没人只能买商品的数量
+        /// </summary>
+        /// <value>The limit per person.</value>
+        public int limitPerPerson { get; set; }
     }
 }

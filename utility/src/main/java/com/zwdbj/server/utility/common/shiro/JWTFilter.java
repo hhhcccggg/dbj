@@ -20,7 +20,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         if(authToken==null) return accessToken;
         if (!authToken.startsWith("Bearer ")) {
             return accessToken;
-        };
+        }
         return authToken.replace("Bearer ","");
     }
 

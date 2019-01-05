@@ -68,7 +68,7 @@ public class HomepageService {
             dau1 = this.dailyIncreaseAnalysisesService.dau();
         }
         long dau = new Double(Math.ceil(dau1 / 3.5)).longValue();
-        long mau = new Double(Math.ceil(dau1 * 4.5 / 3.5)).longValue();
+        long mau = new Double(Math.ceil(dau1 * 7.5 / 3.5)).longValue();
         dto.setDau(dau);
         dto.setMau(mau);
         dto.setVideoNum(videoNum);

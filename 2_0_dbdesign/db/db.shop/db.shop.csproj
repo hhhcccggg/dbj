@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.2" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,5 +21,9 @@
     <Compile Remove="Migrations\20181127061727_init.Designer.cs" />
     <Compile Remove="Migrations\ShopDbContextModelSnapshot.cs" />
     <Compile Remove="Migrations\20181127081047_init.cs" />
+    <Compile Remove="Migrations\20181127081654_init.cs" />
+    <Compile Remove="Models\shop\BusinessSellerReview.cs" />
+    <Compile Remove="Migrations\20181229013941_init.cs" />
+    <Compile Remove="Migrations\20190103062649_init.cs" />
   </ItemGroup>
 </Project>

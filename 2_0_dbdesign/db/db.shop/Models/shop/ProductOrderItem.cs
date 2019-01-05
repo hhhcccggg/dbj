@@ -17,7 +17,15 @@ namespace db.shop.Models.shop
         public int num { get; set; }
         [MaxLength(512)]
         public String title { get; set; }
-        public float price { get; set; }
-        public float totalFee { get; set; }
+        /// <summary>
+        /// 单价，单位分
+        /// </summary>
+        /// <value>The price.</value>
+        public int price { get; set; }
+        /// <summary>
+        /// 总费用，单位分
+        /// </summary>
+        /// <value>The total fee.</value>
+        public int totalFee { get; set; }
     }
 }

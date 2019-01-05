@@ -139,5 +139,11 @@ namespace dbdesgin.Models
         /// <value>The hx pwd.</value>
         [MaxLength(512)]
         public string hxPwd { get; set; }
+        /// <summary>
+        /// 租户ID
+        /// 如果为空，则是系统账号
+        /// </summary>
+        /// <value>The tenant identifier.</value>
+        public long? tenantId { get; set; }
     }
 }

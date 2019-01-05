@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -76,5 +77,24 @@ public class CategoryService {
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改失败" + e.getMessage(), result);
         }
+    }
+
+
+    public ServiceStatusInfo<List<StoreServiceCategory>> searchCategory(List<Long> list) {
+        List<StoreServiceCategory> result = new ArrayList<>();
+        try {
+            for (Long id : list) {
+                StoreServiceCategory storeServiceCategory = categoryMapper.searchCategory(id);
+                result.add(storeServiceCategory);
+            }
+            return new ServiceStatusInfo<>(0, "", result);
+
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询分类失败" + e.getMessage(), null);
+        }
+    }
+
+    public ServiceStatusInfo<List<StoreServiceCategory>> allExtraService() {
+        return null;
     }
 }

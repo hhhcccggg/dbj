@@ -184,6 +184,31 @@ public final class QueueWorkInfoModel {
      * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
      */
     com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder();
+
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+     */
+    boolean hasShopLegalSubjectData();
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+     */
+    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getShopLegalSubjectData();
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+     */
+    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder();
   }
   /**
    * Protobuf type {@code QueueWorkInfo}
@@ -225,6 +250,13 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
             case 8: {
               int rawValue = input.readEnum();
 
@@ -309,11 +341,17 @@ public final class QueueWorkInfoModel {
 
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
+            case 66: {
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder subBuilder = null;
+              if (shopLegalSubjectData_ != null) {
+                subBuilder = shopLegalSubjectData_.toBuilder();
               }
+              shopLegalSubjectData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(shopLegalSubjectData_);
+                shopLegalSubjectData_ = subBuilder.buildPartial();
+              }
+
               break;
             }
           }
@@ -333,7 +371,6 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_fieldAccessorTable
@@ -398,6 +435,14 @@ public final class QueueWorkInfoModel {
        * <code>VIDEO_WEIGHT = 6;</code>
        */
       VIDEO_WEIGHT(6),
+      /**
+       * <pre>
+       *店铺的基本信息
+       * </pre>
+       *
+       * <code>SHOP_LEGAL_SUBJECT = 7;</code>
+       */
+      SHOP_LEGAL_SUBJECT(7),
       UNRECOGNIZED(-1),
       ;
 
@@ -453,6 +498,14 @@ public final class QueueWorkInfoModel {
        * <code>VIDEO_WEIGHT = 6;</code>
        */
       public static final int VIDEO_WEIGHT_VALUE = 6;
+      /**
+       * <pre>
+       *店铺的基本信息
+       * </pre>
+       *
+       * <code>SHOP_LEGAL_SUBJECT = 7;</code>
+       */
+      public static final int SHOP_LEGAL_SUBJECT_VALUE = 7;
 
 
       public final int getNumber() {
@@ -480,6 +533,7 @@ public final class QueueWorkInfoModel {
           case 4: return QINIU_LIVE_REVIEW_RESULT;
           case 5: return QINIU_RES_WAIT_REVIEW_DATA;
           case 6: return VIDEO_WEIGHT;
+          case 7: return SHOP_LEGAL_SUBJECT;
           default: return null;
         }
       }
@@ -552,7 +606,6 @@ public final class QueueWorkInfoModel {
      * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
      */
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType() {
-      @SuppressWarnings("deprecation")
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.valueOf(workType_);
       return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.UNRECOGNIZED : result;
     }
@@ -755,8 +808,40 @@ public final class QueueWorkInfoModel {
       return getVideoWeightData();
     }
 
+    public static final int SHOPLEGALSUBJECTDATA_FIELD_NUMBER = 8;
+    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData shopLegalSubjectData_;
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+     */
+    public boolean hasShopLegalSubjectData() {
+      return shopLegalSubjectData_ != null;
+    }
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+     */
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getShopLegalSubjectData() {
+      return shopLegalSubjectData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance() : shopLegalSubjectData_;
+    }
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+     */
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder() {
+      return getShopLegalSubjectData();
+    }
+
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -766,7 +851,6 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (workType_ != com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE.getNumber()) {
@@ -790,10 +874,12 @@ public final class QueueWorkInfoModel {
       if (videoWeightData_ != null) {
         output.writeMessage(7, getVideoWeightData());
       }
+      if (shopLegalSubjectData_ != null) {
+        output.writeMessage(8, getShopLegalSubjectData());
+      }
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -826,6 +912,10 @@ public final class QueueWorkInfoModel {
       if (videoWeightData_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(7, getVideoWeightData());
+      }
+      if (shopLegalSubjectData_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, getShopLegalSubjectData());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -874,6 +964,11 @@ public final class QueueWorkInfoModel {
         result = result && getVideoWeightData()
             .equals(other.getVideoWeightData());
       }
+      result = result && (hasShopLegalSubjectData() == other.hasShopLegalSubjectData());
+      if (hasShopLegalSubjectData()) {
+        result = result && getShopLegalSubjectData()
+            .equals(other.getShopLegalSubjectData());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -910,6 +1005,10 @@ public final class QueueWorkInfoModel {
       if (hasVideoWeightData()) {
         hash = (37 * hash) + VIDEOWEIGHTDATA_FIELD_NUMBER;
         hash = (53 * hash) + getVideoWeightData().hashCode();
+      }
+      if (hasShopLegalSubjectData()) {
+        hash = (37 * hash) + SHOPLEGALSUBJECTDATA_FIELD_NUMBER;
+        hash = (53 * hash) + getShopLegalSubjectData().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -986,7 +1085,6 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -994,7 +1092,6 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1018,7 +1115,6 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_fieldAccessorTable
@@ -1041,7 +1137,6 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         workType_ = 0;
@@ -1082,21 +1177,24 @@ public final class QueueWorkInfoModel {
           videoWeightData_ = null;
           videoWeightDataBuilder_ = null;
         }
+        if (shopLegalSubjectDataBuilder_ == null) {
+          shopLegalSubjectData_ = null;
+        } else {
+          shopLegalSubjectData_ = null;
+          shopLegalSubjectDataBuilder_ = null;
+        }
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo result = buildPartial();
         if (!result.isInitialized()) {
@@ -1105,7 +1203,6 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo(this);
         result.workType_ = workType_;
@@ -1139,43 +1236,41 @@ public final class QueueWorkInfoModel {
         } else {
           result.videoWeightData_ = videoWeightDataBuilder_.build();
         }
+        if (shopLegalSubjectDataBuilder_ == null) {
+          result.shopLegalSubjectData_ = shopLegalSubjectData_;
+        } else {
+          result.shopLegalSubjectData_ = shopLegalSubjectDataBuilder_.build();
+        }
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo)other);
@@ -1208,17 +1303,18 @@ public final class QueueWorkInfoModel {
         if (other.hasVideoWeightData()) {
           mergeVideoWeightData(other.getVideoWeightData());
         }
+        if (other.hasShopLegalSubjectData()) {
+          mergeShopLegalSubjectData(other.getShopLegalSubjectData());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1268,7 +1364,6 @@ public final class QueueWorkInfoModel {
        * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
        */
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType() {
-        @SuppressWarnings("deprecation")
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.valueOf(workType_);
         return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.UNRECOGNIZED : result;
       }
@@ -2219,13 +2314,164 @@ public final class QueueWorkInfoModel {
         }
         return videoWeightDataBuilder_;
       }
-      @java.lang.Override
+
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData shopLegalSubjectData_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder> shopLegalSubjectDataBuilder_;
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+       */
+      public boolean hasShopLegalSubjectData() {
+        return shopLegalSubjectDataBuilder_ != null || shopLegalSubjectData_ != null;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getShopLegalSubjectData() {
+        if (shopLegalSubjectDataBuilder_ == null) {
+          return shopLegalSubjectData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance() : shopLegalSubjectData_;
+        } else {
+          return shopLegalSubjectDataBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+       */
+      public Builder setShopLegalSubjectData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData value) {
+        if (shopLegalSubjectDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          shopLegalSubjectData_ = value;
+          onChanged();
+        } else {
+          shopLegalSubjectDataBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+       */
+      public Builder setShopLegalSubjectData(
+          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder builderForValue) {
+        if (shopLegalSubjectDataBuilder_ == null) {
+          shopLegalSubjectData_ = builderForValue.build();
+          onChanged();
+        } else {
+          shopLegalSubjectDataBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+       */
+      public Builder mergeShopLegalSubjectData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData value) {
+        if (shopLegalSubjectDataBuilder_ == null) {
+          if (shopLegalSubjectData_ != null) {
+            shopLegalSubjectData_ =
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder(shopLegalSubjectData_).mergeFrom(value).buildPartial();
+          } else {
+            shopLegalSubjectData_ = value;
+          }
+          onChanged();
+        } else {
+          shopLegalSubjectDataBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+       */
+      public Builder clearShopLegalSubjectData() {
+        if (shopLegalSubjectDataBuilder_ == null) {
+          shopLegalSubjectData_ = null;
+          onChanged();
+        } else {
+          shopLegalSubjectData_ = null;
+          shopLegalSubjectDataBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder getShopLegalSubjectDataBuilder() {
+        
+        onChanged();
+        return getShopLegalSubjectDataFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder() {
+        if (shopLegalSubjectDataBuilder_ != null) {
+          return shopLegalSubjectDataBuilder_.getMessageOrBuilder();
+        } else {
+          return shopLegalSubjectData_ == null ?
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance() : shopLegalSubjectData_;
+        }
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder> 
+          getShopLegalSubjectDataFieldBuilder() {
+        if (shopLegalSubjectDataBuilder_ == null) {
+          shopLegalSubjectDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder>(
+                  getShopLegalSubjectData(),
+                  getParentForChildren(),
+                  isClean());
+          shopLegalSubjectData_ = null;
+        }
+        return shopLegalSubjectDataBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -2247,7 +2493,6 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkInfo>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkInfo>() {
-      @java.lang.Override
       public QueueWorkInfo parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2265,8 +2510,2113 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueueWorkShopLegalSubjectDataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:QueueWorkShopLegalSubjectData)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *商家名
+     * </pre>
+     *
+     * <code>string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     *商家名
+     * </pre>
+     *
+     * <code>string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <pre>
+     *商家店主的名字
+     * </pre>
+     *
+     * <code>string contactPerson = 2;</code>
+     */
+    java.lang.String getContactPerson();
+    /**
+     * <pre>
+     *商家店主的名字
+     * </pre>
+     *
+     * <code>string contactPerson = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getContactPersonBytes();
+
+    /**
+     * <pre>
+     *商家联系人手机号
+     * </pre>
+     *
+     * <code>string phone = 3;</code>
+     */
+    java.lang.String getPhone();
+    /**
+     * <pre>
+     *商家联系人手机号
+     * </pre>
+     *
+     * <code>string phone = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getPhoneBytes();
+
+    /**
+     * <pre>
+     *商家联系电话
+     * </pre>
+     *
+     * <code>string contactNumber = 4;</code>
+     */
+    java.lang.String getContactNumber();
+    /**
+     * <pre>
+     *商家联系电话
+     * </pre>
+     *
+     * <code>string contactNumber = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getContactNumberBytes();
+
+    /**
+     * <pre>
+     *电商系统中的商户ID
+     * </pre>
+     *
+     * <code>int64 legalSubjectId = 5;</code>
+     */
+    long getLegalSubjectId();
+
+    /**
+     * <pre>
+     *1为添加商铺，2为修改商铺，3为删除商铺
+     * </pre>
+     *
+     * <code>int32 type = 6;</code>
+     */
+    int getType();
+
+    /**
+     * <pre>
+     *城市id
+     * </pre>
+     *
+     * <code>int32 cityId = 7;</code>
+     */
+    int getCityId();
+
+    /**
+     * <pre>
+     *商家的类型:P:个人；B:企业
+     * </pre>
+     *
+     * <code>string legalType = 8;</code>
+     */
+    java.lang.String getLegalType();
+    /**
+     * <pre>
+     *商家的类型:P:个人；B:企业
+     * </pre>
+     *
+     * <code>string legalType = 8;</code>
+     */
+    com.google.protobuf.ByteString
+        getLegalTypeBytes();
+
+    /**
+     * <pre>
+     *商家法人姓名
+     * </pre>
+     *
+     * <code>string leagalRepresentativeName = 9;</code>
+     */
+    java.lang.String getLeagalRepresentativeName();
+    /**
+     * <pre>
+     *商家法人姓名
+     * </pre>
+     *
+     * <code>string leagalRepresentativeName = 9;</code>
+     */
+    com.google.protobuf.ByteString
+        getLeagalRepresentativeNameBytes();
+
+    /**
+     * <pre>
+     *商家法人身份证号码
+     * </pre>
+     *
+     * <code>string leagalRepresentativeID = 10;</code>
+     */
+    java.lang.String getLeagalRepresentativeID();
+    /**
+     * <pre>
+     *商家法人身份证号码
+     * </pre>
+     *
+     * <code>string leagalRepresentativeID = 10;</code>
+     */
+    com.google.protobuf.ByteString
+        getLeagalRepresentativeIDBytes();
+
+    /**
+     * <pre>
+     *店铺主营类目
+     * </pre>
+     *
+     * <code>int64 categoryId = 11;</code>
+     */
+    long getCategoryId();
+
+    /**
+     * <pre>
+     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+     * </pre>
+     *
+     * <code>string storeType = 12;</code>
+     */
+    java.lang.String getStoreType();
+    /**
+     * <pre>
+     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+     * </pre>
+     *
+     * <code>string storeType = 12;</code>
+     */
+    com.google.protobuf.ByteString
+        getStoreTypeBytes();
+  }
+  /**
+   * Protobuf type {@code QueueWorkShopLegalSubjectData}
+   */
+  public  static final class QueueWorkShopLegalSubjectData extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:QueueWorkShopLegalSubjectData)
+      QueueWorkShopLegalSubjectDataOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueueWorkShopLegalSubjectData.newBuilder() to construct.
+    private QueueWorkShopLegalSubjectData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueueWorkShopLegalSubjectData() {
+      name_ = "";
+      contactPerson_ = "";
+      phone_ = "";
+      contactNumber_ = "";
+      legalSubjectId_ = 0L;
+      type_ = 0;
+      cityId_ = 0;
+      legalType_ = "";
+      leagalRepresentativeName_ = "";
+      leagalRepresentativeID_ = "";
+      categoryId_ = 0L;
+      storeType_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueueWorkShopLegalSubjectData(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              contactPerson_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              phone_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              contactNumber_ = s;
+              break;
+            }
+            case 40: {
+
+              legalSubjectId_ = input.readInt64();
+              break;
+            }
+            case 48: {
+
+              type_ = input.readInt32();
+              break;
+            }
+            case 56: {
+
+              cityId_ = input.readInt32();
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              legalType_ = s;
+              break;
+            }
+            case 74: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              leagalRepresentativeName_ = s;
+              break;
+            }
+            case 82: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              leagalRepresentativeID_ = s;
+              break;
+            }
+            case 88: {
+
+              categoryId_ = input.readInt64();
+              break;
+            }
+            case 98: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeType_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder.class);
+    }
+
+    public static final int NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     *商家名
+     * </pre>
+     *
+     * <code>string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家名
+     * </pre>
+     *
+     * <code>string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CONTACTPERSON_FIELD_NUMBER = 2;
+    private volatile java.lang.Object contactPerson_;
+    /**
+     * <pre>
+     *商家店主的名字
+     * </pre>
+     *
+     * <code>string contactPerson = 2;</code>
+     */
+    public java.lang.String getContactPerson() {
+      java.lang.Object ref = contactPerson_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        contactPerson_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家店主的名字
+     * </pre>
+     *
+     * <code>string contactPerson = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getContactPersonBytes() {
+      java.lang.Object ref = contactPerson_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        contactPerson_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PHONE_FIELD_NUMBER = 3;
+    private volatile java.lang.Object phone_;
+    /**
+     * <pre>
+     *商家联系人手机号
+     * </pre>
+     *
+     * <code>string phone = 3;</code>
+     */
+    public java.lang.String getPhone() {
+      java.lang.Object ref = phone_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        phone_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家联系人手机号
+     * </pre>
+     *
+     * <code>string phone = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPhoneBytes() {
+      java.lang.Object ref = phone_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        phone_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CONTACTNUMBER_FIELD_NUMBER = 4;
+    private volatile java.lang.Object contactNumber_;
+    /**
+     * <pre>
+     *商家联系电话
+     * </pre>
+     *
+     * <code>string contactNumber = 4;</code>
+     */
+    public java.lang.String getContactNumber() {
+      java.lang.Object ref = contactNumber_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        contactNumber_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家联系电话
+     * </pre>
+     *
+     * <code>string contactNumber = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getContactNumberBytes() {
+      java.lang.Object ref = contactNumber_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        contactNumber_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LEGALSUBJECTID_FIELD_NUMBER = 5;
+    private long legalSubjectId_;
+    /**
+     * <pre>
+     *电商系统中的商户ID
+     * </pre>
+     *
+     * <code>int64 legalSubjectId = 5;</code>
+     */
+    public long getLegalSubjectId() {
+      return legalSubjectId_;
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 6;
+    private int type_;
+    /**
+     * <pre>
+     *1为添加商铺，2为修改商铺，3为删除商铺
+     * </pre>
+     *
+     * <code>int32 type = 6;</code>
+     */
+    public int getType() {
+      return type_;
+    }
+
+    public static final int CITYID_FIELD_NUMBER = 7;
+    private int cityId_;
+    /**
+     * <pre>
+     *城市id
+     * </pre>
+     *
+     * <code>int32 cityId = 7;</code>
+     */
+    public int getCityId() {
+      return cityId_;
+    }
+
+    public static final int LEGALTYPE_FIELD_NUMBER = 8;
+    private volatile java.lang.Object legalType_;
+    /**
+     * <pre>
+     *商家的类型:P:个人；B:企业
+     * </pre>
+     *
+     * <code>string legalType = 8;</code>
+     */
+    public java.lang.String getLegalType() {
+      java.lang.Object ref = legalType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        legalType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家的类型:P:个人；B:企业
+     * </pre>
+     *
+     * <code>string legalType = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLegalTypeBytes() {
+      java.lang.Object ref = legalType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        legalType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LEAGALREPRESENTATIVENAME_FIELD_NUMBER = 9;
+    private volatile java.lang.Object leagalRepresentativeName_;
+    /**
+     * <pre>
+     *商家法人姓名
+     * </pre>
+     *
+     * <code>string leagalRepresentativeName = 9;</code>
+     */
+    public java.lang.String getLeagalRepresentativeName() {
+      java.lang.Object ref = leagalRepresentativeName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        leagalRepresentativeName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家法人姓名
+     * </pre>
+     *
+     * <code>string leagalRepresentativeName = 9;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLeagalRepresentativeNameBytes() {
+      java.lang.Object ref = leagalRepresentativeName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        leagalRepresentativeName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LEAGALREPRESENTATIVEID_FIELD_NUMBER = 10;
+    private volatile java.lang.Object leagalRepresentativeID_;
+    /**
+     * <pre>
+     *商家法人身份证号码
+     * </pre>
+     *
+     * <code>string leagalRepresentativeID = 10;</code>
+     */
+    public java.lang.String getLeagalRepresentativeID() {
+      java.lang.Object ref = leagalRepresentativeID_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        leagalRepresentativeID_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *商家法人身份证号码
+     * </pre>
+     *
+     * <code>string leagalRepresentativeID = 10;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLeagalRepresentativeIDBytes() {
+      java.lang.Object ref = leagalRepresentativeID_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        leagalRepresentativeID_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CATEGORYID_FIELD_NUMBER = 11;
+    private long categoryId_;
+    /**
+     * <pre>
+     *店铺主营类目
+     * </pre>
+     *
+     * <code>int64 categoryId = 11;</code>
+     */
+    public long getCategoryId() {
+      return categoryId_;
+    }
+
+    public static final int STORETYPE_FIELD_NUMBER = 12;
+    private volatile java.lang.Object storeType_;
+    /**
+     * <pre>
+     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+     * </pre>
+     *
+     * <code>string storeType = 12;</code>
+     */
+    public java.lang.String getStoreType() {
+      java.lang.Object ref = storeType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+     * </pre>
+     *
+     * <code>string storeType = 12;</code>
+     */
+    public com.google.protobuf.ByteString
+        getStoreTypeBytes() {
+      java.lang.Object ref = storeType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+      }
+      if (!getContactPersonBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, contactPerson_);
+      }
+      if (!getPhoneBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, phone_);
+      }
+      if (!getContactNumberBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, contactNumber_);
+      }
+      if (legalSubjectId_ != 0L) {
+        output.writeInt64(5, legalSubjectId_);
+      }
+      if (type_ != 0) {
+        output.writeInt32(6, type_);
+      }
+      if (cityId_ != 0) {
+        output.writeInt32(7, cityId_);
+      }
+      if (!getLegalTypeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, legalType_);
+      }
+      if (!getLeagalRepresentativeNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, leagalRepresentativeName_);
+      }
+      if (!getLeagalRepresentativeIDBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, leagalRepresentativeID_);
+      }
+      if (categoryId_ != 0L) {
+        output.writeInt64(11, categoryId_);
+      }
+      if (!getStoreTypeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, storeType_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+      }
+      if (!getContactPersonBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, contactPerson_);
+      }
+      if (!getPhoneBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, phone_);
+      }
+      if (!getContactNumberBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, contactNumber_);
+      }
+      if (legalSubjectId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(5, legalSubjectId_);
+      }
+      if (type_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, type_);
+      }
+      if (cityId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, cityId_);
+      }
+      if (!getLegalTypeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, legalType_);
+      }
+      if (!getLeagalRepresentativeNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, leagalRepresentativeName_);
+      }
+      if (!getLeagalRepresentativeIDBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, leagalRepresentativeID_);
+      }
+      if (categoryId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(11, categoryId_);
+      }
+      if (!getStoreTypeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, storeType_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData)) {
+        return super.equals(obj);
+      }
+      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) obj;
+
+      boolean result = true;
+      result = result && getName()
+          .equals(other.getName());
+      result = result && getContactPerson()
+          .equals(other.getContactPerson());
+      result = result && getPhone()
+          .equals(other.getPhone());
+      result = result && getContactNumber()
+          .equals(other.getContactNumber());
+      result = result && (getLegalSubjectId()
+          == other.getLegalSubjectId());
+      result = result && (getType()
+          == other.getType());
+      result = result && (getCityId()
+          == other.getCityId());
+      result = result && getLegalType()
+          .equals(other.getLegalType());
+      result = result && getLeagalRepresentativeName()
+          .equals(other.getLeagalRepresentativeName());
+      result = result && getLeagalRepresentativeID()
+          .equals(other.getLeagalRepresentativeID());
+      result = result && (getCategoryId()
+          == other.getCategoryId());
+      result = result && getStoreType()
+          .equals(other.getStoreType());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + CONTACTPERSON_FIELD_NUMBER;
+      hash = (53 * hash) + getContactPerson().hashCode();
+      hash = (37 * hash) + PHONE_FIELD_NUMBER;
+      hash = (53 * hash) + getPhone().hashCode();
+      hash = (37 * hash) + CONTACTNUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + getContactNumber().hashCode();
+      hash = (37 * hash) + LEGALSUBJECTID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLegalSubjectId());
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getType();
+      hash = (37 * hash) + CITYID_FIELD_NUMBER;
+      hash = (53 * hash) + getCityId();
+      hash = (37 * hash) + LEGALTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getLegalType().hashCode();
+      hash = (37 * hash) + LEAGALREPRESENTATIVENAME_FIELD_NUMBER;
+      hash = (53 * hash) + getLeagalRepresentativeName().hashCode();
+      hash = (37 * hash) + LEAGALREPRESENTATIVEID_FIELD_NUMBER;
+      hash = (53 * hash) + getLeagalRepresentativeID().hashCode();
+      hash = (37 * hash) + CATEGORYID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCategoryId());
+      hash = (37 * hash) + STORETYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreType().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code QueueWorkShopLegalSubjectData}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:QueueWorkShopLegalSubjectData)
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder.class);
+      }
+
+      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+
+        contactPerson_ = "";
+
+        phone_ = "";
+
+        contactNumber_ = "";
+
+        legalSubjectId_ = 0L;
+
+        type_ = 0;
+
+        cityId_ = 0;
+
+        legalType_ = "";
+
+        leagalRepresentativeName_ = "";
+
+        leagalRepresentativeID_ = "";
+
+        categoryId_ = 0L;
+
+        storeType_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
+      }
+
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstanceForType() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance();
+      }
+
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData build() {
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData buildPartial() {
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData(this);
+        result.name_ = name_;
+        result.contactPerson_ = contactPerson_;
+        result.phone_ = phone_;
+        result.contactNumber_ = contactNumber_;
+        result.legalSubjectId_ = legalSubjectId_;
+        result.type_ = type_;
+        result.cityId_ = cityId_;
+        result.legalType_ = legalType_;
+        result.leagalRepresentativeName_ = leagalRepresentativeName_;
+        result.leagalRepresentativeID_ = leagalRepresentativeID_;
+        result.categoryId_ = categoryId_;
+        result.storeType_ = storeType_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) {
+          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData other) {
+        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance()) return this;
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getContactPerson().isEmpty()) {
+          contactPerson_ = other.contactPerson_;
+          onChanged();
+        }
+        if (!other.getPhone().isEmpty()) {
+          phone_ = other.phone_;
+          onChanged();
+        }
+        if (!other.getContactNumber().isEmpty()) {
+          contactNumber_ = other.contactNumber_;
+          onChanged();
+        }
+        if (other.getLegalSubjectId() != 0L) {
+          setLegalSubjectId(other.getLegalSubjectId());
+        }
+        if (other.getType() != 0) {
+          setType(other.getType());
+        }
+        if (other.getCityId() != 0) {
+          setCityId(other.getCityId());
+        }
+        if (!other.getLegalType().isEmpty()) {
+          legalType_ = other.legalType_;
+          onChanged();
+        }
+        if (!other.getLeagalRepresentativeName().isEmpty()) {
+          leagalRepresentativeName_ = other.leagalRepresentativeName_;
+          onChanged();
+        }
+        if (!other.getLeagalRepresentativeID().isEmpty()) {
+          leagalRepresentativeID_ = other.leagalRepresentativeID_;
+          onChanged();
+        }
+        if (other.getCategoryId() != 0L) {
+          setCategoryId(other.getCategoryId());
+        }
+        if (!other.getStoreType().isEmpty()) {
+          storeType_ = other.storeType_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       *商家名
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家名
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家名
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家名
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家名
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object contactPerson_ = "";
+      /**
+       * <pre>
+       *商家店主的名字
+       * </pre>
+       *
+       * <code>string contactPerson = 2;</code>
+       */
+      public java.lang.String getContactPerson() {
+        java.lang.Object ref = contactPerson_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          contactPerson_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家店主的名字
+       * </pre>
+       *
+       * <code>string contactPerson = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getContactPersonBytes() {
+        java.lang.Object ref = contactPerson_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          contactPerson_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家店主的名字
+       * </pre>
+       *
+       * <code>string contactPerson = 2;</code>
+       */
+      public Builder setContactPerson(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        contactPerson_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家店主的名字
+       * </pre>
+       *
+       * <code>string contactPerson = 2;</code>
+       */
+      public Builder clearContactPerson() {
+        
+        contactPerson_ = getDefaultInstance().getContactPerson();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家店主的名字
+       * </pre>
+       *
+       * <code>string contactPerson = 2;</code>
+       */
+      public Builder setContactPersonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        contactPerson_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object phone_ = "";
+      /**
+       * <pre>
+       *商家联系人手机号
+       * </pre>
+       *
+       * <code>string phone = 3;</code>
+       */
+      public java.lang.String getPhone() {
+        java.lang.Object ref = phone_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          phone_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家联系人手机号
+       * </pre>
+       *
+       * <code>string phone = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPhoneBytes() {
+        java.lang.Object ref = phone_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          phone_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家联系人手机号
+       * </pre>
+       *
+       * <code>string phone = 3;</code>
+       */
+      public Builder setPhone(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        phone_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家联系人手机号
+       * </pre>
+       *
+       * <code>string phone = 3;</code>
+       */
+      public Builder clearPhone() {
+        
+        phone_ = getDefaultInstance().getPhone();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家联系人手机号
+       * </pre>
+       *
+       * <code>string phone = 3;</code>
+       */
+      public Builder setPhoneBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        phone_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object contactNumber_ = "";
+      /**
+       * <pre>
+       *商家联系电话
+       * </pre>
+       *
+       * <code>string contactNumber = 4;</code>
+       */
+      public java.lang.String getContactNumber() {
+        java.lang.Object ref = contactNumber_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          contactNumber_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家联系电话
+       * </pre>
+       *
+       * <code>string contactNumber = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getContactNumberBytes() {
+        java.lang.Object ref = contactNumber_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          contactNumber_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家联系电话
+       * </pre>
+       *
+       * <code>string contactNumber = 4;</code>
+       */
+      public Builder setContactNumber(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        contactNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家联系电话
+       * </pre>
+       *
+       * <code>string contactNumber = 4;</code>
+       */
+      public Builder clearContactNumber() {
+        
+        contactNumber_ = getDefaultInstance().getContactNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家联系电话
+       * </pre>
+       *
+       * <code>string contactNumber = 4;</code>
+       */
+      public Builder setContactNumberBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        contactNumber_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long legalSubjectId_ ;
+      /**
+       * <pre>
+       *电商系统中的商户ID
+       * </pre>
+       *
+       * <code>int64 legalSubjectId = 5;</code>
+       */
+      public long getLegalSubjectId() {
+        return legalSubjectId_;
+      }
+      /**
+       * <pre>
+       *电商系统中的商户ID
+       * </pre>
+       *
+       * <code>int64 legalSubjectId = 5;</code>
+       */
+      public Builder setLegalSubjectId(long value) {
+        
+        legalSubjectId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *电商系统中的商户ID
+       * </pre>
+       *
+       * <code>int64 legalSubjectId = 5;</code>
+       */
+      public Builder clearLegalSubjectId() {
+        
+        legalSubjectId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int type_ ;
+      /**
+       * <pre>
+       *1为添加商铺，2为修改商铺，3为删除商铺
+       * </pre>
+       *
+       * <code>int32 type = 6;</code>
+       */
+      public int getType() {
+        return type_;
+      }
+      /**
+       * <pre>
+       *1为添加商铺，2为修改商铺，3为删除商铺
+       * </pre>
+       *
+       * <code>int32 type = 6;</code>
+       */
+      public Builder setType(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *1为添加商铺，2为修改商铺，3为删除商铺
+       * </pre>
+       *
+       * <code>int32 type = 6;</code>
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int cityId_ ;
+      /**
+       * <pre>
+       *城市id
+       * </pre>
+       *
+       * <code>int32 cityId = 7;</code>
+       */
+      public int getCityId() {
+        return cityId_;
+      }
+      /**
+       * <pre>
+       *城市id
+       * </pre>
+       *
+       * <code>int32 cityId = 7;</code>
+       */
+      public Builder setCityId(int value) {
+        
+        cityId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *城市id
+       * </pre>
+       *
+       * <code>int32 cityId = 7;</code>
+       */
+      public Builder clearCityId() {
+        
+        cityId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object legalType_ = "";
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public java.lang.String getLegalType() {
+        java.lang.Object ref = legalType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          legalType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLegalTypeBytes() {
+        java.lang.Object ref = legalType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          legalType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public Builder setLegalType(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        legalType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public Builder clearLegalType() {
+        
+        legalType_ = getDefaultInstance().getLegalType();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家的类型:P:个人；B:企业
+       * </pre>
+       *
+       * <code>string legalType = 8;</code>
+       */
+      public Builder setLegalTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        legalType_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object leagalRepresentativeName_ = "";
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public java.lang.String getLeagalRepresentativeName() {
+        java.lang.Object ref = leagalRepresentativeName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          leagalRepresentativeName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLeagalRepresentativeNameBytes() {
+        java.lang.Object ref = leagalRepresentativeName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          leagalRepresentativeName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public Builder setLeagalRepresentativeName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        leagalRepresentativeName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public Builder clearLeagalRepresentativeName() {
+        
+        leagalRepresentativeName_ = getDefaultInstance().getLeagalRepresentativeName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家法人姓名
+       * </pre>
+       *
+       * <code>string leagalRepresentativeName = 9;</code>
+       */
+      public Builder setLeagalRepresentativeNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        leagalRepresentativeName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object leagalRepresentativeID_ = "";
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public java.lang.String getLeagalRepresentativeID() {
+        java.lang.Object ref = leagalRepresentativeID_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          leagalRepresentativeID_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLeagalRepresentativeIDBytes() {
+        java.lang.Object ref = leagalRepresentativeID_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          leagalRepresentativeID_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public Builder setLeagalRepresentativeID(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        leagalRepresentativeID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public Builder clearLeagalRepresentativeID() {
+        
+        leagalRepresentativeID_ = getDefaultInstance().getLeagalRepresentativeID();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家法人身份证号码
+       * </pre>
+       *
+       * <code>string leagalRepresentativeID = 10;</code>
+       */
+      public Builder setLeagalRepresentativeIDBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        leagalRepresentativeID_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long categoryId_ ;
+      /**
+       * <pre>
+       *店铺主营类目
+       * </pre>
+       *
+       * <code>int64 categoryId = 11;</code>
+       */
+      public long getCategoryId() {
+        return categoryId_;
+      }
+      /**
+       * <pre>
+       *店铺主营类目
+       * </pre>
+       *
+       * <code>int64 categoryId = 11;</code>
+       */
+      public Builder setCategoryId(long value) {
+        
+        categoryId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *店铺主营类目
+       * </pre>
+       *
+       * <code>int64 categoryId = 11;</code>
+       */
+      public Builder clearCategoryId() {
+        
+        categoryId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object storeType_ = "";
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public java.lang.String getStoreType() {
+        java.lang.Object ref = storeType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public com.google.protobuf.ByteString
+          getStoreTypeBytes() {
+        java.lang.Object ref = storeType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public Builder setStoreType(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public Builder clearStoreType() {
+        
+        storeType_ = getDefaultInstance().getStoreType();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+       * </pre>
+       *
+       * <code>string storeType = 12;</code>
+       */
+      public Builder setStoreTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeType_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:QueueWorkShopLegalSubjectData)
+    }
+
+    // @@protoc_insertion_point(class_scope:QueueWorkShopLegalSubjectData)
+    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData();
+    }
+
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueueWorkShopLegalSubjectData>
+        PARSER = new com.google.protobuf.AbstractParser<QueueWorkShopLegalSubjectData>() {
+      public QueueWorkShopLegalSubjectData parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueueWorkShopLegalSubjectData(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueueWorkShopLegalSubjectData> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueueWorkShopLegalSubjectData> getParserForType() {
+      return PARSER;
+    }
+
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2373,6 +4723,13 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -2395,13 +4752,6 @@ public final class QueueWorkInfoModel {
               unHeart_ = input.readBool();
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2419,7 +4769,6 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_fieldAccessorTable
@@ -2538,7 +4887,6 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2548,7 +4896,6 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getResourceIdBytes().isEmpty()) {
@@ -2566,7 +4913,6 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2706,7 +5052,6 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2714,7 +5059,6 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -2738,7 +5082,6 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_fieldAccessorTable
@@ -2761,7 +5104,6 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         resourceId_ = "";
@@ -2775,18 +5117,15 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart result = buildPartial();
         if (!result.isInitialized()) {
@@ -2795,7 +5134,6 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart(this);
         result.resourceId_ = resourceId_;
@@ -2806,39 +5144,32 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart)other);
@@ -2869,12 +5200,10 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3146,13 +5475,11 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -3174,7 +5501,6 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkHeart>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkHeart>() {
-      @java.lang.Override
       public QueueWorkHeart parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3192,7 +5518,6 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -3264,6 +5589,13 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -3274,13 +5606,6 @@ public final class QueueWorkInfoModel {
               java.lang.String s = input.readStringRequireUtf8();
 
               code_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -3300,7 +5625,6 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_fieldAccessorTable
@@ -3377,7 +5701,6 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -3387,7 +5710,6 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getPhoneBytes().isEmpty()) {
@@ -3399,7 +5721,6 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -3521,7 +5842,6 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -3529,7 +5849,6 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -3553,7 +5872,6 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_fieldAccessorTable
@@ -3576,7 +5894,6 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         phone_ = "";
@@ -3586,18 +5903,15 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode result = buildPartial();
         if (!result.isInitialized()) {
@@ -3606,7 +5920,6 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode(this);
         result.phone_ = phone_;
@@ -3615,39 +5928,32 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode)other);
@@ -3672,12 +5978,10 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3833,13 +6137,11 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -3861,7 +6163,6 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkPhoneCode>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkPhoneCode>() {
-      @java.lang.Override
       public QueueWorkPhoneCode parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3879,7 +6180,6 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -4022,6 +6322,13 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
             case 8: {
 
               pushId_ = input.readInt64();
@@ -4060,13 +6367,6 @@ public final class QueueWorkInfoModel {
               messageType_ = input.readInt32();
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -4084,7 +6384,6 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_fieldAccessorTable
@@ -4267,7 +6566,6 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -4277,7 +6575,6 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (pushId_ != 0L) {
@@ -4304,7 +6601,6 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -4468,7 +6764,6 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -4476,7 +6771,6 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -4500,7 +6794,6 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_fieldAccessorTable
@@ -4523,7 +6816,6 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         pushId_ = 0L;
@@ -4543,18 +6835,15 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush result = buildPartial();
         if (!result.isInitialized()) {
@@ -4563,7 +6852,6 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush(this);
         result.pushId_ = pushId_;
@@ -4577,39 +6865,32 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush)other);
@@ -4650,12 +6931,10 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5080,13 +7359,11 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -5108,7 +7385,6 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkPush>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkPush>() {
-      @java.lang.Override
       public QueueWorkPush parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5126,7 +7402,6 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -5209,6 +7484,13 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -5218,13 +7500,6 @@ public final class QueueWorkInfoModel {
             case 16: {
 
               retryCount_ = input.readInt32();
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -5244,7 +7519,6 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable
@@ -5308,7 +7582,6 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -5318,7 +7591,6 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getResultContentBytes().isEmpty()) {
@@ -5330,7 +7602,6 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -5453,7 +7724,6 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -5461,7 +7731,6 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -5489,7 +7758,6 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable
@@ -5512,7 +7780,6 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         resultContent_ = "";
@@ -5522,18 +7789,15 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult result = buildPartial();
         if (!result.isInitialized()) {
@@ -5542,7 +7806,6 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult(this);
         result.resultContent_ = resultContent_;
@@ -5551,39 +7814,32 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult)other);
@@ -5607,12 +7863,10 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5757,13 +8011,11 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -5785,7 +8037,6 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkQiniuReviewResult>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkQiniuReviewResult>() {
-      @java.lang.Override
       public QueueWorkQiniuReviewResult parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5803,7 +8054,6 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -5925,6 +8175,13 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -5952,13 +8209,6 @@ public final class QueueWorkInfoModel {
               dataType_ = input.readInt32();
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -5976,7 +8226,6 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable
@@ -6108,7 +8357,6 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -6118,7 +8366,6 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getResContentBytes().isEmpty()) {
@@ -6139,7 +8386,6 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -6286,7 +8532,6 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -6294,7 +8539,6 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -6322,7 +8566,6 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable
@@ -6345,7 +8588,6 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         resContent_ = "";
@@ -6361,18 +8603,15 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData result = buildPartial();
         if (!result.isInitialized()) {
@@ -6381,7 +8620,6 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData(this);
         result.resContent_ = resContent_;
@@ -6393,39 +8631,32 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData)other);
@@ -6459,12 +8690,10 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6774,13 +9003,11 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -6802,7 +9029,6 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkQiniuWaitReviewResData>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkQiniuWaitReviewResData>() {
-      @java.lang.Override
       public QueueWorkQiniuWaitReviewResData parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6820,7 +9046,6 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -6884,16 +9109,16 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            case 8: {
-
-              id_ = input.readInt64();
-              break;
-            }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
+              break;
+            }
+            case 8: {
+
+              id_ = input.readInt64();
               break;
             }
           }
@@ -6913,7 +9138,6 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
@@ -6935,7 +9159,6 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -6945,7 +9168,6 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (id_ != 0L) {
@@ -6954,7 +9176,6 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -7071,7 +9292,6 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -7079,7 +9299,6 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -7107,7 +9326,6 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
@@ -7130,7 +9348,6 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = 0L;
@@ -7138,18 +9355,15 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = buildPartial();
         if (!result.isInitialized()) {
@@ -7158,7 +9372,6 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData(this);
         result.id_ = id_;
@@ -7166,39 +9379,32 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData)other);
@@ -7218,12 +9424,10 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7279,13 +9483,11 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -7307,7 +9509,6 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkVideoWeightData>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkVideoWeightData>() {
-      @java.lang.Override
       public QueueWorkVideoWeightData parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7325,7 +9526,6 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -7337,6 +9537,11 @@ public final class QueueWorkInfoModel {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_QueueWorkInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_QueueWorkShopLegalSubjectData_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_QueueWorkHeart_descriptor;
   private static final 
@@ -7376,7 +9581,7 @@ public final class QueueWorkInfoModel {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\023QueueWorkInfo.proto\"\210\004\n\rQueueWorkInfo\022" +
+      "\n\023QueueWorkInfo.proto\"\336\004\n\rQueueWorkInfo\022" +
       "-\n\010workType\030\001 \001(\0162\033.QueueWorkInfo.WorkTy" +
       "peEnum\022&\n\tphoneCode\030\002 \001(\0132\023.QueueWorkPho" +
       "neCode\022\"\n\theartData\030\003 \001(\0132\017.QueueWorkHea" +
@@ -7385,26 +9590,36 @@ public final class QueueWorkInfoModel {
       "ReviewResult\022@\n\026qiniuWaitReviewResData\030\006" +
       " \001(\0132 .QueueWorkQiniuWaitReviewResData\0222" +
       "\n\017videoWeightData\030\007 \001(\0132\031.QueueWorkVideo" +
-      "WeightData\"\253\001\n\014WorkTypeEnum\022\023\n\017SEND_PHON" +
-      "E_CODE\020\000\022\t\n\005HEART\020\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_V" +
-      "IDEO_IMG_REVIEW_RESULT\020\003\022\034\n\030QINIU_LIVE_R" +
-      "EVIEW_RESULT\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_" +
-      "DATA\020\005\022\020\n\014VIDEO_WEIGHT\020\006\"[\n\016QueueWorkHea" +
-      "rt\022\022\n\nresourceId\030\001 \001(\t\022\024\n\014resourceType\030\002" +
-      " \001(\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n" +
-      "\022QueueWorkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004co" +
-      "de\030\002 \001(\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 \001" +
-      "(\003\022\025\n\rcreatorUserId\030\002 \001(\003\022\022\n\nmsgContent\030" +
-      "\003 \001(\t\022\023\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001" +
-      "(\t\022\020\n\010toUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001(" +
-      "\005\"G\n\032QueueWorkQiniuReviewResult\022\025\n\rresul" +
-      "tContent\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037Qu" +
-      "eueWorkQiniuWaitReviewResData\022\022\n\nresCont" +
-      "ent\030\001 \001(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resType" +
-      "\030\003 \001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(\005" +
-      "\"&\n\030QueueWorkVideoWeightData\022\n\n\002id\030\001 \001(\003" +
-      "B;\n%com.zwdbj.server.probuf.middleware.m" +
-      "qB\022QueueWorkInfoModelb\006proto3"
+      "WeightData\022<\n\024shopLegalSubjectData\030\010 \001(\013" +
+      "2\036.QueueWorkShopLegalSubjectData\"\303\001\n\014Wor" +
+      "kTypeEnum\022\023\n\017SEND_PHONE_CODE\020\000\022\t\n\005HEART\020" +
+      "\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_REVIEW_RE" +
+      "SULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESULT\020\004\022\036\n\032" +
+      "QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014VIDEO_WE" +
+      "IGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\"\234\002\n\035Queue" +
+      "WorkShopLegalSubjectData\022\014\n\004name\030\001 \001(\t\022\025" +
+      "\n\rcontactPerson\030\002 \001(\t\022\r\n\005phone\030\003 \001(\t\022\025\n\r" +
+      "contactNumber\030\004 \001(\t\022\026\n\016legalSubjectId\030\005 " +
+      "\001(\003\022\014\n\004type\030\006 \001(\005\022\016\n\006cityId\030\007 \001(\005\022\021\n\tleg" +
+      "alType\030\010 \001(\t\022 \n\030leagalRepresentativeName" +
+      "\030\t \001(\t\022\036\n\026leagalRepresentativeID\030\n \001(\t\022\022" +
+      "\n\ncategoryId\030\013 \001(\003\022\021\n\tstoreType\030\014 \001(\t\"[\n" +
+      "\016QueueWorkHeart\022\022\n\nresourceId\030\001 \001(\t\022\024\n\014r" +
+      "esourceType\030\002 \001(\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unH" +
+      "eart\030\004 \001(\010\"1\n\022QueueWorkPhoneCode\022\r\n\005phon" +
+      "e\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"\226\001\n\rQueueWorkPush\022" +
+      "\016\n\006pushId\030\001 \001(\003\022\025\n\rcreatorUserId\030\002 \001(\003\022\022" +
+      "\n\nmsgContent\030\003 \001(\t\022\023\n\013dataContent\030\004 \001(\t\022" +
+      "\016\n\006refUrl\030\005 \001(\t\022\020\n\010toUserId\030\006 \001(\003\022\023\n\013mes" +
+      "sageType\030\007 \001(\005\"G\n\032QueueWorkQiniuReviewRe" +
+      "sult\022\025\n\rresultContent\030\001 \001(\t\022\022\n\nretryCoun" +
+      "t\030\002 \001(\005\"|\n\037QueueWorkQiniuWaitReviewResDa" +
+      "ta\022\022\n\nresContent\030\001 \001(\t\022\022\n\nbucketName\030\002 \001" +
+      "(\t\022\017\n\007resType\030\003 \001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010d" +
+      "ataType\030\005 \001(\005\"&\n\030QueueWorkVideoWeightDat" +
+      "a\022\n\n\002id\030\001 \001(\003B;\n%com.zwdbj.server.probuf" +
+      ".middleware.mqB\022QueueWorkInfoModelb\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7423,39 +9638,45 @@ public final class QueueWorkInfoModel {
     internal_static_QueueWorkInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkInfo_descriptor,
-        new java.lang.String[] { "WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", "VideoWeightData", });
-    internal_static_QueueWorkHeart_descriptor =
+        new java.lang.String[] { "WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", "VideoWeightData", "ShopLegalSubjectData", });
+    internal_static_QueueWorkShopLegalSubjectData_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_QueueWorkShopLegalSubjectData_descriptor,
+        new java.lang.String[] { "Name", "ContactPerson", "Phone", "ContactNumber", "LegalSubjectId", "Type", "CityId", "LegalType", "LeagalRepresentativeName", "LeagalRepresentativeID", "CategoryId", "StoreType", });
+    internal_static_QueueWorkHeart_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_QueueWorkHeart_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkHeart_descriptor,
         new java.lang.String[] { "ResourceId", "ResourceType", "UserId", "UnHeart", });
     internal_static_QueueWorkPhoneCode_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_QueueWorkPhoneCode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkPhoneCode_descriptor,
         new java.lang.String[] { "Phone", "Code", });
     internal_static_QueueWorkPush_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_QueueWorkPush_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkPush_descriptor,
         new java.lang.String[] { "PushId", "CreatorUserId", "MsgContent", "DataContent", "RefUrl", "ToUserId", "MessageType", });
     internal_static_QueueWorkQiniuReviewResult_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkQiniuReviewResult_descriptor,
         new java.lang.String[] { "ResultContent", "RetryCount", });
     internal_static_QueueWorkQiniuWaitReviewResData_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkQiniuWaitReviewResData_descriptor,
         new java.lang.String[] { "ResContent", "BucketName", "ResType", "DataId", "DataType", });
     internal_static_QueueWorkVideoWeightData_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_QueueWorkVideoWeightData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkVideoWeightData_descriptor,

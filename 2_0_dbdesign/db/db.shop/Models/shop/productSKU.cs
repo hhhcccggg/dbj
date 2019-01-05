@@ -19,20 +19,20 @@ namespace db.shop.Models.shop
         /// <value>The product identifier.</value>
         public long productId { get; set; }
         /// <summary>
-        /// 原价
+        /// 原价，单位分
         /// </summary>
         /// <value>The original price.</value>
-        public float originalPrice { get; set; }
+        public int originalPrice { get; set; }
         /// <summary>
-        /// 促销价
+        /// 促销价,单位分
         /// </summary>
         /// <value>The promotion price.</value>
-        public float promotionPrice { get; set; }
+        public int promotionPrice { get; set; }
         /// <summary>
         /// 库存
         /// </summary>
         /// <value>The inventory.</value>
-        public long inventory { get; set; }
+        public int inventory { get; set; }
         /// <summary>
         /// 销量
         /// </summary>
@@ -44,9 +44,9 @@ namespace db.shop.Models.shop
         /// <value>The attrs.</value>
         public String attrs { get; set; }
         /// <summary>
-        /// 重量kg
+        /// 重量g,克
         /// </summary>
         /// <value>The weight.</value>
-        public float weight { get; set; }
+        public int weight { get; set; }
     }
 }

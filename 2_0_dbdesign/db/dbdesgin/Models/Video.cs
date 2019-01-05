@@ -54,7 +54,7 @@ namespace dbdesgin.Models
         /// <value>The index of the recommend.</value>
         public int recommendIndex { get; set; }
         // 是否手动推荐,当前未启用此字段
-        public bool isManualRecommend {get;set;}
+        public bool isManualRecommend { get; set; }
         public long playCount { get; set; }
         public long commentCount { get; set; }
         public long heartCount { get; set; }
@@ -77,5 +77,16 @@ namespace dbdesgin.Models
         /// </summary>
         /// <value>The tip count.</value>
         public long tipCount { get; set; }
+
+        #region 20181217 支持评论里带视频
+        /// <summary>
+        /// 视频的类型>>USER：用户发布的视频SHOPCOMMENT：商品或者服务评论发布的视频
+        /// </summary>
+        /// <value>The type.</value>
+        [MaxLength(50)]
+        [Required]
+        public string type { get; set; }
+        #endregion
+
     }
 }

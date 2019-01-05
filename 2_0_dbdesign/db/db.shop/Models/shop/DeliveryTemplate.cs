@@ -14,7 +14,12 @@ namespace db.shop.Models.shop
         /// 卖家ID
         /// </summary>
         /// <value>The seller identifier.</value>
-        public long sellerId { get; set; }
+        public long legalSubjectId { get; set; }
+        /// <summary>
+        /// 店铺ID
+        /// </summary>
+        /// <value>The store identifier.</value>
+        public long storeId { get; set; }
         [Required]
         [MaxLength(30)]
         public string name { get; set; }

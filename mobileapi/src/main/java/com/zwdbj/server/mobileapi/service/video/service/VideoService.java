@@ -261,10 +261,18 @@ public class VideoService {
      * @param userId
      * @return
      */
-    public List<VideoInfoDto> listByUserFollowed(long userId) {
-        List<VideoInfoDto> dtos = this.videoMapper.myFollowedVideos(userId);
+    public List<VideoDetailInfoDto> listByUserFollowed(long userId) {
+        List<VideoDetailInfoDto> dtos = this.videoMapper.myFollowedVideos(userId);
         if (dtos==null) return null;
-        for(VideoInfoDto dto:dtos) {
+        for(VideoDetailInfoDto dto:dtos) {
+            dto.setLinkProductUrl(AppConfigConstant.getShopListUrl(dto.getId(),"video"));
+            dto.setShareTitle(dto.getTitle());
+            String videoUserNickName = this.userService.getUserName(dto.getUserId());
+            if (videoUserNickName==null) {
+                videoUserNickName = "爪子用户";
+            }
+            dto.setShareContent(videoUserNickName+"拍摄的宠物短视频");
+            dto.setShareUrl(AppConfigConstant.getShareUrl(dto.getId(),"video"));
             List<PetModelDto> petModelDtos = new ArrayList<>();
             String pets = dto.getLinkPets();
             if (pets!=null && pets.length()!=0){
@@ -359,18 +367,26 @@ public class VideoService {
         }
     }
     @Transactional
-    public ServiceStatusInfo<Object> heart(HeartInput input) {
+    public ServiceStatusInfo<VideoHeartStatusDto> heart(HeartInput input) {
         long userId = JWTUtil.getCurrentId();
         if (userId<=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
+        VideoHeartStatusDto videoHeartStatusDto = new VideoHeartStatusDto();
+        videoHeartStatusDto.setVideoId(input.getId());
         HeartModel heartModel = this.heartService.findHeart(userId,input.getId());
+        Long VUserId = this.videoMapper.findUserIdByVideoId(input.getId());
         if (heartModel !=null && input.isHeart()) {
             return new ServiceStatusInfo<>(1,"已经点赞过",null);
         }
-        if (heartModel ==null && !input.isHeart())
+        if (heartModel !=null && !input.isHeart())
         {
-            return new ServiceStatusInfo<>(0,"取消成功",null);
+            this.heartService.unHeart(userId,input.getId());
+            this.videoMapper.addHeart(input.getId(),-1);
+            this.userService.addHeart(VUserId,-1);
+            this.videoWegiht(input.getId());
+            videoHeartStatusDto.setHeart(false);
+            return new ServiceStatusInfo<>(0,"取消成功",videoHeartStatusDto);
         }
-        Long VUserId = this.videoMapper.findUserIdByVideoId(input.getId());
+
         if (input.isHeart()) {
             long id = UniqueIDCreater.generateID();
             this.heartService.heart(id,userId,input.getId(),0);
@@ -384,15 +400,12 @@ public class VideoService {
                 msgInput.setMessageType(1);
                 this.messageCenterService.push(msgInput,detailInfoDto.getUserId());
             }
-            this.videoWegiht(input.getId());
-            return new ServiceStatusInfo<>(0,"点赞成功",null);
-        } else {
-            this.heartService.unHeart(userId,input.getId());
-            this.videoMapper.addHeart(input.getId(),-1);
-            this.userService.addHeart(VUserId,-1);
-            this.videoWegiht(input.getId());
-            return new ServiceStatusInfo<>(0,"取消成功",null);
 
+            this.videoWegiht(input.getId());
+            videoHeartStatusDto.setHeart(true);
+            return new ServiceStatusInfo<>(0,"点赞成功",videoHeartStatusDto);
+        } else {
+            return new ServiceStatusInfo<>(1,"取消失败",null);
         }
     }
 

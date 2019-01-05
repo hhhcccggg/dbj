@@ -14,6 +14,7 @@ message QueueWorkInfo {
         QINIU_LIVE_REVIEW_RESULT = 4; //七牛直播审核返回的结果
         QINIU_RES_WAIT_REVIEW_DATA = 5; //七牛需要审核的资源
         VIDEO_WEIGHT = 6; //短视频权重处理
+        SHOP_LEGAL_SUBJECT=7; //店铺的基本信息
     }
     WorkTypeEnum workType = 1; //任务标识
     QueueWorkPhoneCode phoneCode = 2; //验证码数据
@@ -22,6 +23,23 @@ message QueueWorkInfo {
     QueueWorkQiniuReviewResult qiniuReviewResult = 5; //七牛审核的结果
     QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6; //七牛需要待审核的资源
     QueueWorkVideoWeightData videoWeightData = 7; //数据
+    QueueWorkShopLegalSubjectData shopLegalSubjectData = 8; //数据
+}
+message QueueWorkShopLegalSubjectData{
+    string name = 1; //商家名
+    string contactPerson = 2; //商家店主的名字
+    string phone = 3 ; //商家联系人手机号
+    string contactNumber = 4;//商家联系电话
+    int64 legalSubjectId = 5; //电商系统中的商户ID
+    int32 type = 6; //1为添加商铺，2为修改商铺，3为删除商铺
+    int32 cityId = 7; //城市id
+    string legalType = 8; //商家的类型:P:个人；B:企业
+    string leagalRepresentativeName = 9; //商家法人姓名
+    string leagalRepresentativeID = 10; //商家法人身份证号码
+    int64  categoryId = 11; //店铺主营类目
+    string storeType = 12; //店铺类型>>SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+
+
 }
 
 message QueueWorkHeart {

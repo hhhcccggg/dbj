@@ -12,10 +12,10 @@ namespace db.shop.Models.o2o
     public class OfflineStoreServiceScope: db.common.BaseModelWithTime<long>
     {
         /// <summary>
-        /// 就是商户ID
+        /// 店铺ID
         /// </summary>
         /// <value>The offline store identifier.</value>
-        public long offlineStoreId { get; set; }
+        public long storeId { get; set; }
         /// <summary>
         /// 分类ID
         /// </summary>

@@ -324,7 +324,9 @@ public class UserAssetServiceImpl implements IUserAssetService{
         bandingThirdInput.setAccessToken(accessTokenRes.getData().getAccessToken());
         bandingThirdInput.setAvatarUrl(userInfoRes.getData().getAvatar());
         bandingThirdInput.setExpireIn(Long.parseLong(accessTokenRes.getData().getExpiresIn()));
-        bandingThirdInput.setName(userInfoRes.getData().getNickName());
+        String nickName = userInfoRes.getData().getNickName();
+        if (nickName==null)nickName="支付宝已绑定";
+        bandingThirdInput.setName(nickName);
         bandingThirdInput.setUniqueId(userInfoRes.getData().getUserId());
         bandingThirdInput.setType("ALIPAY");
         ServiceStatusInfo<Integer> result = this.bandingThird(userId,bandingThirdInput);
@@ -344,6 +346,7 @@ public class UserAssetServiceImpl implements IUserAssetService{
             List<EnCashAccountModel> models = this.getMyEnCashAccounts(userId);
             if (models.size()>0) return  new ServiceStatusInfo<>(1,"已经绑定了提现账号",0);
             long id = UniqueIDCreater.generateID();
+            if (input.getName()==null)input.setName("");
             int result = this.userAssetMapper.bandingThird(id,userId,input);
             return new ServiceStatusInfo<>(0,"",result);
         }catch (Exception e){
@@ -398,9 +401,10 @@ public class UserAssetServiceImpl implements IUserAssetService{
             if (enCashAccountModel==null || enCashAccountModel.getUniqueId()==null ||enCashAccountModel.getUniqueId().length()==0){
                 return new ServiceStatusInfo<>(1,"没有找到提现账户",null);
             }
+            long userId = JWTUtil.getCurrentId();
+            if (userId!=enCashAccountModel.getUserId())return new ServiceStatusInfo<>(1,"没有找到提现账户",null);
             long id = UniqueIDCreater.generateID();
             int coins = input.getRmbs()/10;
-            long userId = JWTUtil.getCurrentId();
             long allCoins = this.getUserCoinType(userId,"INCOME").getData().getCoins();
             if (allCoins<coins){
                 return new ServiceStatusInfo<>(1,"没有足够的金币进行提现",null);

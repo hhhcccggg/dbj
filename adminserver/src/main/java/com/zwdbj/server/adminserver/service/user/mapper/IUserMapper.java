@@ -36,6 +36,17 @@ public interface IUserMapper {
     List<UserDetailInfoDto> findUsersFakeAd(@Param("s") int s,@Param("e") int e);
     @SelectProvider(type = UserSqlProvider.class,method = "marketListAd")
     List<UserDetailInfoDto> marketListAd(@Param("input") AdMarketUserInput input);
+
+    @Insert("insert into core_users(id,username,nickName,avatarUrl,password,phone,isPhoneVerification,isSuper,tenantId) " +
+            "values(#{id},#{username},#{nickName},'http://res.pet.zwdbj.com/default_avatar.png',#{password}," +
+            "#{phone},true,#{isSuper},#{tenantId})")
+    int greateUserByTenant(@Param("id") long id,@Param("username") String username,@Param("password") String password,
+                           @Param("nickName") String nickName,@Param("phone") String phone,
+                           @Param("tenantId") long tenantId,@Param("isSuper") boolean isSuper);
+
+    @Update("update core_users set isSuper=0 where tenantId=#{tenantId} and isSuper=1")
+    int modifyUserByTenantId(@Param("tenantId")long tenantId);
+
     @Insert("insert into core_users(id,username,nickname,phone,avatarUrl,isSuper,isManager,sex) " +
                    "values(#{userId},#{input.userName},#{input.userName},#{input.phone}," +
                    "'http://res.pet.zwdbj.com/default_avatar.png',false,true,#{input.gender})")
@@ -143,5 +154,26 @@ public interface IUserMapper {
     List<Long> getVestUserIds1();
     @Select("select id  from core_users where phone like '56%' and username='爪子用户'")
     List<Long> getVestUserIds2();
+
+    /**
+     * 商家查询员工
+     * @param userShopSearchInput
+     * @param tenantId
+     * @return
+     */
+    @SelectProvider(type = UserSqlProvider.class,method ="selectStaff")
+    List<UserShopSelectInput> selectStaff(@Param("userShopSearchInput")UserShopSearchInput userShopSearchInput,@Param("tenantId")long tenantId);
+
+    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager,tenantId) " +
+            "values(#{id},#{input.phone},#{input.userName},#{input.name},'http://res.pet.zwdbj.com/default_avatar.png',false,#{password},true,#{tenantId})")
+    long createUserShop(@Param("input") CreateUserInput input, @Param("id") long id, @Param("password") String password,@Param("tenantId") long tenantId);
+
+    /**
+     * 批量删除员工
+     * @param id
+     * @return
+     */
+    @UpdateProvider(type = UserSqlProvider.class,method ="deleteByIds")
+    long deleteByIds(@Param("id")int[] id ,@Param("tenantId") long tenantId);
 
 }
