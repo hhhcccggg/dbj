@@ -49,7 +49,7 @@ public interface ILegalSubjectMapper {
     @Update("update shop_stores set reviewed=#{input.reviewed},rejectMsg=#{input.rejectMsg} where legalSubjectId=#{legalSubjectId}")
     int verityUnReviewedStore(@Param("legalSubjectId")long legalSubjectId,@Param("input")LegalSubjectVerityInput input);
 
-    @Select("select l.leagalRepresentativeName,l.contactName,l.contactPhone,l.leagalRepresentativeID,type as legalType,l.cityId,s.type as storeType," +
+    @Select("select l.leagalRepresentativeName,l.contactName,l.contactPhone,l.leagalRepresentativeID,l.type as legalType,l.cityId,s.type as storeType," +
             "s.categoryId,s.expireTime from shop_legalSubjects l left join shop_stores s on s.legalSubjectId=l.id " +
             "where l.id=#{id}")
     ShopTenantModel getDetailTenant(@Param("id") long legalSubjectId);

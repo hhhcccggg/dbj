@@ -47,7 +47,7 @@ public class UserTenantController {
     public ResponseData<TenantDetailModel> getDetailTenantById(@PathVariable long id) {
         ServiceStatusInfo<TenantDetailModel> statusInfo = this.userTenantService.getDetailTenantById(id);
         if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "租户添加成功", statusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "租户查询成功", statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
