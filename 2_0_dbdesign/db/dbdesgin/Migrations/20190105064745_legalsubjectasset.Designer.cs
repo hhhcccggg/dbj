@@ -9,8 +9,8 @@ using dbdesgin.Data;
 namespace dbdesgin.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190105061810_legalSubject")]
-    partial class legalSubject
+    [Migration("20190105064745_legalsubjectasset")]
+    partial class legalsubjectasset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1098,6 +1098,8 @@ namespace dbdesgin.Migrations
                         .IsRequired()
                         .HasMaxLength(512);
 
+                    b.Property<int>("payment");
+
                     b.Property<DateTime?>("paymentTime")
                         .HasColumnName("paymentTime")
                         .HasColumnType("timestamp");
@@ -1119,8 +1121,6 @@ namespace dbdesgin.Migrations
                         .HasMaxLength(512);
 
                     b.Property<string>("thirdPaymentTradeNotes");
-
-                    b.Property<int>("totalPayment");
 
                     b.Property<DateTime?>("updateTime")
                         .HasColumnName("updateTime")

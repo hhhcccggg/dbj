@@ -1096,6 +1096,8 @@ namespace dbdesgin.Migrations
                         .IsRequired()
                         .HasMaxLength(512);
 
+                    b.Property<int>("payment");
+
                     b.Property<DateTime?>("paymentTime")
                         .HasColumnName("paymentTime")
                         .HasColumnType("timestamp");
@@ -1117,8 +1119,6 @@ namespace dbdesgin.Migrations
                         .HasMaxLength(512);
 
                     b.Property<string>("thirdPaymentTradeNotes");
-
-                    b.Property<int>("totalPayment");
 
                     b.Property<DateTime?>("updateTime")
                         .HasColumnName("updateTime")

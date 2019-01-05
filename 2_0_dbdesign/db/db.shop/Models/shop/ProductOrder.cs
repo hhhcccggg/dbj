@@ -18,7 +18,7 @@ namespace db.shop.Models.shop
         /// 订单总金额，单位为分
         /// </summary>
         /// <value>The payment.</value>
-        public int totalPayment { get; set; }
+        public int payment { get; set; }
         /// <summary>
         /// 实付金额，单位分
         /// </summary>

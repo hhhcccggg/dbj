@@ -3,15 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dbdesgin.Migrations
 {
-    public partial class legalSubject : Migration
+    public partial class legalsubjectasset : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "payment",
-                table: "shop_productOrders",
-                newName: "totalPayment");
-
             migrationBuilder.AddColumn<bool>(
                 name: "supportCoin",
                 table: "shop_products",
@@ -112,11 +107,6 @@ namespace dbdesgin.Migrations
             migrationBuilder.DropColumn(
                 name: "useCoin",
                 table: "shop_productOrders");
-
-            migrationBuilder.RenameColumn(
-                name: "totalPayment",
-                table: "shop_productOrders",
-                newName: "payment");
         }
     }
 }

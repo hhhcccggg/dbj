@@ -1,5 +1,4 @@
-﻿ALTER TABLE `shop_productOrders` CHANGE `payment` `totalPayment` int NOT NULL DEFAULT 0
-ALTER TABLE `shop_products` ADD `supportCoin` bit NOT NULL DEFAULT FALSE;
+﻿ALTER TABLE `shop_products` ADD `supportCoin` bit NOT NULL DEFAULT FALSE;
 
 ALTER TABLE `shop_productOrders` ADD `actualPayment` int NOT NULL DEFAULT 0;
 
@@ -39,5 +38,5 @@ CREATE TABLE `shop_legalSubjectAssets` (
 );
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20190105061810_legalSubject', '2.1.1-rtm-30846');
+VALUES ('20190105064745_legalsubjectasset', '2.1.1-rtm-30846');
 
