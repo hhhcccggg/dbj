@@ -674,9 +674,9 @@ public class UserService {
                 if (result!=0){
                     result = this.userMapper.phoneIsHavePWD(input.getPhone());
                     if (result==0){
-                        return  new ServiceStatusInfo<>(0,"",201);
-                    }else {
                         return  new ServiceStatusInfo<>(0,"",202);
+                    }else {
+                        return  new ServiceStatusInfo<>(0,"",201);
                     }
                 }else {
                     return  new ServiceStatusInfo<>(0,"",100);

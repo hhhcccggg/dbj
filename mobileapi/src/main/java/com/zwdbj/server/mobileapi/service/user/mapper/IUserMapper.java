@@ -91,7 +91,7 @@ public interface IUserMapper {
 
     @Select("select count(id) from core_users where phone=#{phone} and isManualData=0")
     int phoneIsRegOrNot(@Param("phone")String phone);
-    @Select("select count(id) from core_users where phone=#{phone} and isManualData=0 and password is not null")
+    @Select("select count(id) from core_users where phone=#{phone} and isManualData=0 and (password is null or password='')")
     int phoneIsHavePWD(@Param("phone")String phone);
     @Update("update core_users set `password`=#{password} where id=#{id}")
     int updatePasswordByUserId(@Param("password")String password,@Param("id")long id);
