@@ -155,4 +155,25 @@ public interface IUserMapper {
     @Select("select id  from core_users where phone like '56%' and username='爪子用户'")
     List<Long> getVestUserIds2();
 
+    /**
+     * 商家查询员工
+     * @param userShopSearchInput
+     * @param tenantId
+     * @return
+     */
+    @SelectProvider(type = UserSqlProvider.class,method ="selectStaff")
+    List<UserShopSelectInput> selectStaff(@Param("userShopSearchInput")UserShopSearchInput userShopSearchInput,@Param("tenantId")long tenantId);
+
+    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager,tenantId) " +
+            "values(#{id},#{input.phone},#{input.userName},#{input.name},'http://res.pet.zwdbj.com/default_avatar.png',false,#{password},true,#{tenantId})")
+    long createUserShop(@Param("input") CreateUserInput input, @Param("id") long id, @Param("password") String password,@Param("tenantId") long tenantId);
+
+    /**
+     * 批量删除员工
+     * @param id
+     * @return
+     */
+    @UpdateProvider(type = UserSqlProvider.class,method ="deleteByIds")
+    long deleteByIds(@Param("id")int[] id ,@Param("tenantId") long tenantId);
+
 }
