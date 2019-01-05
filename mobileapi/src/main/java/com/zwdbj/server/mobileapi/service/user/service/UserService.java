@@ -707,7 +707,7 @@ public class UserService {
                 }else if (input.getType()==201){
                     UserModel userModel = this.findUserByPhone(input.getPhone());
                     if (userModel==null)return new ServiceStatusInfo<>(1,"此手机号还没有注册，请注册账号",null);
-                    result = (int)this.userMapper.updateField("password="+password,userModel.getId());
+                    result = this.userMapper.updatePassword(password,userModel.getId());
                     if (result==0)return new ServiceStatusInfo<>(1,"完善密码失败",0);
                     return new ServiceStatusInfo<>(0,"完善密码成功",result);
                 }else if (input.getType()==202){
