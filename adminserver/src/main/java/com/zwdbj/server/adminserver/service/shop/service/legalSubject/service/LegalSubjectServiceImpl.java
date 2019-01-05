@@ -1,11 +1,9 @@
 package com.zwdbj.server.adminserver.service.shop.service.legalSubject.service;
 
 import com.zwdbj.server.adminserver.service.shop.service.legalSubject.mapper.ILegalSubjectMapper;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectModel;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectReviewModel;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectSearchInput;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectVerityInput;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.*;
+import com.zwdbj.server.adminserver.service.userTenant.model.ModifyUserTenantInput;
+import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
@@ -23,58 +21,50 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
 
 
     @Override
-    public boolean handleLegalSubject(QueueWorkInfoModel.QueueWorkShopLegalSubjectData data) {
-        try {
-            if (data==null)return true;
-            int type = data.getType();
-            if (type==1){
-                this.addLegalSubject(data);
-                logger.info("++++++添加商家基本信息++++++");
-            }else if (type==2){
-                this.modifyBasicLegalSubject(data);
-                logger.info("++++++修改商家基本信息++++++");
-            }else if (type==3){
-                this.delLegalSubject(data);
-                logger.info("++++++删除商家基本信息++++++");
-            }else {
-                logger.info("++++++商家信息处理失败++++++");
-                return false;
-            }
-        }catch (Exception e){
-            logger.error("++++++商家信息处理出现异常++++++"+e.getMessage());
-        }
-        return true;
-    }
-    public void addLegalSubject(QueueWorkInfoModel.QueueWorkShopLegalSubjectData data){
+    public int addLegalSubject(long id,UserTenantInput input){
         //创建商家
-        this.legalSubjectMapper.addLegalSubject(data);
+        int result = this.legalSubjectMapper.addLegalSubject(id,input);
         //创建店铺
-        // TODO 创建店铺
+        this.addShopStore(id,input);
+        return result;
     }
-    public void modifyBasicLegalSubject(QueueWorkInfoModel.QueueWorkShopLegalSubjectData data){
-        LegalSubjectModel model = this.getLegalSubjectById(data.getLegalSubjectId());
-        if (model==null)return;
+    @Override
+    public int modifyBasicLegalSubject(long id, ModifyUserTenantInput input){
+        LegalSubjectModel model = this.getLegalSubjectById(id);
+        if (model==null)return 0;
         //修改商家基本信息
-        this.legalSubjectMapper.modifyBasicLegalSubject(data);
+        int result = this.legalSubjectMapper.modifyBasicLegalSubject(id,input);
         //修改店铺
-        // TODO 修改店铺信息
+        this.modifyShopStore(id,input);
+
+        return result;
     }
-    public void delLegalSubject(QueueWorkInfoModel.QueueWorkShopLegalSubjectData data){
-        LegalSubjectModel model = this.getLegalSubjectById(data.getLegalSubjectId());
-        if (model==null)return;
+    @Override
+    public int delLegalSubject(long id){
+        LegalSubjectModel model = this.getLegalSubjectById(id);
+        if (model==null)return 0;
         //删除商家
-        this.legalSubjectMapper.delLegalSubject(data.getLegalSubjectId());
+        int result = this.legalSubjectMapper.delLegalSubject(id);
         //删除店铺
-        // TODO 删除店铺信息
+        this.delShopStore(id);
+        return result;
     }
     public LegalSubjectModel getLegalSubjectById(long id){
         return this.legalSubjectMapper.getLegalSubjectById(id);
     }
 
-    public void addShopStore(QueueWorkInfoModel.QueueWorkShopLegalSubjectData data){
+    public void addShopStore(long legalSubjectId,UserTenantInput input){
         long id = UniqueIDCreater.generateID();
-        //this.legalSubjectMapper.addShopStore();
+        this.legalSubjectMapper.addShopStore(id,input,legalSubjectId);
     }
+    public void modifyShopStore(long legalSubjectId,ModifyUserTenantInput input){
+        this.legalSubjectMapper.modifyShopStore(input,legalSubjectId);
+    }
+    //假删
+    public void delShopStore(long legalSubjectId){
+        this.legalSubjectMapper.delShopStore(legalSubjectId);
+    }
+
 
     @Override
     public List<LegalSubjectModel> getLegalSubjects(LegalSubjectSearchInput input) {
@@ -92,16 +82,30 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
         int result = 0;
         try {
             result = this.legalSubjectMapper.verityUnReviewed(id,input);
+            if (result==0)new ServiceStatusInfo<>(1, "审核商家失败", result);
             // TODO 需不需要这里把店铺也审核了？
+            result = this.verityUnReviewedStore(id,input);
+            if (result==0)new ServiceStatusInfo<>(1, "审核店铺失败", result);
             return new ServiceStatusInfo<>(0, "审核完毕", result);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "审核出现异常：" + e.getMessage(), result);
         }
     }
 
+    //审核店铺
+    public int verityUnReviewedStore(long legalSubjectId, LegalSubjectVerityInput input){
+        return this.legalSubjectMapper.verityUnReviewedStore(legalSubjectId,input);
+    }
+
     @Override
     public List<LegalSubjectReviewModel> getReviewsByLegalSubjectId(long id) {
         List<LegalSubjectReviewModel> legalSubjectReviewModels = this.legalSubjectMapper.getReviewsByLegalSubjectId(id);
         return legalSubjectReviewModels;
+    }
+
+    @Override
+    public ShopTenantModel getDetailTenant(long legalSubjectId) {
+        ShopTenantModel model = this.legalSubjectMapper.getDetailTenant(legalSubjectId);
+        return model;
     }
 }

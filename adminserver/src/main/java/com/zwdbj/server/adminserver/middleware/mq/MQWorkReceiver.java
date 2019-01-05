@@ -6,8 +6,6 @@ import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.adminserver.service.push.service.AppPushService;
 import com.zwdbj.server.adminserver.service.review.service.LivingReviewService;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.service.ILegalSubjectService;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.service.LegalSubjectServiceImpl;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.SpringContextUtil;
@@ -116,11 +114,6 @@ public class MQWorkReceiver extends MQConnection {
                 logger.error("[MQ]找不到VIDEOSERVER服务");
             }
             logger.info("[MQ]收到数据类型:"+info.getWorkType()+"处理视频权重");
-            channel.basicAck(envelope.getDeliveryTag(),false);
-        }else if (info.getWorkType()==QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SHOP_LEGAL_SUBJECT) {
-            ILegalSubjectService legalSubjectServiceImpl = SpringContextUtil.getBean(LegalSubjectServiceImpl.class);
-            legalSubjectServiceImpl.handleLegalSubject(info.getShopLegalSubjectData());
-            logger.info("[MQ]接收店铺和店主的信息返回的结果");
             channel.basicAck(envelope.getDeliveryTag(),false);
         }
         /*else {
