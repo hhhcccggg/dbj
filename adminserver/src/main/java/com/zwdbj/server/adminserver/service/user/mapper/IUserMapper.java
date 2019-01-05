@@ -164,9 +164,12 @@ public interface IUserMapper {
     @SelectProvider(type = UserSqlProvider.class,method ="selectStaff")
     List<UserShopSelectInput> selectStaff(@Param("userShopSearchInput")UserShopSearchInput userShopSearchInput,@Param("tenantId")long tenantId);
 
-    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager,tenantId) " +
-            "values(#{id},#{input.phone},#{input.userName},#{input.name},'http://res.pet.zwdbj.com/default_avatar.png',false,#{password},true,#{tenantId})")
+    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager,isPhoneVerification,tenantId) " +
+            "values(#{id},#{input.phone},#{input.userName},#{input.name},'http://res.pet.zwdbj.com/default_avatar.png',false,#{password},true,true,#{tenantId})")
     long createUserShop(@Param("input") CreateUserInput input, @Param("id") long id, @Param("password") String password,@Param("tenantId") long tenantId);
+
+    @Update("update core_users set nickName=#{input.name},tenantId=#{tenantId} where phone=#{input.name}")
+    long updateUserByPhone(@Param("input")CreateUserInput createUserInput,@Param("tenantId")long tenantId);
 
     /**
      * 批量删除员工
@@ -174,6 +177,6 @@ public interface IUserMapper {
      * @return
      */
     @UpdateProvider(type = UserSqlProvider.class,method ="deleteByIds")
-    long deleteByIds(@Param("id")int[] id ,@Param("tenantId") long tenantId);
+    long deleteByIds(@Param("id")long[] id ,@Param("tenantId") long tenantId);
 
 }
