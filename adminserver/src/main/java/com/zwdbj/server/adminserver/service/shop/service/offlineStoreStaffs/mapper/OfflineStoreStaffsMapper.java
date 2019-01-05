@@ -31,7 +31,7 @@ public interface OfflineStoreStaffsMapper {
      * @return
      */
     @UpdateProvider(type = OfflineStoreStaffsSqlProvide.class , method = "cancelRepresent")
-    Long cancelRepresent(@Param("id") long[] id,@Param("tenantId") long tenantId);
+    Long cancelRepresent(@Param("id") long[] id,@Param("storeId") long storeId);
 
     /**
      * 批量设置代言人
@@ -39,5 +39,5 @@ public interface OfflineStoreStaffsMapper {
      * @return
      */
     @InsertProvider(type = OfflineStoreStaffsSqlProvide.class , method = "setRepresent")
-    Long setRepresent(@Param("id") long[] id,@Param("tenantId")long tenantId);
+    Long setRepresent(@Param("id") long[] id,@Param("storeId")long storeId);
 }

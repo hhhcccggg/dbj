@@ -688,7 +688,7 @@ public class UserService {
 
     public ServiceStatusInfo<Integer> regUser(RegUserInput input){
         try {
-            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{2,11}$";
+            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{7,11}$";
             Pattern r = Pattern.compile(regEx);
             Matcher m1 = r.matcher(input.getPassword());
             Matcher m2 = r.matcher(input.getPasswordTwo());
@@ -727,7 +727,7 @@ public class UserService {
     public  ServiceStatusInfo<Integer> getMyNewPWD(NewMyPasswordInput input){
 
         try {
-            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{2,11}$";
+            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{7,11}$";
             Pattern r = Pattern.compile(regEx);
             Matcher m1 = r.matcher(input.getPassword());
             Matcher m2 = r.matcher(input.getPasswordTwo());
