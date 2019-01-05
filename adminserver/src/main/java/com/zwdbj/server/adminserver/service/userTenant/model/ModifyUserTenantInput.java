@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.service.userTenant.model;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class ModifyUserTenantInput {
     @ApiModelProperty(value = "租户的名字")
@@ -32,6 +33,18 @@ public class ModifyUserTenantInput {
     @ApiModelProperty(value = "租户的店铺类型>>SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店")
     @NotNull(message = "租户的店铺类型不能为空")
     private String storeType;
+    @ApiModelProperty(value = "在平台开店的有效期")
+    @NotNull(message = "租户的店铺有效期不能为空")
+    private Date expireTime;
+
+
+    public Date getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
+    }
 
     public long getCategoryId() {
         return categoryId;

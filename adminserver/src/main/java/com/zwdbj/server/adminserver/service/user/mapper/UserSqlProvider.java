@@ -149,4 +149,46 @@ public class UserSqlProvider {
         sql.ORDER_BY("u.id desc");
         return sql.toString();
     }
+
+    /**
+     * 商家条件查询
+     * @param map
+     * @return
+     */
+    public String selectStaff(Map map){
+        UserShopSearchInput userShopSearchInput = (UserShopSearchInput) map.get("userShopSearchInput");
+        long tenantId = (long) map.get("tenantId");
+        SQL sql = new SQL()
+                .SELECT("u.id,u.createTime,u.phone,u.username,u.isReviewed," +
+                        "(select count(1) from o2o_offlinestorestaffs where userId=u.id and isDeleted=0 and storeId = "+tenantId+") as represent")
+                .FROM("core_users u");
+        if(userShopSearchInput.getIsRepresent() != -1){
+            sql.WHERE("(select count(1) from o2o_offlinestorestaffs where userId=u.id and isDeleted=0 and storeId = "+tenantId+")="+userShopSearchInput.getIsRepresent());
+        }
+
+        if(userShopSearchInput.getUsername()!= null && userShopSearchInput.getUsername().length()>0){
+            sql.WHERE("username like '%"+userShopSearchInput.getUsername()+"%'");
+        }
+        sql.WHERE("tenantId="+tenantId);
+        return sql.toString();
+    }
+
+    /**
+     * 批量删除员工
+     * @param map
+     * @return
+     */
+    public String deleteByIds(Map map){
+        Long[] id = (Long[]) map.get("id");
+        long tenantId= (long) map.get("tenantId");
+        SQL sql = new SQL().UPDATE("core_users").SET("isDeleted=1").SET("deleteTime=now()");
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < id.length; i++) {
+            stringBuffer.append("id="+id[i]);
+            if(i+1 != id.length)stringBuffer.append(" or ");
+        }
+        sql.WHERE(stringBuffer.toString()).WHERE("tenantId="+tenantId);
+        System.out.println(sql.toString());
+        return sql.toString();
+    }
 }
