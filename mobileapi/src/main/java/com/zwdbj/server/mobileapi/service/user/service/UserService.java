@@ -14,8 +14,6 @@ import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
 import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
@@ -688,7 +686,7 @@ public class UserService {
         }catch (Exception e){
             return  new ServiceStatusInfo<>(1,"出现异常："+e.getMessage(),null);
         }
-        return null;
+        return new ServiceStatusInfo<>(1, "验证失败，请输入正确的手机号和验证码", null);
     }
 
     public ServiceStatusInfo<Integer> regUser(RegUserInput input){
