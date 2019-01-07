@@ -7,6 +7,11 @@ import java.util.Map;
 
 public class ProductSqlProvider {
 
+    /**
+     * 小程序商品列表 storeId目前固定
+     * @param map
+     * @return
+     */
     public String seleteList(Map map){
         ProductInput productInput = (ProductInput) map.get("productInput");
         SQL sql = new SQL().SELECT("id","productType","productDetailType","name","categoryId",
