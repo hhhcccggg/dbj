@@ -22,7 +22,7 @@ public interface IProductsMapper {
             "`specifyPublishTime`," +
             "`detailDescription`," +
             "`limitPerPerson`," +
-            "`brandId`,"+
+            "`brandId`,`imageUrls`,"+
             "`categoryId`,`supportCoin`"+
             ")VALUES(" +
             "#{id}," +
@@ -34,7 +34,7 @@ public interface IProductsMapper {
             "#{products.publish}," +
             "#{products.specifyPublishTime}," +
             "#{products.detailDescription}," +
-            "#{products.limitPerPerson},#{products.brandId},#{products.categoryId},#{products.supportCoin}" +
+            "#{products.limitPerPerson},#{products.brandId},#{products.imageUrls},#{products.categoryId},#{products.supportCoin}" +
             ");")
     Long createProducts(@Param("id") Long id, @Param("products") CreateProducts products);
 
@@ -44,7 +44,8 @@ public interface IProductsMapper {
     @Update("update shop_products set " +
             "productType=#{products.productType}," +
             "name=#{products.name},storeId=#{products.storeId}," +
-            "inventory=#{products.inventory},publish=#{products.isPublish}," +
+            "inventory=#{products.inventory},publish=#{products.isPublish},imageUrls=#{products.imageUrls}," +
+            "brandId=#{products.brandId},supportCoin=#{products.supportCoin},categoryId=#{products.categoryId},"+
             "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription},limitPerPerson=#{products.limitPerPerson}" +
             "where id=#{products.id} and isDeleted=0")
     Long update(@Param("products") CreateProducts products);
