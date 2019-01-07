@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 
-@ApiModel(value = "商品")
+@ApiModel(description = "商品")
 public class ProductOut {
     @ApiModelProperty(value = "id")
     Long id;
@@ -23,6 +23,9 @@ public class ProductOut {
 
     @ApiModelProperty(value = "库存")
     long inventory;
+
+    @ApiModelProperty(value = "销量")
+    long sales;
 
     @ApiModelProperty(value = "是否上架")
     boolean isPublish;
@@ -71,6 +74,14 @@ public class ProductOut {
 
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
+
+    public long getSales() {
+        return sales;
+    }
+
+    public void setSales(long sales) {
+        this.sales = sales;
+    }
 
     public Long getId() {
         return id;

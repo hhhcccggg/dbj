@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.controller.wxMini;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.utility.model.ResponseData;
@@ -25,9 +26,10 @@ public class WXMiniProductController {
     @GetMapping(value = "findByProduct")
     @ApiOperation(value = "兑换商城列表")
     public ResponsePageInfoData<ProductOut> findByProduct(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
-                                                        @RequestParam(value = "rows", required = true, defaultValue = "10") int rows){
+                                                          @RequestParam(value = "rows", required = true, defaultValue = "10") int rows,
+                                                          @RequestBody ProductInput productInput){
         PageHelper.startPage(pageNo,rows);
-        ServiceStatusInfo<List<ProductOut>> serviceStatusInfo =  this.productServiceImpl.selectWXXCXShopProduct();
+        ServiceStatusInfo<List<ProductOut>> serviceStatusInfo =  this.productServiceImpl.selectWXXCXShopProduct(productInput);
         if( !serviceStatusInfo.isSuccess() ){
             return new ResponsePageInfoData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null, 0);
         }

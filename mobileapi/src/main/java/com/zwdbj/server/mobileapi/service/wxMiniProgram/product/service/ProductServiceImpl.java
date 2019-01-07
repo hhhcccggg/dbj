@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper.IProductMapper;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ public class ProductServiceImpl implements  ProductService{
     protected IProductMapper iProductMapper;
 
     @Override
-    public ServiceStatusInfo<List<ProductOut>> selectWXXCXShopProduct() {
+    public ServiceStatusInfo<List<ProductOut>> selectWXXCXShopProduct(ProductInput productInput) {
         //TODO
         try{
-            List<ProductOut> list = this.iProductMapper.selectWXXCXShopProduct();
+            List<ProductOut> list = this.iProductMapper.selectWXXCXShopProduct(productInput);
             return new ServiceStatusInfo<>(0,"",list);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
