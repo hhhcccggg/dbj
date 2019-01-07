@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -64,22 +66,8 @@ public class ProductsController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建商品")
-    public ResponseData<Long> createProducts(@RequestBody Products products ,
-                                             @RequestParam(value = "originalPrice",required = true) long originalPrice,
-                                             @RequestParam(value = "promotionPrice",required = true) long promotionPrice,
-                                             @RequestParam(value = "festivalCanUse",required = true) boolean festivalCanUse,
-                                             @RequestParam(value = "specHoursValid",required = false,defaultValue = "0") int specHoursValid,
-                                             @RequestParam(value = "validDays",required = false,defaultValue = "-1") int validDays,
-                                             @RequestParam(value = "validStartTime",required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") Date validStartTime,
-                                             @RequestParam(value = "validEndTime",required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") Date validEndTime,
-                                             @RequestParam(value = "validType",required = true) String validType
-
-    ) {
-        //店铺Id先固定
-        Long storeId = 110L;
-        products.setStoreId(storeId);
-        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.createProducts(products,originalPrice,promotionPrice,
-                festivalCanUse,specHoursValid,validDays, validStartTime, validEndTime,validType);
+    public ResponseData<Long> createProducts(@RequestBody @Valid CreateProducts createProducts) {
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.createProducts(createProducts);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -98,17 +86,8 @@ public class ProductsController {
 
     @ApiOperation(value = "修改商品")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseData<Long> updateProducts(@RequestBody Products products,
-                                             @RequestParam(value = "originalPrice",required = true) long originalPrice,
-                                             @RequestParam(value = "promotionPrice",required = true) long promotionPrice,
-                                             @RequestParam(value = "festivalCanUse",required = true) boolean festivalCanUse,
-                                             @RequestParam(value = "specHoursValid",required = false,defaultValue = "0") int specHoursValid,
-                                             @RequestParam(value = "validDays",required = false,defaultValue = "-1") int validDays,
-                                             @RequestParam(value = "validStartTime",required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") Date validStartTime,
-                                             @RequestParam(value = "validEndTime",required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") Date validEndTime,
-                                             @RequestParam(value = "validType",required = true) String validType) {
-        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updateProducts(products,originalPrice,promotionPrice,
-                festivalCanUse,specHoursValid,validDays, validStartTime, validEndTime,validType);
+    public ResponseData<Long> updateProducts(@RequestBody CreateProducts createProducts) {
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updateProducts(createProducts);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -129,7 +108,7 @@ public class ProductsController {
 
     @PostMapping(value = "/updatePublishs")
     @ApiOperation(value = "批量商品上下架")
-    public ResponseData<Long> updatePublishs(@RequestParam(value = "id", required =true ) Long[] id ,
+    public ResponseData<Long> updatePublishs(@RequestBody Long[] id ,
                                             @RequestParam(value = "publish" ,required = true) boolean publish){
         ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updatePublishs(id,publish);
         if(serviceStatusInfo.isSuccess()){
@@ -150,7 +129,7 @@ public class ProductsController {
 
     @PostMapping(value = "/deleteByProducts")
     @ApiOperation(value = "批量删除商品")
-    public ResponseData<Long> deleteByProducts(@RequestParam(value = "id" , required = true) Long[] id){
+    public ResponseData<Long> deleteByProducts(@RequestBody Long[] id){
         ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.deleteByProducts(id);
         if(serviceStatusInfo.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());

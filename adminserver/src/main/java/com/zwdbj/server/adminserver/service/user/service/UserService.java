@@ -10,6 +10,7 @@ import com.zwdbj.server.adminserver.easemob.api.EaseMobUser;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mapper.OfflineStoreStaffsMapper;
+import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
@@ -26,8 +27,6 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
@@ -471,12 +470,15 @@ public class UserService {
     /**
      * 商家的员工查询
      * @param userShopSearchInput
-     * @param tenantId
      * @return
      */
-    public ServiceStatusInfo<List<UserShopSelectInput>> selectStaff(UserShopSearchInput userShopSearchInput,long tenantId){
+    public ServiceStatusInfo<List<UserShopSelectInput>> selectStaff(UserShopSearchInput userShopSearchInput){
         try{
-            return new ServiceStatusInfo(0,"",this.userMapper.selectStaff(userShopSearchInput,tenantId));
+            AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
+            if(authUser == null){
+                return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
+            }
+            return new ServiceStatusInfo(0,"",this.userMapper.selectStaff(userShopSearchInput,authUser.getLegalSubjectId(),authUser.getTenantId()));
         }catch(Exception e){
             e.printStackTrace();
             return new ServiceStatusInfo(1,"查询失败"+e.getMessage(),null);
@@ -490,10 +492,12 @@ public class UserService {
      */
     public ServiceStatusInfo<Long> createUserShop(CreateUserInput createUserInput){
         Long isExist = this.userMapper.phoneIsExist(createUserInput.getPhone());
-        //租户的id,后面获取
-        long tenantId = 0L;
+        AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
+        if(authUser == null){
+            return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
+        }
         if (isExist == 1) {
-            long result = this.userMapper.updateUserByPhone(createUserInput,tenantId);
+            long result = this.userMapper.updateUserByPhone(createUserInput,authUser.getTenantId());
             if (result==0)return new ServiceStatusInfo<>(1, "创建失败:手机号已注册", result);
             return new ServiceStatusInfo<>(0, "手机号已注册,请以手机号登录", result);
 
@@ -502,7 +506,7 @@ public class UserService {
         long id = UniqueIDCreater.generateID();
         try{
             String password = SHAEncrypt.encryptSHA("123456");
-            long result = this.userMapper.createUserShop(createUserInput, id, password,tenantId);
+            long result = this.userMapper.createUserShop(createUserInput, id, password,authUser.getTenantId());
             //成功发短信
             return new ServiceStatusInfo<>(0, "", result);
         }catch(Exception e){
@@ -517,9 +521,11 @@ public class UserService {
      */
     public ServiceStatusInfo<Long> deleteByIds(long[] id ){
         try{
-            //商户ID固定，后面改
-            long tenantId = 110L;
-            long result = this.userMapper.deleteByIds(id,tenantId);
+            AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
+            if(authUser == null){
+                return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
+            }
+            long result = this.userMapper.deleteByIds(id,authUser.getTenantId());
             return new ServiceStatusInfo<>(0, "", result);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1, "批量删除失败"+e.getMessage(), 0L);
@@ -533,9 +539,11 @@ public class UserService {
      */
     public ServiceStatusInfo<Long> setRepresent(long[] id ){
         try{
-            //店铺ID固定，后面改
-            long storeId = 110L;
-            long result = this.offlineStoreStaffsMapper.setRepresent(id,storeId);
+            AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
+            if(authUser == null){
+                return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
+            }
+            long result = this.offlineStoreStaffsMapper.setRepresent(id,authUser.getLegalSubjectId());
             return new ServiceStatusInfo<>(0, "", result);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1, "批量设置失败"+e.getMessage(), 0L);
@@ -549,9 +557,11 @@ public class UserService {
      */
     public ServiceStatusInfo<Long> cancelRepresent(long[] id ){
         try{
-            //店铺ID固定，后面改
-            long storeId = 110L;
-            long result = this.offlineStoreStaffsMapper.cancelRepresent(id,storeId);
+            AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
+            if(authUser == null){
+                return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
+            }
+            long result = this.offlineStoreStaffsMapper.cancelRepresent(id,authUser.getLegalSubjectId());
             return new ServiceStatusInfo<>(0, "", result);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1, "批量取消失败"+e.getMessage(), 0L);

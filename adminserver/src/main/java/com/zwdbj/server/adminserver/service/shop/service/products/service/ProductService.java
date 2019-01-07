@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.products.service;
 
 
+import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -10,11 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
-    ServiceStatusInfo<Long> createProducts(Products products, long originalPrice, long promotionPrice, boolean festivalCanUse, int specHoursValid, int validDays, Date validStartTime, Date validEndTime, String validType);
+    ServiceStatusInfo<Long> createProducts(CreateProducts createProducts);
 
     ServiceStatusInfo<Long> deleteProductsById(Long id);
 
-    ServiceStatusInfo<Long> updateProducts(Products products, long originalPrice, long promotionPrice, boolean festivalCanUse, int specHoursValid, int validDays, Date validStartTime, Date validEndTime, String validType);
+    ServiceStatusInfo<Long> updateProducts(CreateProducts createProducts);
 
     ServiceStatusInfo<List<Products>> selectAll();
     ServiceStatusInfo<List<Products>> searchProducts(SearchProducts searchProduct);

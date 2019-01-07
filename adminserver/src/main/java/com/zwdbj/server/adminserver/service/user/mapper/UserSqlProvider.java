@@ -157,13 +157,14 @@ public class UserSqlProvider {
      */
     public String selectStaff(Map map){
         UserShopSearchInput userShopSearchInput = (UserShopSearchInput) map.get("userShopSearchInput");
+        long storeId = (long) map.get("storeId");
         long tenantId = (long) map.get("tenantId");
         SQL sql = new SQL()
                 .SELECT("u.id,u.createTime,u.phone,u.username,u.isReviewed," +
-                        "(select count(1) from o2o_offlinestorestaffs where userId=u.id and isDeleted=0 and storeId = "+tenantId+") as represent")
+                        "(select count(1) from o2o_offlinestorestaffs where userId=u.id and isDeleted=0 and storeId = "+storeId+") as represent")
                 .FROM("core_users u");
         if(userShopSearchInput.getIsRepresent() != -1){
-            sql.WHERE("(select count(1) from o2o_offlinestorestaffs where userId=u.id and isDeleted=0 and storeId = "+tenantId+")="+userShopSearchInput.getIsRepresent());
+            sql.WHERE("(select count(1) from o2o_offlinestorestaffs where userId=u.id and isDeleted=0 and storeId = "+storeId+")="+userShopSearchInput.getIsRepresent());
         }
 
         if(userShopSearchInput.getUsername()!= null && userShopSearchInput.getUsername().length()>0){
