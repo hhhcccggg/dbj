@@ -8,10 +8,34 @@ namespace db.shop.Models.shop
     public class ProductOrder:db.common.BaseModelWithTime<long>
     {
         /// <summary>
-        /// 实付金额，单位为分
+        /// 当前与id保持同步
+        /// </summary>
+        /// <value>The order no.</value>
+        [Required]
+        [MaxLength(512)]
+        public string orderNo { get; set; }
+        /// <summary>
+        /// 订单总金额，单位为分
         /// </summary>
         /// <value>The payment.</value>
         public int payment { get; set; }
+        /// <summary>
+        /// 实付金额，单位分
+        /// </summary>
+        /// <value>The actual payment.</value>
+        public int actualPayment { get; set; }
+        /// <summary>
+        /// 使用的金币抵扣数
+        /// </summary>
+        /// <value>The use coin.</value>
+        public int useCoin { get; set; }
+        /// <summary>
+        /// 使用的优惠券
+        /// 多个优惠券用,号隔开
+        /// </summary>
+        /// <value>The coupon identifier.</value>
+        [MaxLength(1024)]
+        public string couponids { get; set; }
         /// <summary>
         /// 支付类型，BANK:银行卡WECHAT:微信ALIPAY:支付宝
         /// </summary>

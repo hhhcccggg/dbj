@@ -166,5 +166,10 @@ namespace db.shop.Models.shop
         /// </summary>
         /// <value>The limit per person.</value>
         public int limitPerPerson { get; set; }
+        /// <summary>
+        /// 支持金币兑换购买
+        /// </summary>
+        /// <value><c>true</c> if support coin; otherwise, <c>false</c>.</value>
+        public bool supportCoin { get; set; }
     }
 }

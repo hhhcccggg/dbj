@@ -411,7 +411,7 @@ public class QuartzService {
      */
     public void everyUpdateVideoNum() {
         try {
-            String date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) + "v";
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "v";
             if (this.stringRedisTemplate.hasKey(date)) {
                 int videoNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get(date));
                 this.dailyIncreaseAnalysisesService.updateVideoNum(videoNum);

@@ -14,8 +14,6 @@ import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
 import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
@@ -508,31 +506,36 @@ public class UserService {
      * @return
      */
     public ServiceStatusInfo<Object> checkPhoneCode(String phone, String code) {
-        int result = this.phoneIsTrue(phone);
-        if (result == 1) {
-            if (code.equals((phone.substring(7) + "18"))) {
-                return new ServiceStatusInfo<>(0, "验证成功", null);
-            } else {
-                return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
-            }
+        try {
+            int result = this.phoneIsTrue(phone);
+            if (result == 1) {
+                if (code.equals((phone.substring(7) + "18"))) {
+                    return new ServiceStatusInfo<>(0, "验证成功", null);
+                } else {
+                    return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
+                }
 
-        } else {
-            //TODO 审核以后删除
-            if (phone.equals("18161279360") && code.equals("1234")) return new ServiceStatusInfo<>(0, "验证成功", null);
-            // 验证手机验证码是否正确
-            String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(phone);
-            boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
-            if (!hasPhoneCode) {
-                return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);
+            } else {
+                //TODO 审核以后删除
+                if (phone.equals("18161279360") && code.equals("1234")) return new ServiceStatusInfo<>(0, "验证成功", null);
+                // 验证手机验证码是否正确
+                String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(phone);
+                boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
+                if (!hasPhoneCode) {
+                    return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);
+                }
+                String cachePhoneCode = this.stringRedisTemplate.opsForValue().get(cacheKey);
+                if (!code.equals(cachePhoneCode)) {
+                    return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
+                }
+                //移除验证码
+                stringRedisTemplate.delete(cacheKey);
+                return new ServiceStatusInfo<>(0, "验证成功", null);
             }
-            String cachePhoneCode = this.stringRedisTemplate.opsForValue().get(cacheKey);
-            if (!code.equals(cachePhoneCode)) {
-                return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
-            }
-            //移除验证码
-            stringRedisTemplate.delete(cacheKey);
-            return new ServiceStatusInfo<>(0, "验证成功", null);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码"+e.getMessage(), null);
         }
+
 
     }
 
@@ -669,26 +672,26 @@ public class UserService {
                 if (result!=0){
                     result = this.userMapper.phoneIsHavePWD(input.getPhone());
                     if (result==0){
-                        return  new ServiceStatusInfo<>(0,"",201);
-                    }else {
                         return  new ServiceStatusInfo<>(0,"",202);
+                    }else {
+                        return  new ServiceStatusInfo<>(0,"",201);
                     }
                 }else {
                     return  new ServiceStatusInfo<>(0,"",100);
                 }
             }else {
-                new ResponseData<>(ResponseDataCode.STATUS_ERROR, "验证失败，请输入正确的手机号和验证码", null);
+                new ServiceStatusInfo<>(1, "验证失败，请输入正确的手机号和验证码", null);
             }
 
         }catch (Exception e){
             return  new ServiceStatusInfo<>(1,"出现异常："+e.getMessage(),null);
         }
-        return null;
+        return new ServiceStatusInfo<>(1, "验证失败，请输入正确的手机号和验证码", null);
     }
 
     public ServiceStatusInfo<Integer> regUser(RegUserInput input){
         try {
-            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{2,11}$";
+            String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
             Pattern r = Pattern.compile(regEx);
             Matcher m1 = r.matcher(input.getPassword());
             Matcher m2 = r.matcher(input.getPasswordTwo());
@@ -707,7 +710,7 @@ public class UserService {
                 }else if (input.getType()==201){
                     UserModel userModel = this.findUserByPhone(input.getPhone());
                     if (userModel==null)return new ServiceStatusInfo<>(1,"此手机号还没有注册，请注册账号",null);
-                    result = (int)this.userMapper.updateField("password="+password,userModel.getId());
+                    result = this.userMapper.updatePasswordByUserId(password,userModel.getId());
                     if (result==0)return new ServiceStatusInfo<>(1,"完善密码失败",0);
                     return new ServiceStatusInfo<>(0,"完善密码成功",result);
                 }else if (input.getType()==202){
@@ -727,7 +730,7 @@ public class UserService {
     public  ServiceStatusInfo<Integer> getMyNewPWD(NewMyPasswordInput input){
 
         try {
-            String regEx = "^[a-zA-Z][a-zA-Z0-9_]{2,11}$";
+            String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
             Pattern r = Pattern.compile(regEx);
             Matcher m1 = r.matcher(input.getPassword());
             Matcher m2 = r.matcher(input.getPasswordTwo());

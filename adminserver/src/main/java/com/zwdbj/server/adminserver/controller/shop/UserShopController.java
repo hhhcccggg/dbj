@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,11 +27,11 @@ public class UserShopController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/findPage")
+    @PostMapping("/findPage")
     @ApiOperation(value = "分页条件查询")
     public ResponsePageInfoData<List<UserShopSelectInput>> findPage(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                           @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
-                                                          UserShopSearchInput userShopSearchInput){
+                                                          @RequestBody UserShopSearchInput userShopSearchInput){
         PageHelper.startPage(pageNo,rows);
         //商户ID固定
         long id = 110L;
@@ -41,15 +42,8 @@ public class UserShopController {
 
     @PostMapping("/createUserShop")
     @ApiOperation(value = "创建员工")
-     public ResponseData<Long> createUserShop(@RequestParam(value = "userName" ,required = true)String name,
-                                              @RequestParam(value = "phone" ,required = true)String phone
-                                              ){
-        //商户ID固定，后面改
-        long id = 110L;
-        CreateUserInput createUserInput = new CreateUserInput();
-        createUserInput.setName(name);
-        createUserInput.setPhone(phone);
-        ServiceStatusInfo<Long> serviceStatusInfo = this.userService.createUserShop(createUserInput,id);
+     public ResponseData<Long> createUserShop(@RequestBody @Valid CreateUserInput input){
+        ServiceStatusInfo<Long> serviceStatusInfo = this.userService.createUserShop(input);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -64,10 +58,8 @@ public class UserShopController {
 
      @PostMapping("/deleteByUser")
      @ApiOperation(value = "批量删除员工")
-     public ResponseData<Long> deleteByUser(@RequestParam(value = "id",required = true) int[] id){
-         //商户ID固定，后面改
-         long tenantId = 110L;
-         ServiceStatusInfo<Long> serviceStatusInfo = this.userService.deleteByIds(id,tenantId);
+     public ResponseData<Long> deleteByUser(@RequestParam(value = "id",required = true) long[] id){
+         ServiceStatusInfo<Long> serviceStatusInfo = this.userService.deleteByIds(id);
          if (serviceStatusInfo.isSuccess()) {
              return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
          }
@@ -77,9 +69,8 @@ public class UserShopController {
     @PostMapping("/setRepresent")
     @ApiOperation(value = "批量设置代言人")
     public ResponseData<Long> setRepresent(@RequestParam(value = "id",required = true) long[] id){
-        //商户ID固定，后面改
-        long tenantId = 110L;
-        ServiceStatusInfo<Long> serviceStatusInfo = this.userService.setRepresent(id,tenantId);
+
+        ServiceStatusInfo<Long> serviceStatusInfo = this.userService.setRepresent(id);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -89,9 +80,7 @@ public class UserShopController {
     @PostMapping("/cancelRepresent")
     @ApiOperation(value = "批量取消代言人")
     public ResponseData<Long> cancelRepresent(@RequestParam(value = "id",required = true) long[] id){
-        //商户ID固定，后面改
-        long tenantId = 110L;
-        ServiceStatusInfo<Long> serviceStatusInfo = this.userService.cancelRepresent(id,tenantId);
+        ServiceStatusInfo<Long> serviceStatusInfo = this.userService.cancelRepresent(id);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

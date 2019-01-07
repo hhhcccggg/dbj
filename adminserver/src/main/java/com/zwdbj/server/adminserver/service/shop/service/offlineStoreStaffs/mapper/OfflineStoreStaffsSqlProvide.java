@@ -10,24 +10,24 @@ public class OfflineStoreStaffsSqlProvide {
 
     public String cancelRepresent(Map map){
         long[] id = (long[]) map.get("id");
-        long tenantId= (long) map.get("tenantId");
+        long storeId= (long) map.get("storeId");
         SQL sql = new SQL().UPDATE("o2o_offlineStoreStaffs").SET("isDeleted=1").SET("deleteTime=now()");
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = 0; i < id.length; i++) {
             stringBuffer.append("userId="+id[i]);
             if(i+1 != id.length)stringBuffer.append(" or ");
         }
-        sql.WHERE(stringBuffer.toString()).WHERE("storeId="+tenantId).WHERE("isDeleted=0");
+        sql.WHERE(stringBuffer.toString()).WHERE("storeId="+storeId).WHERE("isDeleted=0");
         return sql.toString();
     }
 
     public String setRepresent(Map map){
         long[] id = (long[]) map.get("id");
-        long tenantId= (long) map.get("tenantId");
+        long storeId= (long) map.get("storeId");
         StringBuffer sql = new StringBuffer("INSERT INTO o2o_offlineStoreStaffs(id,storeId,userId)VALUES");
 
         for (int i = 0; i < id.length; i++) {
-            sql.append("("+UniqueIDCreater.generateID()+","+tenantId+","+id[i]+")");
+            sql.append("("+UniqueIDCreater.generateID()+","+storeId+","+id[i]+")");
             if (i < id.length - 1) {
                 sql.append(",");
             }

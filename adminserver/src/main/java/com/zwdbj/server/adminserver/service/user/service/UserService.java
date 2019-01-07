@@ -486,23 +486,20 @@ public class UserService {
     /**
      * 创建该商家下的员工
      * @param createUserInput
-     * @param tenantId
      * @return
      */
-    public ServiceStatusInfo<Long> createUserShop(CreateUserInput createUserInput,long tenantId){
-        if(createUserInput.getPhone()== null || createUserInput.getPhone().trim().length()==0){
-            return new ServiceStatusInfo<>(1, "创建失败:手机号不能为空", 0L);
-        }
-        if(createUserInput.getName()== null || createUserInput.getName().trim().length()==0){
-            return new ServiceStatusInfo<>(1, "创建失败:姓名不能为空", 0L);
-        }
+    public ServiceStatusInfo<Long> createUserShop(CreateUserInput createUserInput){
         Long isExist = this.userMapper.phoneIsExist(createUserInput.getPhone());
+        //租户的id,后面获取
+        long tenantId = 0L;
         if (isExist == 1) {
-            return new ServiceStatusInfo<>(1, "创建失败:手机号已注册", isExist);
+            long result = this.userMapper.updateUserByPhone(createUserInput,tenantId);
+            if (result==0)return new ServiceStatusInfo<>(1, "创建失败:手机号已注册", result);
+            return new ServiceStatusInfo<>(0, "手机号已注册,请以手机号登录", result);
+
         }
         createUserInput.setUserName(UniqueIDCreater.generateUserName());
         long id = UniqueIDCreater.generateID();
-
         try{
             String password = SHAEncrypt.encryptSHA("123456");
             long result = this.userMapper.createUserShop(createUserInput, id, password,tenantId);
@@ -516,11 +513,12 @@ public class UserService {
     /**
      * 批量删除员工假删
      * @param id
-     * @param tenantId
      * @return
      */
-    public ServiceStatusInfo<Long> deleteByIds(int[] id ,long tenantId){
+    public ServiceStatusInfo<Long> deleteByIds(long[] id ){
         try{
+            //商户ID固定，后面改
+            long tenantId = 110L;
             long result = this.userMapper.deleteByIds(id,tenantId);
             return new ServiceStatusInfo<>(0, "", result);
         }catch(Exception e){
@@ -531,12 +529,13 @@ public class UserService {
     /**
      * 批量设置为代言人
      * @param id
-     * @param tenantId
      * @return
      */
-    public ServiceStatusInfo<Long> setRepresent(long[] id ,long tenantId){
+    public ServiceStatusInfo<Long> setRepresent(long[] id ){
         try{
-            long result = this.offlineStoreStaffsMapper.setRepresent(id,tenantId);
+            //店铺ID固定，后面改
+            long storeId = 110L;
+            long result = this.offlineStoreStaffsMapper.setRepresent(id,storeId);
             return new ServiceStatusInfo<>(0, "", result);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1, "批量设置失败"+e.getMessage(), 0L);
@@ -546,12 +545,13 @@ public class UserService {
     /**
      * 取消代言人
      * @param id
-     * @param tenantId
      * @return
      */
-    public ServiceStatusInfo<Long> cancelRepresent(long[] id ,long tenantId){
+    public ServiceStatusInfo<Long> cancelRepresent(long[] id ){
         try{
-            long result = this.offlineStoreStaffsMapper.cancelRepresent(id,tenantId);
+            //店铺ID固定，后面改
+            long storeId = 110L;
+            long result = this.offlineStoreStaffsMapper.cancelRepresent(id,storeId);
             return new ServiceStatusInfo<>(0, "", result);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1, "批量取消失败"+e.getMessage(), 0L);
