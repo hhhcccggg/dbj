@@ -16,8 +16,17 @@ public class LocationInfo {
     int cityId;
     @ApiModelProperty(value = "cityLevel")
     String cityLevel;
+    @ApiModelProperty(value = "storeId")
+    long id;
 
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public float getLongitude() {
         return longitude;
