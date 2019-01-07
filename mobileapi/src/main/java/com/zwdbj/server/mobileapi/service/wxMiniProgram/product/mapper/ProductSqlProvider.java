@@ -25,7 +25,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and inventory>0 and specifyPublishTime<now()) " +
+                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and inventory>0 and storeId=1 and specifyPublishTime<now()) " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
@@ -34,7 +34,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and  specifyPublishTime>now()) " +
+                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and storeId=1 and  specifyPublishTime>now()) " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
@@ -43,7 +43,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and  inventory=0) ";
+                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and storeId=1 and  inventory=0) ";
         }
         return sql.toString();
     }

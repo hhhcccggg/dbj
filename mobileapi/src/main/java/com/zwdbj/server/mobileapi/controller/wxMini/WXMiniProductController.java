@@ -27,7 +27,7 @@ public class WXMiniProductController {
     @ApiOperation(value = "兑换商城列表")
     public ResponsePageInfoData<ProductOut> findByProduct(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                           @RequestParam(value = "rows", required = true, defaultValue = "10") int rows,
-                                                          @RequestBody ProductInput productInput){
+                                                          ProductInput productInput){
         PageHelper.startPage(pageNo,rows);
         ServiceStatusInfo<List<ProductOut>> serviceStatusInfo =  this.productServiceImpl.selectWXXCXShopProduct(productInput);
         if( !serviceStatusInfo.isSuccess() ){
