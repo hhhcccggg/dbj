@@ -424,10 +424,11 @@ public class UserAssetServiceImpl implements IUserAssetService {
         ConsulClient consulClient = new ConsulClient("localhost", 8500);	// 创建与Consul的连接
         Lock lock = new Lock(consulClient, "mobileapi","enCash-lockKey:"+String.valueOf(userId));
         try {
-            if (lock.lock(true,500L,null)){
+            if (lock.lock(true,500L,1)){
                 long id = UniqueIDCreater.generateID();
                 int coins = input.getRmbs() / 10;
                 long allCoins = this.getUserCoinType(userId, "INCOME").getData().getCoins();
+                if (allCoins<=0)return new ServiceStatusInfo<>(1, "没有足够的金币进行提现", null);
                 if (allCoins < coins) {
                     return new ServiceStatusInfo<>(1, "没有足够的金币进行提现", null);
                 }
