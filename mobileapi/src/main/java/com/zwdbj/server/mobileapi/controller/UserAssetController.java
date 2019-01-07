@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.jws.Oneway;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -117,7 +118,7 @@ public class UserAssetController {
     @RequiresAuthentication
     @RequestMapping(value = "/enCash", method = RequestMethod.POST)
     @ApiOperation(value = "提现")
-    public ResponseData<Integer> enCashMyCoins(@RequestBody EnCashInput input){
+    public ResponseData<Integer> enCashMyCoins(@RequestBody @Valid EnCashInput input){
         ServiceStatusInfo<Integer> info = this.userAssetServiceImpl.enCashMyCoins(input);
         if (info.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",info.getData());

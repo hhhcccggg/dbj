@@ -3,6 +3,8 @@ package com.zwdbj.server.mobileapi.service.userAssets.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @ApiModel(description = "提现")
@@ -11,6 +13,8 @@ public class EnCashInput implements Serializable {
     String payAccountType;
     @ApiModelProperty(value = "提现账号id")
     long payAccountId;
+    @NotNull
+    @Min(value = 500,message = "最小提现金额为5元")
     @ApiModelProperty(value = "提现的金额")
     int rmbs;
 
