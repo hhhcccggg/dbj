@@ -28,7 +28,7 @@ namespace dbdesgin.Models
         /// <value>The extra data.</value>
         public String extraData { get; set; }
         /// <summary>
-        /// TASK:任务;PAY:充值;INCOME:收益;OTHER:其他;ENCASH:提现
+        /// TASK:任务;PAY:充值;INCOME:收益;OTHER:其他;ENCASH:提现;ORDER:订单支付
         /// </summary>
         /// <value>The type.</value>
         [Required]
