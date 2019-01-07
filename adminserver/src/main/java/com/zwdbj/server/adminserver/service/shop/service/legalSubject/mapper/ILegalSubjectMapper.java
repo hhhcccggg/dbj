@@ -30,7 +30,7 @@ public interface ILegalSubjectMapper {
     @SelectProvider(type = LegalSubjectSQLProvider.class ,method = "searchUnReviewedSql")
     List<LegalSubjectModel> getUnReviewedLegalSubjects(@Param("input") LegalSubjectSearchInput input);
     @Update("update shop_legalSubjects set reviewed=#{input.reviewed},rejectMsg=#{input.rejectMsg} where id=#{id}")
-    int verityUnReviewed(@Param("id") long id, @Param("input") LegalSubjectVerityInput input);
+    int verityUnReviewedLegalSubject(@Param("id") long id, @Param("input") LegalSubjectVerityInput input);
 
     @Select("select * from shop_legalSubjectReviews where legalSubjectId=#{legalSubjectId}")
     List<LegalSubjectReviewModel> getReviewsByLegalSubjectId(@Param("legalSubjectId") long legalSubjectId);
@@ -53,4 +53,12 @@ public interface ILegalSubjectMapper {
             "s.categoryId,s.expireTime from shop_legalSubjects l left join shop_stores s on s.legalSubjectId=l.id " +
             "where l.id=#{id}")
     ShopTenantModel getDetailTenant(@Param("id") long legalSubjectId);
+
+    //根据id查询商家需要审核的资料
+    @Select("select * from shop_legalSubjectReviews where id=#{id}")
+    LegalSubjectReviewModel getLegalSubjectReviewById(@Param("id") long id);
+
+    //审核商家需要审核的资料
+    @Update("update shop_legalSubjectReviews set `status`=#{input.status},rejectMsg=#{input.rejectMsg} where id=#[id]")
+    int verityLegalSubjectReview(@Param("id")long id,@Param("input")LegalSubjectReviewVerityInput input);
 }
