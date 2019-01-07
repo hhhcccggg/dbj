@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.productCashCoupon.model;
 
+import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -45,13 +46,13 @@ public class ProductCashCoupon {
     public ProductCashCoupon() {
     }
 
-    public ProductCashCoupon(boolean festivalCanUse, String validType, int specHoursValid, int validDays, Date validStartTime, Date validEndTime, Long productId) {
-        this.festivalCanUse = festivalCanUse;
-        this.validType = validType;
-        this.specHoursValid = specHoursValid;
-        this.validDays = validDays;
-        this.validStartTime = validStartTime;
-        this.validEndTime = validEndTime;
+    public ProductCashCoupon(CreateProducts createProducts, Long productId) {
+        this.festivalCanUse = createProducts.isFestivalCanUse();
+        this.validType = createProducts.getValidType();
+        this.specHoursValid = createProducts.getSpecHoursValid();
+        this.validDays = createProducts.getValidDays();
+        this.validStartTime = createProducts.getValidStartTime();
+        this.validEndTime = createProducts.getValidEndTime();
         this.productId = productId;
     }
 

@@ -158,11 +158,12 @@ public interface IUserMapper {
     /**
      * 商家查询员工
      * @param userShopSearchInput
+     * @param storeId
      * @param tenantId
      * @return
      */
     @SelectProvider(type = UserSqlProvider.class,method ="selectStaff")
-    List<UserShopSelectInput> selectStaff(@Param("userShopSearchInput")UserShopSearchInput userShopSearchInput,@Param("tenantId")long tenantId);
+    List<UserShopSelectInput> selectStaff(@Param("userShopSearchInput")UserShopSearchInput userShopSearchInput,@Param("storeId")long storeId,@Param("tenantId")long tenantId);
 
     @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager,isPhoneVerification,tenantId) " +
             "values(#{id},#{input.phone},#{input.userName},#{input.name},'http://res.pet.zwdbj.com/default_avatar.png',false,#{password},true,true,#{tenantId})")
