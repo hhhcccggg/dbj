@@ -78,10 +78,10 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
     }
 
     @Override
-    public ServiceStatusInfo<Integer> verityUnReviewed(long id, LegalSubjectVerityInput input) {
+    public ServiceStatusInfo<Integer> verityUnReviewedLegalSubject(long id, LegalSubjectVerityInput input) {
         int result = 0;
         try {
-            result = this.legalSubjectMapper.verityUnReviewed(id,input);
+            result = this.legalSubjectMapper.verityUnReviewedLegalSubject(id,input);
             if (result==0)new ServiceStatusInfo<>(1, "审核商家失败", result);
             // TODO 需不需要这里把店铺也审核了？
             result = this.verityUnReviewedStore(id,input);
@@ -107,5 +107,35 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
     public ShopTenantModel getDetailTenant(long legalSubjectId) {
         ShopTenantModel model = this.legalSubjectMapper.getDetailTenant(legalSubjectId);
         return model;
+    }
+
+    @Override
+    public ServiceStatusInfo<LegalSubjectReviewModel> getLegalSubjectReviewById(long id) {
+        try {
+            LegalSubjectReviewModel model = this.legalSubjectMapper.getLegalSubjectReviewById(id);
+            if (model==null)return new ServiceStatusInfo<>(1,"没有查询到结果",null);
+            return new ServiceStatusInfo<>(0,"",model);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"查询资料失败,出现异常："+e.getMessage(),null);
+        }
+
+    }
+
+    /**
+     * 审核商家需要审核的资料
+     * @param id
+     * @param input
+     * @return
+     */
+    @Override
+    public ServiceStatusInfo<Integer> verityLegalSubjectReview(long id,LegalSubjectReviewVerityInput input) {
+        try {
+            int result = this.legalSubjectMapper.verityLegalSubjectReview(id,input);
+            if (result==0)return new ServiceStatusInfo<>(1,"审核资料失败",0);
+            return new ServiceStatusInfo<>(0,"审核资料成功",result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"审核资料失败,出现异常："+e.getMessage(),0);
+        }
+
     }
 }

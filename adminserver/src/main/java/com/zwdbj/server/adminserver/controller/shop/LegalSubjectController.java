@@ -2,10 +2,7 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectModel;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectReviewModel;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectSearchInput;
-import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.LegalSubjectVerityInput;
+import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.legalSubject.service.ILegalSubjectService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -44,18 +41,18 @@ public class LegalSubjectController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", legalSubjectModels, pageInfo.getTotal());
     }
     @RequestMapping(value = "/Verify/{id}", method = RequestMethod.POST)
-    @ApiOperation(value = "根据id审核未通过审核的商户")
-    public ResponseData<Integer> verityUnReviewed(@PathVariable long id,
-                                                  @RequestBody LegalSubjectVerityInput input){
+    @ApiOperation(value = "根据id审核未通过审核的商户(legalSubjects)")
+    public ResponseData<Integer> verityUnReviewedLegalSubject(@PathVariable long id,
+                                                              @RequestBody LegalSubjectVerityInput input){
 
-        ServiceStatusInfo<Integer> statusInfo = this.legalSubjectServiceImpl.verityUnReviewed(id, input);
+        ServiceStatusInfo<Integer> statusInfo = this.legalSubjectServiceImpl.verityUnReviewedLegalSubject(id, input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
     @RequestMapping(value = "/getReviews/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "根据id得到商户的审核信息")
+    @ApiOperation(value = "根据商户id得到商户的审核信息(legalSubjectReviews)")
     public ResponsePageInfoData<List<LegalSubjectReviewModel>> getReviewsByLegalSubjectId(@PathVariable long id,
                                                                                           @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                                           @RequestParam(value = "rows", required = true, defaultValue = "30") int rows){
@@ -64,6 +61,31 @@ public class LegalSubjectController {
         List<LegalSubjectReviewModel> legalSubjectReviewModels = this.legalSubjectServiceImpl.getReviewsByLegalSubjectId(id);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", legalSubjectReviewModels, pageInfo.getTotal());
     }
+
+    @RequestMapping(value = "/get/legalSubjectReview/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "根据商户审核材料id审核未通过审核的商户审核材料(legalSubjectReview)")
+    public ResponseData<LegalSubjectReviewModel> getLegalSubjectReviewById(@PathVariable long id){
+
+        ServiceStatusInfo<LegalSubjectReviewModel> statusInfo = this.legalSubjectServiceImpl.getLegalSubjectReviewById(id);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
+    }
+
+    @RequestMapping(value = "/Verify/legalSubjectReview/{id}", method = RequestMethod.POST)
+    @ApiOperation(value = "根据商户审核材料id审核未通过审核的商户审核材料(legalSubjectReview)")
+    public ResponseData<Integer> verityLegalSubjectReview(@PathVariable long id,
+                                                          @RequestBody LegalSubjectReviewVerityInput input){
+
+        ServiceStatusInfo<Integer> statusInfo = this.legalSubjectServiceImpl.verityLegalSubjectReview(id, input);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
+    }
+
+
 
 
 
