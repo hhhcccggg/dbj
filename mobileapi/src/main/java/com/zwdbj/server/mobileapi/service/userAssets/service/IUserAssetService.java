@@ -11,4 +11,5 @@ public interface IUserAssetService {
     int updateUserCoinDetail(UserCoinDetailModifyInput input);
     BuyCoinConfigModel findCoinConfigByProductId(String productId,String type);
     boolean findCoinDetailByTrade(String tradeNo,String tradeType);
+    boolean minusUserCoins(int coins,long userId,long productOrderId);
 }

@@ -3,44 +3,60 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @ApiModel(description = "生成订单所需字段")
 public class AddOrderInput {
 
-    @NotNull(message = "使用的小饼干抵扣数不能为空")
+    @NotNull
+    @Min(value = 1)
     @ApiModelProperty(value = "使用的小饼干抵扣数")
     private int useCoin;
 
-    @NotNull(message = "邮费不能为空")
-    @ApiModelProperty(value = "邮费，单位分")
-    private int deliveryFee;
+    @NotNull
+    @ApiModelProperty(value = "是否限购,0：表示不限购  大于0数字表示每人只能买商品的数量")
+    private int limitPerPerson;
+
 
     @ApiModelProperty(value = "买家留言")
     private String buyerComment;
 
-    @NotNull(message = "店铺id不能为空")
+    @NotNull
     @ApiModelProperty(value = "店铺id")
     private long storeId;
 
-    @NotNull(message = "收货地址不能为空")
+    @NotNull
     @ApiModelProperty(value = "收货地址id")
     private long receiveAddressId;
-    @NotNull(message = "商品id不能为空")
+    @NotNull
     @ApiModelProperty(value = "商品id")
     private long productId;
     @NotNull(message = "商品SKUid不能为空")
     @ApiModelProperty(value = "商品SKUid")
     private long productskuId;
-    @NotNull(message = "购买的商品数量不能为空")
+
+    @NotNull
+    @Min(value = 1)
     @ApiModelProperty(value = "购买的商品数量")
     private int num;
-    @NotNull(message = "商品单价不能为空")
+
+    @NotNull
+    @Min(value = 1)
     @ApiModelProperty(value = "购买的商品单价（小饼干）")
     private int price_coin;
     @NotNull(message = "商品标题不能为空")
     @ApiModelProperty(value = "商品标题")
     private String title;
+
+    public int getLimitPerPerson() {
+        return limitPerPerson;
+    }
+
+    public void setLimitPerPerson(int limitPerPerson) {
+        this.limitPerPerson = limitPerPerson;
+    }
 
     public String getTitle() {
         return title;
@@ -56,14 +72,6 @@ public class AddOrderInput {
 
     public void setUseCoin(int useCoin) {
         this.useCoin = useCoin;
-    }
-
-    public int getDeliveryFee() {
-        return deliveryFee;
-    }
-
-    public void setDeliveryFee(int deliveryFee) {
-        this.deliveryFee = deliveryFee;
     }
 
     public String getBuyerComment() {
