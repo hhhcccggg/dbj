@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/shop/products/dbj")
+@RequestMapping("/api/shop/products")
 @Api(description = "商品相关")
 public class ProductsController {
     @Autowired
