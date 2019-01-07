@@ -21,9 +21,11 @@ public interface IProductsMapper {
             "`publish`," +
             "`specifyPublishTime`," +
             "`detailDescription`," +
-            "`limitPerPerson`" +
+            "`limitPerPerson`," +
+            "`brandId`,"+
+            "`categoryId`,`supportCoin`"+
             ")VALUES(" +
-            "#{products.id}," +
+            "#{id}," +
             "#{products.productType}," +
             "#{products.productDetailType}," +
             "#{products.name}," +
@@ -32,7 +34,7 @@ public interface IProductsMapper {
             "#{products.publish}," +
             "#{products.specifyPublishTime}," +
             "#{products.detailDescription}," +
-            "#{products.limitPerPerson}" +
+            "#{products.limitPerPerson},#{products.brandId},#{products.categoryId},#{products.supportCoin}" +
             ");")
     Long createProducts(@Param("id") Long id, @Param("products") CreateProducts products);
 

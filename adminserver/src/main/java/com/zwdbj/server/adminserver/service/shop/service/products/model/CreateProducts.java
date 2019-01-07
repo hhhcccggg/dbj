@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @ApiModel(value = "新增或修改的商品对象")
@@ -73,6 +72,39 @@ public class CreateProducts {
     @ApiModelProperty(value = "生效类型")
     @NotNull(message = "生效类型不能为空")
     String validType;
+
+    @ApiModelProperty(value = "支持金币兑换购买")
+    boolean supportCoin;
+
+    @ApiModelProperty(value = "品牌ID")
+    Long brandId;
+
+    @ApiModelProperty(value = "种类ID")
+    Long categoryId;
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public boolean isSupportCoin() {
+        return supportCoin;
+    }
+
+    public void setSupportCoin(boolean supportCoin) {
+        this.supportCoin = supportCoin;
+    }
 
     public Long getId() {
         return id;

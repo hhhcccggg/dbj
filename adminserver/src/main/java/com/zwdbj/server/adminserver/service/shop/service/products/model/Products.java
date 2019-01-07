@@ -66,6 +66,16 @@ public class Products {
     String notes;
     @ApiModelProperty(value = "是否限购")
     int limitPerPerson;
+    @ApiModelProperty(value = "支持金币兑换购买")
+    boolean supportCoin;
+
+    public boolean isSupportCoin() {
+        return supportCoin;
+    }
+
+    public void setSupportCoin(boolean supportCoin) {
+        this.supportCoin = supportCoin;
+    }
 
     public String getProductDetailType() {
         return productDetailType;
