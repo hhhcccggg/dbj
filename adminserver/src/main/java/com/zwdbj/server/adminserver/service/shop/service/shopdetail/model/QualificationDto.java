@@ -7,15 +7,15 @@ import io.swagger.annotations.ApiModelProperty;
 public class QualificationDto {
     @ApiModelProperty(value = "id")
     long id;
-    @ApiModelProperty(value = "需要审核的主体对象")//ID身份证,CORP营业执照
+    @ApiModelProperty(value = "需要审核的主体对象,ID身份证,CORP营业执照")
             String identifyId;
     @ApiModelProperty(value = "标题")
     String title;
     @ApiModelProperty(value = "主体对象的编码")
     String keyId;
-    @ApiModelProperty(value = "数据内容")//多个内容用,隔开
+    @ApiModelProperty(value = "数据内容,多个内容用,隔开")
             String reviewData;
-    @ApiModelProperty(value = "审核状态")//0正常,1审核中,2拒接
+    @ApiModelProperty(value = "审核状态,0正常,1审核中,2拒接")
             int status;
     @ApiModelProperty(value = "拒接原因")
     String rejectMsg;

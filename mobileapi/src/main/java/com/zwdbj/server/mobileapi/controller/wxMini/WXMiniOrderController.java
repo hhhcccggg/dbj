@@ -1,6 +1,8 @@
-package com.zwdbj.server.mobileapi.controller;
+package com.zwdbj.server.mobileapi.controller.wxMini;
 
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.service.WxMiniProgramService;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service.ProductOrderService;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.setting.service.WxMiniProgramService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -10,20 +12,24 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/wx/mini")
 @Api(description = "小程序相关")
-public class WXMiniProgramController {
+public class WXMiniOrderController {
     @Autowired
-    WxMiniProgramService wxMiniProgramService;
+    ProductOrderService productOrderService;
 
-    @RequestMapping(value = "/code2Session", method = RequestMethod.GET)
-    @ApiOperation(value = "通过临时登录凭证 code获得openId")
-    public ResponseData<Object> getOpenIdByCode(@RequestParam String code) {
-        ServiceStatusInfo<Object> statusInfo = this.wxMiniProgramService.getOpenIdByCode(code);
+    @RequestMapping(value = "/createOrder",method = RequestMethod.POST)
+    @ApiOperation(value = "创建订单")
+    @RequiresAuthentication
+    public ResponseData<Integer> createOrder(@RequestBody @Valid AddOrderInput input){
+        ServiceStatusInfo<Integer> statusInfo = this.productOrderService.createOrder(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+
     }
 }

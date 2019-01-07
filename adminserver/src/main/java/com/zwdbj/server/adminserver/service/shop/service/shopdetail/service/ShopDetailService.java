@@ -9,27 +9,27 @@ import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.Locati
 import java.util.List;
 
 public interface ShopDetailService {
-    ServiceStatusInfo<StoreDto> findStoreDetail(long storeId);
+    ServiceStatusInfo<StoreDto> findStoreDetail(long legalSubjectId);
 
-    ServiceStatusInfo<List<OpeningHours>> findOpeningHours(long storeId);
+    ServiceStatusInfo<List<OpeningHours>> findOpeningHours(long legalSubjectId);
 
     ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list);
 
-    ServiceStatusInfo<Long> addOpeningHours(long storeId, List<OpeningHours> list);
+    ServiceStatusInfo<Long> addOpeningHours(List<OpeningHours> list);
 
-    ServiceStatusInfo<LocationInfo> showLocation(long storeId);
+    ServiceStatusInfo<LocationInfo> showLocation(long legalSubjectId);
 
-    ServiceStatusInfo<List<StoreServiceCategory>> findExtraService(long stordId);
+    ServiceStatusInfo<List<StoreServiceCategory>> findExtraService(long legalSubjectId);
 
-    ServiceStatusInfo<List<StoreServiceCategory>> findAllExtraService(long stordId);
+    ServiceStatusInfo<List<StoreServiceCategory>> findAllExtraService(long legalSubjectId);
 
-    ServiceStatusInfo<Long> modifyExtraService(long storeId, List<StoreServiceCategory> list);
+    ServiceStatusInfo<Long> modifyExtraService(long legalSubjectId, List<StoreServiceCategory> list);
 
-    ServiceStatusInfo<List<StoreServiceCategory>> findServiceScope(long storeId);
+    ServiceStatusInfo<List<StoreServiceCategory>> findServiceScope(long legalSubjectId);
 
-    ServiceStatusInfo<Long> modifyServiceScopes(long storeId, List<StoreServiceCategory> list);
+    ServiceStatusInfo<Long> modifyServiceScopes(long legalSubjectId, List<StoreServiceCategory> list);
 
     ServiceStatusInfo<Long> uploadCheck(QualificationInput qualificationInput, long legalSubjectId);
 
-    ServiceStatusInfo<Long> modifylocation(LocationInfo info, long storeId);
+    ServiceStatusInfo<Long> modifylocation(LocationInfo info);
 }
