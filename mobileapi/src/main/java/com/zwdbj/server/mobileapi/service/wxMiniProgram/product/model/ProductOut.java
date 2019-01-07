@@ -75,6 +75,17 @@ public class ProductOut {
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
 
+    @ApiModelProperty(value = "是否退换过")
+    int exchange;
+
+    public int getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(int exchange) {
+        this.exchange = exchange;
+    }
+
     public long getSales() {
         return sales;
     }
