@@ -1,8 +1,5 @@
-package com.zwdbj.server.mobileapi.service.wxMiniProgram.service;
+package com.zwdbj.server.mobileapi.service.wxMiniProgram.setting.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import okhttp3.*;
 import org.slf4j.Logger;
