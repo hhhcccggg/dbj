@@ -14,6 +14,9 @@ public class AddOrderInput {
     @Min(value = 1)
     @ApiModelProperty(value = "使用的小饼干抵扣数")
     private int useCoin;
+    @ApiModelProperty(value = "邮费，若为0则免邮费，单位为分")
+    private int deliveryFee;
+
 
     @NotNull
     @ApiModelProperty(value = "是否限购,0：表示不限购  大于0数字表示每人只能买商品的数量")
@@ -49,6 +52,14 @@ public class AddOrderInput {
     @NotNull(message = "商品标题不能为空")
     @ApiModelProperty(value = "商品标题")
     private String title;
+
+    public int getDeliveryFee() {
+        return deliveryFee;
+    }
+
+    public void setDeliveryFee(int deliveryFee) {
+        this.deliveryFee = deliveryFee;
+    }
 
     public int getLimitPerPerson() {
         return limitPerPerson;
