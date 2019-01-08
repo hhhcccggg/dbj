@@ -13,11 +13,9 @@ import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -95,9 +93,9 @@ public class ProductsController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @GetMapping(value = "/selectById/{id}")
+    @GetMapping(value = "/find/{id}")
     @ApiOperation(value = "查询单个商品")
-    public ResponseData<Map<String,Object>> selectById(@PathVariable long id){
+    public ResponseData<Map<String,Object>> findById(@PathVariable long id){
         ServiceStatusInfo<Map<String,Object>> serviceStatusInfo = this.productServiceImpl.selectById(id);
         if(serviceStatusInfo.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());

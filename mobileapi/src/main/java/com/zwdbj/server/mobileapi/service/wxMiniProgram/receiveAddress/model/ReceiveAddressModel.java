@@ -3,19 +3,16 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel(description = "收货人的地址相关")
-public class ReceiveAddressModel implements Serializable {
+public class ReceiveAddressModel {
     @ApiModelProperty(value = "id")
     private long id;
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
-    @ApiModelProperty(value = "用户的id")
+    @ApiModelProperty(value = "收货人的id")
     private long userId;
-    @ApiModelProperty(value = "用户的昵称")
-    private String nickName;
     @ApiModelProperty(value = "收货人的名字")
     private String receiverName;
     @ApiModelProperty(value = "收货人固定电话")
@@ -39,15 +36,7 @@ public class ReceiveAddressModel implements Serializable {
     @ApiModelProperty(value = "更新的时间")
     private Date updateTime;
     @ApiModelProperty(value = "是否为默认地址")
-    private boolean isDefault;
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
+    private boolean defaultAddr;
 
     public long getId() {
         return id;
@@ -161,11 +150,11 @@ public class ReceiveAddressModel implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public boolean isDefault() {
-        return isDefault;
+    public boolean isDefaultAddr() {
+        return defaultAddr;
     }
 
-    public void setDefault(boolean aDefault) {
-        isDefault = aDefault;
+    public void setDefaultAddr(boolean defaultAddr) {
+        this.defaultAddr = defaultAddr;
     }
 }

@@ -54,7 +54,7 @@ public class WXMiniProductController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
     }
 
-    @GetMapping(value = "myByProduct")
+    @GetMapping(value = "findByMyOrder")
     @ApiOperation(value = "我的兑换")
     @RequiresAuthentication
     public ResponsePageInfoData<OrderOut> findByMyOrder(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
