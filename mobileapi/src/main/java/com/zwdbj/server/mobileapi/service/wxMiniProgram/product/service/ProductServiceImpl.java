@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 
+import com.zwdbj.server.mobileapi.service.user.mapper.IUserMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper.IProductMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
@@ -23,6 +24,9 @@ public class ProductServiceImpl implements  ProductService{
     @Autowired
     protected IProductOrderMapper iProductOrderMapper;
 
+    @Autowired
+    protected IUserMapper iUserMapper;
+
     @Override
     public ServiceStatusInfo<List<ProductOut>> selectWXXCXShopProduct(ProductInput productInput) {
         //TODO 后期可能会换成缓存
@@ -43,8 +47,12 @@ public class ProductServiceImpl implements  ProductService{
         try{
             Map<String,Object> map = new HashMap<>();
             map.put("product",this.iProductMapper.selectWXXCXById(id));
-            //TODO 后面把兑换的头像加上
-            map.put("exchangeList",null);
+            List<Long> userIds = iProductOrderMapper.selectByOrder(id);
+            List<String> exchangeList =  null;
+            if(userIds.size()>0){
+                exchangeList = iUserMapper.selectUserAvatarUrl(userIds);
+            }
+            map.put("exchangeList", exchangeList);
             return new ServiceStatusInfo<>(0,"",map);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);

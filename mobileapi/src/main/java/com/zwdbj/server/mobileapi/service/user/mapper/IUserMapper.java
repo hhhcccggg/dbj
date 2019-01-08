@@ -99,4 +99,6 @@ public interface IUserMapper {
             "values(#{id},#{phone},#{password},#{username},'爪子用户','http://res.pet.zwdbj.com/default_avatar.png',true)")
     int regUser(@Param("id")long id,@Param("username")String userName,@Param("phone")String phone,@Param("password")String password);
 
+    @SelectProvider(type = UserSqlProvider.class,method = "selectUserAvatarUrl")
+    List<String> selectUserAvatarUrl(@Param("userIds") List<Long> userIds);
 }

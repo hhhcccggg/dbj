@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface IProductOrderMapper {
 
@@ -18,7 +20,15 @@ public interface IProductOrderMapper {
             "values(#{id},#{input.productId},#{input.productskuId},#{orderId},#{input.num},#{input.title},#{price},#{totalFee})")
     int createOrderItem(@Param("id")long id,@Param("orderId")long orderId,@Param("input")AddOrderInput input,
                         @Param("price")int price,@Param("totalFee")int totalFee);
-    @Select("select sum(oi.num) from shop_productOrderItems oi left join shop_productOrders o on o.id=oi.orderId " +
+    @Select("select ifNull(sum(oi.num),0) from shop_productOrderItems oi left join shop_productOrders o on o.id=oi.orderId " +
             "where o.userId=#{userId} and oi.productId=#{productId} ")
     int userBuyProductAccounts(@Param("userId")long userId,@Param("productId")long productId);
+
+    /**
+     * 查询购买商品人的集合
+     * @param productId
+     * @return
+     */
+    @Select("select o.userId from shop_productOrderItems oi left join shop_productOrders o on o.id=oi.orderId where  oi.productId=#{productId}")
+    List<Long> selectByOrder(@Param("productId") long productId);
 }
