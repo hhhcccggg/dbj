@@ -1,5 +1,6 @@
-package com.zwdbj.server.mobileapi.service.shop.nearbyShops.model;
+package com.zwdbj.server.adminserver.service.shop.service.shopdetail.model;
 
+import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -8,9 +9,7 @@ import java.util.List;
 
 @ApiModel(value = "店铺信息")
 public class ShopInfo implements Serializable {
-
-
-    private static final long serialVersionUID = 3991973629366868716L;
+    private static final long serialVersionUID = 9175723301743073975L;
     @ApiModelProperty(value = "店铺id")
     long id;
     @ApiModelProperty(value = "name")

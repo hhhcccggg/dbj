@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.service.shop.nearbyShops.model;
+package com.zwdbj.server.adminserver.service.shop.service.shopdetail.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,7 +8,7 @@ import java.util.Date;
 @ApiModel(value = "优惠，代金券详情")
 public class DiscountCouponDetail extends DiscountCoupon {
 
-    private static final long serialVersionUID = -4153494552443123796L;
+    private static final long serialVersionUID = -4912070147237940376L;
     @ApiModelProperty(value = "产品说明")
     String userInfo;
     @ApiModelProperty(value = "有效期")
