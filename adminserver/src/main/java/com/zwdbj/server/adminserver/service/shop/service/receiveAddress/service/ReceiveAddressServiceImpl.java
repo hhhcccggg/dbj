@@ -4,8 +4,10 @@ import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.mapper.I
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressAddInput;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModifyInput;
+import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,8 @@ import java.util.List;
 public class ReceiveAddressServiceImpl implements ReceiveAddressService {
     @Resource
     IReceiveAddressMapper receiveAddressMapper;
+    @Autowired
+    UserService userService;
 
     @Override
     public List<ReceiveAddressModel> findAllReceiveAddresses() {
@@ -28,6 +32,8 @@ public class ReceiveAddressServiceImpl implements ReceiveAddressService {
     public ServiceStatusInfo<ReceiveAddressModel> getReceiveAddressById(long id) {
         try {
             ReceiveAddressModel receiveAddressModel = this.receiveAddressMapper.getReceiveAddressById(id);
+            long userId = receiveAddressModel.getUserId();
+            receiveAddressModel.setNickName(this.userService.getUserDetail(userId).getNickName());
             return new ServiceStatusInfo<>(0,"",receiveAddressModel);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"获取地址失败",null);
