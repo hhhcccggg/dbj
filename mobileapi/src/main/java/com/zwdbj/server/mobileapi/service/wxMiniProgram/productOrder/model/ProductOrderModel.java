@@ -4,11 +4,10 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.Rec
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel(value = "订单的简单model")
-public class ProductOrderModel implements Serializable {
+public class ProductOrderModel {
     @ApiModelProperty(value = "订单id")
     private long id;
     @ApiModelProperty(value = "订单创建时间")
@@ -29,26 +28,6 @@ public class ProductOrderModel implements Serializable {
     private int useCoin;
     @ApiModelProperty(value = "订单总金额，单位为分")
     private int payment;
-    @ApiModelProperty(value = "商品的id")
-    private long productId;
-    @ApiModelProperty(value = "商品sku的id")
-    private long productskuId;
-
-    public long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(long productId) {
-        this.productId = productId;
-    }
-
-    public long getProductskuId() {
-        return productskuId;
-    }
-
-    public void setProductskuId(long productskuId) {
-        this.productskuId = productskuId;
-    }
 
     public int getPayment() {
         return payment;
