@@ -65,8 +65,8 @@ public class WXMiniReceiveAddressController {
     @PostMapping(value = "setByReceiveAddress")
     @ApiOperation(value = "修改收货地址")
     @RequiresAuthentication
-    public ResponseData<Long> setByReceiveAddress(@RequestBody @Valid ReceiveAddressInput receiveAddressInput ,@RequestParam(value = "id" ,required = true) long id){
-        ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.updateReceiveAddress(receiveAddressInput,id);
+    public ResponseData<Long> setByReceiveAddress(@RequestBody @Valid ReceiveAddressInput receiveAddressInput){
+        ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.updateReceiveAddress(receiveAddressInput);
         if( !serviceStatusInfo.isSuccess()){
             return new ResponseData(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
         }

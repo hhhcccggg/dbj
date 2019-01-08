@@ -31,8 +31,8 @@ public interface IReceiveAddressMapper {
             "receiverPhone=#{input.receiverPhone},receiverMobile=#{input.receiverMobile},reveiverState=#{input.reveiverState}," +
             "receiverCity=#{input.receiverCity},receiverCountry=#{input.receiverCountry},receiverAddress=#{input.receiverAddress}," +
             "receiverZip=#{input.receiverZip},cityId=#{input.cityId},cityLevel=#{input.cityLevel}," +
-            "updateTime=now(),defaultAddr=#{input.defaultAddr} where id=#{id} and userId=#{input.userId} and isDeleted=0")
-    long updateReceiveAddress(@Param("input") ReceiveAddressInput input,@Param("id") long id);
+            "updateTime=now(),defaultAddr=#{input.defaultAddr} where id=#{input.id} and userId=#{input.userId} and isDeleted=0")
+    long updateReceiveAddress(@Param("input") ReceiveAddressInput input);
 
     /**
      * 刪除

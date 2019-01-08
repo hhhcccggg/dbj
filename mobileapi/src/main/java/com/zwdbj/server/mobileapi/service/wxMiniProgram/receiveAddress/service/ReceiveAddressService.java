@@ -21,7 +21,7 @@ public interface ReceiveAddressService {
      * @param id
      * @return
      */
-    ServiceStatusInfo<Long> updateReceiveAddress(ReceiveAddressInput receiveAddressInput,long id);
+    ServiceStatusInfo<Long> updateReceiveAddress(ReceiveAddressInput receiveAddressInput);
 
     /**
      * 设置默认收货地址

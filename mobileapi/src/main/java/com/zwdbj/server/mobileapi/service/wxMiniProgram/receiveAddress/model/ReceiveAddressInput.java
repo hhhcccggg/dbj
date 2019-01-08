@@ -9,6 +9,9 @@ import java.util.Date;
 @ApiModel(description = "收货地址的字段")
 public class ReceiveAddressInput {
 
+    @ApiModelProperty(value = "id")
+    private long id;
+
     @ApiModelProperty(value = "收货人的id")
     private long userId;
 
@@ -50,6 +53,14 @@ public class ReceiveAddressInput {
 
     @ApiModelProperty(value = "是否为默认地址")
     private boolean defaultAddr;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getUserId() {
         return userId;

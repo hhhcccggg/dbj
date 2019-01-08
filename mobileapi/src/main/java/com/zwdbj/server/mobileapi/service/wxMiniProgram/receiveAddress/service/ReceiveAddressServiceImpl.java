@@ -36,14 +36,14 @@ public class ReceiveAddressServiceImpl implements ReceiveAddressService{
     }
 
     @Override
-    public ServiceStatusInfo<Long> updateReceiveAddress(ReceiveAddressInput receiveAddressInput,long id) {
+    public ServiceStatusInfo<Long> updateReceiveAddress(ReceiveAddressInput receiveAddressInput) {
         try{
             long userId = JWTUtil.getCurrentId();
             receiveAddressInput.setUserId(userId);
             if(receiveAddressInput.isDefaultAddr()){
                 iReceiveAddressMapper.updateCancelAllDefalue(userId);
             }
-            long result = iReceiveAddressMapper.updateReceiveAddress(receiveAddressInput,id);
+            long result = iReceiveAddressMapper.updateReceiveAddress(receiveAddressInput);
             return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"",result);
         }catch(Exception e){
             return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_ERROR,"修改失败"+e.getMessage(),null);
