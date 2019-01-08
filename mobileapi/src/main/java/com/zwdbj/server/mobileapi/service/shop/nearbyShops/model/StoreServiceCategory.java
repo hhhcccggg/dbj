@@ -3,9 +3,12 @@ package com.zwdbj.server.mobileapi.service.shop.nearbyShops.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "服务范围")
-public class ShopServices {
+import java.io.Serializable;
 
+@ApiModel(value = "服务范围")
+public class StoreServiceCategory implements Serializable {
+
+    private static final long serialVersionUID = -732539217741767219L;
     @ApiModelProperty(value = "服务范围id")
     long id;
     @ApiModelProperty(value = "name")

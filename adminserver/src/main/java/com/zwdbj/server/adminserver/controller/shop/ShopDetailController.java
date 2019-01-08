@@ -67,8 +67,11 @@ public class ShopDetailController {
 
     @RequestMapping(value = "/modifyOpeningHours", method = RequestMethod.POST)
     @ApiOperation(value = "修改营业时间")
-    public ResponseData<Long> modifyOpeningHours(@RequestBody List<OpeningHours> list) {
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyOpeningHours(list);
+    public ResponseData<Long> modifyOpeningHours(@RequestBody List<OpeningHours> list, long storeId) {
+        long userId = JWTUtil.getCurrentId();
+
+        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyOpeningHours(list, storeId, legalSubjectId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
@@ -78,10 +81,9 @@ public class ShopDetailController {
 
     @RequestMapping(value = "/addOpeningHours", method = RequestMethod.POST)
     @ApiOperation(value = "增加营业时间段")
-    public ResponseData<Long> addOpeningHours(@RequestBody List<OpeningHours> list) {
+    public ResponseData<Long> addOpeningHours(@RequestBody List<OpeningHours> list, long storeId) {
 
-        long storeId = 1L;
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.addOpeningHours(list);
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.addOpeningHours(list, storeId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
@@ -106,9 +108,9 @@ public class ShopDetailController {
 
     @RequestMapping(value = "/modifylocation", method = RequestMethod.POST)
     @ApiOperation(value = "修改位置信息")
-    public ResponseData<Long> modifylocation(@RequestBody LocationInfo info) {
-        //从token获取店铺id
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifylocation(info);
+    public ResponseData<Long> modifylocation(@RequestBody LocationInfo info, long storeId) {
+
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifylocation(info, storeId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
 
@@ -125,7 +127,7 @@ public class ShopDetailController {
         long userId = JWTUtil.getCurrentId();
 
         long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.shopDetailServiceImpl.findExtraService(1L);
+        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.shopDetailServiceImpl.findExtraService(legalSubjectId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
@@ -134,11 +136,11 @@ public class ShopDetailController {
 
     @RequestMapping(value = "/modifyExtraService", method = RequestMethod.POST)
     @ApiOperation(value = "修改店铺额外服务范围")
-    public ResponseData<Long> modifyExtraService(@RequestBody List<StoreServiceCategory> storeServiceCategory) {
+    public ResponseData<Long> modifyExtraService(@RequestBody List<StoreServiceCategory> storeServiceCategory, long storeId) {
         long userId = JWTUtil.getCurrentId();
 
         long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyExtraService(legalSubjectId, storeServiceCategory);
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyExtraService(storeId, legalSubjectId, storeServiceCategory);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
@@ -170,11 +172,11 @@ public class ShopDetailController {
 
     @RequestMapping(value = "/modifyServiceScopes", method = RequestMethod.POST)
     @ApiOperation(value = "修改店铺额外服务范围")
-    public ResponseData<Long> modifyServiceScopes(@RequestBody List<StoreServiceCategory> storeServiceCategory) {
+    public ResponseData<Long> modifyServiceScopes(@RequestBody List<StoreServiceCategory> storeServiceCategory, long storeId) {
         long userId = JWTUtil.getCurrentId();
 
         long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyServiceScopes(legalSubjectId, storeServiceCategory);
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyServiceScopes(storeId, legalSubjectId, storeServiceCategory);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
