@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.service.shop.nearbyShops.model;
+package com.zwdbj.server.adminserver.service.shop.service.shopdetail.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 @ApiModel(value = "优惠券")
-public class DiscountCoupon  implements Serializable {
-    private static final long serialVersionUID = 503506118282972600L;
+public class DiscountCoupon implements Serializable {
+    private static final long serialVersionUID = 4252646167682535073L;
     @ApiModelProperty(value = "优惠券id")
     long id;
     @ApiModelProperty(value = "name")

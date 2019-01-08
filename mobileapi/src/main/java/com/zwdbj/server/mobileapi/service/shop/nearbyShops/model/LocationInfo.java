@@ -1,4 +1,4 @@
-package com.zwdbj.server.adminserver.service.shop.service.shopdetail.model;
+package com.zwdbj.server.mobileapi.service.shop.nearbyShops.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 @ApiModel(value = "店铺位置信息")
 public class LocationInfo implements Serializable {
 
-    private static final long serialVersionUID = -632981850739504544L;
+    private static final long serialVersionUID = 8697638163672326222L;
     @ApiModelProperty(value = "经度")
     float longitude;
     @ApiModelProperty(value = "纬度")
