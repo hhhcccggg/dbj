@@ -1,12 +1,21 @@
 package com.zwdbj.server.adminserver.controller.shop;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.ProductOrderDetailModel;
+import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.ProductOrderInput;
+import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.ProductOrderModel;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.service.ProductOrderService;
+import com.zwdbj.server.utility.model.ResponseData;
+import com.zwdbj.server.utility.model.ResponseDataCode;
+import com.zwdbj.server.utility.model.ResponsePageInfoData;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/shop/order")
@@ -15,6 +24,25 @@ public class ProductOrderController {
     @Autowired
     ProductOrderService productOrderService;
 
-    /*@RequestMapping(value = "/search", method = RequestMethod.POST)
-    @ApiOperation(value = "查询商户")*/
+    @RequestMapping(value = "/search/{storeId}/orders", method = RequestMethod.POST)
+    @ApiOperation(value = "根据店铺id查询订单")
+    public ResponsePageInfoData<List<ProductOrderModel>> getStoreOrders(@PathVariable long storeId,
+                                                                        @RequestBody ProductOrderInput input,
+                                                                        @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                                        @RequestParam(value = "rows", required = true, defaultValue = "30") int rows ){
+        Page<ProductOrderModel> pageInfo = PageHelper.startPage(pageNo,rows);
+        List<ProductOrderModel> orderModels = this.productOrderService.getStoreOrders(storeId,input);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",orderModels,pageInfo.getTotal());
+    }
+
+    @RequestMapping(value = "/search/order/{orderId}", method = RequestMethod.GET)
+    @ApiOperation(value = "根据订单id查询订单")
+    public ResponseData<ProductOrderDetailModel> getOrderById(@PathVariable long orderId){
+        ServiceStatusInfo<ProductOrderDetailModel> statusInfo = this.productOrderService.getOrderById(orderId);
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
 }

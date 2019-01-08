@@ -3,16 +3,15 @@ package com.zwdbj.server.adminserver.service.shop.service.productOrder.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.Date;
 
 @ApiModel(description = "后台订单查询的输入字段")
 public class ProductOrderInput {
     @ApiModelProperty(value = "输入的查询关键字， 订单号/联系人姓名/联系人手机号")
-    String keyWords;
+    private String keyWords;
     @ApiModelProperty(value = "输入的查询起始时间")
-    Date startTime;
+    private String startTime;
     @ApiModelProperty(value = "输入的查询结束时间")
-    Date endTime;
+    private String endTime;
     @ApiModelProperty(value = "订单的状态 " +
             "STATE_WAIT_BUYER_PAY（交易创建，等待买家付款）" +
             "STATE_BUYER_PAYED (买家已付款) " +
@@ -23,9 +22,9 @@ public class ProductOrderInput {
             "STATE_USED (已使用，虚拟商品有效)" +
             "STATE_SUCCESS（交易成功)" +
             "STATE_CLOSED(交易关闭)")
-    String status;
+    private String status;
     @ApiModelProperty(value = "支付类型，BANK:银行卡 WECHAT:微信 ALIPAY:支付宝 NONE:小程序兑换")
-    String paymentType;
+    private String paymentType;
 
     public String getKeyWords() {
         return keyWords;
@@ -35,19 +34,19 @@ public class ProductOrderInput {
         this.keyWords = keyWords;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
