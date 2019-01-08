@@ -39,7 +39,7 @@ public class WXMiniOrderController {
 
     }
 
-    /*@RequestMapping(value = "/getOrders/{userId}",method = RequestMethod.GET)
+   /* @RequestMapping(value = "/getOrders/{userId}",method = RequestMethod.GET)
     @ApiOperation(value = "获得我的订单")
     @RequiresAuthentication
     public ResponsePageInfoData<List<ProductOrderDetailModel>> getMyOrders(@RequestParam("pageNo") int pageNo,
