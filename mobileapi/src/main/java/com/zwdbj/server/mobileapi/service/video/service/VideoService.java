@@ -87,14 +87,14 @@ public class VideoService {
         String firstFrameImageKey = input.getFirstFrameUrl();
         input.setVideoKey(qiniuService.url(videoKey));
         if ((coverImageKey==null || ("").equals(coverImageKey)) && (firstFrameImageKey!=null && !("").equals(firstFrameImageKey)) ){
-            input.setCoverImageKey(qiniuService.url(videoKey+"?vframe/png/offset/1"));
+            input.setCoverImageKey(qiniuService.url(videoKey)+"?vframe/png/offset/1");
             input.setFirstFrameUrl(qiniuService.url(firstFrameImageKey));
         } else if ((coverImageKey!=null && !("").equals(coverImageKey)) && (firstFrameImageKey==null ||("").equals(firstFrameImageKey))){
             input.setCoverImageKey(qiniuService.url(coverImageKey));
-            input.setFirstFrameUrl(qiniuService.url(videoKey+"?vframe/png/offset/1"));
+            input.setFirstFrameUrl(qiniuService.url(videoKey)+"?vframe/png/offset/1");
         }else if ((coverImageKey==null || ("").equals(coverImageKey)) && (firstFrameImageKey==null || ("").equals(firstFrameImageKey))){
-            input.setCoverImageKey(qiniuService.url(coverImageKey));
-            input.setFirstFrameUrl(qiniuService.url(firstFrameImageKey));
+            input.setCoverImageKey(qiniuService.url(videoKey)+"?vframe/png/offset/1");
+            input.setFirstFrameUrl(qiniuService.url(videoKey)+"?vframe/png/offset/1");
         }else {
             input.setCoverImageKey(qiniuService.url(coverImageKey));
             input.setFirstFrameUrl(qiniuService.url(firstFrameImageKey));
