@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.OrderOut;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -31,4 +32,20 @@ public interface IProductOrderMapper {
      */
     @Select("select o.userId from shop_productOrderItems oi left join shop_productOrders o on o.id=oi.orderId where  oi.productId=#{productId}")
     List<Long> selectByOrder(@Param("productId") long productId);
+
+    /**
+     * 查询我的兑换
+     * @return
+     */
+    @Select("SELECT " +
+            "oi.productId,r.receiverName,r.receiverPhone, r.receiverMobile,r.reveiverState,r.receiverCity, " +
+            "r.receiverCountry,r.receiverAddress,p.imageUrls,oi.price, " +
+            "o.payment,o.`status`,o.endTime,o.actualPayment,oi.title " +
+            "FROM  shop_productOrderItems oi " +
+            "LEFT JOIN shop_productOrders o ON o.id = oi.orderId " +
+            "LEFT JOIN shop_products p ON oi.productId=p.id " +
+            "LEFT JOIN shop_receiveaddresses r ON o.receiveAddressId=r.id " +
+            "where o.userId=#{userId} " +
+            "ORDER BY oi.createTime DESC")
+    List<OrderOut> selectMyOrder(@Param("userId")long userId);
 }
