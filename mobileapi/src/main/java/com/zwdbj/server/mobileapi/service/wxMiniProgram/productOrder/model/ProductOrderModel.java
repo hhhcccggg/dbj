@@ -1,13 +1,14 @@
-package com.zwdbj.server.adminserver.service.shop.service.productOrder.model;
+package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model;
 
-import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel(value = "订单的简单model")
-public class ProductOrderModel {
+public class ProductOrderModel implements Serializable {
     @ApiModelProperty(value = "订单id")
     private long id;
     @ApiModelProperty(value = "订单创建时间")
@@ -28,6 +29,26 @@ public class ProductOrderModel {
     private int useCoin;
     @ApiModelProperty(value = "订单总金额，单位为分")
     private int payment;
+    @ApiModelProperty(value = "商品的id")
+    private long productId;
+    @ApiModelProperty(value = "商品sku的id")
+    private long productskuId;
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public long getProductskuId() {
+        return productskuId;
+    }
+
+    public void setProductskuId(long productskuId) {
+        this.productskuId = productskuId;
+    }
 
     public int getPayment() {
         return payment;

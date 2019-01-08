@@ -1,10 +1,10 @@
-package com.zwdbj.server.adminserver.service.shop.service.receiveAddress.service;
+package com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.service;
 
-import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.mapper.IReceiveAddressMapper;
-import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressAddInput;
-import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
-import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModifyInput;
-import com.zwdbj.server.adminserver.service.user.service.UserService;
+import com.zwdbj.server.mobileapi.service.user.service.UserService;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.mapper.IReceiveAddressMapper;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressAddInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModifyInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -85,10 +85,20 @@ public class VideoService {
         String videoKey = input.getVideoKey();
         String coverImageKey = input.getCoverImageKey();
         String firstFrameImageKey = input.getFirstFrameUrl();
-
-        input.setCoverImageKey(qiniuService.url(coverImageKey));
         input.setVideoKey(qiniuService.url(videoKey));
-        input.setFirstFrameUrl(qiniuService.url(firstFrameImageKey));
+        if ((coverImageKey==null || ("").equals(coverImageKey)) && (firstFrameImageKey!=null && !("").equals(firstFrameImageKey)) ){
+            input.setCoverImageKey(qiniuService.url(videoKey)+"?vframe/png/offset/1");
+            input.setFirstFrameUrl(qiniuService.url(firstFrameImageKey));
+        } else if ((coverImageKey!=null && !("").equals(coverImageKey)) && (firstFrameImageKey==null ||("").equals(firstFrameImageKey))){
+            input.setCoverImageKey(qiniuService.url(coverImageKey));
+            input.setFirstFrameUrl(qiniuService.url(videoKey)+"?vframe/png/offset/1");
+        }else if ((coverImageKey==null || ("").equals(coverImageKey)) && (firstFrameImageKey==null || ("").equals(firstFrameImageKey))){
+            input.setCoverImageKey(qiniuService.url(videoKey)+"?vframe/png/offset/1");
+            input.setFirstFrameUrl(qiniuService.url(videoKey)+"?vframe/png/offset/1");
+        }else {
+            input.setCoverImageKey(qiniuService.url(coverImageKey));
+            input.setFirstFrameUrl(qiniuService.url(firstFrameImageKey));
+        }
 
         long videoId = UniqueIDCreater.generateID();
         long userId = JWTUtil.getCurrentId();

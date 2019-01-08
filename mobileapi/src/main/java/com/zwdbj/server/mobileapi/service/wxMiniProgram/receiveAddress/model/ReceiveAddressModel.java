@@ -1,12 +1,13 @@
-package com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model;
+package com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel(description = "收货人的地址相关")
-public class ReceiveAddressModel {
+public class ReceiveAddressModel implements Serializable {
     @ApiModelProperty(value = "id")
     private long id;
     @ApiModelProperty(value = "创建时间")

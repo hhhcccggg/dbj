@@ -1,20 +1,14 @@
-package com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model;
+package com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 
-@ApiModel(description = "收货人的地址相关")
-public class ReceiveAddressModel {
-    @ApiModelProperty(value = "id")
-    private long id;
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-    @ApiModelProperty(value = "用户的id")
+@ApiModel(description = "增加收货地址的字段")
+public class ReceiveAddressAddInput {
+    @ApiModelProperty(value = "收货人的id")
     private long userId;
-    @ApiModelProperty(value = "用户的昵称")
-    private String nickName;
     @ApiModelProperty(value = "收货人的名字")
     private String receiverName;
     @ApiModelProperty(value = "收货人固定电话")
@@ -39,30 +33,6 @@ public class ReceiveAddressModel {
     private Date updateTime;
     @ApiModelProperty(value = "是否为默认地址")
     private boolean isDefault;
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 
     public long getUserId() {
         return userId;
