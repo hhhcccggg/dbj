@@ -1,9 +1,11 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 
+@ApiModel(description = "我的兑换")
 public class OrderOut {
 
     @ApiModelProperty(value = "商品ID")
