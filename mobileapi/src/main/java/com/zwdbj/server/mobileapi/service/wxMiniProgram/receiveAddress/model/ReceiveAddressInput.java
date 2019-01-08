@@ -3,36 +3,53 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@ApiModel(description = "增加收货地址的字段")
-public class ReceiveAddressAddInput {
+@ApiModel(description = "收货地址的字段")
+public class ReceiveAddressInput {
+
     @ApiModelProperty(value = "收货人的id")
     private long userId;
+
+    @NotNull
     @ApiModelProperty(value = "收货人的名字")
     private String receiverName;
+
     @ApiModelProperty(value = "收货人固定电话")
     private String receiverPhone;
+
+    @NotNull
     @ApiModelProperty(value = "收货人手机号码")
     private String receiverMobile;
+
+    @NotNull
     @ApiModelProperty(value = "收货人地址的省份")
     private String reveiverState;
+
+    @NotNull
     @ApiModelProperty(value = "收货人地址的城市")
     private String receiverCity;
+
+    @NotNull
     @ApiModelProperty(value = "收货人地址的区县")
     private String receiverCountry;
+
+    @NotNull
     @ApiModelProperty(value = "详细地址")
     private String receiverAddress;
+
     @ApiModelProperty(value = "")
     private String receiverZip;
+
     @ApiModelProperty(value = "城市的编号")
     private long cityId;
+
     @ApiModelProperty(value = "城市的等级")
     private String cityLevel;
-    @ApiModelProperty(value = "更新的时间")
-    private Date updateTime;
+
     @ApiModelProperty(value = "是否为默认地址")
-    private boolean isDefault;
+    private boolean defaultAddr;
 
     public long getUserId() {
         return userId;
@@ -122,19 +139,11 @@ public class ReceiveAddressAddInput {
         this.cityLevel = cityLevel;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public boolean isDefaultAddr() {
+        return defaultAddr;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public boolean isDefault() {
-        return isDefault;
-    }
-
-    public void setDefault(boolean aDefault) {
-        isDefault = aDefault;
+    public void setDefaultAddr(boolean defaultAddr) {
+        this.defaultAddr = defaultAddr;
     }
 }
