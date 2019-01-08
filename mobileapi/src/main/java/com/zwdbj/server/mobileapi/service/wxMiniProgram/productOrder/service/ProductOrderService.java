@@ -3,12 +3,15 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.OrderOut;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ProductOrderService {
@@ -60,5 +63,19 @@ public class ProductOrderService {
             return new ServiceStatusInfo<>(1,"兑换失败"+e.getMessage(),0);
         }
 
+    }
+
+    /**
+     * 查询我的兑换
+     * @return
+     */
+    public ServiceStatusInfo<List<OrderOut>> findByMyOrder(){
+        long userId = JWTUtil.getCurrentId();
+        try{
+            List<OrderOut> list = productOrderMapper.selectMyOrder(userId);
+            return new ServiceStatusInfo<>(0,"",list);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+        }
     }
 }
