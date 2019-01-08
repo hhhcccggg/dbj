@@ -74,16 +74,6 @@ public class ProductsController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-//    @ApiOperation(value = "删除商品")
-//    public ResponseData<Long> deleteProducts(@PathVariable Long id) {
-//        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.deleteProductsById(id);
-//        if (serviceStatusInfo.isSuccess()) {
-//            return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
-//        }
-//        return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
-//    }
-
     @ApiOperation(value = "修改商品")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseData<Long> updateProducts(@RequestBody CreateProducts createProducts) {
@@ -92,18 +82,6 @@ public class ProductsController {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
-    }
-
-    @ApiOperation(value = "搜索商品")
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ResponsePageInfoData<List<Products>> serachProcducts(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
-                                                                @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
-                                                                @RequestBody SearchProducts searchProduct) {
-
-        PageHelper.startPage(pageNo, rows);
-        List<Products> productsList = this.productServiceImpl.searchProducts(searchProduct).getData();
-        PageInfo<Products> pageInfo = new PageInfo(productsList);
-        return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", productsList, pageInfo.getTotal());
     }
 
     @PostMapping(value = "/updatePublishs")

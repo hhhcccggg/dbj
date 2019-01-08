@@ -1,29 +1,21 @@
-package com.zwdbj.server.adminserver.service.shop.service.products.model;
+package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@ApiModel(value = "新增或修改的商品对象")
-public class CreateProducts {
-
+@ApiModel(description = "商品")
+public class ProductOut {
     @ApiModelProperty(value = "id")
     Long id;
 
     @ApiModelProperty(value = "商品类型")
-    @NotNull(message = "商品类型不能为空")
     Long productType;
 
     @ApiModelProperty(value = "产品详细类型")
-    @NotNull(message = "产品详细类型不能为空")
     String productDetailType;
 
     @ApiModelProperty(value = "商品名称")
-    @NotNull(message = "商品名称不能为空")
     String name;
 
     @ApiModelProperty(value = "卖家编号")
@@ -31,6 +23,9 @@ public class CreateProducts {
 
     @ApiModelProperty(value = "库存")
     long inventory;
+
+    @ApiModelProperty(value = "销量")
+    long sales;
 
     @ApiModelProperty(value = "是否上架")
     boolean isPublish;
@@ -47,8 +42,6 @@ public class CreateProducts {
     @ApiModelProperty(value = "原价")
     long originalPrice;
 
-    @NotNull
-    @Min(value = 1,message = "促销价最少为0.01")
     @ApiModelProperty(value = "促销价")
     Long promotionPrice;
 
@@ -62,15 +55,12 @@ public class CreateProducts {
     int validDays;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date validStartTime;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date validEndTime;
 
     @ApiModelProperty(value = "生效类型")
-    @NotNull(message = "生效类型不能为空")
     String validType;
 
     @ApiModelProperty(value = "支持金币兑换购买")
@@ -85,36 +75,23 @@ public class CreateProducts {
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
 
-    public String getImageUrls() {
-        return imageUrls;
+    @ApiModelProperty(value = "是否退换过")
+    int exchange;
+
+    public int getExchange() {
+        return exchange;
     }
 
-    public void setImageUrls(String imageUrls) {
-        this.imageUrls = imageUrls;
+    public void setExchange(int exchange) {
+        this.exchange = exchange;
     }
 
-    public Long getBrandId() {
-        return brandId;
+    public long getSales() {
+        return sales;
     }
 
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public boolean isSupportCoin() {
-        return supportCoin;
-    }
-
-    public void setSupportCoin(boolean supportCoin) {
-        this.supportCoin = supportCoin;
+    public void setSales(long sales) {
+        this.sales = sales;
     }
 
     public Long getId() {
@@ -123,14 +100,6 @@ public class CreateProducts {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(long storeId) {
-        this.storeId = storeId;
     }
 
     public Long getProductType() {
@@ -155,6 +124,14 @@ public class CreateProducts {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
     }
 
     public long getInventory() {
@@ -259,5 +236,37 @@ public class CreateProducts {
 
     public void setValidType(String validType) {
         this.validType = validType;
+    }
+
+    public boolean isSupportCoin() {
+        return supportCoin;
+    }
+
+    public void setSupportCoin(boolean supportCoin) {
+        this.supportCoin = supportCoin;
+    }
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(String imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }
