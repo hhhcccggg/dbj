@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model;
 
+import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.common.DiscountType;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.Min;
@@ -18,8 +19,9 @@ public class DiscountCouponInput {
     @ApiModelProperty(value = "发放的数量")
     private long couponCount;
 
+    @NotNull
     @ApiModelProperty(value = "优惠的形式 CASH: 现金优惠 DISCOUNT:折扣")
-    private DiscountCouponModel.DiscounType discounType;
+    private DiscountType discountType;
 
     @Min(1)
     @ApiModelProperty(value = "优惠的值")
@@ -75,12 +77,12 @@ public class DiscountCouponInput {
         this.couponCount = couponCount;
     }
 
-    public DiscountCouponModel.DiscounType getDiscounType() {
-        return discounType;
+    public DiscountType getDiscountType() {
+        return discountType;
     }
 
-    public void setDiscounType(DiscountCouponModel.DiscounType discounType) {
-        this.discounType = discounType;
+    public void setDiscountType(DiscountType discountType) {
+        this.discountType = discountType;
     }
 
     public long getDiscountValue() {

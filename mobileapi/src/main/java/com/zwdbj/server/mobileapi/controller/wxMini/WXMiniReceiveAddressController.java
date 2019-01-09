@@ -62,10 +62,10 @@ public class WXMiniReceiveAddressController {
         return new ResponseData(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
-    @PostMapping(value = "setByReceiveAddress")
+    @PostMapping(value = "updateReceiveAddress")
     @ApiOperation(value = "修改收货地址")
     @RequiresAuthentication
-    public ResponseData<Long> setByReceiveAddress(@RequestBody @Valid ReceiveAddressInput receiveAddressInput){
+    public ResponseData<Long> updateReceiveAddress(@RequestBody @Valid ReceiveAddressInput receiveAddressInput){
         ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.updateReceiveAddress(receiveAddressInput);
         if( !serviceStatusInfo.isSuccess()){
             return new ResponseData(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
@@ -84,10 +84,10 @@ public class WXMiniReceiveAddressController {
         return new ResponseData(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
-    @PostMapping(value = "removeByReceiveAddress")
+    @PostMapping(value = "removeReceiveAddress")
     @ApiOperation(value = "删除收货地址")
     @RequiresAuthentication
-    public ResponseData<Long> removeByReceiveAddress(@RequestBody long id){
+    public ResponseData<Long> removeReceiveAddress(@RequestBody long id){
         ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.deleteById(id);
         if( !serviceStatusInfo.isSuccess()){
             return new ResponseData(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);

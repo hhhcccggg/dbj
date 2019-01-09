@@ -1,10 +1,9 @@
 package com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model;
 
+import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.common.DiscountType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @ApiModel(description = "优惠券")
@@ -20,7 +19,7 @@ public class DiscountCouponModel {
     private long couponCount;
 
     @ApiModelProperty(value = "优惠的形式 CASH: 现金优惠 DISCOUNT:折扣")
-    private DiscounType discounType;
+    private DiscountType discountType;
 
     @ApiModelProperty(value = "优惠的值")
     private long discountValue;
@@ -73,12 +72,12 @@ public class DiscountCouponModel {
         this.couponCount = couponCount;
     }
 
-    public DiscounType getDiscounType() {
-        return discounType;
+    public DiscountType getDiscountType() {
+        return discountType;
     }
 
-    public void setDiscounType(DiscounType discounType) {
-        this.discounType = discounType;
+    public void setDiscountType(DiscountType discountType) {
+        this.discountType = discountType;
     }
 
     public long getDiscountValue() {
@@ -153,8 +152,4 @@ public class DiscountCouponModel {
         this.legalSubjectId = legalSubjectId;
     }
 
-    public enum DiscounType{
-        CASH    //现金优惠
-        ,DISCOUNT   //折扣
-    }
 }

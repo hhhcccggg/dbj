@@ -24,11 +24,11 @@ public interface DiscountCouponService {
     ServiceStatusInfo<Long> updateDiscountCoupon(DiscountCouponInput discountCouponInput);
 
     /**
-     * 删除
-     * @param id
+     * 批量删除
+     * @param ids
      * @return
      */
-    ServiceStatusInfo<Long> removeDiscountCoupon(long id);
+    ServiceStatusInfo<Long> removeDiscountCoupon(long[] ids);
 
     /**
      * 根据ID查询
@@ -42,7 +42,7 @@ public interface DiscountCouponService {
      * @param searchDiscountCoupon
      * @return
      */
-    ServiceStatusInfo<List<DiscountCouponModel>> findByPage(SearchDiscountCoupon searchDiscountCoupon);
+    ServiceStatusInfo<List<DiscountCouponModel>> findByPage(SearchDiscountCoupon searchDiscountCoupon,int pageNo,int rows);
 
     /**
      * 指定发放优惠券
@@ -50,5 +50,5 @@ public interface DiscountCouponService {
      * @param userId
      * @return
      */
-    ServiceStatusInfo<Long> issueDiscountCoupon(long id,long userId);
+    ServiceStatusInfo<Long> issueDiscountCoupon(long id,long userId, int couponCount);
 }
