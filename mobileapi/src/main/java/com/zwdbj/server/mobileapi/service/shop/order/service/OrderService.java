@@ -101,7 +101,7 @@ public class OrderService {
             //创建OrderItem
             long orderItemId = UniqueIDCreater.generateID();
             int price = input.getPrice();
-            int totalFee = input.getActualPayment();
+            int totalFee = price*input.getNum();
             this.orderMapper.createOrderItem(orderItemId,orderId,input,price,totalFee);
             // 减去商品和sku的库存并更新销量
             this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
