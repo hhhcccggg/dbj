@@ -41,7 +41,7 @@ public interface IDiscountCouponMapper {
             " `onlySupportOriginProduct` = #{input.onlySupportOriginProduct}," +
             " `validStartTime` = #{input.validStartTime}," +
             " `validEndTime` = #{input.validEndTime}" +
-            "WHERE `id` = #{input.id} and `storeId` = #{input.storeId} and `legalSubjectId` = #{input.legalSubjectId}")
+            "WHERE `id` = #{input.id} and isDeleted=0 and `storeId` = #{input.storeId} and `legalSubjectId` = #{input.legalSubjectId}")
     long updateDisountCoupon(@Param("input") DiscountCouponInput discountCouponInput);
 
     /**
@@ -69,7 +69,7 @@ public interface IDiscountCouponMapper {
      * @param legalSubjectId
      * @return
      */
-    @Select("select * from `shop_discountcoupons` where id=#{id} and storeId=#{storeId} and legalSubjectId=#{legalSubjectId}")
+    @Select("select * from `shop_discountcoupons` where id=#{id} and isDeleted=0 and storeId=#{storeId} and legalSubjectId=#{legalSubjectId}")
     DiscountCouponModel selectById(@Param("id") long id ,@Param("storeId") long storeId,@Param("legalSubjectId") long legalSubjectId);
 
     /**
@@ -78,6 +78,6 @@ public interface IDiscountCouponMapper {
      * @return
      */
     @Update("UPDATE `shop_discountcoupons` SET  `couponCount` = `couponCount` - #{couponCount} where id = #{id} " +
-            "and storeId=#{storeId} and legalSubjectId=#{legalSubjectId}  and `couponCount`-#{couponCount}>=0")
+            "and isDeleted=0 and storeId=#{storeId} and legalSubjectId=#{legalSubjectId}  and `couponCount`-#{couponCount}>=0")
     long reduceCouponCount(@Param("id") long id ,@Param("storeId") long storeId,@Param("legalSubjectId") long legalSubjectId , @Param("couponCount") int couponCount);
 }

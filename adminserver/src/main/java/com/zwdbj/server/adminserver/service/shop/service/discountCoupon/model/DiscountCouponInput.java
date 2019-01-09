@@ -47,10 +47,10 @@ public class DiscountCouponInput {
     @ApiModelProperty(value = "生效时间段")
     private Date validEndTime;
 
-    @ApiModelProperty(value = "店铺ID")
+    @ApiModelProperty(value = "店铺ID" , hidden = true)
     private long storeId;
 
-    @ApiModelProperty(value = "商家ID")
+    @ApiModelProperty(value = "商家ID", hidden = true)
     private long legalSubjectId;
 
     public long getId() {

@@ -24,6 +24,7 @@ public class DiscountCouponSqlProvider {
             if(i+1 != ids.length)stringBuffer.append(" or ");
         }
         sql.WHERE(stringBuffer.toString());
+        sql.WHERE("isDeleted=0");
         System.out.println(sql.toString());
         return sql.toString();
     }
@@ -50,7 +51,8 @@ public class DiscountCouponSqlProvider {
         if(searchDiscountCoupon.getValidStartTime() != null){
             sql.WHERE(" (validStartTime >= #{searchDiscountCoupon.validStartTime} or validStartTime is null)");
         }
-        sql.WHERE("storeId = #{searchDiscountCoupon.storeId} and legalSubjectId = #{searchDiscountCoupon.legalSubjectId}");
+        sql.WHERE("storeId = #{searchDiscountCoupon.storeId} and " +
+                "legalSubjectId = #{searchDiscountCoupon.legalSubjectId} and isDeleted=0");
         System.out.println(sql.toString());
         return sql.toString();
     }
