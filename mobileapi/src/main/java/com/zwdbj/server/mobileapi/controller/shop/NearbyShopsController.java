@@ -1,17 +1,21 @@
 package com.zwdbj.server.mobileapi.controller.shop;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.NearbyShop;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.ShopInfo;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.service.NearbyShopService;
 import com.zwdbj.server.utility.model.ResponseData;
+import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@Api(value = "附近商家相关")
+import java.util.List;
+
+@Api(description = "附近商家相关")
 @RequestMapping(value = "/api/nearByShop/dbj")
 @RestController
 public class NearbyShopsController {
@@ -19,12 +23,22 @@ public class NearbyShopsController {
     private NearbyShopService nearbyShopServiceImpl;
 
     @ApiOperation(value = "商家首页")
-    @RequestMapping(value = "/shopHomePage", method = RequestMethod.GET)
-    public ResponseData<ShopInfo> shopHomePage() {
-        ServiceStatusInfo<ShopInfo> statusInfo = nearbyShopServiceImpl.shopHomePage(1);
+    @RequestMapping(value = "/shopHomePage{storeId}", method = RequestMethod.GET)
+    public ResponseData<ShopInfo> shopHomePage(@PathVariable("storeId") long storeId) {
+        ServiceStatusInfo<ShopInfo> statusInfo = nearbyShopServiceImpl.shopHomePage(storeId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
         return new ResponseData<>(1, statusInfo.getMsg(), null);
+    }
+
+    @ApiOperation(value = "附近商家列表")
+    @RequestMapping(value = "/shopList", method = RequestMethod.GET)
+    public ResponsePageInfoData<List<NearbyShop>> shopList(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                           @RequestParam(value = "rows", required = true, defaultValue = "10") int rows) {
+        Page<NearbyShop> page = PageHelper.startPage(pageNo, rows);
+        List<NearbyShop> list = this.nearbyShopServiceImpl.nearbyShopList(pageNo).getData();
+        return new ResponsePageInfoData<>(0, "", list, page.getTotal());
+
     }
 }
