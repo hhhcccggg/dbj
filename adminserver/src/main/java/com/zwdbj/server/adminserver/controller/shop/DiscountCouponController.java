@@ -78,5 +78,16 @@ public class DiscountCouponController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
+    @PostMapping("issueDiscountCoupon")
+    @ApiOperation(value = "指定用户发放优惠券")
+    public ResponseData<Long> issueDiscountCoupon(@RequestParam(value = "id" ,required = true) long id,
+                                                  @RequestParam(value = "userId",required = true)long userId,
+                                                  @RequestParam(value = "couponCount",required = true)int couponCount){
+        ServiceStatusInfo<Long> serviceStatusInfo = discountCouponServiceImpl.issueDiscountCoupon(id,userId,couponCount);
+        if( !serviceStatusInfo.isSuccess() ){
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
+    }
 
 }

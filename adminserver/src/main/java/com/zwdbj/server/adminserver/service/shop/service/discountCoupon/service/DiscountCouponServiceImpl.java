@@ -7,6 +7,9 @@ import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.Di
 import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.DiscountCouponModel;
 import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.SearchDiscountCoupon;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
+import com.zwdbj.server.adminserver.service.shop.service.userDiscountCoupon.common.UserDiscountCouponState;
+import com.zwdbj.server.adminserver.service.shop.service.userDiscountCoupon.model.UserDiscountCouponModel;
+import com.zwdbj.server.adminserver.service.shop.service.userDiscountCoupon.service.UserDiscountCouponService;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -17,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,6 +31,9 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
 
     @Autowired
     private StoreService storeServiceImpl;
+
+    @Autowired
+    private UserDiscountCouponService userDiscountCouponServiceImpl;
 
     @Autowired
     private TokenCenterManager tokenCenterManager;
@@ -140,7 +147,6 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
     }
 
     @Override
-    @Transactional
     public ServiceStatusInfo<Long> issueDiscountCoupon(long id,long userId, int couponCount) {
         Lock lock = null;
         try{
@@ -152,24 +158,59 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
             if(storeId ==null || storeId<=0 ){
                 return new ServiceStatusInfo(1,"店铺不存在",null);
             }
-
-            //减数量
-            long result = iDiscountCouponMapper.reduceCouponCount(id,storeId,authUser.getLegalSubjectId(),couponCount);
-            if(result==0){
-                return new ServiceStatusInfo(1,"扣除数量失败,影响行数"+result,null);
+            DiscountCouponModel discountCouponModel = iDiscountCouponMapper.selectById(id,storeId,authUser.getLegalSubjectId());
+            if(discountCouponModel == null){
+                return new ServiceStatusInfo(1,"优惠券不存在",null);
             }
-            //发布优惠券
+//            if(discountCouponModel.getValidStartTime()!= null && discountCouponModel.getValidStartTime().getTime() > new Date().getTime()){
+//                return new ServiceStatusInfo(1,"优惠券未到开始时间",null);
+//            }
+//
+//            if(discountCouponModel.getValidEndTime()!= null && discountCouponModel.getValidEndTime().getTime() < new Date().getTime()){
+//                return new ServiceStatusInfo(1,"优惠券已过使用时间",null);
+//            }
+            ServiceStatusInfo<Long> serviceStatusInfo = userDiscountCouponServiceImpl.selectUserIdPossessCouponCount(userId,id);
+            if(discountCouponModel.getLimitGetPerPerson() != 0 && serviceStatusInfo.isSuccess() && serviceStatusInfo.getData()+couponCount > discountCouponModel.getLimitGetPerPerson()){
+                return new ServiceStatusInfo(1,"超出领取限制",null);
+            }
+
             //锁住优惠券
             ConsulClient consulClient = new ConsulClient("localhost", 8500);	// 创建与Consul的连接
             lock = new Lock(consulClient, "adminapi","couponTout-lockKey:"+id);
             if(lock.lock(true)){
-
+                return issueDiscountCouponException(id,userId,couponCount,storeId,authUser.getLegalSubjectId());
             }
-            return new ServiceStatusInfo(0,"",result);
+            return new ServiceStatusInfo(0,"",null);
         }catch(Exception e){
-            return new ServiceStatusInfo(1,"查询失败"+e.getMessage(),null);
+            return new ServiceStatusInfo(1,"发放优惠券失败"+e.getMessage(),null);
         }finally {
             if(lock != null)lock.unlock();
         }
+    }
+
+    /**
+     * TODO 未回滚
+     * 发券
+     * @param id
+     * @param userId
+     * @param couponCount
+     * @param storeId
+     * @param legalSubjectId
+     * @return
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public ServiceStatusInfo<Long> issueDiscountCouponException(long id,long userId, int couponCount,long storeId,long legalSubjectId) throws Exception {
+
+        //减数量
+        long result  = iDiscountCouponMapper.reduceCouponCount(id,storeId,legalSubjectId,couponCount);
+        if(result==0){
+            return new ServiceStatusInfo(1,"扣除数量失败,影响行数"+result,null);
+        }
+        //发布优惠券
+        ServiceStatusInfo<Long> serviceStatusInfo = userDiscountCouponServiceImpl.batchCreateUserDiscountCoupon(userId,id,couponCount);
+        if( !serviceStatusInfo.isSuccess() )
+            throw new RuntimeException("发放优惠券失败");
+        return new ServiceStatusInfo(0,"",result);
     }
 }
