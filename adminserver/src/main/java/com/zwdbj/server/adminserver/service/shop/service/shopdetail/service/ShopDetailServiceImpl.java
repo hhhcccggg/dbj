@@ -56,7 +56,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     }
 
     @Override
-    public ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list, long storeId,long legalSubjectId) {
+    public ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list, long storeId, long legalSubjectId) {
         Long result = 0L;
 
         try {
@@ -74,6 +74,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 shopInfo.setOpeningHours(openingHours);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
             }
+            System.out.println("更新缓存成功");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改营业时间失败" + e.getMessage(), result);
@@ -100,6 +101,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 openingHours.addAll(list);
                 shopInfo.setOpeningHours(openingHours);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
+                System.out.println("更新缓存成功");
             }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
@@ -176,6 +178,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 shopInfo.setLocationInfo(info);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
             }
+            System.out.println("更新缓存成功");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改位置信息失败" + e.getMessage(), null);
@@ -207,6 +210,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 shopInfo.setServiceScopes(list);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
             }
+            System.out.println("更新缓存成功");
             return new ServiceStatusInfo<>(0, "", result);
 
         } catch (Exception e) {
@@ -235,6 +239,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 shopInfo.setServiceScopes(list);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
             }
+            System.out.println("更新缓存成功");
             return new ServiceStatusInfo<>(0, "", result);
 
         } catch (Exception e) {
