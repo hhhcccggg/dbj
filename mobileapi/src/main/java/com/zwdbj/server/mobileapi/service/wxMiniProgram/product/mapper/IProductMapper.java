@@ -39,4 +39,9 @@ public interface IProductMapper {
     int updateProductSkuNum( @Param("id") long productSkuId, @Param("num") int num);
     @Update("update shop_products set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
     int updateProductNum(@Param("id")long productId,@Param("num")int num);
+
+    @Select("select inventory from shop_productSKUs where id=#{id}")
+    long getProductSkuInventory(@Param("id")long productSkuId);
+    @Select("select inventory from shop_products where id=#{id}")
+    long getProductInventory(@Param("id")long productId);
 }
