@@ -35,4 +35,9 @@ public interface NearbyShopsMapper {
     @Select("select id,name,storeId,couponCount,userInfo,validStartTime,validEndTime,order,rule" +
             "onlySupportOriginProduct,range where id=#{discountCouponId}")
     DiscountCouponDetail seachDiscountCouponDetail(@PathVariable("discountCouponId") long discountCouponId);
+
+    @Select("select id,name,logoUrl,grade,longitude,latitude,address,cityId,cityLevel from shop_stores where status=0 and stopService =0")
+    List<NearbyShop> nearbyShopList();
+
+
 }

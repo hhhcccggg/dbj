@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.shop.nearbyShops.service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.mapper.NearbyShopsMapper;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.*;
@@ -48,11 +49,13 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
             List<OpeningHours> openingHours = this.nearbyShopsMapper.searchOpeningHours(storeId);
             result.setOpeningHours(openingHours);
-
-            valueOperations.set("shopInfo" + storeId, JSON.toJSONString(result));
             System.out.println("无缓存---shopInfo" + storeId);
             System.out.println(valueOperations.get("shopInfo" + storeId));
 //            redisTemplate.expire("shopInfo" + String.valueOf(storeId), 30, TimeUnit.MINUTES);
+            if (result != null) {
+                valueOperations.set("shopInfo" + storeId, JSON.toJSONString(result));
+
+            }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "获取商家首页信息失败" + e.getMessage(), null);
@@ -80,5 +83,28 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             return new ServiceStatusInfo<>(1, "查看代金，优惠券详情失败" + e.getMessage(), null);
         }
 
+    }
+
+    @Override
+    public ServiceStatusInfo<List<NearbyShop>> nearbyShopList(int pageNo) {
+        try {
+            ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+            if (valueOperations.get("nearbyShopList---pageNo" + pageNo) != null) {
+                String str = valueOperations.get("nearbyShopList---pageNo" + pageNo);
+                List<NearbyShop> list = JSON.parseObject(str, new TypeReference<List<NearbyShop>>() {
+                });
+                System.out.println("从缓存中拉取商家列表");
+                return new ServiceStatusInfo<>(0, "", list);
+            }
+            List<NearbyShop> result = this.nearbyShopsMapper.nearbyShopList();
+            if (result != null) {
+                valueOperations.set("nearbyShopList---pageNo" + pageNo, JSONArray.toJSONString(result));
+
+            }
+            System.out.println("从数据库中拉取商家列表");
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "拉取附近商家列表失败" + e.getMessage(), null);
+        }
     }
 }
