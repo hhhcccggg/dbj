@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service;
 
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.OrderOut;
@@ -16,9 +17,11 @@ import java.util.List;
 @Service
 public class ProductOrderService {
     @Autowired
-    IProductOrderMapper productOrderMapper;
+    private IProductOrderMapper productOrderMapper;
     @Autowired
-    protected UserAssetServiceImpl userAssetServiceImpl;
+    private UserAssetServiceImpl userAssetServiceImpl;
+    @Autowired
+    private ProductService productServiceImpl;
 
 
     @Transactional
@@ -49,11 +52,12 @@ public class ProductOrderService {
             int payment = input.getUseCoin()/10;
             this.productOrderMapper.createOrder(orderId,userId,input,payment);
             //创建OrderItem
-            long OrderItemId = UniqueIDCreater.generateID();
+            long orderItemId = UniqueIDCreater.generateID();
             int price = input.getPrice_coin()/10;
             int totalFee = input.getUseCoin()/10;
-            this.productOrderMapper.createOrderItem(OrderItemId,orderId,input,price,totalFee);
-            // TODO 减去商品和sku的库存
+            this.productOrderMapper.createOrderItem(orderItemId,orderId,input,price,totalFee);
+            // 减去商品和sku的库存并更新销量
+            this.productServiceImpl.updateProductNum(orderId,orderItemId,input.getNum());
             //兑换后减去用户所需的小饼干
             boolean flag = this.userAssetServiceImpl.minusUserCoins(input.getUseCoin(),userId,orderId);
             if (!flag)return new ServiceStatusInfo<>(1,"兑换失败",0);
