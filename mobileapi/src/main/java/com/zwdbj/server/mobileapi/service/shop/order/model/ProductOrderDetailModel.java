@@ -1,13 +1,12 @@
-package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model;
+package com.zwdbj.server.mobileapi.service.shop.order.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel(description = "订单详情")
-public class ProductOrderDetailModel extends ProductOrderModel implements Serializable {
+public class ProductOrderDetailModel extends ProductOrderModel {
     @ApiModelProperty(value = "支付类型，BANK:银行卡WECHAT:微信ALIPAY:支付宝NONE:无")
     private String paymentType;
     @ApiModelProperty(value = "第三方支付流水号: 微信、支付宝流水号、银行卡流水号 NONE:无")
@@ -32,12 +31,11 @@ public class ProductOrderDetailModel extends ProductOrderModel implements Serial
     private String buyerComment;
     @ApiModelProperty(value = "买家是否已评价")
     private boolean buyerRate;
+
     @ApiModelProperty(value = "店铺的id")
     private long storeId;
     @ApiModelProperty(value = "店铺的名字")
     private String storeName;
-
-
 
     public String getPaymentType() {
         return paymentType;

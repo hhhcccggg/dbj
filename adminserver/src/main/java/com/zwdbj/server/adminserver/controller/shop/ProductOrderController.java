@@ -53,8 +53,8 @@ public class ProductOrderController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
-    @RequestMapping(value = "/deliver/{orderId}", method = RequestMethod.POST)
-    @ApiOperation(value = "店铺发货")
+    @RequestMapping(value = "/identifyingCode/{orderId}", method = RequestMethod.POST)
+    @ApiOperation(value = "验证消费码")
     public ResponseData<Integer> identifyingCode(@PathVariable long orderId,
                                               @RequestBody IdentifyCodeInput input){
         ServiceStatusInfo<Integer> statusInfo = this.productOrderService.identifyingCode(orderId,input);

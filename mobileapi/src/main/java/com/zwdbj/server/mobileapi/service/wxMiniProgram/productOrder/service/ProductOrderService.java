@@ -52,12 +52,12 @@ public class ProductOrderService {
                 return new ServiceStatusInfo<>(1, "您的小饼干不足，请获取足够的小饼干", null);
             }
             //创建order
-            int payment = input.getUseCoin()/10;
+            int payment = input.getUseCoin()*10;
             this.productOrderMapper.createOrder(orderId,userId,input,payment);
             //创建OrderItem
             long orderItemId = UniqueIDCreater.generateID();
-            int price = input.getPrice_coin()/10;
-            int totalFee = input.getUseCoin()/10;
+            int price = input.getPrice_coin()*10;
+            int totalFee = input.getUseCoin()*10;
             this.productOrderMapper.createOrderItem(orderItemId,orderId,input,price,totalFee);
             // 减去商品和sku的库存并更新销量
             this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
@@ -71,6 +71,10 @@ public class ProductOrderService {
         }
 
     }
+
+    /**
+     *
+     */
 
     /**
      * 查询我的兑换
