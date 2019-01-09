@@ -21,4 +21,9 @@ public interface ProductService {
      * @return
      */
     ServiceStatusInfo<Map<String,Object>> selectWXXCXById(long id);
+
+    /**
+     * 根据productId和productSkuId更新相对应的库存
+     */
+    ServiceStatusInfo<Integer> updateProductNum(long productId,long productSkuId,int num);
 }

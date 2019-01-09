@@ -2,10 +2,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -37,4 +34,9 @@ public interface IProductMapper {
             "from shop_products " +
             "where publish=1 and isDeleted=0 and storeId=1 and id=#{id}")
     ProductOut selectWXXCXById(long id);
+
+    @Update("update shop_productSKUs set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
+    int updateProductSkuNum( @Param("id") long productSkuId, @Param("num") int num);
+    @Update("update shop_products set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
+    int updateProductNum(@Param("id")long productId,@Param("num")int num);
 }

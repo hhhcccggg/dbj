@@ -58,4 +58,20 @@ public class ProductServiceImpl implements  ProductService{
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
         }
     }
+
+    @Override
+    public ServiceStatusInfo<Integer> updateProductNum(long productId, long productSkuId, int num) {
+        try {
+            int result =0;
+            result = this.iProductMapper.updateProductSkuNum(productSkuId, num);
+            if (result==0)return new ServiceStatusInfo<>(1,"商品数量更新失败",0);
+            result = this.iProductMapper.updateProductNum(productId, num);
+            if (result==0)return new ServiceStatusInfo<>(1,"商品数量更新失败",0);
+            return new ServiceStatusInfo<>(0,"",result);
+
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"商品数量更新失败:"+e.getMessage(),0);
+        }
+
+    }
 }
