@@ -2,9 +2,7 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.ProductOrderDetailModel;
-import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.ProductOrderInput;
-import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.ProductOrderModel;
+import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.service.ProductOrderService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -44,5 +42,28 @@ public class ProductOrderController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
+
+    @RequestMapping(value = "/deliver/{orderId}", method = RequestMethod.POST)
+    @ApiOperation(value = "店铺发货")
+    public ResponseData<Integer> deliverOrder(@PathVariable long orderId,
+                                              @RequestBody DeliverOrderInput input){
+        ServiceStatusInfo<Integer> statusInfo = this.productOrderService.deliverOrder(orderId,input);
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+    @RequestMapping(value = "/identifyingCode/{orderId}", method = RequestMethod.POST)
+    @ApiOperation(value = "验证消费码")
+    public ResponseData<Integer> identifyingCode(@PathVariable long orderId,
+                                              @RequestBody IdentifyCodeInput input){
+        ServiceStatusInfo<Integer> statusInfo = this.productOrderService.identifyingCode(orderId,input);
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
+
 
 }

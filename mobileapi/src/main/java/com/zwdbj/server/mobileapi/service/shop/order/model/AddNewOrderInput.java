@@ -1,15 +1,13 @@
-package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model;
+package com.zwdbj.server.mobileapi.service.shop.order.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@ApiModel(description = "生成订单所需字段")
-public class AddOrderInput {
-
+@ApiModel(description = "创建新订单所需字段")
+public class AddNewOrderInput {
     @NotNull
     @Min(value = 1)
     @ApiModelProperty(value = "使用的小饼干抵扣数")
@@ -39,18 +37,53 @@ public class AddOrderInput {
     @ApiModelProperty(value = "商品SKUid")
     private long productskuId;
 
+
     @NotNull
     @Min(value = 1)
     @ApiModelProperty(value = "购买的商品数量")
     private int num;
+    @NotNull
+    @Min(value = 1)
+    @ApiModelProperty(value = "支付的实际金额")
+    private int actualPayment;
+    @NotNull
+    @Min(value = 1)
+    @ApiModelProperty(value = "优惠的金额")
+    private int coupon;
 
     @NotNull
     @Min(value = 1)
-    @ApiModelProperty(value = "购买的商品单价（小饼干）")
-    private int price_coin;
+    @ApiModelProperty(value = "购买的商品单价")
+    private int price;
     @NotNull(message = "商品标题不能为空")
     @ApiModelProperty(value = "商品标题")
     private String title;
+    @ApiModelProperty(value = "优惠券id")
+    private String couponids;
+
+    public int getActualPayment() {
+        return actualPayment;
+    }
+
+    public void setActualPayment(int actualPayment) {
+        this.actualPayment = actualPayment;
+    }
+
+    public int getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(int coupon) {
+        this.coupon = coupon;
+    }
+
+    public int getUseCoin() {
+        return useCoin;
+    }
+
+    public void setUseCoin(int useCoin) {
+        this.useCoin = useCoin;
+    }
 
     public int getDeliveryFee() {
         return deliveryFee;
@@ -66,22 +99,6 @@ public class AddOrderInput {
 
     public void setLimitPerPerson(int limitPerPerson) {
         this.limitPerPerson = limitPerPerson;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getUseCoin() {
-        return useCoin;
-    }
-
-    public void setUseCoin(int useCoin) {
-        this.useCoin = useCoin;
     }
 
     public String getBuyerComment() {
@@ -132,11 +149,27 @@ public class AddOrderInput {
         this.num = num;
     }
 
-    public int getPrice_coin() {
-        return price_coin;
+    public int getPrice() {
+        return price;
     }
 
-    public void setPrice_coin(int price_coin) {
-        this.price_coin = price_coin;
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCouponids() {
+        return couponids;
+    }
+
+    public void setCouponids(String couponids) {
+        this.couponids = couponids;
     }
 }

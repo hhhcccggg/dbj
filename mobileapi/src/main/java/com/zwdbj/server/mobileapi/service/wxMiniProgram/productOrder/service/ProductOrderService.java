@@ -39,6 +39,9 @@ public class ProductOrderService {
                 }
 
             }
+            //查看商品的库存是否满足
+            boolean a = this.productServiceImpl.getProductInventory(input.getProductId(),input.getProductskuId(),input.getNum()).getData();
+            if (!a)return new ServiceStatusInfo<>(1, "商品库存不足", null);
             long orderId = UniqueIDCreater.generateID();
 
             //查看user的账户小饼干是否够支付订单费用
@@ -49,15 +52,15 @@ public class ProductOrderService {
                 return new ServiceStatusInfo<>(1, "您的小饼干不足，请获取足够的小饼干", null);
             }
             //创建order
-            int payment = input.getUseCoin()/10;
+            int payment = input.getUseCoin()*10;
             this.productOrderMapper.createOrder(orderId,userId,input,payment);
             //创建OrderItem
             long orderItemId = UniqueIDCreater.generateID();
-            int price = input.getPrice_coin()/10;
-            int totalFee = input.getUseCoin()/10;
+            int price = input.getPrice_coin()*10;
+            int totalFee = input.getUseCoin()*10;
             this.productOrderMapper.createOrderItem(orderItemId,orderId,input,price,totalFee);
             // 减去商品和sku的库存并更新销量
-            this.productServiceImpl.updateProductNum(orderId,orderItemId,input.getNum());
+            this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
             //兑换后减去用户所需的小饼干
             boolean flag = this.userAssetServiceImpl.minusUserCoins(input.getUseCoin(),userId,orderId);
             if (!flag)return new ServiceStatusInfo<>(1,"兑换失败",0);
@@ -68,6 +71,10 @@ public class ProductOrderService {
         }
 
     }
+
+    /**
+     *
+     */
 
     /**
      * 查询我的兑换

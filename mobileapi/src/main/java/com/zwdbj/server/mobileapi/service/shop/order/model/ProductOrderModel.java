@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model;
+package com.zwdbj.server.mobileapi.service.shop.order.model;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
 import io.swagger.annotations.ApiModel;
@@ -20,6 +20,8 @@ public class ProductOrderModel {
     private int num;
     @ApiModelProperty(value = "订单的状态")
     private String status;
+    @ApiModelProperty(value = "订单的收货地址id")
+    private long receiveAddressId;
     @ApiModelProperty(value = "收货地址model")
     private ReceiveAddressModel addressModel;
     @ApiModelProperty(value = "此订单的实付金额,单位为分")
@@ -28,6 +30,35 @@ public class ProductOrderModel {
     private int useCoin;
     @ApiModelProperty(value = "订单总金额，单位为分")
     private int payment;
+    @ApiModelProperty(value = "用户id")
+    private long userId;
+    @ApiModelProperty(value = "用户的昵称")
+    private String nickName;
+
+
+    public long getReceiveAddressId() {
+        return receiveAddressId;
+    }
+
+    public void setReceiveAddressId(long receiveAddressId) {
+        this.receiveAddressId = receiveAddressId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public int getPayment() {
         return payment;
