@@ -29,7 +29,7 @@ public class WXMiniReceiveAddressController {
     @GetMapping(value = "findPage")
     @ApiOperation(value = "我的收货地址")
     @RequiresAuthentication
-    public ResponsePageInfoData<ReceiveAddressModel> findPage(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+    public ResponsePageInfoData<List<ReceiveAddressModel>> findPage(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                               @RequestParam(value = "rows", required = true, defaultValue = "10") int rows){
         PageHelper.startPage(pageNo,rows);
         ServiceStatusInfo<List<ReceiveAddressModel>> serviceStatusInfo= receiveAddressServiceImpl.findByPage();
@@ -43,7 +43,7 @@ public class WXMiniReceiveAddressController {
     @GetMapping(value = "find/{id}")
     @ApiOperation(value = "根据id查询收货地址")
     @RequiresAuthentication
-    public ResponseData<Long> findById(@PathVariable long id){
+    public ResponseData<ReceiveAddressModel> findById(@PathVariable long id){
         ServiceStatusInfo<ReceiveAddressModel> serviceStatusInfo= receiveAddressServiceImpl.findById(id);
         if( !serviceStatusInfo.isSuccess()){
             return new ResponseData(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);

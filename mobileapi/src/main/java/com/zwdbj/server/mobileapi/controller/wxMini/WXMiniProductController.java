@@ -33,7 +33,7 @@ public class WXMiniProductController {
 
     @GetMapping(value = "findByProduct")
     @ApiOperation(value = "兑换商城列表")
-    public ResponsePageInfoData<ProductOut> findByProduct(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+    public ResponsePageInfoData<List<ProductOut>> findByProduct(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                           @RequestParam(value = "rows", required = true, defaultValue = "10") int rows,
                                                           ProductInput productInput){
         PageHelper.startPage(pageNo,rows);

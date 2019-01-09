@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.discountCoupon.service;
 
+import com.ecwid.consul.v1.ConsulClient;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.mapper.IDiscountCouponMapper;
 import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.DiscountCouponInput;
@@ -10,6 +11,7 @@ import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
+import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -140,6 +142,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
     @Override
     @Transactional
     public ServiceStatusInfo<Long> issueDiscountCoupon(long id,long userId, int couponCount) {
+        Lock lock = null;
         try{
             AuthUser authUser = tokenCenterManager.fetchUser(String.valueOf(JWTUtil.getCurrentId())).getData();
             if(authUser == null){
@@ -156,10 +159,17 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
                 return new ServiceStatusInfo(1,"扣除数量失败,影响行数"+result,null);
             }
             //发布优惠券
-            //TODO 未完待续
+            //锁住优惠券
+            ConsulClient consulClient = new ConsulClient("localhost", 8500);	// 创建与Consul的连接
+            lock = new Lock(consulClient, "adminapi","couponTout-lockKey:"+id);
+            if(lock.lock(true)){
+
+            }
             return new ServiceStatusInfo(0,"",result);
         }catch(Exception e){
             return new ServiceStatusInfo(1,"查询失败"+e.getMessage(),null);
+        }finally {
+            if(lock != null)lock.unlock();
         }
     }
 }
