@@ -1,10 +1,10 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.discountCoupon.mapper;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.discountCoupon.model.DiscountCouponModel;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.discountCoupon.model.SearchDiscountCoupon;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface IDiscountCouponMapper {
@@ -14,15 +14,16 @@ public interface IDiscountCouponMapper {
      * @param couponId
      * @return
      */
-    DiscountCouponModel selectByCoupon(long couponId);
+    @Select("select * from `shop_discountcoupons` where id=#{couponId}")
+    DiscountCouponModel selectByCoupon(@Param("couponId") long couponId);
 
     /**
-     * 查询用户优惠券
-     * @param searchDiscountCoupon
+     * 减少数量
+     * @param couponCount
      * @return
      */
-    List<DiscountCouponModel> selectUserDiscountCoupon(SearchDiscountCoupon searchDiscountCoupon);
-
-    long createUserDiscountCoupon();
+    @Update("UPDATE `shop_discountcoupons` SET  `couponCount` = `couponCount` - #{couponCount} where id = #{id} " +
+            "and isDeleted=0  and `couponCount`-#{couponCount}>=0")
+    long reduceCouponCount(@Param("id") long id , @Param("couponCount") int couponCount);
 
 }
