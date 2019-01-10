@@ -30,6 +30,17 @@ public class SearchDiscountCoupon {
     @ApiModelProperty(value = "商家ID" , hidden = true)
     private long legalSubjectId;
 
+    @ApiModelProperty(value = "用户ID" , hidden = true)
+    private long userId;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
     public String getName() {
         return name;
     }
