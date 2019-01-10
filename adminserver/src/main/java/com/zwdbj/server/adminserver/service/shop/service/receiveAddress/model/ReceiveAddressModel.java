@@ -11,8 +11,10 @@ public class ReceiveAddressModel {
     private long id;
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
-    @ApiModelProperty(value = "收货人的id")
+    @ApiModelProperty(value = "用户的id")
     private long userId;
+    @ApiModelProperty(value = "用户的昵称")
+    private String nickName;
     @ApiModelProperty(value = "收货人的名字")
     private String receiverName;
     @ApiModelProperty(value = "收货人固定电话")
@@ -37,6 +39,14 @@ public class ReceiveAddressModel {
     private Date updateTime;
     @ApiModelProperty(value = "是否为默认地址")
     private boolean isDefault;
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public long getId() {
         return id;

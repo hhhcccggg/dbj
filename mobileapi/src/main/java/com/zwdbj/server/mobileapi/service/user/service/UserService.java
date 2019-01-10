@@ -445,6 +445,8 @@ public class UserService {
             String userName = UniqueIDCreater.generateUserName();
             userMapper.regByPhone(phone, userId, userName);
             UserModel userModel = new UserModel(userId, userName, null, null, phone);
+            //初始化金币账户
+            this.userAssetServiceImpl.userIsExist(userId);
             return userModel;
         } catch (Exception ex) {
             return null;
@@ -495,6 +497,8 @@ public class UserService {
         }
         this.userMapper.updateField("IsPhoneVerification=true,phone='" + phone + "'", userId);
         this.tokenCenterManager.refreshUserInfo(String.valueOf(userId), iAuthUserManagerImpl);
+        //初始化金币账户
+        this.userAssetServiceImpl.userIsExist(userId);
         return new ServiceStatusInfo<>(0, "绑定成功", null);
     }
 
@@ -742,7 +746,7 @@ public class UserService {
             if (input.getPassword().equals(input.getPasswordTwo())){
                 UserModel userModel = this.findUserByPhone(input.getPhone());
                 if (userModel==null)return new ServiceStatusInfo<>(1,"此手机号还没有注册，请注册账号",null);
-                result = (int)this.userMapper.updateField("password="+password,userModel.getId());
+                result = this.userMapper.updatePasswordByUserId(password,userModel.getId());
                 if (result==0)return new ServiceStatusInfo<>(1,"找回密码失败",0);
                 return new ServiceStatusInfo<>(0,"找回密码成功",result);
             }else {

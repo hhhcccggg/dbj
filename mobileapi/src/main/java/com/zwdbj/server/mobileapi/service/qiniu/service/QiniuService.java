@@ -20,6 +20,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.net.URL;
+
 @Service
 @Lazy
 public class QiniuService {
@@ -70,6 +73,7 @@ public class QiniuService {
                 AppConfigConstant.QINIU_LIVE_PUBLISH_EXPIRETIME);
         return url;
     }
+
     public String getRTMPPlayUrl(String streamName) {
         Client cli = new Client(AppConfigConstant.QINIU_ACCESS_KEY,AppConfigConstant.QINIU_ACCESS_SECRECT);
         String url = cli.RTMPPlayURL(AppConfigConstant.QINIU_LIVE_RTMP_PLAY_DOMAIN,AppConfigConstant.QINIU_LIVE_HUB_NAME,streamName);

@@ -8,10 +8,15 @@ import com.zwdbj.server.adminserver.service.shop.service.productCashCoupon.model
 import com.zwdbj.server.adminserver.service.shop.service.productSKUs.mapper.IProductSKUsMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.adminserver.service.shop.service.products.mapper.IProductsMapper;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
+import com.zwdbj.server.tokencenter.TokenCenterManager;
+import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,12 +41,17 @@ public class ProductServiceImpl implements ProductService {
     @Resource
     protected IProductCashCouponMapper iProductCashCouponMapper;
 
-    @Override
-    public ServiceStatusInfo<Long> createProducts(Products products, long originalPrice, long promotionPrice,
-                                                  boolean festivalCanUse, int specHoursValid, int validDays,
-                                                  Date validStartTime, Date validEndTime, String validType) {
+    @Autowired
+    protected TokenCenterManager tokenCenterManager;
 
-        ServiceStatusInfo serviceStatusInfo = judgeProducts(products,validType,specHoursValid,validDays,validStartTime,validEndTime);
+    @Override
+    public ServiceStatusInfo<Long> createProducts(CreateProducts createProducts) {
+        AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
+        if(authUser == null){
+            return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
+        }
+        createProducts.setStoreId(authUser.getLegalSubjectId());
+        ServiceStatusInfo serviceStatusInfo = judgeProducts(createProducts);
         if(serviceStatusInfo != null){
             return serviceStatusInfo;
         }
@@ -49,23 +59,22 @@ public class ProductServiceImpl implements ProductService {
         long id = UniqueIDCreater.generateID();
         Long result = 0L;
         try {
-            result = this.iProductMapper.createProducts(id, products);
+            result = this.iProductMapper.createProducts(id, createProducts);
             if(result==0){
                 return new ServiceStatusInfo<>(1, "新增失败：影响行数"+result, null);
             }
             ProductSKUs productSKUs = new ProductSKUs();
             productSKUs.setProductId(id);
-            productSKUs.setWeight(products.getWeight());
-            productSKUs.setInventory(products.getInventory());
-            productSKUs.setOriginalPrice(originalPrice);
-            productSKUs.setPromotionPrice(promotionPrice);
+            productSKUs.setInventory(createProducts.getInventory());
+            productSKUs.setOriginalPrice(createProducts.getOriginalPrice());
+            productSKUs.setPromotionPrice(createProducts.getPromotionPrice());
             iProductSKUsMapper.createProductSKUs(UniqueIDCreater.generateID(),productSKUs);
-            if("CARD".equals(products.getProductDetailType())){
-                ProductCard productCard = new ProductCard(festivalCanUse,validType,specHoursValid,validDays,validStartTime,validEndTime,id);
+            if("CARD".equals(createProducts.getProductDetailType())){
+                ProductCard productCard = new ProductCard(createProducts,id);
                 this.iProductCardMapper.createProductCard(UniqueIDCreater.generateID(),productCard);
             }
-            if("CASHCOUPON".equals(products.getProductDetailType())){
-                ProductCashCoupon productCashCoupon = new ProductCashCoupon(festivalCanUse,validType,specHoursValid,validDays,validStartTime,validEndTime,id);
+            if("CASHCOUPON".equals(createProducts.getProductDetailType())){
+                ProductCashCoupon productCashCoupon = new ProductCashCoupon(createProducts,id);
                 this.iProductCashCouponMapper.createProductCashCoupon(UniqueIDCreater.generateID(),productCashCoupon);
             }
             return new ServiceStatusInfo<>(0, "", result);
@@ -87,32 +96,29 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ServiceStatusInfo<Long> updateProducts(Products products, long originalPrice, long promotionPrice,
-                                                  boolean festivalCanUse, int specHoursValid, int validDays,
-                                                  Date validStartTime, Date validEndTime, String validType){
-        ServiceStatusInfo serviceStatusInfo = judgeProducts(products,validType,specHoursValid,validDays,validStartTime,validEndTime);
+    public ServiceStatusInfo<Long> updateProducts(CreateProducts createProducts){
+        ServiceStatusInfo serviceStatusInfo = judgeProducts(createProducts);
         if(serviceStatusInfo != null){
             return serviceStatusInfo;
         }
         Long result = 0L;
         try {
-            result = this.iProductMapper.update(products);
+            result = this.iProductMapper.update(createProducts);
             if(result==0){
                 return new ServiceStatusInfo<>(1, "修改失败：影响行数"+result, null);
             }
             ProductSKUs productSKUs = new ProductSKUs();
-            productSKUs.setProductId(products.getId());
-            productSKUs.setWeight(products.getWeight());
-            productSKUs.setInventory(products.getInventory());
-            productSKUs.setOriginalPrice(originalPrice);
-            productSKUs.setPromotionPrice(promotionPrice);
+            productSKUs.setProductId(createProducts.getId());
+            productSKUs.setInventory(createProducts.getInventory());
+            productSKUs.setOriginalPrice(createProducts.getOriginalPrice());
+            productSKUs.setPromotionPrice(createProducts.getPromotionPrice());
             iProductSKUsMapper.updateProductSKUs(productSKUs);
-            if("CARD".equals(products.getProductDetailType())){
-                ProductCard productCard = new ProductCard(festivalCanUse,validType,specHoursValid,validDays,validStartTime,validEndTime,products.getId());
+            if("CARD".equals(createProducts.getProductDetailType())){
+                ProductCard productCard = new ProductCard(createProducts,createProducts.getId());
                 this.iProductCardMapper.updateByProductIdByProductCard(productCard);
             }
-            if("CASHCOUPON".equals(products.getProductDetailType())){
-                ProductCashCoupon productCashCoupon = new ProductCashCoupon(festivalCanUse,validType,specHoursValid,validDays,validStartTime,validEndTime,products.getId());
+            if("CASHCOUPON".equals(createProducts.getProductDetailType())){
+                ProductCashCoupon productCashCoupon = new ProductCashCoupon(createProducts,createProducts.getId());
                 this.iProductCashCouponMapper.updateByProductIdByProductCashCoupon(productCashCoupon);
             }
             return new ServiceStatusInfo<>(0, "", result);
@@ -192,25 +198,30 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    public ServiceStatusInfo judgeProducts(Products products, String validType, int specHoursValid , int validDays, Date validStartTime, Date validEndTime){
-        if(products.getProductType() != 0 && products.getProductType() != 1){
+    /**
+     * 判断数据
+     * @param createProducts
+     * @return
+     */
+    public ServiceStatusInfo judgeProducts(CreateProducts createProducts){
+        if(createProducts.getProductType() != 0 && createProducts.getProductType() != 1){
             return new ServiceStatusInfo<>(1, "创建失败：产品类型不正确", null);
         }
-        if(!"DELIVERY".equals(products.getProductDetailType()) && !"NODELIVERY".equals(products.getProductDetailType())
-                && !"CARD".equals(products.getProductDetailType()) && !"CASHCOUPON".equals(products.getProductDetailType())){
+        if(!"DELIVERY".equals(createProducts.getProductDetailType()) && !"NODELIVERY".equals(createProducts.getProductDetailType())
+                && !"CARD".equals(createProducts.getProductDetailType()) && !"CASHCOUPON".equals(createProducts.getProductDetailType())){
             return new ServiceStatusInfo<>(1, "创建失败：产品详细类型不正确", null);
         }
-        if("CARD".equals(products.getProductDetailType()) || "CASHCOUPON".equals(products.getProductDetailType())){
-            if(!"PAY_VALIDED".equals(validType) && !"PAY_VALIDED".equals(validType) && !"PAY_SPEC_HOUR_VALIDED".equals(validType)){
+        if("CARD".equals(createProducts.getProductDetailType()) || "CASHCOUPON".equals(createProducts.getProductDetailType())){
+            if(!"PAY_VALIDED".equals(createProducts.getValidType()) && !"PAY_VALIDED".equals(createProducts.getValidType()) && !"PAY_SPEC_HOUR_VALIDED".equals(createProducts.getValidType())){
                 return new ServiceStatusInfo<>(1, "创建失败：validType类型不正确", null);
             }
-            if("PAY_VALIDED".equals(validType) && specHoursValid <= 0 && validDays <=-1 && validStartTime == null && validEndTime==null){
+            if("PAY_VALIDED".equals(createProducts.getValidType()) && createProducts.getSpecHoursValid() <= 0 && createProducts.getValidDays() <=-1 && createProducts.getValidStartTime() == null && createProducts.getValidEndTime()==null){
                 return new ServiceStatusInfo<>(1, "创建失败：PAY_VALIDED生效类型不正确", null);
             }
-            if("PAY_NEXTDAY_VALIDED".equals(validType) && validDays <=-1 && validStartTime == null && validEndTime==null){
+            if("PAY_NEXTDAY_VALIDED".equals(createProducts.getValidType()) && createProducts.getValidDays() <=-1 && createProducts.getValidStartTime() == null && createProducts.getValidEndTime()==null){
                 return new ServiceStatusInfo<>(1, "创建失败：PAY_NEXTDAY_VALIDED生效类型不正确", null);
             }
-            if("PAY_SPEC_HOUR_VALIDED".equals(validType) && validStartTime == null && validEndTime==null){
+            if("PAY_SPEC_HOUR_VALIDED".equals(createProducts.getValidType()) && createProducts.getValidStartTime() == null && createProducts.getValidEndTime()==null){
                 return new ServiceStatusInfo<>(1, "创建失败：PAY_SPEC_HOUR_VALIDED生效类型不正确", null);
             }
         }

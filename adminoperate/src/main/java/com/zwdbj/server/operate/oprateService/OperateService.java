@@ -97,9 +97,10 @@ public class OperateService {
     }
 
     public void userNumber(){
-        this.stringRedisTemplate.opsForValue().set("2019-02-10u","2615",50,TimeUnit.DAYS);
-        int[] userNums = {1823,2199,1345,1796,2530,2304,1863,1766,1940,2245,2096,1652,1764,2181,2681,1993,2360,1247,2154,2031,2742,2721,
-                2081,2468,1697,2038,2413,1775,1665,1512,1409,1735,1510,2346,1904,1376,1893,1381,1873,2441};
+        this.stringRedisTemplate.opsForValue().set("2019-02-10u","7245",50,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2019-02-11u","6171",50,TimeUnit.DAYS);
+        int[] userNums = {7118,6252,7933,8903,8296,8671,8646,7568,6524,8968,8734,8462,7967,8941,8868,8632,7861,6841,8398,8666,6457,8057,
+                6976,7973,8496,8705,6623,7650,7641,7644,8619,7339,6297,4315,7543,7876,7920,5505,5934,5678};
         for(int i = 1;i<10;i++){
             this.stringRedisTemplate.opsForValue().set("2019-01-0"+i+"u",String.valueOf(userNums[i-1]),30,TimeUnit.DAYS);
             this.stringRedisTemplate.opsForValue().set("2019-02-0"+i+"u",String.valueOf(userNums[i+30]),50,TimeUnit.DAYS);
@@ -111,9 +112,10 @@ public class OperateService {
     }
 
     public void videoNumber(){
-        this.stringRedisTemplate.opsForValue().set("2019-02-10v","365",50,TimeUnit.DAYS);
-        int[] videoNums = {445,269,299,217,297,149,425,489,287,356,228,135,186,148,150,415,152,337,284,161,355,189,158,209,125,459,398,
-                126,307,131,203,227,332,289,256,382,237,380,109,263};
+        this.stringRedisTemplate.opsForValue().set("2019-02-10v","1095",50,TimeUnit.DAYS);
+        this.stringRedisTemplate.opsForValue().set("2019-02-11v","879",50,TimeUnit.DAYS);
+        int[] videoNums = {1335,807,897,651,891,447,1275,1467,861,1068,684,405,558,444,450,1245,456,1011,852,483,1065,567,474,627,375,1377,1194,
+                378,921,393,609,681,996,867,768,1146,711,1140,327,789};
         for(int i = 1;i<10;i++){
             this.stringRedisTemplate.opsForValue().set("2019-01-0"+i+"v",String.valueOf(videoNums[(i-1)]),30,TimeUnit.DAYS);
             this.stringRedisTemplate.opsForValue().set("2019-02-0"+i+"v",String.valueOf(videoNums[(i+30)]),50,TimeUnit.DAYS);

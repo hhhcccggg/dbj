@@ -37,7 +37,7 @@ namespace db.shop.Models.shop
         [MaxLength(1024)]
         public string couponids { get; set; }
         /// <summary>
-        /// 支付类型，BANK:银行卡WECHAT:微信ALIPAY:支付宝
+        /// 支付类型，BANK:银行卡WECHAT:微信ALIPAY:支付宝NONE:无
         /// </summary>
         /// <value>The type of the payment.</value>
         [MaxLength(128)]
@@ -45,6 +45,7 @@ namespace db.shop.Models.shop
         public string paymentType { get; set; }
         /// <summary>
         /// 第三方支付流水号: 微信、支付宝流水号、银行卡流水号
+        /// NONE
         /// </summary>
         /// <value>The third payment trade no.</value>
         [Required]

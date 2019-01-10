@@ -1,35 +1,35 @@
 package com.zwdbj.server.adminserver.service.shop.service.shopdetail.service;
 
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.OpeningHours;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.QualificationInput;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.StoreDto;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.LocationInfo;
+
 import java.util.List;
 
 public interface ShopDetailService {
-    ServiceStatusInfo<StoreDto> findStoreDetail(long storeId);
+    ServiceStatusInfo<StoreDto> findStoreDetail(long legalSubjectId);
 
-    ServiceStatusInfo<List<OpeningHours>> findOpeningHours(long storeId);
+    ServiceStatusInfo<List<OpeningHours>> findOpeningHours(long legalSubjectId);
 
-    ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list);
+    ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list, long storeId, long legalSubjectId);
 
-    ServiceStatusInfo<Long> addOpeningHours(long storeId, List<OpeningHours> list);
+    ServiceStatusInfo<Long> addOpeningHours(List<OpeningHours> list, long storeId);
 
-    ServiceStatusInfo<LocationInfo> showLocation(long storeId);
+    ServiceStatusInfo<LocationInfo> showLocation(long legalSubjectId);
 
-    ServiceStatusInfo<List<StoreServiceCategory>> findExtraService(long stordId);
+    ServiceStatusInfo<List<StoreServiceCategory>> findExtraService(long legalSubjectId);
 
-    ServiceStatusInfo<List<StoreServiceCategory>> findAllExtraService(long stordId);
+    ServiceStatusInfo<List<StoreServiceCategory>> findAllExtraService(long legalSubjectId);
 
-    ServiceStatusInfo<Long> modifyExtraService(long storeId, List<StoreServiceCategory> list);
+    ServiceStatusInfo<Long> modifyExtraService(long storeId, long legalSubjectId, List<StoreServiceCategory> list);
 
-    ServiceStatusInfo<List<StoreServiceCategory>> findServiceScope(long storeId);
+    ServiceStatusInfo<List<StoreServiceCategory>> findServiceScope(long legalSubjectId);
 
-    ServiceStatusInfo<Long> modifyServiceScopes(long storeId, List<StoreServiceCategory> list);
+    ServiceStatusInfo<Long> modifyServiceScopes(long storeId, long legalSubjectId, List<StoreServiceCategory> list);
 
     ServiceStatusInfo<Long> uploadCheck(QualificationInput qualificationInput, long legalSubjectId);
 
     ServiceStatusInfo<Long> modifylocation(LocationInfo info, long storeId);
+
+
 }

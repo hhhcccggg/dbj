@@ -33,9 +33,7 @@ public class UserShopController {
                                                           @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
                                                           @RequestBody UserShopSearchInput userShopSearchInput){
         PageHelper.startPage(pageNo,rows);
-        //商户ID固定
-        long id = 110L;
-        ServiceStatusInfo<List<UserShopSelectInput>> serviceStatusInfo = userService.selectStaff(userShopSearchInput,id);
+        ServiceStatusInfo<List<UserShopSelectInput>> serviceStatusInfo = userService.selectStaff(userShopSearchInput);
         PageInfo<UserShopSelectInput> pageInfo =new PageInfo(serviceStatusInfo.getData());
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), pageInfo.getList(), pageInfo.getTotal());
     }
@@ -58,7 +56,7 @@ public class UserShopController {
 
      @PostMapping("/deleteByUser")
      @ApiOperation(value = "批量删除员工")
-     public ResponseData<Long> deleteByUser(@RequestParam(value = "id",required = true) long[] id){
+     public ResponseData<Long> deleteByUser(@RequestBody long[] id){
          ServiceStatusInfo<Long> serviceStatusInfo = this.userService.deleteByIds(id);
          if (serviceStatusInfo.isSuccess()) {
              return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
@@ -68,7 +66,7 @@ public class UserShopController {
 
     @PostMapping("/setRepresent")
     @ApiOperation(value = "批量设置代言人")
-    public ResponseData<Long> setRepresent(@RequestParam(value = "id",required = true) long[] id){
+    public ResponseData<Long> setRepresent(@RequestBody long[] id){
 
         ServiceStatusInfo<Long> serviceStatusInfo = this.userService.setRepresent(id);
         if (serviceStatusInfo.isSuccess()) {
@@ -79,7 +77,7 @@ public class UserShopController {
 
     @PostMapping("/cancelRepresent")
     @ApiOperation(value = "批量取消代言人")
-    public ResponseData<Long> cancelRepresent(@RequestParam(value = "id",required = true) long[] id){
+    public ResponseData<Long> cancelRepresent(@RequestBody long[] id){
         ServiceStatusInfo<Long> serviceStatusInfo = this.userService.cancelRepresent(id);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());

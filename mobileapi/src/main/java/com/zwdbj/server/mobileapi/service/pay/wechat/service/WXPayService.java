@@ -3,6 +3,8 @@ package com.zwdbj.server.mobileapi.service.pay.wechat.service;
 import com.alibaba.fastjson.JSON;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
+import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
+import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
@@ -25,6 +27,8 @@ public class WXPayService {
     private IUserAssetService userAssetServiceImpl;
     @Autowired
     private WechatPayService wechatPayService;
+    @Autowired
+    private OrderService orderService;
     private WXPayAppCfg wxPayAppCfg;
     public WXPayService(WXPayAppCfg cfg) {
         this.wxPayAppCfg = cfg;
@@ -86,33 +90,93 @@ public class WXPayService {
         chargeCoinWXResult.setOutTradeNo(String.valueOf(id));
         return new ServiceStatusInfo<>(0,"OK", chargeCoinWXResult);
     }
+    /**
+     * @param input 付款信息
+     * @param userId 谁付款
+     * @return 返回预付信息
+     */
+    @Transactional
+    public ServiceStatusInfo<ChargeCoinWXResult> payOrder(PayOrderInput input, long userId) {
+        // TODO 解析充值模板，当前直接解析金币
+        // 生成充值明细订单
+        // 1:10比例充值金币，单位分
+        int rmbs = 0;
+        if(this.wxPayAppCfg.isSandBox()) {
+            rmbs = 201;
+        } else {
+            if (this.wxPayAppCfg.getIsTest()) {
+                rmbs = 1;
+            } else {
+                rmbs = input.getPayMoney();
+            }
+        }
+        // 生成预付单
+        UnifiedOrderInput unifiedOrderInput = new UnifiedOrderInput();
+        unifiedOrderInput.setBody("爪子 订单付款"+rmbs/100f+"元");
+        unifiedOrderInput.setFeeType("CNY");
+        unifiedOrderInput.setNotifyUrl(this.wxPayAppCfg.getOrderPayResultCallbackUrl());
+        unifiedOrderInput.setTradeType("APP");
+        unifiedOrderInput.setTotalFee(rmbs);
+        unifiedOrderInput.setOutTradeNo(String.valueOf(input.getOrderId()));
+        ServiceStatusInfo<UnifiedOrderDto> unifiedOrderDtoServiceStatusInfo =
+                this.wechatPayService.unifiedOrder(unifiedOrderInput);
+        if (!unifiedOrderDtoServiceStatusInfo.isSuccess()) {
+            return new ServiceStatusInfo<>(1,unifiedOrderDtoServiceStatusInfo.getMsg(),null);
+        }
+        //构建预付订单信息
+        ServiceStatusInfo<Map<String,String>> mapServiceStatusInfo =
+                this.wechatPayService.invokePayRequestInfo(unifiedOrderDtoServiceStatusInfo.getData().getPrepayId());
+        if (!mapServiceStatusInfo.isSuccess()) {
+            return new ServiceStatusInfo<>(1,mapServiceStatusInfo.getMsg(),null);
+        }
+        ChargeCoinWXResult chargeCoinWXResult = new ChargeCoinWXResult();
+        chargeCoinWXResult.setPrepayId(unifiedOrderDtoServiceStatusInfo.getData().getPrepayId());
+        chargeCoinWXResult.setNonceStr(mapServiceStatusInfo.getData().get("noncestr"));
+        chargeCoinWXResult.setPackageN(mapServiceStatusInfo.getData().get("package"));
+        chargeCoinWXResult.setSign(mapServiceStatusInfo.getData().get("sign"));
+        chargeCoinWXResult.setTimestamp(mapServiceStatusInfo.getData().get("timestamp"));
+        chargeCoinWXResult.setOutTradeNo(String.valueOf(input.getOrderId()));
+        return new ServiceStatusInfo<>(0,"OK", chargeCoinWXResult);
+    }
 
     /**
+     * @param type  1:金币充值  2:订单付款
      * @param input
      * @return 订单支付查询结果
      */
-    public ServiceStatusInfo<OrderPayResultDto> orderQuery(OrderQueryInput input) {
+    public ServiceStatusInfo<OrderPayResultDto> orderQuery(OrderQueryInput input,int type) {
         ServiceStatusInfo<OrderPayResultDto> serviceStatusInfo = this.wechatPayService.orderQuery(input);
         logger.info(JSON.toJSONString(serviceStatusInfo));
         if (!serviceStatusInfo.isSuccess()) {
             return serviceStatusInfo;
         }
-        processPayResult(serviceStatusInfo.getData());
+        if (type==1){
+            processPayResult(serviceStatusInfo.getData());
+        }else if (type==2){
+            orderPayResult(serviceStatusInfo.getData());
+        }
+
         return serviceStatusInfo;
     }
 
     /**
+     * @param type 1:金币充值  2:订单付款
      * @param resFromWX 来自微信的支付结果通知
      * @return 响应微信支付结果通知
      */
-    public ServiceStatusInfo<String> responseWeChatPayResult(String resFromWX) {
+    public ServiceStatusInfo<String> responseWeChatPayResult(String resFromWX,int type) {
         logger.info("收到微信支付回调："+resFromWX);
         ServiceStatusInfo<PayNotifyResult> stringServiceStatusInfo = this.wechatPayService.responseWeChatPayResult(resFromWX);
         if(!stringServiceStatusInfo.isSuccess()) {
             logger.info(stringServiceStatusInfo.getMsg());
             return new ServiceStatusInfo<>(stringServiceStatusInfo.getCode(),stringServiceStatusInfo.getMsg(),null);
         }
-        processPayResult(stringServiceStatusInfo.getData().getPayResultDto());
+        if (type==1){
+            processPayResult(stringServiceStatusInfo.getData().getPayResultDto());
+        }else if (type==2){
+            orderPayResult(stringServiceStatusInfo.getData().getPayResultDto());
+        }
+
         return new ServiceStatusInfo<>(0,"OK",stringServiceStatusInfo.getData().getResponseWeChatXML());
     }
     @Transactional
@@ -126,6 +190,19 @@ public class WXPayService {
             coinDetailModifyInput.setStatus("SUCCESS");
             coinDetailModifyInput.setTradeNo(resultDto.getTransactionId());
             this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
+        } else {
+            logger.info("交易失败");
+        }
+    }
+    @Transactional
+    protected void orderPayResult(OrderPayResultDto resultDto) {
+        logger.info("处理微信支付结果"+resultDto.toString());
+        if (resultDto.getTradeState().equals("SUCCESS")) {
+            logger.info("交易成功");
+            long id = Long.valueOf(resultDto.getOutTradeNo());
+            String tradeNo = resultDto.getTransactionId();
+            String params = resultDto.toString();
+            this.orderService.updateOrderPay(id,"WECHAT",tradeNo,params);
         } else {
             logger.info("交易失败");
         }

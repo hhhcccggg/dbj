@@ -3,9 +3,12 @@ package com.zwdbj.server.adminserver.service.shop.service.shopdetail.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "店铺位置信息")
-public class LocationInfo {
+import java.io.Serializable;
 
+@ApiModel(value = "店铺位置信息")
+public class LocationInfo implements Serializable {
+
+    private static final long serialVersionUID = -632981850739504544L;
     @ApiModelProperty(value = "经度")
     float longitude;
     @ApiModelProperty(value = "纬度")
@@ -16,8 +19,17 @@ public class LocationInfo {
     int cityId;
     @ApiModelProperty(value = "cityLevel")
     String cityLevel;
+    @ApiModelProperty(value = "storeId")
+    long id;
 
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public float getLongitude() {
         return longitude;

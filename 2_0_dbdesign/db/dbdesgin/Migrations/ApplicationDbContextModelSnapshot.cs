@@ -326,6 +326,54 @@ namespace dbdesgin.Migrations
                     b.ToTable("shop_discountCoupons");
                 });
 
+            modelBuilder.Entity("db.shop.Models.shop.Favorite", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("imageUrl")
+                        .IsRequired()
+                        .HasMaxLength(1024);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("price");
+
+                    b.Property<long>("targetId");
+
+                    b.Property<string>("targetType")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(1024);
+
+                    b.Property<long>("userId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("shop_Favorites");
+                });
+
             modelBuilder.Entity("db.shop.Models.shop.LegalSubject", b =>
                 {
                     b.Property<long>("Id")
@@ -1468,6 +1516,90 @@ namespace dbdesgin.Migrations
                     b.ToTable("shop_userDiscountCoupons");
                 });
 
+            modelBuilder.Entity("db.video.Models.AdBanner", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("imageUrl")
+                        .IsRequired()
+                        .HasMaxLength(1024);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("platform")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("refUrl")
+                        .HasMaxLength(2048);
+
+                    b.Property<string>("state")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("core_adBanners");
+                });
+
+            modelBuilder.Entity("db.video.Models.City", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("citycode")
+                        .HasMaxLength(128);
+
+                    b.Property<float>("latitude");
+
+                    b.Property<string>("level")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<float>("longitude");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<long>("parentId");
+
+                    b.Property<string>("zipcode")
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("core_cities");
+                });
+
             modelBuilder.Entity("db.video.Models.Tenant", b =>
                 {
                     b.Property<long>("Id")
@@ -1882,6 +2014,14 @@ namespace dbdesgin.Migrations
                         .HasDefaultValue(0L);
 
                     b.Property<long>("newVideos")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0L);
+
+                    b.Property<long>("perDau")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0L);
+
+                    b.Property<long>("perMau")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0L);
 

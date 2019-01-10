@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.products.mapper;
 
+import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.ProductsDto;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
@@ -10,67 +11,44 @@ import java.util.List;
 
 @Mapper
 public interface IProductsMapper {
-    @Insert("insert into shop_products(id," +
-            "productType,productDetailType,numberId,name,subName,searchName,marketName," +
-            "sellerPoint,categoryId,categoryLevel," +
-            "brandId,shareDesc,storeId,commentCount,grade,sales,inventory,priceUp," +
-            "priceDown,imageUrls,videoUrl,productGroupId,joinMemberDiscount," +
-            "needDelivery,universalDeliveryPrice,deliverytemplateId,publish," +
-            "specifyPublishTime,detailDescription,weight,notes) values(" +
+    @Insert("INSERT INTO `shop_products` (" +
+            "`id`," +
+            "`productType`," +
+            "`productDetailType`," +
+            "`name`," +
+            "`storeId`," +
+            "`inventory`," +
+            "`publish`," +
+            "`specifyPublishTime`," +
+            "`detailDescription`," +
+            "`limitPerPerson`," +
+            "`brandId`,`imageUrls`,"+
+            "`categoryId`,`supportCoin`"+
+            ")VALUES(" +
             "#{id}," +
             "#{products.productType}," +
             "#{products.productDetailType}," +
-            "#{products.numberId}," +
             "#{products.name}," +
-            "#{products.subName}," +
-            "#{products.searchName}," +
-            "#{products.marketName}," +
-            "#{products.sellerPoint}," +
-            "#{products.categoryId}," +
-            "#{products.categoryLevel}," +
-            "#{products.brandId}," +
-            "#{products.shareDesc}," +
             "#{products.storeId}," +
-            "#{products.commentCount}," +
-            "#{products.grade}," +
-            "#{products.sales}," +
             "#{products.inventory}," +
-            "#{products.priceUp}," +
-            "#{products.priceDown}," +
-            "#{products.imageUrls}," +
-            "#{products.videoUrl}," +
-            "#{products.productGroupId}," +
-            "#{products.isJoinMemberDiscount}," +
-            "#{products.isNeedDelivery}," +
-            "#{products.universalDeliveryPrice}," +
-            "#{products.deliverytemplateId}," +
-            "#{products.isPublish}," +
+            "#{products.publish}," +
             "#{products.specifyPublishTime}," +
             "#{products.detailDescription}," +
-            "#{products.weight}," +
-            "#{products.notes})")
-    Long createProducts(@Param("id") Long id, @Param("products") Products products);
+            "#{products.limitPerPerson},#{products.brandId},#{products.imageUrls},#{products.categoryId},#{products.supportCoin}" +
+            ");")
+    Long createProducts(@Param("id") Long id, @Param("products") CreateProducts products);
 
     @Update("update  shop_products set isDeleted=1,deleteTime=now() where id=#{id}")
     Long deleteProduct(@Param("id") Long id);
 
     @Update("update shop_products set " +
             "productType=#{products.productType}," +
-            "numberId=#{products.numberId},name=#{products.name},subName=" +
-            "#{products.subName},searchName=#{products.searchName}," +
-            "marketName=#{products.marketName},sellerPoint=#{products.sellerPoint}," +
-            "categoryId=#{products.categoryId},categoryLevel=#{products.categoryLevel}," +
-            "brandId=#{products.brandId},shareDesc=#{products.shareDesc},storeId=#{products.storeId}," +
-            "commentCount=#{products.commentCount},grade=#{products.grade},sales=#{products.sales}," +
-            "inventory=#{products.inventory},priceUp=#{products.priceUp}," +
-            "priceDown=#{products.priceDown},imageUrls=#{products.priceDown},videoUrl=#{products.videoUrl}," +
-            "productGroupId=#{products.productGroupId},joinMemberDiscount=#{products.isJoinMemberDiscount}," +
-            "needDelivery=#{products.isNeedDelivery},universalDeliveryPrice=#{products.universalDeliveryPrice}," +
-            "deliverytemplateId=#{products.deliverytemplateId},publish=#{products.isPublish}," +
-            "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription}," +
-            "weight=#{products.weight},notes=#{products.notes}" +
+            "name=#{products.name},storeId=#{products.storeId}," +
+            "inventory=#{products.inventory},publish=#{products.isPublish},imageUrls=#{products.imageUrls}," +
+            "brandId=#{products.brandId},supportCoin=#{products.supportCoin},categoryId=#{products.categoryId},"+
+            "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription},limitPerPerson=#{products.limitPerPerson}" +
             "where id=#{products.id} and isDeleted=0")
-    Long update(@Param("products") Products products);
+    Long update(@Param("products") CreateProducts products);
 
     @Select("select * from shop_products where isDeleted=0 order by createTime")
     List<Products> selectAll();

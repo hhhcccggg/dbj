@@ -25,6 +25,7 @@ namespace dbdesgin.Data
         #endregion
 
         #region shop
+        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<LegalSubject> LegalSubjects { get; set; }
         public DbSet<LegalSubjectReview> LegalSubjectReviews { get; set; }
@@ -47,6 +48,10 @@ namespace dbdesgin.Data
         public DbSet<LegalSubjectAsset> LegalSubjectAssets { get; set; }
         public DbSet<LegalSubjectAssetDetail> LegalSubjectAssetDetails { get; set; }
         #endregion
+
+
+        public DbSet<City> Cities { get; set; }
+        public DbSet<AdBanner> AdBanners { get; set; }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
@@ -167,6 +172,13 @@ namespace dbdesgin.Data
             tenantEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
             tenantEntity.HasIndex(cw => cw.identifyName);
             tenantEntity.Property(cw => cw.legalSubjectId).HasDefaultValue(0);
+
+            //abBanner
+            var adBannerEntity = modelBuilder.Entity<AdBanner>();
+            adBannerEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            adBannerEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            adBannerEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+
             //User
             var userEntity = modelBuilder.Entity<User>();
             userEntity.HasIndex(g => g.UserName)
@@ -350,6 +362,8 @@ namespace dbdesgin.Data
             dailyIncreaseAnalysis.Property(c => c.newUsers).HasDefaultValue(0);
             dailyIncreaseAnalysis.Property(c => c.newVideos).HasDefaultValue(0);
             dailyIncreaseAnalysis.Property(c => c.newOrders).HasDefaultValue(0);
+            dailyIncreaseAnalysis.Property(c => c.perDau).HasDefaultValue(0);
+            dailyIncreaseAnalysis.Property(c => c.perMau).HasDefaultValue(0);
             dailyIncreaseAnalysis.Property(c => c.type).HasDefaultValue("FAKE");
 
             #region 权限
@@ -540,6 +554,12 @@ namespace dbdesgin.Data
             legalSubjectAssetDetail.Property(c => c.IsDeleted).HasDefaultValue(false);
             legalSubjectAssetDetail.Property(cw => cw.isManualData).HasDefaultValue(false);
             legalSubjectAssetDetail.Property(cw => cw.type).HasDefaultValue("SHOP");
+
+            //favoriteEntity
+            var favoriteEntity = modelBuilder.Entity<Favorite>();
+            favoriteEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+            favoriteEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+            favoriteEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
 
 
             #endregion

@@ -1,19 +1,21 @@
-package com.zwdbj.server.mobileapi.controller;
+package com.zwdbj.server.mobileapi.controller.wxMini;
 
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.service.WxMiniProgramService;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.setting.service.WxMiniProgramService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/wx/mini")
 @Api(description = "小程序相关")
-public class WXMiniProgramController {
+public class WxMiniSettingController {
     @Autowired
     WxMiniProgramService wxMiniProgramService;
 

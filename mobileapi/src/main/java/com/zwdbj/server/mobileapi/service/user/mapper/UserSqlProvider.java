@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.service.user.mapper;
 import com.zwdbj.server.mobileapi.service.user.model.*;
 import org.apache.ibatis.jdbc.SQL;
 
+import java.util.List;
 import java.util.Map;
 
 public class UserSqlProvider {
@@ -47,4 +48,18 @@ public class UserSqlProvider {
         sql.WHERE("id=#{userId}");
         return sql.toString();
     }
+
+    public String selectUserAvatarUrl(Map map){
+        List<Long> userIds = (List<Long>) map.get("userIds");
+        SQL sql = new SQL().SELECT("avatarUrl").FROM(TBL_NAME);
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < userIds.size(); i++) {
+            stringBuffer.append("id="+userIds.get(i));
+            if(i+1 != userIds.size())stringBuffer.append(" or ");
+        }
+        sql.WHERE(stringBuffer.toString());
+        System.out.println(sql.toString());
+        return sql.toString();
+    }
+
 }
