@@ -8,6 +8,7 @@ import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailMod
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
 import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
@@ -59,6 +60,17 @@ public class OrderController {
     @RequiresAuthentication
     public ResponseData<Integer> createOrder(@RequestBody @Valid AddNewOrderInput input){
         ServiceStatusInfo<Integer> statusInfo = this.orderService.createOrder(input);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+
+    }
+    @RequestMapping(value = "/takeOver/goods",method = RequestMethod.GET)
+    @ApiOperation(value = "确认收货,id为订单id")
+    @RequiresAuthentication
+    public ResponseData<Integer> takeOverGoods(@RequestParam long id){
+        ServiceStatusInfo<Integer> statusInfo = this.orderService.takeOverGoods(id, JWTUtil.getCurrentId());
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
         }

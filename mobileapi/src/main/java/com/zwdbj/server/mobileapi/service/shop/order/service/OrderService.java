@@ -116,4 +116,16 @@ public class OrderService {
         }
 
     }
+
+    @Transactional
+    public void updateOrderPay(long id,String paymentType,String tradeNo,String thirdPaymentTradeNotes){
+            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes);
+    }
+
+    @Transactional
+    public ServiceStatusInfo<Integer> takeOverGoods(long orderId,long userId){
+            int result = this.orderMapper.takeOverGoods(orderId,userId);
+            if (result==0)return new ServiceStatusInfo<>(1,"确认收货失败",result);
+            return new ServiceStatusInfo<>(0,"确认收货成功",result);
+    }
 }

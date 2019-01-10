@@ -25,15 +25,22 @@ public class AlipayService {
     private Logger logger = LoggerFactory.getLogger(AlipayService.class);
     /**
      * @param input
+     * @param type  1 :金币充值  2:订单付款
      * @return 阿里支付预下单
      */
-    public ServiceStatusInfo<AliAppPayResult> appPay(AliAppPayInput input) {
+    public ServiceStatusInfo<AliAppPayResult> appPay(AliAppPayInput input,int type) {
         try {
             AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
             String bizJson = JSON.toJSONString(input);
             request.setBizContent(bizJson);
             //  异步回调
-            request.setNotifyUrl(this.aliPayConfig.getPayResultCallbackUrl());
+            if (type==1){
+                request.setNotifyUrl(this.aliPayConfig.getPayResultCallbackUrl());
+            }else if (type==2){
+                // TODO 订单付款的回调地址
+                request.setNotifyUrl(this.aliPayConfig.getOrderPayResultCallbackUrl());
+            }
+
             AlipayTradeAppPayResponse response = alipayClient.sdkExecute(request);
             if (response.isSuccess()) {
                 AliAppPayResult result = new AliAppPayResult();

@@ -65,6 +65,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
         return updateUserAsset(userId, coins);
     }
 
+    @Transactional
     public int updateUserAsset(long userId, long coins) {
         int result = this.userAssetMapper.updateUserAsset(userId, coins);
         return result;
@@ -312,6 +313,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
         }
     }
 
+    @Transactional
     public int addVideoTipDetail(long videoId, long userId, int tipCoins) {
         long id = UniqueIDCreater.generateID();
         int result = this.userAssetMapper.addVideoTipDetail(id, videoId, userId, tipCoins);
@@ -482,6 +484,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
      * @param productOrderId 订单id
      * @return true 为成功
      */
+    @Transactional
     @Override
     public boolean minusUserCoins(int coins, long userId, long productOrderId) {
 

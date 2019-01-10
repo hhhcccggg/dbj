@@ -179,4 +179,24 @@ public class OrderPayResultDto {
     public void setTradeStateDesc(String tradeStateDesc) {
         this.tradeStateDesc = tradeStateDesc;
     }
+
+    @Override
+    public String toString() {
+        return "OrderPayResultDto{" +
+                "openId='" + openId + '\'' +
+                ", tradeType='" + tradeType + '\'' +
+                ", tradeState='" + tradeState + '\'' +
+                ", bankType='" + bankType + '\'' +
+                ", totalFee=" + totalFee +
+                ", settlementTotalFee=" + settlementTotalFee +
+                ", feeType='" + feeType + '\'' +
+                ", cashFee=" + cashFee +
+                ", cashFeeType='" + cashFeeType + '\'' +
+                ", transactionId='" + transactionId + '\'' +
+                ", outTradeNo='" + outTradeNo + '\'' +
+                ", timeEnd='" + timeEnd + '\'' +
+                ", tradeStateDesc='" + tradeStateDesc + '\'' +
+                ", isPay=" + isPay +
+                '}';
+    }
 }
