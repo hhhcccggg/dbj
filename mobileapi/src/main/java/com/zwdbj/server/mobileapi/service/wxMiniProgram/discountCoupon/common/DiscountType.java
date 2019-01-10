@@ -1,4 +1,4 @@
-package com.zwdbj.server.adminserver.service.shop.service.discountCoupon.common;
+package com.zwdbj.server.mobileapi.service.wxMiniProgram.discountCoupon.common;
 
 public enum DiscountType{
         CASH    //现金优惠

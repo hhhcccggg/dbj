@@ -201,7 +201,6 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
      */
     @Transactional(rollbackFor = Exception.class)
     public ServiceStatusInfo<Long> issueDiscountCouponException(long id,long userId, int couponCount,long storeId,long legalSubjectId) throws Exception {
-
         //减数量
         long result  = iDiscountCouponMapper.reduceCouponCount(id,storeId,legalSubjectId,couponCount);
         if(result==0){
