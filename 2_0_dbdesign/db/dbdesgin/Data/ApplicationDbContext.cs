@@ -350,6 +350,8 @@ namespace dbdesgin.Data
             dailyIncreaseAnalysis.Property(c => c.newUsers).HasDefaultValue(0);
             dailyIncreaseAnalysis.Property(c => c.newVideos).HasDefaultValue(0);
             dailyIncreaseAnalysis.Property(c => c.newOrders).HasDefaultValue(0);
+            dailyIncreaseAnalysis.Property(c => c.perDau).HasDefaultValue(0);
+            dailyIncreaseAnalysis.Property(c => c.perMau).HasDefaultValue(0);
             dailyIncreaseAnalysis.Property(c => c.type).HasDefaultValue("FAKE");
 
             #region 权限

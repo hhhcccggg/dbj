@@ -28,6 +28,16 @@ namespace dbdesgin.Models
         /// <value>The new orders.</value>
         public long newOrders { get; set; }
         /// <summary>
+        /// 日活
+        /// </summary>
+        /// <value>The per dau.</value>
+        public long perDau { get; set; }
+        /// <summary>
+        /// 月活
+        /// </summary>
+        /// <value>The per mau.</value>
+        public long perMau { get; set; }
+        /// <summary>
         /// FAKE:假TRUTH:真
         /// </summary>
         /// <value>The type.</value>
