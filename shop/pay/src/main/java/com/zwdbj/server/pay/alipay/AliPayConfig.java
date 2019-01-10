@@ -7,6 +7,17 @@ import org.springframework.stereotype.Component;
 public class AliPayConfig {
     @Value("${app.pay.ali.payResultCallbackUrl}")
     private String payResultCallbackUrl;
+    @Value("${app.pay.ali.orderPayResultCallbackUrl}")
+    private String orderPayResultCallbackUrl;
+
+
+    public String getOrderPayResultCallbackUrl() {
+        return orderPayResultCallbackUrl;
+    }
+
+    public void setOrderPayResultCallbackUrl(String orderPayResultCallbackUrl) {
+        this.orderPayResultCallbackUrl = orderPayResultCallbackUrl;
+    }
 
     public String getPayResultCallbackUrl() {
         return payResultCallbackUrl;

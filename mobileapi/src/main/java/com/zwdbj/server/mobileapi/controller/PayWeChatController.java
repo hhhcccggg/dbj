@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.controller;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.pay.wechat.service.WXPayService;
+import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
 import com.zwdbj.server.pay.wechat.wechatpay.model.OrderPayResultDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.OrderQueryInput;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -43,10 +44,32 @@ public class PayWeChatController {
         }
     }
     @RequiresAuthentication
+    @RequestMapping(value = "/order/pay",method = RequestMethod.POST)
+    @ApiOperation("订单付款")
+    public ResponseData<ChargeCoinWXResult> payOrder(@RequestBody PayOrderInput input) {
+        ServiceStatusInfo<ChargeCoinWXResult> serviceStatusInfo = this.weChatService.payOrder(input,JWTUtil.getCurrentId());
+        if(serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
+        } else {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+        }
+    }
+    @RequiresAuthentication
     @RequestMapping(value = "/orderQuery",method = RequestMethod.POST)
-    @ApiOperation("查询订单")
+    @ApiOperation("查询金币订单")
     public ResponseData<OrderPayResultDto> orderQuery(@RequestBody OrderQueryInput input) {
-        ServiceStatusInfo<OrderPayResultDto> serviceStatusInfo = this.weChatService.orderQuery(input);
+        ServiceStatusInfo<OrderPayResultDto> serviceStatusInfo = this.weChatService.orderQuery(input,1);
+        if(serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
+        } else {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+        }
+    }
+    @RequiresAuthentication
+    @RequestMapping(value = "/payOrder/orderQuery",method = RequestMethod.POST)
+    @ApiOperation("查询付款订单")
+    public ResponseData<OrderPayResultDto> payOrderQuery(@RequestBody OrderQueryInput input) {
+        ServiceStatusInfo<OrderPayResultDto> serviceStatusInfo = this.weChatService.orderQuery(input,2);
         if(serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
         } else {
@@ -61,7 +84,24 @@ public class PayWeChatController {
             wholeStr += str;
         }
         //校验响应
-        ServiceStatusInfo<String> stringServiceStatusInfo = this.weChatService.responseWeChatPayResult(wholeStr);
+        ServiceStatusInfo<String> stringServiceStatusInfo = this.weChatService.responseWeChatPayResult(wholeStr,1);
+        OutputStream outputStream = response.getOutputStream();
+        if (stringServiceStatusInfo.isSuccess()) {
+            response.setStatus(200);
+        } else {
+            response.setStatus(500);
+        }
+        outputStream.write(stringServiceStatusInfo.getData().getBytes("UTF-8"));
+    }
+    @RequestMapping(value = "/order/payNotify",method = RequestMethod.POST)
+    public void orderPayNotify(HttpServletResponse response, HttpServletRequest request) throws IOException {
+        BufferedReader reader = request.getReader();
+        String str, wholeStr = "";
+        while((str = reader.readLine()) != null){
+            wholeStr += str;
+        }
+        //校验响应
+        ServiceStatusInfo<String> stringServiceStatusInfo = this.weChatService.responseWeChatPayResult(wholeStr,2);
         OutputStream outputStream = response.getOutputStream();
         if (stringServiceStatusInfo.isSuccess()) {
             response.setStatus(200);

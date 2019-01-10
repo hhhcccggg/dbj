@@ -2,6 +2,8 @@ package com.zwdbj.server.mobileapi.service.pay.alipay.service;
 
 import com.zwdbj.server.mobileapi.service.pay.alipay.model.ChargeCoinAlipayResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
+import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
+import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
@@ -24,6 +26,8 @@ public class AlipayBizService {
     private Logger logger = LoggerFactory.getLogger(AlipayBizService.class);
     @Autowired
     private IUserAssetService userAssetServiceImpl;
+    @Autowired
+    private OrderService orderService;
 
     /**
      * @param input 充值信息
@@ -55,7 +59,7 @@ public class AlipayBizService {
         float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
         aliAppPayInput.setTotalAmount(String.valueOf(f1));
 
-        ServiceStatusInfo<AliAppPayResult> serviceStatusInfo = this.alipayService.appPay(aliAppPayInput);
+        ServiceStatusInfo<AliAppPayResult> serviceStatusInfo = this.alipayService.appPay(aliAppPayInput,1);
         if (!serviceStatusInfo.isSuccess()) {
             return new ServiceStatusInfo<>(1,serviceStatusInfo.getMsg(),null);
         }
@@ -70,18 +74,57 @@ public class AlipayBizService {
         return new ServiceStatusInfo<>(0,"OK",result);
     }
 
-    public ServiceStatusInfo<AliOrderQueryResult> orderQuery(AliOrderQueryInput input) {
+    /**
+     * @param input 付款信息
+     * @param userId 谁付款
+     * @return 返回订单信息
+     */
+    @Transactional
+    public ServiceStatusInfo<ChargeCoinAlipayResult> payOrder(PayOrderInput input, long userId){
+        int rmbs = input.getPayMoney();
+        rmbs=1;//测试数据
+        AliAppPayInput aliAppPayInput = new AliAppPayInput();
+        aliAppPayInput.setBody("付款"+(input.getPayMoney()/100f)+"元");
+        aliAppPayInput.setSubject("爪子订单付款");
+        aliAppPayInput.setOutTradeNo(String.valueOf(input.getOrderId()));
+        aliAppPayInput.setTimeoutExpress("15m");
+
+        float amount = rmbs/100f;
+        BigDecimal b = new BigDecimal(amount);
+        float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+        aliAppPayInput.setTotalAmount(String.valueOf(f1));
+
+        ServiceStatusInfo<AliAppPayResult> serviceStatusInfo = this.alipayService.appPay(aliAppPayInput,2);
+        if (!serviceStatusInfo.isSuccess()) {
+            return new ServiceStatusInfo<>(1,serviceStatusInfo.getMsg(),null);
+        }
+
+        ChargeCoinAlipayResult result = new ChargeCoinAlipayResult();
+        result.setBody(aliAppPayInput.getBody());
+        result.setOutTradeNo(aliAppPayInput.getOutTradeNo());
+        result.setSubject(aliAppPayInput.getSubject());
+        result.setTimeoutExpress(aliAppPayInput.getTimeoutExpress());
+        result.setTotalAmount(Float.valueOf(aliAppPayInput.getTotalAmount()));
+        result.setOrderString(serviceStatusInfo.getData().getOrderString());
+        return new ServiceStatusInfo<>(0,"OK",result);
+    }
+
+    public ServiceStatusInfo<AliOrderQueryResult> orderQuery(AliOrderQueryInput input,int type) {
         ServiceStatusInfo<AliOrderQueryResult> serviceStatusInfo = this.alipayService.orderQuery(input);
         if (!serviceStatusInfo.isSuccess()) {
             logger.warn(serviceStatusInfo.getMsg());
             return serviceStatusInfo;
         }
         boolean isSuccess = serviceStatusInfo.getData().getTradeStatus().equals("TRADE_SUCCESS");
-        processPayResult(serviceStatusInfo.getData().getOutTradeNo(),serviceStatusInfo.getData().getTradeNo(),isSuccess);
+        if (type==1){
+            processPayResult(serviceStatusInfo.getData().getOutTradeNo(),serviceStatusInfo.getData().getTradeNo(),isSuccess);
+        }else if (type==2){
+            orderPayResult(serviceStatusInfo.getData().getOutTradeNo(),serviceStatusInfo.getData().getTradeNo(),isSuccess,input.toString());
+        }
         return serviceStatusInfo;
     }
 
-    public ServiceStatusInfo<Object> paramsRsaCheckV1(Map<String,String> params) {
+    public ServiceStatusInfo<Object> paramsRsaCheckV1(Map<String,String> params,int type) {
         //TODO 安全性校验
         //TODO 异步处理
         logger.info("==支付宝支付回调信息==");
@@ -95,7 +138,12 @@ public class AlipayBizService {
             if (params.containsKey("trade_status")) {
                 isSuccess = params.get("trade_status").equals("TRADE_SUCCESS");
             }
-            processPayResult(outTradeNo,tradeNo, isSuccess);
+            if (type==1){
+                processPayResult(outTradeNo,tradeNo, isSuccess);
+            }else if (type==2){
+                orderPayResult(outTradeNo,tradeNo, isSuccess,params.toString());
+            }
+
         }
         return serviceStatusInfo;
     }
@@ -122,5 +170,11 @@ public class AlipayBizService {
         coinDetailModifyInput.setStatus("SUCCESS");
         coinDetailModifyInput.setTradeNo(tradeNo);
         this.userAssetServiceImpl.updateUserCoinDetail(coinDetailModifyInput);
+    }
+    @Transactional
+    protected void orderPayResult(String outTradeNo, String tradeNo,boolean isSuccess,String params) {
+        if (!isSuccess) return;
+        long id = Long.parseLong(outTradeNo);
+        this.orderService.updateOrderPay(id,"ALIPAY",tradeNo,params);
     }
 }

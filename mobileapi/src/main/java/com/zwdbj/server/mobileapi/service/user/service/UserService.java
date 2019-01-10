@@ -445,6 +445,8 @@ public class UserService {
             String userName = UniqueIDCreater.generateUserName();
             userMapper.regByPhone(phone, userId, userName);
             UserModel userModel = new UserModel(userId, userName, null, null, phone);
+            //初始化金币账户
+            this.userAssetServiceImpl.userIsExist(userId);
             return userModel;
         } catch (Exception ex) {
             return null;
@@ -495,6 +497,8 @@ public class UserService {
         }
         this.userMapper.updateField("IsPhoneVerification=true,phone='" + phone + "'", userId);
         this.tokenCenterManager.refreshUserInfo(String.valueOf(userId), iAuthUserManagerImpl);
+        //初始化金币账户
+        this.userAssetServiceImpl.userIsExist(userId);
         return new ServiceStatusInfo<>(0, "绑定成功", null);
     }
 

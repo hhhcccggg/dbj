@@ -12,10 +12,28 @@ public class WXPayAppCfg {
     private boolean isSandBox;
     @Value("${app.pay.wechat.payResultCallbackUrl}")
     private String payResultCallbackUrl;
+    @Value("${app.pay.wechat.orderPayResultCallbackUrl}")
+    private String orderPayResultCallbackUrl;
     @Value("${app.pay.wechat.certPath}")
     private String certPath;
     @Value("${app.pay.wechat.test}")
     private boolean isTest;
+
+    public String getOrderPayResultCallbackUrl() {
+        return orderPayResultCallbackUrl;
+    }
+
+    public void setOrderPayResultCallbackUrl(String orderPayResultCallbackUrl) {
+        this.orderPayResultCallbackUrl = orderPayResultCallbackUrl;
+    }
+
+    public boolean isTest() {
+        return isTest;
+    }
+
+    public void setTest(boolean test) {
+        isTest = test;
+    }
 
     public boolean isSandBox() {
         return isSandBox;

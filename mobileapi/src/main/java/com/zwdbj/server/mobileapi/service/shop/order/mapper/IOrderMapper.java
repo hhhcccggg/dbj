@@ -28,4 +28,12 @@ public interface IOrderMapper {
     @Select("select ifNull(sum(oi.num),0) from shop_productOrderItems oi left join shop_productOrders o on o.id=oi.orderId " +
             "where o.userId=#{userId} and oi.productId=#{productId} ")
     int userBuyProductAccounts(@Param("userId")long userId,@Param("productId")long productId);
+    @Update("update shop_productOrders set paymentType=#{paymentType},thirdPaymentTradeNo=#{thirdPaymentTradeNo}," +
+            "thirdPaymentTradeNotes=#{thirdPaymentTradeNotes},`status`='STATE_BUYER_PAYED',updateTime=now(),paymentTime=now() " +
+            "where id=#{id}")
+    int updateOrderPay(@Param("id")long id,@Param("paymentType")String paymentType,@Param("thirdPaymentTradeNo")String thirdPaymentTradeNo,
+                       @Param("thirdPaymentTradeNotes")String thirdPaymentTradeNotes);
+    @Update("update shop_productOrders set `status`='STATE_BUYER_DELIVERIED',updateTime=now(),endTime=now() " +
+            "where id=#{id} and userId=#{userId} and `status`='STATE_SELLER_DELIVERIED'")
+    int takeOverGoods(@Param("id")long orderId,@Param("userId")long userId);
 }
