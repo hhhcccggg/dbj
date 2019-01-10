@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.customerComments.model
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "评论回复")
+@ApiModel(description = "商家回复评论")
 public class ReplyComment {
 
     @ApiModelProperty(value = "回复内容")

@@ -5,9 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 
-@ApiModel(description = "评论回复")
+@ApiModel(description = "评论的回复")
 public class RefComment {
-    @ApiModelProperty(value = "回复评论id")
+    @ApiModelProperty(value = "回复的评论id")
     long refCommentId;
 
     @ApiModelProperty(value = "用户名")
