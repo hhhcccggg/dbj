@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.service.shop.comments.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "用户评价")
+@ApiModel(value = "用户评价概览")
 public class UserComments {
     @ApiModelProperty("用户评价评价分")
     float rate;
