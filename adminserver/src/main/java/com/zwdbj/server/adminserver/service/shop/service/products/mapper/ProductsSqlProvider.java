@@ -72,6 +72,7 @@ System.out.println(sql.toString());
         } else if (searchProduct.getSalseDown() != 0) {
             sql.WHERE("salesDown>=" + searchProduct.getSalseDown());
         }
+        sql.WHERE("isDeleted=0");
         sql.ORDER_BY("createTime");
         System.out.println(sql.toString());
         return sql.toString();
