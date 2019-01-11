@@ -41,7 +41,7 @@ public interface IDiscountCouponMapper {
             " `onlySupportOriginProduct` = #{input.onlySupportOriginProduct}," +
             " `validStartTime` = #{input.validStartTime}," +
             " `validEndTime` = #{input.validEndTime}" +
-            "WHERE `id` = #{input.id} and isDeleted=0 and `storeId` = #{input.storeId} and `legalSubjectId` = #{input.legalSubjectId}")
+            " WHERE `id` = #{input.id} and isDeleted=0 and `storeId` = #{input.storeId} and `legalSubjectId` = #{input.legalSubjectId}")
     long updateDisountCoupon(@Param("input") DiscountCouponInput discountCouponInput);
 
     /**

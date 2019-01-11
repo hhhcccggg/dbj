@@ -9,9 +9,10 @@ import java.util.UUID;
  */
 public class UniqueIDCreater {
 
+    static SnowFlake snowFlake = new SnowFlake(2,2);
+
     public static long generateID() {
         //TODO 后期增加分布式ID生成器
-        SnowFlake snowFlake = new SnowFlake(2,2);
         return snowFlake.nextId();
     }
 
