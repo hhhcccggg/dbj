@@ -48,17 +48,8 @@ public class ShopCommentServiceImpl implements ShopCommentService {
     public ServiceStatusInfo<List<ShopCommentsExtraDatas>> commentList(long storeId) {
         List<ShopCommentsExtraDatas> result = null;
         try {
-            ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
-            if (valueOperations.get("commentList" + storeId) != null) {
-                System.out.println("从缓存中拉取评论列表");
-                String str = valueOperations.get("commentList" + storeId);
-                result = JSON.parseObject(str, new TypeReference<List<ShopCommentsExtraDatas>>() {
-                });
-                return new ServiceStatusInfo<>(0, "", result);
-            }
             result = this.shopCommentsMapper.commentList(storeId);
-            valueOperations.set("commentList" + storeId, JSONArray.toJSONString(result));
-            System.out.println("从数据库中拉取评论列表");
+
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "拉取评论失败" + e.getMessage(), null);
@@ -80,6 +71,7 @@ public class ShopCommentServiceImpl implements ShopCommentService {
             long videoId = videoService.publicCommentVideo(videoInput);
             result++;
             result += this.shopCommentsMapper.commentExtraDatas(UniqueIDCreater.generateID(), commentId, videoId, videoInput);
+
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "发布商家服务评价失败" + e.getMessage(), null);
