@@ -12,19 +12,16 @@ import com.youzan.open.sdk.client.oauth.OAuthFactory;
 import com.youzan.open.sdk.client.oauth.OAuthType;
 import com.youzan.open.sdk.gen.v3_0_0.api.*;
 import com.youzan.open.sdk.gen.v3_0_0.model.*;
-import com.youzan.open.sdk.gen.v3_0_0.api.YouzanUmpPromocardBuyerSearch;
-import com.youzan.open.sdk.gen.v3_0_0.model.YouzanUmpPromocardBuyerSearchParams;
-import com.youzan.open.sdk.gen.v3_0_0.model.YouzanUmpPromocardBuyerSearchResult;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.user.model.UserModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.youzan.model.AyouzanTradeCartAddParams;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZSearchItemInput;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZUserLoginToken;
+import com.zwdbj.server.utility.model.ResponseDataCode;
+import com.zwdbj.server.utility.model.ResponsePageInfoData;
+import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import okhttp3.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +37,7 @@ import java.util.List;
 public class YouZanService {
     @Autowired
     UserService userService;
-//    @Autowired
+    //    @Autowired
 //    StringRedisTemplate stringRedisTemplate;
 //    @Autowired
 //    RedisTemplate redisTemplate;
@@ -50,10 +47,10 @@ public class YouZanService {
 
     public ServiceStatusInfo<String> getToken() {
         String url = String.format("https://uic.youzan.com/sso/open/initToken?client_id=%s&client_secret=%s",
-                AppConfigConstant.YOUZAN_CLIENT_ID,AppConfigConstant.YOUZAN_SECRECT);
+                AppConfigConstant.YOUZAN_CLIENT_ID, AppConfigConstant.YOUZAN_SECRECT);
         Request request = new Request.Builder()
                 .url(url)
-                .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"),""))
+                .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), ""))
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -63,16 +60,15 @@ public class YouZanService {
                 int code = jsonObject.getInteger("code");
                 String msg = jsonObject.getString("msg");
                 if (code != 0) {
-                    return new ServiceStatusInfo<>(1,msg,"");
+                    return new ServiceStatusInfo<>(1, msg, "");
                 }
                 String token = jsonObject.getJSONObject("data").getString("access_token");
-                return new ServiceStatusInfo<>(0,msg,token);
+                return new ServiceStatusInfo<>(0, msg, token);
             } else {
-                return new ServiceStatusInfo<>(1,response.message(),"");
+                return new ServiceStatusInfo<>(1, response.message(), "");
             }
-        }
-        catch (Exception ex) {
-            return new ServiceStatusInfo<>(1,ex.getMessage(),"");
+        } catch (Exception ex) {
+            return new ServiceStatusInfo<>(1, ex.getMessage(), "");
         }
     }
 
@@ -86,17 +82,17 @@ public class YouZanService {
 //            }
 //        }
 
-        UserModel userModel= this.userService.findUserById(userId);
-        if (userModel==null) {
-            return new ServiceStatusInfo<>(1,"未找到用户",null);
+        UserModel userModel = this.userService.findUserById(userId);
+        if (userModel == null) {
+            return new ServiceStatusInfo<>(1, "未找到用户", null);
         }
 
         int sexType = 2;
-        if (userModel.getSex()==0) {
+        if (userModel.getSex() == 0) {
             sexType = 2;
-        } else if (userModel.getSex()==1) {
-            sexType =0;
-        } else if (userModel.getSex()==2) {
+        } else if (userModel.getSex() == 1) {
+            sexType = 0;
+        } else if (userModel.getSex() == 2) {
             sexType = 1;
         }
 
@@ -118,19 +114,19 @@ public class YouZanService {
 
         Request request = new Request.Builder()
                 .url(url)
-                .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"),""))
+                .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), ""))
                 .build();
         try {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
 
                 String jsonStr = response.body().string();
-                logger.info("返回》》"+jsonStr);
+                logger.info("返回》》" + jsonStr);
                 JSONObject jsonObject = JSONObject.parseObject(jsonStr);
                 int code = jsonObject.getInteger("code");
                 String msg = jsonObject.getString("msg");
                 if (code != 0) {
-                    return new ServiceStatusInfo<>(1,msg,null);
+                    return new ServiceStatusInfo<>(1, msg, null);
                 }
                 YZUserLoginToken token = new YZUserLoginToken();
                 token.setCookieKey(jsonObject.getJSONObject("data").getString("cookie_key"));
@@ -138,13 +134,13 @@ public class YouZanService {
                 token.setAccessToken(jsonObject.getJSONObject("data").getString("access_token"));
                 //写入缓存
 //                this.redisTemplate.opsForValue().set(cacheKey,token,7*23*3600-600,TimeUnit.SECONDS);
-                return new ServiceStatusInfo<>(0,msg,token);
+                return new ServiceStatusInfo<>(0, msg, token);
 
-            } else  {
-                return new ServiceStatusInfo<>(1,response.message(),null);
+            } else {
+                return new ServiceStatusInfo<>(1, response.message(), null);
             }
         } catch (Exception ex) {
-            return new ServiceStatusInfo<>(1,ex.getMessage(),null);
+            return new ServiceStatusInfo<>(1, ex.getMessage(), null);
         }
     }
 
@@ -156,7 +152,7 @@ public class YouZanService {
                 String.valueOf(userId));
         Request request = new Request.Builder()
                 .url(url)
-                .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"),""))
+                .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), ""))
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -167,37 +163,39 @@ public class YouZanService {
                 int code = jsonObject.getInteger("code");
                 String msg = jsonObject.getString("msg");
                 if (code != 0) {
-                    return new ServiceStatusInfo<>(1,msg,code);
+                    return new ServiceStatusInfo<>(1, msg, code);
                 }
-                return new ServiceStatusInfo<>(0,msg,code);
+                return new ServiceStatusInfo<>(0, msg, code);
 
-            } else  {
-                return new ServiceStatusInfo<>(1,response.message(),-1);
+            } else {
+                return new ServiceStatusInfo<>(1, response.message(), -1);
             }
         } catch (Exception ex) {
-            return new ServiceStatusInfo<>(1,ex.getMessage(),-1);
+            return new ServiceStatusInfo<>(1, ex.getMessage(), -1);
         }
     }
 
     public ServiceStatusInfo<String> getServerToken() {
-        String token=null;
+        String token = null;
 //        if (this.stringRedisTemplate.hasKey(AppConfigConstant.REDIS_YOUZAN_SERVER_TOKEN_KEY)) {
 //            token = this.stringRedisTemplate.opsForValue().get(AppConfigConstant.REDIS_YOUZAN_SERVER_TOKEN_KEY);
 //        }
         if (token == null) {
-            OAuth oAuth = OAuthFactory.create(OAuthType.SELF,new OAuthContext(AppConfigConstant.YOUZAN_CLIENT_ID,AppConfigConstant.YOUZAN_SECRECT,
+            OAuth oAuth = OAuthFactory.create(OAuthType.SELF, new OAuthContext(AppConfigConstant.YOUZAN_CLIENT_ID, AppConfigConstant.YOUZAN_SECRECT,
                     Long.parseLong(AppConfigConstant.YOUZAN_BIND_SHOP_ID)));
             token = oAuth.getToken().getAccessToken();
 //            this.stringRedisTemplate.opsForValue().set(AppConfigConstant.REDIS_YOUZAN_SERVER_TOKEN_KEY,token,oAuth.getToken().getExpiresIn()-60,TimeUnit.SECONDS);
-            logger.info("获取有赞SERVER TOKEN:"+token);
+            logger.info("获取有赞SERVER TOKEN:" + token);
         }
-        return new ServiceStatusInfo<>(0,"",token);
+        return new ServiceStatusInfo<>(0, "", token);
     }
 
 
     //## 相关api请求
+
     /**
      * 搜索有赞的商城商品
+     *
      * @param input
      * @return
      */
@@ -207,20 +205,20 @@ public class YouZanService {
         YouzanItemSearchParams youzanItemSearchParams = new YouzanItemSearchParams();
 
         youzanItemSearchParams.setQ(input.getQ());
-        youzanItemSearchParams.setPageNo((long)input.getPageNo());
-        youzanItemSearchParams.setPageSize((long)input.getRows());
-        if (input.getIds()!=null&&input.getIds().length()>0) {
+        youzanItemSearchParams.setPageNo((long) input.getPageNo());
+        youzanItemSearchParams.setPageSize((long) input.getRows());
+        if (input.getIds() != null && input.getIds().length() > 0) {
             youzanItemSearchParams.setItemIds(input.getIds());
         }
 
         YouzanItemSearch youzanItemSearch = new YouzanItemSearch();
         youzanItemSearch.setAPIParams(youzanItemSearchParams);
         YouzanItemSearchResult result = client.invoke(youzanItemSearch);
-        if (result==null) {
-            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR,"内部发生错误",null,0);
+        if (result == null) {
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR, "内部发生错误", null, 0);
         }
         List<YZItemDto> dtos = new ArrayList<>();
-        for (YouzanItemSearchResult.ItemListOpenModel itemListOpenModel:result.getItems()) {
+        for (YouzanItemSearchResult.ItemListOpenModel itemListOpenModel : result.getItems()) {
             YZItemDto dto = new YZItemDto();
             dto.setId(itemListOpenModel.getItemId());
             dto.setAlias(itemListOpenModel.getAlias());
@@ -235,7 +233,7 @@ public class YouZanService {
             dto.setImageUrl(itemListOpenModel.getImage());
             dtos.add(dto);
         }
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,result.getCount());
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", dtos, result.getCount());
     }
 
     public ServiceStatusInfo<Integer> lotteryTicketCount(long userId) {
@@ -246,7 +244,7 @@ public class YouZanService {
         youzanUmpPromocardBuyerSearchParams.setStatus("VALID");
 //        youzanUmpPromocardBuyerSearchParams.setFansId(userId);
         String phone = this.userService.getPhone(userId);
-        if (phone!=null && !phone.isEmpty()) {
+        if (phone != null && !phone.isEmpty()) {
             youzanUmpPromocardBuyerSearchParams.setMobile(Long.valueOf(phone));
         } else {
             youzanUmpPromocardBuyerSearchParams.setOpenUserId(userId);
@@ -259,9 +257,9 @@ public class YouZanService {
             JSON json = JSON.parseObject(jsonStr);
             JSONArray jsonArray = ((JSONObject) json).getJSONArray("response");
             int count = jsonArray.size();
-            logger.info("找到用户{" + userId + "}的"+count+"个优惠券信息");
+            logger.info("找到用户{" + userId + "}的" + count + "个优惠券信息");
             return new ServiceStatusInfo<>(0, "", count);
-        } catch ( Exception ex ) {
+        } catch (Exception ex) {
             logger.warn(ex.getMessage());
             return new ServiceStatusInfo<>(0, "", 0);
         }
@@ -269,8 +267,8 @@ public class YouZanService {
 
     public ServiceStatusInfo<Integer> cartNum(long userId) {
         ServiceStatusInfo<YZUserLoginToken> tokenServiceStatusInfo = this.getUserToken(userId);
-        if(!tokenServiceStatusInfo.isSuccess()) {
-            return new ServiceStatusInfo<Integer>(1,"获取token失败",null);
+        if (!tokenServiceStatusInfo.isSuccess()) {
+            return new ServiceStatusInfo<Integer>(1, "获取token失败", null);
         }
         YZClient client = new DefaultYZClient(new Token(tokenServiceStatusInfo.getData().getAccessToken()));
         YouzanTradeCartCountParams youzanTradeCartCountParams = new YouzanTradeCartCountParams();
@@ -278,13 +276,13 @@ public class YouZanService {
         YouzanTradeCartCount youzanTradeCartCount = new YouzanTradeCartCount();
         youzanTradeCartCount.setAPIParams(youzanTradeCartCountParams);
         YouzanTradeCartCountResult result = client.invoke(youzanTradeCartCount);
-        if (result!=null&&result.getIsSuccess()) {
-            return new ServiceStatusInfo<>(0,"",result.getData().intValue());
+        if (result != null && result.getIsSuccess()) {
+            return new ServiceStatusInfo<>(0, "", result.getData().intValue());
         }
-        return new ServiceStatusInfo<Integer>(1,"获取失败",null);
+        return new ServiceStatusInfo<Integer>(1, "获取失败", null);
     }
 
-    public ServiceStatusInfo<Integer> oerderNum(long userId)  {
+    public ServiceStatusInfo<Integer> oerderNum(long userId) {
         YZClient client = new DefaultYZClient(new Token(getServerToken().getData()));
         YouzanTradesSoldOuterGetParams youzanTradesSoldOuterGetParams = new YouzanTradesSoldOuterGetParams();
 
@@ -297,16 +295,16 @@ public class YouZanService {
         YouzanTradesSoldOuterGet youzanTradesSoldOuterGet = new YouzanTradesSoldOuterGet();
         youzanTradesSoldOuterGet.setAPIParams(youzanTradesSoldOuterGetParams);
         YouzanTradesSoldOuterGetResult result = client.invoke(youzanTradesSoldOuterGet);
-        if (result!=null) {
-            return new ServiceStatusInfo<Integer>(0,"",result.getTotalResults().intValue());
+        if (result != null) {
+            return new ServiceStatusInfo<Integer>(0, "", result.getTotalResults().intValue());
         }
-        return new ServiceStatusInfo<>(0,"",0);
+        return new ServiceStatusInfo<>(0, "", 0);
     }
 
-    public ServiceStatusInfo<Integer> addCartGoods(Long userId, Long storeId, AyouzanTradeCartAddParams cartAddParams){
+    public ServiceStatusInfo<Integer> addCartGoods(Long userId, Long storeId, AyouzanTradeCartAddParams cartAddParams) {
         ServiceStatusInfo<YZUserLoginToken> tokenServiceStatusInfo = this.getUserToken(userId);
-        if(!tokenServiceStatusInfo.isSuccess()) {
-            return new ServiceStatusInfo<Integer>(1,"获取token失败",null);
+        if (!tokenServiceStatusInfo.isSuccess()) {
+            return new ServiceStatusInfo<Integer>(1, "获取token失败", null);
         }
         YZClient client = new DefaultYZClient(new Token(tokenServiceStatusInfo.getData().getAccessToken()));
         //YouzanTradeCartAddParams youzanTradeCartAddParams = new YouzanTradeCartAddParams();
@@ -321,10 +319,10 @@ public class YouZanService {
         YouzanTradeCartAdd youzanTradeCartAdd = new YouzanTradeCartAdd();
         youzanTradeCartAdd.setAPIParams(cartAddParams);
         YouzanTradeCartAddResult result = client.invoke(youzanTradeCartAdd);
-        if (result!=null&&result.getIsSuccess()) {
-            return new ServiceStatusInfo<>(0,"添加成功",1);
+        if (result != null && result.getIsSuccess()) {
+            return new ServiceStatusInfo<>(0, "添加成功", 1);
         }
-        return new ServiceStatusInfo<Integer>(1,"添加失败",null);
+        return new ServiceStatusInfo<Integer>(1, "添加失败", null);
     }
 
     /**

@@ -56,12 +56,12 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
 
     @Override
     public ServiceStatusInfo<DiscountCouponModel> selectDiscountCoupon(long couponId) {
-        try{
-            DiscountCouponModel discountCouponModel = iDiscountCouponMapper.selectByCoupon(couponId);
-            return new ServiceStatusInfo<>(0,"",discountCouponModel);
-        }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"优惠券不存在",null);
-        }
+    try{
+    DiscountCouponModel discountCouponModel = iDiscountCouponMapper.selectByCoupon(couponId);
+    return new ServiceStatusInfo<>(0,"",discountCouponModel);
+    }catch (Exception e){
+    return new ServiceStatusInfo<>(1,"优惠券不存在"+e.getMessage(),null);
+    }
     }
 
     /**
