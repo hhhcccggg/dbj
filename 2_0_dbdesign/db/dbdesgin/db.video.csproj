@@ -11,6 +11,7 @@
     <None Remove="V10_dailytable_edit.sql" />
     <None Remove="V10__dailytable_edit.sql" />
     <None Remove="V18__analysis.sql" />
+    <None Remove="V21__miniapp.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />

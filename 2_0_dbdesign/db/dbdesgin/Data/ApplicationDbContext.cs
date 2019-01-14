@@ -71,6 +71,11 @@ namespace dbdesgin.Data
         public DbSet<UserCoinType> userCoinTypes { get; set; }
         public DbSet<UserCoinDetail> UserCoinDetails { get; set; }
 
+
+		public DbSet<UserInvitation> UserInvitations { get; set; }
+		public DbSet<Task> Tasks { get; set; }
+		public DbSet<UserTask> UserTasks { get; set; }
+
         public DbSet<EnCashPayAccount> EnCashPayAccounts { get; set; }
         public DbSet<EnCashMentDetail> EnCashMentDetails { get; set; }
 
@@ -106,7 +111,20 @@ namespace dbdesgin.Data
             resNeedReview.Property(c => c.dataId).HasDefaultValue(0);
             resNeedReview.Property(c => c.dataType).HasDefaultValue(0);
 
+			var userInvitation = modelBuilder.Entity<UserInvitation>();
+			userInvitation.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+			userInvitation.Property(c => c.IsDeleted).HasDefaultValue(false);
+			userInvitation.Property(cw => cw.isManualData).HasDefaultValue(false);
 
+			var taskEntity = modelBuilder.Entity<Task>();
+			taskEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+			taskEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+			taskEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+
+			var userTaskEntity = modelBuilder.Entity<UserTask>();
+			userTaskEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+			userTaskEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
+			userTaskEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
 
             //Category
             var categoryEntity = modelBuilder.Entity<Category>();
@@ -134,6 +152,7 @@ namespace dbdesgin.Data
             userAssetEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             userAssetEntity.Property(c => c.IsDeleted).HasDefaultValue(false);
             userAssetEntity.Property(cw => cw.isManualData).HasDefaultValue(false);
+			userAssetEntity.Property(cw => cw.totalCoins).HasDefaultValue(0);
             userAssetEntity.HasIndex(c => c.userId);
             //UserCoinType
             var userCoinTypeEntity = modelBuilder.Entity<UserCoinType>();

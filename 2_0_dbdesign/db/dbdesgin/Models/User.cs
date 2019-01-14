@@ -145,5 +145,10 @@ namespace dbdesgin.Models
         /// </summary>
         /// <value>The tenant identifier.</value>
         public long? tenantId { get; set; }
+        /// <summary>
+        /// 谁推荐用户注册
+        /// </summary>
+        /// <value>The recommend user identifier.</value>
+		public long? recommendUserId { get; set; }
     }
 }
