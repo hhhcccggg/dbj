@@ -19,7 +19,7 @@ public class SearchUserDiscountCoupon {
     @ApiModelProperty("优惠券状态 -1全部 0未使用 1已使用 2已过期")
     private int state;
 
-    @ApiModelProperty(value = "店铺ID" , hidden = true)
+    @ApiModelProperty(value = "店铺ID")
     private long storeId;
 
     @ApiModelProperty(value = "商家ID" , hidden = true)
