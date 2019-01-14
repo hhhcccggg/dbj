@@ -8,7 +8,7 @@ import java.util.Map;
 public class ProductSqlProvider {
 
     /**
-     * 小程序商品列表 storeId目前固定
+     * 小程序商品列表
      * @param map
      * @return
      */
@@ -17,7 +17,8 @@ public class ProductSqlProvider {
         SQL sql = new SQL().SELECT("id","productType","productDetailType","name","categoryId",
                 "brandId","inventory","imageUrls","limitPerPerson");
         sql.FROM("shop_products");
-        sql.WHERE("publish=1 and isDeleted=0 and storeId=1 and specifyPublishTime<now()");
+        sql.WHERE("publish=1 and isDeleted=0 and storeId="+productInput.getStoreId()+" and specifyPublishTime<now()");
+
         if(productInput.getType() == 1){
             sql.ORDER_BY("sales desc");
         }else if(productInput.getType() == 2){
@@ -30,7 +31,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and inventory>0 and storeId=1 and specifyPublishTime<now()) " +
+                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and inventory>0 and storeId="+productInput.getStoreId()+" and specifyPublishTime<now()) " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
@@ -39,7 +40,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and storeId=1 and  specifyPublishTime>now()) " +
+                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and storeId="+productInput.getStoreId()+" and  specifyPublishTime>now()) " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
@@ -48,7 +49,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and storeId=1 and  inventory=0) ";
+                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and storeId="+productInput.getStoreId()+" and  inventory=0) ";
         }
         return sql.toString();
     }

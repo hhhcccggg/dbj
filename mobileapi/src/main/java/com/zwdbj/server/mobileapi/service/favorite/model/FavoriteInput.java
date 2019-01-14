@@ -4,16 +4,20 @@ import com.zwdbj.server.mobileapi.service.favorite.common.TargetType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Min;
+
 @ApiModel(description = "收藏")
 public class FavoriteInput {
+    @ApiModelProperty("商家 店铺 商品的ID")
+    @Min(1)
     private long targetId;
     @ApiModelProperty("LAGALSUBJECT:商家 STORE:店铺 PRODUCTSKU:商品")
     private TargetType targetType;
-    @ApiModelProperty("名称")
+    @ApiModelProperty(value = "名称",hidden = true)
     private String title;
-    @ApiModelProperty("缩略图")
+    @ApiModelProperty(value = "缩略图",hidden = true)
     private String imageUrl;
-    @ApiModelProperty("价格 店铺、商家忽略")
+    @ApiModelProperty(value = "价格 店铺、商家忽略",hidden = true)
     private long price;
     @ApiModelProperty(value = "用户id",hidden = true)
     private long userId;

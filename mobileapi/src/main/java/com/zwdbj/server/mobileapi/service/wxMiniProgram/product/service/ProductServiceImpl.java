@@ -28,11 +28,11 @@ public class ProductServiceImpl implements  ProductService{
     protected IUserMapper iUserMapper;
 
     @Override
-    public ServiceStatusInfo<List<ProductOut>> selectWXXCXShopProduct(ProductInput productInput) {
+    public ServiceStatusInfo<List<ProductOut>> selectShopProduct(ProductInput productInput) {
         //TODO 后期可能会换成缓存
         try{
             long userId = JWTUtil.getCurrentId();
-            List<ProductOut> list = this.iProductMapper.selectWXXCXShopProduct(productInput);
+            List<ProductOut> list = this.iProductMapper.selectShopProduct(productInput);
             for(ProductOut productOut:list){
                 productOut.setExchange(iProductOrderMapper.userBuyProductAccounts(userId,productOut.getId()));
             }
@@ -43,10 +43,10 @@ public class ProductServiceImpl implements  ProductService{
     }
 
     @Override
-    public ServiceStatusInfo<Map<String,Object>> selectWXXCXById(long id) {
+    public ServiceStatusInfo<Map<String,Object>> selectByIdByStoreId(long id,long storeId) {
         try{
             Map<String,Object> map = new HashMap<>();
-            map.put("product",this.iProductMapper.selectWXXCXById(id));
+            map.put("product",this.iProductMapper.selectByIdByStoreId(id,storeId));
             List<Long> userIds = iProductOrderMapper.selectByOrder(id);
             List<String> exchangeList =  null;
             if(userIds.size()>0){
@@ -57,6 +57,17 @@ public class ProductServiceImpl implements  ProductService{
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
         }
+    }
+
+    @Override
+    public ServiceStatusInfo<ProductOut> selectById(long id) {
+        try{
+            ProductOut productOut = iProductMapper.selectById(id);
+            return new ServiceStatusInfo<>(0,"",productOut);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+        }
+
     }
 
     @Override
