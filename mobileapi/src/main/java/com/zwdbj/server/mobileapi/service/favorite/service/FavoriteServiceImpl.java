@@ -43,9 +43,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     public ServiceStatusInfo<Long> addFavorite(FavoriteInput favoriteInput) {
         try{
             long userId = JWTUtil.getCurrentId();
-//            if(userId == 0){
-//                return new ServiceStatusInfo<>(1,"用户未登录",null);
-//            }
+            if(userId == 0){
+                return new ServiceStatusInfo<>(1,"用户未登录",null);
+            }
             if(favoriteInput.getTargetType()== TargetType.LAGALSUBJECT){
                 LegalSubjectModel legalSubjectModel = legalSubjectServiceImpl.getLegalSubjectById(favoriteInput.getTargetId()).getData();
                 if(legalSubjectModel == null)return new ServiceStatusInfo<>(1,"商家不存在",null);
@@ -81,9 +81,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     public ServiceStatusInfo<Long> deleteFavorite(long id) {
         try{
             long userId = JWTUtil.getCurrentId();
-//            if(userId == 0){
-//                return new ServiceStatusInfo<>(1,"用户未登录",null);
-//            }
+            if(userId == 0){
+                return new ServiceStatusInfo<>(1,"用户未登录",null);
+            }
             long result = iFavoriteMapper.deleteFavoriteById(id,userId);
             if(result>0)
                 return new ServiceStatusInfo<>(0,"",result);
@@ -97,9 +97,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     public ServiceStatusInfo<List<FavoriteModel>> searchFavorite(SearchFavorite searchFavorite) {
         try{
             long userId = JWTUtil.getCurrentId();
-//            if(userId == 0){
-//                return new ServiceStatusInfo<>(1,"用户未登录",null);
-//            }
+            if(userId == 0){
+                return new ServiceStatusInfo<>(1,"用户未登录",null);
+            }
             searchFavorite.setUserId(userId);
             List<FavoriteModel> favoriteModels = iFavoriteMapper.searchFavorite(searchFavorite);
             return new ServiceStatusInfo<>(0,"",favoriteModels);
