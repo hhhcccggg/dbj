@@ -15,6 +15,7 @@ message QueueWorkInfo {
         QINIU_RES_WAIT_REVIEW_DATA = 5; //七牛需要审核的资源
         VIDEO_WEIGHT = 6; //短视频权重处理
         SHOP_LEGAL_SUBJECT=7; //店铺的基本信息
+        USER_TASK_COIN=8; //用户做任务获取金币
     }
     WorkTypeEnum workType = 1; //任务标识
     QueueWorkPhoneCode phoneCode = 2; //验证码数据
@@ -81,4 +82,12 @@ message QueueWorkQiniuWaitReviewResData {
 // 处理视频权重数据
 message QueueWorkVideoWeightData {
     int64 id = 1; //视频的ID
+}
+// 用户做任务后获取金币
+message QueueWorkUserTaskCoin {
+    int64 userId = 1; //用户ID
+    string taskName = 2; //任务名称
+    int64 taskId = 3; //任务ID
+    int32 coin = 4; //获取的金币数
+    int64 actionTimestamp = 5; // 发生的时间，时间戳，单位秒
 }
