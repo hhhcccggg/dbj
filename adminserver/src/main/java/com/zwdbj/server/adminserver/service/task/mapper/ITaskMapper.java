@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface ITaskMapper {
-    @SelectProvider(type = TaskSqlProvider.class,method = "geTasks")
+    @SelectProvider(type = TaskSqlProvider.class,method = "getTasks")
     List<TaskModel> getAllTasks(@Param("input")TaskSearchInput input);
 
     @Insert("insert into core_tasks(id,type,title,coins,desc) " +
