@@ -17,4 +17,8 @@ public interface IHeartMapper {
 
     @Delete("delete from core_hearts where resourceOwnerId=#{resourceOwnerId}")
     Long deleteVideoHeart(@Param("resourceOwnerId")Long resourceOwnerId);
+
+    @Select("select (id) from core_hearts where userId=#{userId} and to_day(createTime)=to_day(now()) " +
+            "and ")
+    int isFirstHeart(@Param("userId")long userId);
 }

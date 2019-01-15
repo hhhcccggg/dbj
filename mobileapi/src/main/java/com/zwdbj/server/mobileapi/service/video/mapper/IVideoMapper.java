@@ -130,4 +130,10 @@ public interface IVideoMapper {
     @Update("update core_videos set tipCount=tipCount+1 where id=#{id}")
     int addTipCount(@Param("id") Long videoId);
 
+    /**
+     * 用户是否为每天的首次发布视频
+     */
+    @Select("select (id) from core_videos where userId=#{userId} and to_day(createTime)=to_day(now())")
+    int isFirstPublicVideo(@Param("userId")long userId);
+
 }

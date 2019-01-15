@@ -35,6 +35,12 @@ public class ResponseData<T> implements Serializable {
         this.msg = msg;
         this.data = data;
     }
+    public ResponseData(int code, String msg, T data,ResponseCoin coins) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+        this.coins=coins;
+    }
 
     public int getCode() {
         return code;

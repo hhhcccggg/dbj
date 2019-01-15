@@ -75,6 +75,8 @@ public class CommentController {
     public ResponseData<Object> heart(@RequestBody HeartInput input) {
         ServiceStatusInfo<Object> statusInfo = this.commentService.heart(input);
         if (statusInfo.isSuccess()) {
+            if (statusInfo.getCoins()!=null)
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null,statusInfo.getCoins());
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
@@ -98,6 +100,8 @@ public class CommentController {
     public ResponseData<Object> publish(@RequestBody AddCommentInput input) {
         ServiceStatusInfo<Object> statusInfo = this.commentService.add(input);
         if (statusInfo.isSuccess()) {
+            if (statusInfo.getCoins()!=null)
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null,statusInfo.getCoins());
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
         } else {
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
