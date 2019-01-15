@@ -95,9 +95,9 @@ public interface IUserMapper {
     int phoneIsHavePWD(@Param("phone")String phone);
     @Update("update core_users set `password`=#{password} where id=#{id}")
     int updatePasswordByUserId(@Param("password")String password,@Param("id")long id);
-    @Insert("insert into core_users(id,phone,password,username,nickName,avatarUrl,IsPhoneVerification) " +
-            "values(#{id},#{phone},#{password},#{username},'爪子用户','http://res.pet.zwdbj.com/default_avatar.png',true)")
-    int regUser(@Param("id")long id,@Param("username")String userName,@Param("phone")String phone,@Param("password")String password);
+    @Insert("insert into core_users(id,phone,password,username,nickName,avatarUrl,IsPhoneVerification,recommendUserId) " +
+            "values(#{id},#{phone},#{password},#{username},'爪子用户','http://res.pet.zwdbj.com/default_avatar.png',true,#{recommendUserId})")
+    int regUser(@Param("id")long id,@Param("username")String userName,@Param("phone")String phone,@Param("password")String password,@Param("recommendUserId") long recommendUserId);
 
     @SelectProvider(type = UserSqlProvider.class,method = "selectUserAvatarUrl")
     List<String> selectUserAvatarUrl(@Param("userIds") List<Long> userIds);
