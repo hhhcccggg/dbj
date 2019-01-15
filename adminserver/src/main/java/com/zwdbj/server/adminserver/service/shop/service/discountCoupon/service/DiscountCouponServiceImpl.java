@@ -209,7 +209,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
         //发布优惠券
         ServiceStatusInfo<Long> serviceStatusInfo = userDiscountCouponServiceImpl.batchCreateUserDiscountCoupon(userId,id,couponCount);
         if( !serviceStatusInfo.isSuccess() )
-            throw new RuntimeException("发放优惠券失败");
+            throw new RuntimeException(serviceStatusInfo.getMsg());
         return new ServiceStatusInfo(0,"",result);
     }
 }

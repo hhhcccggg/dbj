@@ -45296,6 +45296,3 @@ insert into core_cities(`id`,`citycode`,`name`,`longitude`,`latitude`,`level`,`p
 (45296,'1853','嘉模堂区','113.558705','22.15376','district','45290'),
 (45297,'1853','路凼填海区','113.569599','22.13663','district','45290'),
 (45298,'1853','圣方济各堂区','113.559954','22.123486','district','45290');
-
-INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20190110095259_core_cities', '2.1.1-rtm-30846');

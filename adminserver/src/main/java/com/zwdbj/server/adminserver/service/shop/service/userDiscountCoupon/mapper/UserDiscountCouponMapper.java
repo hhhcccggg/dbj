@@ -19,8 +19,8 @@ public interface UserDiscountCouponMapper {
      * @return
      */
     @Insert("<script>insert into shop_userdiscountcoupons(`id`,`couponId`,`userId`,`state`) values" +
-            "<foreach item='userDiscountCoupon' index='index' collection='userDiscountCouponModels' open='(' separator=',' close=')'>" +
-            "#{userDiscountCoupon.id},#{userDiscountCoupon.couponId},#{userDiscountCoupon.userId},#{userDiscountCoupon.state}"+
+            "<foreach item='userDiscountCoupon' index='index' collection='userDiscountCouponModels' separator=','>" +
+            "(#{userDiscountCoupon.id},#{userDiscountCoupon.couponId},#{userDiscountCoupon.userId},#{userDiscountCoupon.state})"+
             "</foreach></script>")
     long batchCreateUserDiscountCoupon(@Param("userDiscountCouponModels") UserDiscountCouponModel[] userDiscountCouponModels);
 

@@ -8,19 +8,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@ApiModel(value = "新增的商品对象")
-public class CreateProducts {
-
+@ApiModel(description = "修改商品")
+public class UpdateProducts {
     @ApiModelProperty(value = "id")
     Long id;
-
-    @ApiModelProperty(value = "商品类型O:实物产品1:虚拟商品")
-    @NotNull(message = "商品类型不能为空")
-    Long productType;
-
-    @ApiModelProperty(value = "产品详细类型 DELIVERY: 实物产品 NODELIVERY:虚拟商品(不需要物流) CARD:卡券(服务中套餐) CASHCOUPON:代金券")
-    @NotNull(message = "产品详细类型不能为空")
-    String productDetailType;
 
     @ApiModelProperty(value = "商品名称")
     @NotNull(message = "商品名称不能为空")
@@ -85,38 +76,6 @@ public class CreateProducts {
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
 
-    public String getImageUrls() {
-        return imageUrls;
-    }
-
-    public void setImageUrls(String imageUrls) {
-        this.imageUrls = imageUrls;
-    }
-
-    public Long getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public boolean isSupportCoin() {
-        return supportCoin;
-    }
-
-    public void setSupportCoin(boolean supportCoin) {
-        this.supportCoin = supportCoin;
-    }
-
     public Long getId() {
         return id;
     }
@@ -125,36 +84,20 @@ public class CreateProducts {
         this.id = id;
     }
 
-    public long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(long storeId) {
-        this.storeId = storeId;
-    }
-
-    public Long getProductType() {
-        return productType;
-    }
-
-    public void setProductType(Long productType) {
-        this.productType = productType;
-    }
-
-    public String getProductDetailType() {
-        return productDetailType;
-    }
-
-    public void setProductDetailType(String productDetailType) {
-        this.productDetailType = productDetailType;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
     }
 
     public long getInventory() {
@@ -259,5 +202,37 @@ public class CreateProducts {
 
     public void setValidType(String validType) {
         this.validType = validType;
+    }
+
+    public boolean isSupportCoin() {
+        return supportCoin;
+    }
+
+    public void setSupportCoin(boolean supportCoin) {
+        this.supportCoin = supportCoin;
+    }
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(String imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }

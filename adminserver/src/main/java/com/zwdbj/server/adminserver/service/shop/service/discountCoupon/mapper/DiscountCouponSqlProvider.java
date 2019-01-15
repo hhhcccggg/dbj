@@ -53,6 +53,7 @@ public class DiscountCouponSqlProvider {
         }
         sql.WHERE("storeId = #{searchDiscountCoupon.storeId} and " +
                 "legalSubjectId = #{searchDiscountCoupon.legalSubjectId} and isDeleted=0");
+        sql.ORDER_BY("createTime desc");
         System.out.println(sql.toString());
         return sql.toString();
     }

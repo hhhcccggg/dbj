@@ -34,6 +34,9 @@ public class UserDiscountCouponSqlProvider {
         if(searchUserDiscountCoupon.getState() == 2){
             stringBuffer.append(" and udp.state = 'UNUSED' and (dp.validEndTime>now() or dp.validEndTime is null)");
         }
+        if(searchUserDiscountCoupon.getStoreId() > 0 ){
+            stringBuffer.append(" and dp.storeId=#{searchUserDiscountCoupon.storeId}");
+        }
         stringBuffer.append(" and udp.userId = #{searchUserDiscountCoupon.userId}");
         return stringBuffer.toString();
     }

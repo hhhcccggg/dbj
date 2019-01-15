@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.controller.wxMini;
+package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -19,9 +19,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/wx/mini/receiveAddress")
+@RequestMapping("/api/receiveAddress")
 @Api(description = "收货地址")
-public class WXMiniReceiveAddressController {
+public class ReceiveAddressController {
 
     @Autowired
     private ReceiveAddressService receiveAddressServiceImpl;

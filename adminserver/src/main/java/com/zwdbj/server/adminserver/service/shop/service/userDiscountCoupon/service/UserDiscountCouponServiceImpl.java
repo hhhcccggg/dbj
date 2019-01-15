@@ -50,7 +50,8 @@ public class UserDiscountCouponServiceImpl implements UserDiscountCouponService{
     public ServiceStatusInfo<Long> batchCreateUserDiscountCouponException(long userId , long couponId,int couponCount) throws Exception {
         UserDiscountCouponModel[] userDiscountCouponModels = new UserDiscountCouponModel[couponCount];
         for (int i = 0; i <couponCount ; i++) {
-            userDiscountCouponModels[i]=new UserDiscountCouponModel(UniqueIDCreater.generateID(),couponId,userId, UserDiscountCouponState.UNUSED);
+            long id = UniqueIDCreater.generateID();
+            userDiscountCouponModels[i]=new UserDiscountCouponModel(id,couponId,userId, UserDiscountCouponState.UNUSED);
         }
         long result = userDiscountCouponMapper.batchCreateUserDiscountCoupon(userDiscountCouponModels);
         if(result != couponCount)
