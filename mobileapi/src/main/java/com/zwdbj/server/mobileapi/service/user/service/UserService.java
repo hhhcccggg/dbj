@@ -8,6 +8,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobUser;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
@@ -382,6 +383,17 @@ public class UserService {
             long id = UniqueIDCreater.generateID();
             this.userMapper.regByOpenId(id, userName, input);
             this.userBindService.add(input, id);
+            //首次注册添加金币
+            this.userAssetServiceImpl.userIsExist(id);
+            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+            userCoinDetailAddInput.setStatus("SUCCESS");
+            userCoinDetailAddInput.setNum(10);
+            userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
+            userCoinDetailAddInput.setType("OTHER");
+            this.userAssetServiceImpl.addUserCoinDetail(id,userCoinDetailAddInput);
+            this.userAssetServiceImpl.updateUserCoinType(id,"OTHER",10);
+            this.userAssetServiceImpl.updateUserAsset(id,10);
+            // TODO 改变金币任务状态
             return new UserModel(id, userName, input.getAvaterUrl(), "", "");
         } else {
             //TODO 刷新用户头像
@@ -445,8 +457,16 @@ public class UserService {
             String userName = UniqueIDCreater.generateUserName();
             userMapper.regByPhone(phone, userId, userName);
             UserModel userModel = new UserModel(userId, userName, null, null, phone);
-            //初始化金币账户
             this.userAssetServiceImpl.userIsExist(userId);
+            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+            userCoinDetailAddInput.setStatus("SUCCESS");
+            userCoinDetailAddInput.setNum(10);
+            userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
+            userCoinDetailAddInput.setType("OTHER");
+            this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
+            this.userAssetServiceImpl.updateUserCoinType(userId,"OTHER",10);
+            this.userAssetServiceImpl.updateUserAsset(userId,10);
+            // TODO 改变金币任务状态
             return userModel;
         } catch (Exception ex) {
             return null;
@@ -710,6 +730,17 @@ public class UserService {
                     String userName = UniqueIDCreater.generateUserName();
                     result = this.userMapper.regUser(id,userName,input.getPhone(),password);
                     if (result==0)return new ServiceStatusInfo<>(1,"注册失败",0);
+                    //首次注册添加金币
+                    this.userAssetServiceImpl.userIsExist(id);
+                    UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+                    userCoinDetailAddInput.setStatus("SUCCESS");
+                    userCoinDetailAddInput.setNum(10);
+                    userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
+                    userCoinDetailAddInput.setType("OTHER");
+                    this.userAssetServiceImpl.addUserCoinDetail(id,userCoinDetailAddInput);
+                    this.userAssetServiceImpl.updateUserCoinType(id,"OTHER",10);
+                    this.userAssetServiceImpl.updateUserAsset(id,10);
+                    // TODO 改变金币任务状态
                     return new ServiceStatusInfo<>(0,"注册成功",result);
                 }else if (input.getType()==201){
                     UserModel userModel = this.findUserByPhone(input.getPhone());

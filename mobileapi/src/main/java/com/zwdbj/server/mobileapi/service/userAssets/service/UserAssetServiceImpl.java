@@ -67,7 +67,9 @@ public class UserAssetServiceImpl implements IUserAssetService {
 
     @Transactional
     public int updateUserAsset(long userId, long coins) {
-        int result = this.userAssetMapper.updateUserAsset(userId, coins);
+        long totalCoins = coins;
+        if (coins<=0)totalCoins=0;
+        int result = this.userAssetMapper.updateUserAsset(userId, coins,totalCoins);
         return result;
     }
 
