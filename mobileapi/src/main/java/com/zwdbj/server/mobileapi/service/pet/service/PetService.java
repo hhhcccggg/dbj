@@ -3,6 +3,8 @@ package com.zwdbj.server.mobileapi.service.pet.service;
 import com.zwdbj.server.mobileapi.service.user.model.UserModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.userInvitation.service.UserInvitationService;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
+import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
@@ -16,6 +18,7 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +38,10 @@ public class PetService {
     protected UserService userService;
     @Autowired
     protected UserInvitationService userInvitationServiceImpl;
+    @Autowired
+    private UserAssetServiceImpl userAssetServiceImpl;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     public List<PetModelDto> list(long userId) {
         List<PetModelDto> pets = this.petMapper.list(userId);
@@ -78,6 +85,19 @@ public class PetService {
         if (rows ==0) {
             return  new ServiceStatusInfo<>(1,"添加失败",null);
         } else {
+            List<PetModelDto> pets = this.list(userId);
+            if (pets==null){
+                this.userAssetServiceImpl.userIsExist(userId);
+                UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+                userCoinDetailAddInput.setStatus("SUCCESS");
+                userCoinDetailAddInput.setNum(10);
+                userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
+                userCoinDetailAddInput.setType("OTHER");
+                this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
+                this.userAssetServiceImpl.updateUserCoinType(userId,"OTHER",10);
+                this.userAssetServiceImpl.updateUserAsset(userId,10);
+                // TODO 改变金币任务状态
+            }
             this.reviewAvatar(imageKey,1,input.getId());
             firstAddPet(userId);
             return new ServiceStatusInfo<>(0,"添加成功",rows);
