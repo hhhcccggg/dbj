@@ -17,8 +17,15 @@ public class UserModel {
     private boolean isPhoneVerification;
     private boolean isLivingWatch;
     private String thirdOpenId;
+    private long recommendUserId;
 
+    public long getRecommendUserId() {
+        return recommendUserId;
+    }
 
+    public void setRecommendUserId(long recommendUserId) {
+        this.recommendUserId = recommendUserId;
+    }
 
     public UserModel() {
         

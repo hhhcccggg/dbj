@@ -708,7 +708,7 @@ public class UserService {
                 if (input.getType()==100){
                     long id = UniqueIDCreater.generateID();
                     String userName = UniqueIDCreater.generateUserName();
-                    result = this.userMapper.regUser(id,userName,input.getPhone(),password);
+                    result = this.userMapper.regUser(id,userName,input.getPhone(),password,input.getRecommendUserId());
                     if (result==0)return new ServiceStatusInfo<>(1,"注册失败",0);
                     return new ServiceStatusInfo<>(0,"注册成功",result);
                 }else if (input.getType()==201){

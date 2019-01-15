@@ -18,6 +18,16 @@ public class UserInvitationModel {
     @ApiModelProperty("消息")
     private String message;
 
+    public UserInvitationModel() {}
+
+    public UserInvitationModel(long id, long initiatorUserId, long receivedUserId, UserInvitationsState state, String message) {
+        this.id = id;
+        this.initiatorUserId = initiatorUserId;
+        this.receivedUserId = receivedUserId;
+        this.state = state;
+        this.message = message;
+    }
+
     public long getId() {
         return id;
     }

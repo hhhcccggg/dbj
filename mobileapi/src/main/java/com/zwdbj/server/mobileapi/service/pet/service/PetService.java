@@ -1,5 +1,8 @@
 package com.zwdbj.server.mobileapi.service.pet.service;
 
+import com.zwdbj.server.mobileapi.service.user.model.UserModel;
+import com.zwdbj.server.mobileapi.service.user.service.UserService;
+import com.zwdbj.server.mobileapi.service.userInvitation.service.UserInvitationService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
@@ -28,6 +31,10 @@ public class PetService {
     protected Logger logger = LoggerFactory.getLogger(PetService.class);
     @Autowired
     protected ReviewService reviewService;
+    @Autowired
+    protected UserService userService;
+    @Autowired
+    protected UserInvitationService userInvitationServiceImpl;
 
     public List<PetModelDto> list(long userId) {
         List<PetModelDto> pets = this.petMapper.list(userId);
@@ -72,6 +79,7 @@ public class PetService {
             return  new ServiceStatusInfo<>(1,"添加失败",null);
         } else {
             this.reviewAvatar(imageKey,1,input.getId());
+            firstAddPet(userId);
             return new ServiceStatusInfo<>(0,"添加成功",rows);
         }
     }
@@ -112,6 +120,17 @@ public class PetService {
                         .setDataType(dataType)
                         .build();
         this.reviewService.reviewQiniuRes(resData);
+    }
+
+    /**
+     * 查看是不是首次添加宠物,如果是看看是否有推荐人
+     */
+    public void firstAddPet(long userId){
+        long count = petMapper.firstAddPet(userId);
+        if(count > 1)return ;
+        UserModel userModel = userService.findUserById(userId);
+        if(userModel==null)return;
+        userInvitationServiceImpl.createUserInvitation(userModel.getRecommendUserId());
     }
 
 }

@@ -9,7 +9,16 @@ import java.io.Serializable;
 public class RegUserInput extends NewMyPasswordInput implements Serializable {
     @ApiModelProperty(value = "此手机号是否被注册，100:未被注册，201:已经注册过但是没有设置密码,202:已经注册过并设置密码")
     int type;
+    @ApiModelProperty(value = "谁推荐用户注册")
+    long recommendUserId;
 
+    public long getRecommendUserId() {
+        return recommendUserId;
+    }
+
+    public void setRecommendUserId(long recommendUserId) {
+        this.recommendUserId = recommendUserId;
+    }
 
     public int getType() {
         return type;
