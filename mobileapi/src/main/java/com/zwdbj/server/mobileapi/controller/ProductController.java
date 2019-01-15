@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.controller.wxMini;
+package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/wx/mini/product")
+@RequestMapping("/api/shop/product")
 @Api(description = "兑换商城")
-public class WXMiniProductController {
+public class ProductController {
 
     @Autowired
     ProductService productServiceImpl;
