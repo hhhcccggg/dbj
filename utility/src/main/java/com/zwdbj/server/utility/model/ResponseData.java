@@ -22,11 +22,13 @@ public class ResponseData<T> implements Serializable {
      */
     @ApiModelProperty(value = "数据主体")
     protected T data;
+    @ApiModelProperty(value = "金币情况")
+    protected ResponseCoin coins;
     /**
      * 可以通过此接口判断，接口是否相应成功
      */
     @ApiModelProperty(value = "可以通过此接口判断，接口是否相应成功")
-    protected boolean isSuccess;
+    protected boolean success;
 
     public ResponseData(int code, String msg, T data) {
         this.code = code;
@@ -54,8 +56,17 @@ public class ResponseData<T> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+
+    public ResponseCoin getCoins() {
+        return coins;
+    }
+
+    public void setCoins(ResponseCoin coins) {
+        this.coins = coins;
+    }
+
     public boolean isSuccess() {
-        isSuccess = code == ResponseDataCode.STATUS_NORMAL;
-        return isSuccess;
+        success = code == ResponseDataCode.STATUS_NORMAL;
+        return success;
     }
 }
