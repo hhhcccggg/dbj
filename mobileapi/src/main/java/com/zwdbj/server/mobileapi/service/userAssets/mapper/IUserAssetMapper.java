@@ -10,8 +10,8 @@ public interface IUserAssetMapper {
     @Select("select coins from core_userAssets where userId=#{userId}")
     Long getCoinsByUserId(long userId);
 
-    @Update("update core_userAssets set coins=coins+#{coins} where userId=#{userId}")
-    int updateUserAsset(@Param("userId") long userId,@Param("coins") long coins);
+    @Update("update core_userAssets set coins=coins+#{coins},totalCoins=totalCoins+#{totalCoins} where userId=#{userId}")
+    int updateUserAsset(@Param("userId") long userId,@Param("coins") long coins,@Param("totalCoins")long totalCoins);
     @Insert("insert into core_userAssets(id,coins,remainBalance,userId) values(#{id},0,0,#{userId})")
     int greatUserAsset(@Param("id")long id,@Param("userId")long UserId);
     @Select("select count(id) from core_userAssets where userId=#{userId}")

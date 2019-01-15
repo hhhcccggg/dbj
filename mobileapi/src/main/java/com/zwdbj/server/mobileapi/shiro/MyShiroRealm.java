@@ -1,5 +1,8 @@
 package com.zwdbj.server.mobileapi.shiro;
 
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
+import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
+import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -18,19 +21,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class MyShiroRealm extends AuthorizingRealm {
     @Autowired
     @Lazy
     private TokenCenterManager tokenCenterManager;
+    @Autowired
+    private RedisTemplate redisTemplate;
+    @Autowired
+    private UserAssetServiceImpl userAssetServiceImpl;
+
 
     private Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
 
@@ -61,6 +75,25 @@ public class MyShiroRealm extends AuthorizingRealm {
         HttpServletRequest request = requestAttributes.getRequest();
         String url = request.getRequestURI();
         logger.info("用户{"+userId+"}请求url{"+url+"}");
+        boolean keyExist = this.redisTemplate.hasKey("user_everyDay:"+userId);
+        if (!keyExist){
+            LocalTime midnight = LocalTime.MIDNIGHT;
+            LocalDate today = LocalDate.now();
+            LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
+            LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
+            long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+            this.redisTemplate.opsForValue().set("user_everyDay:"+userId,token,s, TimeUnit.SECONDS);
+            this.userAssetServiceImpl.userIsExist(Long.valueOf(userId));
+            UserCoinDetailAddInput input = new UserCoinDetailAddInput();
+            input.setStatus("SUCCESS");
+            input.setNum(1);
+            input.setTitle("每日登录获得小饼干"+1+"个");
+            input.setType("OTHER");
+            this.userAssetServiceImpl.addUserCoinDetail(Long.valueOf(userId),input);
+            this.userAssetServiceImpl.updateUserCoinType(Long.valueOf(userId),"OTHER",1);
+            this.userAssetServiceImpl.updateUserAsset(Long.valueOf(userId),1);
+            // TODO 改变金币任务状态
+        }
         return new SimpleAuthenticationInfo(token, token, "my_realm");
     }
 
