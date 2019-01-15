@@ -83,4 +83,7 @@ public interface ICommentMapper {
 
     @Delete("delete from core_comments where resourceOwnerId=#{resourceOwnerId}")
     Long deleteVideoComments(@Param("resourceOwnerId")Long resourceOwnerId);
+
+    @Select("select (id) from core_comments where userId=#{userId} and to_day(createTime)=to_day(now())")
+    int isFirstPublicComment(@Param("userId")long userId);
 }

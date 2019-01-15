@@ -13,6 +13,7 @@ import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
+import com.zwdbj.server.utility.model.ResponseCoin;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.service.CommentService;
 import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
@@ -172,6 +173,19 @@ public class VideoService {
         }
         if (input.getLatitude() == 0 && input.getLongitude() == 0) {
             input.setAddress("");
+        }
+        boolean isFirst = this.isFirstPublicVideo(userId);
+        if (isFirst){
+            this.userAssetServiceImpl.userIsExist(userId);
+            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+            userCoinDetailAddInput.setStatus("SUCCESS");
+            userCoinDetailAddInput.setNum(5);
+            userCoinDetailAddInput.setTitle("每天首次发布视频获得小饼干"+5+"个");
+            userCoinDetailAddInput.setType("TASK");
+            this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
+            this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",5);
+            this.userAssetServiceImpl.updateUserAsset(userId,5);
+            // TODO 改变金币任务状态
         }
         videoMapper.publicVideo(videoId, userId, input);
         UserModel userModel = this.userService.findUserById(userId);
@@ -466,8 +480,9 @@ public class VideoService {
         }
 
         if (input.isHeart()) {
+
             long id = UniqueIDCreater.generateID();
-            this.heartService.heart(id, userId, input.getId(), 0);
+            ServiceStatusInfo<Long> isFirst = this.heartService.heart(id, userId, input.getId(), 0);
             this.videoMapper.addHeart(input.getId(), 1);
             this.userService.addHeart(VUserId, 1);
             VideoDetailInfoDto detailInfoDto = this.video(input.getId());
@@ -481,6 +496,8 @@ public class VideoService {
 
             this.videoWegiht(input.getId());
             videoHeartStatusDto.setHeart(true);
+            if (isFirst.getCoins()!=null)
+                return new ServiceStatusInfo<>(0, "点赞成功", videoHeartStatusDto,isFirst.getCoins());
             return new ServiceStatusInfo<>(0, "点赞成功", videoHeartStatusDto);
         } else {
             return new ServiceStatusInfo<>(1, "取消失败", null);
@@ -604,6 +621,19 @@ public class VideoService {
                 int task = (int) userAssetServiceImpl.getUserCoinType(userId, "TASK").getData().getCoins();
                 int pay = (int) userAssetServiceImpl.getUserCoinType(userId, "PAY").getData().getCoins();
                 int other = (int) userAssetServiceImpl.getUserCoinType(userId, "OTHER").getData().getCoins();
+                boolean isFirst = this.userAssetServiceImpl.isFirstPlayTout(userId);
+                if (isFirst){
+                    this.userAssetServiceImpl.userIsExist(userId);
+                    UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+                    userCoinDetailAddInput.setStatus("SUCCESS");
+                    userCoinDetailAddInput.setNum(5);
+                    userCoinDetailAddInput.setTitle("每日首次打赏获得小饼干"+5+"个");
+                    userCoinDetailAddInput.setType("TASK");
+                    this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
+                    this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",5);
+                    this.userAssetServiceImpl.updateUserAsset(userId,5);
+                    // TODO 改变金币任务状态
+                }
 
                 if (task >= coins) {
                     //task类型的金币大于等于打赏数，则全部用task打赏
@@ -689,12 +719,20 @@ public class VideoService {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             return new ServiceStatusInfo<>(1, "打赏失败" + e.getMessage(), null);
         } finally {
             lock.unlock();
         }
         return new ServiceStatusInfo<>(1, "打赏失败", null);
+    }
+
+    /**
+     * 用户是否为每天的首次发布视频
+     */
+    public boolean isFirstPublicVideo(long userId){
+        int result = this.videoMapper.isFirstPublicVideo(userId);
+        return result==0;
     }
 
 }

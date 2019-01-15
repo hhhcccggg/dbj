@@ -563,4 +563,13 @@ public class UserAssetServiceImpl implements IUserAssetService {
             }
         }
     }
+
+
+    /**
+     * 判断用户是否为当天第一次打赏
+     */
+    public boolean isFirstPlayTout(long userId){
+        int result = this.userAssetMapper.isFirstPlayTout(userId);
+        return result==0;
+    }
 }

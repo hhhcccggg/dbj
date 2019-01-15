@@ -151,6 +151,8 @@ public class VideoController {
     public ResponseData<VideoHeartStatusDto> heart(@RequestBody HeartInput input) {
         ServiceStatusInfo<VideoHeartStatusDto> statusInfo = this.videoService.heart(input);
         if (statusInfo.isSuccess()) {
+            if (statusInfo.getCoins()!=null)
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData(),statusInfo.getCoins());
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
