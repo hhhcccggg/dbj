@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.mobileapi.service.userInvitation.model.SearchUserInvitation;
 import com.zwdbj.server.mobileapi.service.userInvitation.model.UserInvitationModel;
 import com.zwdbj.server.mobileapi.service.userInvitation.service.UserInvitationService;
-import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
