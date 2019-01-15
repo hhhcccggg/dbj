@@ -580,7 +580,7 @@ public class VideoService {
     @Transactional
     public ServiceStatusInfo<Integer> playTout(int coins, Long videoId) {
         //TODO 金币变动时 考虑到线程安全，需要加锁
-        if (coins < 0 || coins > 100000000) return new ServiceStatusInfo<>(1, "您输入的金币数量有误", null);
+        if (coins < 1 || coins > 100000000) return new ServiceStatusInfo<>(1, "您输入的金币数量有误", null);
         long userId = JWTUtil.getCurrentId();
         String key = String.valueOf(userId) + videoId;
         ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
