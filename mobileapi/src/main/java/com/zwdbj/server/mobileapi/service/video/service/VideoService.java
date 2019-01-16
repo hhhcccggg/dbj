@@ -477,7 +477,6 @@ public class VideoService {
         }
 
         if (input.isHeart()) {
-
             long id = UniqueIDCreater.generateID();
             ServiceStatusInfo<Long> isFirst = this.heartService.heart(id, userId, input.getId(), 0);
             this.videoMapper.addHeart(input.getId(), 1);
@@ -725,8 +724,20 @@ public class VideoService {
      * 用户是否为每天的首次发布视频
      */
     public boolean isFirstPublicVideo(long userId){
-        int result = this.videoMapper.isFirstPublicVideo(userId);
-        return result==0;
+        String key = "user_everydayTask_isFirstPublicVideo:"+userId;
+        ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
+        Lock lock = new Lock(consulClient, "mobileapi",  key);
+        try {
+            if (lock.lock(true, 500L, 1)){
+                int result = this.videoMapper.isFirstPublicVideo(userId);
+                return result==0;
+            }
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+        return false;
     }
 
 }

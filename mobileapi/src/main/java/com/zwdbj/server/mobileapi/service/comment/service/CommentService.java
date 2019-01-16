@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.comment.service;
 
+import com.ecwid.consul.v1.ConsulClient;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.model.HeartInput;
 import com.zwdbj.server.mobileapi.service.comment.mapper.ICommentMapper;
@@ -17,6 +18,7 @@ import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.utility.model.ResponseCoin;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.modelmapper.ModelMapper;
@@ -165,9 +167,21 @@ public class CommentService {
      * 查看是否为当天首次评论
      */
     public boolean isFirstPublicComment(long userId){
-        int result = this.commentMapper.isFirstPublicComment(userId);
-        return result==0;
-    }
 
+        String key = "user_everydayTask_isFirstPublicComment:"+userId;
+        ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
+        Lock lock = new Lock(consulClient, "mobileapi",  key);
+        try {
+            if (lock.lock(true, 500L, 1)){
+                int result = this.commentMapper.isFirstPublicComment(userId);
+                return result==0;
+            }
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+        return false;
+    }
 
 }

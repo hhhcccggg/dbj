@@ -1,9 +1,11 @@
 package com.zwdbj.server.mobileapi.service.heart.service;
 
+import com.ecwid.consul.v1.ConsulClient;
 import com.zwdbj.server.mobileapi.service.heart.mapper.IHeartMapper;
 import com.zwdbj.server.mobileapi.service.heart.model.HeartModel;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.utility.model.ResponseCoin;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,19 @@ public class HeartService {
      *当天是否用户首次点赞
      */
     public boolean isFirstHeart(long userId) {
-        int result = this.heartMapper.isFirstHeart(userId);
-        return result==0;
+        String key = "user_everydayTask_isFirstHeart:"+userId;
+        ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
+        Lock lock = new Lock(consulClient, "mobileapi",  key);
+        try {
+            if (lock.lock(true, 500L, 1)){
+                int result = this.heartMapper.isFirstHeart(userId);
+                return result==0;
+            }
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+        return false;
     }
 }
