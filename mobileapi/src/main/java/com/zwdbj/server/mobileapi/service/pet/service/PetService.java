@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -70,6 +71,7 @@ public class PetService {
         return new ServiceStatusInfo<>(0,"删除成功",rows);
     }
 
+    @Transactional
     public ServiceStatusInfo<Long> add(UpdatePetModelInput input,long userId) {
         String regEx = "^(?!_)(?!.*?_$)[a-zA-Z0-9_\\u4e00-\\u9fa5]{1,20}$";
         Pattern r = Pattern.compile(regEx);
@@ -81,23 +83,23 @@ public class PetService {
             input.setAvatar(this.qiniuService.url(imageKey));
         }
         input.setId(UniqueIDCreater.generateID());
+        List<PetModelDto> pets = this.list(userId);
+        if (pets==null){
+            this.userAssetServiceImpl.userIsExist(userId);
+            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+            userCoinDetailAddInput.setStatus("SUCCESS");
+            userCoinDetailAddInput.setNum(10);
+            userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
+            userCoinDetailAddInput.setType("TASK");
+            this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
+            this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",10);
+            this.userAssetServiceImpl.updateUserAsset(userId,10);
+            // TODO 改变金币任务状态
+        }
         long rows = this.petMapper.add(input,userId);
         if (rows ==0) {
             return  new ServiceStatusInfo<>(1,"添加失败",null);
         } else {
-            List<PetModelDto> pets = this.list(userId);
-            if (pets==null){
-                this.userAssetServiceImpl.userIsExist(userId);
-                UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
-                userCoinDetailAddInput.setStatus("SUCCESS");
-                userCoinDetailAddInput.setNum(10);
-                userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
-                userCoinDetailAddInput.setType("TASK");
-                this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
-                this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",10);
-                this.userAssetServiceImpl.updateUserAsset(userId,10);
-                // TODO 改变金币任务状态
-            }
             this.reviewAvatar(imageKey,1,input.getId());
             firstAddPet(userId);
             return new ServiceStatusInfo<>(0,"添加成功",rows);

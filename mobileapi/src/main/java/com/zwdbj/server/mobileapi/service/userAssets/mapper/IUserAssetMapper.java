@@ -90,7 +90,7 @@ public interface IUserAssetMapper {
     @Select("select * from core_basic_buyCoinConfigs where productId=#{productId} and type=#{type}")
     BuyCoinConfigModel findCoinConfigByProductId(@Param("productId")String productId,@Param("type")String type);
 
-    @Select("select (id) from core_userCoinDetails where userId=#{userId} and to_days(createTime)= to_days(now()) " +
+    @Select("select count(id) from core_userCoinDetails where userId=#{userId} and to_days(createTime)= to_days(now()) " +
             "and title='每日首次打赏获得小饼干5个'")
     int isFirstPlayTout(@Param("userId") long userId);
 
