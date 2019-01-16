@@ -26,7 +26,7 @@ public interface IUserMapper {
     long regByOpenId(@Param("id") long id,@Param("username") String username,@Param("input") BindThirdPartyAccountInput input);
     @Update("update core_users set totalHearts=totalHearts+(#{num}) where id=#{id}")
     long addHeart(@Param("id") long id,@Param("num") int num);
-    @Select("SELECT *, (select count(*) from core_pets as pet where pet.userId = u.id) as petCount," +
+    @Select("SELECT *, (select count(*) from core_pets as pet where pet.userId = u.id and pet.isDeleted=0) as petCount," +
             "(select count(*) from core_videos as vd where vd.userId = u.id) as videoCount," +
             "(select count(*) from core_livings as li where li.userId = u.id) as liveCount FROM " +
             "dbj_server_db.core_users as u where u.id=#{userId}")

@@ -41,7 +41,7 @@ public class HeartService {
             this.userAssetServiceImpl.userIsExist(userId);
             UserCoinDetailAddInput input = new UserCoinDetailAddInput();
             input.setStatus("SUCCESS");
-            input.setNum(1);
+            input.setNum(2);
             input.setTitle("每日首次点赞获得小饼干" + 2 + "个");
             input.setType("TASK");
             this.userAssetServiceImpl.userPlayCoinTask(input, userId, "TASK", 2);
