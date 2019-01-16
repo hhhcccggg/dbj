@@ -389,9 +389,9 @@ public class UserService {
             userCoinDetailAddInput.setStatus("SUCCESS");
             userCoinDetailAddInput.setNum(10);
             userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
-            userCoinDetailAddInput.setType("OTHER");
+            userCoinDetailAddInput.setType("TASK");
             this.userAssetServiceImpl.addUserCoinDetail(id,userCoinDetailAddInput);
-            this.userAssetServiceImpl.updateUserCoinType(id,"OTHER",10);
+            this.userAssetServiceImpl.updateUserCoinType(id,"TASK",10);
             this.userAssetServiceImpl.updateUserAsset(id,10);
             // TODO 改变金币任务状态
             return new UserModel(id, userName, input.getAvaterUrl(), "", "");
@@ -462,9 +462,9 @@ public class UserService {
             userCoinDetailAddInput.setStatus("SUCCESS");
             userCoinDetailAddInput.setNum(10);
             userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
-            userCoinDetailAddInput.setType("OTHER");
+            userCoinDetailAddInput.setType("TASK");
             this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
-            this.userAssetServiceImpl.updateUserCoinType(userId,"OTHER",10);
+            this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",10);
             this.userAssetServiceImpl.updateUserAsset(userId,10);
             // TODO 改变金币任务状态
             return userModel;
@@ -736,9 +736,9 @@ public class UserService {
                     userCoinDetailAddInput.setStatus("SUCCESS");
                     userCoinDetailAddInput.setNum(10);
                     userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
-                    userCoinDetailAddInput.setType("OTHER");
+                    userCoinDetailAddInput.setType("TASK");
                     this.userAssetServiceImpl.addUserCoinDetail(id,userCoinDetailAddInput);
-                    this.userAssetServiceImpl.updateUserCoinType(id,"OTHER",10);
+                    this.userAssetServiceImpl.updateUserCoinType(id,"TASK",10);
                     this.userAssetServiceImpl.updateUserAsset(id,10);
                     // TODO 改变金币任务状态
                     return new ServiceStatusInfo<>(0,"注册成功",result);

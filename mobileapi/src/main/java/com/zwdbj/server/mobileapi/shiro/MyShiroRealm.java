@@ -88,9 +88,9 @@ public class MyShiroRealm extends AuthorizingRealm {
             input.setStatus("SUCCESS");
             input.setNum(1);
             input.setTitle("每日登录获得小饼干"+1+"个");
-            input.setType("OTHER");
+            input.setType("TASK");
             this.userAssetServiceImpl.addUserCoinDetail(Long.valueOf(userId),input);
-            this.userAssetServiceImpl.updateUserCoinType(Long.valueOf(userId),"OTHER",1);
+            this.userAssetServiceImpl.updateUserCoinType(Long.valueOf(userId),"TASK",1);
             this.userAssetServiceImpl.updateUserAsset(Long.valueOf(userId),1);
             // TODO 改变金币任务状态
         }
