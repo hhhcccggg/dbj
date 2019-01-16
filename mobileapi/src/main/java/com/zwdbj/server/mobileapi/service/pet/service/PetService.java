@@ -92,9 +92,9 @@ public class PetService {
                 userCoinDetailAddInput.setStatus("SUCCESS");
                 userCoinDetailAddInput.setNum(10);
                 userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
-                userCoinDetailAddInput.setType("OTHER");
+                userCoinDetailAddInput.setType("TASK");
                 this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
-                this.userAssetServiceImpl.updateUserCoinType(userId,"OTHER",10);
+                this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",10);
                 this.userAssetServiceImpl.updateUserAsset(userId,10);
                 // TODO 改变金币任务状态
             }
