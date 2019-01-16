@@ -133,7 +133,7 @@ public interface IVideoMapper {
     /**
      * 用户是否为每天的首次发布视频
      */
-    @Select("select (id) from core_videos where userId=#{userId} and to_days(createTime)=to_days(now())")
+    @Select("select count(id) from core_videos where userId=#{userId} and to_days(createTime)=to_days(now())")
     int isFirstPublicVideo(@Param("userId")long userId);
 
 }
