@@ -330,5 +330,15 @@ public class UserController {
         return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, statusInfo.getMsg(), null);
     }
 
+    @ApiOperation(value = "推荐人设置")
+    @PostMapping("/setRecommendUserId")
+    public ResponseData<Long> setRecommendUserId(long recommendUserId){
+        ServiceStatusInfo<Long> statusInfo = this.userService.setRecommendUserId(recommendUserId);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, statusInfo.getMsg(), null);
+    }
+
 
 }
