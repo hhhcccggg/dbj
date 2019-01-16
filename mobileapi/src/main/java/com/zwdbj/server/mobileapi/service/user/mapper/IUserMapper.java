@@ -101,4 +101,7 @@ public interface IUserMapper {
 
     @SelectProvider(type = UserSqlProvider.class,method = "selectUserAvatarUrl")
     List<String> selectUserAvatarUrl(@Param("userIds") List<Long> userIds);
+
+    @Update("update core_users set `recommendUserId`=#{recommendUserId} where id=#{userId}")
+    long updaterRecommendUserId(@Param("userId")long userId,@Param("recommendUserId") long recommendUserId);
 }

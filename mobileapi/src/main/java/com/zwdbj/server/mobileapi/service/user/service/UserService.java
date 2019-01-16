@@ -788,6 +788,17 @@ public class UserService {
         }
     }
 
+    public  ServiceStatusInfo<Long> setRecommendUserId(long recommendUserId){
+        try{
+            long userId = JWTUtil.getCurrentId();
+            if (userId == 0) return new ServiceStatusInfo<>(1, "请重新登录", null);
+            long result = userMapper.updaterRecommendUserId(userId,recommendUserId);
+            if (result==0)return new ServiceStatusInfo<>(1,"修改失败",null);
+            return new ServiceStatusInfo<>(0,"修改成功",result);
+        }catch(Exception e){
+            return  new ServiceStatusInfo<>(1,"修改失败："+e.getMessage(),null);
+        }
+    }
 
 }
 
