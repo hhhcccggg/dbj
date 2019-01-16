@@ -28,16 +28,16 @@ public class UserInvitationServiceImpl implements UserInvitationService {
             //TODO 未发金币
             long userId = JWTUtil.getCurrentId();
             if(userId == 0)return new ServiceStatusInfo<>(1,"用户未登录",null);
-            UserInvitationModel userInvitationModel = new UserInvitationModel(UniqueIDCreater.generateID(), initiatorUserId, userId, UserInvitationsState.PETS, "获取奖励50金币");
+            UserInvitationModel userInvitationModel = new UserInvitationModel(UniqueIDCreater.generateID(), initiatorUserId, userId, UserInvitationsState.PETS, "获取奖励25小饼干");
             long result = iUserInvitationMapper.createUserInvitation(userInvitationModel);
             if(result>0){
-                this.userAssetServiceImpl.userIsExist(userId);
+                this.userAssetServiceImpl.userIsExist(initiatorUserId);
                 UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
                 userCoinDetailAddInput.setStatus("SUCCESS");
                 userCoinDetailAddInput.setNum(25);
                 userCoinDetailAddInput.setTitle("邀请新用户获得小饼干"+25+"个");
                 userCoinDetailAddInput.setType("TASK");
-                this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",25);
+                this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,initiatorUserId,"TASK",25);
                 return new ServiceStatusInfo<>(0,"",result);
             }
             return new ServiceStatusInfo<>(1,"新增失败，影响行数"+result,null);
