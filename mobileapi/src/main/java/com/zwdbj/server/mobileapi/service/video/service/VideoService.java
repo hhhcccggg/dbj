@@ -36,10 +36,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -74,6 +79,8 @@ public class VideoService {
     protected UserAssetServiceImpl userAssetServiceImpl;
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
+    @Autowired
+    protected RedisTemplate redisTemplate;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -174,8 +181,17 @@ public class VideoService {
         if (input.getLatitude() == 0 && input.getLongitude() == 0) {
             input.setAddress("");
         }
-        boolean isFirst = this.isFirstPublicVideo(userId);
-        if (isFirst){
+
+        videoMapper.publicVideo(videoId, userId, input);
+        //每日任务金币
+        boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicVideo:"+userId);
+        if (!keyExist) {
+            LocalTime midnight = LocalTime.MIDNIGHT;
+            LocalDate today = LocalDate.now();
+            LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
+            LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
+            long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+            this.redisTemplate.opsForValue().set("user_everydayTask_isFirstPublicVideo:" + userId, userId+":hasFirstPublicVideo", s, TimeUnit.SECONDS);
             this.userAssetServiceImpl.userIsExist(userId);
             UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
             userCoinDetailAddInput.setStatus("SUCCESS");
@@ -184,7 +200,6 @@ public class VideoService {
             userCoinDetailAddInput.setType("TASK");
             this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",5);
         }
-        videoMapper.publicVideo(videoId, userId, input);
         UserModel userModel = this.userService.findUserById(userId);
         // 审核信息加入到消息队列
         if (/*userModel.isReviewed() &&*/ videoKey != null && videoKey.length() > 0) {
@@ -617,15 +632,22 @@ public class VideoService {
                 int task = (int) userAssetServiceImpl.getUserCoinType(userId, "TASK").getData().getCoins();
                 int pay = (int) userAssetServiceImpl.getUserCoinType(userId, "PAY").getData().getCoins();
                 int other = (int) userAssetServiceImpl.getUserCoinType(userId, "OTHER").getData().getCoins();
-                boolean isFirst = this.userAssetServiceImpl.isFirstPlayTout(userId);
-                if (isFirst){
+                //每日任务金币
+                boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPlayTout:"+userId);
+                if (!keyExist) {
+                    LocalTime midnight = LocalTime.MIDNIGHT;
+                    LocalDate today = LocalDate.now();
+                    LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
+                    LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
+                    long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+                    this.redisTemplate.opsForValue().set("user_everydayTask_isFirstPlayTout:" + userId, userId+":hasFirstPlayTout", s, TimeUnit.SECONDS);
                     this.userAssetServiceImpl.userIsExist(userId);
                     UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
                     userCoinDetailAddInput.setStatus("SUCCESS");
                     userCoinDetailAddInput.setNum(5);
-                    userCoinDetailAddInput.setTitle("每日首次打赏获得小饼干"+5+"个");
+                    userCoinDetailAddInput.setTitle("每日首次打赏获得小饼干" + 5 + "个");
                     userCoinDetailAddInput.setType("TASK");
-                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",5);
+                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput, userId, "TASK", 5);
                 }
 
                 if (task >= coins) {
