@@ -18,12 +18,12 @@ public interface IUserInvitationMapper {
      * @param userInvitationModel
      * @return
      */
-    @Insert("INSERT INTO `core_userinvitations` (" +
+    @Insert("INSERT INTO `core_userInvitations` (" +
             "`id`,`initiatorUserId`,`receivedUserId`,`state`,`message`)" +
             "VALUES(" +
-            "#{userInvitationModel.id},#{userInvitationModel.initiatorUserId},#{userInvitationModel.receivedUserId},#{userInvitationModel.state},#{userInvitationModel.message}" +
+            "#{model.id},#{model.initiatorUserId},#{model.receivedUserId},#{model.state},#{model.message}" +
             ");")
-    long createUserInvitation(@Param("userInvitationModel") UserInvitationModel userInvitationModel);
+    long createUserInvitation(@Param("model") UserInvitationModel userInvitationModel);
 
     /**
      * 发起请求
