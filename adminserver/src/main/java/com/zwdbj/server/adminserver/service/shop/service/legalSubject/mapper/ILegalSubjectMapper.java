@@ -15,7 +15,7 @@ public interface ILegalSubjectMapper {
             "#{data.username},#{data.phone},#{data.legalType})")
     int addLegalSubject(@Param("id")long id,@Param("data") UserTenantInput input);
     @Update("update shop_legalSubjects set name=#{data.name},leagalRepresentativeName=#{data.leagalRepresentativeName}," +
-            "leagalRepresentativeID=#{data.leagalRepresentativeID},cityId=#{data.cityId},contactName=#{data.contactPerson}," +
+            "leagalRepresentativeID=#{data.leagalRepresentativeID},cityId=#{data.cityId},contactName=#{data.username}," +
             "contactPhone=#{data.phone},type=#{data.legalType} where id=#{id}")
     int modifyBasicLegalSubject(@Param("id")long id,@Param("data") ModifyUserTenantInput input);
 
