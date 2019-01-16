@@ -149,7 +149,7 @@ public class PetService {
         long count = petMapper.firstAddPet(userId);
         if(count > 1)return ;
         UserModel userModel = userService.findUserById(userId);
-        if(userModel==null)return;
+        if(userModel==null || userModel.getRecommendUserId()==0)return;
         userInvitationServiceImpl.createUserInvitation(userModel.getRecommendUserId());
     }
     /**
