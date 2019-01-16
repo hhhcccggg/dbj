@@ -26,10 +26,7 @@ public class HeartService {
             userCoinDetailAddInput.setNum(2);
             userCoinDetailAddInput.setTitle("每天首次点赞获得小饼干"+2+"个");
             userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
-            this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",2);
-            this.userAssetServiceImpl.updateUserAsset(userId,2);
-            // TODO 改变金币任务状态
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",2);
 
             coins.setCoins(2);
             coins.setMessage("每天首次点赞获得小饼干2个");

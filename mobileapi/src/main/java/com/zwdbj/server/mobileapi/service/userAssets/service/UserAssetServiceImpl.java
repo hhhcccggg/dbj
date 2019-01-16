@@ -572,4 +572,28 @@ public class UserAssetServiceImpl implements IUserAssetService {
         int result = this.userAssetMapper.isFirstPlayTout(userId);
         return result==0;
     }
+
+    /**
+     * 用户任务增加金币
+     */
+
+    @Transactional
+    public void userPlayCoinTask(UserCoinDetailAddInput input,long userId,String type,int coins){
+        // TODO 改变金币任务状态 参数要加入任务的id,处理任务
+        String key = "user_everydayTask:"+userId;
+        ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
+        Lock lock = new Lock(consulClient, "mobileapi",  key);
+        try {
+            if (lock.lock(true, 500L, 1)){
+                this.addUserCoinDetail(userId,input);
+                this.updateUserCoinType(userId,type,coins);
+                this.updateUserAsset(userId,coins);
+            }
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+
+    }
 }

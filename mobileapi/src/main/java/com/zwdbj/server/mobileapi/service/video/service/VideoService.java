@@ -182,10 +182,7 @@ public class VideoService {
             userCoinDetailAddInput.setNum(5);
             userCoinDetailAddInput.setTitle("每天首次发布视频获得小饼干"+5+"个");
             userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
-            this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",5);
-            this.userAssetServiceImpl.updateUserAsset(userId,5);
-            // TODO 改变金币任务状态
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",5);
         }
         videoMapper.publicVideo(videoId, userId, input);
         UserModel userModel = this.userService.findUserById(userId);
@@ -629,10 +626,7 @@ public class VideoService {
                     userCoinDetailAddInput.setNum(5);
                     userCoinDetailAddInput.setTitle("每日首次打赏获得小饼干"+5+"个");
                     userCoinDetailAddInput.setType("TASK");
-                    this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
-                    this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",5);
-                    this.userAssetServiceImpl.updateUserAsset(userId,5);
-                    // TODO 改变金币任务状态
+                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",5);
                 }
 
                 if (task >= coins) {

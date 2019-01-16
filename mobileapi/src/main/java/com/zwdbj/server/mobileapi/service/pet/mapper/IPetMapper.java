@@ -30,7 +30,7 @@ public interface IPetMapper {
             "</script>")
     List<PetModelDto> findMore(@Param("ids") List<EntityKeyModel<Long>> ids);
 
-    @Select("select count(0) from `core_pets` where  userId=#{userId}")
+    @Select("select count(id) from `core_pets` where  userId=#{userId}")
     long firstAddPet(@Param("userId") long userId);
 
 }
