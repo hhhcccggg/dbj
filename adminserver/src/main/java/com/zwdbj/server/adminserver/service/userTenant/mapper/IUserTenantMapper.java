@@ -21,7 +21,7 @@ public interface IUserTenantMapper {
     int modifyUserTenant(@Param("id")long id,@Param("name")String name);
     @Select("select legalSubjectId from core_user_tenants where id=#{id}")
     long findLegalSubjectIdById(@Param("id")long id);
-    @Select("select ut.*, u,nickName,u.phone from core_user_tenants ut left join core_users u on u.tenantId=ut.id where ut.id=#{id} and u.isSuper=1")
+    @Select("select ut.*, u.nickName,u.phone from core_user_tenants ut left join core_users u on u.tenantId=ut.id where ut.id=#{id} and u.isSuper=1")
     UserTenantModel getUserTenantById(@Param("id")long id);
     @Update("update core_user_tenants set isDeleted=1,deleteTime=now() where id=#{id}")
     int delTenantById(@Param("id")long id);
