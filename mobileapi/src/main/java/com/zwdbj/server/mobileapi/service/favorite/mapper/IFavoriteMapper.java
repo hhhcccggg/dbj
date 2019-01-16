@@ -15,7 +15,7 @@ public interface IFavoriteMapper {
      * @param favoriteInput
      * @return
      */
-    @Insert("INSERT INTO `shop_favorites` (" +
+    @Insert("INSERT INTO `shop_Favorites` (" +
             "`id`,`targetId`,`targetType`,`userId`,`title`,`imageUrl`,`price`)" +
             "VALUES" +
             "(" +
@@ -28,7 +28,7 @@ public interface IFavoriteMapper {
      * @param userId
      * @return
      */
-    @Update("UPDATE `shop_favorites` " +
+    @Update("UPDATE `shop_Favorites` " +
             "SET " +
             " `isDeleted` = 1," +
             " `deleteTime` = now()" +
