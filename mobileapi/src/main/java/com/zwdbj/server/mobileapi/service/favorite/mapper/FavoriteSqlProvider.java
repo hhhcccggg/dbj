@@ -10,7 +10,7 @@ public class FavoriteSqlProvider {
     public String searchFavorite(Map map){
         SearchFavorite searchFavorite = (SearchFavorite) map.get("searchFavorite");
         SQL sql = new SQL().SELECT("id","targetId","targetType","title","imageUrl","price");
-        sql.FROM("shop_favorites");
+        sql.FROM("shop_Favorites");
         if(searchFavorite.getTargetType() != null){
             sql.WHERE("targetType=#{searchFavorite.targetType}") ;
         }
