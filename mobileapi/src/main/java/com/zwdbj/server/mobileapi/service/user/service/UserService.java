@@ -390,10 +390,7 @@ public class UserService {
             userCoinDetailAddInput.setNum(10);
             userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
             userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.addUserCoinDetail(id,userCoinDetailAddInput);
-            this.userAssetServiceImpl.updateUserCoinType(id,"TASK",10);
-            this.userAssetServiceImpl.updateUserAsset(id,10);
-            // TODO 改变金币任务状态
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,id,"TASK",10);
             return new UserModel(id, userName, input.getAvaterUrl(), "", "");
         } else {
             //TODO 刷新用户头像
@@ -463,10 +460,7 @@ public class UserService {
             userCoinDetailAddInput.setNum(10);
             userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
             userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
-            this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",10);
-            this.userAssetServiceImpl.updateUserAsset(userId,10);
-            // TODO 改变金币任务状态
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10);
             return userModel;
         } catch (Exception ex) {
             return null;
@@ -737,10 +731,7 @@ public class UserService {
                     userCoinDetailAddInput.setNum(10);
                     userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
                     userCoinDetailAddInput.setType("TASK");
-                    this.userAssetServiceImpl.addUserCoinDetail(id,userCoinDetailAddInput);
-                    this.userAssetServiceImpl.updateUserCoinType(id,"TASK",10);
-                    this.userAssetServiceImpl.updateUserAsset(id,10);
-                    // TODO 改变金币任务状态
+                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,id,"TASK",10);
                     return new ServiceStatusInfo<>(0,"注册成功",result);
                 }else if (input.getType()==201){
                     UserModel userModel = this.findUserByPhone(input.getPhone());

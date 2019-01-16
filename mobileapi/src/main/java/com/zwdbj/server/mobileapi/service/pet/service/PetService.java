@@ -77,24 +77,22 @@ public class PetService {
         Pattern r = Pattern.compile(regEx);
         Matcher m1 = r.matcher(input.getNickName());
         boolean rs1 = m1.matches();
-        if (rs1 == false ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
+        if (!rs1 ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
         String imageKey = input.getAvatar();
         if (!(imageKey == null || imageKey.equals(""))) {
             input.setAvatar(this.qiniuService.url(imageKey));
         }
         input.setId(UniqueIDCreater.generateID());
-        List<PetModelDto> pets = this.list(userId);
-        if (pets==null){
+        boolean isFirst = this.isFirstAddPet(userId);
+        if (isFirst){
             this.userAssetServiceImpl.userIsExist(userId);
             UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
             userCoinDetailAddInput.setStatus("SUCCESS");
             userCoinDetailAddInput.setNum(10);
             userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
             userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.addUserCoinDetail(userId,userCoinDetailAddInput);
-            this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",10);
-            this.userAssetServiceImpl.updateUserAsset(userId,10);
-            // TODO 改变金币任务状态
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10);
+
         }
         long rows = this.petMapper.add(input,userId);
         if (rows ==0) {
@@ -111,7 +109,7 @@ public class PetService {
         Pattern r = Pattern.compile(regEx);
         Matcher m1 = r.matcher(input.getNickName());
         boolean rs1 = m1.matches();
-        if (rs1 == false ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
+        if (!rs1 ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
         String imageKey = input.getAvatar();
         if (!(imageKey == null || imageKey.equals(""))) {
             input.setAvatar(this.qiniuService.url(imageKey));
@@ -153,6 +151,13 @@ public class PetService {
         UserModel userModel = userService.findUserById(userId);
         if(userModel==null)return;
         userInvitationServiceImpl.createUserInvitation(userModel.getRecommendUserId());
+    }
+    /**
+     * 是否为第一次添加宠物
+     */
+    public boolean isFirstAddPet(long userId){
+        long result = this.petMapper.firstAddPet(userId);
+        return result==0;
     }
 
 }
