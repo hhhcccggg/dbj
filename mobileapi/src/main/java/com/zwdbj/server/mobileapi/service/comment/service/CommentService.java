@@ -23,10 +23,16 @@ import com.zwdbj.server.utility.model.ResponseCoin;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class CommentService {
@@ -42,6 +48,8 @@ public class CommentService {
     protected MessageCenterService messageCenterService;
     @Autowired
     protected UserAssetServiceImpl userAssetServiceImpl;
+    @Autowired
+    RedisTemplate redisTemplate;
 
     public List<CommentInfoDto> list(long resId) {
         List<CommentInfoDto> commentList = this.commentMapper.list(resId,JWTUtil.getCurrentId());
@@ -105,19 +113,7 @@ public class CommentService {
         AddCommentModel addCommentModel = new ModelMapper().map(input,AddCommentModel.class);
         long userId = JWTUtil.getCurrentId();
         if (userId <=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
-        boolean isFirst = this.isFirstPublicComment(userId);
-        ResponseCoin coins = new ResponseCoin();
-        if (isFirst){
-            this.userAssetServiceImpl.userIsExist(userId);
-            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
-            userCoinDetailAddInput.setStatus("SUCCESS");
-            userCoinDetailAddInput.setNum(2);
-            userCoinDetailAddInput.setTitle("每天首次发布评论获得小饼干"+2+"个");
-            userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",2);
-            coins.setCoins(2);
-            coins.setMessage("每天首次发布评论获得小饼干2个");
-        }
+
         addCommentModel.setId(UniqueIDCreater.generateID());
         addCommentModel.setUserId(userId);
         long resultLine = this.commentMapper.add(addCommentModel);
@@ -133,7 +129,27 @@ public class CommentService {
                 this.messageCenterService.push(msgInput,detailInfoDto.getUserId());
             }
             this.videoService.videoWegiht(input.getResId());
-            if (isFirst) return new ServiceStatusInfo<>(0,"发布成功",null,coins);
+            //每日任务金币
+            boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicComment:"+userId);
+            ResponseCoin coins = new ResponseCoin();
+            if (!keyExist) {
+                LocalTime midnight = LocalTime.MIDNIGHT;
+                LocalDate today = LocalDate.now();
+                LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
+                LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
+                long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+                this.redisTemplate.opsForValue().set("user_everydayTask_isFirstPublicComment:" + userId, userId+":hasFirstPublicComment", s, TimeUnit.SECONDS);
+                this.userAssetServiceImpl.userIsExist(userId);
+                UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+                userCoinDetailAddInput.setStatus("SUCCESS");
+                userCoinDetailAddInput.setNum(2);
+                userCoinDetailAddInput.setTitle("每日首次评论获得小饼干" + 2 + "个");
+                userCoinDetailAddInput.setType("TASK");
+                this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput, userId, "TASK", 2);
+                coins.setCoins(2);
+                coins.setMessage("每天首次评论获得小饼干2个");
+            }
+            if (!keyExist) return new ServiceStatusInfo<>(0,"发布成功",null,coins);
             return new ServiceStatusInfo<>(0,"发布成功",null);
         } else {
             return new ServiceStatusInfo<>(1,"发布失败",null);

@@ -28,20 +28,7 @@ public class HeartService {
     RedisTemplate redisTemplate;
 
     public ServiceStatusInfo<Long> heart(long id, long userId, long resourceOwnerId, int type) {
-       /* boolean isFirstHeart = this.isFirstHeart(userId);
-        ResponseCoin coins = new ResponseCoin();
-        if (isFirstHeart){
-            this.userAssetServiceImpl.userIsExist(userId);
-            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
-            userCoinDetailAddInput.setStatus("SUCCESS");
-            userCoinDetailAddInput.setNum(2);
-            userCoinDetailAddInput.setTitle("每天首次点赞获得小饼干"+2+"个");
-            userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",2);
-            coins.setCoins(2);
-            coins.setMessage("每天首次点赞获得小饼干2个");
-
-        }*/
+        long result = this.heartMapper.heart(id, userId, resourceOwnerId,type);
         boolean keyExist = this.redisTemplate.hasKey("user_everyDayTask_isFirstHeart:"+userId);
         ResponseCoin coins = new ResponseCoin();
         if (!keyExist) {
@@ -55,13 +42,12 @@ public class HeartService {
             UserCoinDetailAddInput input = new UserCoinDetailAddInput();
             input.setStatus("SUCCESS");
             input.setNum(1);
-            input.setTitle("每日登录获得小饼干" + 2 + "个");
+            input.setTitle("每日首次点赞获得小饼干" + 2 + "个");
             input.setType("TASK");
             this.userAssetServiceImpl.userPlayCoinTask(input, userId, "TASK", 2);
             coins.setCoins(2);
             coins.setMessage("每天首次点赞获得小饼干2个");
         }
-        long result = this.heartMapper.heart(id, userId, resourceOwnerId,type);
         return new ServiceStatusInfo<>(0, "点赞成功", result,coins);
     }
 
