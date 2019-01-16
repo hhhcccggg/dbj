@@ -9,7 +9,14 @@ import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.utility.model.ResponseCoin;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class HeartService {
@@ -17,9 +24,11 @@ public class HeartService {
     IHeartMapper heartMapper;
     @Autowired
     UserAssetServiceImpl userAssetServiceImpl;
+    @Autowired
+    RedisTemplate redisTemplate;
 
     public ServiceStatusInfo<Long> heart(long id, long userId, long resourceOwnerId, int type) {
-        boolean isFirstHeart = this.isFirstHeart(userId);
+       /* boolean isFirstHeart = this.isFirstHeart(userId);
         ResponseCoin coins = new ResponseCoin();
         if (isFirstHeart){
             this.userAssetServiceImpl.userIsExist(userId);
@@ -29,7 +38,26 @@ public class HeartService {
             userCoinDetailAddInput.setTitle("每天首次点赞获得小饼干"+2+"个");
             userCoinDetailAddInput.setType("TASK");
             this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",2);
+            coins.setCoins(2);
+            coins.setMessage("每天首次点赞获得小饼干2个");
 
+        }*/
+        boolean keyExist = this.redisTemplate.hasKey("user_everyDayTask_isFirstHeart:"+userId);
+        ResponseCoin coins = new ResponseCoin();
+        if (!keyExist) {
+            LocalTime midnight = LocalTime.MIDNIGHT;
+            LocalDate today = LocalDate.now();
+            LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
+            LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
+            long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+            this.redisTemplate.opsForValue().set("user_everyDayTask_isFirstHeart:" + userId, userId+":hasFirstHeart", s, TimeUnit.SECONDS);
+            this.userAssetServiceImpl.userIsExist(userId);
+            UserCoinDetailAddInput input = new UserCoinDetailAddInput();
+            input.setStatus("SUCCESS");
+            input.setNum(1);
+            input.setTitle("每日登录获得小饼干" + 2 + "个");
+            input.setType("TASK");
+            this.userAssetServiceImpl.userPlayCoinTask(input, userId, "TASK", 2);
             coins.setCoins(2);
             coins.setMessage("每天首次点赞获得小饼干2个");
         }
