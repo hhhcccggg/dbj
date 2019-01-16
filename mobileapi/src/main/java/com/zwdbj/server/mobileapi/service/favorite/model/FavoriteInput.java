@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.Min;
 
-@ApiModel(description = "")
+@ApiModel(description = "收藏")
 public class FavoriteInput {
     @ApiModelProperty("商家 店铺 商品的ID")
     @Min(1)
