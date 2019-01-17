@@ -12,7 +12,7 @@ public class WxMiniProgramService {
     protected final OkHttpClient client = new OkHttpClient();
     public ServiceStatusInfo<Object> getOpenIdByCode(String code){
         String url = String.format("https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code",
-                "wx07f6eadb69a4b1f5","60a46fd8a1ec9e35fed165f1a6f70861",code);
+                "wxfffc024e2f801969","d4a4331faf120e95e90c8405d6c49543",code);
         Request request = new Request.Builder()
                 .url(url)
                 .get()
