@@ -375,6 +375,7 @@ public class UserService {
 
     @Transactional
     public UserModel regUserByOpenId(BindThirdPartyAccountInput input) {
+        if (input.getOpenUserId()==null || input.getOpenUserId().length()==0)return null;
         String userName = UniqueIDCreater.generateUserName();
         UserThirdAccountBindDto userThirdAccountBindDto = this.userBindService.findUserByOpenId(input.getOpenUserId(), input.getThirdType());
         //UserModel userModel = this.userMapper.findUserByOpenId(input.getOpenUserId(),input.getThirdType());

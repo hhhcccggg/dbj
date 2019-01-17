@@ -90,6 +90,7 @@ public class UserController {
     @ApiOperation(value = "第三方登录")
     public ResponseData<UserLoginInfoDto> loginByThird(@RequestBody BindThirdPartyAccountInput input) {
         UserModel userModel = userService.regUserByOpenId(input);
+        if (userModel==null)return new ResponseData<>(ResponseDataCode.STATUS_ERROR, "登录失败", null);
         UserToken userToken = this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManager).getData();
         UserLoginInfoDto userLoginInfo = new UserLoginInfoDto();
         userLoginInfo.setUserToken(userToken);
