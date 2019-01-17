@@ -1,5 +1,8 @@
 package com.zwdbj.server.mobileapi.service.comment.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.TypeReference;
 import com.ecwid.consul.v1.ConsulClient;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.model.HeartInput;
@@ -23,6 +26,7 @@ import com.zwdbj.server.utility.model.ResponseCoin;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,86 +55,103 @@ public class CommentService {
     @Autowired
     RedisTemplate redisTemplate;
 
-    public List<CommentInfoDto> list(long resId) {
-        List<CommentInfoDto> commentList = this.commentMapper.list(resId,JWTUtil.getCurrentId());
-        if (commentList!=null)
+    public List<CommentInfoDto> list(long resId, int pageNo) {
+        List<CommentInfoDto> commentList = null;
+        HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
+        String str = hashOperations.get("videoComments" + resId, String.valueOf(pageNo));
+        if (str != null) {
+            commentList = JSON.parseObject(str, new TypeReference<List<CommentInfoDto>>() {
+            });
+            System.out.println("缓存获取评论");
+            return commentList;
+        }
+        System.out.println("数据库获取评论");
+        commentList = this.commentMapper.list(resId, JWTUtil.getCurrentId());
+        if (commentList != null)
+            hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
         setCommentDtoExtro(commentList);
         return commentList;
     }
 
     public List<CommentInfoDto> myAllComments(long userId) {
-        List<CommentInfoDto> commentList = this.commentMapper.myAllComments(userId,JWTUtil.getCurrentId());
-        if (commentList!=null)
-        setCommentDtoExtro(commentList);
+        List<CommentInfoDto> commentList = this.commentMapper.myAllComments(userId, JWTUtil.getCurrentId());
+        if (commentList != null)
+            setCommentDtoExtro(commentList);
         return commentList;
     }
 
     public CommentInfoDto getCommentDto(long id) {
-        CommentInfoDto dto = this.commentMapper.getCommentDto(id,JWTUtil.getCurrentId());
-        if (dto!=null)
-        setCommentDtoExtro(dto);
+        CommentInfoDto dto = this.commentMapper.getCommentDto(id, JWTUtil.getCurrentId());
+        if (dto != null)
+            setCommentDtoExtro(dto);
         return dto;
     }
 
     @Transactional
     public ServiceStatusInfo<Object> heart(HeartInput input) {
         long userId = JWTUtil.getCurrentId();
-        if (userId <=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
-        HeartModel heartModel = this.heartService.findHeart(userId,input.getId());
-        if (heartModel !=null && input.isHeart()) {
-            return new ServiceStatusInfo<>(1,"已经点赞过",null);
+        if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null);
+        HeartModel heartModel = this.heartService.findHeart(userId, input.getId());
+        if (heartModel != null && input.isHeart()) {
+            return new ServiceStatusInfo<>(1, "已经点赞过", null);
         }
-        if (heartModel ==null && !input.isHeart())
-        {
-            return new ServiceStatusInfo<>(0,"取消成功",null);
+        if (heartModel == null && !input.isHeart()) {
+            return new ServiceStatusInfo<>(0, "取消成功", null);
         }
         if (input.isHeart()) {
             long id = UniqueIDCreater.generateID();
-            ServiceStatusInfo<Long> isFirst = this.heartService.heart(id,userId,input.getId(),1);
-            this.commentMapper.addHeart(input.getId(),1);
-            if (isFirst.getCoins()!=null)return new ServiceStatusInfo<>(0,"点赞成功",null,isFirst.getCoins());
-            return new ServiceStatusInfo<>(0,"点赞成功",null);
+            ServiceStatusInfo<Long> isFirst = this.heartService.heart(id, userId, input.getId(), 1);
+            this.commentMapper.addHeart(input.getId(), 1);
+            if (isFirst.getCoins() != null) return new ServiceStatusInfo<>(0, "点赞成功", null, isFirst.getCoins());
+            return new ServiceStatusInfo<>(0, "点赞成功", null);
         } else {
-            this.heartService.unHeart(userId,input.getId());
-            this.commentMapper.addHeart(input.getId(),-1);
-            return new ServiceStatusInfo<>(0,"取消成功",null);
+            this.heartService.unHeart(userId, input.getId());
+            this.commentMapper.addHeart(input.getId(), -1);
+            return new ServiceStatusInfo<>(0, "取消成功", null);
         }
     }
+
     @Transactional
     public ServiceStatusInfo<EntityKeyModel<Long>> delete(EntityKeyModel<Long> keyDto) {
         long id = this.commentMapper.delete(keyDto.getId());
-        if (id>0) {
+        if (id > 0) {
             //TODO 注意区分类型
-            this.videoService.updateField("commentCount=commentCount-1",keyDto.getId());
-            return new ServiceStatusInfo<>(0,"删除成功",keyDto);
+            this.videoService.updateField("commentCount=commentCount-1", keyDto.getId());
+            return new ServiceStatusInfo<>(0, "删除成功", keyDto);
         } else {
-            return new ServiceStatusInfo<>(1,"删除失败",keyDto);
+            return new ServiceStatusInfo<>(1, "删除失败", keyDto);
         }
     }
 
     @Transactional
     public ServiceStatusInfo<Object> add(AddCommentInput input) {
-        AddCommentModel addCommentModel = new ModelMapper().map(input,AddCommentModel.class);
+        AddCommentModel addCommentModel = new ModelMapper().map(input, AddCommentModel.class);
         long userId = JWTUtil.getCurrentId();
-        if (userId <=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
+        if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null);
 
         addCommentModel.setId(UniqueIDCreater.generateID());
         addCommentModel.setUserId(userId);
         long resultLine = this.commentMapper.add(addCommentModel);
-        if (resultLine>0) {
+        if (resultLine > 0) {
+
+            if (redisTemplate.hasKey("videoComments" + input.getResId())) {
+                redisTemplate.delete("videoComments" + input.getResId());
+                System.out.println("删除评论缓存");
+            }
+
             //TODO 注意区分类型
-            this.videoService.updateField("commentCount=commentCount+1",input.getResId());
+            this.videoService.updateField("commentCount=commentCount+1", input.getResId());
             VideoDetailInfoDto detailInfoDto = this.videoService.video(input.getResId());
-            if (detailInfoDto!=null) {
+            if (detailInfoDto != null) {
                 MessageInput msgInput = new MessageInput();
                 msgInput.setCreatorUserId(userId);
                 msgInput.setMessageType(3);
-                msgInput.setDataContent("{\"resId\":\""+input.getResId()+"\",\"type\":\"0\"}");
-                this.messageCenterService.push(msgInput,detailInfoDto.getUserId());
+                msgInput.setDataContent("{\"resId\":\"" + input.getResId() + "\",\"type\":\"0\"}");
+                this.messageCenterService.push(msgInput, detailInfoDto.getUserId());
             }
             this.videoService.videoWegiht(input.getResId());
             //每日任务金币
-            boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicComment:"+userId);
+            boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicComment:" + userId);
             ResponseCoin coins = new ResponseCoin();
             if (!keyExist) {
                 LocalTime midnight = LocalTime.MIDNIGHT;
@@ -138,7 +159,7 @@ public class CommentService {
                 LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
                 LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
                 long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
-                this.redisTemplate.opsForValue().set("user_everydayTask_isFirstPublicComment:" + userId, userId+":hasFirstPublicComment", s, TimeUnit.SECONDS);
+                this.redisTemplate.opsForValue().set("user_everydayTask_isFirstPublicComment:" + userId, userId + ":hasFirstPublicComment", s, TimeUnit.SECONDS);
                 this.userAssetServiceImpl.userIsExist(userId);
                 UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
                 userCoinDetailAddInput.setStatus("SUCCESS");
@@ -149,19 +170,19 @@ public class CommentService {
                 coins.setCoins(2);
                 coins.setMessage("每天首次评论获得小饼干2个");
             }
-            if (!keyExist) return new ServiceStatusInfo<>(0,"发布成功",null,coins);
-            return new ServiceStatusInfo<>(0,"发布成功",null);
+            if (!keyExist) return new ServiceStatusInfo<>(0, "发布成功", null, coins);
+            return new ServiceStatusInfo<>(0, "发布成功", null);
         } else {
-            return new ServiceStatusInfo<>(1,"发布失败",null);
+            return new ServiceStatusInfo<>(1, "发布失败", null);
         }
     }
 
     private void setCommentDtoExtro(CommentInfoDto dto) {
         //TODO 优化性能,防止循环引用
-        if (dto==null) return;
-        if (dto.getRefCommentId()>0) {
-            CommentInfoDto refCmt = this.commentMapper.getCommentDto(dto.getRefCommentId(),JWTUtil.getCurrentId());
-            if (refCmt!=null) {
+        if (dto == null) return;
+        if (dto.getRefCommentId() > 0) {
+            CommentInfoDto refCmt = this.commentMapper.getCommentDto(dto.getRefCommentId(), JWTUtil.getCurrentId());
+            if (refCmt != null) {
                 dto.setRefComment(refCmt);
             }
         }
@@ -169,32 +190,32 @@ public class CommentService {
 
     private void setCommentDtoExtro(List<CommentInfoDto> dtos) {
         //TODO 优化性能,防止循环引用
-        if (dtos==null) return;
-        for (CommentInfoDto dto:dtos) {
+        if (dtos == null) return;
+        for (CommentInfoDto dto : dtos) {
             setCommentDtoExtro(dto);
         }
     }
 
-    public Long deleteVideoComments(Long id){
+    public Long deleteVideoComments(Long id) {
         return this.commentMapper.deleteVideoComments(id);
     }
 
     /**
      * 查看是否为当天首次评论
      */
-    public boolean isFirstPublicComment(long userId){
+    public boolean isFirstPublicComment(long userId) {
 
-        String key = "user_everydayTask_isFirstPublicComment:"+userId;
+        String key = "user_everydayTask_isFirstPublicComment:" + userId;
         ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
-        Lock lock = new Lock(consulClient, "mobileapi",  key);
+        Lock lock = new Lock(consulClient, "mobileapi", key);
         try {
-            if (lock.lock(true, 500L, 1)){
+            if (lock.lock(true, 500L, 1)) {
                 int result = this.commentMapper.isFirstPublicComment(userId);
-                return result==0;
+                return result == 0;
             }
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             lock.unlock();
         }
         return false;

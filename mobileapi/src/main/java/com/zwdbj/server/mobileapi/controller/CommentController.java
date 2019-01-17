@@ -28,83 +28,83 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @RequestMapping(value = "/list/{resId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/list/{resId}", method = RequestMethod.GET)
     @ApiOperation(value = "获取资源(视频)的评论")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "path",name = "resId",value = "资源的Id")
+            @ApiImplicitParam(paramType = "path", name = "resId", value = "资源的Id")
     })
-    public ResponsePageInfoData<List<CommentInfoDto>> list(@PathVariable long resId, @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                           @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
+    public ResponsePageInfoData<List<CommentInfoDto>> list(@PathVariable long resId, @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                           @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         Page<CommentInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
-        List<CommentInfoDto> comments = commentService.list(resId);
+        List<CommentInfoDto> comments = commentService.list(resId, pageNo);
         //过滤违规评论
-        for (CommentInfoDto dto:comments) {
-            if (dto.getReviewStatus()!=null&&(dto.getReviewStatus().equals("reviewing") || dto.getReviewStatus().equals("review"))&&dto.getUserId()!=JWTUtil.getCurrentId()) {
+        for (CommentInfoDto dto : comments) {
+            if (dto.getReviewStatus() != null && (dto.getReviewStatus().equals("reviewing") || dto.getReviewStatus().equals("review")) && dto.getUserId() != JWTUtil.getCurrentId()) {
                 dto.setContentTxt("评论审核中...");
             }
         }
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",comments,pageInfo.getTotal());
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", comments, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "获取某个评论详情")
     public ResponseData<CommentInfoDto> list(@PathVariable long id) {
         CommentInfoDto dto = this.commentService.getCommentDto(id);
-        if (dto==null) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NOT_FOUND,"评论不存在",null);
+        if (dto == null) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NOT_FOUND, "评论不存在", null);
         }
         if (!dto.getReviewStatus().equals("pass")) {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"评论存在违规，不可显示",null);
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR, "评论存在违规，不可显示", null);
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dto);
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", dto);
     }
 
     @RequiresAuthentication
-    @RequestMapping(value = "/myAllComments",method = RequestMethod.GET)
+    @RequestMapping(value = "/myAllComments", method = RequestMethod.GET)
     @ApiOperation(value = "获取我的所有评论")
-    public ResponsePageInfoData<List<CommentInfoDto>> myAllComments(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
-                                                           @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
+    public ResponsePageInfoData<List<CommentInfoDto>> myAllComments(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                                    @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         Page<CommentInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
         List<CommentInfoDto> comments = commentService.myAllComments(JWTUtil.getCurrentId());
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",comments,pageInfo.getTotal());
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", comments, pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/heart",method = RequestMethod.POST)
+    @RequestMapping(value = "/heart", method = RequestMethod.POST)
     @ApiOperation(value = "评论点赞")
     @RequiresAuthentication
     public ResponseData<Object> heart(@RequestBody HeartInput input) {
         ServiceStatusInfo<Object> statusInfo = this.commentService.heart(input);
         if (statusInfo.isSuccess()) {
-            if (statusInfo.getCoins()!=null)
-                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null,statusInfo.getCoins());
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
+            if (statusInfo.getCoins() != null)
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), null, statusInfo.getCoins());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), null);
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ApiOperation(value = "删除评论")
     @RequiresAuthentication
     public ResponseData<EntityKeyModel<Long>> delete(@RequestBody EntityKeyModel<Long> input) {
         ServiceStatusInfo<EntityKeyModel<Long>> statusInfo = this.commentService.delete(input);
         if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),input);
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), input);
         } else {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),input);
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), input);
         }
     }
 
-    @RequestMapping(value = "/publish",method = RequestMethod.POST)
+    @RequestMapping(value = "/publish", method = RequestMethod.POST)
     @ApiOperation(value = "发布评论")
     @RequiresAuthentication
     public ResponseData<Object> publish(@RequestBody AddCommentInput input) {
         ServiceStatusInfo<Object> statusInfo = this.commentService.add(input);
         if (statusInfo.isSuccess()) {
-            if (statusInfo.getCoins()!=null)
-                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null,statusInfo.getCoins());
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),null);
+            if (statusInfo.getCoins() != null)
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), null, statusInfo.getCoins());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), null);
         } else {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
         }
     }
 }
