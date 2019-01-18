@@ -8,7 +8,7 @@ public class Recommend {
     @ApiModelProperty(value = "用户id")
     long userId;
     @ApiModelProperty(value = "用户名")
-    String userName;
+    String nickName;
     @ApiModelProperty(value = "用户头像url")
     String avatarUrl;
 
@@ -20,12 +20,12 @@ public class Recommend {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getAvatarUrl() {
