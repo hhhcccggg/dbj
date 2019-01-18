@@ -22,7 +22,7 @@ public interface RankingListMapper {
     @Select("SELECT u.id as userId,u.nickName,u.avatarUrl,ua.totalCoins ,(SELECT COUNT(*) FROM core_userAssets WHERE totalCoins>=ua.totalCoins and " +
             "userId in (SELECT followerUserId FROM core_followers WHERE userId=#{userId})) as rank " +
             "from core_userAssets as ua,core_users as u  WHERE ua.userId=u.id and u.id in(SELECT followerUserId FROM core_followers WHERE userId=#{userId}) " +
-            "ORDER BY IF(ua.totalCoins=0,u.createTime,ua.totalCoins) DESC")
+            "ORDER BY  ua.totalCoins DESC,u.createTime")
     List<RankingListInfo> searchFriendRank(@Param("userId") long userId);
 
     @Select("select u.id as userId,u.nickName,u.avatarUrl from core_users as u where u.id not in (SELECT followerUserId FROM core_followers WHERE userId=#{userId}) order by createTime DESC LIMIT 0,20")
