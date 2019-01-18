@@ -7,8 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class RankingListInfo {
     @ApiModelProperty(value = "用户id")
     long userId;
-    @ApiModelProperty(value = "用户名")
-    String userName;
+    @ApiModelProperty(value = "昵称")
+    String nickName;
     @ApiModelProperty(value = "用户头像url")
     String avatarUrl;
     @ApiModelProperty(value = "累计获得的金币数")
@@ -32,12 +32,12 @@ public class RankingListInfo {
         this.rank = rank;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getAvatarUrl() {
