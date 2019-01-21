@@ -11,7 +11,7 @@ import java.util.List;
 public interface ITaskMapper {
 
     @Select("select t.*,ut.userId as userId,ut.state as state from core_tasks t " +
-            "left join core_userTasks ut on ut.taskId=u.id " +
+            "left join core_userTasks ut on ut.taskId=t.id " +
             "where t.type=#{type} and ut.userId=#{userId}")
     List<TaskModel>  getUserTasks(@Param("userId")long userId,@Param("type")String type);
 }
