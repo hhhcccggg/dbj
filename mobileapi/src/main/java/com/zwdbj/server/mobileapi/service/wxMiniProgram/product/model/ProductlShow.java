@@ -2,10 +2,12 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
 
-@ApiModel(description = "商品")
-public class ProductOut {
+import java.util.List;
+
+@ApiModel(description = "单个商品展示")
+public class ProductlShow {
+
     @ApiModelProperty(value = "id")
     Long id;
 
@@ -18,20 +20,11 @@ public class ProductOut {
     @ApiModelProperty(value = "商品名称")
     String name;
 
-    @ApiModelProperty(value = "卖家编号")
-    long storeId;
-
     @ApiModelProperty(value = "库存")
     long inventory;
 
     @ApiModelProperty(value = "销量")
     long sales;
-
-    @ApiModelProperty(value = "是否上架")
-    boolean isPublish;
-
-    @ApiModelProperty(value = "上架时间")
-    long specifyPublishTime;
 
     @ApiModelProperty(value = "商品详情")
     String detailDescription;
@@ -48,21 +41,6 @@ public class ProductOut {
     @ApiModelProperty(value = "节假日是否可用")
     boolean festivalCanUse;
 
-    @ApiModelProperty(value = "PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
-    int specHoursValid;
-
-    @ApiModelProperty(value = "生效后多少天内有效")
-    int validDays;
-
-    @ApiModelProperty(value = "生效后指定时间范围内生效")
-    Date validStartTime;
-
-    @ApiModelProperty(value = "生效后指定时间范围内生效")
-    Date validEndTime;
-
-    @ApiModelProperty(value = "生效类型")
-    String validType;
-
     @ApiModelProperty(value = "支持金币兑换购买")
     boolean supportCoin;
 
@@ -75,24 +53,8 @@ public class ProductOut {
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
 
-    @ApiModelProperty(value = "是否兑换过")
-    int exchange;
-
-    public int getExchange() {
-        return exchange;
-    }
-
-    public void setExchange(int exchange) {
-        this.exchange = exchange;
-    }
-
-    public long getSales() {
-        return sales;
-    }
-
-    public void setSales(long sales) {
-        this.sales = sales;
-    }
+    @ApiModelProperty(value = "已经兑换的头像列表")
+    List<String> exchangeList;
 
     public Long getId() {
         return id;
@@ -126,14 +88,6 @@ public class ProductOut {
         this.name = name;
     }
 
-    public long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(long storeId) {
-        this.storeId = storeId;
-    }
-
     public long getInventory() {
         return inventory;
     }
@@ -142,20 +96,12 @@ public class ProductOut {
         this.inventory = inventory;
     }
 
-    public boolean isPublish() {
-        return isPublish;
+    public long getSales() {
+        return sales;
     }
 
-    public void setPublish(boolean publish) {
-        isPublish = publish;
-    }
-
-    public long getSpecifyPublishTime() {
-        return specifyPublishTime;
-    }
-
-    public void setSpecifyPublishTime(long specifyPublishTime) {
-        this.specifyPublishTime = specifyPublishTime;
+    public void setSales(long sales) {
+        this.sales = sales;
     }
 
     public String getDetailDescription() {
@@ -198,46 +144,6 @@ public class ProductOut {
         this.festivalCanUse = festivalCanUse;
     }
 
-    public int getSpecHoursValid() {
-        return specHoursValid;
-    }
-
-    public void setSpecHoursValid(int specHoursValid) {
-        this.specHoursValid = specHoursValid;
-    }
-
-    public int getValidDays() {
-        return validDays;
-    }
-
-    public void setValidDays(int validDays) {
-        this.validDays = validDays;
-    }
-
-    public Date getValidStartTime() {
-        return validStartTime;
-    }
-
-    public void setValidStartTime(Date validStartTime) {
-        this.validStartTime = validStartTime;
-    }
-
-    public Date getValidEndTime() {
-        return validEndTime;
-    }
-
-    public void setValidEndTime(Date validEndTime) {
-        this.validEndTime = validEndTime;
-    }
-
-    public String getValidType() {
-        return validType;
-    }
-
-    public void setValidType(String validType) {
-        this.validType = validType;
-    }
-
     public boolean isSupportCoin() {
         return supportCoin;
     }
@@ -268,5 +174,13 @@ public class ProductOut {
 
     public void setImageUrls(String imageUrls) {
         this.imageUrls = imageUrls;
+    }
+
+    public List<String> getExchangeList() {
+        return exchangeList;
+    }
+
+    public void setExchangeList(List<String> exchangeList) {
+        this.exchangeList = exchangeList;
     }
 }

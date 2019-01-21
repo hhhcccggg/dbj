@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.OrderOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service.ProductOrderService;
@@ -48,8 +49,8 @@ public class ProductController {
 
     @GetMapping(value = "find/{storeId}/{id}")
     @ApiOperation(value = "查看单个商品")
-    public ResponseData<Map<String,Object>> findById(@PathVariable long id,@PathVariable long storeId){
-        ServiceStatusInfo<Map<String,Object>> serviceStatusInfo = this.productServiceImpl.selectByIdByStoreId(id,storeId);
+    public ResponseData<ProductlShow> findById(@PathVariable long id,@PathVariable long storeId){
+        ServiceStatusInfo<ProductlShow> serviceStatusInfo = this.productServiceImpl.selectByIdByStoreId(id,storeId);
         if(serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);

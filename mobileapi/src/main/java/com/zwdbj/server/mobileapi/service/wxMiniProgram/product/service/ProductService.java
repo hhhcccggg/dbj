@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface ProductService {
      * @param id
      * @return
      */
-    ServiceStatusInfo<Map<String,Object>> selectByIdByStoreId(long id,long storeId);
+    ServiceStatusInfo<ProductlShow> selectByIdByStoreId(long id, long storeId);
 
     /**
      * 查询单个商品
