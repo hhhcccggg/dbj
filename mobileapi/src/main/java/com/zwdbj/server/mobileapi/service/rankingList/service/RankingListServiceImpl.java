@@ -33,36 +33,38 @@ public class RankingListServiceImpl implements RankingListService {
         ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
         ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
         Lock lock = new Lock(consulClient, "mobileapi", "totalRank");
-        while (true) {
-            try {
-                long userId = JWTUtil.getCurrentId();
-                if (userId == 0L) {
-                    return new ServiceStatusInfo<>(1, "请重新登录", null);
-                }
-                if (!"".equals(valueOperations.get("totalRank")) && valueOperations.get("totalRank") != null) {
-                    String str = valueOperations.get("totalRank");
-                    result = JSON.parseObject(str, new TypeReference<List<RankingListInfo>>() {
-                    });
-                    System.out.println("从缓存获取总榜信息");
-                    return new ServiceStatusInfo<>(0, "", result);
-                }
 
-                if (lock.lock(true, 500L, 1)) {
-                    result = this.rankingListMapper.searchTotalRank();
-                    result.add(this.rankingListMapper.searchByUser(userId));
-                    valueOperations.set("totalRank", JSONArray.toJSONString(result));
-                    stringRedisTemplate.expire("totalRank", 30, TimeUnit.MINUTES);
-                    System.out.println("从数据库中获取总榜信息");
-                    return new ServiceStatusInfo<>(0, "", result);
-                }
-                System.out.println("未获得锁");
-
-            } catch (Exception e) {
-                return new ServiceStatusInfo<>(1, "查询总榜失败" + e.getMessage(), null);
-            } finally {
-                lock.unlock();
+        try {
+            long userId = JWTUtil.getCurrentId();
+            if (userId == 0L) {
+                return new ServiceStatusInfo<>(1, "请重新登录", null);
             }
+            if (!"".equals(valueOperations.get("totalRank")) && valueOperations.get("totalRank") != null) {
+                System.out.println("从缓存获取总榜信息");
+                String str = valueOperations.get("totalRank");
+                result = JSON.parseObject(str, new TypeReference<List<RankingListInfo>>() {
+                });
+
+                return new ServiceStatusInfo<>(0, "", result);
+            }
+
+            if (lock.lock(true, 500L, 10)) {
+                System.out.println("从数据库中获取总榜信息");
+                result = this.rankingListMapper.searchTotalRank();
+                result.add(this.rankingListMapper.searchByUser(userId));
+                valueOperations.set("totalRank", JSONArray.toJSONString(result));
+                stringRedisTemplate.expire("totalRank", 30, TimeUnit.MINUTES);
+
+                return new ServiceStatusInfo<>(0, "", result);
+            }
+            return new ServiceStatusInfo<>(1, "查询总榜失败", null);
+
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询总榜失败" + e.getMessage(), null);
+        } finally {
+            lock.unlock();
         }
+
     }
 
     @Override
