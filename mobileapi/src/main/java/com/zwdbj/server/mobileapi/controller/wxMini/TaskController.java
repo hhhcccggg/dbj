@@ -25,7 +25,7 @@ public class TaskController {
     private TaskService taskService;
     @RequiresAuthentication
     @RequestMapping(value = "/select/{type}", method = RequestMethod.GET)
-    @ApiOperation(value = "用户任务,type为任务的类型")
+    @ApiOperation(value = "用户任务,type为任务的类型:  NEWUSER:新手任务,DAILY:日常任务,INVITATION:邀请任务")
     public ResponsePageInfoData<List<TaskModel>> getUserTasks(@PathVariable String type,
                                                               @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
                                                               @RequestParam(value = "rows", defaultValue = "13", required = true) int rows){
