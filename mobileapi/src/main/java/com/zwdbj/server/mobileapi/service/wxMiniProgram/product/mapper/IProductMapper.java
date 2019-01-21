@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -26,14 +27,20 @@ public interface IProductMapper {
             "productType," +
             "productDetailType," +
             "`name`," +
+            "inventory," +
+            "sales,"+
+            "detailDescription," +
+            "limitPerPerson,"+
+            "originalPrice," +
+            "promotionPrice," +
+            "festivalCanUse,"+
+            "supportCoin," +
             "categoryId," +
             "brandId," +
-            "inventory," +
-            "imageUrls," +
-            "limitPerPerson " +
+            "imageUrls " +
             "from shop_products " +
             "where publish=1 and isDeleted=0 and storeId=#{storeId} and id=#{id}")
-    ProductOut selectByIdByStoreId(@Param("id") long id,@Param("storeId") long storeId);
+    ProductlShow selectByIdByStoreId(@Param("id") long id, @Param("storeId") long storeId);
 
     /**
      * 根据id查询数据

@@ -4,15 +4,14 @@ import com.zwdbj.server.mobileapi.service.user.mapper.IUserMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper.IProductMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Service
@@ -43,17 +42,16 @@ public class ProductServiceImpl implements  ProductService{
     }
 
     @Override
-    public ServiceStatusInfo<Map<String,Object>> selectByIdByStoreId(long id,long storeId) {
+    public ServiceStatusInfo<ProductlShow> selectByIdByStoreId(long id, long storeId) {
         try{
-            Map<String,Object> map = new HashMap<>();
-            map.put("product",this.iProductMapper.selectByIdByStoreId(id,storeId));
+            ProductlShow productlShow = this.iProductMapper.selectByIdByStoreId(id,storeId);
             List<Long> userIds = iProductOrderMapper.selectByOrder(id);
             List<String> exchangeList =  null;
             if(userIds.size()>0){
                 exchangeList = iUserMapper.selectUserAvatarUrl(userIds);
             }
-            map.put("exchangeList", exchangeList);
-            return new ServiceStatusInfo<>(0,"",map);
+            productlShow.setExchangeList(exchangeList);
+            return new ServiceStatusInfo<>(0,"",productlShow);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
         }
@@ -73,8 +71,7 @@ public class ProductServiceImpl implements  ProductService{
     @Override
     public ServiceStatusInfo<Integer> updateProductNum(long productId, long productSkuId, int num) {
         try {
-            int result =0;
-            result = this.iProductMapper.updateProductSkuNum(productSkuId, num);
+            int result = this.iProductMapper.updateProductSkuNum(productSkuId, num);
             if (result==0)return new ServiceStatusInfo<>(1,"商品数量更新失败",0);
             result = this.iProductMapper.updateProductNum(productId, num);
             if (result==0)return new ServiceStatusInfo<>(1,"商品数量更新失败",0);
