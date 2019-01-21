@@ -244,6 +244,7 @@ public class YouZanService {
 
         youzanUmpPromocardBuyerSearchParams.setStatus("VALID");
         youzanUmpPromocardBuyerSearchParams.setFansId(userId);
+        youzanUmpPromocardBuyerSearchParams.setFansType(1L);
 //        youzanUmpPromocardBuyerSearchParams.setOpenUserId(String.valueOf(userId));
 
         YouzanUmpPromocardBuyerSearch youzanUmpPromocardBuyerSearch = new YouzanUmpPromocardBuyerSearch();
