@@ -29,7 +29,7 @@ public interface ITaskMapper {
             "values(#{id},#{model.id},#{userId},#{model.coins},#{state},#{model.desc})")
     int addNewTaskById(@Param("id")long id,@Param("userId")long userId,@Param("state")String state,@Param("model")TaskModel taskModel);
 
-    @Select("select ui.*,u.nickName as nickName," +
+    @Select("select ui.*,u.nickName as nickName,u.avatarUrl as avatarUrl," +
             "(select coins from core_userTasks ut where ut.userId=#{initiatorUserId} and state='DONE' and taskId='INVITENEWUSER' order by ut.id limit 0,1) as coins " +
             "from core_userInvitations ui " +
             "left join core_users u on u.id=ui.receivedUserId " +
