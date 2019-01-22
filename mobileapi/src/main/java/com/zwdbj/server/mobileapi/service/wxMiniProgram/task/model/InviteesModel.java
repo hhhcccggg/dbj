@@ -11,8 +11,18 @@ public class InviteesModel {
     private long receivedUserId;
     @ApiModelProperty(value = "被邀请的人的昵称")
     private String nickName;
+    @ApiModelProperty(value = "被邀请的人头像URL")
+    private String avatarUrl;
     @ApiModelProperty(value = "邀请人获得的奖励")
     private int coins;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     public long getInitiatorUserId() {
         return initiatorUserId;
