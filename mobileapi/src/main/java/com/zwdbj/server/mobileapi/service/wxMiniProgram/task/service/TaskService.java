@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.task.service;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.mapper.ITaskMapper;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.InviteesModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.TaskModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.UserTaskModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -16,7 +17,13 @@ public class TaskService {
     private ITaskMapper taskMapper;
 
     public List<UserTaskModel> getUserTasks(long userId, String type){
-        List<UserTaskModel> userTaskModels = this.taskMapper.getUserTasks(userId,type);
+        List<UserTaskModel> userTaskModels =null;
+        if("DAILY".equals(type)){
+            userTaskModels = this.taskMapper.getUserTasks1(userId,type);
+        }else if ("NEWUSER".equals(type)){
+            userTaskModels = this.taskMapper.getUserTasks(userId,type);
+        }
+
         return userTaskModels;
     }
 
@@ -40,5 +47,10 @@ public class TaskService {
         long id = UniqueIDCreater.generateID();
         int result = this.taskMapper.addNewTaskById(id,userId,state,taskModel);
         return result;
+    }
+
+    public List<InviteesModel> findMyInvitees(long userId){
+        List<InviteesModel> inviteesModels = this.taskMapper.findMyInvitees(userId);
+        return inviteesModels;
     }
 }
