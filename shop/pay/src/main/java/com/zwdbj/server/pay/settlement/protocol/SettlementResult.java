@@ -1,4 +1,4 @@
-package com.zwdbj.server.pay.settlement;
+package com.zwdbj.server.pay.settlement.protocol;
 
 import java.io.Serializable;
 
@@ -27,7 +27,8 @@ public class SettlementResult implements Serializable {
      */
     private int usedCoins;
     /**
-     * 订单使用的优惠款
+     * 订单使用的优惠券
+     * 如果等于0， 则表示没有优惠券，或者提供的优惠券不符合规范
      */
     private long couponId;
 
