@@ -20,7 +20,7 @@ public interface ITaskMapper {
     @Select("select * from core_tasks where id=#{id} and isDeleted=0")
     TaskModel getTaskById(@Param("id")String id);
 
-    @Insert("insert into core_userTasks(id,taskId,userId,coins,state,desc) " +
+    @Insert("insert into core_userTasks(id,taskId,userId,coins,state,`desc`) " +
             "values(#{id},#{model.id},#{userId},#{model.coins},#{state},#{model.desc})")
     int addNewTaskById(@Param("id")long id,@Param("userId")long userId,@Param("state")String state,@Param("model")TaskModel taskModel);
 }
