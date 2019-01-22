@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.controller.wxMini;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.InviteesModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.UserTaskModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.service.TaskService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -41,5 +42,14 @@ public class TaskController {
                                             @PathVariable String type){
         ServiceStatusInfo<Integer> result = this.taskService.doUserTask(id,type);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "",result.getData());
+    }
+    @RequiresAuthentication
+    @RequestMapping(value = "/get/invitees", method = RequestMethod.GET)
+    @ApiOperation(value = "得到我所邀请的人")
+    public ResponsePageInfoData<List<InviteesModel>> findMyInvitees(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                   @RequestParam(value = "rows", defaultValue = "13", required = true)int rows){
+        Page<InviteesModel> pageInfo = PageHelper.startPage(pageNo, rows);
+        List<InviteesModel> InviteesModels = this.taskService.findMyInvitees(JWTUtil.getCurrentId());
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", InviteesModels, pageInfo.getTotal());
     }
 }
