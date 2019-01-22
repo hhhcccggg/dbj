@@ -198,7 +198,7 @@ public class VideoService {
             userCoinDetailAddInput.setNum(5);
             userCoinDetailAddInput.setTitle("每天首次发布视频获得小饼干"+5+"个");
             userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",5);
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",5,"EVERYDAYFIRSTPUBLICVIDEO","DONE");
         }
         UserModel userModel = this.userService.findUserById(userId);
         // 审核信息加入到消息队列
@@ -647,7 +647,7 @@ public class VideoService {
                     userCoinDetailAddInput.setNum(5);
                     userCoinDetailAddInput.setTitle("每日首次打赏获得小饼干" + 5 + "个");
                     userCoinDetailAddInput.setType("TASK");
-                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput, userId, "TASK", 5);
+                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput, userId, "TASK", 5,"EVERYDAYFIRSTTIP","DONE");
                 }
 
                 if (task >= coins) {

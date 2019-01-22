@@ -37,7 +37,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
                 userCoinDetailAddInput.setNum(25);
                 userCoinDetailAddInput.setTitle("邀请新用户获得小饼干"+25+"个");
                 userCoinDetailAddInput.setType("TASK");
-                this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,initiatorUserId,"TASK",25);
+                this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,initiatorUserId,"TASK",25,"INVITENEWUSER","DONE");
                 return new ServiceStatusInfo<>(0,"",result);
             }
             return new ServiceStatusInfo<>(1,"新增失败，影响行数"+result,null);

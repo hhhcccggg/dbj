@@ -392,7 +392,7 @@ public class UserService {
             userCoinDetailAddInput.setNum(10);
             userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
             userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,id,"TASK",10);
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,id,"TASK",10,"FIRSTREGUSER","DONE");
             return new UserModel(id, userName, input.getAvaterUrl(), "", "");
         } else {
             //TODO 刷新用户头像
@@ -462,7 +462,7 @@ public class UserService {
             userCoinDetailAddInput.setNum(10);
             userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
             userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10);
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10,"FIRSTREGUSER","DONE");
             return userModel;
         } catch (Exception ex) {
             return null;
@@ -733,7 +733,7 @@ public class UserService {
                     userCoinDetailAddInput.setNum(10);
                     userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
                     userCoinDetailAddInput.setType("TASK");
-                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,id,"TASK",10);
+                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,id,"TASK",10,"FIRSTREGUSER","DONE");
                     return new ServiceStatusInfo<>(0,"注册成功",result);
                 }else if (input.getType()==201){
                     UserModel userModel = this.findUserByPhone(input.getPhone());
