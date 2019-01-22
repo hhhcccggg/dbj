@@ -1,9 +1,6 @@
 package com.zwdbj.server.pay.settlement;
 
-import com.zwdbj.server.pay.settlement.protocol.Coupon;
-import com.zwdbj.server.pay.settlement.protocol.ISettlement;
-import com.zwdbj.server.pay.settlement.protocol.IUseCoins;
-import com.zwdbj.server.pay.settlement.protocol.IUseCoupon;
+import com.zwdbj.server.pay.settlement.protocol.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Settlement implements ISettlement {
@@ -21,6 +18,7 @@ public class Settlement implements ISettlement {
         SettlementResult result = new SettlementResult();
         result.setOrderId(orderId);
         result.setTotalAmount(amount);
+        result.setCouponId(0);
         this.useCoins = useCoins;
         this.useCoupon = useCoupon;
         int useCoinsAmount = 0;
