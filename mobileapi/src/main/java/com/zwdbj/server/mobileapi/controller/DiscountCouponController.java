@@ -7,12 +7,14 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.discountCoupon.service.D
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.SearchUserDiscountCoupon;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.service.UserDiscountCouponService;
+import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +59,26 @@ public class DiscountCouponController {
     @ApiOperation("查询指定优惠券")
     public ResponseData<DiscountCouponModel> selectById(@PathVariable long id){
         ServiceStatusInfo<DiscountCouponModel> serviceStatusInfo = discountCouponServiceImpl.selectDiscountCoupon(id);
+        if(serviceStatusInfo.isSuccess())
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+    }
+
+    @GetMapping("getVaildCoupon")
+    @ApiOperation("查询订单可用优惠券")
+    public ResponseData<List<Coupon>> getVaildCoupon(@ApiParam(value = "店铺ID") long storeId,@ApiParam(value = "商家ID")long legalSubjectId,
+                                                                    @ApiParam(value = "订单价格") long price){
+        ServiceStatusInfo<List<Coupon>> serviceStatusInfo = userDiscountCouponServiceImpl.getVaildCoupon(storeId,legalSubjectId,price);
+        if(serviceStatusInfo.isSuccess())
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+    }
+
+    @GetMapping("getVaildCouponById/{id}")
+    @ApiOperation("查询订单可用优惠券")
+    public ResponseData<Coupon> getVaildCouponById(@ApiParam(value = "店铺ID") long storeId,@ApiParam(value = "商家ID")long legalSubjectId,
+                                                     @ApiParam(value = "订单价格") long price,@PathVariable long id){
+        ServiceStatusInfo<Coupon> serviceStatusInfo = userDiscountCouponServiceImpl.getVaildCouponById(storeId,legalSubjectId,price,id);
         if(serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);

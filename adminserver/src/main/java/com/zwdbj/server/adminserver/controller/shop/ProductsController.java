@@ -2,10 +2,7 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.UpdateProducts;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -96,8 +93,8 @@ public class ProductsController {
 
     @GetMapping(value = "/find/{id}")
     @ApiOperation(value = "查询单个商品")
-    public ResponseData<Map<String,Object>> findById(@PathVariable long id){
-        ServiceStatusInfo<Map<String,Object>> serviceStatusInfo = this.productServiceImpl.selectById(id);
+    public ResponseData<ProductsOut> findById(@PathVariable long id){
+        ServiceStatusInfo<ProductsOut> serviceStatusInfo = this.productServiceImpl.selectById(id);
         if(serviceStatusInfo.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
