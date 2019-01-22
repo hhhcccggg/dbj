@@ -771,4 +771,13 @@ public class VideoService {
         }
     }
 
+    public ServiceStatusInfo<Long> getPetsHeartCount(long petId) {
+        try {
+            Long count = videoMapper.getPetsHeartCount(petId);
+            return new ServiceStatusInfo<>(0, "", count);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
+        }
+    }
+
 }
