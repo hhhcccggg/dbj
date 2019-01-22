@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -10,11 +11,36 @@ import java.util.List;
 public interface IProductMapper {
 
     /**
-     * 查询小程序的兑换商城 目前默认storeId=1
+     * 查询小程序的兑换商城
      * @return
      */
     @SelectProvider(type = ProductSqlProvider.class,method = "seleteList")
-    List<ProductOut> selectWXXCXShopProduct(@Param("productInput") ProductInput productInput);
+    List<ProductOut> selectShopProduct(@Param("productInput") ProductInput productInput);
+
+    /**
+     * 根据id查询数据
+     * @param id
+     * @return
+     */
+    @Select("SELECT " +
+            "id," +
+            "productType," +
+            "productDetailType," +
+            "`name`," +
+            "inventory," +
+            "sales,"+
+            "detailDescription," +
+            "limitPerPerson,"+
+            "originalPrice," +
+            "promotionPrice," +
+            "festivalCanUse,"+
+            "supportCoin," +
+            "categoryId," +
+            "brandId," +
+            "imageUrls " +
+            "from shop_products " +
+            "where publish=1 and isDeleted=0 and storeId=#{storeId} and id=#{id}")
+    ProductlShow selectByIdByStoreId(@Param("id") long id, @Param("storeId") long storeId);
 
     /**
      * 根据id查询数据
@@ -32,8 +58,8 @@ public interface IProductMapper {
             "imageUrls," +
             "limitPerPerson " +
             "from shop_products " +
-            "where publish=1 and isDeleted=0 and storeId=1 and id=#{id}")
-    ProductOut selectWXXCXById(long id);
+            "where publish=1 and isDeleted=0  and id=#{id}")
+    ProductOut selectById(long id);
 
     @Update("update shop_productSKUs set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
     int updateProductSkuNum( @Param("id") long productSkuId, @Param("num") int num);

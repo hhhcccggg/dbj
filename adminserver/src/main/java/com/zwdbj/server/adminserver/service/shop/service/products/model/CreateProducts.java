@@ -8,17 +8,17 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@ApiModel(value = "新增或修改的商品对象")
+@ApiModel(value = "新增的商品对象")
 public class CreateProducts {
 
     @ApiModelProperty(value = "id")
     Long id;
 
-    @ApiModelProperty(value = "商品类型")
+    @ApiModelProperty(value = "商品类型O:实物产品1:虚拟商品")
     @NotNull(message = "商品类型不能为空")
     Long productType;
 
-    @ApiModelProperty(value = "产品详细类型")
+    @ApiModelProperty(value = "产品详细类型 DELIVERY: 实物产品 NODELIVERY:虚拟商品(不需要物流) CARD:卡券(服务中套餐) CASHCOUPON:代金券")
     @NotNull(message = "产品详细类型不能为空")
     String productDetailType;
 
@@ -69,7 +69,7 @@ public class CreateProducts {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date validEndTime;
 
-    @ApiModelProperty(value = "生效类型")
+    @ApiModelProperty(value = "生效类型 PAY_VALIDED:付款后立即生效 PAY_NEXTDAY_VALIDED:付款后次日生效 PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
     @NotNull(message = "生效类型不能为空")
     String validType;
 

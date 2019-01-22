@@ -8,6 +8,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobUser;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
@@ -344,7 +345,7 @@ public class UserService {
             Pattern r = Pattern.compile(regEx);
             Matcher m1 = r.matcher(phone);
             boolean rs1 = m1.matches();
-            if (rs1 == false ) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
+            if (!rs1  ) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
             String encodePassword = SHAEncrypt.encryptSHA(password);
             userModel = this.userMapper.findUserByPwd(phone, encodePassword);
             isLogined = userModel != null;
@@ -373,15 +374,25 @@ public class UserService {
     }
 
     @Transactional
-    public UserModel regUserByOpenId(BindThirdPartyAccountInput input) {
+    public UserModel regUserByOpenId(BindThirdPartyAccountInput input,Long recommendUserId) {
+        if (input.getOpenUserId()==null || input.getOpenUserId().length()==0)return null;
         String userName = UniqueIDCreater.generateUserName();
         UserThirdAccountBindDto userThirdAccountBindDto = this.userBindService.findUserByOpenId(input.getOpenUserId(), input.getThirdType());
         //UserModel userModel = this.userMapper.findUserByOpenId(input.getOpenUserId(),input.getThirdType());
         if (userThirdAccountBindDto == null) {
             //注册
             long id = UniqueIDCreater.generateID();
-            this.userMapper.regByOpenId(id, userName, input);
+            if (recommendUserId==null )recommendUserId=0L;
+            this.userMapper.regByOpenId(id, userName, input,recommendUserId);
             this.userBindService.add(input, id);
+            //首次注册添加金币
+            this.userAssetServiceImpl.userIsExist(id);
+            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+            userCoinDetailAddInput.setStatus("SUCCESS");
+            userCoinDetailAddInput.setNum(10);
+            userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
+            userCoinDetailAddInput.setType("TASK");
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,id,"TASK",10,"FIRSTREGUSER","DONE");
             return new UserModel(id, userName, input.getAvaterUrl(), "", "");
         } else {
             //TODO 刷新用户头像
@@ -439,14 +450,19 @@ public class UserService {
      * @return
      */
     @Transactional
-    public UserModel regUserByPhone(String phone) {
+    public UserModel regUserByPhone(String phone,Long recommendUserId) {
         long userId = UniqueIDCreater.generateID();
         try {
             String userName = UniqueIDCreater.generateUserName();
-            userMapper.regByPhone(phone, userId, userName);
+            userMapper.regByPhone(phone, userId, userName,recommendUserId);
             UserModel userModel = new UserModel(userId, userName, null, null, phone);
-            //初始化金币账户
             this.userAssetServiceImpl.userIsExist(userId);
+            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+            userCoinDetailAddInput.setStatus("SUCCESS");
+            userCoinDetailAddInput.setNum(10);
+            userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
+            userCoinDetailAddInput.setType("TASK");
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10,"FIRSTREGUSER","DONE");
             return userModel;
         } catch (Exception ex) {
             return null;
@@ -460,7 +476,7 @@ public class UserService {
      * @param code  手机验证码
      * @return
      */
-    public ServiceStatusInfo<UserModel> loginByPhone(String phone, String code) {
+    public ServiceStatusInfo<UserModel> loginByPhone(String phone, String code,Long recommendUserId) {
 
         ServiceStatusInfo<Object> statusInfo = checkPhoneCode(phone, code);
         if (!statusInfo.isSuccess()) {
@@ -469,7 +485,7 @@ public class UserService {
         UserModel userModel = findUserByPhone(phone);
         boolean isNeedReg = userModel == null;
         if (isNeedReg) {
-            UserModel regUserModel = regUserByPhone(phone);
+            UserModel regUserModel = regUserByPhone(phone,recommendUserId);
             if (regUserModel == null) return new ServiceStatusInfo<>(1, "登录失败", null);
             userModel = regUserModel;
         }
@@ -708,8 +724,16 @@ public class UserService {
                 if (input.getType()==100){
                     long id = UniqueIDCreater.generateID();
                     String userName = UniqueIDCreater.generateUserName();
-                    result = this.userMapper.regUser(id,userName,input.getPhone(),password);
+                    result = this.userMapper.regUser(id,userName,input.getPhone(),password,input.getRecommendUserId());
                     if (result==0)return new ServiceStatusInfo<>(1,"注册失败",0);
+                    //首次注册添加金币
+                    this.userAssetServiceImpl.userIsExist(id);
+                    UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+                    userCoinDetailAddInput.setStatus("SUCCESS");
+                    userCoinDetailAddInput.setNum(10);
+                    userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
+                    userCoinDetailAddInput.setType("TASK");
+                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,id,"TASK",10,"FIRSTREGUSER","DONE");
                     return new ServiceStatusInfo<>(0,"注册成功",result);
                 }else if (input.getType()==201){
                     UserModel userModel = this.findUserByPhone(input.getPhone());
@@ -757,6 +781,17 @@ public class UserService {
         }
     }
 
+    public  ServiceStatusInfo<Long> setRecommendUserId(long recommendUserId){
+        try{
+            long userId = JWTUtil.getCurrentId();
+            if (userId == 0) return new ServiceStatusInfo<>(1, "请重新登录", null);
+            long result = userMapper.updaterRecommendUserId(userId,recommendUserId);
+            if (result==0)return new ServiceStatusInfo<>(1,"修改失败",null);
+            return new ServiceStatusInfo<>(0,"修改成功",result);
+        }catch(Exception e){
+            return  new ServiceStatusInfo<>(1,"修改失败："+e.getMessage(),null);
+        }
+    }
 
 }
 

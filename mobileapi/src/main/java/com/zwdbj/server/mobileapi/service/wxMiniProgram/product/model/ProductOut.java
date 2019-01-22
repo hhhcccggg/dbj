@@ -36,7 +36,7 @@ public class ProductOut {
     @ApiModelProperty(value = "商品详情")
     String detailDescription;
 
-    @ApiModelProperty(value = "是否限购")
+    @ApiModelProperty(value = "是否限购 0：表示不限购 大于0数字表示没人只能买商品的数量")
     int limitPerPerson;
 
     @ApiModelProperty(value = "原价")
@@ -75,7 +75,7 @@ public class ProductOut {
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
 
-    @ApiModelProperty(value = "是否退换过")
+    @ApiModelProperty(value = "是否兑换过")
     int exchange;
 
     public int getExchange() {

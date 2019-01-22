@@ -10,8 +10,8 @@ public interface IUserAssetMapper {
     @Select("select coins from core_userAssets where userId=#{userId}")
     Long getCoinsByUserId(long userId);
 
-    @Update("update core_userAssets set coins=coins+#{coins} where userId=#{userId}")
-    int updateUserAsset(@Param("userId") long userId,@Param("coins") long coins);
+    @Update("update core_userAssets set coins=coins+#{coins},totalCoins=totalCoins+#{totalCoins} where userId=#{userId}")
+    int updateUserAsset(@Param("userId") long userId,@Param("coins") long coins,@Param("totalCoins")long totalCoins);
     @Insert("insert into core_userAssets(id,coins,remainBalance,userId) values(#{id},0,0,#{userId})")
     int greatUserAsset(@Param("id")long id,@Param("userId")long UserId);
     @Select("select count(id) from core_userAssets where userId=#{userId}")
@@ -89,6 +89,10 @@ public interface IUserAssetMapper {
 
     @Select("select * from core_basic_buyCoinConfigs where productId=#{productId} and type=#{type}")
     BuyCoinConfigModel findCoinConfigByProductId(@Param("productId")String productId,@Param("type")String type);
+
+    @Select("select count(id) from core_userCoinDetails where userId=#{userId} and to_days(createTime)= to_days(now()) " +
+            "and title='每日首次打赏获得小饼干5个'")
+    int isFirstPlayTout(@Param("userId") long userId);
 
 
 }

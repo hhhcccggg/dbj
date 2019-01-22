@@ -10,10 +10,15 @@ namespace dbdesgin.Models
     public class UserAsset:db.common.BaseModelWithTime<long>
     {
         /// <summary>
-        /// 用户金币
+        /// 用户金币余额
         /// </summary>
         /// <value>The coins.</value>
         public long coins { get; set; }
+        /// <summary>
+        /// 累积获得的金币总数
+        /// </summary>
+        /// <value>The total coins.</value>
+		public long totalCoins { get; set; }
         /// <summary>
         /// 废弃
         /// 用户人民币余额，单位分

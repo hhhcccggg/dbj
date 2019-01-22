@@ -9,11 +9,11 @@ import java.util.List;
 
 @Mapper
 public interface IPetMapper {
-    @Select("select pet.*,cate.name as categoryName from core_pets as pet left join core_categories as cate on pet.categoryId=cate.id where pet.userId=#{userId}")
+    @Select("select pet.*,cate.name as categoryName from core_pets as pet left join core_categories as cate on pet.categoryId=cate.id where pet.userId=#{userId} and pet.isDeleted=0")
     List<PetModelDto> list(@Param("userId") long userId);
     @Select("select pet.*,cate.name as categoryName from core_pets as pet left join core_categories as cate on pet.categoryId=cate.id where pet.id=#{id}")
     PetModelDto get(@Param("id") long id);
-    @Delete("delete from core_pets where id=#{id} and userId=#{userId}")
+    @Update("update core_pets set isDeleted=1,deleteTime=now() where id=#{id} and userId=#{userId}")
     long delete(@Param("id") long id,@Param("userId")long userId);
     @Insert("INSERT INTO `core_pets` (`id`,`avatar`,`nickName`,`birthday`,`sex`, " +
             "`categoryId`, `userId`) VALUES(#{input.id},#{input.avatar},#{input.nickName}," +
@@ -28,5 +28,8 @@ public interface IPetMapper {
             "</foreach>" +
             "</script>")
     List<PetModelDto> findMore(@Param("ids") List<EntityKeyModel<Long>> ids);
+
+    @Select("select count(id) from `core_pets` where  userId=#{userId}")
+    long firstAddPet(@Param("userId") long userId);
 
 }

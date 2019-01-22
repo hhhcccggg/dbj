@@ -1,5 +1,10 @@
 package com.zwdbj.server.mobileapi.service.pet.service;
 
+import com.zwdbj.server.mobileapi.service.user.model.UserModel;
+import com.zwdbj.server.mobileapi.service.user.service.UserService;
+import com.zwdbj.server.mobileapi.service.userInvitation.service.UserInvitationService;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
+import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
@@ -13,7 +18,9 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,6 +35,14 @@ public class PetService {
     protected Logger logger = LoggerFactory.getLogger(PetService.class);
     @Autowired
     protected ReviewService reviewService;
+    @Autowired
+    protected UserService userService;
+    @Autowired
+    protected UserInvitationService userInvitationServiceImpl;
+    @Autowired
+    private UserAssetServiceImpl userAssetServiceImpl;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     public List<PetModelDto> list(long userId) {
         List<PetModelDto> pets = this.petMapper.list(userId);
@@ -56,22 +71,35 @@ public class PetService {
         return new ServiceStatusInfo<>(0,"删除成功",rows);
     }
 
+    @Transactional
     public ServiceStatusInfo<Long> add(UpdatePetModelInput input,long userId) {
         String regEx = "^(?!_)(?!.*?_$)[a-zA-Z0-9_\\u4e00-\\u9fa5]{1,20}$";
         Pattern r = Pattern.compile(regEx);
         Matcher m1 = r.matcher(input.getNickName());
         boolean rs1 = m1.matches();
-        if (rs1 == false ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
+        if (!rs1 ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
         String imageKey = input.getAvatar();
         if (!(imageKey == null || imageKey.equals(""))) {
             input.setAvatar(this.qiniuService.url(imageKey));
         }
         input.setId(UniqueIDCreater.generateID());
+        boolean isFirst = this.isFirstAddPet(userId);
+        if (isFirst){
+            this.userAssetServiceImpl.userIsExist(userId);
+            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+            userCoinDetailAddInput.setStatus("SUCCESS");
+            userCoinDetailAddInput.setNum(10);
+            userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
+            userCoinDetailAddInput.setType("TASK");
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10,"FIRSTADDPET","DONE");
+
+        }
         long rows = this.petMapper.add(input,userId);
         if (rows ==0) {
             return  new ServiceStatusInfo<>(1,"添加失败",null);
         } else {
             this.reviewAvatar(imageKey,1,input.getId());
+            firstAddPet(userId);
             return new ServiceStatusInfo<>(0,"添加成功",rows);
         }
     }
@@ -81,7 +109,7 @@ public class PetService {
         Pattern r = Pattern.compile(regEx);
         Matcher m1 = r.matcher(input.getNickName());
         boolean rs1 = m1.matches();
-        if (rs1 == false ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
+        if (!rs1 ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
         String imageKey = input.getAvatar();
         if (!(imageKey == null || imageKey.equals(""))) {
             input.setAvatar(this.qiniuService.url(imageKey));
@@ -112,6 +140,24 @@ public class PetService {
                         .setDataType(dataType)
                         .build();
         this.reviewService.reviewQiniuRes(resData);
+    }
+
+    /**
+     * 查看是不是首次添加宠物,如果是看看是否有推荐人
+     */
+    public void firstAddPet(long userId){
+        long count = petMapper.firstAddPet(userId);
+        if(count > 1)return ;
+        UserModel userModel = userService.findUserById(userId);
+        if(userModel==null || userModel.getRecommendUserId()==0)return;
+        userInvitationServiceImpl.createUserInvitation(userModel.getRecommendUserId());
+    }
+    /**
+     * 是否为第一次添加宠物
+     */
+    public boolean isFirstAddPet(long userId){
+        long result = this.petMapper.firstAddPet(userId);
+        return result==0;
     }
 
 }

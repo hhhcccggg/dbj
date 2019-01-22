@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.mobileapi.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.video.model.*;
@@ -151,6 +152,8 @@ public class VideoController {
     public ResponseData<VideoHeartStatusDto> heart(@RequestBody HeartInput input) {
         ServiceStatusInfo<VideoHeartStatusDto> statusInfo = this.videoService.heart(input);
         if (statusInfo.isSuccess()) {
+            if (statusInfo.getCoins()!=null)
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData(),statusInfo.getCoins());
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
@@ -231,10 +234,21 @@ public class VideoController {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
         return new ResponseData<>(1, serviceStatusInfo.getMsg(), null);
-
     }
 
-
+    @GetMapping("/getPetsVideo/{petId}")
+    @ApiOperation(value = "获取某宠物相关视频")
+    public ResponsePageInfoData<List<VideoInfoDto>> getPetsVideo(@PathVariable long petId,
+                                                                       @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
+                                                                       @RequestParam(value = "rows",required = true,defaultValue = "13") int rows){
+        PageHelper.startPage(pageNo,rows);
+        ServiceStatusInfo<List<VideoInfoDto>> serviceStatusInfo = videoService.getPetsVideo(petId);
+        if (serviceStatusInfo.isSuccess()) {
+            PageInfo<VideoInfoDto> pageInfo = new PageInfo<>(serviceStatusInfo.getData());
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), pageInfo.getList(),pageInfo.getTotal());
+        }
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null,0L);
+    }
 
 
 

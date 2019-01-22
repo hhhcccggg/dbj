@@ -1,5 +1,7 @@
 package com.zwdbj.server.utility.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 public class ServiceStatusInfo<T> implements Serializable {
@@ -7,11 +9,27 @@ public class ServiceStatusInfo<T> implements Serializable {
     private String msg;
     private T data;
     private boolean isSuccess;
+    @ApiModelProperty(value = "金币情况")
+    private ResponseCoin coins;
 
     public ServiceStatusInfo(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
+    }
+    public ServiceStatusInfo(int code, String msg, T data,ResponseCoin coins) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+        this.coins= coins;
+    }
+
+    public ResponseCoin getCoins() {
+        return coins;
+    }
+
+    public void setCoins(ResponseCoin coins) {
+        this.coins = coins;
     }
 
     public int getCode() {

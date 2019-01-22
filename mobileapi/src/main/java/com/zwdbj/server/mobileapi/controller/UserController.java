@@ -87,9 +87,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/loginByThird", method = RequestMethod.POST)
-    @ApiOperation(value = "第三方登录")
-    public ResponseData<UserLoginInfoDto> loginByThird(@RequestBody BindThirdPartyAccountInput input) {
-        UserModel userModel = userService.regUserByOpenId(input);
+    @ApiOperation(value = "第三方登录,recommendUserId为邀请人id,若无则可无此参数")
+    public ResponseData<UserLoginInfoDto> loginByThird(@RequestBody BindThirdPartyAccountInput input,
+                                                       @RequestParam(required = false,defaultValue = "0") Long recommendUserId) {
+        UserModel userModel = userService.regUserByOpenId(input,recommendUserId);
+        if (userModel==null)return new ResponseData<>(ResponseDataCode.STATUS_ERROR, "登录失败", null);
         UserToken userToken = this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()),this.iAuthUserManager).getData();
         UserLoginInfoDto userLoginInfo = new UserLoginInfoDto();
         userLoginInfo.setUserToken(userToken);
@@ -135,9 +137,10 @@ public class UserController {
 
 
     @RequestMapping(value = "/AuthByPhone", method = RequestMethod.POST)
-    @ApiOperation(value = "通过手机号验证码登录授权")
-    public ResponseData<UserLoginInfoDto> AuthByPhone(@RequestBody PhoneCodeInput input) {
-        ServiceStatusInfo<UserModel> serviceStatusInfo = userService.loginByPhone(input.getPhone(), input.getCode());
+    @ApiOperation(value = "通过手机号验证码登录授权,recommendUserId为邀请人id,若无则可无此参数")
+    public ResponseData<UserLoginInfoDto> AuthByPhone(@RequestBody PhoneCodeInput input,
+                                                      @RequestParam(required = false,defaultValue = "0") Long recommendUserId) {
+        ServiceStatusInfo<UserModel> serviceStatusInfo = userService.loginByPhone(input.getPhone(), input.getCode(),recommendUserId);
         if (serviceStatusInfo.isSuccess()) {
             UserToken userToken = this.tokenCenterManager
                     .fetchToken(String.valueOf(serviceStatusInfo.getData().getId()),this.iAuthUserManager)
@@ -324,6 +327,16 @@ public class UserController {
     @ApiOperation(value = "以账号密码方式登录")
     public ResponseData<UserLoginInfoDto> loginByUserPwd(@RequestBody UserPwdLoginInput input) {
         ServiceStatusInfo<UserLoginInfoDto> statusInfo = this.userService.loginByPwd(input.getPhone(), input.getPassword());
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, statusInfo.getMsg(), null);
+    }
+
+    @ApiOperation(value = "推荐人设置")
+    @PostMapping("/setRecommendUserId")
+    public ResponseData<Long> setRecommendUserId(long recommendUserId){
+        ServiceStatusInfo<Long> statusInfo = this.userService.setRecommendUserId(recommendUserId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), statusInfo.getData());
         }

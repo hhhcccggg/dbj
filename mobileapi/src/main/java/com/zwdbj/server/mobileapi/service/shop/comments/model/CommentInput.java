@@ -18,6 +18,16 @@ public class CommentInput {
     String type;
     @ApiModelProperty(value = "媒体资源内容，视频或图片url")
     String dataContent;
+    @ApiModelProperty(value = "店铺id")
+    long storeId;
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
+    }
 
     public int getResourceTypeId() {
         return resourceTypeId;

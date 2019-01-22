@@ -13,6 +13,7 @@ import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
+import com.zwdbj.server.utility.model.ResponseCoin;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.service.CommentService;
 import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
@@ -35,10 +36,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -73,6 +79,8 @@ public class VideoService {
     protected UserAssetServiceImpl userAssetServiceImpl;
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
+    @Autowired
+    protected RedisTemplate redisTemplate;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -173,7 +181,25 @@ public class VideoService {
         if (input.getLatitude() == 0 && input.getLongitude() == 0) {
             input.setAddress("");
         }
+
         videoMapper.publicVideo(videoId, userId, input);
+        //每日任务金币
+        boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicVideo:"+userId);
+        if (!keyExist) {
+            LocalTime midnight = LocalTime.MIDNIGHT;
+            LocalDate today = LocalDate.now();
+            LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
+            LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
+            long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+            this.redisTemplate.opsForValue().set("user_everydayTask_isFirstPublicVideo:" + userId, userId+":hasFirstPublicVideo", s, TimeUnit.SECONDS);
+            this.userAssetServiceImpl.userIsExist(userId);
+            UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+            userCoinDetailAddInput.setStatus("SUCCESS");
+            userCoinDetailAddInput.setNum(5);
+            userCoinDetailAddInput.setTitle("每天首次发布视频获得小饼干"+5+"个");
+            userCoinDetailAddInput.setType("TASK");
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",5,"EVERYDAYFIRSTPUBLICVIDEO","DONE");
+        }
         UserModel userModel = this.userService.findUserById(userId);
         // 审核信息加入到消息队列
         if (/*userModel.isReviewed() &&*/ videoKey != null && videoKey.length() > 0) {
@@ -467,7 +493,7 @@ public class VideoService {
 
         if (input.isHeart()) {
             long id = UniqueIDCreater.generateID();
-            this.heartService.heart(id, userId, input.getId(), 0);
+            ServiceStatusInfo<Long> isFirst = this.heartService.heart(id, userId, input.getId(), 0);
             this.videoMapper.addHeart(input.getId(), 1);
             this.userService.addHeart(VUserId, 1);
             VideoDetailInfoDto detailInfoDto = this.video(input.getId());
@@ -481,6 +507,8 @@ public class VideoService {
 
             this.videoWegiht(input.getId());
             videoHeartStatusDto.setHeart(true);
+            if (isFirst.getCoins()!=null)
+                return new ServiceStatusInfo<>(0, "点赞成功", videoHeartStatusDto,isFirst.getCoins());
             return new ServiceStatusInfo<>(0, "点赞成功", videoHeartStatusDto);
         } else {
             return new ServiceStatusInfo<>(1, "取消失败", null);
@@ -580,7 +608,7 @@ public class VideoService {
     @Transactional
     public ServiceStatusInfo<Integer> playTout(int coins, Long videoId) {
         //TODO 金币变动时 考虑到线程安全，需要加锁
-        if (coins < 0 || coins > 100000000) return new ServiceStatusInfo<>(1, "您输入的金币数量有误", null);
+        if (coins < 1 || coins > 100000000) return new ServiceStatusInfo<>(1, "您输入的金币数量有误", null);
         long userId = JWTUtil.getCurrentId();
         String key = String.valueOf(userId) + videoId;
         ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
@@ -604,6 +632,23 @@ public class VideoService {
                 int task = (int) userAssetServiceImpl.getUserCoinType(userId, "TASK").getData().getCoins();
                 int pay = (int) userAssetServiceImpl.getUserCoinType(userId, "PAY").getData().getCoins();
                 int other = (int) userAssetServiceImpl.getUserCoinType(userId, "OTHER").getData().getCoins();
+                //每日任务金币
+                boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPlayTout:"+userId);
+                if (!keyExist) {
+                    LocalTime midnight = LocalTime.MIDNIGHT;
+                    LocalDate today = LocalDate.now();
+                    LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
+                    LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
+                    long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+                    this.redisTemplate.opsForValue().set("user_everydayTask_isFirstPlayTout:" + userId, userId+":hasFirstPlayTout", s, TimeUnit.SECONDS);
+                    this.userAssetServiceImpl.userIsExist(userId);
+                    UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+                    userCoinDetailAddInput.setStatus("SUCCESS");
+                    userCoinDetailAddInput.setNum(5);
+                    userCoinDetailAddInput.setTitle("每日首次打赏获得小饼干" + 5 + "个");
+                    userCoinDetailAddInput.setType("TASK");
+                    this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput, userId, "TASK", 5,"EVERYDAYFIRSTTIP","DONE");
+                }
 
                 if (task >= coins) {
                     //task类型的金币大于等于打赏数，则全部用task打赏
@@ -689,12 +734,41 @@ public class VideoService {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             return new ServiceStatusInfo<>(1, "打赏失败" + e.getMessage(), null);
         } finally {
             lock.unlock();
         }
         return new ServiceStatusInfo<>(1, "打赏失败", null);
+    }
+
+    /**
+     * 用户是否为每天的首次发布视频
+     */
+    public boolean isFirstPublicVideo(long userId){
+        String key = "user_everydayTask_isFirstPublicVideo:"+userId;
+        ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
+        Lock lock = new Lock(consulClient, "mobileapi",  key);
+        try {
+            if (lock.lock(true, 500L, 1)){
+                int result = this.videoMapper.isFirstPublicVideo(userId);
+                return result==0;
+            }
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+        return false;
+    }
+
+    public ServiceStatusInfo<List<VideoInfoDto>> getPetsVideo(long petId){
+        try{
+            List<VideoInfoDto> list= videoMapper.getPetsVideo(petId);
+            return new ServiceStatusInfo<>(0,"",list);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+        }
     }
 
 }

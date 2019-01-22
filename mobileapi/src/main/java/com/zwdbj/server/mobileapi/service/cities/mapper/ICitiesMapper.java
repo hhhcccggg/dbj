@@ -11,6 +11,6 @@ import java.util.List;
 @Mapper
 public interface ICitiesMapper {
 
-    @Select("select * from core_cities where level = #{levelType} and parenId=#{parenId}")
+    @Select("select * from core_cities where level = #{levelType} and parentId=#{parenId}")
     List<Cities> selectCondition(@Param("levelType") LevelType levelType, @Param("parenId")long parenId);
 }

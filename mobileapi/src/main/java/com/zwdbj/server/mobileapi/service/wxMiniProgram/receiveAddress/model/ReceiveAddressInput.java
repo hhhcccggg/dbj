@@ -12,7 +12,7 @@ public class ReceiveAddressInput {
     @ApiModelProperty(value = "id")
     private long id;
 
-    @ApiModelProperty(value = "收货人的id")
+    @ApiModelProperty(value = "收货人的id",hidden = true)
     private long userId;
 
     @NotNull

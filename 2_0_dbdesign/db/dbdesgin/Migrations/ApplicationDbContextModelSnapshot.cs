@@ -14,7 +14,7 @@ namespace dbdesgin.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("db.shop.Models.o2o.OfflineStoreExtraService", b =>
@@ -1600,6 +1600,49 @@ namespace dbdesgin.Migrations
                     b.ToTable("core_cities");
                 });
 
+            modelBuilder.Entity("db.video.Models.Task", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("coins");
+
+                    b.Property<string>("desc")
+                        .HasMaxLength(1024);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(512);
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("core_tasks");
+                });
+
             modelBuilder.Entity("db.video.Models.Tenant", b =>
                 {
                     b.Property<long>("Id")
@@ -1642,6 +1685,92 @@ namespace dbdesgin.Migrations
                     b.HasIndex("identifyName");
 
                     b.ToTable("core_user_tenants");
+                });
+
+            modelBuilder.Entity("db.video.Models.UserInvitation", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("initiatorUserId");
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("message")
+                        .HasMaxLength(512);
+
+                    b.Property<long?>("receivedUserId");
+
+                    b.Property<string>("state")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("core_userInvitations");
+                });
+
+            modelBuilder.Entity("db.video.Models.UserTask", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("createTime")
+                        .HasColumnType("timestamp")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnName("deleteTime")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("isDeleted")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("coins");
+
+                    b.Property<string>("desc")
+                        .HasMaxLength(1024);
+
+                    b.Property<bool>("isManualData")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("state")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("taskId")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<long>("userId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("core_userTasks");
                 });
 
             modelBuilder.Entity("dbdesgin.Models.AppVersion", b =>
@@ -2872,6 +3001,8 @@ namespace dbdesgin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
 
+                    b.Property<long?>("recommendUserId");
+
                     b.Property<int>("sex")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
@@ -2935,6 +3066,10 @@ namespace dbdesgin.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<long>("remainBalance");
+
+                    b.Property<long>("totalCoins")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0L);
 
                     b.Property<long>("userId");
 

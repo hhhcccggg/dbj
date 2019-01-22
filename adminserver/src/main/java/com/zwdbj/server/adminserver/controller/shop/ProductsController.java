@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.UpdateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -74,8 +75,8 @@ public class ProductsController {
 
     @ApiOperation(value = "修改商品")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseData<Long> updateProducts(@RequestBody CreateProducts createProducts) {
-        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updateProducts(createProducts);
+    public ResponseData<Long> updateProducts(@RequestBody UpdateProducts updateProducts) {
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updateProducts(updateProducts);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

@@ -1,9 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.products.mapper;
 
-import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.ProductsDto;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -42,13 +39,12 @@ public interface IProductsMapper {
     Long deleteProduct(@Param("id") Long id);
 
     @Update("update shop_products set " +
-            "productType=#{products.productType}," +
             "name=#{products.name},storeId=#{products.storeId}," +
             "inventory=#{products.inventory},publish=#{products.isPublish},imageUrls=#{products.imageUrls}," +
             "brandId=#{products.brandId},supportCoin=#{products.supportCoin},categoryId=#{products.categoryId},"+
             "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription},limitPerPerson=#{products.limitPerPerson}" +
-            "where id=#{products.id} and isDeleted=0")
-    Long update(@Param("products") CreateProducts products);
+            " where id=#{products.id} and isDeleted=0")
+    Long update(@Param("products") UpdateProducts products);
 
     @Select("select * from shop_products where isDeleted=0 order by createTime")
     List<Products> selectAll();

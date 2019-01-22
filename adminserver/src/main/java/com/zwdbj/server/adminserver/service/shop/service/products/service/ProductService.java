@@ -4,6 +4,7 @@ package com.zwdbj.server.adminserver.service.shop.service.products.service;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.UpdateProducts;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 
 import java.util.Date;
@@ -15,7 +16,7 @@ public interface ProductService {
 
     ServiceStatusInfo<Long> deleteProductsById(Long id);
 
-    ServiceStatusInfo<Long> updateProducts(CreateProducts createProducts);
+    ServiceStatusInfo<Long> updateProducts(UpdateProducts updateProducts);
 
     ServiceStatusInfo<List<Products>> selectAll();
     ServiceStatusInfo<List<Products>> searchProducts(SearchProducts searchProduct);

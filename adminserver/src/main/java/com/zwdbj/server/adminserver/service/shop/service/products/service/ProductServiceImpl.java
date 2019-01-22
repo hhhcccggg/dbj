@@ -11,6 +11,7 @@ import com.zwdbj.server.adminserver.service.shop.service.products.mapper.IProduc
 import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.UpdateProducts;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -96,29 +97,30 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ServiceStatusInfo<Long> updateProducts(CreateProducts createProducts){
-        ServiceStatusInfo serviceStatusInfo = judgeProducts(createProducts);
-        if(serviceStatusInfo != null){
-            return serviceStatusInfo;
-        }
+    public ServiceStatusInfo<Long> updateProducts(UpdateProducts updateProducts){
+//        ServiceStatusInfo serviceStatusInfo = judgeProducts(createProducts);
+//        if(serviceStatusInfo != null){
+//            return serviceStatusInfo;
+//        }
         Long result = 0L;
         try {
-            result = this.iProductMapper.update(createProducts);
+            result = this.iProductMapper.update(updateProducts);
             if(result==0){
                 return new ServiceStatusInfo<>(1, "修改失败：影响行数"+result, null);
             }
             ProductSKUs productSKUs = new ProductSKUs();
-            productSKUs.setProductId(createProducts.getId());
-            productSKUs.setInventory(createProducts.getInventory());
-            productSKUs.setOriginalPrice(createProducts.getOriginalPrice());
-            productSKUs.setPromotionPrice(createProducts.getPromotionPrice());
+            productSKUs.setProductId(updateProducts.getId());
+            productSKUs.setInventory(updateProducts.getInventory());
+            productSKUs.setOriginalPrice(updateProducts.getOriginalPrice());
+            productSKUs.setPromotionPrice(updateProducts.getPromotionPrice());
             iProductSKUsMapper.updateProductSKUs(productSKUs);
+            Products createProducts = iProductMapper.selectById(updateProducts.getId());
             if("CARD".equals(createProducts.getProductDetailType())){
-                ProductCard productCard = new ProductCard(createProducts,createProducts.getId());
+                ProductCard productCard = new ProductCard(updateProducts,updateProducts.getId());
                 this.iProductCardMapper.updateByProductIdByProductCard(productCard);
             }
             if("CASHCOUPON".equals(createProducts.getProductDetailType())){
-                ProductCashCoupon productCashCoupon = new ProductCashCoupon(createProducts,createProducts.getId());
+                ProductCashCoupon productCashCoupon = new ProductCashCoupon(updateProducts,updateProducts.getId());
                 this.iProductCashCouponMapper.updateByProductIdByProductCashCoupon(productCashCoupon);
             }
             return new ServiceStatusInfo<>(0, "", result);

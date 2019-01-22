@@ -62,7 +62,7 @@ public class HomePageController {
 //    public ResponseData<List<VideoTrend>> videoDayTrend() {
 //        long id = JWTUtil.getCurrentId();
 //        ServiceStatusInfo<List<VideoTrend>> result = homePageServiceImpl.selectVideoDayTrend(id);
-//        if (result.isSuccess()) {
+//        if (result.success()) {
 //            return new ResponseData<>(0, "", result.getData());
 //        }
 //        return new ResponseData<>(1, result.getMsg(), null);
@@ -73,7 +73,7 @@ public class HomePageController {
 //    public ResponseData<List<VideoTrend>> videoWeekTrend() {
 //        long id = JWTUtil.getCurrentId();
 //        ServiceStatusInfo<List<VideoTrend>> result = homePageServiceImpl.selectVideoWeekTrend(id);
-//        if (result.isSuccess()) {
+//        if (result.success()) {
 //            return new ResponseData<>(0, "", result.getData());
 //        }
 //        return new ResponseData<>(1, result.getMsg(), null);
