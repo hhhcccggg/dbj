@@ -89,7 +89,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             input.setNum(1);
             input.setTitle("每日登录获得小饼干"+1+"个");
             input.setType("TASK");
-            this.userAssetServiceImpl.userPlayCoinTask(input,Long.valueOf(userId),"TASK",1);
+            this.userAssetServiceImpl.userPlayCoinTask(input,Long.valueOf(userId),"TASK",1,"EVERYDAYFIRSTLOGIN","DONE");
         }
         return new SimpleAuthenticationInfo(token, token, "my_realm");
     }

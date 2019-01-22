@@ -2,7 +2,7 @@ package com.zwdbj.server.mobileapi.controller.wxMini;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.TaskModel;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.UserTaskModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.service.TaskService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
@@ -26,12 +26,12 @@ public class TaskController {
     @RequiresAuthentication
     @RequestMapping(value = "/select/{type}", method = RequestMethod.GET)
     @ApiOperation(value = "用户任务,type为任务的类型:  NEWUSER:新手任务,DAILY:日常任务,INVITATION:邀请任务")
-    public ResponsePageInfoData<List<TaskModel>> getUserTasks(@PathVariable String type,
-                                                              @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
-                                                              @RequestParam(value = "rows", defaultValue = "13", required = true) int rows){
-        Page<TaskModel> pageInfo = PageHelper.startPage(pageNo, rows);
-        List<TaskModel> taskModels = this.taskService.getUserTasks(JWTUtil.getCurrentId(),type);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", taskModels, pageInfo.getTotal());
+    public ResponsePageInfoData<List<UserTaskModel>> getUserTasks(@PathVariable String type,
+                                                                  @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                  @RequestParam(value = "rows", defaultValue = "13", required = true) int rows){
+        Page<UserTaskModel> pageInfo = PageHelper.startPage(pageNo, rows);
+        List<UserTaskModel> userTaskModels = this.taskService.getUserTasks(JWTUtil.getCurrentId(),type);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", userTaskModels, pageInfo.getTotal());
     }
 
     @RequiresAuthentication

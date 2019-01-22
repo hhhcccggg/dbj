@@ -6,6 +6,7 @@ import com.ecwid.consul.v1.ConsulClient;
 import com.zwdbj.server.mobileapi.service.pay.alipay.service.AlipayBizService;
 import com.zwdbj.server.mobileapi.service.userAssets.mapper.IUserAssetMapper;
 import com.zwdbj.server.mobileapi.service.userAssets.model.*;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.service.TaskService;
 import com.zwdbj.server.pay.alipay.AlipayService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -32,6 +33,8 @@ public class UserAssetServiceImpl implements IUserAssetService {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private AlipayService alipayService;
+    @Autowired
+    private TaskService taskService;
 
     @Transactional
     public ServiceStatusInfo<Long> getCoinsByUserId(long userId) {
@@ -591,11 +594,12 @@ public class UserAssetServiceImpl implements IUserAssetService {
      */
 
     @Transactional
-    public void userPlayCoinTask(UserCoinDetailAddInput input,long userId,String type,int coins){
+    public void userPlayCoinTask(UserCoinDetailAddInput input,long userId,String type,int coins,String taskId,String state){
         // TODO 改变金币任务状态 参数要加入任务的id,处理任务
         this.addUserCoinDetail(userId,input);
         this.updateUserCoinType(userId,type,coins);
         this.updateUserAsset(userId,coins);
+        this.taskService.addNewTaskById(taskId,userId,state);
 
     }
 }

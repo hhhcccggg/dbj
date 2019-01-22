@@ -166,7 +166,7 @@ public class CommentService {
                 userCoinDetailAddInput.setNum(2);
                 userCoinDetailAddInput.setTitle("每日首次评论获得小饼干" + 2 + "个");
                 userCoinDetailAddInput.setType("TASK");
-                this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput, userId, "TASK", 2);
+                this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput, userId, "TASK", 2,"EVERYDAYFIRSTCOMMENT","DONE");
                 coins.setCoins(2);
                 coins.setMessage("每天首次评论获得小饼干2个");
             }

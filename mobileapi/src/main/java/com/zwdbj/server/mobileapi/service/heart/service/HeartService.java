@@ -44,7 +44,7 @@ public class HeartService {
             input.setNum(2);
             input.setTitle("每日首次点赞获得小饼干" + 2 + "个");
             input.setType("TASK");
-            this.userAssetServiceImpl.userPlayCoinTask(input, userId, "TASK", 2);
+            this.userAssetServiceImpl.userPlayCoinTask(input, userId, "TASK", 2,"EVERYDAYFIRSTHEART","DONE");
             coins.setCoins(2);
             coins.setMessage("每天首次点赞获得小饼干2个");
         }

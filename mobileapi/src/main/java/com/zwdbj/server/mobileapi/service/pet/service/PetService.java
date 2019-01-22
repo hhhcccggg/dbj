@@ -91,7 +91,7 @@ public class PetService {
             userCoinDetailAddInput.setNum(10);
             userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
             userCoinDetailAddInput.setType("TASK");
-            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10);
+            this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10,"FIRSTADDPET","DONE");
 
         }
         long rows = this.petMapper.add(input,userId);
