@@ -762,4 +762,13 @@ public class VideoService {
         return false;
     }
 
+    public ServiceStatusInfo<List<VideoInfoDto>> getPetsVideo(long petId){
+        try{
+            List<VideoInfoDto> list= videoMapper.getPetsVideo(petId);
+            return new ServiceStatusInfo<>(0,"",list);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+        }
+    }
+
 }
