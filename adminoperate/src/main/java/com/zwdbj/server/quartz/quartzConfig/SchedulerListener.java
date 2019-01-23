@@ -53,12 +53,12 @@ public class SchedulerListener implements ApplicationListener<ContextRefreshedEv
         return bean;
     }
 
-        @Bean
-        public Properties properties() throws IOException {
-            Properties prop = new Properties();
-            prop.load(new ClassPathResource("quartz.properties").getInputStream());
-            return prop;
-        }
+    @Bean
+    public Properties properties() throws IOException {
+        Properties prop = new Properties();
+        prop.load(new ClassPathResource("quartz.properties").getInputStream());
+        return prop;
+    }
 
 
     @Override
