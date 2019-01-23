@@ -8,10 +8,8 @@ import com.zwdbj.server.adminserver.service.shop.service.productCashCoupon.model
 import com.zwdbj.server.adminserver.service.shop.service.productSKUs.mapper.IProductSKUsMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.adminserver.service.shop.service.products.mapper.IProductsMapper;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.UpdateProducts;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.*;
+import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -45,11 +43,21 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     protected TokenCenterManager tokenCenterManager;
 
+    @Autowired
+    private StoreService storeServiceImpl;
+
     @Override
     public ServiceStatusInfo<Long> createProducts(CreateProducts createProducts) {
         AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
         if(authUser == null){
             return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
+        }
+        if(authUser.getLegalSubjectId()==0){
+            return new ServiceStatusInfo(1,"用户不是商户",null);
+        }
+        Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
+        if(storeId == null){
+            return new ServiceStatusInfo(1,"用户没有店铺",null);
         }
         createProducts.setStoreId(authUser.getLegalSubjectId());
         ServiceStatusInfo serviceStatusInfo = judgeProducts(createProducts);
@@ -165,15 +173,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ServiceStatusInfo<Map<String,Object>> selectById(long id) {
+    public ServiceStatusInfo<ProductsOut> selectById(long id) {
         try{
-            Map<String,Object> map = new HashMap<>();
             Products products =this.iProductMapper.selectById(id);
-            map.put("products",products);
-            map.put("productsSKU",this.iProductSKUsMapper.selectByProductId(products.getId()));
-            map.put("productCard",this.iProductCardMapper.selectByProductId(products.getId()));
-            map.put("productCashCoupon",this.iProductCashCouponMapper.selectByProductId(products.getId()));
-            return new ServiceStatusInfo<>(0, "", map);
+            ProductsOut productsOut = new ProductsOut();
+            productsOut.setProducts(products);
+            productsOut.setProductCard(this.iProductCardMapper.selectByProductId(products.getId()));
+            productsOut.setProductCashCoupon(this.iProductCashCouponMapper.selectByProductId(products.getId()));
+            productsOut.setProductSKUs(iProductSKUsMapper.selectByProductId(products.getId()));
+            return new ServiceStatusInfo<>(0, "", productsOut);
         }catch(Exception e){
             return new ServiceStatusInfo<>(0, "查询单个商品失败"+e.getMessage(), null);
         }
