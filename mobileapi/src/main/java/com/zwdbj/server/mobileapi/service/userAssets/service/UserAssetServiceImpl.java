@@ -504,7 +504,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
             UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
             addTaskInput.setNum(AllCoins);
             addTaskInput.setType("ORDER");
-            addTaskInput.setTitle("支付订单消费");
+            addTaskInput.setTitle("支付订单消费抵扣");
             addTaskInput.setExtraData(String.valueOf(productOrderId));
 
             //修改用户金币明细

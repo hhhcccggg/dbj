@@ -34,7 +34,16 @@ public class ProductOrderModel {
     private long userId;
     @ApiModelProperty(value = "用户的昵称")
     private String nickName;
+    @ApiModelProperty(value = "用户使用的优惠券id,若为空或为0,则表示没用优惠券")
+    private String couponids;
 
+    public String getCouponids() {
+        return couponids;
+    }
+
+    public void setCouponids(String couponids) {
+        this.couponids = couponids;
+    }
 
     public long getReceiveAddressId() {
         return receiveAddressId;

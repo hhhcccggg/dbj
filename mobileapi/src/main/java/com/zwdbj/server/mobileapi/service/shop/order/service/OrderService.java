@@ -13,6 +13,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.Rec
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.service.ReceiveAddressService;
 import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.pay.settlement.protocol.ISettlement;
+import com.zwdbj.server.pay.settlement.protocol.SettlementResult;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
@@ -36,6 +37,8 @@ public class OrderService {
     private UserAssetServiceImpl userAssetServiceImpl;
     @Autowired
     private ProductService productServiceImpl;
+    @Autowired
+    private ISettlement settlement;
 
     public List<ProductOrderModel> getMyOrders(int status){
         try {
@@ -132,7 +135,25 @@ public class OrderService {
 
     @Transactional
     public void updateOrderPay(long id,String paymentType,String tradeNo,String thirdPaymentTradeNotes){
-            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes);
+        ProductOrderDetailModel model = this.getOrderById(id).getData();
+        long userId = JWTUtil.getCurrentId();
+        if (model==null)return;
+        if (model.getUseCoin()!=0){
+            //处理金币
+            this.userAssetServiceImpl.minusUserCoins(model.getUseCoin(),userId,id);
+        }
+        String coupons = model.getCouponids();
+        if (coupons!=null && (!coupons.equals("") )){
+            String[] couponIds = coupons.split(",");
+            for (String coupon:couponIds){
+                Long couponId = Long.valueOf(coupon);
+                if (couponId==0)continue;
+                //更新优惠券的状态,调用方法
+
+
+            }
+        }
+        this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes);
     }
 
     @Transactional
@@ -142,8 +163,12 @@ public class OrderService {
             return new ServiceStatusInfo<>(0,"确认收货成功",result);
     }
 
-    public ServiceStatusInfo<Integer> settlementOrder(long id, long coins, Coupon coupon){
-        return new ServiceStatusInfo<>(0,"",1);
+    public ServiceStatusInfo<SettlementResult> settlementOrder(int amount, long coins, Coupon coupon){
+        long allCoins = this.userAssetServiceImpl.getCoinsByUserId().getData();
+        if (allCoins<coins)return new ServiceStatusInfo<>(1,"你的小饼干不够",null);
+        int userCoins = (int)coins;
+        SettlementResult settlementResult = this.settlement.settlement(amount,0L,userCoins,coupon);
+        return new ServiceStatusInfo<>(0,"",settlementResult);
 
     }
 }

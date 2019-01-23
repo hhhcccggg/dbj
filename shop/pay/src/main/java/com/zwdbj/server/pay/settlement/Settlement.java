@@ -2,7 +2,9 @@ package com.zwdbj.server.pay.settlement;
 
 import com.zwdbj.server.pay.settlement.protocol.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Settlement implements ISettlement {
     @Override
     public SettlementResult settlement(int amount, long orderId) {
