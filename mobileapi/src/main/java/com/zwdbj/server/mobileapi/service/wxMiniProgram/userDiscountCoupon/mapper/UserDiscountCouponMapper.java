@@ -66,7 +66,7 @@ public interface UserDiscountCouponMapper {
             "udc.couponId = dc.id AND " +
             "udc.isDeleted = 0 AND " +
             "udc.state = 'UNUSED'")
-    List<Coupon> getVaildCoupon(long storeId, long legalSubjectId, long price,long userId);
+    List<Coupon> getVaildCoupon(@Param("storeId")long storeId, @Param("legalSubjectId")long legalSubjectId, @Param("price")long price,@Param("userId")long userId);
 
     @Select("SELECT " +
             "dc.id, " +
@@ -88,5 +88,5 @@ public interface UserDiscountCouponMapper {
             "udc.couponId = dc.id AND udc.couponId=#{id} AND " +
             "udc.isDeleted = 0 AND " +
             "udc.state = 'UNUSED'")
-    Coupon getVaildCouponById(long storeId, long legalSubjectId, long price,long userId, long id);
+    Coupon getVaildCouponById(@Param("storeId") long storeId, @Param("legalSubjectId")long legalSubjectId, @Param("price")long price,@Param("userId")long userId, @Param("id")long id);
 }
