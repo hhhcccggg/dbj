@@ -5,6 +5,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.mappe
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.SearchUserDiscountCoupon;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponOut;
+import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -73,5 +74,33 @@ public class UserDiscountCouponServiceImpl implements UserDiscountCouponService{
         if(result != couponCount)
             throw new RuntimeException("优惠券新增失败");
         return new ServiceStatusInfo<>(0,"",null);
+    }
+
+    @Override
+    public ServiceStatusInfo<List<Coupon>> getVaildCoupon(long storeId, long legalSubjectId, long price) {
+        try {
+            long userId = JWTUtil.getCurrentId();
+            if(userId == 0){
+                return new ServiceStatusInfo<>(1,"用户未登录",null);
+            }
+            List<Coupon> list = userDiscountCouponMapper.getVaildCoupon(storeId,legalSubjectId,price,userId);
+            return new ServiceStatusInfo<>(0,"",list);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<Coupon> getVaildCouponById(long storeId, long legalSubjectId, long price, long id) {
+        try {
+            long userId = JWTUtil.getCurrentId();
+            if(userId == 0){
+                return new ServiceStatusInfo<>(1,"用户未登录",null);
+            }
+            Coupon coupon = userDiscountCouponMapper.getVaildCouponById(storeId,legalSubjectId,price,userId,id);
+            return new ServiceStatusInfo<>(0,"",coupon);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+        }
     }
 }

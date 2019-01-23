@@ -26,7 +26,7 @@ public class CreateProducts {
     @NotNull(message = "商品名称不能为空")
     String name;
 
-    @ApiModelProperty(value = "卖家编号")
+    @ApiModelProperty(value = "店铺ID")
     long storeId;
 
     @ApiModelProperty(value = "库存")
