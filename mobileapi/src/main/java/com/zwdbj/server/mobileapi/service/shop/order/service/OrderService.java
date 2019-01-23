@@ -116,10 +116,6 @@ public class OrderService {
                 this.orderMapper.createOrderItem(orderItemId,orderId,input,price,totalFee);
                 // 减去商品和sku的库存并更新销量
                 this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
-                //兑换后减去用户所需的小饼干
-                boolean flag = this.userAssetServiceImpl.minusUserCoins(input.getUseCoin(),userId,orderId);
-                if (!flag)return new ServiceStatusInfo<>(1,"下单失败",0);
-                // TODO 优惠券的使用
                 return new ServiceStatusInfo<>(0,"下单成功",1);
             }
 
@@ -138,6 +134,7 @@ public class OrderService {
         ProductOrderDetailModel model = this.getOrderById(id).getData();
         long userId = JWTUtil.getCurrentId();
         if (model==null)return;
+        if (!model.getStatus().equals("STATE_WAIT_BUYER_PAY"))return;
         if (model.getUseCoin()!=0){
             //处理金币
             this.userAssetServiceImpl.minusUserCoins(model.getUseCoin(),userId,id);
