@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.service;
 
+import com.ecwid.consul.v1.ConsulClient;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.common.UserDiscountCouponState;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.mapper.UserDiscountCouponMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.SearchUserDiscountCoupon;
@@ -8,6 +9,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model
 import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
+import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,6 +103,29 @@ public class UserDiscountCouponServiceImpl implements UserDiscountCouponService{
             return new ServiceStatusInfo<>(0,"",coupon);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+        }
+    }
+
+    public ServiceStatusInfo<Long> updateUserDiscountCouponState(long userId,long id){
+        Lock lock = null;
+        try {
+            ConsulClient consulClient = new ConsulClient("localhost", 8500);	// 创建与Consul的连接
+            lock = new Lock(consulClient, "modelapi","couponTout-lockKey:"+userId+id);
+            if(lock.lock(true)){
+                //锁住优惠券
+                long count = userDiscountCouponMapper.getUserCouponCount(userId,id);
+                if(count <= 0){
+                    return new ServiceStatusInfo<>(1,"没有可用优惠券",null);
+                }
+                long retult = userDiscountCouponMapper.useUserCouponCount(userId, id);
+                if(retult == 0){
+                    return new ServiceStatusInfo<>(1,"优惠券影响行数为"+retult,null);
+                }
+                return new ServiceStatusInfo<>(0,"",retult);
+            }
+            return new ServiceStatusInfo<>(1,"没有可用优惠券",null);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"修改失败"+e.getMessage(),null);
         }
     }
 }

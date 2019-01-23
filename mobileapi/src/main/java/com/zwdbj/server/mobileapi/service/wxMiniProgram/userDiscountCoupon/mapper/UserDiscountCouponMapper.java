@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.mapper;
 
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.common.UserDiscountCouponState;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.SearchUserDiscountCoupon;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponOut;
@@ -89,4 +90,36 @@ public interface UserDiscountCouponMapper {
             "udc.isDeleted = 0 AND " +
             "udc.state = 'UNUSED'")
     Coupon getVaildCouponById(@Param("storeId") long storeId, @Param("legalSubjectId")long legalSubjectId, @Param("price")long price,@Param("userId")long userId, @Param("id")long id);
+
+    /**
+     * 查询没有使用的该优惠券数量
+     * @param userId
+     * @param couponId
+     * @return
+     */
+    @Select("SELECT count(0) " +
+            "FROM " +
+            "shop_userDiscountCoupons , " +
+            "shop_discountCoupons " +
+            "WHERE " +
+            "shop_userDiscountCoupons.couponId = shop_discountCoupons.id AND " +
+            "shop_discountCoupons.id=#{couponId} AND " +
+            "shop_userDiscountCoupons.userId=#{userId} AND " +
+            "shop_userDiscountCoupons.state='UNUSED' AND " +
+            "shop_userDiscountCoupons.isDeleted=0 AND " +
+            "shop_discountCoupons.isDeleted=0")
+    long getUserCouponCount(@Param("userId") long userId,@Param("couponId") long couponId);
+
+    /**
+     * 使用优惠券
+     * @param userId
+     * @param couponId
+     * @return
+     */
+    @Update("UPDATE `shop_userDiscountCoupons` " +
+            "SET  " +
+            " `state` = 'USED' " +
+            "WHERE " +
+            "`couponId` = #{couponId}  and `userId` =#{userId} and state='UNUSED' and isDeleted=0  limit 1 ")
+    long useUserCouponCount(@Param("userId") long userId,@Param("couponId") long couponId);
 }
