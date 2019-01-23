@@ -11,6 +11,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductS
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.service.ReceiveAddressService;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.service.UserDiscountCouponService;
 import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.pay.settlement.protocol.ISettlement;
 import com.zwdbj.server.pay.settlement.protocol.SettlementResult;
@@ -39,6 +40,8 @@ public class OrderService {
     private ProductService productServiceImpl;
     @Autowired
     private ISettlement settlement;
+    @Autowired
+    private UserDiscountCouponService userDiscountCouponServiceImpl;
 
     public List<ProductOrderModel> getMyOrders(int status){
         try {
@@ -143,11 +146,10 @@ public class OrderService {
         if (coupons!=null && (!coupons.equals("") )){
             String[] couponIds = coupons.split(",");
             for (String coupon:couponIds){
-                Long couponId = Long.valueOf(coupon);
+                long couponId = Long.valueOf(coupon);
                 if (couponId==0)continue;
-                //更新优惠券的状态,调用方法
-
-
+                //更新优惠券的状态
+                this.userDiscountCouponServiceImpl.updateUserDiscountCouponState(userId,couponId);
             }
         }
         this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes);
