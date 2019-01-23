@@ -36,12 +36,12 @@ public class AlipayBizService {
      */
     @Transactional
     public ServiceStatusInfo<ChargeCoinAlipayResult> chargeCoins(ChargeCoinInput input,long userId) {
-        // 1:10比例充值金币，单位分
+        // 1:10比例充值小饼干，单位分
         int rmbs = 0;
         rmbs = (input.getCoins() / 10) * 100;
         rmbs = 1;// 测试
         UserCoinDetailAddInput detailInput = new UserCoinDetailAddInput();
-        detailInput.setTitle("充值"+input.getCoins()+"金币");
+        detailInput.setTitle("充值"+input.getCoins()+"小饼干");
         detailInput.setNum(input.getCoins());
         detailInput.setExtraData("");
         detailInput.setType("PAY");
@@ -50,8 +50,8 @@ public class AlipayBizService {
         detailInput.setStatus("PROCESSING");
         long id = this.userAssetServiceImpl.addUserCoinDetail(userId,detailInput);
         AliAppPayInput aliAppPayInput = new AliAppPayInput();
-        aliAppPayInput.setBody("充值"+input.getCoins()+"金币");
-        aliAppPayInput.setSubject("充值金币");
+        aliAppPayInput.setBody("充值"+input.getCoins()+"小饼干");
+        aliAppPayInput.setSubject("充值小饼干");
         aliAppPayInput.setOutTradeNo(String.valueOf(id));
         aliAppPayInput.setTimeoutExpress("15m");
         float amount = rmbs/100f;

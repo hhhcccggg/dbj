@@ -16,7 +16,7 @@ public class EnCashMentDetailModel implements Serializable {
     Date createTime;
     @ApiModelProperty(value = "用户的昵称")
     String nickName;
-    @ApiModelProperty(value = "提现的金币数量")
+    @ApiModelProperty(value = "提现的小饼干数量")
     int coins;
     @ApiModelProperty(value = "提现的金额")
     int rmbs;

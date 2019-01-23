@@ -40,9 +40,9 @@ public class WXPayService {
      */
     @Transactional
     public ServiceStatusInfo<ChargeCoinWXResult> chargeCoins(ChargeCoinInput input, long userId) {
-        // TODO 解析充值模板，当前直接解析金币
+        // TODO 解析充值模板，当前直接解析小饼干
         // 生成充值明细订单
-        // 1:10比例充值金币，单位分
+        // 1:10比例充值小饼干，单位分
         int rmbs = 0;
         if(this.wxPayAppCfg.isSandBox()) {
             rmbs = 201;
@@ -54,7 +54,7 @@ public class WXPayService {
             }
         }
         UserCoinDetailAddInput detailInput = new UserCoinDetailAddInput();
-        detailInput.setTitle("充值"+input.getCoins()+"金币");
+        detailInput.setTitle("充值"+input.getCoins()+"小饼干");
         detailInput.setNum(input.getCoins());
         detailInput.setExtraData("");
         detailInput.setType("PAY");
@@ -64,7 +64,7 @@ public class WXPayService {
         long id = this.userAssetServiceImpl.addUserCoinDetail(userId,detailInput);
         // 生成预付单
         UnifiedOrderInput unifiedOrderInput = new UnifiedOrderInput();
-        unifiedOrderInput.setBody("爪子 充值"+input.getCoins()+"金币");
+        unifiedOrderInput.setBody("爪子 充值"+input.getCoins()+"小饼干");
         unifiedOrderInput.setFeeType("CNY");
         unifiedOrderInput.setNotifyUrl(this.wxPayAppCfg.getPayResultCallbackUrl());
         unifiedOrderInput.setTradeType("APP");
@@ -97,9 +97,9 @@ public class WXPayService {
      */
     @Transactional
     public ServiceStatusInfo<ChargeCoinWXResult> payOrder(PayOrderInput input, long userId) {
-        // TODO 解析充值模板，当前直接解析金币
+        // TODO 解析充值模板，当前直接解析小饼干
         // 生成充值明细订单
-        // 1:10比例充值金币，单位分
+        // 1:10比例充值小饼干，单位分
         int rmbs = 0;
         if(this.wxPayAppCfg.isSandBox()) {
             rmbs = 201;
@@ -140,7 +140,7 @@ public class WXPayService {
     }
 
     /**
-     * @param type  1:金币充值  2:订单付款
+     * @param type  1:小饼干充值  2:订单付款
      * @param input
      * @return 订单支付查询结果
      */
@@ -160,7 +160,7 @@ public class WXPayService {
     }
 
     /**
-     * @param type 1:金币充值  2:订单付款
+     * @param type 1:小饼干充值  2:订单付款
      * @param resFromWX 来自微信的支付结果通知
      * @return 响应微信支付结果通知
      */

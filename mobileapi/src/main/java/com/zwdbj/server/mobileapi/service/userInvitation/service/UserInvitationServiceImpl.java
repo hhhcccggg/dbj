@@ -25,7 +25,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     @Override
     public ServiceStatusInfo<Long> createUserInvitation(long initiatorUserId) {
         try{
-            //TODO 未发金币
+            //TODO 未发小饼干
             long userId = JWTUtil.getCurrentId();
             if(userId == 0)return new ServiceStatusInfo<>(1,"用户未登录",null);
             UserInvitationModel userInvitationModel = new UserInvitationModel(UniqueIDCreater.generateID(), initiatorUserId, userId, UserInvitationsState.PETS, "获取奖励25小饼干");

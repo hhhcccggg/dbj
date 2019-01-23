@@ -385,7 +385,7 @@ public class UserService {
             if (recommendUserId==null )recommendUserId=0L;
             this.userMapper.regByOpenId(id, userName, input,recommendUserId);
             this.userBindService.add(input, id);
-            //首次注册添加金币
+            //首次注册添加小饼干
             this.userAssetServiceImpl.userIsExist(id);
             UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
             userCoinDetailAddInput.setStatus("SUCCESS");
@@ -513,7 +513,7 @@ public class UserService {
         }
         this.userMapper.updateField("IsPhoneVerification=true,phone='" + phone + "'", userId);
         this.tokenCenterManager.refreshUserInfo(String.valueOf(userId), iAuthUserManagerImpl);
-        //初始化金币账户
+        //初始化小饼干账户
         this.userAssetServiceImpl.userIsExist(userId);
         return new ServiceStatusInfo<>(0, "绑定成功", null);
     }
@@ -726,7 +726,7 @@ public class UserService {
                     String userName = UniqueIDCreater.generateUserName();
                     result = this.userMapper.regUser(id,userName,input.getPhone(),password,input.getRecommendUserId());
                     if (result==0)return new ServiceStatusInfo<>(1,"注册失败",0);
-                    //首次注册添加金币
+                    //首次注册添加小饼干
                     this.userAssetServiceImpl.userIsExist(id);
                     UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
                     userCoinDetailAddInput.setStatus("SUCCESS");

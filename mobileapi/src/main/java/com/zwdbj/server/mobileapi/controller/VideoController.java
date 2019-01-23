@@ -227,7 +227,7 @@ public class VideoController {
     }
 
     @RequestMapping(value = "/playTour", method = RequestMethod.POST)
-    @ApiOperation(value = "打赏金币")
+    @ApiOperation(value = "打赏小饼干")
     public ResponseData<Integer> playTour(@RequestBody VideoPlayTourInput input) {
         ServiceStatusInfo<Integer> serviceStatusInfo = videoService.playTout(input.getCoins(), input.getVideoId());
         if (serviceStatusInfo.isSuccess()) {

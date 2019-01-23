@@ -50,7 +50,7 @@ public class VideoInfoDto {
 
     @ApiModelProperty(value = "视频收获的打赏次数")
     int tipCount;
-    @ApiModelProperty(value = "视频收获的打赏金币总数")
+    @ApiModelProperty(value = "视频收获的打赏小饼干总数")
     int tipCoins;
     //20180731新增
     @ApiModelProperty(value = "视频用户的头像")

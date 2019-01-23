@@ -28,7 +28,7 @@ public class UserDetailInfoDto implements Serializable {
   private boolean isEmailVerification;
   @ApiModelProperty(value = "手机号码是否认证")
   private boolean isPhoneVerification;
-  @ApiModelProperty(value = "金币总数")
+  @ApiModelProperty(value = "小饼干总数")
   private long coins;
   @ApiModelProperty(value = "是否可以开启直播功能")
   private boolean isLivingOpen;

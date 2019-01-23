@@ -57,7 +57,7 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             result = this.userAssetsMapper.searchAllUserCoinDetail();
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "查询用户金币明细失败" + e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "查询用户小饼干明细失败" + e.getMessage(), result);
         }
     }
 
@@ -68,7 +68,7 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             result = this.userAssetsMapper.searchUserCoinDetailByUserId(userId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "通过用户id查询用户金币明细失败" + e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "通过用户id查询用户小饼干明细失败" + e.getMessage(), result);
         }
     }
 
@@ -80,7 +80,7 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             System.out.println(result);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "分类型查询用户金币总额失败" + e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "分类型查询用户小饼干总额失败" + e.getMessage(), result);
         }
     }
 
@@ -91,7 +91,7 @@ public class UserAssetsServiceImpl implements UserAssetsService {
             result = this.userAssetsMapper.searchUserCoinTpyesByUserId(userId,type);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "通过用户id分类型查询用户金币总额失败" + e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "通过用户id分类型查询用户小饼干总额失败" + e.getMessage(), result);
         }
     }
 

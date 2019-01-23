@@ -11,7 +11,7 @@ public class UserAssetModel implements Serializable {
     long id;
     @ApiModelProperty(value = "userId")
     long userId;
-    @ApiModelProperty(value = "用户金币")
+    @ApiModelProperty(value = "用户小饼干")
     long coins;
     @ApiModelProperty(value = "用户余额")
     long remainBalance;

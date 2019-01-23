@@ -14,7 +14,7 @@ public class TaskAddInput implements Serializable {
     private String type;
     @ApiModelProperty(value = "任务名称")
     private String title;
-    @ApiModelProperty(value = "任务完成获得金币")
+    @ApiModelProperty(value = "任务完成获得小饼干")
     private int coins;
     @ApiModelProperty(value = "任务描述")
     private String desc;

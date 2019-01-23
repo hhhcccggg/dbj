@@ -3,13 +3,13 @@ package com.zwdbj.server.mobileapi.service.userAssets.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "可选充值金币配置列表")
+@ApiModel(description = "可选充值小饼干配置列表")
 public class BuyCoinConfigModel {
     @ApiModelProperty(value = "id")
     Long id;
-    @ApiModelProperty(value = "金币")
+    @ApiModelProperty(value = "小饼干")
     int coins;
-    @ApiModelProperty(value = "金币对应的人民币，单位分")
+    @ApiModelProperty(value = "小饼干对应的人民币，单位分")
     int rmbs;
     @ApiModelProperty(value = "标题")
     String title;

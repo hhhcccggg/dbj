@@ -15,7 +15,7 @@ public class VideoTipDetails implements Serializable {
     Long userId;
     @ApiModelProperty(value = "用户昵称")
     String nickName;
-    @ApiModelProperty(value = "打赏金币数")
+    @ApiModelProperty(value = "打赏小饼干数")
     int tipCoin;
 
 

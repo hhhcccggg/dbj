@@ -34,7 +34,7 @@ public class PayWeChatController {
 
     @RequiresAuthentication
     @RequestMapping(value = "/chargeCoins",method = RequestMethod.POST)
-    @ApiOperation("微信充值金币")
+    @ApiOperation("微信充值小饼干")
     public ResponseData<ChargeCoinWXResult> chargeCoins(@RequestBody ChargeCoinInput input) {
         ServiceStatusInfo<ChargeCoinWXResult> serviceStatusInfo = this.weChatService.chargeCoins(input,JWTUtil.getCurrentId());
         if(serviceStatusInfo.isSuccess()) {
@@ -56,7 +56,7 @@ public class PayWeChatController {
     }
     @RequiresAuthentication
     @RequestMapping(value = "/orderQuery",method = RequestMethod.POST)
-    @ApiOperation("查询金币订单")
+    @ApiOperation("查询小饼干订单")
     public ResponseData<OrderPayResultDto> orderQuery(@RequestBody OrderQueryInput input) {
         ServiceStatusInfo<OrderPayResultDto> serviceStatusInfo = this.weChatService.orderQuery(input,1);
         if(serviceStatusInfo.isSuccess()) {
