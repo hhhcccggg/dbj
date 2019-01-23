@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.mapp
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.SearchUserDiscountCoupon;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponOut;
+import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -45,4 +46,47 @@ public interface UserDiscountCouponMapper {
             "</foreach></script>")
     long batchCreateUserDiscountCoupon(@Param("userDiscountCouponModels") UserDiscountCouponModel[] userDiscountCouponModels);
 
+    @Select("SELECT " +
+            "dc.id, " +
+            "dc.`name`, " +
+            "dc.discountType, " +
+            "dc.limitMoney, " +
+            "dc.discountValue " +
+            "FROM " +
+            "shop_discountCoupons AS dc , " +
+            "shop_userDiscountCoupons AS udc " +
+            "WHERE " +
+            "dc.storeId=#{storeId} AND " +
+            "dc.legalSubjectId = #{legalSubjectId} AND " +
+            "dc.isDeleted = 0 AND " +
+            "(dc.validStartTime is null or dc.validStartTime<now()) AND " +
+            "(dc.validEndTime is null or dc.validEndTime>now()) AND " +
+            "(dc.limitMoney=0 or dc.limitMoney <= #{price}) AND " +
+            "udc.userId=#{userId} AND " +
+            "udc.couponId = dc.id AND " +
+            "udc.isDeleted = 0 AND " +
+            "udc.state = 'UNUSED'")
+    List<Coupon> getVaildCoupon(@Param("storeId")long storeId, @Param("legalSubjectId")long legalSubjectId, @Param("price")long price,@Param("userId")long userId);
+
+    @Select("SELECT " +
+            "dc.id, " +
+            "dc.`name`, " +
+            "dc.discountType, " +
+            "dc.limitMoney, " +
+            "dc.discountValue " +
+            "FROM " +
+            "shop_discountCoupons AS dc , " +
+            "shop_userDiscountCoupons AS udc " +
+            "WHERE " +
+            "dc.storeId=#{storeId} AND " +
+            "dc.legalSubjectId = #{legalSubjectId} AND " +
+            "dc.isDeleted = 0 AND " +
+            "(dc.validStartTime is null or dc.validStartTime<now()) AND " +
+            "(dc.validEndTime is null or dc.validEndTime>now()) AND " +
+            "(dc.limitMoney=0 or dc.limitMoney <= #{price}) AND " +
+            "udc.userId=#{userId} AND " +
+            "udc.couponId = dc.id AND udc.couponId=#{id} AND " +
+            "udc.isDeleted = 0 AND " +
+            "udc.state = 'UNUSED'")
+    Coupon getVaildCouponById(@Param("storeId") long storeId, @Param("legalSubjectId")long legalSubjectId, @Param("price")long price,@Param("userId")long userId, @Param("id")long id);
 }

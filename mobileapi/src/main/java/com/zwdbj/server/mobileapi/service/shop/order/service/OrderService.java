@@ -11,6 +11,8 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductS
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.service.ReceiveAddressService;
+import com.zwdbj.server.pay.settlement.protocol.Coupon;
+import com.zwdbj.server.pay.settlement.protocol.ISettlement;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
@@ -138,5 +140,10 @@ public class OrderService {
             int result = this.orderMapper.takeOverGoods(orderId,userId);
             if (result==0)return new ServiceStatusInfo<>(1,"确认收货失败",result);
             return new ServiceStatusInfo<>(0,"确认收货成功",result);
+    }
+
+    public ServiceStatusInfo<Integer> settlementOrder(long id, long coins, Coupon coupon){
+        return new ServiceStatusInfo<>(0,"",1);
+
     }
 }

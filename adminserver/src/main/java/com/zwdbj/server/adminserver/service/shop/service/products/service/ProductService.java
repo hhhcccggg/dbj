@@ -1,10 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.products.service;
 
 
-import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.Products;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
-import com.zwdbj.server.adminserver.service.shop.service.products.model.UpdateProducts;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 
 import java.util.Date;
@@ -34,7 +31,7 @@ public interface ProductService {
      * @param id
      * @return
      */
-    ServiceStatusInfo<Map<String,Object>> selectById(long id);
+    ServiceStatusInfo<ProductsOut> selectById(long id);
 
     /**
      * 批量删除商品

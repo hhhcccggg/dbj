@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.serv
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.SearchUserDiscountCoupon;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponOut;
+import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 
 import java.util.List;
@@ -33,4 +34,21 @@ public interface UserDiscountCouponService {
      */
     ServiceStatusInfo<Long> batchCreateUserDiscountCoupon(long userId , long couponId,int couponCount);
 
+    /**
+     * 根据商铺店铺订单价格,查询可用优惠券
+     * @param storeId
+     * @param legalSubjectId
+     * @param price
+     * @return
+     */
+    ServiceStatusInfo<List<Coupon>> getVaildCoupon(long storeId, long legalSubjectId, long price);
+
+    /**
+     * 根据商铺店铺订单价格优惠券id是否可用
+     * @param storeId
+     * @param legalSubjectId
+     * @param price
+     * @return
+     */
+    ServiceStatusInfo<Coupon> getVaildCouponById(long storeId, long legalSubjectId, long price,long id);
 }
