@@ -25,7 +25,8 @@ public interface RankingListMapper {
             "ORDER BY  ua.totalCoins DESC,u.createTime")
     List<RankingListInfo> searchFriendRank(@Param("userId") long userId);
 
-    @Select("select u.id as userId,u.nickName,u.avatarUrl from core_users as u where u.id not in (SELECT followerUserId FROM core_followers WHERE userId=#{userId}) order by createTime DESC LIMIT 0,20")
+    @Select("select u.id as userId,u.nickName,u.avatarUrl from core_users as u " +
+            "where u.id not in (SELECT userId FROM core_followers WHERE followerUserId=#{userId}) order by createTime DESC LIMIT 0,20")
     List<Recommend> recommend(@Param("userId") long userId);
 
 

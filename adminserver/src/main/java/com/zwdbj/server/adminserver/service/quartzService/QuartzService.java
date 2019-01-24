@@ -5,6 +5,7 @@ import com.zwdbj.server.adminserver.service.complain.service.ComplainService;
 import com.zwdbj.server.adminserver.service.dailyIncreaseAnalysises.service.DailyIncreaseAnalysisesService;
 import com.zwdbj.server.adminserver.service.living.service.LivingService;
 import com.zwdbj.server.adminserver.service.operateComments.service.OperateService;
+import com.zwdbj.server.adminserver.service.qiniu.service.QiniuOperService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.review.service.TextScanSample;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
@@ -41,6 +42,8 @@ public class QuartzService {
     VideoReviewService videoReviewService;
     @Autowired
     OperateService operateService;
+    @Autowired
+    private QiniuOperService qiniuOperService;
 
     private Logger logger = LoggerFactory.getLogger(QuartzService.class);
 
@@ -116,4 +119,13 @@ public class QuartzService {
         }
     }
 
+    /**
+     * 定时添加宠物种类
+     */
+    public void addPetCateGories(){
+        this.qiniuOperService.catOpe();
+        this.qiniuOperService.dogOpe();
+        logger.info("定时添加宠物种类完成");
     }
+
+}
