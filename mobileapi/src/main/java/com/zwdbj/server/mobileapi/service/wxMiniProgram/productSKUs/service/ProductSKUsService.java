@@ -11,4 +11,11 @@ public interface ProductSKUsService {
      * @return
      */
     ServiceStatusInfo<ProductSKUs> selectById(Long id);
+
+    /**
+     * 根据商品ID查询
+     * @param productId
+     * @return
+     */
+    ServiceStatusInfo<ProductSKUs> selectByProductId(Long productId);
 }

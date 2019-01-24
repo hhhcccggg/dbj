@@ -6,6 +6,8 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInp
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ProductServiceImpl implements  ProductService{
 
     @Autowired
     protected IProductOrderMapper iProductOrderMapper;
+
+    @Autowired
+    private ProductSKUsService productSKUsServiceImpl;
 
     @Autowired
     protected IUserMapper iUserMapper;
@@ -45,6 +50,14 @@ public class ProductServiceImpl implements  ProductService{
     public ServiceStatusInfo<ProductlShow> selectByIdByStoreId(long id, long storeId) {
         try{
             ProductlShow productlShow = this.iProductMapper.selectByIdByStoreId(id,storeId);
+            ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(id);
+            if(!serviceStatusInfo.isSuccess()){
+                return new ServiceStatusInfo<>(1,"查询失败,SUK不存在",null);
+            }
+            ProductSKUs productSKUs = serviceStatusInfo.getData();
+            productlShow.setPromotionPrice(productSKUs.getPromotionPrice());
+            productlShow.setInventory(productSKUs.getInventory());
+            productlShow.setOriginalPrice(productSKUs.getOriginalPrice());
             List<Long> userIds = iProductOrderMapper.selectByOrder(id);
             List<String> exchangeList =  null;
             if(userIds.size()>0){
