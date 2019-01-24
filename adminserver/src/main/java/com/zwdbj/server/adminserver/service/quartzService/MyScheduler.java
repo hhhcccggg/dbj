@@ -85,7 +85,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(AddPetCateGoriesJob.class)
                 .withIdentity("job6", "group01")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 58 15 24 01 ? 2019");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 23 16 24 01 ? 2019");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("trigger6", "group1")
                 .withSchedule(scheduleBuilder).build();
         scheduler.scheduleJob(jobDetail,cronTrigger);
