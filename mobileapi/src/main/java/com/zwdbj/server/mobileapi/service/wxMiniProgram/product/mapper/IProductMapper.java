@@ -22,23 +22,7 @@ public interface IProductMapper {
      * @param id
      * @return
      */
-    @Select("SELECT " +
-            "id," +
-            "productType," +
-            "productDetailType," +
-            "`name`," +
-            "inventory," +
-            "sales,"+
-            "detailDescription," +
-            "limitPerPerson,"+
-            "originalPrice," +
-            "promotionPrice," +
-            "festivalCanUse,"+
-            "supportCoin," +
-            "categoryId," +
-            "brandId," +
-            "imageUrls " +
-            "from shop_products " +
+    @Select("SELECT  * from shop_products " +
             "where publish=1 and isDeleted=0 and storeId=#{storeId} and id=#{id}")
     ProductlShow selectByIdByStoreId(@Param("id") long id, @Param("storeId") long storeId);
 
