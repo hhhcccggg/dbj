@@ -25,7 +25,7 @@ public class AlipayService {
     private Logger logger = LoggerFactory.getLogger(AlipayService.class);
     /**
      * @param input
-     * @param type  1 :金币充值  2:订单付款
+     * @param type  1 :小饼干充值  2:订单付款
      * @return 阿里支付预下单
      */
     public ServiceStatusInfo<AliAppPayResult> appPay(AliAppPayInput input,int type) {
