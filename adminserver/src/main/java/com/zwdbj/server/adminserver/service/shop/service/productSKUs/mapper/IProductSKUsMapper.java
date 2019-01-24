@@ -27,12 +27,12 @@ public interface IProductSKUsMapper {
             "sales=#{productSKUs.sales},attrs=#{productSKUs.attrs},weight=#{productSKUs.weight} where id=#{productSKUs.id}")
     Long updateProductSKUs(@Param("productSKUs") ProductSKUs productSKUs);
 
-    @Select("select * from shop_productskus where isDeleted=0 order by createTime")
+    @Select("select * from shop_productSKUs where isDeleted=0 order by createTime")
     List<ProductSKUs> selectAll();
 
-    @Select("select * from shop_productskus where id=#{id}")
+    @Select("select * from shop_productSKUs where id=#{id}")
     ProductSKUs selectById(@Param("id") Long id);
 
-    @Select("select * from shop_productskus where productId=#{productId}")
+    @Select("select * from shop_productSKUs where productId=#{productId}")
     ProductSKUs selectByProductId(@Param("productId") Long productId);
 }
