@@ -76,7 +76,7 @@ public class ReceiveAddressController {
     @PostMapping(value = "setDefault")
     @ApiOperation(value = "设置默认收货地址")
     @RequiresAuthentication
-    public ResponseData<Long> setDefault(@RequestBody long id){
+    public ResponseData<Long> setDefault(long id){
         ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.setDefalue(id);
         if( !serviceStatusInfo.isSuccess()){
             return new ResponseData(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
@@ -87,7 +87,7 @@ public class ReceiveAddressController {
     @PostMapping(value = "removeReceiveAddress")
     @ApiOperation(value = "删除收货地址")
     @RequiresAuthentication
-    public ResponseData<Long> removeReceiveAddress(@RequestBody long id){
+    public ResponseData<Long> removeReceiveAddress(long id){
         ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.deleteById(id);
         if( !serviceStatusInfo.isSuccess()){
             return new ResponseData(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);

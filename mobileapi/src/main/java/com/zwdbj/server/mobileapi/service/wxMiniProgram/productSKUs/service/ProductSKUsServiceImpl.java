@@ -24,4 +24,14 @@ public class ProductSKUsServiceImpl implements ProductSKUsService {
             return new ServiceStatusInfo<>(1, "查询单个商品SKU失败"+e.getMessage(), null);
         }
     }
+
+    @Override
+    public ServiceStatusInfo<ProductSKUs> selectByProductId(Long productId) {
+        try{
+            ProductSKUs productSKUs = this.productSKUsMapper.selectByProductId(productId);
+            return new ServiceStatusInfo<>(0, "", productSKUs);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1, "查询单个商品SKU失败"+e.getMessage(), null);
+        }
+    }
 }
