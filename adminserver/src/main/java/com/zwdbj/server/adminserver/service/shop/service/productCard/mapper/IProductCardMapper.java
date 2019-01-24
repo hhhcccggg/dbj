@@ -12,7 +12,7 @@ public interface IProductCardMapper {
      * @param productCard
      * @return
      */
-    @Insert("INSERT INTO `shop_productcards` (" +
+    @Insert("INSERT INTO `shop_productCards` (" +
             "`id`," +
             "`festivalCanUse`," +
             "`useInfo`," +
@@ -41,7 +41,7 @@ public interface IProductCardMapper {
      * @param productCard
      * @return
      */
-    @Update("UPDATE `shop_productcards`" +
+    @Update("UPDATE `shop_productCards`" +
             "SET " +
             " `festivalCanUse` = #{productCard.festivalCanUse}," +
             " `useInfo` = #{productCard.useInfo}," +
@@ -60,6 +60,6 @@ public interface IProductCardMapper {
      * @param productId
      * @return
      */
-    @Select("select * from shop_productcards where productId=#{productId}")
+    @Select("select * from shop_productCards where productId=#{productId}")
     ProductCard selectByProductId(@Param("productId") long productId);
 }
