@@ -20,8 +20,8 @@ public interface RankingListMapper {
     RankingListInfo searchByUser(@Param("userId") long userId);
 
     @Select("SELECT u.id as userId,u.nickName,u.avatarUrl,ua.totalCoins ,(SELECT COUNT(*) FROM core_userAssets WHERE totalCoins>=ua.totalCoins and " +
-            "userId in (SELECT followerUserId FROM core_followers WHERE userId=#{userId})) as rank " +
-            "from core_userAssets as ua,core_users as u  WHERE ua.userId=u.id and u.id in(SELECT followerUserId FROM core_followers WHERE userId=#{userId}) " +
+            "userId in (SELECT userId FROM core_followers WHERE followerUserId=#{userId})) as rank " +
+            "from core_userAssets as ua,core_users as u  WHERE ua.userId=u.id and u.id in(SELECT userId FROM core_followers WHERE followerUserId=#{userId}) " +
             "ORDER BY  ua.totalCoins DESC,u.createTime")
     List<RankingListInfo> searchFriendRank(@Param("userId") long userId);
 
