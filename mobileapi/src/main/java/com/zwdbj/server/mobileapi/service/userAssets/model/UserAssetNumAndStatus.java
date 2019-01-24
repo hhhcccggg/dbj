@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.service.userAssets.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "充值金币的数量和状态")
+@ApiModel(description = "充值小饼干的数量和状态")
 public class UserAssetNumAndStatus {
     @ApiModelProperty(value = "id")
     long id;

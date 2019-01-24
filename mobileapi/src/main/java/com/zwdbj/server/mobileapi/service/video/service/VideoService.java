@@ -183,7 +183,7 @@ public class VideoService {
         }
 
         videoMapper.publicVideo(videoId, userId, input);
-        //每日任务金币
+        //每日任务小饼干
         boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicVideo:"+userId);
         if (!keyExist) {
             LocalTime midnight = LocalTime.MIDNIGHT;
@@ -607,8 +607,8 @@ public class VideoService {
 
     @Transactional
     public ServiceStatusInfo<Integer> playTout(int coins, Long videoId) {
-        //TODO 金币变动时 考虑到线程安全，需要加锁
-        if (coins < 1 || coins > 100000000) return new ServiceStatusInfo<>(1, "您输入的金币数量有误", null);
+        //TODO 小饼干变动时 考虑到线程安全，需要加锁
+        if (coins < 1 || coins > 100000000) return new ServiceStatusInfo<>(1, "您输入的小饼干数量有误", null);
         long userId = JWTUtil.getCurrentId();
         String key = String.valueOf(userId) + videoId;
         ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
@@ -620,19 +620,19 @@ public class VideoService {
                 Long authorId = videoMapper.findUserIdByVideoId(videoId);
 
                 if (authorId == userId) return new ServiceStatusInfo<>(1, "不能给自己打赏", null);
-                //查看此用户是否存在金币账户
+                //查看此用户是否存在小饼干账户
                 this.userAssetServiceImpl.userIsExist(userId);
                 int authorIncome = coins;
-                //用户金币总数
+                //用户小饼干总数
                 long counts = userAssetServiceImpl.getCoinsByUserId().getData();
                 if (counts < 0 || counts < coins) {
-                    return new ServiceStatusInfo<>(1, "您的金币不足，请充值金币", null);
+                    return new ServiceStatusInfo<>(1, "您的小饼干不足，请充值小饼干", null);
                 }
-                //获取用户金币类型数量详情
+                //获取用户小饼干类型数量详情
                 int task = (int) userAssetServiceImpl.getUserCoinType(userId, "TASK").getData().getCoins();
                 int pay = (int) userAssetServiceImpl.getUserCoinType(userId, "PAY").getData().getCoins();
                 int other = (int) userAssetServiceImpl.getUserCoinType(userId, "OTHER").getData().getCoins();
-                //每日任务金币
+                //每日任务小饼干
                 boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPlayTout:"+userId);
                 if (!keyExist) {
                     LocalTime midnight = LocalTime.MIDNIGHT;
@@ -651,13 +651,13 @@ public class VideoService {
                 }
 
                 if (task >= coins) {
-                    //task类型的金币大于等于打赏数，则全部用task打赏
+                    //task类型的小饼干大于等于打赏数，则全部用task打赏
                     UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
                     addTaskInput.setNum(-coins);
                     addTaskInput.setType("TASK");
                     addTaskInput.setTitle("视频打赏消费");
 
-                    //修改打赏用户金币明细
+                    //修改打赏用户小饼干明细
                     userAssetServiceImpl.addUserCoinDetailSuccess(userId, addTaskInput);
                     userAssetServiceImpl.updateUserCoinType(userId, "TASK", -coins);
                     userAssetServiceImpl.updateUserAsset(userId, -authorIncome);
@@ -666,13 +666,13 @@ public class VideoService {
                     //增加视频获得的打赏详情
                     this.userAssetServiceImpl.addVideoTipDetail(videoId, userId, authorIncome);
 
-                    //修改视频作者金币明细
+                    //修改视频作者小饼干明细
                     videoAuthorIncome(authorId, authorIncome);
 
                     return new ServiceStatusInfo<>(0, "", 1);
                 } else {
                     if (task != 0) {
-                        //减去task的金币后仍需要支付的金币数
+                        //减去task的小饼干后仍需要支付的小饼干数
                         coins = coins - task;
                         userAssetServiceImpl.updateUserCoinType(userId, "TASK", -task);
                     }
@@ -694,7 +694,7 @@ public class VideoService {
                         return new ServiceStatusInfo<>(0, "", 1);
                     } else {
                         if (pay != 0) {
-                            coins = coins - pay;//减去pay的金币后仍需要支付的金币数
+                            coins = coins - pay;//减去pay的小饼干后仍需要支付的小饼干数
                             userAssetServiceImpl.updateUserCoinType(userId, "PAY", -pay);
                         }
                         if (other >= coins) {
@@ -715,7 +715,7 @@ public class VideoService {
                             return new ServiceStatusInfo<>(0, "", 1);
                         } else {
                             if (other != 0) {
-                                coins = coins - other;//减去other的金币后还需要支付的金币数
+                                coins = coins - other;//减去other的小饼干后还需要支付的小饼干数
                                 userAssetServiceImpl.updateUserCoinType(userId, "OTHER", -other);
                             }
                             UserCoinDetailAddInput addIncomeInput = new UserCoinDetailAddInput();

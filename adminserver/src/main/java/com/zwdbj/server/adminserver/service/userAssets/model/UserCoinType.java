@@ -4,17 +4,17 @@ package com.zwdbj.server.adminserver.service.userAssets.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "分类型存储用户金币总额")
+@ApiModel(description = "分类型存储用户小饼干总额")
 public class UserCoinType {
     @ApiModelProperty(value = "id")
     Long id;
-    @ApiModelProperty(value = "用户金币获得类型")
+    @ApiModelProperty(value = "用户小饼干获得类型")
     String type;
-    @ApiModelProperty(value = "金币总额")
+    @ApiModelProperty(value = "小饼干总额")
     Long coins;
     @ApiModelProperty(value = "用户id")
     Long userId;
-    @ApiModelProperty(value = "用户冻结的金币")
+    @ApiModelProperty(value = "用户冻结的小饼干")
     long lockedCoins;
 
     public long getLockedCoins() {

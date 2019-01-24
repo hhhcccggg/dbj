@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressId;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.service.ReceiveAddressService;
@@ -76,8 +77,8 @@ public class ReceiveAddressController {
     @PostMapping(value = "setDefault")
     @ApiOperation(value = "设置默认收货地址")
     @RequiresAuthentication
-    public ResponseData<Long> setDefault(@RequestBody long id){
-        ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.setDefalue(id);
+    public ResponseData<Long> setDefault(@RequestBody @Valid ReceiveAddressId receiveAddressId){
+        ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.setDefalue(receiveAddressId.getId());
         if( !serviceStatusInfo.isSuccess()){
             return new ResponseData(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
         }
@@ -87,8 +88,8 @@ public class ReceiveAddressController {
     @PostMapping(value = "removeReceiveAddress")
     @ApiOperation(value = "删除收货地址")
     @RequiresAuthentication
-    public ResponseData<Long> removeReceiveAddress(@RequestBody long id){
-        ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.deleteById(id);
+    public ResponseData<Long> removeReceiveAddress(@RequestBody @Valid ReceiveAddressId receiveAddressId){
+        ServiceStatusInfo<Long> serviceStatusInfo= receiveAddressServiceImpl.deleteById(receiveAddressId.getId());
         if( !serviceStatusInfo.isSuccess()){
             return new ResponseData(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
         }

@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-@ApiModel(description = "用户金币明细")
+@ApiModel(description = "用户小饼干明细")
 public class UserCoinDetailsModel implements Serializable {
     @ApiModelProperty(value = "id")
     long id;
@@ -14,7 +14,7 @@ public class UserCoinDetailsModel implements Serializable {
     Date createTime;
     @ApiModelProperty(value = "标题")
     String title;
-    @ApiModelProperty(value = "金币数")
+    @ApiModelProperty(value = "小饼干数")
     int num;
     @ApiModelProperty(value = "附加数据")
     String extraData;

@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class UserAssets {
     @ApiModelProperty(value = "id")
     Long id;
-    @ApiModelProperty(value = "用户金币")
+    @ApiModelProperty(value = "用户小饼干")
     Long coins;
 
     @ApiModelProperty(value = "用户余额")

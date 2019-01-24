@@ -3,11 +3,11 @@ package com.zwdbj.server.adminserver.service.userAssets.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "用户金币明细")
+@ApiModel(description = "用户小饼干明细")
 public class UserCoinDetail {
     @ApiModelProperty(value = "id")
     Long id;
-    @ApiModelProperty(value = "金币数")
+    @ApiModelProperty(value = "小饼干数")
     Integer num;
     @ApiModelProperty(value = "标题")
     String title;

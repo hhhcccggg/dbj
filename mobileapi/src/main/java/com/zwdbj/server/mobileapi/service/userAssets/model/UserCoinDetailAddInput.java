@@ -5,11 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
-@ApiModel(description = "增加用户金币明细")
+@ApiModel(description = "增加用户小饼干明细")
 public class UserCoinDetailAddInput implements Serializable {
     @ApiModelProperty(value = "标题")
     String title;
-    @ApiModelProperty(value = "金币数")
+    @ApiModelProperty(value = "小饼干数")
     int num;
     @ApiModelProperty(value = "附加数据")
     String extraData;

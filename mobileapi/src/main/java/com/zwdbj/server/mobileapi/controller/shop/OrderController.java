@@ -9,6 +9,7 @@ import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
 import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.pay.settlement.protocol.Coupon;
+import com.zwdbj.server.pay.settlement.protocol.SettlementResult;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -78,13 +79,13 @@ public class OrderController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
 
     }
-    @RequestMapping(value = "/settlement/order/{id}",method = RequestMethod.POST)
-    @ApiOperation(value = "订单结算调用,id为订单id")
+    @RequestMapping(value = "/settlement/order",method = RequestMethod.POST)
+    @ApiOperation(value = "订单结算调用")
     @RequiresAuthentication
-    public ResponseData<Integer> settlementOrder(@PathVariable long id,
-                                                 @RequestParam long coins,
+    public ResponseData<SettlementResult> settlementOrder(@RequestParam long coins,
+                                                 @RequestParam int amount,
                                                  @RequestBody Coupon coupon){
-        ServiceStatusInfo<Integer> statusInfo = this.orderService.settlementOrder(id,coins,coupon);
+        ServiceStatusInfo<SettlementResult> statusInfo = this.orderService.settlementOrder(amount,coins,coupon);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
         }

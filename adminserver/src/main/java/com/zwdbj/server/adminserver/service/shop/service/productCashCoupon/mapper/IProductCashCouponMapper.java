@@ -12,7 +12,7 @@ public interface IProductCashCouponMapper {
      * @param productCashCoupon
      * @return
      */
-    @Insert("INSERT INTO `shop_productcashcoupons` (" +
+    @Insert("INSERT INTO `shop_productCashCoupons` (" +
             "`id`,`couponValue`,`festivalCanUse`,`useInfo`,`validType`,`specHoursValid`,`validDays`,`validStartTime`,`validEndTime`," +
             "`productId`,`productSKUId`)" +
             "VALUES" +
@@ -25,7 +25,7 @@ public interface IProductCashCouponMapper {
      * @param productCashCoupon
      * @return
      */
-    @Update("UPDATE `shop_productcashcoupons`" +
+    @Update("UPDATE `shop_productCashCoupons`" +
             "SET " +
             " `couponValue` = #{productCashCoupon.couponValue}," +
             " `festivalCanUse` =  #{productCashCoupon.festivalCanUse}," +
@@ -44,6 +44,6 @@ public interface IProductCashCouponMapper {
      * @param productId
      * @return
      */
-    @Select("select * from shop_productcashcoupons where productId=#{productId}")
+    @Select("select * from shop_productCashCoupons where productId=#{productId}")
     ProductCashCoupon selectByProductId(@Param("productId") long productId);
 }

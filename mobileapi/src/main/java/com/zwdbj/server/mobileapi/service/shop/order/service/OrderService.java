@@ -11,8 +11,10 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductS
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.service.ReceiveAddressService;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.service.UserDiscountCouponService;
 import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.pay.settlement.protocol.ISettlement;
+import com.zwdbj.server.pay.settlement.protocol.SettlementResult;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
@@ -36,6 +38,10 @@ public class OrderService {
     private UserAssetServiceImpl userAssetServiceImpl;
     @Autowired
     private ProductService productServiceImpl;
+    @Autowired
+    private ISettlement settlement;
+    @Autowired
+    private UserDiscountCouponService userDiscountCouponServiceImpl;
 
     public List<ProductOrderModel> getMyOrders(int status){
         try {
@@ -113,10 +119,6 @@ public class OrderService {
                 this.orderMapper.createOrderItem(orderItemId,orderId,input,price,totalFee);
                 // 减去商品和sku的库存并更新销量
                 this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
-                //兑换后减去用户所需的小饼干
-                boolean flag = this.userAssetServiceImpl.minusUserCoins(input.getUseCoin(),userId,orderId);
-                if (!flag)return new ServiceStatusInfo<>(1,"下单失败",0);
-                // TODO 优惠券的使用
                 return new ServiceStatusInfo<>(0,"下单成功",1);
             }
 
@@ -132,7 +134,25 @@ public class OrderService {
 
     @Transactional
     public void updateOrderPay(long id,String paymentType,String tradeNo,String thirdPaymentTradeNotes){
-            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes);
+        ProductOrderDetailModel model = this.getOrderById(id).getData();
+        long userId = JWTUtil.getCurrentId();
+        if (model==null)return;
+        if (!model.getStatus().equals("STATE_WAIT_BUYER_PAY"))return;
+        if (model.getUseCoin()!=0){
+            //处理金币
+            this.userAssetServiceImpl.minusUserCoins(model.getUseCoin(),userId,id);
+        }
+        String coupons = model.getCouponids();
+        if (coupons!=null && (!coupons.equals("") )){
+            String[] couponIds = coupons.split(",");
+            for (String coupon:couponIds){
+                long couponId = Long.valueOf(coupon);
+                if (couponId==0)continue;
+                //更新优惠券的状态
+                this.userDiscountCouponServiceImpl.updateUserDiscountCouponState(userId,couponId);
+            }
+        }
+        this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes);
     }
 
     @Transactional
@@ -142,8 +162,12 @@ public class OrderService {
             return new ServiceStatusInfo<>(0,"确认收货成功",result);
     }
 
-    public ServiceStatusInfo<Integer> settlementOrder(long id, long coins, Coupon coupon){
-        return new ServiceStatusInfo<>(0,"",1);
+    public ServiceStatusInfo<SettlementResult> settlementOrder(int amount, long coins, Coupon coupon){
+        long allCoins = this.userAssetServiceImpl.getCoinsByUserId().getData();
+        if (allCoins<coins)return new ServiceStatusInfo<>(1,"你的小饼干不够",null);
+        int userCoins = (int)coins;
+        SettlementResult settlementResult = this.settlement.settlement(amount,0L,userCoins,coupon);
+        return new ServiceStatusInfo<>(0,"",settlementResult);
 
     }
 }

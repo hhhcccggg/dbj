@@ -1,7 +1,6 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.service;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.SearchUserDiscountCoupon;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponOut;
 import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -51,4 +50,12 @@ public interface UserDiscountCouponService {
      * @return
      */
     ServiceStatusInfo<Coupon> getVaildCouponById(long storeId, long legalSubjectId, long price,long id);
+
+    /**
+     * 使用优惠券
+     * @param userId
+     * @param id
+     * @return
+     */
+    ServiceStatusInfo<Long> updateUserDiscountCouponState(long userId,long id);
 }

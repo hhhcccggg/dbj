@@ -56,7 +56,9 @@ public class ReceiveAddressServiceImpl implements ReceiveAddressService{
             long userId = JWTUtil.getCurrentId();
             iReceiveAddressMapper.updateCancelAllDefalue(userId);
             long result = iReceiveAddressMapper.updateDefalue(id,userId);
-            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"",result);
+            if(result>0)
+                return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"",result);
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_ERROR,"设置失败,影响行数"+result,null);
         }catch(Exception e){
             return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_ERROR,"默认收货地址设置失败"+e.getMessage(),null);
         }
@@ -86,7 +88,10 @@ public class ReceiveAddressServiceImpl implements ReceiveAddressService{
     public ServiceStatusInfo<Long> deleteById(long id) {
         try{
             long userId = JWTUtil.getCurrentId();
-            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"",iReceiveAddressMapper.deleteReceiveAddress(id,userId));
+            long result = iReceiveAddressMapper.deleteReceiveAddress(id,userId);
+            if(result>0)
+                return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"",result);
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_ERROR,"删除失败,影响行数"+result,null);
         }catch(Exception e){
             return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_ERROR,"删除失败"+e.getMessage(),null);
         }

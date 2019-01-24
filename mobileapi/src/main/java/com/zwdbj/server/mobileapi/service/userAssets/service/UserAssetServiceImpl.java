@@ -210,7 +210,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
     }
 
     /**
-     * 根据交易号查询金币是否
+     * 根据交易号查询小饼干是否
      *
      * @param tradeNo
      * @param tradeType
@@ -435,9 +435,9 @@ public class UserAssetServiceImpl implements IUserAssetService {
                 long id = UniqueIDCreater.generateID();
                 int coins = input.getRmbs() / 10;
                 long allCoins = this.getUserCoinType(userId, "INCOME").getData().getCoins();
-                if (allCoins<=0)return new ServiceStatusInfo<>(1, "没有足够的金币进行提现", null);
+                if (allCoins<=0)return new ServiceStatusInfo<>(1, "没有足够的小饼干进行提现", null);
                 if (allCoins < coins) {
-                    return new ServiceStatusInfo<>(1, "没有足够的金币进行提现", null);
+                    return new ServiceStatusInfo<>(1, "没有足够的小饼干进行提现", null);
                 }
                 //增加提现详情
                 int result = this.userAssetMapper.addEnCashDetail(id, userId, coins, input);
@@ -445,16 +445,16 @@ public class UserAssetServiceImpl implements IUserAssetService {
                 if (result == 1) {
                     UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
                     userCoinDetailAddInput.setNum(-coins);
-                    userCoinDetailAddInput.setTitle("提现" + coins + "金币");
+                    userCoinDetailAddInput.setTitle("提现" + coins + "小饼干");
                     userCoinDetailAddInput.setType("ENCASH");
                     userCoinDetailAddInput.setExtraData("");
-                    //提现时增加金币详情
+                    //提现时增加小饼干详情
                     result = this.addUserCoinDetailForEnCash(userId, userCoinDetailAddInput, String.valueOf(id));
                     if (result == 1) {
-                        //提现时更新类别金币总数
+                        //提现时更新类别小饼干总数
                         result = this.updateUserCoinTypeForEnCash(userId, "INCOME", -coins);
                         if (result == 1) {
-                            //提现时更新金币总数
+                            //提现时更新小饼干总数
                             result2 = this.updateUserAsset(userId, -coins);
                         }
                     }
@@ -482,9 +482,9 @@ public class UserAssetServiceImpl implements IUserAssetService {
     }
 
     /**
-     * 用户支付订单减去的金币
+     * 用户支付订单减去的小饼干
      *
-     * @param coins          需要支付的金币数
+     * @param coins          需要支付的小饼干数
      * @param userId         用户id
      * @param productOrderId 订单id
      * @return true 为成功
@@ -493,21 +493,21 @@ public class UserAssetServiceImpl implements IUserAssetService {
     @Override
     public boolean minusUserCoins(int coins, long userId, long productOrderId) {
 
-        //获取用户金币类型数量详情
+        //获取用户小饼干类型数量详情
         int task = (int) this.getUserCoinType(userId, "TASK").getData().getCoins();
         int pay = (int) this.getUserCoinType(userId, "PAY").getData().getCoins();
         int other = (int) this.getUserCoinType(userId, "OTHER").getData().getCoins();
         int AllCoins = coins;
 
         if (task >= coins) {
-            //task类型的金币大于等于订单支付，则全部用task支付
+            //task类型的小饼干大于等于订单支付，则全部用task支付
             UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
             addTaskInput.setNum(AllCoins);
             addTaskInput.setType("ORDER");
-            addTaskInput.setTitle("支付订单消费");
+            addTaskInput.setTitle("支付订单消费抵扣");
             addTaskInput.setExtraData(String.valueOf(productOrderId));
 
-            //修改用户金币明细
+            //修改用户小饼干明细
             this.addUserCoinDetailSuccess(userId, addTaskInput);
             this.updateUserCoinType(userId, "TASK", -coins);
             this.updateUserAsset(userId, -AllCoins);
@@ -515,7 +515,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
             return true;
         } else {
             if (task != 0) {
-                //减去task的金币后仍需要支付的金币数
+                //减去task的小饼干后仍需要支付的小饼干数
                 coins = coins - task;
                 this.updateUserCoinType(userId, "TASK", -task);
             }
@@ -533,7 +533,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
                 return true;
             } else {
                 if (pay != 0) {
-                    coins = coins - pay;//减去pay的金币后仍需要支付的金币数
+                    coins = coins - pay;//减去pay的小饼干后仍需要支付的小饼干数
                     this.updateUserCoinType(userId, "PAY", -pay);
                 }
                 if (other >= coins) {
@@ -550,7 +550,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
                     return true;
                 } else {
                     if (other != 0) {
-                        coins = coins - other;//减去other的金币后还需要支付的金币数
+                        coins = coins - other;//减去other的小饼干后还需要支付的小饼干数
                         this.updateUserCoinType(userId, "OTHER", -other);
                     }
                     UserCoinDetailAddInput addIncomeInput = new UserCoinDetailAddInput();
@@ -590,12 +590,12 @@ public class UserAssetServiceImpl implements IUserAssetService {
     }
 
     /**
-     * 用户任务增加金币
+     * 用户任务增加小饼干
      */
 
     @Transactional
     public void userPlayCoinTask(UserCoinDetailAddInput input,long userId,String type,int coins,String taskId,String state){
-        // TODO 改变金币任务状态 参数要加入任务的id,处理任务
+        // TODO 改变小饼干任务状态 参数要加入任务的id,处理任务
         this.addUserCoinDetail(userId,input);
         this.updateUserCoinType(userId,type,coins);
         this.updateUserAsset(userId,coins);

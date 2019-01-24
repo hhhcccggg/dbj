@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 
-@ApiModel(description = "更改用户金币的明细状态")
+@ApiModel(description = "更改用户小饼干的明细状态")
 public class UserCoinDetailModifyInput {
     @ApiModelProperty(value = "id")
     long id;
