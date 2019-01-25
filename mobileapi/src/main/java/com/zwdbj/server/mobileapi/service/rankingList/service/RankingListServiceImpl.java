@@ -77,16 +77,16 @@ public class RankingListServiceImpl implements RankingListService {
             if (userId == 0L) {
                 return new ServiceStatusInfo<>(1, "请重新登录", null);
             }
-            if (!"".equals(valueOperations.get("")) && valueOperations.get("friendRank") != null) {
-                String str = valueOperations.get("friendRank");
+            if (!"".equals(valueOperations.get("friendRank"+userId)) && valueOperations.get("friendRank"+userId) != null) {
+                String str = valueOperations.get("friendRank"+userId);
                 result = JSON.parseObject(str, new TypeReference<List<RankingListInfo>>() {
                 });
                 return new ServiceStatusInfo<>(0, "", result);
             }
             result = this.rankingListMapper.searchFriendRank(userId);
             if (result != null) {
-                valueOperations.set("friendRank", JSONArray.toJSONString(result));
-                stringRedisTemplate.expire("friendRank", 30, TimeUnit.MINUTES);
+                valueOperations.set("friendRank"+userId, JSONArray.toJSONString(result));
+                stringRedisTemplate.expire("friendRank"+userId, 30, TimeUnit.MINUTES);
                 return new ServiceStatusInfo<>(0, "", result);
             }
             return new ServiceStatusInfo<>(1, "您暂时没有好友", null);
