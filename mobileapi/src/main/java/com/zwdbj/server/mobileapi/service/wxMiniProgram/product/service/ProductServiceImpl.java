@@ -40,6 +40,7 @@ public class ProductServiceImpl implements  ProductService{
             for(ProductOut productOut:list){
                 ProductSKUs productSKUs = productSKUsServiceImpl.selectByProductId(productOut.getId()).getData();
                 if(productSKUs != null){
+                    productOut.setProductSKUId(productSKUs.getId());
                     productOut.setPromotionPrice(productSKUs.getPromotionPrice());
                     productOut.setOriginalPrice(productSKUs.getOriginalPrice());
                 }
@@ -60,6 +61,7 @@ public class ProductServiceImpl implements  ProductService{
                 return new ServiceStatusInfo<>(1,"查询失败,SUK不存在",null);
             }
             ProductSKUs productSKUs = serviceStatusInfo.getData();
+            productlShow.setProductSKUId(productSKUs.getId());
             productlShow.setPromotionPrice(productSKUs.getPromotionPrice());
             productlShow.setInventory(productSKUs.getInventory());
             productlShow.setOriginalPrice(productSKUs.getOriginalPrice());

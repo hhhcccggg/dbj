@@ -78,6 +78,17 @@ public class ProductOut {
     @ApiModelProperty(value = "是否兑换过")
     int exchange;
 
+    @ApiModelProperty(value = "productSKUId")
+    long productSKUId;
+
+    public long getProductSKUId() {
+        return productSKUId;
+    }
+
+    public void setProductSKUId(long productSKUId) {
+        this.productSKUId = productSKUId;
+    }
+
     public int getExchange() {
         return exchange;
     }
