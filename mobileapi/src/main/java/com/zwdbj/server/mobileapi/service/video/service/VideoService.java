@@ -150,7 +150,7 @@ public class VideoService {
         return videoId;
     }
 
-    public long publicVideo(VideoPublishInput input) {
+    public ServiceStatusInfo<Long> publicVideo(VideoPublishInput input) {
 
         String videoKey = input.getVideoKey();
         String coverImageKey = input.getCoverImageKey();
@@ -172,7 +172,7 @@ public class VideoService {
 
         long videoId = UniqueIDCreater.generateID();
         long userId = JWTUtil.getCurrentId();
-        if (userId <= 0) return 0;
+        if (userId <= 0) return new ServiceStatusInfo<>(1,"请登录后再发布视频",null,null);
         if (input.getTags() != null) {
             String[] tags = input.getTags().split(",");
             //TODO 更新标签的数据
@@ -185,6 +185,7 @@ public class VideoService {
         videoMapper.publicVideo(videoId, userId, input);
         //每日任务小饼干
         boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicVideo:"+userId);
+        ResponseCoin coin =null;
         if (!keyExist) {
             LocalTime midnight = LocalTime.MIDNIGHT;
             LocalDate today = LocalDate.now();
@@ -199,7 +200,11 @@ public class VideoService {
             userCoinDetailAddInput.setTitle("每天首次发布视频获得小饼干"+5+"个");
             userCoinDetailAddInput.setType("TASK");
             this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",5,"EVERYDAYFIRSTPUBLICVIDEO","DONE");
+            coin= new ResponseCoin();
+            coin.setCoins(5);
+            coin.setMessage("每天首次发布视频获得小饼干"+5+"个");
         }
+
         UserModel userModel = this.userService.findUserById(userId);
         // 审核信息加入到消息队列
         if (/*userModel.isReviewed() &&*/ videoKey != null && videoKey.length() > 0) {
@@ -234,7 +239,7 @@ public class VideoService {
             logger.info("我是没重复的第一帧" + firstFrameImageKey);
             this.reviewService.reviewQiniuRes(resData);
         }
-        return videoId;
+        return new ServiceStatusInfo<>(0,"",videoId,coin);
     }
 
     // TODO 未来优化性能检测
@@ -474,13 +479,13 @@ public class VideoService {
     @Transactional
     public ServiceStatusInfo<VideoHeartStatusDto> heart(HeartInput input) {
         long userId = JWTUtil.getCurrentId();
-        if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null);
+        if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null,null);
         VideoHeartStatusDto videoHeartStatusDto = new VideoHeartStatusDto();
         videoHeartStatusDto.setVideoId(input.getId());
         HeartModel heartModel = this.heartService.findHeart(userId, input.getId());
         Long VUserId = this.videoMapper.findUserIdByVideoId(input.getId());
         if (heartModel != null && input.isHeart()) {
-            return new ServiceStatusInfo<>(1, "已经点赞过", null);
+            return new ServiceStatusInfo<>(1, "已经点赞过", null,null);
         }
         if (heartModel != null && !input.isHeart()) {
             this.heartService.unHeart(userId, input.getId());
@@ -488,7 +493,7 @@ public class VideoService {
             this.userService.addHeart(VUserId, -1);
             this.videoWegiht(input.getId());
             videoHeartStatusDto.setHeart(false);
-            return new ServiceStatusInfo<>(0, "取消成功", videoHeartStatusDto);
+            return new ServiceStatusInfo<>(0, "取消成功", videoHeartStatusDto,null);
         }
 
         if (input.isHeart()) {
@@ -511,7 +516,7 @@ public class VideoService {
                 return new ServiceStatusInfo<>(0, "点赞成功", videoHeartStatusDto,isFirst.getCoins());
             return new ServiceStatusInfo<>(0, "点赞成功", videoHeartStatusDto);
         } else {
-            return new ServiceStatusInfo<>(1, "取消失败", null);
+            return new ServiceStatusInfo<>(1, "取消失败", null,null);
         }
     }
 
@@ -608,7 +613,7 @@ public class VideoService {
     @Transactional
     public ServiceStatusInfo<Integer> playTout(int coins, Long videoId) {
         //TODO 小饼干变动时 考虑到线程安全，需要加锁
-        if (coins < 1 || coins > 100000000) return new ServiceStatusInfo<>(1, "您输入的小饼干数量有误", null);
+        if (coins < 1 || coins > 100000000) return new ServiceStatusInfo<>(1, "您输入的小饼干数量有误", null,null);
         long userId = JWTUtil.getCurrentId();
         String key = String.valueOf(userId) + videoId;
         ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
@@ -619,14 +624,14 @@ public class VideoService {
                 //获取视频作者id
                 Long authorId = videoMapper.findUserIdByVideoId(videoId);
 
-                if (authorId == userId) return new ServiceStatusInfo<>(1, "不能给自己打赏", null);
+                if (authorId == userId) return new ServiceStatusInfo<>(1, "不能给自己打赏", null,null);
                 //查看此用户是否存在小饼干账户
                 this.userAssetServiceImpl.userIsExist(userId);
                 int authorIncome = coins;
                 //用户小饼干总数
                 long counts = userAssetServiceImpl.getCoinsByUserId().getData();
                 if (counts < 0 || counts < coins) {
-                    return new ServiceStatusInfo<>(1, "您的小饼干不足，请充值小饼干", null);
+                    return new ServiceStatusInfo<>(1, "您的小饼干不足，请充值小饼干", null,null);
                 }
                 //获取用户小饼干类型数量详情
                 int task = (int) userAssetServiceImpl.getUserCoinType(userId, "TASK").getData().getCoins();
@@ -634,6 +639,7 @@ public class VideoService {
                 int other = (int) userAssetServiceImpl.getUserCoinType(userId, "OTHER").getData().getCoins();
                 //每日任务小饼干
                 boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPlayTout:"+userId);
+                ResponseCoin responseCoin=null;
                 if (!keyExist) {
                     LocalTime midnight = LocalTime.MIDNIGHT;
                     LocalDate today = LocalDate.now();
@@ -648,6 +654,9 @@ public class VideoService {
                     userCoinDetailAddInput.setTitle("每日首次打赏获得小饼干" + 5 + "个");
                     userCoinDetailAddInput.setType("TASK");
                     this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput, userId, "TASK", 5,"EVERYDAYFIRSTTIP","DONE");
+                    responseCoin= new ResponseCoin();
+                    responseCoin.setCoins(5);
+                    responseCoin.setMessage("每日首次打赏获得小饼干" + 5 + "个");
                 }
 
                 if (task >= coins) {
@@ -669,7 +678,7 @@ public class VideoService {
                     //修改视频作者小饼干明细
                     videoAuthorIncome(authorId, authorIncome);
 
-                    return new ServiceStatusInfo<>(0, "", 1);
+                    return new ServiceStatusInfo<>(0, "", 1,responseCoin);
                 } else {
                     if (task != 0) {
                         //减去task的小饼干后仍需要支付的小饼干数
@@ -691,7 +700,7 @@ public class VideoService {
 
                         videoAuthorIncome(authorId, authorIncome);
 
-                        return new ServiceStatusInfo<>(0, "", 1);
+                        return new ServiceStatusInfo<>(0, "", 1,responseCoin);
                     } else {
                         if (pay != 0) {
                             coins = coins - pay;//减去pay的小饼干后仍需要支付的小饼干数
@@ -712,7 +721,7 @@ public class VideoService {
 
                             videoAuthorIncome(authorId, authorIncome);
 
-                            return new ServiceStatusInfo<>(0, "", 1);
+                            return new ServiceStatusInfo<>(0, "", 1,responseCoin);
                         } else {
                             if (other != 0) {
                                 coins = coins - other;//减去other的小饼干后还需要支付的小饼干数
@@ -729,17 +738,17 @@ public class VideoService {
                             this.userAssetServiceImpl.addVideoTipDetail(videoId, userId, authorIncome);
                             videoMapper.addTipCount(videoId);
                             videoAuthorIncome(authorId, authorIncome);
-                            return new ServiceStatusInfo<>(0, "", 1);
+                            return new ServiceStatusInfo<>(0, "", 1,responseCoin);
                         }
                     }
                 }
             }
         } catch (InterruptedException e) {
-            return new ServiceStatusInfo<>(1, "打赏失败" + e.getMessage(), null);
+            return new ServiceStatusInfo<>(1, "打赏失败" + e.getMessage(), null,null);
         } finally {
             lock.unlock();
         }
-        return new ServiceStatusInfo<>(1, "打赏失败", null);
+        return new ServiceStatusInfo<>(1, "打赏失败", null,null);
     }
 
     /**

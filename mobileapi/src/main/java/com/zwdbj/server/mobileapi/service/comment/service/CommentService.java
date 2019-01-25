@@ -90,13 +90,13 @@ public class CommentService {
     @Transactional
     public ServiceStatusInfo<Object> heart(HeartInput input) {
         long userId = JWTUtil.getCurrentId();
-        if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null);
+        if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null,null);
         HeartModel heartModel = this.heartService.findHeart(userId, input.getId());
         if (heartModel != null && input.isHeart()) {
-            return new ServiceStatusInfo<>(1, "已经点赞过", null);
+            return new ServiceStatusInfo<>(1, "已经点赞过", null,null);
         }
         if (heartModel == null && !input.isHeart()) {
-            return new ServiceStatusInfo<>(0, "取消成功", null);
+            return new ServiceStatusInfo<>(0, "取消成功", null,null);
         }
         if (input.isHeart()) {
             long id = UniqueIDCreater.generateID();
@@ -107,7 +107,7 @@ public class CommentService {
         } else {
             this.heartService.unHeart(userId, input.getId());
             this.commentMapper.addHeart(input.getId(), -1);
-            return new ServiceStatusInfo<>(0, "取消成功", null);
+            return new ServiceStatusInfo<>(0, "取消成功", null,null);
         }
     }
 
@@ -127,7 +127,7 @@ public class CommentService {
     public ServiceStatusInfo<Object> add(AddCommentInput input) {
         AddCommentModel addCommentModel = new ModelMapper().map(input, AddCommentModel.class);
         long userId = JWTUtil.getCurrentId();
-        if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null);
+        if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null,null);
 
         addCommentModel.setId(UniqueIDCreater.generateID());
         addCommentModel.setUserId(userId);
@@ -152,7 +152,7 @@ public class CommentService {
             this.videoService.videoWegiht(input.getResId());
             //每日任务金币
             boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicComment:" + userId);
-            ResponseCoin coins = new ResponseCoin();
+            ResponseCoin coins = null;
             if (!keyExist) {
                 LocalTime midnight = LocalTime.MIDNIGHT;
                 LocalDate today = LocalDate.now();
@@ -167,13 +167,13 @@ public class CommentService {
                 userCoinDetailAddInput.setTitle("每日首次评论获得小饼干" + 2 + "个");
                 userCoinDetailAddInput.setType("TASK");
                 this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput, userId, "TASK", 2,"EVERYDAYFIRSTCOMMENT","DONE");
+                coins = new ResponseCoin();
                 coins.setCoins(2);
                 coins.setMessage("每天首次评论获得小饼干2个");
             }
-            if (!keyExist) return new ServiceStatusInfo<>(0, "发布成功", null, coins);
-            return new ServiceStatusInfo<>(0, "发布成功", null);
+            return new ServiceStatusInfo<>(0, "发布成功", null,coins);
         } else {
-            return new ServiceStatusInfo<>(1, "发布失败", null);
+            return new ServiceStatusInfo<>(1, "发布失败", null,null);
         }
     }
 

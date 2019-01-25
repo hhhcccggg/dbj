@@ -37,13 +37,13 @@ public class VideoController {
     @ApiOperation(value = "发布短视频")
     @RequiresAuthentication
     public ResponseData<Map<String,String>> publishVideo(@RequestBody VideoPublishInput input) {
-        long videoId = videoService.publicVideo(input);
-        if (videoId<=0) {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"发布视频失败",null);
+        ServiceStatusInfo<Long> statusInfo = videoService.publicVideo(input);
+        if (!statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"发布视频失败",null,null);
         }
         Map<String,String> dataMap = new HashMap<>();
-        dataMap.put("id",String.valueOf(videoId));
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dataMap);
+        dataMap.put("id",String.valueOf(statusInfo.getData()));
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dataMap,statusInfo.getCoins());
     }
     @RequestMapping(value = "/listHot",method = RequestMethod.GET)
     @ApiOperation(value = "获取短视频推荐列表")
@@ -152,9 +152,7 @@ public class VideoController {
     public ResponseData<VideoHeartStatusDto> heart(@RequestBody HeartInput input) {
         ServiceStatusInfo<VideoHeartStatusDto> statusInfo = this.videoService.heart(input);
         if (statusInfo.isSuccess()) {
-            if (statusInfo.getCoins()!=null)
-                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData(),statusInfo.getCoins());
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData(),statusInfo.getCoins());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
@@ -231,9 +229,9 @@ public class VideoController {
     public ResponseData<Integer> playTour(@RequestBody VideoPlayTourInput input) {
         ServiceStatusInfo<Integer> serviceStatusInfo = videoService.playTout(input.getCoins(), input.getVideoId());
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData(),serviceStatusInfo.getCoins());
         }
-        return new ResponseData<>(1, serviceStatusInfo.getMsg(), null);
+        return new ResponseData<>(1, serviceStatusInfo.getMsg(), null,null);
     }
 
     @GetMapping("/getPetsVideo/{petId}")

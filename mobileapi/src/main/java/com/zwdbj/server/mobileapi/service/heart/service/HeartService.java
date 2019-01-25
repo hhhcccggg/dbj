@@ -30,7 +30,7 @@ public class HeartService {
     public ServiceStatusInfo<Long> heart(long id, long userId, long resourceOwnerId, int type) {
         long result = this.heartMapper.heart(id, userId, resourceOwnerId,type);
         boolean keyExist = this.redisTemplate.hasKey("user_everyDayTask_isFirstHeart:"+userId);
-        ResponseCoin coins = new ResponseCoin();
+        ResponseCoin coins = null;
         if (!keyExist) {
             LocalTime midnight = LocalTime.MIDNIGHT;
             LocalDate today = LocalDate.now();
@@ -45,6 +45,7 @@ public class HeartService {
             input.setTitle("每日首次点赞获得小饼干" + 2 + "个");
             input.setType("TASK");
             this.userAssetServiceImpl.userPlayCoinTask(input, userId, "TASK", 2,"EVERYDAYFIRSTHEART","DONE");
+            coins = new ResponseCoin();
             coins.setCoins(2);
             coins.setMessage("每天首次点赞获得小饼干2个");
         }

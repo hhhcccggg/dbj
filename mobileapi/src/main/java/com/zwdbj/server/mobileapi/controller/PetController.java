@@ -76,9 +76,9 @@ public class PetController {
             statusInfo = this.petService.update(input);
         }
         if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null,statusInfo.getCoins());
         } else {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null,null);
         }
     }
 

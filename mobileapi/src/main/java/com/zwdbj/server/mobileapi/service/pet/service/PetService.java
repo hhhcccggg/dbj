@@ -8,6 +8,7 @@ import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImp
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
+import com.zwdbj.server.utility.model.ResponseCoin;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.pet.mapper.IPetMapper;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
@@ -77,13 +78,14 @@ public class PetService {
         Pattern r = Pattern.compile(regEx);
         Matcher m1 = r.matcher(input.getNickName());
         boolean rs1 = m1.matches();
-        if (!rs1 ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
+        if (!rs1 ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null,null);
         String imageKey = input.getAvatar();
         if (!(imageKey == null || imageKey.equals(""))) {
             input.setAvatar(this.qiniuService.url(imageKey));
         }
         input.setId(UniqueIDCreater.generateID());
         boolean isFirst = this.isFirstAddPet(userId);
+        ResponseCoin coin=null;
         if (isFirst){
             this.userAssetServiceImpl.userIsExist(userId);
             UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
@@ -92,15 +94,18 @@ public class PetService {
             userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
             userCoinDetailAddInput.setType("TASK");
             this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10,"FIRSTADDPET","DONE");
+            coin = new ResponseCoin();
+            coin.setCoins(10);
+            coin.setMessage("首次添加宠物信息获得小饼干"+10+"个");
 
         }
         long rows = this.petMapper.add(input,userId);
         if (rows ==0) {
-            return  new ServiceStatusInfo<>(1,"添加失败",null);
+            return  new ServiceStatusInfo<>(1,"添加失败",null,null);
         } else {
             this.reviewAvatar(imageKey,1,input.getId());
             firstAddPet(userId);
-            return new ServiceStatusInfo<>(0,"添加成功",rows);
+            return new ServiceStatusInfo<>(0,"添加成功",rows,coin);
         }
     }
 
@@ -109,20 +114,20 @@ public class PetService {
         Pattern r = Pattern.compile(regEx);
         Matcher m1 = r.matcher(input.getNickName());
         boolean rs1 = m1.matches();
-        if (!rs1 ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null);
+        if (!rs1 ) return new ServiceStatusInfo<>(1, "你输入的宠物名称格式不对", null,null);
         String imageKey = input.getAvatar();
         if (!(imageKey == null || imageKey.equals(""))) {
             input.setAvatar(this.qiniuService.url(imageKey));
         }
         if (input.getId()<=0) {
-            return new ServiceStatusInfo<>(1,"参数有误",null);
+            return new ServiceStatusInfo<>(1,"参数有误",null,null);
         }
         long rows = this.petMapper.update(input);
         if (rows ==0) {
-            return  new ServiceStatusInfo<>(1,"保存失败",null);
+            return  new ServiceStatusInfo<>(1,"保存失败",null,null);
         } else {
             this.reviewAvatar(imageKey,1,input.getId());
-            return new ServiceStatusInfo<>(0,"保存成功",rows);
+            return new ServiceStatusInfo<>(0,"保存成功",rows,null);
         }
     }
 
