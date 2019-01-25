@@ -51,7 +51,7 @@ public interface IProductMapper {
     int updateProductNum(@Param("id")long productId,@Param("num")int num);
 
     @Select("select inventory from shop_productSKUs where id=#{id}")
-    long getProductSkuInventory(@Param("id")long productSkuId);
+    int getProductSkuInventory(@Param("id")long productSkuId);
     @Select("select inventory from shop_products where id=#{id}")
     long getProductInventory(@Param("id")long productId);
 }

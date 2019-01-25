@@ -108,7 +108,7 @@ public class ProductServiceImpl implements  ProductService{
         try {
             long allInventory = this.iProductMapper.getProductInventory(productId);
             if (allInventory<=0 || allInventory<num)return new ServiceStatusInfo<>(1,"该商品库存不足",false);
-            long inventory = this.iProductMapper.getProductSkuInventory(productSkuId);
+            int inventory = this.iProductMapper.getProductSkuInventory(productSkuId);
             if (inventory<=0 || inventory<num)return new ServiceStatusInfo<>(1,"该商品规格库存不足",false);
             return new ServiceStatusInfo<>(0,"",true);
 
