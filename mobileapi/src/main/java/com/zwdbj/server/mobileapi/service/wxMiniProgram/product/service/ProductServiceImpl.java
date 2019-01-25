@@ -38,6 +38,12 @@ public class ProductServiceImpl implements  ProductService{
             long userId = JWTUtil.getCurrentId();
             List<ProductOut> list = this.iProductMapper.selectShopProduct(productInput);
             for(ProductOut productOut:list){
+                ProductSKUs productSKUs = productSKUsServiceImpl.selectByProductId(productOut.getId()).getData();
+                if(productSKUs != null){
+                    productOut.setProductSKUId(productSKUs.getId());
+                    productOut.setPromotionPrice(productSKUs.getPromotionPrice());
+                    productOut.setOriginalPrice(productSKUs.getOriginalPrice());
+                }
                 productOut.setExchange(iProductOrderMapper.userBuyProductAccounts(userId,productOut.getId()));
             }
             return new ServiceStatusInfo<>(0,"",list);
@@ -55,6 +61,7 @@ public class ProductServiceImpl implements  ProductService{
                 return new ServiceStatusInfo<>(1,"查询失败,SUK不存在",null);
             }
             ProductSKUs productSKUs = serviceStatusInfo.getData();
+            productlShow.setProductSKUId(productSKUs.getId());
             productlShow.setPromotionPrice(productSKUs.getPromotionPrice());
             productlShow.setInventory(productSKUs.getInventory());
             productlShow.setOriginalPrice(productSKUs.getOriginalPrice());

@@ -44,16 +44,17 @@ public class RankingListServiceImpl implements RankingListService {
                 String str = valueOperations.get("totalRank");
                 result = JSON.parseObject(str, new TypeReference<List<RankingListInfo>>() {
                 });
-
+                result.add(this.rankingListMapper.searchByUser(userId));
                 return new ServiceStatusInfo<>(0, "", result);
             }
 
             if (lock.lock(true, 500L, 10)) {
                 System.out.println("从数据库中获取总榜信息");
                 result = this.rankingListMapper.searchTotalRank();
-                result.add(this.rankingListMapper.searchByUser(userId));
-                valueOperations.set("totalRank", JSONArray.toJSONString(result));
                 stringRedisTemplate.expire("totalRank", 30, TimeUnit.MINUTES);
+                valueOperations.set("totalRank", JSONArray.toJSONString(result));
+                result.add(this.rankingListMapper.searchByUser(userId));
+
 
                 return new ServiceStatusInfo<>(0, "", result);
             }
@@ -76,16 +77,16 @@ public class RankingListServiceImpl implements RankingListService {
             if (userId == 0L) {
                 return new ServiceStatusInfo<>(1, "请重新登录", null);
             }
-            if (!"".equals(valueOperations.get("")) && valueOperations.get("friendRank") != null) {
-                String str = valueOperations.get("friendRank");
+            if (!"".equals(valueOperations.get("friendRank"+userId)) && valueOperations.get("friendRank"+userId) != null) {
+                String str = valueOperations.get("friendRank"+userId);
                 result = JSON.parseObject(str, new TypeReference<List<RankingListInfo>>() {
                 });
                 return new ServiceStatusInfo<>(0, "", result);
             }
             result = this.rankingListMapper.searchFriendRank(userId);
             if (result != null) {
-                valueOperations.set("friendRank", JSONArray.toJSONString(result));
-                stringRedisTemplate.expire("friendRank", 30, TimeUnit.MINUTES);
+                valueOperations.set("friendRank"+userId, JSONArray.toJSONString(result));
+                stringRedisTemplate.expire("friendRank"+userId, 30, TimeUnit.MINUTES);
                 return new ServiceStatusInfo<>(0, "", result);
             }
             return new ServiceStatusInfo<>(1, "您暂时没有好友", null);
