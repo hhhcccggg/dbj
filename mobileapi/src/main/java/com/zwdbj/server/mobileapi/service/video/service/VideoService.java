@@ -599,7 +599,7 @@ public class VideoService {
 
     //视频作者获得的打赏
     @Transactional
-    public void videoAuthorIncome(Long authorId, int income) {
+    public void videoAuthorIncome(Long authorId, int income,long userId,long videoId) {
         this.userAssetServiceImpl.userIsExist(authorId);
         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
         addInput.setNum(income);
@@ -608,6 +608,12 @@ public class VideoService {
         userAssetServiceImpl.addUserCoinDetailSuccess(authorId, addInput);
         userAssetServiceImpl.updateUserCoinType(authorId, "INCOME", income);
         userAssetServiceImpl.updateUserAsset(authorId, income);
+        //加入消息中心
+        MessageInput msgInput = new MessageInput();
+        msgInput.setCreatorUserId(userId);
+        msgInput.setDataContent("{\"resId\":\"" + videoId + "\",\"type\":\"6\"}");
+        msgInput.setMessageType(6);
+        this.messageCenterService.push(msgInput, authorId);
     }
 
     @Transactional
@@ -676,7 +682,7 @@ public class VideoService {
                     this.userAssetServiceImpl.addVideoTipDetail(videoId, userId, authorIncome);
 
                     //修改视频作者小饼干明细
-                    videoAuthorIncome(authorId, authorIncome);
+                    videoAuthorIncome(authorId, authorIncome,userId,videoId);
 
                     return new ServiceStatusInfo<>(0, "", 1,responseCoin);
                 } else {
@@ -698,7 +704,7 @@ public class VideoService {
                         this.userAssetServiceImpl.addVideoTipDetail(videoId, userId, authorIncome);
                         videoMapper.addTipCount(videoId);
 
-                        videoAuthorIncome(authorId, authorIncome);
+                        videoAuthorIncome(authorId, authorIncome,userId,videoId);
 
                         return new ServiceStatusInfo<>(0, "", 1,responseCoin);
                     } else {
@@ -719,7 +725,7 @@ public class VideoService {
                             this.userAssetServiceImpl.addVideoTipDetail(videoId, userId, authorIncome);
                             videoMapper.addTipCount(videoId);
 
-                            videoAuthorIncome(authorId, authorIncome);
+                            videoAuthorIncome(authorId, authorIncome,userId,videoId);
 
                             return new ServiceStatusInfo<>(0, "", 1,responseCoin);
                         } else {
@@ -737,7 +743,7 @@ public class VideoService {
                             //增加视频获得的打赏详情
                             this.userAssetServiceImpl.addVideoTipDetail(videoId, userId, authorIncome);
                             videoMapper.addTipCount(videoId);
-                            videoAuthorIncome(authorId, authorIncome);
+                            videoAuthorIncome(authorId, authorIncome,userId,videoId);
                             return new ServiceStatusInfo<>(0, "", 1,responseCoin);
                         }
                     }

@@ -94,6 +94,7 @@ public class MessageCenterService {
         readDto.setCommentCount(this.messageCenterMapper.getUnReadCountPersonal(userId,3));
         readDto.setFollowerCount(this.messageCenterMapper.getUnReadCountPersonal(userId,2));
         readDto.setHeartCount(this.messageCenterMapper.getUnReadCountPersonal(userId,1));
+        readDto.setMyGetTipCount(this.messageCenterMapper.getUnReadCountPersonal(userId,6));
         return readDto;
     }
 

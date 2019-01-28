@@ -98,6 +98,11 @@ public class UserService {
         return dtos;
     }
 
+    public List<AllAcquiredTipsMessageDto> getUserAllAcquiredTips(long userId){
+        List<AllAcquiredTipsMessageDto> dtos = this.userMapper.getUserAllAcquiredTips(userId);
+        return dtos;
+    }
+
     /**
      * followerUserId 是否关注了userId
      *

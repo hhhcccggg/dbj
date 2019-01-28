@@ -62,7 +62,7 @@ message QueueWorkPush {
     string dataContent=4; //消息携带的数据
     string refUrl=5; //消息关联的网页
     int64 toUserId=6; //消息目的地用户
-    int32 messageType=7; //消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
+    int32 messageType=7; //消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
 }
 
 // 七牛直播、视频、图片审核的结果

@@ -13,6 +13,8 @@ public class MessageUnReadDto {
     protected long followerCount;
     @ApiModelProperty(value = "系统消息未读情况")
     protected long systemCount;
+    @ApiModelProperty(value = "打赏消息未读情况")
+    protected long myGetTipCount;
 
     public long getHeartCount() {
         return heartCount;
@@ -44,5 +46,13 @@ public class MessageUnReadDto {
 
     public void setSystemCount(long systemCount) {
         this.systemCount = systemCount;
+    }
+
+    public long getMyGetTipCount() {
+        return myGetTipCount;
+    }
+
+    public void setMyGetTipCount(long myGetTipCount) {
+        this.myGetTipCount = myGetTipCount;
     }
 }
