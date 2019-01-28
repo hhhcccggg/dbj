@@ -51,7 +51,7 @@ public class RankingListServiceImpl implements RankingListService {
             if (lock.lock(true, 500L, 10)) {
                 System.out.println("从数据库中获取总榜信息");
                 result = this.rankingListMapper.searchTotalRank();
-                stringRedisTemplate.expire("totalRank", 30, TimeUnit.MINUTES);
+                stringRedisTemplate.expire("totalRank", 1, TimeUnit.MINUTES);
                 valueOperations.set("totalRank", JSONArray.toJSONString(result));
                 result.add(this.rankingListMapper.searchByUser(userId));
 
@@ -86,7 +86,7 @@ public class RankingListServiceImpl implements RankingListService {
             result = this.rankingListMapper.searchFriendRank(userId);
             if (result != null) {
                 valueOperations.set("friendRank"+userId, JSONArray.toJSONString(result));
-                stringRedisTemplate.expire("friendRank"+userId, 30, TimeUnit.MINUTES);
+                stringRedisTemplate.expire("friendRank"+userId, 1, TimeUnit.MINUTES);
                 return new ServiceStatusInfo<>(0, "", result);
             }
             return new ServiceStatusInfo<>(1, "您暂时没有好友", null);
