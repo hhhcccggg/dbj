@@ -595,11 +595,27 @@ public class UserAssetServiceImpl implements IUserAssetService {
 
     @Transactional
     public void userPlayCoinTask(UserCoinDetailAddInput input,long userId,String type,int coins,String taskId,String state){
-        // TODO 改变小饼干任务状态 参数要加入任务的id,处理任务
-        this.addUserCoinDetail(userId,input);
-        this.updateUserCoinType(userId,type,coins);
-        this.updateUserAsset(userId,coins);
-        this.taskService.addNewTaskById(taskId,userId,state);
+        if (taskId.equals("EVERYDAYFIRSTTIP")){
+            ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
+            Lock lock = new Lock(consulClient, "mobileapi", "everyDayLoginTaskKey:" + userId);
+            try {
+                this.addUserCoinDetail(userId,input);
+                this.updateUserCoinType(userId,type,coins);
+                this.updateUserAsset(userId,coins);
+                this.taskService.addNewTaskById(taskId,userId,state);
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                lock.unlock();
+            }
+
+        }else {
+            this.addUserCoinDetail(userId,input);
+            this.updateUserCoinType(userId,type,coins);
+            this.updateUserAsset(userId,coins);
+            this.taskService.addNewTaskById(taskId,userId,state);
+        }
+
 
     }
 }
