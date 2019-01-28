@@ -75,7 +75,7 @@ public class ProductOut {
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
 
-    @ApiModelProperty(value = "是否兑换过")
+    @ApiModelProperty(value = "该用户否兑换过的数量")
     int exchange;
 
     @ApiModelProperty(value = "productSKUId")

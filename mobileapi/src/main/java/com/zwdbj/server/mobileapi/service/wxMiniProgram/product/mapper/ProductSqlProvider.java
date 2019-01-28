@@ -14,7 +14,7 @@ public class ProductSqlProvider {
      */
     public String seleteList(Map map){
         ProductInput productInput = (ProductInput) map.get("productInput");
-        SQL sql = new SQL().SELECT("id","productType","productDetailType","name","categoryId",
+        SQL sql = new SQL().SELECT("id","productType","productDetailType","name","categoryId", "sales",
                 "brandId","inventory","imageUrls","limitPerPerson","detailDescription","supportCoin");
         sql.FROM("shop_products");
         sql.WHERE("publish=1 and isDeleted=0 and storeId="+productInput.getStoreId()+" and specifyPublishTime<now()");
@@ -29,6 +29,7 @@ public class ProductSqlProvider {
                     "shop_products.productType, " +
                     "shop_products.specifyPublishTime, " +
                     "shop_products.name, " +
+                    "shop_products.sales, " +
                     "shop_products.categoryId, " +
                     "shop_products.brandId, " +
                     "shop_products.inventory, " +
@@ -46,6 +47,7 @@ public class ProductSqlProvider {
                     "shop_products.productType, " +
                     "shop_products.specifyPublishTime, " +
                     "shop_products.name, " +
+                    "shop_products.sales, " +
                     "shop_products.categoryId, " +
                     "shop_products.brandId, " +
                     "shop_products.inventory, " +
@@ -63,6 +65,7 @@ public class ProductSqlProvider {
                     "shop_products.productType, " +
                     "shop_products.specifyPublishTime, " +
                     "shop_products.name, " +
+                    "shop_products.sales, " +
                     "shop_products.categoryId, " +
                     "shop_products.brandId, " +
                     "shop_products.inventory, " +
