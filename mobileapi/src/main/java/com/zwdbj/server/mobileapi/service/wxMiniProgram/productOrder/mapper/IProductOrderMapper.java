@@ -45,7 +45,7 @@ public interface IProductOrderMapper {
             "LEFT JOIN shop_productOrders o ON o.id = oi.orderId " +
             "LEFT JOIN shop_products p ON oi.productId=p.id " +
             "LEFT JOIN shop_receiveAddresses r ON o.receiveAddressId=r.id " +
-            "where o.userId=#{userId} " +
+            "where o.userId=#{userId} and o.isDeleted=0 " +
             "ORDER BY oi.createTime DESC")
     List<OrderOut> selectMyOrder(@Param("userId")long userId);
 }
