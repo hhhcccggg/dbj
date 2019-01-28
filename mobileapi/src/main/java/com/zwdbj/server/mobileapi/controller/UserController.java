@@ -279,6 +279,15 @@ public class UserController {
         List<AllHeartsForUserVideosMessageDto> dtos = this.userService.getAllHeartsForMyVideos(JWTUtil.getCurrentId());
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", dtos, pageInfo.getTotal());
     }
+    @RequiresAuthentication
+    @RequestMapping(value = "/myAllTips", method = RequestMethod.GET)
+    @ApiOperation(value = "获取我的所有获得打赏的信息列表")
+    public ResponsePageInfoData<List<AllAcquiredTipsMessageDto>> myAllTips(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                                    @RequestParam(value = "rows", defaultValue = "13", required = true) int rows) {
+        Page<AllAcquiredTipsMessageDto> pageInfo = PageHelper.startPage(pageNo, rows);
+        List<AllAcquiredTipsMessageDto> dtos = this.userService.getUserAllAcquiredTips(JWTUtil.getCurrentId());
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", dtos, pageInfo.getTotal());
+    }
 
 
     @RequiresAuthentication

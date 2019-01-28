@@ -81,6 +81,23 @@ public interface IUserMapper {
             "on heart.userId = user.id where video.userId=#{userId} and video.status=0 order by heart.createTime desc")
     List<AllHeartsForUserVideosMessageDto> getAllHeartsForMyVideos(@Param("userId") long userId);
 
+    //打赏列表
+
+    @Select("select tip.id as id," +
+            "tip.tipCoin as tipCoin, " +
+            "user.id as userId," +
+            "video.id as videoId," +
+            "video.userId as ownUserId," +
+            "user.nickName as nickName, " +
+            "user.avatarUrl as avatarUrl," +
+            "video.title as title," +
+            "tip.createTime as createTime " +
+            "from core_video_videoTipDetails as tip " +
+            "inner join core_videos as video on tip.videoId = video.id " +
+            "inner join core_users as user on tip.userId = user.id " +
+            "where video.userId=#{userId} and video.status=0 order by tip.createTime desc")
+    List<AllAcquiredTipsMessageDto> getUserAllAcquiredTips(@Param("userId")long userId);
+
     @Update("update core_users set loginType=1,thirdOpenId='' where id=#{id}")
     int updateThirdInfo(@Param("id")Long id);
 
