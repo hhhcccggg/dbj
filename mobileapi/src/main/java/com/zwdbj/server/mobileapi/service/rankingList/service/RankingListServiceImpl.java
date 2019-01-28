@@ -51,8 +51,9 @@ public class RankingListServiceImpl implements RankingListService {
             if (lock.lock(true, 500L, 10)) {
                 System.out.println("从数据库中获取总榜信息");
                 result = this.rankingListMapper.searchTotalRank();
-                stringRedisTemplate.expire("totalRank", 1, TimeUnit.MINUTES);
+
                 valueOperations.set("totalRank", JSONArray.toJSONString(result));
+                stringRedisTemplate.expire("totalRank", 1, TimeUnit.MINUTES);
                 result.add(this.rankingListMapper.searchByUser(userId));
 
 
