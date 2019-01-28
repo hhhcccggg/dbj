@@ -17,9 +17,11 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class FavoriteServiceImpl implements FavoriteService {
@@ -38,6 +40,8 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Autowired
     private ProductSKUsService productSKUsServiceImpl;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public ServiceStatusInfo<Long> addFavorite(FavoriteInput favoriteInput) {
@@ -106,5 +110,12 @@ public class FavoriteServiceImpl implements FavoriteService {
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
         }
+    }
+
+    @Override
+    public int getUserFavoriteNum(long userId) {
+        int result = this.iFavoriteMapper.getUserFavoriteNum(userId);
+        this.stringRedisTemplate.opsForValue().set("userFavorite"+userId,String.valueOf(result),3, TimeUnit.MINUTES);
+        return result;
     }
 }
