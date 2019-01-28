@@ -68,6 +68,16 @@ public class UserDetailInfoDto implements Serializable {
   private int liveCount;
   @ApiModelProperty(value = "商城用户相关信息")
   UserShopInfoDto shopInfoDto;
+  @ApiModelProperty(value = "用户的收藏数")
+  private int favoriteNums;
+
+  public int getFavoriteNums() {
+    return favoriteNums;
+  }
+
+  public void setFavoriteNums(int favoriteNums) {
+    this.favoriteNums = favoriteNums;
+  }
 
   public String getHxUserName() {
     return hxUserName;

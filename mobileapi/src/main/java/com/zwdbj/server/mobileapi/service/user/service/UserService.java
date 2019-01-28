@@ -8,6 +8,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobUser;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.mobileapi.service.favorite.service.FavoriteService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
@@ -78,6 +79,9 @@ public class UserService {
     private TokenCenterManager tokenCenterManager;
     @Autowired
     private IAuthUserManager iAuthUserManagerImpl;
+
+    @Autowired
+    private FavoriteService favoriteServiceImpl;
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
 
@@ -215,6 +219,13 @@ public class UserService {
         //TODO 增加缓存数据
         UserDetailInfoDto userDetailInfoDto = this.userMapper.getUserDetail(userId);
         if (userDetailInfoDto == null) return null;
+        int favoriteNum;
+        if (this.stringRedisTemplate.hasKey("userFavorite"+userId)){
+            favoriteNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("userFavorite"+userId));
+        }else {
+            favoriteNum = this.favoriteServiceImpl.getUserFavoriteNum(userId);
+        }
+        userDetailInfoDto.setFavoriteNums(favoriteNum);
         userDetailInfoDto.getShopInfoDto().setLotteryTicketCount(this.youZanService.lotteryTicketCount(userId).getData());
         userDetailInfoDto.getShopInfoDto().setCartUrl("https://h5.youzan.com/wsctrade/cart?kdt_id="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
         userDetailInfoDto.getShopInfoDto().setLotteryUrl("https://h5.youzan.com/wscump/coupon/list?kdtId="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
