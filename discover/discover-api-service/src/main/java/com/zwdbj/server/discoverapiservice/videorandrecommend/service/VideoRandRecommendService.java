@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 随机推荐视频策略
@@ -15,19 +18,21 @@ import java.util.List;
 public class VideoRandRecommendService {
     @Autowired
     private RedisTemplate redisTemplate;
-    private String videosCacheKey = "randvideo.all";
+    private String videosCacheKey = "randvideo_all";
     private Logger logger = LoggerFactory.getLogger(VideoRandRecommendService.class);
     private String userLoadedVideoCacheKey(String id) {
-        return "randvideo.all.user."+id;
+        return "randvideo_all_user_"+id;
     }
     /***
      * 缓存系统新的视频
      * @param id
      */
     public void pushNewVideo(Long id) {
+        Long size =  this.redisTemplate.opsForSet().size(videosCacheKey);
         if (!this.redisTemplate.opsForSet().isMember(videosCacheKey,id)) {
             logger.info("新增视频"+id);
-            this.redisTemplate.opsForSet().add(videosCacheKey, id);
+            Long resultV = this.redisTemplate.opsForSet().add(videosCacheKey, id);
+            logger.info("新增结果"+resultV);
         }
     }
 
@@ -37,11 +42,12 @@ public class VideoRandRecommendService {
      * @param count
      * @return 视频ID列表
      */
-    public List<Long> fetchVideo(String userId, int count) {
+    public List<Object> fetchVideo(String userId, int count) {
         String userCacheKey = userLoadedVideoCacheKey(userId);
-        String diffcacheKey = "randvideo.all.user.diff."+userId;
+        String diffcacheKey = "randvideo_all_user_diff_"+userId;
+        this.redisTemplate.delete(diffcacheKey);
         int num = this.redisTemplate.opsForSet().differenceAndStore(videosCacheKey,userCacheKey,diffcacheKey).intValue();
-        List<Long> lst = null;
+        Set<Long> lst = null;
         logger.info("num="+num);
         logger.info(userCacheKey);
         logger.info(diffcacheKey);
@@ -51,7 +57,7 @@ public class VideoRandRecommendService {
             if (size>0) {
                 this.redisTemplate.delete(userCacheKey);
             }
-            lst = this.redisTemplate.opsForSet().randomMembers(videosCacheKey,count);
+            lst = this.redisTemplate.opsForSet().distinctRandomMembers(videosCacheKey,count);
         } else {
             int cn = count;
             if (count>num) {
@@ -59,12 +65,17 @@ public class VideoRandRecommendService {
             } else if (num>count && num < count * 2) {
                 cn = num;
             }
-            lst = this.redisTemplate.opsForSet().randomMembers(diffcacheKey,cn);
+            lst = this.redisTemplate.opsForSet().distinctRandomMembers(diffcacheKey,cn);
         }
-        for (Long l: lst) {
-            this.redisTemplate.opsForSet().add(userCacheKey,l);
+        this.redisTemplate.delete(diffcacheKey);
+        if (lst!=null) {
+            for (Long l : lst) {
+                long resultV = this.redisTemplate.opsForSet().add(userCacheKey, l);
+                logger.info("l = " + l + " ,userCacheKey = " + resultV);
+            }
         }
-        return lst;
+        List<Object> resultLst = new ArrayList<>(lst);
+        return resultLst;
     }
 
     /**
