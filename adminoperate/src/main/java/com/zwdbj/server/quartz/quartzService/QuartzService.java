@@ -171,6 +171,10 @@ public class QuartzService {
                         if (gg == 0) tem--;
                     }
                 }
+                if (redisTemplate.hasKey("videoComments" + dto.getId())) {
+                    redisTemplate.delete("videoComments" + dto.getId());
+                    System.out.println("删除评论缓存");
+                }
                 comment = comment + tem;
                 if (comment == 0) continue;
                 this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
