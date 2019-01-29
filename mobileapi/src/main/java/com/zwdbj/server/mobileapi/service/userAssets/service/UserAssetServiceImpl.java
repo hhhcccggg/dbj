@@ -174,6 +174,8 @@ public class UserAssetServiceImpl implements IUserAssetService {
                 u.add(model);
             } else if (model.getType().equals("OTHER")) {
                 u.add(model);
+            } else if (model.getType().equals("ORDER")) {
+                u.add(model);
             } else if (model.getType().equals("PAY") && model.getStatus().equals("SUCCESS")) {
                 u.add(model);
             }
