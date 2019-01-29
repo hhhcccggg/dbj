@@ -22,7 +22,7 @@ namespace dbdesgin.Models
         /// <value>The resource identifier.</value>
         public long resourceOwnerId { get; set; }
         /// <summary>
-        /// 0:默认，短视频点赞1:评论
+        /// 0:默认，短视频点赞1:评论2:宠物
         /// </summary>
         /// <value>The resource type identifier.</value>
         [Required]

@@ -32,4 +32,9 @@ public interface IPetMapper {
     @Select("select count(id) from `core_pets` where  userId=#{userId}")
     long firstAddPet(@Param("userId") long userId);
 
+    @Select("select userId from core_pets where id=#{id}")
+    long findUserIdByPetId(@Param("id")long petId);
+
+
+
 }

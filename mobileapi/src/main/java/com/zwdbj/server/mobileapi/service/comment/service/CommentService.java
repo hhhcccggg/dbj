@@ -31,10 +31,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -155,10 +152,10 @@ public class CommentService {
             ResponseCoin coins = null;
             if (!keyExist) {
                 LocalTime midnight = LocalTime.MIDNIGHT;
-                LocalDate today = LocalDate.now();
+                LocalDate today = LocalDate.now(ZoneId.of("Asia/Shanghai"));
                 LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
                 LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
-                long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+                long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(ZoneId.of("Asia/Shanghai")), tomorrowMidnight).toNanos());
                 this.redisTemplate.opsForValue().set("user_everydayTask_isFirstPublicComment:" + userId, userId + ":hasFirstPublicComment", s, TimeUnit.SECONDS);
                 this.userAssetServiceImpl.userIsExist(userId);
                 UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();

@@ -40,6 +40,10 @@ public class UserDetailInfoDto implements Serializable {
   private long livingId;
   @ApiModelProperty(value = "累计获得的点赞")
   private long totalHearts;
+  @ApiModelProperty(value = "视频累计获得的点赞")
+  private long totalVideosHearts;
+  @ApiModelProperty(value = "宠物累计获得的点赞")
+  private long totalPetsHearts;
   @ApiModelProperty(value = "总粉丝数")
   private long totalFans;
   @ApiModelProperty(value = "我关注的总数")
@@ -70,6 +74,22 @@ public class UserDetailInfoDto implements Serializable {
   UserShopInfoDto shopInfoDto;
   @ApiModelProperty(value = "用户的收藏数")
   private int favoriteNums;
+
+  public long getTotalVideosHearts() {
+    return totalVideosHearts;
+  }
+
+  public void setTotalVideosHearts(long totalVideosHearts) {
+    this.totalVideosHearts = totalVideosHearts;
+  }
+
+  public long getTotalPetsHearts() {
+    return totalPetsHearts;
+  }
+
+  public void setTotalPetsHearts(long totalPetsHearts) {
+    this.totalPetsHearts = totalPetsHearts;
+  }
 
   public int getFavoriteNums() {
     return favoriteNums;

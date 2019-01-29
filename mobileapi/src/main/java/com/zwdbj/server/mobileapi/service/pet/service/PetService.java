@@ -1,10 +1,18 @@
 package com.zwdbj.server.mobileapi.service.pet.service;
 
+import com.zwdbj.server.mobileapi.model.HeartInput;
+import com.zwdbj.server.mobileapi.service.heart.model.HeartModel;
+import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
+import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
+import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
+import com.zwdbj.server.mobileapi.service.pet.model.PetHeartDto;
 import com.zwdbj.server.mobileapi.service.user.model.UserModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.userInvitation.service.UserInvitationService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
+import com.zwdbj.server.mobileapi.service.video.model.VideoHeartStatusDto;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
@@ -20,10 +28,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,6 +54,12 @@ public class PetService {
     private UserAssetServiceImpl userAssetServiceImpl;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private HeartService heartService;
+    @Autowired
+    protected MessageCenterService messageCenterService;
 
     public List<PetModelDto> list(long userId) {
         List<PetModelDto> pets = this.petMapper.list(userId);
@@ -163,6 +179,58 @@ public class PetService {
     public boolean isFirstAddPet(long userId){
         long result = this.petMapper.firstAddPet(userId);
         return result==0;
+    }
+
+    public long findUserIdByPetId(long petId){
+        return this.petMapper.findUserIdByPetId(petId);
+    }
+
+
+    @Transactional
+    public ServiceStatusInfo<PetHeartDto> heart(HeartInput input){
+        long userId = JWTUtil.getCurrentId();
+        if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null,null);
+        PetHeartDto petHeartDto = new PetHeartDto();
+        petHeartDto.setPetId(input.getId());
+        HeartModel heartModel = this.heartService.findHeart(userId, input.getId());
+        Long pUserId = this.findUserIdByPetId(input.getId());
+        if (heartModel != null && input.isHeart()) {
+            return new ServiceStatusInfo<>(1, "已经点赞过", null,null);
+        }
+        if (heartModel != null && !input.isHeart()) {
+            this.heartService.unHeart(userId, input.getId());
+            this.userService.addHeart(pUserId, -1);
+            petHeartDto.setHeart(false);
+            return new ServiceStatusInfo<>(0, "取消成功", petHeartDto,null);
+        }
+
+        if (input.isHeart()) {
+            long id = UniqueIDCreater.generateID();
+            ServiceStatusInfo<Long> isFirst = this.heartService.heart(id, userId, input.getId(), 2);
+            this.userService.addHeart(pUserId, 1);
+            petHeartDto.setHeart(true);
+            if (isFirst.getCoins()!=null)
+                return new ServiceStatusInfo<>(0, "点赞成功", petHeartDto,isFirst.getCoins());
+            return new ServiceStatusInfo<>(0, "点赞成功", petHeartDto);
+        } else {
+            return new ServiceStatusInfo<>(1, "取消失败", null,null);
+        }
+    }
+
+    public ServiceStatusInfo<Long> getPetHeartCount(long petId) {
+        try {
+            Long count;
+            if (stringRedisTemplate.hasKey(petId+"heartCount:")){
+                count = Long.valueOf(this.stringRedisTemplate.opsForValue().get(petId+"heartCount:"));
+            }else {
+                count = this.heartService.getHeartCountByResourceOwnerId(petId,2);
+                this.stringRedisTemplate.opsForValue().set(petId+"heartCount:",String.valueOf(count),3, TimeUnit.MINUTES);
+            }
+
+            return new ServiceStatusInfo<>(0, "", count);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
+        }
     }
 
 }

@@ -502,7 +502,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
         if (task >= coins) {
             //task类型的小饼干大于等于订单支付，则全部用task支付
             UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
-            addTaskInput.setNum(AllCoins);
+            addTaskInput.setNum(-AllCoins);
             addTaskInput.setType("ORDER");
             addTaskInput.setTitle("支付订单消费抵扣");
             addTaskInput.setExtraData(String.valueOf(productOrderId));
@@ -521,7 +521,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
             }
             if (pay >= coins) {
                 UserCoinDetailAddInput addPayInput = new UserCoinDetailAddInput();
-                addPayInput.setNum(AllCoins);
+                addPayInput.setNum(-AllCoins);
                 addPayInput.setType("ORDER");
                 addPayInput.setTitle("支付订单消费");
                 addPayInput.setExtraData(String.valueOf(productOrderId));
@@ -538,7 +538,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
                 }
                 if (other >= coins) {
                     UserCoinDetailAddInput addOtherInput = new UserCoinDetailAddInput();
-                    addOtherInput.setNum(AllCoins);
+                    addOtherInput.setNum(-AllCoins);
                     addOtherInput.setType("ORDER");
                     addOtherInput.setTitle("支付订单消费");
                     addOtherInput.setExtraData(String.valueOf(productOrderId));;
@@ -554,7 +554,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
                         this.updateUserCoinType(userId, "OTHER", -other);
                     }
                     UserCoinDetailAddInput addIncomeInput = new UserCoinDetailAddInput();
-                    addIncomeInput.setNum(AllCoins);
+                    addIncomeInput.setNum(-AllCoins);
                     addIncomeInput.setType("ORDER");
                     addIncomeInput.setTitle("支付订单消费");
                     addIncomeInput.setExtraData(String.valueOf(productOrderId));
