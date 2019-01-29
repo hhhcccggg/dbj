@@ -40,7 +40,7 @@ public class UserCoinDetailsModel implements Serializable {
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+        this.createTime =createTime;
     }
 
     public String getTitle() {

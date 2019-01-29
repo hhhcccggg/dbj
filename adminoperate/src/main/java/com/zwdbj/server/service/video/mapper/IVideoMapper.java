@@ -18,7 +18,8 @@ public interface IVideoMapper {
     List<Long> getAllReviewedVideos();
 
     //定时任务
-    @Select("select id,userId,playCount,heartCount,shareCount,commentCount from core_videos where status=0 and playCount<8000")
+    @Select("select id,userId,playCount,heartCount,shareCount,commentCount from core_videos " +
+            "where status=0 and playCount<8000 and (createTime > DATE_SUB(NOW(),INTERVAL 8 HOUR))")
     List<VideoHeartAndPlayCountDto> findHeartAndPlayCount();
 
     @Select("select playCount from core_videos where id=#{id}")
