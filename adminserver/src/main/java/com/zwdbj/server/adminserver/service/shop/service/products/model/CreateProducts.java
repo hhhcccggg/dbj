@@ -85,6 +85,17 @@ public class CreateProducts {
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
 
+    @ApiModelProperty(value = "规则说明")
+    String ruleDescription;
+
+    public String getRuleDescription() {
+        return ruleDescription;
+    }
+
+    public void setRuleDescription(String ruleDescription) {
+        this.ruleDescription = ruleDescription;
+    }
+
     public String getImageUrls() {
         return imageUrls;
     }
