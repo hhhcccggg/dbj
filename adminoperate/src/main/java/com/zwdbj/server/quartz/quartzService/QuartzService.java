@@ -150,7 +150,7 @@ public class QuartzService {
                 int dianzhan = this.operateService.getRandom(18, 34);
                 int pinlun = this.operateService.getRandom(3, 6);
                 int fenxiang = this.operateService.getRandom(1, 3);
-                int addPlayCount = this.operateService.getRandom(50, 201);
+                int addPlayCount = this.operateService.getRandom(60, 231);
                 this.videoService.updateField("playCount=playCount+" + addPlayCount, dto.getId());
                 this.videoService.updateField("heartCount=heartCount+" + Math.round(addPlayCount * dianzhan / 100.0), dto.getId());
                 long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
