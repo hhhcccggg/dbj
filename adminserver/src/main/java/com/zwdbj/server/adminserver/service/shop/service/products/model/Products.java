@@ -68,6 +68,16 @@ public class Products {
     int limitPerPerson;
     @ApiModelProperty(value = "支持金币兑换购买")
     boolean supportCoin;
+    @ApiModelProperty(value = "规则说明")
+    String ruleDescription;
+
+    public String getRuleDescription() {
+        return ruleDescription;
+    }
+
+    public void setRuleDescription(String ruleDescription) {
+        this.ruleDescription = ruleDescription;
+    }
 
     public boolean isSupportCoin() {
         return supportCoin;
