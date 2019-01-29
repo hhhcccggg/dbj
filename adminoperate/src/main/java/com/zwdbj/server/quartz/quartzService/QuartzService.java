@@ -174,9 +174,11 @@ public class QuartzService {
                 comment = comment + tem;
                 if (comment == 0) continue;
                 this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
-                if (redisTemplate.hasKey("videoComments" + dto.getId())) {
-                    redisTemplate.delete("videoComments" + dto.getId());
-                    System.out.println("删除评论缓存");
+                if (this.redisTemplate.hasKey("videoComments" + dto.getId())) {
+                    this.redisTemplate.delete("videoComments" + dto.getId());
+                    logger.info("删除评论缓存");
+                }else {
+                    logger.info("没有"+dto.getId()+"缓存的key");
                 }
                 if (dto.getCommentCount() >= 10) this.commentService.addCommentHeart(dto.getId());
                 logger.info("播放量不超过8000总视频数量：" + videoHeartAndPlayCountDtos.size() + "++++实际数量，第" + j + "个+++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
