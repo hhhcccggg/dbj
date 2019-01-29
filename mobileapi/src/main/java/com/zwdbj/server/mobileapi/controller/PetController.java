@@ -3,6 +3,9 @@ package com.zwdbj.server.mobileapi.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
+import com.zwdbj.server.mobileapi.model.HeartInput;
+import com.zwdbj.server.mobileapi.service.pet.model.PetHeartDto;
+import com.zwdbj.server.mobileapi.service.video.model.VideoHeartStatusDto;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
 import com.zwdbj.server.utility.model.ResponsePageInfoData;
@@ -80,6 +83,27 @@ public class PetController {
         } else {
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null,null);
         }
+    }
+
+    @RequiresAuthentication
+    @RequestMapping(value = "/heart",method = RequestMethod.POST)
+    @ApiOperation(value = "点赞宠物")
+    public ResponseData<PetHeartDto> heart(@RequestBody HeartInput input) {
+        ServiceStatusInfo<PetHeartDto> statusInfo = this.petService.heart(input);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData(),statusInfo.getCoins());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
+    @GetMapping("/getPetsHeartCount/{petId}")
+    @ApiOperation(value = "获取某宠物总点赞数")
+    public ResponseData<Long> getPetsHeartCount(@PathVariable long petId){
+        ServiceStatusInfo<Long> serviceStatusInfo = this.petService.getPetHeartCount(petId);
+        if (serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(1, serviceStatusInfo.getMsg(), null);
     }
 
 }

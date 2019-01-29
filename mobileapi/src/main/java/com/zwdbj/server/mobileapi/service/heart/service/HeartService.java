@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -33,10 +30,10 @@ public class HeartService {
         ResponseCoin coins = null;
         if (!keyExist) {
             LocalTime midnight = LocalTime.MIDNIGHT;
-            LocalDate today = LocalDate.now();
+            LocalDate today = LocalDate.now(ZoneId.of("Asia/Shanghai"));
             LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
             LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
-            long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+            long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(ZoneId.of("Asia/Shanghai")), tomorrowMidnight).toNanos());
             this.redisTemplate.opsForValue().set("user_everyDayTask_isFirstHeart:" + userId, userId+":hasFirstHeart", s, TimeUnit.SECONDS);
             this.userAssetServiceImpl.userIsExist(userId);
             UserCoinDetailAddInput input = new UserCoinDetailAddInput();
@@ -81,5 +78,14 @@ public class HeartService {
             lock.unlock();
         }
         return false;
+    }
+
+    /**
+     * 查询的获赞量
+     * type 0:默认，短视频点赞1:评论2:宠物
+     */
+
+    public long getHeartCountByResourceOwnerId(long petId,int type){
+        return this.heartMapper.getHeartCountByResourceOwnerId(petId,type);
     }
 }

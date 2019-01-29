@@ -248,10 +248,10 @@ public class VideoController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null,0L);
     }
 
-    @GetMapping("/getPetsHeartCount/{petId}")
-    @ApiOperation(value = "获取某宠物总点赞数")
-    public ResponseData<Long> getPetsHeartCount(@PathVariable long petId){
-        ServiceStatusInfo<Long> serviceStatusInfo = videoService.getPetsHeartCount(petId);
+    @GetMapping("/userVideosHeartCount/{userId}")
+    @ApiOperation(value = "获取用户的视频的总点赞数")
+    public ResponseData<Long> getPetsHeartCount(@PathVariable long userId){
+        ServiceStatusInfo<Long> serviceStatusInfo = videoService.getUserVideosHeartCount(userId);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

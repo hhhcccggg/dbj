@@ -28,10 +28,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -78,10 +75,10 @@ public class MyShiroRealm extends AuthorizingRealm {
         boolean keyExist = this.redisTemplate.hasKey("user_everyDay:"+userId);
         if (!keyExist){
             LocalTime midnight = LocalTime.MIDNIGHT;
-            LocalDate today = LocalDate.now();
+            LocalDate today = LocalDate.now(ZoneId.of("Asia/Shanghai"));
             LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
             LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
-            long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(), tomorrowMidnight).toNanos());
+            long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(ZoneId.of("Asia/Shanghai")), tomorrowMidnight).toNanos());
             this.redisTemplate.opsForValue().set("user_everyDay:"+userId,token,s, TimeUnit.SECONDS);
             this.userAssetServiceImpl.userIsExist(Long.valueOf(userId));
             UserCoinDetailAddInput input = new UserCoinDetailAddInput();

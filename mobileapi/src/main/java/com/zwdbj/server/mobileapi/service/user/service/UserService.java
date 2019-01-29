@@ -11,6 +11,7 @@ import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.favorite.service.FavoriteService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
@@ -79,6 +80,8 @@ public class UserService {
     private TokenCenterManager tokenCenterManager;
     @Autowired
     private IAuthUserManager iAuthUserManagerImpl;
+    @Autowired
+    private VideoService videoService;
 
     @Autowired
     private FavoriteService favoriteServiceImpl;
@@ -225,6 +228,11 @@ public class UserService {
         }else {
             favoriteNum = this.favoriteServiceImpl.getUserFavoriteNum(userId);
         }
+        long videosHearts = this.videoService.getUserVideosHeartCount(userId).getData();
+        long petsHearts = userDetailInfoDto.getTotalHearts()-videosHearts;
+        if (petsHearts<0)petsHearts=0;
+        userDetailInfoDto.setTotalVideosHearts(videosHearts);
+        userDetailInfoDto.setTotalPetsHearts(petsHearts);
         userDetailInfoDto.setFavoriteNums(favoriteNum);
         userDetailInfoDto.getShopInfoDto().setLotteryTicketCount(this.youZanService.lotteryTicketCount(userId).getData());
         userDetailInfoDto.getShopInfoDto().setCartUrl("https://h5.youzan.com/wsctrade/cart?kdt_id="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
