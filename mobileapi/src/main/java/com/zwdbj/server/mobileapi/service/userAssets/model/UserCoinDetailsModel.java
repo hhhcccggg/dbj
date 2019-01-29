@@ -11,7 +11,7 @@ public class UserCoinDetailsModel implements Serializable {
     @ApiModelProperty(value = "id")
     long id;
     @ApiModelProperty(value = "创建日期")
-    Date createTime;
+    String createTime;
     @ApiModelProperty(value = "标题")
     String title;
     @ApiModelProperty(value = "小饼干数")
@@ -35,11 +35,11 @@ public class UserCoinDetailsModel implements Serializable {
         this.id = id;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
