@@ -43,8 +43,8 @@ public interface ICommentMapper {
             "(select count(*) from core_hearts as hsHeart where hsHeart.userId=#{curUserId} and hsHeart.resourceOwnerId=cmt.id) as hasHeart " +
             " from core_comments as cmt inner join core_videos as video on cmt.resourceOwnerId = video.id " +
             "inner join core_users as user on cmt.userId=user.id " +
-            "where cmt.resourceOwnerId=#{resId} and cmt.userId=#{curUserId} order by cmt.createTime desc")
-    List<CommentInfoDto> listByUserId(@Param("resId") long resId,@Param("curUserId") long curUserId);
+            "where cmt.resourceOwnerId=#{resId} and cmt.userId=#{curUserId} order by cmt.createTime desc limit 0,1")
+    CommentInfoDto listByUserId(@Param("resId") long resId,@Param("curUserId") long curUserId);
     @Select("select " +
             "cmt.id as id," +
             "cmt.userId as userId," +

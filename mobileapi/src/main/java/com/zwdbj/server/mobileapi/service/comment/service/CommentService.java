@@ -64,17 +64,15 @@ public class CommentService {
             return commentList;
         }
         System.out.println("数据库获取评论");
+        commentList = this.commentMapper.list(resId, userId);
         if (userId>0){
-            List<CommentInfoDto> commentList2 = this.commentMapper.listByUserId(resId,userId);
-            if (commentList2 != null){
-                commentList.addAll(commentList2);
+            CommentInfoDto c = this.commentMapper.listByUserId(resId,userId);
+            if (c != null){
+                commentList.add(0,c);
             }
 
         }
-        List<CommentInfoDto> commentList1 = this.commentMapper.list(resId, userId);
-        if (commentList1 != null){
-            commentList.addAll(commentList1);
-        }
+
         if (commentList!=null)
         hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
         setCommentDtoExtro(commentList);
