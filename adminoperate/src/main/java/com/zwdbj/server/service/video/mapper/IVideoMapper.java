@@ -52,4 +52,7 @@ public interface IVideoMapper {
 
     @Select("select count(id) as growthed from core_videos where isManualData=0 and createTime between date_add(#{date},INTERVAL -1 DAY) and #{date}")
     int videoDayGrowthed(@Param("date") Date date);
+
+    @Select("select id from core_videos where status=0")
+    List<Long> findAllVideos();
 }

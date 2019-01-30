@@ -56,7 +56,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(CommentReviewJob.class)
                 .withIdentity("job3", "group01")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/20 * * * * ?");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/10 * * * * ?");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("trigger3", "group1")
                 .withSchedule(scheduleBuilder).build();
         scheduler.scheduleJob(jobDetail,cronTrigger);

@@ -89,4 +89,9 @@ public class VideoService {
     public int videoDayGrowthed(Date date) {
         return this.videoMapper.videoDayGrowthed(date);
     }
+
+    public List<Long> findAllVideos(){
+        List<Long> ids = this.videoMapper.findAllVideos();
+        return ids;
+    }
 }
