@@ -8,6 +8,9 @@ import java.util.Date;
 @ApiModel(description = "我的兑换")
 public class OrderOut {
 
+    @ApiModelProperty(value = "")
+    private long orderNo;
+
     @ApiModelProperty(value = "商品ID")
     private long productId;
 
@@ -53,6 +56,25 @@ public class OrderOut {
 
     @ApiModelProperty(value = "交易结束时间")
     private Date endTime;
+
+    @ApiModelProperty(value = "订单创建时间")
+    private Date createTime;
+
+    public long getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(long orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public long getProductId() {
         return productId;
