@@ -140,7 +140,7 @@ public class MyScheduler {
         JobDetail jobDetail = JobBuilder.newJob(VideosToRedisJob.class)
                 .withIdentity("job9", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 33 10 30 01 ? 2019");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 53 10 30 01 ? 2019");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger9", "group2")
                 .withSchedule(scheduleBuilder)
