@@ -18,10 +18,10 @@ public interface IUserMapper {
     long newThirdUsers(@Param("id") long id, @Param("username") String username, @Param("phone") String phone, @Param("avatarUrl") String avatarUrl,
                        @Param("nickName") String nickName, @Param("loginType") int loginType, @Param("thirdOpenId") String thirdOpenId);
 
-    @Insert("insert into core_users(id,createTime,username,nickName,phone,avatarUrl,loginType,thirdOpenId,isManualData,IsPhoneVerification) " +
-            "values(#{id},#{createTime},#{username},#{nickName},#{phone},#{avatarUrl},#{loginType},#{thirdOpenId},true,true)")
+    @Insert("insert into core_users(id,username,nickName,phone,avatarUrl,loginType,thirdOpenId,isManualData,IsPhoneVerification) " +
+            "values(#{id},#{username},#{nickName},#{phone},#{avatarUrl},#{loginType},#{thirdOpenId},true,true)")
     long newThirdUsers2(@Param("id") long id, @Param("username") String username, @Param("phone") String phone, @Param("avatarUrl") String avatarUrl,
-                        @Param("nickName") String nickName, @Param("loginType") int loginType, @Param("thirdOpenId") String thirdOpenId, @Param("createTime") Date createTime);
+                        @Param("nickName") String nickName, @Param("loginType") int loginType, @Param("thirdOpenId") String thirdOpenId);
 
     @Select("select id  from core_users where isManualData=true")
     List<Long> getVestUserIds1();

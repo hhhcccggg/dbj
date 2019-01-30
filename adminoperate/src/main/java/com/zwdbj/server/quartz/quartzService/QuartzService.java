@@ -93,24 +93,23 @@ public class QuartzService {
                 }
             }
             if (newUserNum == 0) return;
-            Date createTime = new Date();
-            this.forGreatVestUser(newUserNum, createTime);
+            this.forGreatVestUser(newUserNum);
 
         } catch (Exception e) {
             logger.error("增加用户异常" + e.getMessage());
         }
     }
 
-    public void forGreatVestUser(int newUserNum, Date createTime) {
+    public void forGreatVestUser(int newUserNum) {
         for (int i = 1; i <= newUserNum; i++) {
             if (i % 10 == 1 || i % 10 == 4 || i % 10 == 7) {
-                this.operateService.newThirdUsers(8, createTime);
+                this.operateService.newThirdUsers(8);
                 logger.info("我是 QQ 马甲: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             } else if (i % 10 == 5) {
-                this.operateService.newThirdUsers(16, createTime);
+                this.operateService.newThirdUsers(16);
                 logger.info("我是微博马甲: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             } else {
-                this.operateService.newThirdUsers(4, createTime);
+                this.operateService.newThirdUsers(4);
                 logger.info("我是微信马甲" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             }
         }
@@ -121,12 +120,8 @@ public class QuartzService {
      */
     public void tempGreatUser() {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date createTime = null;
-            int newUserNum = 0;
-            newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2019-01-10u"))-1003;
-            createTime = sdf.parse("2019-01-10 10:00:00");
-            this.forGreatVestUser(newUserNum, createTime);
+            int newUserNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("2019-01-30u"));
+            this.forGreatVestUser(newUserNum);
         } catch (Exception e) {
             logger.error("增加用户异常" + e.getMessage());
         }

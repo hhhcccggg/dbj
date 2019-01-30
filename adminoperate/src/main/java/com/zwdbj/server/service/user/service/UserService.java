@@ -49,12 +49,12 @@ public class UserService {
 
     }
 
-    public void newThirdUsers2(String phone, String avatarUrl, String nickName, String thirdOpenId, int device, int type, String accessToken, Date createTime) {
+    public void newThirdUsers2(String phone, String avatarUrl, String nickName, String thirdOpenId, int device, int type, String accessToken) {
         try {
             Long id = UniqueIDCreater.generateID();
             String userName = UniqueIDCreater.generateUserName();
-            this.userMapper.newThirdUsers2(id, userName, phone, avatarUrl, nickName, type, thirdOpenId, createTime);
-            this.userBindService.newThirdBind2(id, thirdOpenId, type, accessToken, nickName, createTime);
+            this.userMapper.newThirdUsers2(id, userName, phone, avatarUrl, nickName, type, thirdOpenId);
+            this.userBindService.newThirdBind2(id, thirdOpenId, type, accessToken, nickName);
             this.operateService.newPet(id);
             this.operateService.newDeviceToken(id, device);
         } catch (Exception e) {
