@@ -388,5 +388,14 @@ public class OperateService {
         this.stringRedisTemplate.opsForValue().set("OPERATE_ALL_VIDEO_NUM","13309");
     }
 
+    public void videoCommentsToRedis(long id){
+        if (this.redisTemplate.hasKey("videoComments" + id)) {
+            this.redisTemplate.delete("videoComments" + id);
+            logger.info("删除评论缓存");
+        }else {
+            logger.info("没有"+id+"的缓存");
+        }
+    }
+
 
 }

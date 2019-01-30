@@ -174,12 +174,7 @@ public class QuartzService {
                         if (gg == 0) tem--;
                     }
                 }
-                if (this.redisTemplate.hasKey("videoComments" + dto.getId())) {
-                    this.redisTemplate.delete("videoComments" + dto.getId());
-                    logger.info("删除评论缓存");
-                }else {
-                    logger.info("没有"+dto.getId()+"缓存的key");
-                }
+                this.operateService.videoCommentsToRedis(dto.getId());
                 comment = comment + tem;
                 if (comment == 0) continue;
                 this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
