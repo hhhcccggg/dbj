@@ -483,7 +483,7 @@ public class VideoService {
         Long VUserId = this.videoMapper.findUserIdByVideoId(input.getId());
         if (heartModel != null && input.isHeart()) {
             videoHeartStatusDto.setHeart(true);
-            return new ServiceStatusInfo<>(1, "已经点赞过", null,null);
+            return new ServiceStatusInfo<>(1, "已经点赞过", videoHeartStatusDto,null);
         }
         if (heartModel != null && !input.isHeart()) {
             this.heartService.unHeart(userId, input.getId());
