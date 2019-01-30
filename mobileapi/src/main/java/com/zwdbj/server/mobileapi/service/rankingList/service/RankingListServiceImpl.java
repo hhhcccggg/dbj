@@ -11,12 +11,13 @@ import com.zwdbj.server.mobileapi.service.rankingList.model.Recommend;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +27,7 @@ public class RankingListServiceImpl implements RankingListService {
     private RankingListMapper rankingListMapper;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    private Logger logger = LoggerFactory.getLogger(RankingListServiceImpl.class);
 
     @Override
     public ServiceStatusInfo<List<RankingListInfo>> searchTotalRank() {
@@ -40,7 +42,7 @@ public class RankingListServiceImpl implements RankingListService {
                 return new ServiceStatusInfo<>(1, "请重新登录", null);
             }
             if (!"".equals(valueOperations.get("totalRank")) && valueOperations.get("totalRank") != null) {
-                System.out.println("从缓存获取总榜信息");
+                logger.info("从缓存获取总榜信息");
                 String str = valueOperations.get("totalRank");
                 result = JSON.parseObject(str, new TypeReference<List<RankingListInfo>>() {
                 });
@@ -49,7 +51,7 @@ public class RankingListServiceImpl implements RankingListService {
             }
 
             if (lock.lock(true, 500L, 10)) {
-                System.out.println("从数据库中获取总榜信息");
+                logger.info("从数据库中获取总榜信息");
                 result = this.rankingListMapper.searchTotalRank();
 
                 valueOperations.set("totalRank", JSONArray.toJSONString(result));
@@ -78,16 +80,18 @@ public class RankingListServiceImpl implements RankingListService {
             if (userId == 0L) {
                 return new ServiceStatusInfo<>(1, "请重新登录", null);
             }
-            if (!"".equals(valueOperations.get("friendRank"+userId)) && valueOperations.get("friendRank"+userId) != null) {
-                String str = valueOperations.get("friendRank"+userId);
+            if (!"".equals(valueOperations.get("friendRank" + userId)) && valueOperations.get("friendRank" + userId) != null) {
+                String str = valueOperations.get("friendRank" + userId);
                 result = JSON.parseObject(str, new TypeReference<List<RankingListInfo>>() {
                 });
+                logger.info("从缓存获取好友榜信息");
                 return new ServiceStatusInfo<>(0, "", result);
             }
             result = this.rankingListMapper.searchFriendRank(userId);
-            if (result != null) {
-                valueOperations.set("friendRank"+userId, JSONArray.toJSONString(result));
-                stringRedisTemplate.expire("friendRank"+userId, 1, TimeUnit.MINUTES);
+            if (result != null && result.size() != 0) {
+                valueOperations.set("friendRank" + userId, JSONArray.toJSONString(result));
+                stringRedisTemplate.expire("friendRank" + userId, 1, TimeUnit.MINUTES);
+                logger.info("从数据库中获取好友榜信息");
                 return new ServiceStatusInfo<>(0, "", result);
             }
             return new ServiceStatusInfo<>(1, "您暂时没有好友", null);
