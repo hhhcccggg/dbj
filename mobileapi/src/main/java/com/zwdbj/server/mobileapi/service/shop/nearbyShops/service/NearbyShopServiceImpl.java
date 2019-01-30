@@ -21,6 +21,8 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -144,21 +147,26 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 .fuzziness(Fuzziness.AUTO)).filter(QueryBuilders.geoDistanceQuery("location").point(lat, lon)//过滤十公里内的商家
                 .distance(10, DistanceUnit.KILOMETERS));
 
-        searchSourceBuilder.sort("rank");//按指定排序
+        searchSourceBuilder.sort(new GeoDistanceSortBuilder("location", lat, lon).unit(DistanceUnit.KILOMETERS)
+                .order(SortOrder.ASC));//按距离排序
         searchSourceBuilder.query(matchQuery);
         searchSourceBuilder.size(10);//一次取回10条数据
         searchRequest.source(searchSourceBuilder);
         searchRequest.scroll(TimeValue.timeValueMinutes(1L));//设置sroll间隔
-        List<NearbyShop> result = null;
+        List<NearbyShop> result = new ArrayList<>();
         try {
             SearchResponse searchResponse = client.search(searchRequest);
             if (searchResponse.status().getStatus() == 200) {
                 String scrollId = searchResponse.getScrollId();//返回当前的scrollId，下次查询从当前位置开始
                 SearchHit[] hits = searchResponse.getHits().getHits();
                 logger.info("first scroll:");
+                if (hits.length == 0) {
+                    return new ServiceStatusInfo<>(1, "没有符合条件的商家", null);
+                }
                 for (SearchHit searchHit : hits) {
-                    result.add(JSON.parseObject(searchHit.getSourceAsString(), new TypeReference<NearbyShop>() {
-                    }));
+                    NearbyShop nearbyShop = JSON.parseObject(searchHit.getSourceAsString(), new TypeReference<NearbyShop>() {
+                    });
+                    result.add(nearbyShop);
                     logger.info(searchHit.getSourceAsString());
                 }
                 Scroll scroll = new Scroll(TimeValue.timeValueMinutes(1L));
