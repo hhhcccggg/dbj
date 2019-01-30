@@ -65,14 +65,18 @@ public class CommentService {
         }
         System.out.println("数据库获取评论");
         if (userId>0){
-            commentList = this.commentMapper.listByUserId(resId,userId);
-            if (commentList != null)
-                hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
+            List<CommentInfoDto> commentList2 = this.commentMapper.listByUserId(resId,userId);
+            if (commentList2 != null){
+                commentList.addAll(commentList2);
+            }
+
         }
         List<CommentInfoDto> commentList1 = this.commentMapper.list(resId, userId);
-        if (commentList1 != null)
-            hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
-        commentList.addAll(commentList1);
+        if (commentList1 != null){
+            commentList.addAll(commentList1);
+        }
+        if (commentList!=null)
+        hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
         setCommentDtoExtro(commentList);
         return commentList;
     }
