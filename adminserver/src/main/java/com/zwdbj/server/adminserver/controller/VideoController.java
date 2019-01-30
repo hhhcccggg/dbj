@@ -65,9 +65,6 @@ public class VideoController {
     @ApiOperation(value = "获取视频详情")
     public ResponseData<VideoDetailInfoDto> video(@PathVariable long id) {
         VideoDetailInfoDto videoInfoDto = this.videoService.video(id);
-        if (videoInfoDto != null && videoInfoDto.getStatus() != 0) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NOT_FOUND, "视频未审核通过或者正在审核中...", null);
-        }
         this.videoService.updatePlayCount(id);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", videoInfoDto);
     }
