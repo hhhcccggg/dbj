@@ -43,7 +43,8 @@ public class CommentController {
                 dto.setContentTxt("评论审核中...");
             }
         }
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", comments, pageInfo.getTotal());
+        long commentNum = this.commentService.findCommentNumById(resId);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", comments, commentNum);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -100,9 +101,7 @@ public class CommentController {
     public ResponseData<Object> publish(@RequestBody AddCommentInput input) {
         ServiceStatusInfo<Object> statusInfo = this.commentService.add(input);
         if (statusInfo.isSuccess()) {
-            if (statusInfo.getCoins() != null)
-                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), null, statusInfo.getCoins());
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), null);
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), null,statusInfo.getCoins());
         } else {
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
         }

@@ -34,18 +34,19 @@ public interface IProductOrderMapper {
     List<Long> selectByOrder(@Param("productId") long productId);
 
     /**
+     * TODO 目前针对单个SKU
      * 查询我的兑换
      * @return
      */
     @Select("SELECT " +
             "oi.productId,r.receiverName,r.receiverPhone, r.receiverMobile,r.reveiverState,r.receiverCity, " +
             "r.receiverCountry,r.receiverAddress,p.imageUrls,oi.price, " +
-            "o.payment,o.`status`,o.endTime,o.actualPayment,oi.title " +
+            "o.payment,o.`status`,o.endTime,o.actualPayment,oi.title,o.createTime,o.orderNo " +
             "FROM  shop_productOrderItems oi " +
             "LEFT JOIN shop_productOrders o ON o.id = oi.orderId " +
             "LEFT JOIN shop_products p ON oi.productId=p.id " +
             "LEFT JOIN shop_receiveAddresses r ON o.receiveAddressId=r.id " +
-            "where o.userId=#{userId} " +
+            "where o.userId=#{userId} and o.isDeleted=0 " +
             "ORDER BY oi.createTime DESC")
     List<OrderOut> selectMyOrder(@Param("userId")long userId);
 }

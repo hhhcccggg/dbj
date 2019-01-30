@@ -84,8 +84,6 @@ public class VideoService {
             try {
                 if (input.getStatus() == 0) {
                     this.videoRandRecommendService.pushNewVideo(id);
-                } else {
-                    this.videoRandRecommendService.popVideo(id);
                 }
             } catch ( Exception ex ) {
                 logger.warn(ex.getMessage());
@@ -110,6 +108,7 @@ public class VideoService {
         Long result = 0L;
         try {
             result = this.videoMapper.doComplainInfoAd(toResId, input);
+            if (input.getTreatment()==2)this.videoRandRecommendService.popVideo(toResId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改失败：" + e.getMessage(), result);
@@ -226,9 +225,7 @@ public class VideoService {
             this.videoRandRecommendService.pushNewVideo(id);
         } else if ("block".equals(reviewResultType)) {
             this.videoMapper.blockVideoReview(id);
-            this.videoRandRecommendService.popVideo(id);
         } else if ("review".equals(reviewResultType)) {
-            this.videoRandRecommendService.popVideo(id);
             this.videoMapper.peopleVideoReview(id);
         } else {
             throw new RuntimeException("无数据+reviewResultType:::null");

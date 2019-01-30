@@ -42,4 +42,11 @@ public interface IFavoriteMapper {
      */
     @SelectProvider(type =FavoriteSqlProvider.class,method = "searchFavorite")
     List<FavoriteModel> searchFavorite(@Param("searchFavorite") SearchFavorite searchFavorite);
+
+    /**
+     * 查询用户的收藏数量
+     */
+
+    @Select("select count(id) from shop_Favorites where userId=#{userId} and isDeleted=0")
+    int getUserFavoriteNum(@Param("userId")long userId);
 }

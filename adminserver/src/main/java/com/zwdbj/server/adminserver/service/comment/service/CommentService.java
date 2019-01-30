@@ -74,7 +74,7 @@ public class CommentService {
     public List<Map<String, Object>> findComments(){
         List<CommentReviewDto>  comments = this.commentMapper.findCommentReviewing();
         List<Map<String, Object>> tasks = new ArrayList<Map<String, Object>>();
-        if (comments!=null){
+        if (comments!=null && comments.size()!=0){
             for (CommentReviewDto comment:comments){
                 Map<String, Object> task = new LinkedHashMap<String, Object>();
                 task.put("dataId", comment.getId().toString());

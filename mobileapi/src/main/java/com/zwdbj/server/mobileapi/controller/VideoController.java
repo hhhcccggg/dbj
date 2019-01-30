@@ -37,36 +37,36 @@ public class VideoController {
     @ApiOperation(value = "发布短视频")
     @RequiresAuthentication
     public ResponseData<Map<String,String>> publishVideo(@RequestBody VideoPublishInput input) {
-        long videoId = videoService.publicVideo(input);
-        if (videoId<=0) {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"发布视频失败",null);
+        ServiceStatusInfo<Long> statusInfo = videoService.publicVideo(input);
+        if (!statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"发布视频失败",null,null);
         }
         Map<String,String> dataMap = new HashMap<>();
-        dataMap.put("id",String.valueOf(videoId));
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dataMap);
+        dataMap.put("id",String.valueOf(statusInfo.getData()));
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",dataMap,statusInfo.getCoins());
     }
     @RequestMapping(value = "/listHot",method = RequestMethod.GET)
     @ApiOperation(value = "获取短视频推荐列表")
     public ResponsePageInfoData<List<VideoInfoDto>> listHot(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                             @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        /*if(JWTUtil.getCurrentId()>0) {
-            List<VideoInfoDto> videos = videoService.listHot(null,rows);
-            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, 1000000);
-        } else*/ {
+        if(JWTUtil.getCurrentId()>0) {
+            List<VideoInfoDto> videos = videoService.listHot(null,rows,JWTUtil.getCurrentId());
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, (videos.size()>0?1000000:0));
+        } else {
             Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
-            List<VideoInfoDto> videos = videoService.listHot(pageInfo,rows);
+            List<VideoInfoDto> videos = videoService.listHot(pageInfo,rows,JWTUtil.getCurrentId());
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, pageInfo.getTotal());
         }
     }
     @RequestMapping(value = "/listHot1",method = RequestMethod.GET)
     @ApiOperation(value = "获取短视频推荐列表(使用此接口)")
     public ResponsePageInfoData<List<VideoInfoDto>> listHot1(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo) {
-        /*if(JWTUtil.getCurrentId()>0) {
-            List<VideoInfoDto> videos = videoService.listHot(null,30);
-            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, 1000000);
-        } else*/ {
+        if(JWTUtil.getCurrentId()>0) {
+            List<VideoInfoDto> videos = videoService.listHot(null,30,JWTUtil.getCurrentId());
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, (videos.size()>0?1000000:0));
+        } else {
             Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, 30);
-            List<VideoInfoDto> videos = videoService.listHot(pageInfo,30);
+            List<VideoInfoDto> videos = videoService.listHot(pageInfo,30,JWTUtil.getCurrentId());
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, pageInfo.getTotal());
         }
     }
@@ -152,9 +152,7 @@ public class VideoController {
     public ResponseData<VideoHeartStatusDto> heart(@RequestBody HeartInput input) {
         ServiceStatusInfo<VideoHeartStatusDto> statusInfo = this.videoService.heart(input);
         if (statusInfo.isSuccess()) {
-            if (statusInfo.getCoins()!=null)
-                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData(),statusInfo.getCoins());
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData(),statusInfo.getCoins());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
@@ -231,9 +229,9 @@ public class VideoController {
     public ResponseData<Integer> playTour(@RequestBody VideoPlayTourInput input) {
         ServiceStatusInfo<Integer> serviceStatusInfo = videoService.playTout(input.getCoins(), input.getVideoId());
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData(),serviceStatusInfo.getCoins());
         }
-        return new ResponseData<>(1, serviceStatusInfo.getMsg(), null);
+        return new ResponseData<>(1, serviceStatusInfo.getMsg(), null,null);
     }
 
     @GetMapping("/getPetsVideo/{petId}")
@@ -250,10 +248,10 @@ public class VideoController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null,0L);
     }
 
-    @GetMapping("/getPetsHeartCount/{petId}")
-    @ApiOperation(value = "获取某宠物总点赞数")
-    public ResponseData<Long> getPetsHeartCount(@PathVariable long petId){
-        ServiceStatusInfo<Long> serviceStatusInfo = videoService.getPetsHeartCount(petId);
+    @GetMapping("/userVideosHeartCount/{userId}")
+    @ApiOperation(value = "获取用户的视频的总点赞数")
+    public ResponseData<Long> getPetsHeartCount(@PathVariable long userId){
+        ServiceStatusInfo<Long> serviceStatusInfo = videoService.getUserVideosHeartCount(userId);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

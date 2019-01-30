@@ -7,7 +7,7 @@ public class MessageInput {
     protected String dataContent;
     protected String refUrl;
     /**
-     * 消息类型0:系统消息,1:点赞类2:粉丝类3:评论
+     * 消息类型0:系统消息,1:点赞类2:粉丝类3:评论6:打赏
      */
     protected int messageType;
 

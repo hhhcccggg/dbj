@@ -27,7 +27,7 @@ public class FavoriteController {
     private FavoriteService favoriteServiceImpl;
 
     @ApiOperation(value = "查询我的收藏")
-    @GetMapping("searchFavorite")
+    @GetMapping("/searchFavorite")
     public ResponsePageInfoData<List<FavoriteModel>> searchFavorite(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                     @RequestParam(value = "rows", required = true, defaultValue = "10") int rows,
                                                                     @Valid SearchFavorite searchFavorite){
@@ -41,7 +41,7 @@ public class FavoriteController {
     }
 
     @ApiOperation(value = "添加收藏")
-    @PostMapping("addFavorite")
+    @PostMapping("/addFavorite")
     public ResponseData<Long> addFavorite(@RequestBody FavoriteInput favoriteInput){
         ServiceStatusInfo<Long> serviceStatusInfo = favoriteServiceImpl.addFavorite(favoriteInput);
         if(!serviceStatusInfo.isSuccess())
@@ -50,7 +50,7 @@ public class FavoriteController {
     }
 
     @ApiOperation(value = "删除收藏")
-    @PostMapping("deleteFavorite")
+    @PostMapping("/deleteFavorite")
     public ResponseData<Long> deleteFavorite(long id){
         ServiceStatusInfo<Long> serviceStatusInfo = favoriteServiceImpl.deleteFavorite(id);
         if(!serviceStatusInfo.isSuccess())

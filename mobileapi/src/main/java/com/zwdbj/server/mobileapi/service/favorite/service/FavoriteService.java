@@ -29,4 +29,9 @@ public interface FavoriteService {
      * @return
      */
     ServiceStatusInfo<List<FavoriteModel>> searchFavorite(SearchFavorite searchFavorite);
+
+    /**
+     * 查询我的收藏数量
+     */
+    int getUserFavoriteNum(long userId);
 }

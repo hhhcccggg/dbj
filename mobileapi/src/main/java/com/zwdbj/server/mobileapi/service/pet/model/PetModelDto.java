@@ -25,6 +25,17 @@ public class PetModelDto {
     @ApiModelProperty(value = "分类/品种")
     long categoryId;
     String categoryName;
+    @ApiModelProperty(value = "用户id")
+    private long userId;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
     public long getId() {
         return id;
     }

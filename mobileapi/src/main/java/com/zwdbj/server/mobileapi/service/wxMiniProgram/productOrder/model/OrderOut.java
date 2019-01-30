@@ -8,6 +8,9 @@ import java.util.Date;
 @ApiModel(description = "我的兑换")
 public class OrderOut {
 
+    @ApiModelProperty(value = "")
+    private long orderNo;
+
     @ApiModelProperty(value = "商品ID")
     private long productId;
 
@@ -26,7 +29,8 @@ public class OrderOut {
     @ApiModelProperty(value = "产品图")
     private String imageUrls;
 
-    @ApiModelProperty(value = "订单状态")
+    @ApiModelProperty(value = "订单状态  交易状态 STATE_WAIT_BUYER_PAY（交易创建，等待买家付款）STATE_BUYER_PAYED (买家已付款) STATE_SELLER_DELIVERIED（卖家已发货，等待买家收货) STATE_BUYER_DELIVERIED（买家已确认收货)\n" +
+            "STATE_REFUNDING（退款中) STATE_REFUND_SUCCESS（退款成功) STATE_UNUSED (未使用，虚拟商品有效) STATE_USED (已使用，虚拟商品有效) STATE_SUCCESS（交易成功) STATE_CLOSED(交易关闭)")
     private String status;
 
     @ApiModelProperty(value = "收货人")
@@ -52,6 +56,25 @@ public class OrderOut {
 
     @ApiModelProperty(value = "交易结束时间")
     private Date endTime;
+
+    @ApiModelProperty(value = "订单创建时间")
+    private Date createTime;
+
+    public long getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(long orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public long getProductId() {
         return productId;

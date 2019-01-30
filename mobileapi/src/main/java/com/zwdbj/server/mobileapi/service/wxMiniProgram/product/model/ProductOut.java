@@ -75,8 +75,30 @@ public class ProductOut {
     @ApiModelProperty(value = "商品图片地址")
     String imageUrls;
 
-    @ApiModelProperty(value = "是否兑换过")
+    @ApiModelProperty(value = "该用户否兑换过的数量")
     int exchange;
+
+    @ApiModelProperty(value = "productSKUId")
+    long productSKUId;
+
+    @ApiModelProperty(value = "规则说明")
+    String ruleDescription;
+
+    public String getRuleDescription() {
+        return ruleDescription;
+    }
+
+    public void setRuleDescription(String ruleDescription) {
+        this.ruleDescription = ruleDescription;
+    }
+
+    public long getProductSKUId() {
+        return productSKUId;
+    }
+
+    public void setProductSKUId(long productSKUId) {
+        this.productSKUId = productSKUId;
+    }
 
     public int getExchange() {
         return exchange;

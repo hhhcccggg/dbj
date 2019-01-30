@@ -37,7 +37,7 @@ public class MessageCenterController {
     @RequiresAuthentication
     @RequestMapping(value = "/readAll/{type}",method = RequestMethod.GET)
     @ApiOperation("消息已读")
-    @ApiImplicitParam(name = "type",value = "0:系统消息,1:点赞类2:粉丝类3:评论")
+    @ApiImplicitParam(name = "type",value = "0:系统消息,1:点赞类2:粉丝类3:评论6:打赏")
     public ResponseData<Object> readAll(@PathVariable int type) {
         long userId = JWTUtil.getCurrentId();
         this.messageCenterService.readAll(userId,type);

@@ -14,8 +14,8 @@ public class ProductSqlProvider {
      */
     public String seleteList(Map map){
         ProductInput productInput = (ProductInput) map.get("productInput");
-        SQL sql = new SQL().SELECT("id","productType","productDetailType","name","categoryId",
-                "brandId","inventory","imageUrls","limitPerPerson");
+        SQL sql = new SQL().SELECT("id","productType","productDetailType","name","categoryId", "sales",
+                "brandId","inventory","imageUrls","limitPerPerson","detailDescription","supportCoin","ruleDescription");
         sql.FROM("shop_products");
         sql.WHERE("publish=1 and isDeleted=0 and storeId="+productInput.getStoreId()+" and specifyPublishTime<now()");
 
@@ -26,8 +26,18 @@ public class ProductSqlProvider {
         }else if(productInput.getType() == 0){
             return "(SELECT " +
                     "shop_products.id, " +
+                    "shop_products.productType, " +
+                    "shop_products.specifyPublishTime, " +
+                    "shop_products.name, " +
+                    "shop_products.sales, " +
+                    "shop_products.categoryId, " +
+                    "shop_products.brandId, " +
                     "shop_products.inventory, " +
-                    "shop_products.specifyPublishTime " +
+                    "shop_products.imageUrls, " +
+                    "shop_products.detailDescription, " +
+                    "shop_products.supportCoin, "+
+                    "shop_products.ruleDescription, "+
+                    "shop_products.limitPerPerson " +
                     "FROM " +
                     "shop_products " +
                     "where  " +
@@ -35,8 +45,18 @@ public class ProductSqlProvider {
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
+                    "shop_products.productType, " +
+                    "shop_products.specifyPublishTime, " +
+                    "shop_products.name, " +
+                    "shop_products.sales, " +
+                    "shop_products.categoryId, " +
+                    "shop_products.brandId, " +
                     "shop_products.inventory, " +
-                    "shop_products.specifyPublishTime " +
+                    "shop_products.imageUrls, " +
+                    "shop_products.detailDescription, " +
+                    "shop_products.supportCoin, "+
+                    "shop_products.ruleDescription, "+
+                    "shop_products.limitPerPerson " +
                     "FROM " +
                     "shop_products " +
                     "where  " +
@@ -44,8 +64,18 @@ public class ProductSqlProvider {
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
+                    "shop_products.productType, " +
+                    "shop_products.specifyPublishTime, " +
+                    "shop_products.name, " +
+                    "shop_products.sales, " +
+                    "shop_products.categoryId, " +
+                    "shop_products.brandId, " +
                     "shop_products.inventory, " +
-                    "shop_products.specifyPublishTime " +
+                    "shop_products.imageUrls, " +
+                    "shop_products.detailDescription, " +
+                    "shop_products.supportCoin, "+
+                    "shop_products.ruleDescription, "+
+                    "shop_products.limitPerPerson " +
                     "FROM " +
                     "shop_products " +
                     "where  " +

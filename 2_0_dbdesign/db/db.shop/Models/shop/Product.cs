@@ -149,6 +149,11 @@ namespace db.shop.Models.shop
         /// <value>The detail description.</value>
         public String detailDescription { get; set; }
         /// <summary>
+        /// 规则说明
+        /// </summary>
+        /// <value>The rule description.</value>
+        public String ruleDescription { get; set; }
+        /// <summary>
         /// 重量g克
         /// </summary>
         /// <value>The weight.</value>

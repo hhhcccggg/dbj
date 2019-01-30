@@ -20,4 +20,7 @@ public interface IHeartMapper {
 
     @Select("select count(id) from core_hearts where userId=#{userId} and to_days(createTime)=to_days(now()) ")
     int isFirstHeart(@Param("userId")long userId);
+
+    @Select("select count(id) from core_hearts where resourceOwnerId=#{resourceOwnerId} and resourceTypeId=#{resourceTypeId} and isDeleted=0 ")
+    long getHeartCountByResourceOwnerId(@Param("resourceOwnerId") long petId,@Param("resourceTypeId")int type);
 }

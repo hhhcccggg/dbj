@@ -1,5 +1,6 @@
 package com.zwdbj.server.quartz.quartzService;
 
+import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.operate.oprateService.OperateService;
 import com.zwdbj.server.service.comment.service.CommentService;
 import com.zwdbj.server.service.dailyIncreaseAnalysises.service.DailyIncreaseAnalysisesService;
@@ -43,6 +44,8 @@ public class QuartzService {
     DataVideosService dataVideosService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    VideoRandRecommendService videoRandRecommendService;
 
 
     private Logger logger = LoggerFactory.getLogger(QuartzService.class);
@@ -150,7 +153,7 @@ public class QuartzService {
                 int dianzhan = this.operateService.getRandom(18, 34);
                 int pinlun = this.operateService.getRandom(3, 6);
                 int fenxiang = this.operateService.getRandom(1, 3);
-                int addPlayCount = this.operateService.getRandom(50, 201);
+                int addPlayCount = this.operateService.getRandom(60, 231);
                 this.videoService.updateField("playCount=playCount+" + addPlayCount, dto.getId());
                 this.videoService.updateField("heartCount=heartCount+" + Math.round(addPlayCount * dianzhan / 100.0), dto.getId());
                 long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
@@ -171,9 +174,16 @@ public class QuartzService {
                         if (gg == 0) tem--;
                     }
                 }
+                if (this.redisTemplate.hasKey("videoComments" + dto.getId())) {
+                    this.redisTemplate.delete("videoComments" + dto.getId());
+                    logger.info("删除评论缓存");
+                }else {
+                    logger.info("没有"+dto.getId()+"缓存的key");
+                }
                 comment = comment + tem;
                 if (comment == 0) continue;
                 this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
+
                 if (dto.getCommentCount() >= 10) this.commentService.addCommentHeart(dto.getId());
                 logger.info("播放量不超过8000总视频数量：" + videoHeartAndPlayCountDtos.size() + "++++实际数量，第" + j + "个+++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             }
@@ -505,4 +515,13 @@ public class QuartzService {
         }
     }
 
+    /**
+     * 将视频全部加入到redis中
+     */
+    public void videosToRedis(){
+        List<Long> ids = this.videoService.findAllVideos();
+        for (Long l:ids){
+            this.videoRandRecommendService.pushNewVideo(l);
+        }
+    }
 }

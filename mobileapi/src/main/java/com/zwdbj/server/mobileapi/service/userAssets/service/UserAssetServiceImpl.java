@@ -174,6 +174,8 @@ public class UserAssetServiceImpl implements IUserAssetService {
                 u.add(model);
             } else if (model.getType().equals("OTHER")) {
                 u.add(model);
+            } else if (model.getType().equals("ORDER")) {
+                u.add(model);
             } else if (model.getType().equals("PAY") && model.getStatus().equals("SUCCESS")) {
                 u.add(model);
             }
@@ -502,7 +504,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
         if (task >= coins) {
             //task类型的小饼干大于等于订单支付，则全部用task支付
             UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
-            addTaskInput.setNum(AllCoins);
+            addTaskInput.setNum(-AllCoins);
             addTaskInput.setType("ORDER");
             addTaskInput.setTitle("支付订单消费抵扣");
             addTaskInput.setExtraData(String.valueOf(productOrderId));
@@ -521,7 +523,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
             }
             if (pay >= coins) {
                 UserCoinDetailAddInput addPayInput = new UserCoinDetailAddInput();
-                addPayInput.setNum(AllCoins);
+                addPayInput.setNum(-AllCoins);
                 addPayInput.setType("ORDER");
                 addPayInput.setTitle("支付订单消费");
                 addPayInput.setExtraData(String.valueOf(productOrderId));
@@ -538,7 +540,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
                 }
                 if (other >= coins) {
                     UserCoinDetailAddInput addOtherInput = new UserCoinDetailAddInput();
-                    addOtherInput.setNum(AllCoins);
+                    addOtherInput.setNum(-AllCoins);
                     addOtherInput.setType("ORDER");
                     addOtherInput.setTitle("支付订单消费");
                     addOtherInput.setExtraData(String.valueOf(productOrderId));;
@@ -554,7 +556,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
                         this.updateUserCoinType(userId, "OTHER", -other);
                     }
                     UserCoinDetailAddInput addIncomeInput = new UserCoinDetailAddInput();
-                    addIncomeInput.setNum(AllCoins);
+                    addIncomeInput.setNum(-AllCoins);
                     addIncomeInput.setType("ORDER");
                     addIncomeInput.setTitle("支付订单消费");
                     addIncomeInput.setExtraData(String.valueOf(productOrderId));
@@ -595,11 +597,27 @@ public class UserAssetServiceImpl implements IUserAssetService {
 
     @Transactional
     public void userPlayCoinTask(UserCoinDetailAddInput input,long userId,String type,int coins,String taskId,String state){
-        // TODO 改变小饼干任务状态 参数要加入任务的id,处理任务
-        this.addUserCoinDetail(userId,input);
-        this.updateUserCoinType(userId,type,coins);
-        this.updateUserAsset(userId,coins);
-        this.taskService.addNewTaskById(taskId,userId,state);
+        if (taskId.equals("EVERYDAYFIRSTTIP")){
+            ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
+            Lock lock = new Lock(consulClient, "mobileapi", "everyDayLoginTaskKey:" + userId);
+            try {
+                this.addUserCoinDetail(userId,input);
+                this.updateUserCoinType(userId,type,coins);
+                this.updateUserAsset(userId,coins);
+                this.taskService.addNewTaskById(taskId,userId,state);
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                lock.unlock();
+            }
+
+        }else {
+            this.addUserCoinDetail(userId,input);
+            this.updateUserCoinType(userId,type,coins);
+            this.updateUserAsset(userId,coins);
+            this.taskService.addNewTaskById(taskId,userId,state);
+        }
+
 
     }
 }

@@ -38,6 +38,12 @@ public class ProductServiceImpl implements  ProductService{
             long userId = JWTUtil.getCurrentId();
             List<ProductOut> list = this.iProductMapper.selectShopProduct(productInput);
             for(ProductOut productOut:list){
+                ProductSKUs productSKUs = productSKUsServiceImpl.selectByProductId(productOut.getId()).getData();
+                if(productSKUs != null){
+                    productOut.setProductSKUId(productSKUs.getId());
+                    productOut.setPromotionPrice(productSKUs.getPromotionPrice());
+                    productOut.setOriginalPrice(productSKUs.getOriginalPrice());
+                }
                 productOut.setExchange(iProductOrderMapper.userBuyProductAccounts(userId,productOut.getId()));
             }
             return new ServiceStatusInfo<>(0,"",list);
@@ -55,6 +61,7 @@ public class ProductServiceImpl implements  ProductService{
                 return new ServiceStatusInfo<>(1,"查询失败,SUK不存在",null);
             }
             ProductSKUs productSKUs = serviceStatusInfo.getData();
+            productlShow.setProductSKUId(productSKUs.getId());
             productlShow.setPromotionPrice(productSKUs.getPromotionPrice());
             productlShow.setInventory(productSKUs.getInventory());
             productlShow.setOriginalPrice(productSKUs.getOriginalPrice());
@@ -101,7 +108,7 @@ public class ProductServiceImpl implements  ProductService{
         try {
             long allInventory = this.iProductMapper.getProductInventory(productId);
             if (allInventory<=0 || allInventory<num)return new ServiceStatusInfo<>(1,"该商品库存不足",false);
-            long inventory = this.iProductMapper.getProductSkuInventory(productSkuId);
+            int inventory = this.iProductMapper.getProductSkuInventory(productSkuId);
             if (inventory<=0 || inventory<num)return new ServiceStatusInfo<>(1,"该商品规格库存不足",false);
             return new ServiceStatusInfo<>(0,"",true);
 

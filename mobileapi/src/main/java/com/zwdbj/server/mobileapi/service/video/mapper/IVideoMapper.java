@@ -139,6 +139,6 @@ public interface IVideoMapper {
     @Select("select * from core_videos where find_in_set(#{petId},`linkPets`) and isDeleted=0 and status=0 order by createTime desc")
     List<VideoInfoDto> getPetsVideo(@Param("petId") long petId);
 
-    @Select("select ifnull(sum(heartCount),0) from core_videos where find_in_set(#{petId},`linkPets`) and isDeleted=0 and status=0")
-    Long getPetsHeartCount(@Param("petId") long petId);
+    @Select("select ifnull(sum(heartCount),0) from core_videos where userId=#{userId} and isDeleted=0 and status=0")
+    Long getUserVideosHeartCount(@Param("userId") long userId);
 }

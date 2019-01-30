@@ -18,7 +18,8 @@ public interface IVideoMapper {
     List<Long> getAllReviewedVideos();
 
     //定时任务
-    @Select("select id,userId,playCount,heartCount,shareCount,commentCount from core_videos where status=0 and playCount<8000")
+    @Select("select id,userId,playCount,heartCount,shareCount,commentCount from core_videos " +
+            "where status=0 and playCount<8000 and (createTime > DATE_SUB(NOW(),INTERVAL 8 HOUR))")
     List<VideoHeartAndPlayCountDto> findHeartAndPlayCount();
 
     @Select("select playCount from core_videos where id=#{id}")
@@ -51,4 +52,7 @@ public interface IVideoMapper {
 
     @Select("select count(id) as growthed from core_videos where isManualData=0 and createTime between date_add(#{date},INTERVAL -1 DAY) and #{date}")
     int videoDayGrowthed(@Param("date") Date date);
+
+    @Select("select id from core_videos where status=0")
+    List<Long> findAllVideos();
 }
