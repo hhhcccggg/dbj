@@ -175,7 +175,7 @@ public class OperateService {
      * 4:微信 8:QQ 16:微博
      * @param type
      */
-    public void newThirdUsers(int type, Date createTime){
+    public void newThirdUsers(int type ){
         String phone = this.getOneOnlyPhone();
         int avatar = this.getRandom(0,80)+1;
         String avatarUrl ="http://dev.hd.res.pet.zwdbj.com/1%20%28"+avatar+"%29.jpg";
@@ -206,10 +206,7 @@ public class OperateService {
             accessToken="2.00"+s1.substring(3,31);
 
         }
-        if ("2000-12-12".equals(new SimpleDateFormat("yyyy-MM-dd").format(createTime))){
-            this.userService.newThirdUsers(phone,avatarUrl,nickName,thirdOpenId,device,type,accessToken);
-        }
-        this.userService.newThirdUsers2(phone,avatarUrl,nickName,thirdOpenId,device,type,accessToken,createTime);
+        this.userService.newThirdUsers2(phone,avatarUrl,nickName,thirdOpenId,device,type,accessToken);
     }
 
 
@@ -386,6 +383,15 @@ public class OperateService {
 
     public void allVideoNum(){
         this.stringRedisTemplate.opsForValue().set("OPERATE_ALL_VIDEO_NUM","13309");
+    }
+
+    public void videoCommentsToRedis(long id){
+        if (this.redisTemplate.hasKey("videoComments" + id)) {
+            this.redisTemplate.delete("videoComments" + id);
+            logger.info("删除评论缓存");
+        }else {
+            logger.info("没有"+id+"的缓存");
+        }
     }
 
 

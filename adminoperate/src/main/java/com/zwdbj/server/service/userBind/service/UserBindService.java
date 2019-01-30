@@ -16,9 +16,9 @@ public class UserBindService {
         long id = UniqueIDCreater.generateID();
         this.userBindMapper.newThirdBind(id,userId,thirdOpenId,type,accessToken,nickName);
     }
-    public void newThirdBind2(long userId, String thirdOpenId, int type, String accessToken, String nickName, Date createTime){
+    public void newThirdBind2(long userId, String thirdOpenId, int type, String accessToken, String nickName){
         long id = UniqueIDCreater.generateID();
-        this.userBindMapper.newThirdBind2(id,userId,thirdOpenId,type,accessToken,nickName,createTime);
+        this.userBindMapper.newThirdBind2(id,userId,thirdOpenId,type,accessToken,nickName);
     }
 
 }
