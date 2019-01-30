@@ -249,19 +249,19 @@ public class VideoService {
         return videoInfoDtos;
     }
 
-    public List<VideoInfoDto> listHot(Page<VideoInfoDto> pageInfo, int pageSize) {
-//        long userId = JWTUtil.getCurrentId();
-//        if (userId>0) {
-//            List<Long> videoIDS = this.videoRandRecommendService.fetchVideo("u_"+String.valueOf(userId),pageSize);
-//            if(videoIDS.size()==0) return new ArrayList<>();
-//            List<VideoInfoDto> recommendVideos = this.videoMapper.listIds(StringUtils.join(videoIDS.toArray(),","));
-//            if (recommendVideos!=null) {
-//                for (VideoInfoDto dto:recommendVideos) {
-//                    loadVideoInfoDto(dto);
-//                }
-//            }
-//            return recommendVideos;
-//        }
+    public List<VideoInfoDto> listHot(Page<VideoInfoDto> pageInfo,int pageSize,long userId) {
+        if (userId>0) {
+            List<Object> videoIDS = this.videoRandRecommendService.fetchVideo(String.valueOf(userId), pageSize);
+            if (videoIDS.size() == 0) return new ArrayList<>();
+            List<VideoInfoDto> recommendVideos = this.videoMapper.listIds(StringUtils.join(videoIDS.toArray(), ","));
+            if (recommendVideos != null) {
+                for (VideoInfoDto dto : recommendVideos) {
+                    loadVideoInfoDto(dto);
+                }
+            }
+            return recommendVideos;
+        }
+        //
         boolean isNeedGetCommend = pageInfo.getPageNum() < 4;
         String recommendIds = null;
         if (this.stringRedisTemplate.hasKey(AppConfigConstant.REDIS_VIDEO_RECOMMEND_KEY) && isNeedGetCommend) {

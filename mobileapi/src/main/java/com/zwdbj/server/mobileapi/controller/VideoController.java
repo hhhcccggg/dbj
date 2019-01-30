@@ -49,24 +49,24 @@ public class VideoController {
     @ApiOperation(value = "获取短视频推荐列表")
     public ResponsePageInfoData<List<VideoInfoDto>> listHot(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
                                                             @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
-        /*if(JWTUtil.getCurrentId()>0) {
-            List<VideoInfoDto> videos = videoService.listHot(null,rows);
-            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, 1000000);
-        } else*/ {
+        if(JWTUtil.getCurrentId()>0) {
+            List<VideoInfoDto> videos = videoService.listHot(null,rows,JWTUtil.getCurrentId());
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, (videos.size()>0?1000000:0));
+        } else {
             Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
-            List<VideoInfoDto> videos = videoService.listHot(pageInfo,rows);
+            List<VideoInfoDto> videos = videoService.listHot(pageInfo,rows,JWTUtil.getCurrentId());
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, pageInfo.getTotal());
         }
     }
     @RequestMapping(value = "/listHot1",method = RequestMethod.GET)
     @ApiOperation(value = "获取短视频推荐列表(使用此接口)")
     public ResponsePageInfoData<List<VideoInfoDto>> listHot1(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo) {
-        /*if(JWTUtil.getCurrentId()>0) {
-            List<VideoInfoDto> videos = videoService.listHot(null,30);
-            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, 1000000);
-        } else*/ {
+        if(JWTUtil.getCurrentId()>0) {
+            List<VideoInfoDto> videos = videoService.listHot(null,30,JWTUtil.getCurrentId());
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, (videos.size()>0?1000000:0));
+        } else {
             Page<VideoInfoDto> pageInfo = PageHelper.startPage(pageNo, 30);
-            List<VideoInfoDto> videos = videoService.listHot(pageInfo,30);
+            List<VideoInfoDto> videos = videoService.listHot(pageInfo,30,JWTUtil.getCurrentId());
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videos, pageInfo.getTotal());
         }
     }
