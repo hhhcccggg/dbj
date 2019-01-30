@@ -53,6 +53,7 @@ public class CommentService {
     RedisTemplate redisTemplate;
 
     public List<CommentInfoDto> list(long resId, int pageNo) {
+        long userId = JWTUtil.getCurrentId();
         List<CommentInfoDto> commentList = null;
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
         String str = hashOperations.get("videoComments" + resId, String.valueOf(pageNo));
@@ -63,9 +64,15 @@ public class CommentService {
             return commentList;
         }
         System.out.println("数据库获取评论");
-        commentList = this.commentMapper.list(resId, JWTUtil.getCurrentId());
-        if (commentList != null)
+        if (userId>0){
+            commentList = this.commentMapper.listByUserId(resId,userId);
+            if (commentList != null)
+                hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
+        }
+        List<CommentInfoDto> commentList1 = this.commentMapper.list(resId, userId);
+        if (commentList1 != null)
             hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
+        commentList.addAll(commentList1);
         setCommentDtoExtro(commentList);
         return commentList;
     }
