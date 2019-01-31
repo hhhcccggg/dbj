@@ -61,6 +61,12 @@ public class CommentService {
             commentList = JSON.parseObject(str, new TypeReference<List<CommentInfoDto>>() {
             });
             System.out.println("缓存获取评论");
+            if (userId>0){
+                CommentInfoDto c = this.commentMapper.listByUserId(resId,userId);
+                if (c != null){
+                    commentList.add(0,c);
+                }
+            }
             return commentList;
         }
         System.out.println("数据库获取评论");
@@ -73,7 +79,6 @@ public class CommentService {
             if (c != null){
                 commentList.add(0,c);
             }
-
         }
         setCommentDtoExtro(commentList);
         return commentList;
