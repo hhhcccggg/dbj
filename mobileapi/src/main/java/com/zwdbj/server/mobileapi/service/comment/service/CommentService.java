@@ -62,10 +62,10 @@ public class CommentService {
             });
             System.out.println("缓存获取评论");
             if (userId>0){
-                CommentInfoDto c = this.commentMapper.listByUserId(resId,userId);
-                if (c != null){
-                    setCommentDtoExtro(c);
-                    commentList.add(0,c);
+                CommentInfoDto b = this.commentMapper.listByUserId(resId,userId);
+                if (b != null){
+                    setCommentDtoExtro(b);
+                    commentList.add(0,b);
                 }
             }
             return commentList;
