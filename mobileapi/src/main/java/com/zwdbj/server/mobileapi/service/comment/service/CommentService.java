@@ -62,10 +62,13 @@ public class CommentService {
             });
             System.out.println("缓存获取评论");
             if (userId>0){
-                CommentInfoDto b = this.getUserCommentByVideoId(resId,userId);
+                List<CommentInfoDto> b = this.getUserCommentByVideoId(resId,userId);
                 if (b != null){
-                    setCommentDtoExtro(b);
-                    commentList.add(0,b);
+                    for (int i =0;i<b.size();i++){
+                        setCommentDtoExtro(b.get(i));
+                        commentList.add(i,b.get(i));
+                    }
+
                 }
             }
             return commentList;
@@ -76,9 +79,11 @@ public class CommentService {
         if (commentList!=null)
         hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
         if (userId>0){
-            CommentInfoDto c = this.getUserCommentByVideoId(resId,userId);
+            List<CommentInfoDto> c = this.getUserCommentByVideoId(resId,userId);
             if (c != null){
-                commentList.add(0,c);
+                for (int i =0;i<c.size();i++){
+                    commentList.add(i,c.get(i));
+                }
             }
         }
         setCommentDtoExtro(commentList);
@@ -90,9 +95,9 @@ public class CommentService {
      * @param userId
      * @return
      */
-    public CommentInfoDto getUserCommentByVideoId(long videoId,long userId){
+    public List<CommentInfoDto> getUserCommentByVideoId(long videoId,long userId){
         if (userId>0) {
-            CommentInfoDto b = this.commentMapper.listByUserId(videoId, userId);
+            List<CommentInfoDto> b = this.commentMapper.listByUserId(videoId, userId);
             if (b != null) {
                 return b;
             }
