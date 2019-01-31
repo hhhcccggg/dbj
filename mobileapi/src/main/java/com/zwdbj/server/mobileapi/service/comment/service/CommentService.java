@@ -65,6 +65,9 @@ public class CommentService {
         }
         System.out.println("数据库获取评论");
         commentList = this.commentMapper.list(resId, userId);
+
+        if (commentList!=null)
+        hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
         if (userId>0){
             CommentInfoDto c = this.commentMapper.listByUserId(resId,userId);
             if (c != null){
@@ -72,9 +75,6 @@ public class CommentService {
             }
 
         }
-
-        if (commentList!=null)
-        hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
         setCommentDtoExtro(commentList);
         return commentList;
     }
