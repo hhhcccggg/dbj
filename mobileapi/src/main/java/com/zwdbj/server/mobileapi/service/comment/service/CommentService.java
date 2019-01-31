@@ -62,7 +62,7 @@ public class CommentService {
             });
             System.out.println("缓存获取评论");
             if (userId>0){
-                CommentInfoDto b = this.commentMapper.listByUserId(resId,userId);
+                CommentInfoDto b = this.getUserCommentByVideoId(resId,userId);
                 if (b != null){
                     setCommentDtoExtro(b);
                     commentList.add(0,b);
@@ -76,13 +76,28 @@ public class CommentService {
         if (commentList!=null)
         hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
         if (userId>0){
-            CommentInfoDto c = this.commentMapper.listByUserId(resId,userId);
+            CommentInfoDto c = this.getUserCommentByVideoId(resId,userId);
             if (c != null){
                 commentList.add(0,c);
             }
         }
         setCommentDtoExtro(commentList);
         return commentList;
+    }
+
+    /**
+     * 获得此视频中我的评论
+     * @param userId
+     * @return
+     */
+    public CommentInfoDto getUserCommentByVideoId(long videoId,long userId){
+        if (userId>0) {
+            CommentInfoDto b = this.commentMapper.listByUserId(videoId, userId);
+            if (b != null) {
+                return b;
+            }
+        }
+        return null;
     }
 
     public List<CommentInfoDto> myAllComments(long userId) {
