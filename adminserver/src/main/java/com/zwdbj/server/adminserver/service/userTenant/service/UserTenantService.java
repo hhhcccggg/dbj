@@ -28,7 +28,6 @@ public class UserTenantService {
     }
     @Transactional
     public ServiceStatusInfo<Integer> addUserTenant(UserTenantInput input){
-        try {
             //检验租户标识是否存在
             int result = this.userTenantMapper.identifyNameIsExsit(input.getIdentifyName());
             if (result!=0)return new ServiceStatusInfo<>(1,"租户标识已经存在，请更换标识后再添加",null);
@@ -41,13 +40,10 @@ public class UserTenantService {
             int c = this.legalSubjectServiceImpl.addLegalSubject(legalSubjectId,input);
             if (c==0)return new ServiceStatusInfo<>(1,"租户商户创建失败",null);
             return  new ServiceStatusInfo<>(0,"租户创建成功",1);
-        }catch (Exception e){
-            return  new ServiceStatusInfo<>(1,"租户创建出现异常"+e.getMessage(),null);
-        }
     }
 
+    @Transactional
     public ServiceStatusInfo<Integer> modifyUserTenant(long id,ModifyUserTenantInput input){
-        try {
             int a =  this.userTenantMapper.modifyUserTenant(id,input.getName());
             if (a==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
             long legalSubjectId = this.userTenantMapper.findLegalSubjectIdById(id);
@@ -58,9 +54,6 @@ public class UserTenantService {
             int d = this.legalSubjectServiceImpl.modifyBasicLegalSubject(legalSubjectId,input);
             if (d==0)return new ServiceStatusInfo<>(1,"租户商户修改失败",null);
             return  new ServiceStatusInfo<>(0,"修改租户成功",1);
-        }catch (Exception e){
-            return  new ServiceStatusInfo<>(1,"修改租户失败"+e.getMessage(),null);
-        }
 
     }
     public UserTenantModel getUserTenantById(long id){
@@ -89,8 +82,8 @@ public class UserTenantService {
 
     }
 
+    @Transactional
     public ServiceStatusInfo<Integer> deleteUserTenant(long id){
-        try {
             UserTenantModel model = this.getUserTenantById(id);
             if (model==null)return new ServiceStatusInfo<>(1,"该租户不存在",null);
             int b = this.userService.modifyUserByTenantId(id);
@@ -103,9 +96,6 @@ public class UserTenantService {
             if (c==0)return new ServiceStatusInfo<>(1,"租户商户修改失败",null);
             return  new ServiceStatusInfo<>(0,"删除租户成功",1);
 
-        }catch (Exception e){
-            return  new ServiceStatusInfo<>(1,"删除租户失败"+e.getMessage(),null);
-        }
     }
 
 }

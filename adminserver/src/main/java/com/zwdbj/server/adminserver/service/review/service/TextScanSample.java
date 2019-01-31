@@ -30,7 +30,7 @@ public class TextScanSample {
     public  void textScan() throws Exception {
         //请替换成您自己的accessKeyId、accessKeySecret
         List<Map<String, Object>> tasks = this.commentService.findComments();
-        if (tasks.size()==0) return;
+        if (tasks==null || tasks.size()==0) return;
         IClientProfile profile = DefaultProfile.getProfile("cn-shanghai", AppConfigConstant.ALIYUN_ACCESS_KEY, AppConfigConstant.ALIYUN_ACCESS_SECRECT);
         DefaultProfile.addEndpoint("cn-shanghai", "cn-shanghai", "Green", "green.cn-shanghai.aliyuncs.com");
         IAcsClient client = new DefaultAcsClient(profile);
