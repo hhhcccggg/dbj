@@ -41,4 +41,19 @@ public class NearbyShopsController {
         return new ResponsePageInfoData<>(0, "", list, page.getTotal());
 
     }
+
+    @ApiOperation(value = "搜索商家")
+    @RequestMapping(value = "/searchShop", method = RequestMethod.GET)
+    public ResponseData<List<NearbyShop>> searchShop(@RequestParam(value = "search") String search,
+                                                     @RequestParam(value = "rank") String rank,
+                                                     @RequestParam(value = "lat") double lat,
+                                                     @RequestParam(value = "lon") double lon) {
+        ServiceStatusInfo<List<NearbyShop>> statusInfo = this.nearbyShopServiceImpl.searchShop(search, rank, lat, lon);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
+
+    }
 }
