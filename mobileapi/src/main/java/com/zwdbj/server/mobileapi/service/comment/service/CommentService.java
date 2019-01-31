@@ -64,6 +64,7 @@ public class CommentService {
             if (userId>0){
                 CommentInfoDto c = this.commentMapper.listByUserId(resId,userId);
                 if (c != null){
+                    setCommentDtoExtro(c);
                     commentList.add(0,c);
                 }
             }
