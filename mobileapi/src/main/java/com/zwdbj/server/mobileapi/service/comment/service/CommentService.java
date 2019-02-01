@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 import com.ecwid.consul.v1.ConsulClient;
+import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.model.HeartInput;
 import com.zwdbj.server.mobileapi.service.comment.mapper.ICommentMapper;
@@ -52,7 +53,7 @@ public class CommentService {
     @Autowired
     RedisTemplate redisTemplate;
 
-    public List<CommentInfoDto> list(long resId, int pageNo) {
+    public List<CommentInfoDto> list(long resId, int pageNo,int rows) {
         long userId = JWTUtil.getCurrentId();
         List<CommentInfoDto> commentList = null;
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
@@ -74,6 +75,7 @@ public class CommentService {
             return commentList;
         }
         System.out.println("数据库获取评论");
+        PageHelper.startPage(pageNo, rows);
         commentList = this.commentMapper.list(resId, userId);
 
         if (commentList!=null)
