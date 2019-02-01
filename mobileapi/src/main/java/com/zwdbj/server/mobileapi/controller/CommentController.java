@@ -35,7 +35,7 @@ public class CommentController {
     })
     public ResponsePageInfoData<List<CommentInfoDto>> list(@PathVariable long resId, @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                            @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
-        Long commentNum = this.commentService.findCommentNumById(resId);
+        long commentNum = this.commentService.findCommentNumById(resId);
         Page<CommentInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
         List<CommentInfoDto> comments = commentService.list(resId, pageNo,rows);
         //过滤违规评论

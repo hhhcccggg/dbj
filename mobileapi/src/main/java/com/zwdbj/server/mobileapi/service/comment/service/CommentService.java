@@ -253,7 +253,7 @@ public class CommentService {
         return false;
     }
 
-    public Long findCommentNumById(long resId){
+    public long findCommentNumById(long resId){
         return this.commentMapper.findCommentNumById(resId);
     }
 
