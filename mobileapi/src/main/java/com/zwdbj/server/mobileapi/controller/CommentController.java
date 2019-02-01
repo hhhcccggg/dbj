@@ -36,8 +36,9 @@ public class CommentController {
     public ResponsePageInfoData<List<CommentInfoDto>> list(@PathVariable long resId, @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                            @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         long commentNum = this.commentService.findCommentNumById(resId);
-        Page<CommentInfoDto> pageInfo = PageHelper.startPage(pageNo, rows);
-        List<CommentInfoDto> comments = commentService.list(resId, pageNo,rows);
+        List<CommentInfoDto> comments = commentService.list(resId, pageNo);
+        if (comments.size()>rows)rows=comments.size();
+        PageHelper.startPage(pageNo, rows);
         //过滤违规评论
         for (CommentInfoDto dto : comments) {
             if (dto.getReviewStatus() != null && (dto.getReviewStatus().equals("reviewing") || dto.getReviewStatus().equals("review")) && dto.getUserId() != JWTUtil.getCurrentId()) {
