@@ -52,7 +52,7 @@ public class CommentService {
     @Autowired
     RedisTemplate redisTemplate;
 
-    public List<CommentInfoDto> list(long resId, int pageNo) {
+    public List<CommentInfoDto> list(long resId, int pageNo,int rows) {
         long userId = JWTUtil.getCurrentId();
         List<CommentInfoDto> commentList = null;
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
@@ -61,7 +61,7 @@ public class CommentService {
             commentList = JSON.parseObject(str, new TypeReference<List<CommentInfoDto>>() {
             });
             System.out.println("缓存获取评论");
-            if (userId>0){
+            if (pageNo==1 && userId>0){
                 List<CommentInfoDto> b = this.getUserCommentByVideoId(resId,userId);
                 if (b != null){
                     for (int i =0;i<b.size();i++){
@@ -78,7 +78,7 @@ public class CommentService {
 
         if (commentList!=null)
         hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
-        if (userId>0){
+        if (pageNo==1 && userId>0){
             List<CommentInfoDto> c = this.getUserCommentByVideoId(resId,userId);
             if (c != null){
                 for (int i =0;i<c.size();i++){
@@ -253,7 +253,7 @@ public class CommentService {
         return false;
     }
 
-    public long findCommentNumById(long resId){
+    public Long findCommentNumById(long resId){
         return this.commentMapper.findCommentNumById(resId);
     }
 
