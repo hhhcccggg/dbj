@@ -43,7 +43,7 @@ public class CommentController {
                 dto.setContentTxt("评论审核中...");
             }
         }
-        long commentNum = this.commentService.findCommentNumById(resId);
+        Long commentNum = this.commentService.findCommentNumById(resId);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", comments, commentNum);
     }
 
