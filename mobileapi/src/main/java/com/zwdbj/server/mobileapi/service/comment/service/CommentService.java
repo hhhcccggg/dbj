@@ -52,7 +52,7 @@ public class CommentService {
     @Autowired
     RedisTemplate redisTemplate;
 
-    public List<CommentInfoDto> list(long resId, int pageNo,int rows) {
+    public List<CommentInfoDto> list(long resId, int pageNo) {
         long userId = JWTUtil.getCurrentId();
         List<CommentInfoDto> commentList = null;
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
