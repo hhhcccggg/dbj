@@ -105,6 +105,6 @@ public interface ICommentMapper {
     @Select("select count(id) from core_comments where userId=#{userId} and to_days(createTime)=to_days(now())")
     int isFirstPublicComment(@Param("userId")long userId);
 
-    @Select("select count(id) from core_comments where resourceOwnerId=#{resourceOwnerId} and isDeleted=0")
+    @Select("select IFFULL(count(id),0) from core_comments where resourceOwnerId=#{resourceOwnerId} and isDeleted=0")
     long findCommentNumById(@Param("resourceOwnerId")long resourceOwnerId);
 }
