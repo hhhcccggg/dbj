@@ -17,5 +17,5 @@ public interface NearbyShopService {
 
     ServiceStatusInfo<List<NearbyShop>> nearbyShopList(int pageNo);
 
-    ServiceStatusInfo<List<NearbyShop>> searchShop(String search, String rank, double lat, double lon);
+//    ServiceStatusInfo<List<NearbyShop>> searchShop(String search, String rank, double lat, double lon);
 }
