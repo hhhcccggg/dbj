@@ -381,6 +381,7 @@ public class VideoService {
                 String[] petIds = pets.split(",");
                 for (String petId : petIds) {
                     PetModelDto petModelDto = this.petService.get(Long.valueOf(petId));
+                    if (petModelDto!=null)
                     petModelDtos.add(petModelDto);
                 }
                 dto.setPetModelDtoList(petModelDtos);
