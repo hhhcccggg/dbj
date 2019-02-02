@@ -209,6 +209,31 @@ public final class QueueWorkInfoModel {
      * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
      */
     com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder();
+
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+     */
+    boolean hasOrderTimeData();
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+     */
+    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getOrderTimeData();
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+     */
+    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder();
   }
   /**
    * Protobuf type {@code QueueWorkInfo}
@@ -354,6 +379,19 @@ public final class QueueWorkInfoModel {
 
               break;
             }
+            case 74: {
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder subBuilder = null;
+              if (orderTimeData_ != null) {
+                subBuilder = orderTimeData_.toBuilder();
+              }
+              orderTimeData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(orderTimeData_);
+                orderTimeData_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -451,6 +489,14 @@ public final class QueueWorkInfoModel {
        * <code>USER_TASK_COIN = 8;</code>
        */
       USER_TASK_COIN(8),
+      /**
+       * <pre>
+       *用户订单的超时
+       * </pre>
+       *
+       * <code>USER_ORDER_TIME = 9;</code>
+       */
+      USER_ORDER_TIME(9),
       UNRECOGNIZED(-1),
       ;
 
@@ -522,6 +568,14 @@ public final class QueueWorkInfoModel {
        * <code>USER_TASK_COIN = 8;</code>
        */
       public static final int USER_TASK_COIN_VALUE = 8;
+      /**
+       * <pre>
+       *用户订单的超时
+       * </pre>
+       *
+       * <code>USER_ORDER_TIME = 9;</code>
+       */
+      public static final int USER_ORDER_TIME_VALUE = 9;
 
 
       public final int getNumber() {
@@ -551,6 +605,7 @@ public final class QueueWorkInfoModel {
           case 6: return VIDEO_WEIGHT;
           case 7: return SHOP_LEGAL_SUBJECT;
           case 8: return USER_TASK_COIN;
+          case 9: return USER_ORDER_TIME;
           default: return null;
         }
       }
@@ -858,6 +913,39 @@ public final class QueueWorkInfoModel {
       return getShopLegalSubjectData();
     }
 
+    public static final int ORDERTIMEDATA_FIELD_NUMBER = 9;
+    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData_;
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+     */
+    public boolean hasOrderTimeData() {
+      return orderTimeData_ != null;
+    }
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+     */
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getOrderTimeData() {
+      return orderTimeData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance() : orderTimeData_;
+    }
+    /**
+     * <pre>
+     *数据
+     * </pre>
+     *
+     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+     */
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder() {
+      return getOrderTimeData();
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -893,6 +981,9 @@ public final class QueueWorkInfoModel {
       }
       if (shopLegalSubjectData_ != null) {
         output.writeMessage(8, getShopLegalSubjectData());
+      }
+      if (orderTimeData_ != null) {
+        output.writeMessage(9, getOrderTimeData());
       }
       unknownFields.writeTo(output);
     }
@@ -933,6 +1024,10 @@ public final class QueueWorkInfoModel {
       if (shopLegalSubjectData_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(8, getShopLegalSubjectData());
+      }
+      if (orderTimeData_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, getOrderTimeData());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -986,6 +1081,11 @@ public final class QueueWorkInfoModel {
         result = result && getShopLegalSubjectData()
             .equals(other.getShopLegalSubjectData());
       }
+      result = result && (hasOrderTimeData() == other.hasOrderTimeData());
+      if (hasOrderTimeData()) {
+        result = result && getOrderTimeData()
+            .equals(other.getOrderTimeData());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1026,6 +1126,10 @@ public final class QueueWorkInfoModel {
       if (hasShopLegalSubjectData()) {
         hash = (37 * hash) + SHOPLEGALSUBJECTDATA_FIELD_NUMBER;
         hash = (53 * hash) + getShopLegalSubjectData().hashCode();
+      }
+      if (hasOrderTimeData()) {
+        hash = (37 * hash) + ORDERTIMEDATA_FIELD_NUMBER;
+        hash = (53 * hash) + getOrderTimeData().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1200,6 +1304,12 @@ public final class QueueWorkInfoModel {
           shopLegalSubjectData_ = null;
           shopLegalSubjectDataBuilder_ = null;
         }
+        if (orderTimeDataBuilder_ == null) {
+          orderTimeData_ = null;
+        } else {
+          orderTimeData_ = null;
+          orderTimeDataBuilder_ = null;
+        }
         return this;
       }
 
@@ -1257,6 +1367,11 @@ public final class QueueWorkInfoModel {
           result.shopLegalSubjectData_ = shopLegalSubjectData_;
         } else {
           result.shopLegalSubjectData_ = shopLegalSubjectDataBuilder_.build();
+        }
+        if (orderTimeDataBuilder_ == null) {
+          result.orderTimeData_ = orderTimeData_;
+        } else {
+          result.orderTimeData_ = orderTimeDataBuilder_.build();
         }
         onBuilt();
         return result;
@@ -1322,6 +1437,9 @@ public final class QueueWorkInfoModel {
         }
         if (other.hasShopLegalSubjectData()) {
           mergeShopLegalSubjectData(other.getShopLegalSubjectData());
+        }
+        if (other.hasOrderTimeData()) {
+          mergeOrderTimeData(other.getOrderTimeData());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2483,6 +2601,159 @@ public final class QueueWorkInfoModel {
           shopLegalSubjectData_ = null;
         }
         return shopLegalSubjectDataBuilder_;
+      }
+
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder> orderTimeDataBuilder_;
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+       */
+      public boolean hasOrderTimeData() {
+        return orderTimeDataBuilder_ != null || orderTimeData_ != null;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getOrderTimeData() {
+        if (orderTimeDataBuilder_ == null) {
+          return orderTimeData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance() : orderTimeData_;
+        } else {
+          return orderTimeDataBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+       */
+      public Builder setOrderTimeData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData value) {
+        if (orderTimeDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          orderTimeData_ = value;
+          onChanged();
+        } else {
+          orderTimeDataBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+       */
+      public Builder setOrderTimeData(
+          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder builderForValue) {
+        if (orderTimeDataBuilder_ == null) {
+          orderTimeData_ = builderForValue.build();
+          onChanged();
+        } else {
+          orderTimeDataBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+       */
+      public Builder mergeOrderTimeData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData value) {
+        if (orderTimeDataBuilder_ == null) {
+          if (orderTimeData_ != null) {
+            orderTimeData_ =
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder(orderTimeData_).mergeFrom(value).buildPartial();
+          } else {
+            orderTimeData_ = value;
+          }
+          onChanged();
+        } else {
+          orderTimeDataBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+       */
+      public Builder clearOrderTimeData() {
+        if (orderTimeDataBuilder_ == null) {
+          orderTimeData_ = null;
+          onChanged();
+        } else {
+          orderTimeData_ = null;
+          orderTimeDataBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder getOrderTimeDataBuilder() {
+        
+        onChanged();
+        return getOrderTimeDataFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder() {
+        if (orderTimeDataBuilder_ != null) {
+          return orderTimeDataBuilder_.getMessageOrBuilder();
+        } else {
+          return orderTimeData_ == null ?
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance() : orderTimeData_;
+        }
+      }
+      /**
+       * <pre>
+       *数据
+       * </pre>
+       *
+       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder> 
+          getOrderTimeDataFieldBuilder() {
+        if (orderTimeDataBuilder_ == null) {
+          orderTimeDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder>(
+                  getOrderTimeData(),
+                  getParentForChildren(),
+                  isClean());
+          orderTimeData_ = null;
+        }
+        return orderTimeDataBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -4639,6 +4910,562 @@ public final class QueueWorkInfoModel {
 
   }
 
+  public interface QueueWorkOrderTimeDataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:QueueWorkOrderTimeData)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *订单id
+     * </pre>
+     *
+     * <code>int64 orderId = 1;</code>
+     */
+    long getOrderId();
+
+    /**
+     * <pre>
+     *用户的id
+     * </pre>
+     *
+     * <code>int64 userId = 2;</code>
+     */
+    long getUserId();
+  }
+  /**
+   * Protobuf type {@code QueueWorkOrderTimeData}
+   */
+  public  static final class QueueWorkOrderTimeData extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:QueueWorkOrderTimeData)
+      QueueWorkOrderTimeDataOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueueWorkOrderTimeData.newBuilder() to construct.
+    private QueueWorkOrderTimeData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueueWorkOrderTimeData() {
+      orderId_ = 0L;
+      userId_ = 0L;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueueWorkOrderTimeData(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              orderId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              userId_ = input.readInt64();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder.class);
+    }
+
+    public static final int ORDERID_FIELD_NUMBER = 1;
+    private long orderId_;
+    /**
+     * <pre>
+     *订单id
+     * </pre>
+     *
+     * <code>int64 orderId = 1;</code>
+     */
+    public long getOrderId() {
+      return orderId_;
+    }
+
+    public static final int USERID_FIELD_NUMBER = 2;
+    private long userId_;
+    /**
+     * <pre>
+     *用户的id
+     * </pre>
+     *
+     * <code>int64 userId = 2;</code>
+     */
+    public long getUserId() {
+      return userId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (orderId_ != 0L) {
+        output.writeInt64(1, orderId_);
+      }
+      if (userId_ != 0L) {
+        output.writeInt64(2, userId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (orderId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, orderId_);
+      }
+      if (userId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, userId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData)) {
+        return super.equals(obj);
+      }
+      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) obj;
+
+      boolean result = true;
+      result = result && (getOrderId()
+          == other.getOrderId());
+      result = result && (getUserId()
+          == other.getUserId());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ORDERID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOrderId());
+      hash = (37 * hash) + USERID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getUserId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code QueueWorkOrderTimeData}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:QueueWorkOrderTimeData)
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder.class);
+      }
+
+      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        orderId_ = 0L;
+
+        userId_ = 0L;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
+      }
+
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstanceForType() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance();
+      }
+
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData build() {
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData buildPartial() {
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData(this);
+        result.orderId_ = orderId_;
+        result.userId_ = userId_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) {
+          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData other) {
+        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance()) return this;
+        if (other.getOrderId() != 0L) {
+          setOrderId(other.getOrderId());
+        }
+        if (other.getUserId() != 0L) {
+          setUserId(other.getUserId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long orderId_ ;
+      /**
+       * <pre>
+       *订单id
+       * </pre>
+       *
+       * <code>int64 orderId = 1;</code>
+       */
+      public long getOrderId() {
+        return orderId_;
+      }
+      /**
+       * <pre>
+       *订单id
+       * </pre>
+       *
+       * <code>int64 orderId = 1;</code>
+       */
+      public Builder setOrderId(long value) {
+        
+        orderId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *订单id
+       * </pre>
+       *
+       * <code>int64 orderId = 1;</code>
+       */
+      public Builder clearOrderId() {
+        
+        orderId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long userId_ ;
+      /**
+       * <pre>
+       *用户的id
+       * </pre>
+       *
+       * <code>int64 userId = 2;</code>
+       */
+      public long getUserId() {
+        return userId_;
+      }
+      /**
+       * <pre>
+       *用户的id
+       * </pre>
+       *
+       * <code>int64 userId = 2;</code>
+       */
+      public Builder setUserId(long value) {
+        
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *用户的id
+       * </pre>
+       *
+       * <code>int64 userId = 2;</code>
+       */
+      public Builder clearUserId() {
+        
+        userId_ = 0L;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:QueueWorkOrderTimeData)
+    }
+
+    // @@protoc_insertion_point(class_scope:QueueWorkOrderTimeData)
+    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData();
+    }
+
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueueWorkOrderTimeData>
+        PARSER = new com.google.protobuf.AbstractParser<QueueWorkOrderTimeData>() {
+      public QueueWorkOrderTimeData parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueueWorkOrderTimeData(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueueWorkOrderTimeData> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueueWorkOrderTimeData> getParserForType() {
+      return PARSER;
+    }
+
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface QueueWorkHeartOrBuilder extends
       // @@protoc_insertion_point(interface_extends:QueueWorkHeart)
       com.google.protobuf.MessageOrBuilder {
@@ -6286,7 +7113,7 @@ public final class QueueWorkInfoModel {
 
     /**
      * <pre>
-     *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
+     *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
      * </pre>
      *
      * <code>int32 messageType = 7;</code>
@@ -6573,7 +7400,7 @@ public final class QueueWorkInfoModel {
     private int messageType_;
     /**
      * <pre>
-     *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
+     *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
      * </pre>
      *
      * <code>int32 messageType = 7;</code>
@@ -7342,7 +8169,7 @@ public final class QueueWorkInfoModel {
       private int messageType_ ;
       /**
        * <pre>
-       *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
+       *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
        * </pre>
        *
        * <code>int32 messageType = 7;</code>
@@ -7352,7 +8179,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
+       *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
        * </pre>
        *
        * <code>int32 messageType = 7;</code>
@@ -7365,7 +8192,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
+       *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
        * </pre>
        *
        * <code>int32 messageType = 7;</code>
@@ -10464,6 +11291,11 @@ public final class QueueWorkInfoModel {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_QueueWorkOrderTimeData_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_QueueWorkOrderTimeData_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_QueueWorkHeart_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -10507,7 +11339,7 @@ public final class QueueWorkInfoModel {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\023QueueWorkInfo.proto\"\362\004\n\rQueueWorkInfo\022" +
+      "\n\023QueueWorkInfo.proto\"\267\005\n\rQueueWorkInfo\022" +
       "-\n\010workType\030\001 \001(\0162\033.QueueWorkInfo.WorkTy" +
       "peEnum\022&\n\tphoneCode\030\002 \001(\0132\023.QueueWorkPho" +
       "neCode\022\"\n\theartData\030\003 \001(\0132\017.QueueWorkHea" +
@@ -10517,38 +11349,41 @@ public final class QueueWorkInfoModel {
       " \001(\0132 .QueueWorkQiniuWaitReviewResData\0222" +
       "\n\017videoWeightData\030\007 \001(\0132\031.QueueWorkVideo" +
       "WeightData\022<\n\024shopLegalSubjectData\030\010 \001(\013" +
-      "2\036.QueueWorkShopLegalSubjectData\"\327\001\n\014Wor" +
-      "kTypeEnum\022\023\n\017SEND_PHONE_CODE\020\000\022\t\n\005HEART\020" +
-      "\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_REVIEW_RE" +
-      "SULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESULT\020\004\022\036\n\032" +
-      "QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014VIDEO_WE" +
-      "IGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\022\022\n\016USER_T" +
-      "ASK_COIN\020\010\"\234\002\n\035QueueWorkShopLegalSubject" +
-      "Data\022\014\n\004name\030\001 \001(\t\022\025\n\rcontactPerson\030\002 \001(" +
-      "\t\022\r\n\005phone\030\003 \001(\t\022\025\n\rcontactNumber\030\004 \001(\t\022" +
-      "\026\n\016legalSubjectId\030\005 \001(\003\022\014\n\004type\030\006 \001(\005\022\016\n" +
-      "\006cityId\030\007 \001(\005\022\021\n\tlegalType\030\010 \001(\t\022 \n\030leag" +
-      "alRepresentativeName\030\t \001(\t\022\036\n\026leagalRepr" +
-      "esentativeID\030\n \001(\t\022\022\n\ncategoryId\030\013 \001(\003\022\021" +
-      "\n\tstoreType\030\014 \001(\t\"[\n\016QueueWorkHeart\022\022\n\nr" +
-      "esourceId\030\001 \001(\t\022\024\n\014resourceType\030\002 \001(\t\022\016\n" +
-      "\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n\022QueueW" +
-      "orkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004code\030\002 \001(" +
-      "\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 \001(\003\022\025\n\rc" +
-      "reatorUserId\030\002 \001(\003\022\022\n\nmsgContent\030\003 \001(\t\022\023" +
-      "\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001(\t\022\020\n\010t" +
-      "oUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001(\005\"G\n\032Qu" +
-      "eueWorkQiniuReviewResult\022\025\n\rresultConten" +
-      "t\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037QueueWork" +
-      "QiniuWaitReviewResData\022\022\n\nresContent\030\001 \001" +
-      "(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resType\030\003 \001(\005\022" +
-      "\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(\005\"&\n\030Que" +
-      "ueWorkVideoWeightData\022\n\n\002id\030\001 \001(\003\"p\n\025Que" +
-      "ueWorkUserTaskCoin\022\016\n\006userId\030\001 \001(\003\022\020\n\010ta" +
-      "skName\030\002 \001(\t\022\016\n\006taskId\030\003 \001(\003\022\014\n\004coin\030\004 \001" +
-      "(\005\022\027\n\017actionTimestamp\030\005 \001(\003B;\n%com.zwdbj" +
-      ".server.probuf.middleware.mqB\022QueueWorkI" +
-      "nfoModelb\006proto3"
+      "2\036.QueueWorkShopLegalSubjectData\022.\n\rorde" +
+      "rTimeData\030\t \001(\0132\027.QueueWorkOrderTimeData" +
+      "\"\354\001\n\014WorkTypeEnum\022\023\n\017SEND_PHONE_CODE\020\000\022\t" +
+      "\n\005HEART\020\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_R" +
+      "EVIEW_RESULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESU" +
+      "LT\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014" +
+      "VIDEO_WEIGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\022\022" +
+      "\n\016USER_TASK_COIN\020\010\022\023\n\017USER_ORDER_TIME\020\t\"" +
+      "\234\002\n\035QueueWorkShopLegalSubjectData\022\014\n\004nam" +
+      "e\030\001 \001(\t\022\025\n\rcontactPerson\030\002 \001(\t\022\r\n\005phone\030" +
+      "\003 \001(\t\022\025\n\rcontactNumber\030\004 \001(\t\022\026\n\016legalSub" +
+      "jectId\030\005 \001(\003\022\014\n\004type\030\006 \001(\005\022\016\n\006cityId\030\007 \001" +
+      "(\005\022\021\n\tlegalType\030\010 \001(\t\022 \n\030leagalRepresent" +
+      "ativeName\030\t \001(\t\022\036\n\026leagalRepresentativeI" +
+      "D\030\n \001(\t\022\022\n\ncategoryId\030\013 \001(\003\022\021\n\tstoreType" +
+      "\030\014 \001(\t\"9\n\026QueueWorkOrderTimeData\022\017\n\007orde" +
+      "rId\030\001 \001(\003\022\016\n\006userId\030\002 \001(\003\"[\n\016QueueWorkHe" +
+      "art\022\022\n\nresourceId\030\001 \001(\t\022\024\n\014resourceType\030" +
+      "\002 \001(\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1" +
+      "\n\022QueueWorkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004c" +
+      "ode\030\002 \001(\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 " +
+      "\001(\003\022\025\n\rcreatorUserId\030\002 \001(\003\022\022\n\nmsgContent" +
+      "\030\003 \001(\t\022\023\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 " +
+      "\001(\t\022\020\n\010toUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001" +
+      "(\005\"G\n\032QueueWorkQiniuReviewResult\022\025\n\rresu" +
+      "ltContent\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037Q" +
+      "ueueWorkQiniuWaitReviewResData\022\022\n\nresCon" +
+      "tent\030\001 \001(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resTyp" +
+      "e\030\003 \001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(" +
+      "\005\"&\n\030QueueWorkVideoWeightData\022\n\n\002id\030\001 \001(" +
+      "\003\"p\n\025QueueWorkUserTaskCoin\022\016\n\006userId\030\001 \001" +
+      "(\003\022\020\n\010taskName\030\002 \001(\t\022\016\n\006taskId\030\003 \001(\003\022\014\n\004" +
+      "coin\030\004 \001(\005\022\027\n\017actionTimestamp\030\005 \001(\003B;\n%c" +
+      "om.zwdbj.server.probuf.middleware.mqB\022Qu" +
+      "eueWorkInfoModelb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -10567,51 +11402,57 @@ public final class QueueWorkInfoModel {
     internal_static_QueueWorkInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkInfo_descriptor,
-        new java.lang.String[] { "WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", "VideoWeightData", "ShopLegalSubjectData", });
+        new java.lang.String[] { "WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", "VideoWeightData", "ShopLegalSubjectData", "OrderTimeData", });
     internal_static_QueueWorkShopLegalSubjectData_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkShopLegalSubjectData_descriptor,
         new java.lang.String[] { "Name", "ContactPerson", "Phone", "ContactNumber", "LegalSubjectId", "Type", "CityId", "LegalType", "LeagalRepresentativeName", "LeagalRepresentativeID", "CategoryId", "StoreType", });
-    internal_static_QueueWorkHeart_descriptor =
+    internal_static_QueueWorkOrderTimeData_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_QueueWorkOrderTimeData_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_QueueWorkOrderTimeData_descriptor,
+        new java.lang.String[] { "OrderId", "UserId", });
+    internal_static_QueueWorkHeart_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_QueueWorkHeart_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkHeart_descriptor,
         new java.lang.String[] { "ResourceId", "ResourceType", "UserId", "UnHeart", });
     internal_static_QueueWorkPhoneCode_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_QueueWorkPhoneCode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkPhoneCode_descriptor,
         new java.lang.String[] { "Phone", "Code", });
     internal_static_QueueWorkPush_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_QueueWorkPush_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkPush_descriptor,
         new java.lang.String[] { "PushId", "CreatorUserId", "MsgContent", "DataContent", "RefUrl", "ToUserId", "MessageType", });
     internal_static_QueueWorkQiniuReviewResult_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkQiniuReviewResult_descriptor,
         new java.lang.String[] { "ResultContent", "RetryCount", });
     internal_static_QueueWorkQiniuWaitReviewResData_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkQiniuWaitReviewResData_descriptor,
         new java.lang.String[] { "ResContent", "BucketName", "ResType", "DataId", "DataType", });
     internal_static_QueueWorkVideoWeightData_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_QueueWorkVideoWeightData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkVideoWeightData_descriptor,
         new java.lang.String[] { "Id", });
     internal_static_QueueWorkUserTaskCoin_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_QueueWorkUserTaskCoin_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkUserTaskCoin_descriptor,

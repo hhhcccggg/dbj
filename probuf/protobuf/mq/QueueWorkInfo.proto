@@ -16,6 +16,7 @@ message QueueWorkInfo {
         VIDEO_WEIGHT = 6; //短视频权重处理
         SHOP_LEGAL_SUBJECT=7; //店铺的基本信息
         USER_TASK_COIN=8; //用户做任务获取金币
+        USER_ORDER_TIME=9; //用户订单的超时
     }
     WorkTypeEnum workType = 1; //任务标识
     QueueWorkPhoneCode phoneCode = 2; //验证码数据
@@ -25,6 +26,8 @@ message QueueWorkInfo {
     QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6; //七牛需要待审核的资源
     QueueWorkVideoWeightData videoWeightData = 7; //数据
     QueueWorkShopLegalSubjectData shopLegalSubjectData = 8; //数据
+    QueueWorkOrderTimeData orderTimeData = 9; //数据
+
 }
 message QueueWorkShopLegalSubjectData{
     string name = 1; //商家名
@@ -41,6 +44,10 @@ message QueueWorkShopLegalSubjectData{
     string storeType = 12; //店铺类型>>SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
 
 
+}
+message QueueWorkOrderTimeData{
+    int64 orderId=1;//订单id
+    int64 userId = 2;//用户的id
 }
 
 message QueueWorkHeart {
