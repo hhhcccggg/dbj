@@ -375,9 +375,9 @@ public class VideoService {
             }
             dto.setShareContent(videoUserNickName + "拍摄的宠物短视频");
             dto.setShareUrl(AppConfigConstant.getShareUrl(dto.getId(), "video"));
-            List<PetModelDto> petModelDtos = new ArrayList<>();
             String pets = dto.getLinkPets();
             if (pets != null && pets.length() != 0) {
+                List<PetModelDto> petModelDtos = new ArrayList<>();
                 String[] petIds = pets.split(",");
                 for (String petId : petIds) {
                     PetModelDto petModelDto = this.petService.get(Long.valueOf(petId));
@@ -482,7 +482,8 @@ public class VideoService {
         HeartModel heartModel = this.heartService.findHeart(userId, input.getId());
         Long VUserId = this.videoMapper.findUserIdByVideoId(input.getId());
         if (heartModel != null && input.isHeart()) {
-            return new ServiceStatusInfo<>(1, "已经点赞过", null,null);
+            videoHeartStatusDto.setHeart(true);
+            return new ServiceStatusInfo<>(1, "已经点赞过", videoHeartStatusDto,null);
         }
         if (heartModel != null && !input.isHeart()) {
             this.heartService.unHeart(userId, input.getId());

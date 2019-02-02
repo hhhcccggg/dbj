@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 import com.ecwid.consul.v1.ConsulClient;
+import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.model.HeartInput;
 import com.zwdbj.server.mobileapi.service.comment.mapper.ICommentMapper;
@@ -52,7 +53,8 @@ public class CommentService {
     @Autowired
     RedisTemplate redisTemplate;
 
-    public List<CommentInfoDto> list(long resId, int pageNo) {
+    public List<CommentInfoDto> list(long resId, int pageNo,int rows) {
+        long userId = JWTUtil.getCurrentId();
         List<CommentInfoDto> commentList = null;
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
         String str = hashOperations.get("videoComments" + resId, String.valueOf(pageNo));
@@ -60,14 +62,49 @@ public class CommentService {
             commentList = JSON.parseObject(str, new TypeReference<List<CommentInfoDto>>() {
             });
             System.out.println("缓存获取评论");
+            if (pageNo==1 && userId>0){
+                List<CommentInfoDto> b = this.getUserCommentByVideoId(resId,userId);
+                if (b != null){
+                    for (int i =0;i<b.size();i++){
+                        setCommentDtoExtro(b.get(i));
+                        commentList.add(i,b.get(i));
+                    }
+
+                }
+            }
             return commentList;
         }
         System.out.println("数据库获取评论");
-        commentList = this.commentMapper.list(resId, JWTUtil.getCurrentId());
-        if (commentList != null)
-            hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
+        PageHelper.startPage(pageNo, rows);
+        commentList = this.commentMapper.list(resId, userId);
+
+        if (commentList!=null)
+        hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
+        if (pageNo==1 && userId>0){
+            List<CommentInfoDto> c = this.getUserCommentByVideoId(resId,userId);
+            if (c != null){
+                for (int i =0;i<c.size();i++){
+                    commentList.add(i,c.get(i));
+                }
+            }
+        }
         setCommentDtoExtro(commentList);
         return commentList;
+    }
+
+    /**
+     * 获得此视频中我的评论
+     * @param userId
+     * @return
+     */
+    public List<CommentInfoDto> getUserCommentByVideoId(long videoId,long userId){
+        if (userId>0) {
+            List<CommentInfoDto> b = this.commentMapper.listByUserId(videoId, userId);
+            if (b != null) {
+                return b;
+            }
+        }
+        return null;
     }
 
     public List<CommentInfoDto> myAllComments(long userId) {

@@ -136,13 +136,21 @@ public class UserService {
      */
     public int greateUserByTenant (String nickName,String phone,long tenantId,boolean isSuper){
         try {
-            long id = UniqueIDCreater.generateID();
-            String username = UniqueIDCreater.generateUserName();
-            String password = SHAEncrypt.encryptSHA(phone.substring(8)+"123456");
-            return this.userMapper.greateUserByTenant(id,username,password,nickName,phone,tenantId,isSuper);
+            long result = this.userMapper.phoneIsExist(phone);
+            if (result==0){
+                long id = UniqueIDCreater.generateID();
+                String username = UniqueIDCreater.generateUserName();
+                String password = SHAEncrypt.encryptSHA(phone.substring(8)+"123456");
+                return this.userMapper.greateUserByTenant(id,username,password,nickName,phone,tenantId,isSuper);
+            }else {
+                UserModel u = this.userMapper.findUserByPhone(phone);
+                return this.userMapper.updateUserTanById(u.getId(),tenantId,isSuper);
+            }
+
         }catch (Exception e){
             throw new RuntimeException("异常");
         }
+
 
     }
     public int modifyUserByTenantId(long tenantId){

@@ -16,4 +16,6 @@ public interface NearbyShopService {
     ServiceStatusInfo<DiscountCouponDetail> searchDiscountCouponDetail(long discountCouponId);
 
     ServiceStatusInfo<List<NearbyShop>> nearbyShopList(int pageNo);
+
+    ServiceStatusInfo<List<NearbyShop>> searchShop(String search, String rank, double lat, double lon);
 }

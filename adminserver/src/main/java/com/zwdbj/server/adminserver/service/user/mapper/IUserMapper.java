@@ -90,6 +90,11 @@ public interface IUserMapper {
     @Select("select count(*) from core_users where userName=#{userName}")
     Long userNameIsExist(@Param("userName")String userName);
 
+    @Select("select * from core_users where phone=#{phone}")
+    UserModel findUserByPhone(@Param("phone")String phone);
+    @Update("update core_users set isSuper=#{isSuper},tenantId=#{tenantId} where id=#{id}")
+    int updateUserTanById(@Param("id")long id,@Param("tenantId")long tenantId,@Param("isSuper")boolean isSuper);
+
     //用户认证
     @Update("update core_users set isLivingOpen=#{input.isOpen},isReviewed=#{input.isOpen},isLivingWatch=#{input.isOpen} where id=#{input.id}")
     long review(@Param("input") ResourceOpenInput<Long> input);
