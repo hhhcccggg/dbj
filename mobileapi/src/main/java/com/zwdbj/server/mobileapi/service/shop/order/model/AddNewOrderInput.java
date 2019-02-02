@@ -8,15 +8,12 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel(description = "创建新订单所需字段")
 public class AddNewOrderInput {
-    @NotNull
-    @Min(value = 1)
     @ApiModelProperty(value = "使用的小饼干抵扣数")
     private int useCoin;
     @ApiModelProperty(value = "邮费，若为0则免邮费，单位为分")
     private int deliveryFee;
 
 
-    @NotNull
     @ApiModelProperty(value = "是否限购,0：表示不限购  大于0数字表示每人只能买商品的数量")
     private int limitPerPerson;
 
@@ -24,38 +21,27 @@ public class AddNewOrderInput {
     @ApiModelProperty(value = "买家留言")
     private String buyerComment;
 
-    @NotNull
     @ApiModelProperty(value = "店铺id")
     private long storeId;
 
-    @NotNull
     @ApiModelProperty(value = "收货地址id")
     private long receiveAddressId;
-    @NotNull
     @ApiModelProperty(value = "商品id")
     private long productId;
     @ApiModelProperty(value = "商品SKUid")
     private long productskuId;
 
 
-    @NotNull
-    @Min(value = 1)
     @ApiModelProperty(value = "购买的商品数量")
     private int num;
-    @NotNull
-    @Min(value = 1)
     @ApiModelProperty(value = "支付的实际金额")
     private int actualPayment;
-    @NotNull
-    @Min(value = 1)
     @ApiModelProperty(value = "优惠的金额")
     private int coupon;
 
-    @NotNull
     @Min(value = 1)
     @ApiModelProperty(value = "购买的商品单价")
     private int price;
-    @NotNull(message = "商品标题不能为空")
     @ApiModelProperty(value = "商品标题")
     private String title;
     @ApiModelProperty(value = "优惠券id")
