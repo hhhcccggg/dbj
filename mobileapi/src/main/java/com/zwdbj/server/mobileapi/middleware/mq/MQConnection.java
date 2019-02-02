@@ -54,31 +54,36 @@ public class MQConnection implements ShutdownListener {
     }
 
     protected void asyncWaitAndReConnect() {
-        if (this.connection!=null&&this.connection.isOpen()) {
-            this.timer.cancel();
-            this.task.cancel();
-            this.timer = null;
-            this.task = null;
-            return;
-        }
-        if (timer!=null) {
-            this.timer.cancel();
-            this.task.cancel();
-        }
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (connection!=null&&connection.isOpen()) {
-                    timer.cancel();
-                    task.cancel();
-                    timer = null;
-                    task = null;
-                } else {
-                    connect();
-                }
+        try {
+            if (this.connection!=null&&this.connection.isOpen()) {
+                this.timer.cancel();
+                this.task.cancel();
+                this.timer = null;
+                this.task = null;
+                return;
             }
-        };
-        timer.schedule(task,3*1000,3 * 1000);
+            if (timer!=null) {
+                this.timer.cancel();
+                this.task.cancel();
+            }
+            timer = new Timer();
+            task = new TimerTask() {
+                @Override
+                public void run() {
+                    if (connection!=null&&connection.isOpen()) {
+                        timer.cancel();
+                        task.cancel();
+                        timer = null;
+                        task = null;
+                    } else {
+                        connect();
+                    }
+                }
+            };
+            timer.schedule(task,3*1000,3 * 1000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
