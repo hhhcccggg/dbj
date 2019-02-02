@@ -1,3 +1,4 @@
+/*
 package com.zwdbj.server.mobileapi.middleware.mq;
 
 import com.rabbitmq.client.AMQP;
@@ -29,12 +30,14 @@ public class DelayMQWorkSender extends MQConnection{
         }
     }
 
-    /**
+    */
+/**
      *
      * @param workInfo
      * @param times ,延迟时间,单位为秒
      * @throws Exception
-     */
+     *//*
+
     public void send(QueueWorkInfoModel.QueueWorkInfo workInfo,long times) throws Exception {
         if (workInfo == null) return;
         if (this.channel == null) {
@@ -61,3 +64,4 @@ public class DelayMQWorkSender extends MQConnection{
         return workSender;
     }
 }
+*/

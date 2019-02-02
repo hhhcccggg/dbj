@@ -1,3 +1,4 @@
+/*
 package com.zwdbj.server.adminserver.middleware.mq;
 
 import com.rabbitmq.client.AMQP;
@@ -98,3 +99,4 @@ public class DelayMQworkReceiver extends MQConnection{
 
     }
 }
+*/
