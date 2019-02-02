@@ -10,13 +10,10 @@ public class MQConfig {
      * 比如耗时的操作队列，比如发送验证码等操作
      */
     public static final String queueTimeConsuming = "queue_timeConsuming";
-    public static final String delayedQueueTimeConsuming = "delayedQueue_timeConsuming";
     /**
      * 数据状态交换机
      */
     public static final String exchangeTimeMachine = "exchange_timeMachine";
-    public static final String delayedExchangeTimeMachine = "delayedExchange_timeMachine";
-    public static final String delayedROUTING_KEY = "delayedKey_delay";
 
     @Value("${spring.rabbitmq.host}")
     protected String host;
