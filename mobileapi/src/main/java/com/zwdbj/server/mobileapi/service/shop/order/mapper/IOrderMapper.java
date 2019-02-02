@@ -16,10 +16,10 @@ public interface IOrderMapper {
             "left join shop_productOrderItems oi on oi.orderId=o.id where o.id=#{id}")
     ProductOrderDetailModel getOrderById(@Param("id")long id);
 
-    @Insert("insert into shop_productOrders(id,orderNo,payment,actualPayment,useCoin," +
-            "deliveryFee,status,updateTime,userId,storeId,buyerComment,buyerRate,receiveAddressId) " +
-            "values(#{id},#{id},#{payment},{input.actualPayment},#{input.useCoin},#{input.deliveryFee},'STATE_WAIT_BUYER_PAY'," +
-            "now(),#{userId},#{input.storeId},#{input.buyerComment},0,#{input.receiveAddressId})")
+    @Insert("insert into shop_productOrders(id,orderNo,payment,paymentType,actualPayment,useCoin," +
+            "deliveryFee,status,updateTime,userId,storeId,buyerComment,buyerRate,receiveAddressId,thirdPaymentTradeNo) " +
+            "values(#{id},#{id},#{payment},'NONE',#{input.actualPayment},#{input.useCoin},#{input.deliveryFee},'STATE_WAIT_BUYER_PAY'," +
+            "now(),#{userId},#{input.storeId},#{input.buyerComment},0,#{input.receiveAddressId},'NONE')")
     int createOrder(@Param("id")long id, @Param("userId")long userId, @Param("input") AddNewOrderInput input, @Param("payment")int payment);
     @Insert("insert into shop_productOrderItems(id,productId,productskuId,orderId,num,title,price,totalFee) " +
             "values(#{id},#{input.productId},#{input.productskuId},#{orderId},#{input.num},#{input.title},#{price},#{totalFee})")

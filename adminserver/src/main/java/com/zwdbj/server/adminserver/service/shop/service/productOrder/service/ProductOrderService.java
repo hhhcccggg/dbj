@@ -9,6 +9,8 @@ import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,8 @@ public class ProductOrderService {
     ReceiveAddressService receiveAddressServiceImpl;
     @Autowired
     TokenCenterManager tokenCenterManager;
+
+    private Logger logger = LoggerFactory.getLogger(ProductOrderService.class);
 
     public List<ProductOrderModel> getStoreOrders(long storeId, ProductOrderInput input){
         try {
@@ -83,5 +87,28 @@ public class ProductOrderService {
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"验证消费码失败:"+e.getMessage(),0);
         }
+    }
+
+    public boolean orderUnPay(long orderId,long userId){
+        try {
+            ProductOrderDetailModel model = this.getOrderById(orderId).getData();
+            if (model.getStatus().equals("STATE_WAIT_BUYER_PAY")){
+                int result = this.productOrderMapper.updateOrderUnPay(orderId,userId);
+                //增加商品的库存
+                if (result==0)return false;
+                logger.info("未支付订单:"+orderId+"更新成功");
+                return true;
+            }else {
+                return true;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("更改未支付订单:"+orderId+"异常:"+e.getMessage());
+        }
+
+        return false;
+
+
     }
 }

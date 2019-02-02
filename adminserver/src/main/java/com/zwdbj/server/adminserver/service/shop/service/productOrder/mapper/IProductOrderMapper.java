@@ -22,4 +22,8 @@ public interface IProductOrderMapper {
 
     @Update("update shop_productOrders set`status`='STATE_SUCCESS',updateTime=now(),endTime=now(),where id=#{id}")
     int updateOrderSuccess(@Param("id")long orderId);
+
+
+    @Update("update shop_productOrders set`status`=STATE_CLOSED',updateTime=now(),endTime=now(),where id=#{id} and userId=#{userId}")
+    int updateOrderUnPay(@Param("id")long orderId,@Param("userId")long userId);
 }

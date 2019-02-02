@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.shop.order.service;
 
 import com.ecwid.consul.v1.ConsulClient;
+import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
 import com.zwdbj.server.mobileapi.service.shop.order.mapper.IOrderMapper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
@@ -15,11 +16,16 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.servi
 import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.pay.settlement.protocol.ISettlement;
 import com.zwdbj.server.pay.settlement.protocol.SettlementResult;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +48,7 @@ public class OrderService {
     private ISettlement settlement;
     @Autowired
     private UserDiscountCouponService userDiscountCouponServiceImpl;
+    private Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     public List<ProductOrderModel> getMyOrders(int status){
         try {
@@ -81,7 +88,7 @@ public class OrderService {
         ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
         Lock lock = new Lock(consulClient, "mobileapi", "productOrder:" + key);
         try {
-            if (lock.lock(true, 500L, 2)){
+            if (lock.lock(true, 500L, 3)){
                 // TODO 考虑加锁
                 long userId = JWTUtil.getCurrentId();
                 //如果有限购，则要查看订单表，看兑换次数是否已经用完
@@ -119,6 +126,18 @@ public class OrderService {
                 this.orderMapper.createOrderItem(orderItemId,orderId,input,price,totalFee);
                 // 减去商品和sku的库存并更新销量
                 this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
+                //设置订单过期机制
+                QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData
+                        = QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder()
+                        .setOrderId(orderId)
+                        .setUserId(userId)
+                        .build();
+                QueueWorkInfoModel.QueueWorkInfo workInfo = QueueWorkInfoModel.QueueWorkInfo.newBuilder()
+                        .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_TIME)
+                        .setOrderTimeData(orderTimeData)
+                        .build();
+                DelayMQWorkSender.shareSender().send(workInfo,30);
+
                 return new ServiceStatusInfo<>(0,"下单成功",1);
             }
 
