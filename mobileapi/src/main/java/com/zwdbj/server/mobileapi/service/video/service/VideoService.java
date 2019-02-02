@@ -375,9 +375,9 @@ public class VideoService {
             }
             dto.setShareContent(videoUserNickName + "拍摄的宠物短视频");
             dto.setShareUrl(AppConfigConstant.getShareUrl(dto.getId(), "video"));
-            List<PetModelDto> petModelDtos = new ArrayList<>();
             String pets = dto.getLinkPets();
             if (pets != null && pets.length() != 0) {
+                List<PetModelDto> petModelDtos = new ArrayList<>();
                 String[] petIds = pets.split(",");
                 for (String petId : petIds) {
                     PetModelDto petModelDto = this.petService.get(Long.valueOf(petId));
