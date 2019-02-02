@@ -1,7 +1,6 @@
 package com.zwdbj.server.mobileapi.service.shop.order.service;
 
 import com.ecwid.consul.v1.ConsulClient;
-import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
 import com.zwdbj.server.mobileapi.service.shop.order.mapper.IOrderMapper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
@@ -127,7 +126,7 @@ public class OrderService {
                 // 减去商品和sku的库存并更新销量
                 this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
                 //设置订单过期机制
-                QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData
+                /*QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData
                         = QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder()
                         .setOrderId(orderId)
                         .setUserId(userId)
@@ -136,7 +135,7 @@ public class OrderService {
                         .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_TIME)
                         .setOrderTimeData(orderTimeData)
                         .build();
-                DelayMQWorkSender.shareSender().send(workInfo,30);
+                DelayMQWorkSender.shareSender().send(workInfo,30);*/
 
                 return new ServiceStatusInfo<>(0,"下单成功",1);
             }

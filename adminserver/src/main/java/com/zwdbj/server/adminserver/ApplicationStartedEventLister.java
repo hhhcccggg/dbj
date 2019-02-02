@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver;
 
 import com.zwdbj.server.adminserver.identity.UserIdentityInit;
-import com.zwdbj.server.adminserver.middleware.mq.DelayMQworkReceiver;
+//import com.zwdbj.server.adminserver.middleware.mq.DelayMQworkReceiver;
 import com.zwdbj.server.adminserver.middleware.mq.MQWorkReceiverMgr;
 import com.zwdbj.server.adminserver.middleware.mq.MQWorkSender;
 import com.zwdbj.server.utility.common.SpringContextUtil;
@@ -13,7 +13,7 @@ public class ApplicationStartedEventLister implements ApplicationListener<Applic
     @Override
     public void onApplicationEvent(ApplicationStartedEvent applicationStartedEvent) {
         MQWorkSender.shareSender().connect();
-        DelayMQworkReceiver.shareReceiverMgr().connect();
+        //DelayMQworkReceiver.shareReceiverMgr().connect();
         MQWorkReceiverMgr.shareReceiverMgr().initReceivers(10);
         UserIdentityInit userIdentityInit = SpringContextUtil.getBean(UserIdentityInit.class);
         userIdentityInit.init();
