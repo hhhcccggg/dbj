@@ -38,8 +38,8 @@ public class ShoppingCartController {
 
     @ApiOperation(value = "查看购物车")
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ResponseData getShoppingCart(HttpServletRequest request) {
-        ServiceStatusInfo<List<ProductInfo>> statusInfo = this.shoppingCartServiceImpl.getShoppingCart(request);
+    public ResponseData getShoppingCart(HttpServletRequest request, HttpServletResponse response) {
+        ServiceStatusInfo<List<ProductInfo>> statusInfo = this.shoppingCartServiceImpl.getShoppingCart(request, response);
         if (statusInfo.isSuccess()) {
             return new ResponseData(0, "", statusInfo.getData());
         }
@@ -47,4 +47,25 @@ public class ShoppingCartController {
 
     }
 
+    @ApiOperation(value = "修改购物车")
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public ResponseData<List<ProductInfo>> modifyShoppingCart(HttpServletRequest request, HttpServletResponse response, @RequestBody ProductInfo productInfo) {
+        ServiceStatusInfo<List<ProductInfo>> statusInfo = this.shoppingCartServiceImpl.modifyShoppingCart(request, response, productInfo);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData(0, "", statusInfo.getData());
+        }
+        return new ResponseData(1, statusInfo.getMsg(), null);
+
+    }
+
+    @ApiOperation(value = "删除购物车")
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public ResponseData deleteShoppingCart(HttpServletRequest request, HttpServletResponse response, @RequestBody ProductInfo productInfo) {
+        ServiceStatusInfo<List<ProductInfo>> statusInfo = this.shoppingCartServiceImpl.deleteShoppingCart(request, response, productInfo);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData(0, "", statusInfo.getData());
+        }
+        return new ResponseData(1, statusInfo.getMsg(), null);
+
+    }
 }
