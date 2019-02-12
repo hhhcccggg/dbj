@@ -35,14 +35,9 @@ public class ProductOrderService {
     public List<ProductOrderModel> getStoreOrders(long storeId, ProductOrderInput input){
         try {
             List<ProductOrderModel> orderModels = this.productOrderMapper.getStoreOrders(storeId,input);
-
-           /* for (ProductOrderModel model:orderModels){
+            /*for (ProductOrderModel model:orderModels){
                 model.setNickName(this.userService.getNickNameById(model.getUserId()));
-                ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.getReceiveAddressById(model.getReceiveAddressId()).getData();
-                if (addressModel!=null)
-                    model.setAddressModel(addressModel);
             }*/
-
             return orderModels;
         }catch (Exception e){
             e.printStackTrace();
