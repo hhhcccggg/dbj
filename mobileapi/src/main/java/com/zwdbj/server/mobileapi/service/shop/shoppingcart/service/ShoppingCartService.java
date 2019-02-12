@@ -12,5 +12,10 @@ public interface ShoppingCartService {
                                 HttpServletResponse response,
                                 ProductInfo productInfo);
 
-    ServiceStatusInfo<List<ProductInfo>> getShoppingCart(HttpServletRequest request);
+    ServiceStatusInfo<List<ProductInfo>> getShoppingCart(HttpServletRequest request, HttpServletResponse response);
+
+    ServiceStatusInfo<List<ProductInfo>> modifyShoppingCart(HttpServletRequest request, HttpServletResponse response, ProductInfo p);
+
+    ServiceStatusInfo<List<ProductInfo>> deleteShoppingCart(HttpServletRequest request, HttpServletResponse response, ProductInfo p);
+
 }
