@@ -45,7 +45,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 }
                 List<ProductInfo> shoppingCart = new ArrayList<>();
                 shoppingCart.add(productInfo);
-                Cookie cookie = new Cookie("shoppingcart", URLEncoder.encode(JSON.toJSONString(shoppingCart), "UTF-8"));
+                Cookie cookie = new Cookie("shoppingCart", URLEncoder.encode(JSON.toJSONString(shoppingCart), "UTF-8"));
                 cookie.setPath("/");//设置path是可以共享cookie
                 cookie.setMaxAge(60 * 30);//设置cookie过期时间30分钟
                 response.addCookie(cookie);
@@ -54,17 +54,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             } else {
                 //判断cooke中是否有商品，若有添加到redis，清空cookie
                 Cookie[] cookies = request.getCookies();
-                HashOperations<String, String, Long> hashOperations = stringRedisTemplate.opsForHash();
+                HashOperations<String, String, String> hashOperations = stringRedisTemplate.opsForHash();
                 if (cookies != null) {
                     List<ProductInfo> shoppingCart = null;
                     for (Cookie cookie : cookies) {
 
-                        if ("shoppingcart".equals(cookie.getName()) && cookie.getValue() != null) {
+                        if ("shoppingCart".equals(cookie.getName()) && cookie.getValue() != null) {
                             shoppingCart = JSON.parseObject(URLDecoder.decode(cookie.getValue(), "UTF-8"), new TypeReference<List<ProductInfo>>() {
 
                             });
                             //清空cookie
-                            Cookie c = new Cookie("shoppingcart", null);
+                            Cookie c = new Cookie("shoppingCart", null);
                             c.setPath("/");
                             c.setMaxAge(0);
                             response.addCookie(c);
@@ -72,7 +72,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                         }
                     }
                     for (ProductInfo p : shoppingCart) {
-                        hashOperations.put("shoppingcart" + userId, JSON.toJSONString(p.getSku()), p.getCount());
+                        hashOperations.put("shoppingCart" + userId, JSON.toJSONString(p.getSku()), String.valueOf(p.getCount()));
                     }
 
                 }
@@ -82,12 +82,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 }
                 //判断是否添加了同款商品
                 String key = JSON.toJSONString(productInfo.getSku());
-                if (hashOperations.hasKey("shoppingcart" + userId, key)) {
-                    long nums = hashOperations.get("shoppingcart" + userId, key);
-                    hashOperations.put("shoppingcart" + userId, key, nums + productInfo.getCount());
+                if (hashOperations.hasKey("shoppingCart" + userId, key)) {
+                    long nums = Long.parseLong(hashOperations.get("shoppingCart" + userId, key));
+
+                    hashOperations.put("shoppingCart" + userId, key, String.valueOf(nums + productInfo.getCount()));
                     return new ServiceStatusInfo<>(0, "", 1L);
                 }
-                hashOperations.put("shoppingcart" + userId, key, productInfo.getCount());
+                hashOperations.put("shoppingCart" + userId, key, String.valueOf(productInfo.getCount()));
                 return new ServiceStatusInfo<>(0, "", 1L);
             }
 
@@ -97,49 +98,199 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
 
-    public ServiceStatusInfo<List<ProductInfo>> getShoppingCart(HttpServletRequest request) {
+    public ServiceStatusInfo<List<ProductInfo>> getShoppingCart(HttpServletRequest request, HttpServletResponse response) {
         try {
-            long userId = JWTUtil.getCurrentId();
-            if (userId == 0L) {//未登录
-                //查看cookie
-                Cookie[] cookies = request.getCookies();
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if ("shoppingcart".equals(cookie.getName()) && cookie.getValue() != null) {
-                            String str = URLDecoder.decode(cookie.getValue(), "UTF-8");
+            //查看cookie
+            List<ProductInfo> shoppingCart = null;
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null && cookies.length > 0) {
+                for (Cookie cookie : cookies) {
+                    if ("shoppingCart".equals(cookie.getName()) && cookie.getValue() != null) {
+                        String str = URLDecoder.decode(cookie.getValue(), "UTF-8");
 
-                            List<ProductInfo> shoppingcart = JSON.parseObject(str, new TypeReference<List<ProductInfo>>() {
+                        shoppingCart = JSON.parseObject(str, new TypeReference<List<ProductInfo>>() {
 
-                            });
-
-                            return new ServiceStatusInfo<>(0, "", shoppingcart);
-                        }
+                        });
+                        break;
                     }
                 }
-                return new ServiceStatusInfo<>(1, "您没添加任何商品", null);
+            }
+            long userId = JWTUtil.getCurrentId();
+            HashOperations<String, String, String> hashOperations = stringRedisTemplate.opsForHash();
 
+            if (shoppingCart == null) {
+                if (userId == 0L) {
+                    return new ServiceStatusInfo<>(1, "您没添加任何商品", null);
+                } else {
+
+                    shoppingCart = new ArrayList<>();
+                    if (stringRedisTemplate.hasKey("shoppingCart" + userId)) {
+                        Map<String, String> map = hashOperations.entries("shoppingCart" + userId);
+                        Set<String> set = map.keySet();
+                        Iterator<String> it = set.iterator();
+
+                        while (it.hasNext()) {
+                            String str = it.next();
+                            long count = Long.parseLong(map.get(str));
+                            shoppingCart.add(new ProductInfo(JSON.parseObject(str, ProductSKU.class), count));
+                        }
+                        return new ServiceStatusInfo<>(0, "", shoppingCart);
+                    }
+                    return new ServiceStatusInfo<>(1, "您没有添加任何商品", null);
+                }
             } else {
-                HashOperations<String, String, Long> hashOperations = stringRedisTemplate.opsForHash();
-                List<ProductInfo> shoppingcart = new ArrayList<>();
-                if (stringRedisTemplate.hasKey("shoppingcart" + userId)) {
-                    Map<String, Long> map = hashOperations.entries("shoppingcart" + userId);
+
+                if (userId == 0L) {
+                    return new ServiceStatusInfo<>(0, "", shoppingCart);
+                } else {
+                    //存入redis中 清空cookie
+                    //判断是否添加了同款商品
+                    for (ProductInfo productInfo : shoppingCart) {
+                        String key = JSON.toJSONString(productInfo.getSku());
+                        if (hashOperations.hasKey("shoppingCart" + userId, key)) {
+                            long nums = Long.parseLong(hashOperations.get("shoppingCart" + userId, key));
+                            hashOperations.put("shoppingCart" + userId, key, String.valueOf(nums + productInfo.getCount()));
+
+                        }
+                        hashOperations.put("shoppingCart" + userId, key, String.valueOf(productInfo.getCount()));
+
+                    }
+                    Cookie c = new Cookie("shoppingCart", null);
+                    c.setPath("/");
+                    c.setMaxAge(0);
+                    response.addCookie(c);
+
+                    Map<String, String> map = hashOperations.entries("shoppingCart" + userId);
                     Set<String> set = map.keySet();
                     Iterator<String> it = set.iterator();
-
+                    shoppingCart = new ArrayList<>();
                     while (it.hasNext()) {
                         String str = it.next();
-                        long count = map.get(str);
-                        shoppingcart.add(new ProductInfo(JSON.parseObject(str, ProductSKU.class), count));
+                        long count = Long.parseLong(map.get(str));
+                        shoppingCart.add(new ProductInfo(JSON.parseObject(str, ProductSKU.class), count));
                     }
-                    return new ServiceStatusInfo<>(0, "", shoppingcart);
+
+                    return new ServiceStatusInfo<>(0, "", shoppingCart);
                 }
-                return new ServiceStatusInfo<>(1, "您没有添加任何商品", null);
-
             }
-
 
         } catch (Exception e) {
 
+            return new ServiceStatusInfo<>(1, e.getMessage(), null);
+        }
+    }
+
+    public ServiceStatusInfo<List<ProductInfo>> modifyShoppingCart(HttpServletRequest request, HttpServletResponse response, ProductInfo p) {
+        try {
+            long userId = JWTUtil.getCurrentId();
+            List<ProductInfo> shoppingCart = null;
+            if (userId == 0L) {
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null && cookies.length > 0) {
+                    for (Cookie cookie : cookies) {
+                        if ("shoppingCart".equals(cookie.getName()) && cookie.getValue() != null) {
+                            String str = URLDecoder.decode(cookie.getValue(), "UTF-8");
+
+                            shoppingCart = JSON.parseObject(str, new TypeReference<List<ProductInfo>>() {
+
+                            });
+                            break;
+                        }
+                    }
+                }
+                if (shoppingCart == null) {
+                    return new ServiceStatusInfo<>(1, "您得购物车为空", null);
+                }
+
+                for (ProductInfo productInfo : shoppingCart) {
+                    if (productInfo.getSku().equals(p.getSku())) {
+                        productInfo.setCount(productInfo.getCount() + p.getCount());
+                    }
+                }
+                Cookie cookie = new Cookie("shoppingCart", URLEncoder.encode(JSON.toJSONString(shoppingCart), "UTF-8"));
+                cookie.setPath("/");//设置path是可以共享cookie
+                cookie.setMaxAge(60 * 30);//设置cookie过期时间30分钟
+                response.addCookie(cookie);
+
+                return new ServiceStatusInfo<>(0, "", shoppingCart);
+
+            } else {
+                HashOperations<String, String, String> hashOperations = stringRedisTemplate.opsForHash();
+                String key = JSON.toJSONString(p.getSku());
+                if (hashOperations.hasKey("shoppingCart" + userId, key)) {
+                    long nums = Long.parseLong(hashOperations.get("shoppingCart" + userId, key));
+                    hashOperations.put("shoppingCart" + userId, key, String.valueOf(nums + p.getCount()));
+                    Map<String, String> map = hashOperations.entries("shoppingCart" + userId);
+                    Set<String> set = map.keySet();
+                    Iterator<String> it = set.iterator();
+                    shoppingCart = new ArrayList<>();
+                    while (it.hasNext()) {
+                        String str = it.next();
+                        long count = Long.parseLong(map.get(str));
+                        shoppingCart.add(new ProductInfo(JSON.parseObject(str, ProductSKU.class), count));
+                    }
+                    return new ServiceStatusInfo<>(0, "", shoppingCart);
+                }
+                return new ServiceStatusInfo<>(1, "您没有添加此商品", null);
+
+            }
+
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, e.getMessage(), null);
+        }
+
+    }
+
+    public ServiceStatusInfo<List<ProductInfo>> deleteShoppingCart(HttpServletRequest request, HttpServletResponse response,
+                                                                   ProductInfo p) {
+        try {
+            long userId = JWTUtil.getCurrentId();
+            List<ProductInfo> shoppingCart = null;
+            if (userId == 0L) {
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null && cookies.length > 0) {
+                    for (Cookie cookie : cookies) {
+                        if ("shoppingCart".equals(cookie.getName()) && cookie.getValue() != null) {
+
+                            String str = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                            shoppingCart = JSON.parseObject(str, new TypeReference<List<ProductInfo>>() {
+                            });
+                            break;
+                        }
+                    }
+                }
+                for (ProductInfo productInfo : shoppingCart) {
+                    if (productInfo.getSku().equals(p.getSku())) {
+                        shoppingCart.remove(productInfo);
+
+                    }
+                }
+                Cookie cookie = new Cookie("shoppingCart", URLEncoder.encode(JSON.toJSONString(shoppingCart), "UTF-8"));
+                cookie.setPath("/");//设置path是可以共享cookie
+                cookie.setMaxAge(60 * 30);//设置cookie过期时间30分钟
+                response.addCookie(cookie);
+                return new ServiceStatusInfo<>(0, "", shoppingCart);
+            } else {
+                HashOperations<String, String, String> hashOperations = stringRedisTemplate.opsForHash();
+                String key = JSON.toJSONString(p.getSku());
+                if (hashOperations.hasKey("shoppingCart" + userId, key)) {
+                    hashOperations.delete("shoppingCart" + userId, key);
+                    Map<String, String> map = hashOperations.entries("shoppingCart" + userId);
+                    Set<String> set = map.keySet();
+                    Iterator<String> it = set.iterator();
+                    shoppingCart = new ArrayList<>();
+                    while (it.hasNext()) {
+                        String str = it.next();
+                        long count = Long.parseLong(map.get(str));
+                        shoppingCart.add(new ProductInfo(JSON.parseObject(str, ProductSKU.class), count));
+                    }
+                    return new ServiceStatusInfo<>(0, "", shoppingCart);
+                }
+                return new ServiceStatusInfo<>(1, "您没有添加此商品", null);
+
+            }
+
+        } catch (Exception e) {
             return new ServiceStatusInfo<>(1, e.getMessage(), null);
         }
     }
