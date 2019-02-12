@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.productOrder.model;
 
+import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -31,11 +32,22 @@ public class ProductOrderDetailModel extends ProductOrderModel {
     private String buyerComment;
     @ApiModelProperty(value = "买家是否已评价")
     private boolean buyerRate;
+    @ApiModelProperty(value = "收货地址model")
+    private ReceiveAddressModel addressModel;
 
     @ApiModelProperty(value = "店铺的id")
     private long storeId;
     @ApiModelProperty(value = "店铺的名字")
     private String storeName;
+
+
+    public ReceiveAddressModel getAddressModel() {
+        return addressModel;
+    }
+
+    public void setAddressModel(ReceiveAddressModel addressModel) {
+        this.addressModel = addressModel;
+    }
 
     public String getPaymentType() {
         return paymentType;
