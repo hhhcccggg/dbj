@@ -10,7 +10,8 @@ public class ProductOrderSqlProvider {
         ProductOrderInput input = (ProductOrderInput)params.get("input");
         Long storeId = (Long)params.get("storeId");
         SQL sql = new SQL()
-                .SELECT("o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price,a.receiverName as receiverName,a.receiverMobile as receiverMobile,u.nickName as nickName")
+                .SELECT("o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price,a.receiverName as receiverName," +
+                        "a.receiverMobile as receiverMobile,u.nickName as nickName")
                 .FROM("shop_productOrders o ")
                 .LEFT_OUTER_JOIN("shop_productOrderItems oi on oi.orderId=o.id")
                 .LEFT_OUTER_JOIN("shop_receiveAddresses a on a.id=o.receiveAddressId")
