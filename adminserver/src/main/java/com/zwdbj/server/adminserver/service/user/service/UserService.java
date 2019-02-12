@@ -313,6 +313,15 @@ public class UserService {
         return result > 0;
     }
 
+    /**
+     * 根据id得到用户昵称
+     * @param userId
+     * @return
+     */
+    public String getNickNameById(long userId){
+        return this.userMapper.getNickNameById(userId);
+    }
+
 
     public UserDetailInfoDto getUserDetail(long userId) {
         //TODO 增加缓存数据

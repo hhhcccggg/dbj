@@ -22,6 +22,9 @@ public interface IProductOrderMapper {
 
     @Update("update shop_productOrders set`status`='STATE_SUCCESS',updateTime=now(),endTime=now(),where id=#{id}")
     int updateOrderSuccess(@Param("id")long orderId);
+    @Select("select o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price from shop_productOrders o " +
+            "left join shop_productOrderItems oi on oi.orderId=o.id where o.orderNo=#{orderNo}")
+    ProductOrderDetailModel getOrderByOrderNo(@Param("orderNo")String orderNo);
 
 
     @Update("update shop_productOrders set`status`=STATE_CLOSED',updateTime=now(),endTime=now(),where id=#{id} and userId=#{userId}")

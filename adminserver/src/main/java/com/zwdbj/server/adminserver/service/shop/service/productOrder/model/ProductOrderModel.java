@@ -34,7 +34,16 @@ public class ProductOrderModel {
     private long userId;
     @ApiModelProperty(value = "用户的昵称")
     private String nickName;
+    @ApiModelProperty(value = "订单号")
+    private String orderNo;
 
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public long getReceiveAddressId() {
         return receiveAddressId;

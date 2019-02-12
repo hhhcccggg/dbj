@@ -13,7 +13,7 @@ public class ProductOrderSqlProvider {
                 .SELECT("o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price")
                 .FROM("shop_productOrders o ")
                 .LEFT_OUTER_JOIN("shop_productOrderItems oi on oi.orderId=o.id")
-                .LEFT_OUTER_JOIN("shop_receiveAddresses a on a.id=o.receiveAddressId")
+                //.LEFT_OUTER_JOIN("shop_receiveAddresses a on a.id=o.receiveAddressId")
                 .WHERE("o.storeId="+storeId);
         if (input.getStartTime() !=null  && input.getStartTime().length()!=0 && input.getEndTime() !=null && input.getEndTime().length()!=0){
             sql.WHERE(String.format("o.createTime between '%s' and '%s'",input.getStartTime(),input.getEndTime()));

@@ -94,6 +94,8 @@ public interface IUserMapper {
     UserModel findUserByPhone(@Param("phone")String phone);
     @Update("update core_users set isSuper=#{isSuper},tenantId=#{tenantId} where id=#{id}")
     int updateUserTanById(@Param("id")long id,@Param("tenantId")long tenantId,@Param("isSuper")boolean isSuper);
+    @Select("select nickName from core_users where id=#{id}")
+    String getNickNameById(@Param("id")long id);
 
     //用户认证
     @Update("update core_users set isLivingOpen=#{input.isOpen},isReviewed=#{input.isOpen},isLivingWatch=#{input.isOpen} where id=#{input.id}")
