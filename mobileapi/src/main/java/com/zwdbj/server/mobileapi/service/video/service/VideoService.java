@@ -801,4 +801,13 @@ public class VideoService {
         }
     }
 
+    public ServiceStatusInfo<List<VideoMainDto>> mainVideo(VideoMainInput videoMainInput){
+        try{
+            //TODO es查询数据
+            return new ServiceStatusInfo<>(0,"",null);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1,e.getMessage(),null);
+        }
+    }
+
 }
