@@ -202,6 +202,11 @@ public class ProductServiceImpl implements ProductService {
         List<Products> result=null;
         try {
             result =this.iProductMapper.searchCondition(searchProduct,type);
+            for (Products pro:result){
+                ProductSKUs productSKUs = this.iProductSKUsMapper.selectByProductId(pro.getId());
+                pro.setOriginalPrice(productSKUs.getOriginalPrice());
+                pro.setPromotionPrice(productSKUs.getPromotionPrice());
+            }
             return new ServiceStatusInfo<>(0,"",result);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),result);
