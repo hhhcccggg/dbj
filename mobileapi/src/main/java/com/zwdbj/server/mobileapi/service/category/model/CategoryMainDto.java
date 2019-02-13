@@ -3,10 +3,11 @@ package com.zwdbj.server.mobileapi.service.category.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.List;
 
 @ApiModel(description = "主页分类对象")
-public class CategoryMainDto {
+public class CategoryMainDto implements Serializable {
 
     @ApiModelProperty("分类ID")
     long id;

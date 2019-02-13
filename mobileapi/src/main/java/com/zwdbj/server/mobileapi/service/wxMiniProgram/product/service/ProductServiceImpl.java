@@ -12,6 +12,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.Prod
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,9 @@ public class ProductServiceImpl implements  ProductService{
 
     @Autowired
     protected IUserMapper iUserMapper;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public ServiceStatusInfo<List<ProductOut>> selectShopProduct(ProductInput productInput) {
@@ -121,12 +125,18 @@ public class ProductServiceImpl implements  ProductService{
     @Override
     public ServiceStatusInfo<List<ProductMainDto>> mainProduct() {
         try{
-            //TODO 未加缓存和推荐
-            List<ProductMainDto> list = this.iProductMapper.mainSelectProduct();
+            List<ProductMainDto> list;
+            //TODO 未更新缓存和推荐
+            if(redisTemplate.hasKey("MAINPRODUCT")){
+                 list = (List<ProductMainDto>) redisTemplate.opsForValue().get("MAINPRODUCT");
+                 return new ServiceStatusInfo<>(0,"",list);
+            }
+           list = this.iProductMapper.mainSelectProduct();
             for (ProductMainDto productMainDto: list) {
                 ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(productMainDto.getId());
                 productMainDto.setProductSKUId(serviceStatusInfo.getData().getId());
             }
+            redisTemplate.opsForValue().set("MAINPRODUCT",list);
             return new ServiceStatusInfo<>(0,"",list);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,e.getMessage(),null);
