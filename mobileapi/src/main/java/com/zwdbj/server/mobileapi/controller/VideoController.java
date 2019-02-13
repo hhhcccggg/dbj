@@ -258,4 +258,10 @@ public class VideoController {
         return new ResponseData<>(1, serviceStatusInfo.getMsg(), null);
     }
 
+    @GetMapping("/mainVideo")
+    @ApiOperation(value = "主页视频")
+    public ResponseData<List<VideoMainDto>> mainVideo(VideoMainInput videoMainInput){
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", null);
+    }
+
 }

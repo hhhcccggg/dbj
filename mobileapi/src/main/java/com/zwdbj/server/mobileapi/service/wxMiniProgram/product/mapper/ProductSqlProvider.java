@@ -14,10 +14,14 @@ public class ProductSqlProvider {
      */
     public String seleteList(Map map){
         ProductInput productInput = (ProductInput) map.get("productInput");
-        SQL sql = new SQL().SELECT("id","productType","productDetailType","name","categoryId", "sales",
+        String storeId="";
+        if(productInput.getStoreId() != 0){
+            storeId="and storeId="+productInput.getStoreId();
+        }
+        SQL sql = new SQL().SELECT("id","productType","productDetailType","name","storeId","categoryId", "sales",
                 "brandId","inventory","imageUrls","limitPerPerson","detailDescription","supportCoin","ruleDescription");
         sql.FROM("shop_products");
-        sql.WHERE("publish=1 and isDeleted=0 and storeId="+productInput.getStoreId()+" and specifyPublishTime<now()");
+        sql.WHERE("publish=1 and isDeleted=0 "+storeId+" and specifyPublishTime<now()");
 
         if(productInput.getType() == 1){
             sql.ORDER_BY("sales desc");
@@ -29,6 +33,7 @@ public class ProductSqlProvider {
                     "shop_products.productType, " +
                     "shop_products.specifyPublishTime, " +
                     "shop_products.name, " +
+                    "shop_products.storeId, " +
                     "shop_products.sales, " +
                     "shop_products.categoryId, " +
                     "shop_products.brandId, " +
@@ -41,13 +46,14 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and inventory>0 and storeId="+productInput.getStoreId()+" and specifyPublishTime<now()) " +
+                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and inventory>0 "+storeId+" and specifyPublishTime<now()) " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
                     "shop_products.productType, " +
                     "shop_products.specifyPublishTime, " +
                     "shop_products.name, " +
+                    "shop_products.storeId, " +
                     "shop_products.sales, " +
                     "shop_products.categoryId, " +
                     "shop_products.brandId, " +
@@ -60,13 +66,14 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and storeId="+productInput.getStoreId()+" and  specifyPublishTime>now()) " +
+                    "publish=1 and isDeleted=0  and specifyPublishTime<now() "+storeId+" and  specifyPublishTime>now()) " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
                     "shop_products.productType, " +
                     "shop_products.specifyPublishTime, " +
                     "shop_products.name, " +
+                    "shop_products.storeId, " +
                     "shop_products.sales, " +
                     "shop_products.categoryId, " +
                     "shop_products.brandId, " +
@@ -79,7 +86,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and storeId="+productInput.getStoreId()+" and  inventory=0) ";
+                    "publish=1 and isDeleted=0  and specifyPublishTime<now() "+storeId+" and  inventory=0) ";
         }
         return sql.toString();
     }

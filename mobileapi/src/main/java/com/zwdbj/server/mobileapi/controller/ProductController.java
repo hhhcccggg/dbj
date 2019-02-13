@@ -70,4 +70,10 @@ public class ProductController {
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", pageInfo.getList(), pageInfo.getTotal());
 
     }
+
+    @GetMapping(value = "mainByProduct")
+    @ApiOperation(value = "主页的兑换商城")
+    public ResponseData<List<ProductOut>> mainByProduct(){
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
+    }
 }
