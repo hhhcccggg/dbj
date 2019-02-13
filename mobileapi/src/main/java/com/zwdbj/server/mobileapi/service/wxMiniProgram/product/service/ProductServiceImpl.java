@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 import com.zwdbj.server.mobileapi.service.user.mapper.IUserMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper.IProductMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
@@ -114,6 +115,21 @@ public class ProductServiceImpl implements  ProductService{
 
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"出现异常："+e.getMessage(),false);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<List<ProductMainDto>> mainProduct() {
+        try{
+            //TODO 未加缓存和推荐
+            List<ProductMainDto> list = this.iProductMapper.mainSelectProduct();
+            for (ProductMainDto productMainDto: list) {
+                ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(productMainDto.getId());
+                productMainDto.setProductSKUId(serviceStatusInfo.getData().getId());
+            }
+            return new ServiceStatusInfo<>(0,"",list);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1,e.getMessage(),null);
         }
     }
 }

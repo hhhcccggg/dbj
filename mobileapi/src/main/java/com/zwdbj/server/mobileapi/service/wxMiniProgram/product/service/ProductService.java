@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -39,4 +40,10 @@ public interface ProductService {
      * 根据productId和productSkuId查询相对应的库存
      */
     ServiceStatusInfo<Boolean> getProductInventory(long productId,long productSkuId,int num);
+
+    /**
+     * 主页的兑换列表3个
+     * @return
+     */
+    ServiceStatusInfo<List<ProductMainDto>> mainProduct();
 }
