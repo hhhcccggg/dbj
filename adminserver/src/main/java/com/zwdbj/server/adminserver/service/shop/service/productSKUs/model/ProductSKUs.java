@@ -12,9 +12,9 @@ public class ProductSKUs {
     @ApiModelProperty(value = "产品编号")
     long productId;
     @ApiModelProperty(value = "原价")
-    float originalPrice;
+    long originalPrice;
     @ApiModelProperty(value = "促销价")
-    float promotionPrice;
+    long promotionPrice;
     @ApiModelProperty(value = "库存")
     long inventory;
     @ApiModelProperty(value = "销量")
@@ -48,19 +48,19 @@ public class ProductSKUs {
         this.productId = productId;
     }
 
-    public float getOriginalPrice() {
+    public long getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(float originalPrice) {
+    public void setOriginalPrice(long originalPrice) {
         this.originalPrice = originalPrice;
     }
 
-    public float getPromotionPrice() {
+    public long getPromotionPrice() {
         return promotionPrice;
     }
 
-    public void setPromotionPrice(float promotionPrice) {
+    public void setPromotionPrice(long promotionPrice) {
         this.promotionPrice = promotionPrice;
     }
 

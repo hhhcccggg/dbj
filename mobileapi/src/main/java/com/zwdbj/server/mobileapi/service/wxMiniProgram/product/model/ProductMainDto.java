@@ -3,8 +3,10 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 @ApiModel(description = "商品基本信息")
-public class ProductMainDto {
+public class ProductMainDto implements Serializable {
 
     private Long id;
 

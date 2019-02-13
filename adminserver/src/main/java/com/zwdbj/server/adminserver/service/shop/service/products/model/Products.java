@@ -36,6 +36,10 @@ public class Products {
     long sales;
     @ApiModelProperty(value = "库存")
     long inventory;
+    @ApiModelProperty(value = "原价")
+    long originalPrice;
+    @ApiModelProperty(value = "促销价")
+    long promotionPrice;
     @ApiModelProperty(value = "商品价格上限")
     long priceUp;
     @ApiModelProperty(value = "商品价格下限")
@@ -70,6 +74,22 @@ public class Products {
     boolean supportCoin;
     @ApiModelProperty(value = "规则说明")
     String ruleDescription;
+
+    public long getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(long originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public long getPromotionPrice() {
+        return promotionPrice;
+    }
+
+    public void setPromotionPrice(long promotionPrice) {
+        this.promotionPrice = promotionPrice;
+    }
 
     public String getRuleDescription() {
         return ruleDescription;
