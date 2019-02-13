@@ -1,15 +1,50 @@
 package com.zwdbj.server.mobileapi.service.video.model;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "首页视频返回对象")
 public class VideoMainDto {
 
     private long id;
+    @ApiModelProperty(value = "视频路径")
     private String videoUrl;
+    @ApiModelProperty(value = "标题")
     private String title;
+    @ApiModelProperty(value = "封面图片")
     private String coverImageUrl;
+    @ApiModelProperty(value = "标签")
     private String tags;
+    @ApiModelProperty(value = "头像")
+    private String avatarUrl;
+    @ApiModelProperty(value = "昵称")
+    private String username;
+    @ApiModelProperty(value = "点赞数")
+    private long heartCount;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public long getHeartCount() {
+        return heartCount;
+    }
+
+    public void setHeartCount(long heartCount) {
+        this.heartCount = heartCount;
+    }
 
     public long getId() {
         return id;
