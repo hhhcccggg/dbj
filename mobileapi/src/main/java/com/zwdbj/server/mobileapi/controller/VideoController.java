@@ -262,9 +262,8 @@ public class VideoController {
     @ApiOperation(value = "主页视频")
     public ResponseData<List<VideoMainDto>> mainVideo(VideoMainInput videoMainInput){
         ServiceStatusInfo<List<VideoMainDto>> serviceStatusInfo = videoService.mainVideo(videoMainInput);
-        if(serviceStatusInfo.isSuccess())
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, "", null);
+        return new ResponseData<>(serviceStatusInfo.isSuccess()?ResponseDataCode.STATUS_NORMAL:ResponseDataCode.STATUS_ERROR,
+                serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
     }
 
 }
