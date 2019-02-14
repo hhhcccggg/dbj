@@ -56,7 +56,7 @@ public class OfflineStoreOpeningHoursServiceImpl implements OfflineStoreOpeningH
     public ServiceStatusInfo<List<OfflineStoreOpeningHours>> select() {
         List<OfflineStoreOpeningHours> list = null;
         try {
-            list = offlineStoreOpeningHourMapper.select();
+            list = offlineStoreOpeningHourMapper.select1();
             return new ServiceStatusInfo(0, "", list);
         } catch (Exception e) {
             return new ServiceStatusInfo(1, "查询营业时间失败" + e.getMessage(), list);

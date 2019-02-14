@@ -24,7 +24,7 @@ public interface OfflineStoreOpeningHoursMapper {
     Long deleteById(@Param("id") Long id);
 
     @Select("select * from o2o_offlineStoreOpeningHours where isDeleted=0 order by createTime")
-    List<OfflineStoreOpeningHours> select();
+    List<OfflineStoreOpeningHours> select1();
 
     @Select("select id,day,storeId,openTime,closeTime from o2o_offlineStoreOpeningHours where isDeleted=0 and storeId=#{storeId} order by createTime")
     List<OfflineStoreOpeningHours> select(@Param("storeId") long storeId);
