@@ -78,6 +78,7 @@ public class PetService {
                 userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
                 userCoinDetailAddInput.setType("TASK");
                 this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10,"FIRSTADDPET","DONE");
+                logger.info("宠物列表的第一次添加10金币");
             }
 
         }
