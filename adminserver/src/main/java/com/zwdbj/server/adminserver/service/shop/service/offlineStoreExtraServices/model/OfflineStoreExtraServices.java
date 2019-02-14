@@ -8,7 +8,7 @@ public class OfflineStoreExtraServices {
     @ApiModelProperty("id")
     long id;
     @ApiModelProperty(value = "商家id")
-    Long offlineStoreId;
+    Long storeId;
     @ApiModelProperty(value = "额外服务id")
     Long extraServiceId;
     /// <summary>
@@ -21,12 +21,20 @@ public class OfflineStoreExtraServices {
     @ApiModelProperty(value = "")
     String notes;
 
-    public Long getOfflineStoreId() {
-        return offlineStoreId;
+    public long getId() {
+        return id;
     }
 
-    public void setOfflineStoreId(Long offlineStoreId) {
-        this.offlineStoreId = offlineStoreId;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
     public Long getExtraServiceId() {

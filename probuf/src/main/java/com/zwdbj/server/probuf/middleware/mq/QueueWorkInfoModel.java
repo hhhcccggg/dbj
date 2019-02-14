@@ -4,11460 +4,12828 @@
 package com.zwdbj.server.probuf.middleware.mq;
 
 public final class QueueWorkInfoModel {
-  private QueueWorkInfoModel() {}
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
-  }
-
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
-  }
-  public interface QueueWorkInfoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkInfo)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *任务标识
-     * </pre>
-     *
-     * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
-     */
-    int getWorkTypeValue();
-    /**
-     * <pre>
-     *任务标识
-     * </pre>
-     *
-     * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType();
-
-    /**
-     * <pre>
-     *验证码数据
-     * </pre>
-     *
-     * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-     */
-    boolean hasPhoneCode();
-    /**
-     * <pre>
-     *验证码数据
-     * </pre>
-     *
-     * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getPhoneCode();
-    /**
-     * <pre>
-     *验证码数据
-     * </pre>
-     *
-     * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder getPhoneCodeOrBuilder();
-
-    /**
-     * <pre>
-     * 点赞数据
-     * </pre>
-     *
-     * <code>.QueueWorkHeart heartData = 3;</code>
-     */
-    boolean hasHeartData();
-    /**
-     * <pre>
-     * 点赞数据
-     * </pre>
-     *
-     * <code>.QueueWorkHeart heartData = 3;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getHeartData();
-    /**
-     * <pre>
-     * 点赞数据
-     * </pre>
-     *
-     * <code>.QueueWorkHeart heartData = 3;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder getHeartDataOrBuilder();
-
-    /**
-     * <pre>
-     *推送数据
-     * </pre>
-     *
-     * <code>.QueueWorkPush pushData = 4;</code>
-     */
-    boolean hasPushData();
-    /**
-     * <pre>
-     *推送数据
-     * </pre>
-     *
-     * <code>.QueueWorkPush pushData = 4;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getPushData();
-    /**
-     * <pre>
-     *推送数据
-     * </pre>
-     *
-     * <code>.QueueWorkPush pushData = 4;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder getPushDataOrBuilder();
-
-    /**
-     * <pre>
-     *七牛审核的结果
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-     */
-    boolean hasQiniuReviewResult();
-    /**
-     * <pre>
-     *七牛审核的结果
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getQiniuReviewResult();
-    /**
-     * <pre>
-     *七牛审核的结果
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder getQiniuReviewResultOrBuilder();
-
-    /**
-     * <pre>
-     *七牛需要待审核的资源
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-     */
-    boolean hasQiniuWaitReviewResData();
-    /**
-     * <pre>
-     *七牛需要待审核的资源
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getQiniuWaitReviewResData();
-    /**
-     * <pre>
-     *七牛需要待审核的资源
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder getQiniuWaitReviewResDataOrBuilder();
-
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-     */
-    boolean hasVideoWeightData();
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getVideoWeightData();
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder();
-
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-     */
-    boolean hasShopLegalSubjectData();
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getShopLegalSubjectData();
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder();
-
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-     */
-    boolean hasOrderTimeData();
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getOrderTimeData();
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-     */
-    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder();
-  }
-  /**
-   * Protobuf type {@code QueueWorkInfo}
-   */
-  public  static final class QueueWorkInfo extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkInfo)
-      QueueWorkInfoOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkInfo.newBuilder() to construct.
-    private QueueWorkInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkInfo() {
-      workType_ = 0;
+    private QueueWorkInfoModel() {
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkInfo(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-              int rawValue = input.readEnum();
-
-              workType_ = rawValue;
-              break;
-            }
-            case 18: {
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder subBuilder = null;
-              if (phoneCode_ != null) {
-                subBuilder = phoneCode_.toBuilder();
-              }
-              phoneCode_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(phoneCode_);
-                phoneCode_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 26: {
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder subBuilder = null;
-              if (heartData_ != null) {
-                subBuilder = heartData_.toBuilder();
-              }
-              heartData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(heartData_);
-                heartData_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 34: {
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder subBuilder = null;
-              if (pushData_ != null) {
-                subBuilder = pushData_.toBuilder();
-              }
-              pushData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(pushData_);
-                pushData_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 42: {
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder subBuilder = null;
-              if (qiniuReviewResult_ != null) {
-                subBuilder = qiniuReviewResult_.toBuilder();
-              }
-              qiniuReviewResult_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(qiniuReviewResult_);
-                qiniuReviewResult_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 50: {
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder subBuilder = null;
-              if (qiniuWaitReviewResData_ != null) {
-                subBuilder = qiniuWaitReviewResData_.toBuilder();
-              }
-              qiniuWaitReviewResData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(qiniuWaitReviewResData_);
-                qiniuWaitReviewResData_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 58: {
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder subBuilder = null;
-              if (videoWeightData_ != null) {
-                subBuilder = videoWeightData_.toBuilder();
-              }
-              videoWeightData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(videoWeightData_);
-                videoWeightData_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 66: {
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder subBuilder = null;
-              if (shopLegalSubjectData_ != null) {
-                subBuilder = shopLegalSubjectData_.toBuilder();
-              }
-              shopLegalSubjectData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(shopLegalSubjectData_);
-                shopLegalSubjectData_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 74: {
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder subBuilder = null;
-              if (orderTimeData_ != null) {
-                subBuilder = orderTimeData_.toBuilder();
-              }
-              orderTimeData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(orderTimeData_);
-                orderTimeData_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
+    public static void registerAllExtensions(
+            com.google.protobuf.ExtensionRegistryLite registry) {
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.Builder.class);
+    public static void registerAllExtensions(
+            com.google.protobuf.ExtensionRegistry registry) {
+        registerAllExtensions(
+                (com.google.protobuf.ExtensionRegistryLite) registry);
     }
 
-    /**
-     * Protobuf enum {@code QueueWorkInfo.WorkTypeEnum}
-     */
-    public enum WorkTypeEnum
-        implements com.google.protobuf.ProtocolMessageEnum {
-      /**
-       * <code>SEND_PHONE_CODE = 0;</code>
-       */
-      SEND_PHONE_CODE(0),
-      /**
-       * <pre>
-       *点赞
-       * </pre>
-       *
-       * <code>HEART = 1;</code>
-       */
-      HEART(1),
-      /**
-       * <pre>
-       *推送
-       * </pre>
-       *
-       * <code>PUSH = 2;</code>
-       */
-      PUSH(2),
-      /**
-       * <pre>
-       *七牛图片&amp;视频审核返回的结果
-       * </pre>
-       *
-       * <code>QINIU_VIDEO_IMG_REVIEW_RESULT = 3;</code>
-       */
-      QINIU_VIDEO_IMG_REVIEW_RESULT(3),
-      /**
-       * <pre>
-       *七牛直播审核返回的结果
-       * </pre>
-       *
-       * <code>QINIU_LIVE_REVIEW_RESULT = 4;</code>
-       */
-      QINIU_LIVE_REVIEW_RESULT(4),
-      /**
-       * <pre>
-       *七牛需要审核的资源
-       * </pre>
-       *
-       * <code>QINIU_RES_WAIT_REVIEW_DATA = 5;</code>
-       */
-      QINIU_RES_WAIT_REVIEW_DATA(5),
-      /**
-       * <pre>
-       *短视频权重处理
-       * </pre>
-       *
-       * <code>VIDEO_WEIGHT = 6;</code>
-       */
-      VIDEO_WEIGHT(6),
-      /**
-       * <pre>
-       *店铺的基本信息
-       * </pre>
-       *
-       * <code>SHOP_LEGAL_SUBJECT = 7;</code>
-       */
-      SHOP_LEGAL_SUBJECT(7),
-      /**
-       * <pre>
-       *用户做任务获取金币
-       * </pre>
-       *
-       * <code>USER_TASK_COIN = 8;</code>
-       */
-      USER_TASK_COIN(8),
-      /**
-       * <pre>
-       *用户订单的超时
-       * </pre>
-       *
-       * <code>USER_ORDER_TIME = 9;</code>
-       */
-      USER_ORDER_TIME(9),
-      UNRECOGNIZED(-1),
-      ;
+    public interface QueueWorkInfoOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkInfo)
+            com.google.protobuf.MessageOrBuilder {
 
-      /**
-       * <code>SEND_PHONE_CODE = 0;</code>
-       */
-      public static final int SEND_PHONE_CODE_VALUE = 0;
-      /**
-       * <pre>
-       *点赞
-       * </pre>
-       *
-       * <code>HEART = 1;</code>
-       */
-      public static final int HEART_VALUE = 1;
-      /**
-       * <pre>
-       *推送
-       * </pre>
-       *
-       * <code>PUSH = 2;</code>
-       */
-      public static final int PUSH_VALUE = 2;
-      /**
-       * <pre>
-       *七牛图片&amp;视频审核返回的结果
-       * </pre>
-       *
-       * <code>QINIU_VIDEO_IMG_REVIEW_RESULT = 3;</code>
-       */
-      public static final int QINIU_VIDEO_IMG_REVIEW_RESULT_VALUE = 3;
-      /**
-       * <pre>
-       *七牛直播审核返回的结果
-       * </pre>
-       *
-       * <code>QINIU_LIVE_REVIEW_RESULT = 4;</code>
-       */
-      public static final int QINIU_LIVE_REVIEW_RESULT_VALUE = 4;
-      /**
-       * <pre>
-       *七牛需要审核的资源
-       * </pre>
-       *
-       * <code>QINIU_RES_WAIT_REVIEW_DATA = 5;</code>
-       */
-      public static final int QINIU_RES_WAIT_REVIEW_DATA_VALUE = 5;
-      /**
-       * <pre>
-       *短视频权重处理
-       * </pre>
-       *
-       * <code>VIDEO_WEIGHT = 6;</code>
-       */
-      public static final int VIDEO_WEIGHT_VALUE = 6;
-      /**
-       * <pre>
-       *店铺的基本信息
-       * </pre>
-       *
-       * <code>SHOP_LEGAL_SUBJECT = 7;</code>
-       */
-      public static final int SHOP_LEGAL_SUBJECT_VALUE = 7;
-      /**
-       * <pre>
-       *用户做任务获取金币
-       * </pre>
-       *
-       * <code>USER_TASK_COIN = 8;</code>
-       */
-      public static final int USER_TASK_COIN_VALUE = 8;
-      /**
-       * <pre>
-       *用户订单的超时
-       * </pre>
-       *
-       * <code>USER_ORDER_TIME = 9;</code>
-       */
-      public static final int USER_ORDER_TIME_VALUE = 9;
+        /**
+         * <pre>
+         * 任务标识
+         * </pre>
+         *
+         * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
+         */
+        int getWorkTypeValue();
 
+        /**
+         * <pre>
+         * 任务标识
+         * </pre>
+         *
+         * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType();
 
-      public final int getNumber() {
-        if (this == UNRECOGNIZED) {
-          throw new java.lang.IllegalArgumentException(
-              "Can't get the number of an unknown enum value.");
-        }
-        return value;
-      }
+        /**
+         * <pre>
+         * 验证码数据
+         * </pre>
+         *
+         * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+         */
+        boolean hasPhoneCode();
 
-      /**
-       * @deprecated Use {@link #forNumber(int)} instead.
-       */
-      @java.lang.Deprecated
-      public static WorkTypeEnum valueOf(int value) {
-        return forNumber(value);
-      }
+        /**
+         * <pre>
+         * 验证码数据
+         * </pre>
+         *
+         * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getPhoneCode();
 
-      public static WorkTypeEnum forNumber(int value) {
-        switch (value) {
-          case 0: return SEND_PHONE_CODE;
-          case 1: return HEART;
-          case 2: return PUSH;
-          case 3: return QINIU_VIDEO_IMG_REVIEW_RESULT;
-          case 4: return QINIU_LIVE_REVIEW_RESULT;
-          case 5: return QINIU_RES_WAIT_REVIEW_DATA;
-          case 6: return VIDEO_WEIGHT;
-          case 7: return SHOP_LEGAL_SUBJECT;
-          case 8: return USER_TASK_COIN;
-          case 9: return USER_ORDER_TIME;
-          default: return null;
-        }
-      }
+        /**
+         * <pre>
+         * 验证码数据
+         * </pre>
+         *
+         * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder getPhoneCodeOrBuilder();
 
-      public static com.google.protobuf.Internal.EnumLiteMap<WorkTypeEnum>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static final com.google.protobuf.Internal.EnumLiteMap<
-          WorkTypeEnum> internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<WorkTypeEnum>() {
-              public WorkTypeEnum findValueByNumber(int number) {
-                return WorkTypeEnum.forNumber(number);
-              }
-            };
+        /**
+         * <pre>
+         * 点赞数据
+         * </pre>
+         *
+         * <code>.QueueWorkHeart heartData = 3;</code>
+         */
+        boolean hasHeartData();
 
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(ordinal());
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.getDescriptor().getEnumTypes().get(0);
-      }
+        /**
+         * <pre>
+         * 点赞数据
+         * </pre>
+         *
+         * <code>.QueueWorkHeart heartData = 3;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getHeartData();
 
-      private static final WorkTypeEnum[] VALUES = values();
+        /**
+         * <pre>
+         * 点赞数据
+         * </pre>
+         *
+         * <code>.QueueWorkHeart heartData = 3;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder getHeartDataOrBuilder();
 
-      public static WorkTypeEnum valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        if (desc.getIndex() == -1) {
-          return UNRECOGNIZED;
-        }
-        return VALUES[desc.getIndex()];
-      }
+        /**
+         * <pre>
+         * 推送数据
+         * </pre>
+         *
+         * <code>.QueueWorkPush pushData = 4;</code>
+         */
+        boolean hasPushData();
 
-      private final int value;
+        /**
+         * <pre>
+         * 推送数据
+         * </pre>
+         *
+         * <code>.QueueWorkPush pushData = 4;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getPushData();
 
-      private WorkTypeEnum(int value) {
-        this.value = value;
-      }
+        /**
+         * <pre>
+         * 推送数据
+         * </pre>
+         *
+         * <code>.QueueWorkPush pushData = 4;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder getPushDataOrBuilder();
 
-      // @@protoc_insertion_point(enum_scope:QueueWorkInfo.WorkTypeEnum)
-    }
+        /**
+         * <pre>
+         * 七牛审核的结果
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+         */
+        boolean hasQiniuReviewResult();
 
-    public static final int WORKTYPE_FIELD_NUMBER = 1;
-    private int workType_;
-    /**
-     * <pre>
-     *任务标识
-     * </pre>
-     *
-     * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
-     */
-    public int getWorkTypeValue() {
-      return workType_;
-    }
-    /**
-     * <pre>
-     *任务标识
-     * </pre>
-     *
-     * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType() {
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.valueOf(workType_);
-      return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.UNRECOGNIZED : result;
+        /**
+         * <pre>
+         * 七牛审核的结果
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getQiniuReviewResult();
+
+        /**
+         * <pre>
+         * 七牛审核的结果
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder getQiniuReviewResultOrBuilder();
+
+        /**
+         * <pre>
+         * 七牛需要待审核的资源
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+         */
+        boolean hasQiniuWaitReviewResData();
+
+        /**
+         * <pre>
+         * 七牛需要待审核的资源
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getQiniuWaitReviewResData();
+
+        /**
+         * <pre>
+         * 七牛需要待审核的资源
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder getQiniuWaitReviewResDataOrBuilder();
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+         */
+        boolean hasVideoWeightData();
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getVideoWeightData();
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder();
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+         */
+        boolean hasShopLegalSubjectData();
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getShopLegalSubjectData();
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder();
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+         */
+        boolean hasOrderTimeData();
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getOrderTimeData();
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+         */
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder();
+
+        boolean hasModifyShopInfo();
+
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getModifyShopInfo();
+
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder getModifyShopInfoOrBuilder();
+
     }
 
-    public static final int PHONECODE_FIELD_NUMBER = 2;
-    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode phoneCode_;
-    /**
-     * <pre>
-     *验证码数据
-     * </pre>
-     *
-     * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-     */
-    public boolean hasPhoneCode() {
-      return phoneCode_ != null;
-    }
-    /**
-     * <pre>
-     *验证码数据
-     * </pre>
-     *
-     * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getPhoneCode() {
-      return phoneCode_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance() : phoneCode_;
-    }
-    /**
-     * <pre>
-     *验证码数据
-     * </pre>
-     *
-     * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder getPhoneCodeOrBuilder() {
-      return getPhoneCode();
-    }
 
-    public static final int HEARTDATA_FIELD_NUMBER = 3;
-    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart heartData_;
-    /**
-     * <pre>
-     * 点赞数据
-     * </pre>
-     *
-     * <code>.QueueWorkHeart heartData = 3;</code>
-     */
-    public boolean hasHeartData() {
-      return heartData_ != null;
-    }
-    /**
-     * <pre>
-     * 点赞数据
-     * </pre>
-     *
-     * <code>.QueueWorkHeart heartData = 3;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getHeartData() {
-      return heartData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance() : heartData_;
-    }
-    /**
-     * <pre>
-     * 点赞数据
-     * </pre>
-     *
-     * <code>.QueueWorkHeart heartData = 3;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder getHeartDataOrBuilder() {
-      return getHeartData();
-    }
-
-    public static final int PUSHDATA_FIELD_NUMBER = 4;
-    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush pushData_;
-    /**
-     * <pre>
-     *推送数据
-     * </pre>
-     *
-     * <code>.QueueWorkPush pushData = 4;</code>
-     */
-    public boolean hasPushData() {
-      return pushData_ != null;
-    }
-    /**
-     * <pre>
-     *推送数据
-     * </pre>
-     *
-     * <code>.QueueWorkPush pushData = 4;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getPushData() {
-      return pushData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance() : pushData_;
-    }
-    /**
-     * <pre>
-     *推送数据
-     * </pre>
-     *
-     * <code>.QueueWorkPush pushData = 4;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder getPushDataOrBuilder() {
-      return getPushData();
-    }
-
-    public static final int QINIUREVIEWRESULT_FIELD_NUMBER = 5;
-    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult qiniuReviewResult_;
-    /**
-     * <pre>
-     *七牛审核的结果
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-     */
-    public boolean hasQiniuReviewResult() {
-      return qiniuReviewResult_ != null;
-    }
-    /**
-     * <pre>
-     *七牛审核的结果
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getQiniuReviewResult() {
-      return qiniuReviewResult_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance() : qiniuReviewResult_;
-    }
-    /**
-     * <pre>
-     *七牛审核的结果
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder getQiniuReviewResultOrBuilder() {
-      return getQiniuReviewResult();
-    }
-
-    public static final int QINIUWAITREVIEWRESDATA_FIELD_NUMBER = 6;
-    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData_;
-    /**
-     * <pre>
-     *七牛需要待审核的资源
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-     */
-    public boolean hasQiniuWaitReviewResData() {
-      return qiniuWaitReviewResData_ != null;
-    }
-    /**
-     * <pre>
-     *七牛需要待审核的资源
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getQiniuWaitReviewResData() {
-      return qiniuWaitReviewResData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance() : qiniuWaitReviewResData_;
-    }
-    /**
-     * <pre>
-     *七牛需要待审核的资源
-     * </pre>
-     *
-     * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder getQiniuWaitReviewResDataOrBuilder() {
-      return getQiniuWaitReviewResData();
-    }
-
-    public static final int VIDEOWEIGHTDATA_FIELD_NUMBER = 7;
-    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData videoWeightData_;
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-     */
-    public boolean hasVideoWeightData() {
-      return videoWeightData_ != null;
-    }
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getVideoWeightData() {
-      return videoWeightData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance() : videoWeightData_;
-    }
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder() {
-      return getVideoWeightData();
-    }
-
-    public static final int SHOPLEGALSUBJECTDATA_FIELD_NUMBER = 8;
-    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData shopLegalSubjectData_;
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-     */
-    public boolean hasShopLegalSubjectData() {
-      return shopLegalSubjectData_ != null;
-    }
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getShopLegalSubjectData() {
-      return shopLegalSubjectData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance() : shopLegalSubjectData_;
-    }
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder() {
-      return getShopLegalSubjectData();
-    }
-
-    public static final int ORDERTIMEDATA_FIELD_NUMBER = 9;
-    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData_;
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-     */
-    public boolean hasOrderTimeData() {
-      return orderTimeData_ != null;
-    }
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getOrderTimeData() {
-      return orderTimeData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance() : orderTimeData_;
-    }
-    /**
-     * <pre>
-     *数据
-     * </pre>
-     *
-     * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-     */
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder() {
-      return getOrderTimeData();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (workType_ != com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE.getNumber()) {
-        output.writeEnum(1, workType_);
-      }
-      if (phoneCode_ != null) {
-        output.writeMessage(2, getPhoneCode());
-      }
-      if (heartData_ != null) {
-        output.writeMessage(3, getHeartData());
-      }
-      if (pushData_ != null) {
-        output.writeMessage(4, getPushData());
-      }
-      if (qiniuReviewResult_ != null) {
-        output.writeMessage(5, getQiniuReviewResult());
-      }
-      if (qiniuWaitReviewResData_ != null) {
-        output.writeMessage(6, getQiniuWaitReviewResData());
-      }
-      if (videoWeightData_ != null) {
-        output.writeMessage(7, getVideoWeightData());
-      }
-      if (shopLegalSubjectData_ != null) {
-        output.writeMessage(8, getShopLegalSubjectData());
-      }
-      if (orderTimeData_ != null) {
-        output.writeMessage(9, getOrderTimeData());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (workType_ != com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE.getNumber()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, workType_);
-      }
-      if (phoneCode_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getPhoneCode());
-      }
-      if (heartData_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getHeartData());
-      }
-      if (pushData_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getPushData());
-      }
-      if (qiniuReviewResult_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, getQiniuReviewResult());
-      }
-      if (qiniuWaitReviewResData_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, getQiniuWaitReviewResData());
-      }
-      if (videoWeightData_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, getVideoWeightData());
-      }
-      if (shopLegalSubjectData_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, getShopLegalSubjectData());
-      }
-      if (orderTimeData_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, getOrderTimeData());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) obj;
-
-      boolean result = true;
-      result = result && workType_ == other.workType_;
-      result = result && (hasPhoneCode() == other.hasPhoneCode());
-      if (hasPhoneCode()) {
-        result = result && getPhoneCode()
-            .equals(other.getPhoneCode());
-      }
-      result = result && (hasHeartData() == other.hasHeartData());
-      if (hasHeartData()) {
-        result = result && getHeartData()
-            .equals(other.getHeartData());
-      }
-      result = result && (hasPushData() == other.hasPushData());
-      if (hasPushData()) {
-        result = result && getPushData()
-            .equals(other.getPushData());
-      }
-      result = result && (hasQiniuReviewResult() == other.hasQiniuReviewResult());
-      if (hasQiniuReviewResult()) {
-        result = result && getQiniuReviewResult()
-            .equals(other.getQiniuReviewResult());
-      }
-      result = result && (hasQiniuWaitReviewResData() == other.hasQiniuWaitReviewResData());
-      if (hasQiniuWaitReviewResData()) {
-        result = result && getQiniuWaitReviewResData()
-            .equals(other.getQiniuWaitReviewResData());
-      }
-      result = result && (hasVideoWeightData() == other.hasVideoWeightData());
-      if (hasVideoWeightData()) {
-        result = result && getVideoWeightData()
-            .equals(other.getVideoWeightData());
-      }
-      result = result && (hasShopLegalSubjectData() == other.hasShopLegalSubjectData());
-      if (hasShopLegalSubjectData()) {
-        result = result && getShopLegalSubjectData()
-            .equals(other.getShopLegalSubjectData());
-      }
-      result = result && (hasOrderTimeData() == other.hasOrderTimeData());
-      if (hasOrderTimeData()) {
-        result = result && getOrderTimeData()
-            .equals(other.getOrderTimeData());
-      }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + WORKTYPE_FIELD_NUMBER;
-      hash = (53 * hash) + workType_;
-      if (hasPhoneCode()) {
-        hash = (37 * hash) + PHONECODE_FIELD_NUMBER;
-        hash = (53 * hash) + getPhoneCode().hashCode();
-      }
-      if (hasHeartData()) {
-        hash = (37 * hash) + HEARTDATA_FIELD_NUMBER;
-        hash = (53 * hash) + getHeartData().hashCode();
-      }
-      if (hasPushData()) {
-        hash = (37 * hash) + PUSHDATA_FIELD_NUMBER;
-        hash = (53 * hash) + getPushData().hashCode();
-      }
-      if (hasQiniuReviewResult()) {
-        hash = (37 * hash) + QINIUREVIEWRESULT_FIELD_NUMBER;
-        hash = (53 * hash) + getQiniuReviewResult().hashCode();
-      }
-      if (hasQiniuWaitReviewResData()) {
-        hash = (37 * hash) + QINIUWAITREVIEWRESDATA_FIELD_NUMBER;
-        hash = (53 * hash) + getQiniuWaitReviewResData().hashCode();
-      }
-      if (hasVideoWeightData()) {
-        hash = (37 * hash) + VIDEOWEIGHTDATA_FIELD_NUMBER;
-        hash = (53 * hash) + getVideoWeightData().hashCode();
-      }
-      if (hasShopLegalSubjectData()) {
-        hash = (37 * hash) + SHOPLEGALSUBJECTDATA_FIELD_NUMBER;
-        hash = (53 * hash) + getShopLegalSubjectData().hashCode();
-      }
-      if (hasOrderTimeData()) {
-        hash = (37 * hash) + ORDERTIMEDATA_FIELD_NUMBER;
-        hash = (53 * hash) + getOrderTimeData().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * Protobuf type {@code QueueWorkInfo}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkInfo)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
-      }
+    public static final class QueueWorkInfo extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkInfo)
+            QueueWorkInfoOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        workType_ = 0;
-
-        if (phoneCodeBuilder_ == null) {
-          phoneCode_ = null;
-        } else {
-          phoneCode_ = null;
-          phoneCodeBuilder_ = null;
-        }
-        if (heartDataBuilder_ == null) {
-          heartData_ = null;
-        } else {
-          heartData_ = null;
-          heartDataBuilder_ = null;
-        }
-        if (pushDataBuilder_ == null) {
-          pushData_ = null;
-        } else {
-          pushData_ = null;
-          pushDataBuilder_ = null;
-        }
-        if (qiniuReviewResultBuilder_ == null) {
-          qiniuReviewResult_ = null;
-        } else {
-          qiniuReviewResult_ = null;
-          qiniuReviewResultBuilder_ = null;
-        }
-        if (qiniuWaitReviewResDataBuilder_ == null) {
-          qiniuWaitReviewResData_ = null;
-        } else {
-          qiniuWaitReviewResData_ = null;
-          qiniuWaitReviewResDataBuilder_ = null;
-        }
-        if (videoWeightDataBuilder_ == null) {
-          videoWeightData_ = null;
-        } else {
-          videoWeightData_ = null;
-          videoWeightDataBuilder_ = null;
-        }
-        if (shopLegalSubjectDataBuilder_ == null) {
-          shopLegalSubjectData_ = null;
-        } else {
-          shopLegalSubjectData_ = null;
-          shopLegalSubjectDataBuilder_ = null;
-        }
-        if (orderTimeDataBuilder_ == null) {
-          orderTimeData_ = null;
-        } else {
-          orderTimeData_ = null;
-          orderTimeDataBuilder_ = null;
-        }
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo(this);
-        result.workType_ = workType_;
-        if (phoneCodeBuilder_ == null) {
-          result.phoneCode_ = phoneCode_;
-        } else {
-          result.phoneCode_ = phoneCodeBuilder_.build();
-        }
-        if (heartDataBuilder_ == null) {
-          result.heartData_ = heartData_;
-        } else {
-          result.heartData_ = heartDataBuilder_.build();
-        }
-        if (pushDataBuilder_ == null) {
-          result.pushData_ = pushData_;
-        } else {
-          result.pushData_ = pushDataBuilder_.build();
-        }
-        if (qiniuReviewResultBuilder_ == null) {
-          result.qiniuReviewResult_ = qiniuReviewResult_;
-        } else {
-          result.qiniuReviewResult_ = qiniuReviewResultBuilder_.build();
-        }
-        if (qiniuWaitReviewResDataBuilder_ == null) {
-          result.qiniuWaitReviewResData_ = qiniuWaitReviewResData_;
-        } else {
-          result.qiniuWaitReviewResData_ = qiniuWaitReviewResDataBuilder_.build();
-        }
-        if (videoWeightDataBuilder_ == null) {
-          result.videoWeightData_ = videoWeightData_;
-        } else {
-          result.videoWeightData_ = videoWeightDataBuilder_.build();
-        }
-        if (shopLegalSubjectDataBuilder_ == null) {
-          result.shopLegalSubjectData_ = shopLegalSubjectData_;
-        } else {
-          result.shopLegalSubjectData_ = shopLegalSubjectDataBuilder_.build();
-        }
-        if (orderTimeDataBuilder_ == null) {
-          result.orderTimeData_ = orderTimeData_;
-        } else {
-          result.orderTimeData_ = orderTimeDataBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.getDefaultInstance()) return this;
-        if (other.workType_ != 0) {
-          setWorkTypeValue(other.getWorkTypeValue());
-        }
-        if (other.hasPhoneCode()) {
-          mergePhoneCode(other.getPhoneCode());
-        }
-        if (other.hasHeartData()) {
-          mergeHeartData(other.getHeartData());
-        }
-        if (other.hasPushData()) {
-          mergePushData(other.getPushData());
-        }
-        if (other.hasQiniuReviewResult()) {
-          mergeQiniuReviewResult(other.getQiniuReviewResult());
-        }
-        if (other.hasQiniuWaitReviewResData()) {
-          mergeQiniuWaitReviewResData(other.getQiniuWaitReviewResData());
-        }
-        if (other.hasVideoWeightData()) {
-          mergeVideoWeightData(other.getVideoWeightData());
-        }
-        if (other.hasShopLegalSubjectData()) {
-          mergeShopLegalSubjectData(other.getShopLegalSubjectData());
-        }
-        if (other.hasOrderTimeData()) {
-          mergeOrderTimeData(other.getOrderTimeData());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private int workType_ = 0;
-      /**
-       * <pre>
-       *任务标识
-       * </pre>
-       *
-       * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
-       */
-      public int getWorkTypeValue() {
-        return workType_;
-      }
-      /**
-       * <pre>
-       *任务标识
-       * </pre>
-       *
-       * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
-       */
-      public Builder setWorkTypeValue(int value) {
-        workType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *任务标识
-       * </pre>
-       *
-       * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.valueOf(workType_);
-        return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.UNRECOGNIZED : result;
-      }
-      /**
-       * <pre>
-       *任务标识
-       * </pre>
-       *
-       * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
-       */
-      public Builder setWorkType(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        
-        workType_ = value.getNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *任务标识
-       * </pre>
-       *
-       * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
-       */
-      public Builder clearWorkType() {
-        
-        workType_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode phoneCode_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder> phoneCodeBuilder_;
-      /**
-       * <pre>
-       *验证码数据
-       * </pre>
-       *
-       * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-       */
-      public boolean hasPhoneCode() {
-        return phoneCodeBuilder_ != null || phoneCode_ != null;
-      }
-      /**
-       * <pre>
-       *验证码数据
-       * </pre>
-       *
-       * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getPhoneCode() {
-        if (phoneCodeBuilder_ == null) {
-          return phoneCode_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance() : phoneCode_;
-        } else {
-          return phoneCodeBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       *验证码数据
-       * </pre>
-       *
-       * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-       */
-      public Builder setPhoneCode(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode value) {
-        if (phoneCodeBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          phoneCode_ = value;
-          onChanged();
-        } else {
-          phoneCodeBuilder_.setMessage(value);
+        // Use QueueWorkInfo.newBuilder() to construct.
+        private QueueWorkInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
 
-        return this;
-      }
-      /**
-       * <pre>
-       *验证码数据
-       * </pre>
-       *
-       * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-       */
-      public Builder setPhoneCode(
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder builderForValue) {
-        if (phoneCodeBuilder_ == null) {
-          phoneCode_ = builderForValue.build();
-          onChanged();
-        } else {
-          phoneCodeBuilder_.setMessage(builderForValue.build());
+        private QueueWorkInfo() {
+            workType_ = 0;
         }
 
-        return this;
-      }
-      /**
-       * <pre>
-       *验证码数据
-       * </pre>
-       *
-       * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-       */
-      public Builder mergePhoneCode(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode value) {
-        if (phoneCodeBuilder_ == null) {
-          if (phoneCode_ != null) {
-            phoneCode_ =
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.newBuilder(phoneCode_).mergeFrom(value).buildPartial();
-          } else {
-            phoneCode_ = value;
-          }
-          onChanged();
-        } else {
-          phoneCodeBuilder_.mergeFrom(value);
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
 
-        return this;
-      }
-      /**
-       * <pre>
-       *验证码数据
-       * </pre>
-       *
-       * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-       */
-      public Builder clearPhoneCode() {
-        if (phoneCodeBuilder_ == null) {
-          phoneCode_ = null;
-          onChanged();
-        } else {
-          phoneCode_ = null;
-          phoneCodeBuilder_ = null;
+        private QueueWorkInfo(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 8: {
+                            int rawValue = input.readEnum();
+
+                            workType_ = rawValue;
+                            break;
+                        }
+                        case 18: {
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder subBuilder = null;
+                            if (phoneCode_ != null) {
+                                subBuilder = phoneCode_.toBuilder();
+                            }
+                            phoneCode_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(phoneCode_);
+                                phoneCode_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 26: {
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder subBuilder = null;
+                            if (heartData_ != null) {
+                                subBuilder = heartData_.toBuilder();
+                            }
+                            heartData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(heartData_);
+                                heartData_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 34: {
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder subBuilder = null;
+                            if (pushData_ != null) {
+                                subBuilder = pushData_.toBuilder();
+                            }
+                            pushData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(pushData_);
+                                pushData_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 42: {
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder subBuilder = null;
+                            if (qiniuReviewResult_ != null) {
+                                subBuilder = qiniuReviewResult_.toBuilder();
+                            }
+                            qiniuReviewResult_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(qiniuReviewResult_);
+                                qiniuReviewResult_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 50: {
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder subBuilder = null;
+                            if (qiniuWaitReviewResData_ != null) {
+                                subBuilder = qiniuWaitReviewResData_.toBuilder();
+                            }
+                            qiniuWaitReviewResData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(qiniuWaitReviewResData_);
+                                qiniuWaitReviewResData_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 58: {
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder subBuilder = null;
+                            if (videoWeightData_ != null) {
+                                subBuilder = videoWeightData_.toBuilder();
+                            }
+                            videoWeightData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(videoWeightData_);
+                                videoWeightData_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 66: {
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder subBuilder = null;
+                            if (shopLegalSubjectData_ != null) {
+                                subBuilder = shopLegalSubjectData_.toBuilder();
+                            }
+                            shopLegalSubjectData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(shopLegalSubjectData_);
+                                shopLegalSubjectData_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 74: {
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder subBuilder = null;
+                            if (orderTimeData_ != null) {
+                                subBuilder = orderTimeData_.toBuilder();
+                            }
+                            orderTimeData_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(orderTimeData_);
+                                orderTimeData_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 82: {
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder subBuilder = null;
+                            if (modifyShopInfo_ != null) {
+                                subBuilder = modifyShopInfo_.toBuilder();
+                            }
+                            modifyShopInfo_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(modifyShopInfo_);
+                                modifyShopInfo_ = subBuilder.buildPartial();
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
         }
 
-        return this;
-      }
-      /**
-       * <pre>
-       *验证码数据
-       * </pre>
-       *
-       * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder getPhoneCodeBuilder() {
-        
-        onChanged();
-        return getPhoneCodeFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       *验证码数据
-       * </pre>
-       *
-       * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder getPhoneCodeOrBuilder() {
-        if (phoneCodeBuilder_ != null) {
-          return phoneCodeBuilder_.getMessageOrBuilder();
-        } else {
-          return phoneCode_ == null ?
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance() : phoneCode_;
-        }
-      }
-      /**
-       * <pre>
-       *验证码数据
-       * </pre>
-       *
-       * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder> 
-          getPhoneCodeFieldBuilder() {
-        if (phoneCodeBuilder_ == null) {
-          phoneCodeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder>(
-                  getPhoneCode(),
-                  getParentForChildren(),
-                  isClean());
-          phoneCode_ = null;
-        }
-        return phoneCodeBuilder_;
-      }
-
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart heartData_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder> heartDataBuilder_;
-      /**
-       * <pre>
-       * 点赞数据
-       * </pre>
-       *
-       * <code>.QueueWorkHeart heartData = 3;</code>
-       */
-      public boolean hasHeartData() {
-        return heartDataBuilder_ != null || heartData_ != null;
-      }
-      /**
-       * <pre>
-       * 点赞数据
-       * </pre>
-       *
-       * <code>.QueueWorkHeart heartData = 3;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getHeartData() {
-        if (heartDataBuilder_ == null) {
-          return heartData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance() : heartData_;
-        } else {
-          return heartDataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * 点赞数据
-       * </pre>
-       *
-       * <code>.QueueWorkHeart heartData = 3;</code>
-       */
-      public Builder setHeartData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart value) {
-        if (heartDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          heartData_ = value;
-          onChanged();
-        } else {
-          heartDataBuilder_.setMessage(value);
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
         }
 
-        return this;
-      }
-      /**
-       * <pre>
-       * 点赞数据
-       * </pre>
-       *
-       * <code>.QueueWorkHeart heartData = 3;</code>
-       */
-      public Builder setHeartData(
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder builderForValue) {
-        if (heartDataBuilder_ == null) {
-          heartData_ = builderForValue.build();
-          onChanged();
-        } else {
-          heartDataBuilder_.setMessage(builderForValue.build());
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.Builder.class);
         }
 
-        return this;
-      }
-      /**
-       * <pre>
-       * 点赞数据
-       * </pre>
-       *
-       * <code>.QueueWorkHeart heartData = 3;</code>
-       */
-      public Builder mergeHeartData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart value) {
-        if (heartDataBuilder_ == null) {
-          if (heartData_ != null) {
-            heartData_ =
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.newBuilder(heartData_).mergeFrom(value).buildPartial();
-          } else {
-            heartData_ = value;
-          }
-          onChanged();
-        } else {
-          heartDataBuilder_.mergeFrom(value);
-        }
+        /**
+         * Protobuf enum {@code QueueWorkInfo.WorkTypeEnum}
+         */
+        public enum WorkTypeEnum
+                implements com.google.protobuf.ProtocolMessageEnum {
+            /**
+             * <code>SEND_PHONE_CODE = 0;</code>
+             */
+            SEND_PHONE_CODE(0),
+            /**
+             * <pre>
+             * 点赞
+             * </pre>
+             *
+             * <code>HEART = 1;</code>
+             */
+            HEART(1),
+            /**
+             * <pre>
+             * 推送
+             * </pre>
+             *
+             * <code>PUSH = 2;</code>
+             */
+            PUSH(2),
+            /**
+             * <pre>
+             * 七牛图片&amp;视频审核返回的结果
+             * </pre>
+             *
+             * <code>QINIU_VIDEO_IMG_REVIEW_RESULT = 3;</code>
+             */
+            QINIU_VIDEO_IMG_REVIEW_RESULT(3),
+            /**
+             * <pre>
+             * 七牛直播审核返回的结果
+             * </pre>
+             *
+             * <code>QINIU_LIVE_REVIEW_RESULT = 4;</code>
+             */
+            QINIU_LIVE_REVIEW_RESULT(4),
+            /**
+             * <pre>
+             * 七牛需要审核的资源
+             * </pre>
+             *
+             * <code>QINIU_RES_WAIT_REVIEW_DATA = 5;</code>
+             */
+            QINIU_RES_WAIT_REVIEW_DATA(5),
+            /**
+             * <pre>
+             * 短视频权重处理
+             * </pre>
+             *
+             * <code>VIDEO_WEIGHT = 6;</code>
+             */
+            VIDEO_WEIGHT(6),
+            /**
+             * <pre>
+             * 店铺的基本信息
+             * </pre>
+             *
+             * <code>SHOP_LEGAL_SUBJECT = 7;</code>
+             */
+            SHOP_LEGAL_SUBJECT(7),
+            /**
+             * <pre>
+             * 用户做任务获取金币
+             * </pre>
+             *
+             * <code>USER_TASK_COIN = 8;</code>
+             */
+            USER_TASK_COIN(8),
+            /**
+             * <pre>
+             * 用户订单的超时
+             * </pre>
+             *
+             * <code>USER_ORDER_TIME = 9;</code>
+             */
+            USER_ORDER_TIME(9),
+            MODIFY_SHOP_INFO(10),
+            UNRECOGNIZED(-1),
+            ;
 
-        return this;
-      }
-      /**
-       * <pre>
-       * 点赞数据
-       * </pre>
-       *
-       * <code>.QueueWorkHeart heartData = 3;</code>
-       */
-      public Builder clearHeartData() {
-        if (heartDataBuilder_ == null) {
-          heartData_ = null;
-          onChanged();
-        } else {
-          heartData_ = null;
-          heartDataBuilder_ = null;
-        }
+            /**
+             * <code>SEND_PHONE_CODE = 0;</code>
+             */
+            public static final int SEND_PHONE_CODE_VALUE = 0;
+            /**
+             * <pre>
+             * 点赞
+             * </pre>
+             *
+             * <code>HEART = 1;</code>
+             */
+            public static final int HEART_VALUE = 1;
+            /**
+             * <pre>
+             * 推送
+             * </pre>
+             *
+             * <code>PUSH = 2;</code>
+             */
+            public static final int PUSH_VALUE = 2;
+            /**
+             * <pre>
+             * 七牛图片&amp;视频审核返回的结果
+             * </pre>
+             *
+             * <code>QINIU_VIDEO_IMG_REVIEW_RESULT = 3;</code>
+             */
+            public static final int QINIU_VIDEO_IMG_REVIEW_RESULT_VALUE = 3;
+            /**
+             * <pre>
+             * 七牛直播审核返回的结果
+             * </pre>
+             *
+             * <code>QINIU_LIVE_REVIEW_RESULT = 4;</code>
+             */
+            public static final int QINIU_LIVE_REVIEW_RESULT_VALUE = 4;
+            /**
+             * <pre>
+             * 七牛需要审核的资源
+             * </pre>
+             *
+             * <code>QINIU_RES_WAIT_REVIEW_DATA = 5;</code>
+             */
+            public static final int QINIU_RES_WAIT_REVIEW_DATA_VALUE = 5;
+            /**
+             * <pre>
+             * 短视频权重处理
+             * </pre>
+             *
+             * <code>VIDEO_WEIGHT = 6;</code>
+             */
+            public static final int VIDEO_WEIGHT_VALUE = 6;
+            /**
+             * <pre>
+             * 店铺的基本信息
+             * </pre>
+             *
+             * <code>SHOP_LEGAL_SUBJECT = 7;</code>
+             */
+            public static final int SHOP_LEGAL_SUBJECT_VALUE = 7;
+            /**
+             * <pre>
+             * 用户做任务获取金币
+             * </pre>
+             *
+             * <code>USER_TASK_COIN = 8;</code>
+             */
+            public static final int USER_TASK_COIN_VALUE = 8;
+            /**
+             * <pre>
+             * 用户订单的超时
+             * </pre>
+             *
+             * <code>USER_ORDER_TIME = 9;</code>
+             */
+            public static final int USER_ORDER_TIME_VALUE = 9;
 
-        return this;
-      }
-      /**
-       * <pre>
-       * 点赞数据
-       * </pre>
-       *
-       * <code>.QueueWorkHeart heartData = 3;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder getHeartDataBuilder() {
-        
-        onChanged();
-        return getHeartDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * 点赞数据
-       * </pre>
-       *
-       * <code>.QueueWorkHeart heartData = 3;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder getHeartDataOrBuilder() {
-        if (heartDataBuilder_ != null) {
-          return heartDataBuilder_.getMessageOrBuilder();
-        } else {
-          return heartData_ == null ?
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance() : heartData_;
-        }
-      }
-      /**
-       * <pre>
-       * 点赞数据
-       * </pre>
-       *
-       * <code>.QueueWorkHeart heartData = 3;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder> 
-          getHeartDataFieldBuilder() {
-        if (heartDataBuilder_ == null) {
-          heartDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder>(
-                  getHeartData(),
-                  getParentForChildren(),
-                  isClean());
-          heartData_ = null;
-        }
-        return heartDataBuilder_;
-      }
-
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush pushData_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder> pushDataBuilder_;
-      /**
-       * <pre>
-       *推送数据
-       * </pre>
-       *
-       * <code>.QueueWorkPush pushData = 4;</code>
-       */
-      public boolean hasPushData() {
-        return pushDataBuilder_ != null || pushData_ != null;
-      }
-      /**
-       * <pre>
-       *推送数据
-       * </pre>
-       *
-       * <code>.QueueWorkPush pushData = 4;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getPushData() {
-        if (pushDataBuilder_ == null) {
-          return pushData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance() : pushData_;
-        } else {
-          return pushDataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       *推送数据
-       * </pre>
-       *
-       * <code>.QueueWorkPush pushData = 4;</code>
-       */
-      public Builder setPushData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush value) {
-        if (pushDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          pushData_ = value;
-          onChanged();
-        } else {
-          pushDataBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *推送数据
-       * </pre>
-       *
-       * <code>.QueueWorkPush pushData = 4;</code>
-       */
-      public Builder setPushData(
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder builderForValue) {
-        if (pushDataBuilder_ == null) {
-          pushData_ = builderForValue.build();
-          onChanged();
-        } else {
-          pushDataBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *推送数据
-       * </pre>
-       *
-       * <code>.QueueWorkPush pushData = 4;</code>
-       */
-      public Builder mergePushData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush value) {
-        if (pushDataBuilder_ == null) {
-          if (pushData_ != null) {
-            pushData_ =
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.newBuilder(pushData_).mergeFrom(value).buildPartial();
-          } else {
-            pushData_ = value;
-          }
-          onChanged();
-        } else {
-          pushDataBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *推送数据
-       * </pre>
-       *
-       * <code>.QueueWorkPush pushData = 4;</code>
-       */
-      public Builder clearPushData() {
-        if (pushDataBuilder_ == null) {
-          pushData_ = null;
-          onChanged();
-        } else {
-          pushData_ = null;
-          pushDataBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *推送数据
-       * </pre>
-       *
-       * <code>.QueueWorkPush pushData = 4;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder getPushDataBuilder() {
-        
-        onChanged();
-        return getPushDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       *推送数据
-       * </pre>
-       *
-       * <code>.QueueWorkPush pushData = 4;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder getPushDataOrBuilder() {
-        if (pushDataBuilder_ != null) {
-          return pushDataBuilder_.getMessageOrBuilder();
-        } else {
-          return pushData_ == null ?
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance() : pushData_;
-        }
-      }
-      /**
-       * <pre>
-       *推送数据
-       * </pre>
-       *
-       * <code>.QueueWorkPush pushData = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder> 
-          getPushDataFieldBuilder() {
-        if (pushDataBuilder_ == null) {
-          pushDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder>(
-                  getPushData(),
-                  getParentForChildren(),
-                  isClean());
-          pushData_ = null;
-        }
-        return pushDataBuilder_;
-      }
-
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult qiniuReviewResult_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder> qiniuReviewResultBuilder_;
-      /**
-       * <pre>
-       *七牛审核的结果
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-       */
-      public boolean hasQiniuReviewResult() {
-        return qiniuReviewResultBuilder_ != null || qiniuReviewResult_ != null;
-      }
-      /**
-       * <pre>
-       *七牛审核的结果
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getQiniuReviewResult() {
-        if (qiniuReviewResultBuilder_ == null) {
-          return qiniuReviewResult_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance() : qiniuReviewResult_;
-        } else {
-          return qiniuReviewResultBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       *七牛审核的结果
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-       */
-      public Builder setQiniuReviewResult(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult value) {
-        if (qiniuReviewResultBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          qiniuReviewResult_ = value;
-          onChanged();
-        } else {
-          qiniuReviewResultBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛审核的结果
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-       */
-      public Builder setQiniuReviewResult(
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder builderForValue) {
-        if (qiniuReviewResultBuilder_ == null) {
-          qiniuReviewResult_ = builderForValue.build();
-          onChanged();
-        } else {
-          qiniuReviewResultBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛审核的结果
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-       */
-      public Builder mergeQiniuReviewResult(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult value) {
-        if (qiniuReviewResultBuilder_ == null) {
-          if (qiniuReviewResult_ != null) {
-            qiniuReviewResult_ =
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.newBuilder(qiniuReviewResult_).mergeFrom(value).buildPartial();
-          } else {
-            qiniuReviewResult_ = value;
-          }
-          onChanged();
-        } else {
-          qiniuReviewResultBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛审核的结果
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-       */
-      public Builder clearQiniuReviewResult() {
-        if (qiniuReviewResultBuilder_ == null) {
-          qiniuReviewResult_ = null;
-          onChanged();
-        } else {
-          qiniuReviewResult_ = null;
-          qiniuReviewResultBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛审核的结果
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder getQiniuReviewResultBuilder() {
-        
-        onChanged();
-        return getQiniuReviewResultFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       *七牛审核的结果
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder getQiniuReviewResultOrBuilder() {
-        if (qiniuReviewResultBuilder_ != null) {
-          return qiniuReviewResultBuilder_.getMessageOrBuilder();
-        } else {
-          return qiniuReviewResult_ == null ?
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance() : qiniuReviewResult_;
-        }
-      }
-      /**
-       * <pre>
-       *七牛审核的结果
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder> 
-          getQiniuReviewResultFieldBuilder() {
-        if (qiniuReviewResultBuilder_ == null) {
-          qiniuReviewResultBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder>(
-                  getQiniuReviewResult(),
-                  getParentForChildren(),
-                  isClean());
-          qiniuReviewResult_ = null;
-        }
-        return qiniuReviewResultBuilder_;
-      }
-
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder> qiniuWaitReviewResDataBuilder_;
-      /**
-       * <pre>
-       *七牛需要待审核的资源
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-       */
-      public boolean hasQiniuWaitReviewResData() {
-        return qiniuWaitReviewResDataBuilder_ != null || qiniuWaitReviewResData_ != null;
-      }
-      /**
-       * <pre>
-       *七牛需要待审核的资源
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getQiniuWaitReviewResData() {
-        if (qiniuWaitReviewResDataBuilder_ == null) {
-          return qiniuWaitReviewResData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance() : qiniuWaitReviewResData_;
-        } else {
-          return qiniuWaitReviewResDataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       *七牛需要待审核的资源
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-       */
-      public Builder setQiniuWaitReviewResData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData value) {
-        if (qiniuWaitReviewResDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          qiniuWaitReviewResData_ = value;
-          onChanged();
-        } else {
-          qiniuWaitReviewResDataBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛需要待审核的资源
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-       */
-      public Builder setQiniuWaitReviewResData(
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder builderForValue) {
-        if (qiniuWaitReviewResDataBuilder_ == null) {
-          qiniuWaitReviewResData_ = builderForValue.build();
-          onChanged();
-        } else {
-          qiniuWaitReviewResDataBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛需要待审核的资源
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-       */
-      public Builder mergeQiniuWaitReviewResData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData value) {
-        if (qiniuWaitReviewResDataBuilder_ == null) {
-          if (qiniuWaitReviewResData_ != null) {
-            qiniuWaitReviewResData_ =
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.newBuilder(qiniuWaitReviewResData_).mergeFrom(value).buildPartial();
-          } else {
-            qiniuWaitReviewResData_ = value;
-          }
-          onChanged();
-        } else {
-          qiniuWaitReviewResDataBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛需要待审核的资源
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-       */
-      public Builder clearQiniuWaitReviewResData() {
-        if (qiniuWaitReviewResDataBuilder_ == null) {
-          qiniuWaitReviewResData_ = null;
-          onChanged();
-        } else {
-          qiniuWaitReviewResData_ = null;
-          qiniuWaitReviewResDataBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛需要待审核的资源
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder getQiniuWaitReviewResDataBuilder() {
-        
-        onChanged();
-        return getQiniuWaitReviewResDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       *七牛需要待审核的资源
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder getQiniuWaitReviewResDataOrBuilder() {
-        if (qiniuWaitReviewResDataBuilder_ != null) {
-          return qiniuWaitReviewResDataBuilder_.getMessageOrBuilder();
-        } else {
-          return qiniuWaitReviewResData_ == null ?
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance() : qiniuWaitReviewResData_;
-        }
-      }
-      /**
-       * <pre>
-       *七牛需要待审核的资源
-       * </pre>
-       *
-       * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder> 
-          getQiniuWaitReviewResDataFieldBuilder() {
-        if (qiniuWaitReviewResDataBuilder_ == null) {
-          qiniuWaitReviewResDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder>(
-                  getQiniuWaitReviewResData(),
-                  getParentForChildren(),
-                  isClean());
-          qiniuWaitReviewResData_ = null;
-        }
-        return qiniuWaitReviewResDataBuilder_;
-      }
-
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData videoWeightData_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder> videoWeightDataBuilder_;
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-       */
-      public boolean hasVideoWeightData() {
-        return videoWeightDataBuilder_ != null || videoWeightData_ != null;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getVideoWeightData() {
-        if (videoWeightDataBuilder_ == null) {
-          return videoWeightData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance() : videoWeightData_;
-        } else {
-          return videoWeightDataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-       */
-      public Builder setVideoWeightData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData value) {
-        if (videoWeightDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          videoWeightData_ = value;
-          onChanged();
-        } else {
-          videoWeightDataBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-       */
-      public Builder setVideoWeightData(
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder builderForValue) {
-        if (videoWeightDataBuilder_ == null) {
-          videoWeightData_ = builderForValue.build();
-          onChanged();
-        } else {
-          videoWeightDataBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-       */
-      public Builder mergeVideoWeightData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData value) {
-        if (videoWeightDataBuilder_ == null) {
-          if (videoWeightData_ != null) {
-            videoWeightData_ =
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.newBuilder(videoWeightData_).mergeFrom(value).buildPartial();
-          } else {
-            videoWeightData_ = value;
-          }
-          onChanged();
-        } else {
-          videoWeightDataBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-       */
-      public Builder clearVideoWeightData() {
-        if (videoWeightDataBuilder_ == null) {
-          videoWeightData_ = null;
-          onChanged();
-        } else {
-          videoWeightData_ = null;
-          videoWeightDataBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder getVideoWeightDataBuilder() {
-        
-        onChanged();
-        return getVideoWeightDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder() {
-        if (videoWeightDataBuilder_ != null) {
-          return videoWeightDataBuilder_.getMessageOrBuilder();
-        } else {
-          return videoWeightData_ == null ?
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance() : videoWeightData_;
-        }
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder> 
-          getVideoWeightDataFieldBuilder() {
-        if (videoWeightDataBuilder_ == null) {
-          videoWeightDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder>(
-                  getVideoWeightData(),
-                  getParentForChildren(),
-                  isClean());
-          videoWeightData_ = null;
-        }
-        return videoWeightDataBuilder_;
-      }
-
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData shopLegalSubjectData_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder> shopLegalSubjectDataBuilder_;
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-       */
-      public boolean hasShopLegalSubjectData() {
-        return shopLegalSubjectDataBuilder_ != null || shopLegalSubjectData_ != null;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getShopLegalSubjectData() {
-        if (shopLegalSubjectDataBuilder_ == null) {
-          return shopLegalSubjectData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance() : shopLegalSubjectData_;
-        } else {
-          return shopLegalSubjectDataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-       */
-      public Builder setShopLegalSubjectData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData value) {
-        if (shopLegalSubjectDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          shopLegalSubjectData_ = value;
-          onChanged();
-        } else {
-          shopLegalSubjectDataBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-       */
-      public Builder setShopLegalSubjectData(
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder builderForValue) {
-        if (shopLegalSubjectDataBuilder_ == null) {
-          shopLegalSubjectData_ = builderForValue.build();
-          onChanged();
-        } else {
-          shopLegalSubjectDataBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-       */
-      public Builder mergeShopLegalSubjectData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData value) {
-        if (shopLegalSubjectDataBuilder_ == null) {
-          if (shopLegalSubjectData_ != null) {
-            shopLegalSubjectData_ =
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder(shopLegalSubjectData_).mergeFrom(value).buildPartial();
-          } else {
-            shopLegalSubjectData_ = value;
-          }
-          onChanged();
-        } else {
-          shopLegalSubjectDataBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-       */
-      public Builder clearShopLegalSubjectData() {
-        if (shopLegalSubjectDataBuilder_ == null) {
-          shopLegalSubjectData_ = null;
-          onChanged();
-        } else {
-          shopLegalSubjectData_ = null;
-          shopLegalSubjectDataBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder getShopLegalSubjectDataBuilder() {
-        
-        onChanged();
-        return getShopLegalSubjectDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder() {
-        if (shopLegalSubjectDataBuilder_ != null) {
-          return shopLegalSubjectDataBuilder_.getMessageOrBuilder();
-        } else {
-          return shopLegalSubjectData_ == null ?
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance() : shopLegalSubjectData_;
-        }
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder> 
-          getShopLegalSubjectDataFieldBuilder() {
-        if (shopLegalSubjectDataBuilder_ == null) {
-          shopLegalSubjectDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder>(
-                  getShopLegalSubjectData(),
-                  getParentForChildren(),
-                  isClean());
-          shopLegalSubjectData_ = null;
-        }
-        return shopLegalSubjectDataBuilder_;
-      }
-
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder> orderTimeDataBuilder_;
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-       */
-      public boolean hasOrderTimeData() {
-        return orderTimeDataBuilder_ != null || orderTimeData_ != null;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getOrderTimeData() {
-        if (orderTimeDataBuilder_ == null) {
-          return orderTimeData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance() : orderTimeData_;
-        } else {
-          return orderTimeDataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-       */
-      public Builder setOrderTimeData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData value) {
-        if (orderTimeDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          orderTimeData_ = value;
-          onChanged();
-        } else {
-          orderTimeDataBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-       */
-      public Builder setOrderTimeData(
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder builderForValue) {
-        if (orderTimeDataBuilder_ == null) {
-          orderTimeData_ = builderForValue.build();
-          onChanged();
-        } else {
-          orderTimeDataBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-       */
-      public Builder mergeOrderTimeData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData value) {
-        if (orderTimeDataBuilder_ == null) {
-          if (orderTimeData_ != null) {
-            orderTimeData_ =
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder(orderTimeData_).mergeFrom(value).buildPartial();
-          } else {
-            orderTimeData_ = value;
-          }
-          onChanged();
-        } else {
-          orderTimeDataBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-       */
-      public Builder clearOrderTimeData() {
-        if (orderTimeDataBuilder_ == null) {
-          orderTimeData_ = null;
-          onChanged();
-        } else {
-          orderTimeData_ = null;
-          orderTimeDataBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder getOrderTimeDataBuilder() {
-        
-        onChanged();
-        return getOrderTimeDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-       */
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder() {
-        if (orderTimeDataBuilder_ != null) {
-          return orderTimeDataBuilder_.getMessageOrBuilder();
-        } else {
-          return orderTimeData_ == null ?
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance() : orderTimeData_;
-        }
-      }
-      /**
-       * <pre>
-       *数据
-       * </pre>
-       *
-       * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder> 
-          getOrderTimeDataFieldBuilder() {
-        if (orderTimeDataBuilder_ == null) {
-          orderTimeDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder>(
-                  getOrderTimeData(),
-                  getParentForChildren(),
-                  isClean());
-          orderTimeData_ = null;
-        }
-        return orderTimeDataBuilder_;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+            public static final int MODIFY_SHOP_INFO_VALUE = 10;
 
 
-      // @@protoc_insertion_point(builder_scope:QueueWorkInfo)
+            public final int getNumber() {
+                if (this == UNRECOGNIZED) {
+                    throw new java.lang.IllegalArgumentException(
+                            "Can't get the number of an unknown enum value.");
+                }
+                return value;
+            }
+
+            /**
+             * @deprecated Use {@link #forNumber(int)} instead.
+             */
+            @java.lang.Deprecated
+            public static WorkTypeEnum valueOf(int value) {
+                return forNumber(value);
+            }
+
+            public static WorkTypeEnum forNumber(int value) {
+                switch (value) {
+                    case 0:
+                        return SEND_PHONE_CODE;
+                    case 1:
+                        return HEART;
+                    case 2:
+                        return PUSH;
+                    case 3:
+                        return QINIU_VIDEO_IMG_REVIEW_RESULT;
+                    case 4:
+                        return QINIU_LIVE_REVIEW_RESULT;
+                    case 5:
+                        return QINIU_RES_WAIT_REVIEW_DATA;
+                    case 6:
+                        return VIDEO_WEIGHT;
+                    case 7:
+                        return SHOP_LEGAL_SUBJECT;
+                    case 8:
+                        return USER_TASK_COIN;
+                    case 9:
+                        return USER_ORDER_TIME;
+                    case 10:
+                        return MODIFY_SHOP_INFO;
+                    default:
+                        return null;
+                }
+            }
+
+            public static com.google.protobuf.Internal.EnumLiteMap<WorkTypeEnum>
+            internalGetValueMap() {
+                return internalValueMap;
+            }
+
+            private static final com.google.protobuf.Internal.EnumLiteMap<
+                    WorkTypeEnum> internalValueMap =
+                    new com.google.protobuf.Internal.EnumLiteMap<WorkTypeEnum>() {
+                        public WorkTypeEnum findValueByNumber(int number) {
+                            return WorkTypeEnum.forNumber(number);
+                        }
+                    };
+
+            public final com.google.protobuf.Descriptors.EnumValueDescriptor
+            getValueDescriptor() {
+                return getDescriptor().getValues().get(ordinal());
+            }
+
+            public final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptorForType() {
+                return getDescriptor();
+            }
+
+            public static final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.getDescriptor().getEnumTypes().get(0);
+            }
+
+            private static final WorkTypeEnum[] VALUES = values();
+
+            public static WorkTypeEnum valueOf(
+                    com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+                if (desc.getType() != getDescriptor()) {
+                    throw new java.lang.IllegalArgumentException(
+                            "EnumValueDescriptor is not for this type.");
+                }
+                if (desc.getIndex() == -1) {
+                    return UNRECOGNIZED;
+                }
+                return VALUES[desc.getIndex()];
+            }
+
+            private final int value;
+
+            private WorkTypeEnum(int value) {
+                this.value = value;
+            }
+
+            // @@protoc_insertion_point(enum_scope:QueueWorkInfo.WorkTypeEnum)
+        }
+
+        public static final int WORKTYPE_FIELD_NUMBER = 1;
+        private int workType_;
+
+        /**
+         * <pre>
+         * 任务标识
+         * </pre>
+         *
+         * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
+         */
+        public int getWorkTypeValue() {
+            return workType_;
+        }
+
+        /**
+         * <pre>
+         * 任务标识
+         * </pre>
+         *
+         * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType() {
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.valueOf(workType_);
+            return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.UNRECOGNIZED : result;
+        }
+
+        public static final int PHONECODE_FIELD_NUMBER = 2;
+        private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode phoneCode_;
+
+        /**
+         * <pre>
+         * 验证码数据
+         * </pre>
+         *
+         * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+         */
+        public boolean hasPhoneCode() {
+            return phoneCode_ != null;
+        }
+
+        /**
+         * <pre>
+         * 验证码数据
+         * </pre>
+         *
+         * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getPhoneCode() {
+            return phoneCode_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance() : phoneCode_;
+        }
+
+        /**
+         * <pre>
+         * 验证码数据
+         * </pre>
+         *
+         * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder getPhoneCodeOrBuilder() {
+            return getPhoneCode();
+        }
+
+        public static final int HEARTDATA_FIELD_NUMBER = 3;
+        private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart heartData_;
+
+        /**
+         * <pre>
+         * 点赞数据
+         * </pre>
+         *
+         * <code>.QueueWorkHeart heartData = 3;</code>
+         */
+        public boolean hasHeartData() {
+            return heartData_ != null;
+        }
+
+        /**
+         * <pre>
+         * 点赞数据
+         * </pre>
+         *
+         * <code>.QueueWorkHeart heartData = 3;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getHeartData() {
+            return heartData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance() : heartData_;
+        }
+
+        /**
+         * <pre>
+         * 点赞数据
+         * </pre>
+         *
+         * <code>.QueueWorkHeart heartData = 3;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder getHeartDataOrBuilder() {
+            return getHeartData();
+        }
+
+        public static final int PUSHDATA_FIELD_NUMBER = 4;
+        private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush pushData_;
+
+        /**
+         * <pre>
+         * 推送数据
+         * </pre>
+         *
+         * <code>.QueueWorkPush pushData = 4;</code>
+         */
+        public boolean hasPushData() {
+            return pushData_ != null;
+        }
+
+        /**
+         * <pre>
+         * 推送数据
+         * </pre>
+         *
+         * <code>.QueueWorkPush pushData = 4;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getPushData() {
+            return pushData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance() : pushData_;
+        }
+
+        /**
+         * <pre>
+         * 推送数据
+         * </pre>
+         *
+         * <code>.QueueWorkPush pushData = 4;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder getPushDataOrBuilder() {
+            return getPushData();
+        }
+
+        public static final int QINIUREVIEWRESULT_FIELD_NUMBER = 5;
+        private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult qiniuReviewResult_;
+
+        /**
+         * <pre>
+         * 七牛审核的结果
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+         */
+        public boolean hasQiniuReviewResult() {
+            return qiniuReviewResult_ != null;
+        }
+
+        /**
+         * <pre>
+         * 七牛审核的结果
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getQiniuReviewResult() {
+            return qiniuReviewResult_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance() : qiniuReviewResult_;
+        }
+
+        /**
+         * <pre>
+         * 七牛审核的结果
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder getQiniuReviewResultOrBuilder() {
+            return getQiniuReviewResult();
+        }
+
+        public static final int QINIUWAITREVIEWRESDATA_FIELD_NUMBER = 6;
+        private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData_;
+
+        /**
+         * <pre>
+         * 七牛需要待审核的资源
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+         */
+        public boolean hasQiniuWaitReviewResData() {
+            return qiniuWaitReviewResData_ != null;
+        }
+
+        /**
+         * <pre>
+         * 七牛需要待审核的资源
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getQiniuWaitReviewResData() {
+            return qiniuWaitReviewResData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance() : qiniuWaitReviewResData_;
+        }
+
+        /**
+         * <pre>
+         * 七牛需要待审核的资源
+         * </pre>
+         *
+         * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder getQiniuWaitReviewResDataOrBuilder() {
+            return getQiniuWaitReviewResData();
+        }
+
+        public static final int VIDEOWEIGHTDATA_FIELD_NUMBER = 7;
+        private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData videoWeightData_;
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+         */
+        public boolean hasVideoWeightData() {
+            return videoWeightData_ != null;
+        }
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getVideoWeightData() {
+            return videoWeightData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance() : videoWeightData_;
+        }
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder() {
+            return getVideoWeightData();
+        }
+
+        public static final int SHOPLEGALSUBJECTDATA_FIELD_NUMBER = 8;
+        private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData shopLegalSubjectData_;
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+         */
+        public boolean hasShopLegalSubjectData() {
+            return shopLegalSubjectData_ != null;
+        }
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getShopLegalSubjectData() {
+            return shopLegalSubjectData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance() : shopLegalSubjectData_;
+        }
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder() {
+            return getShopLegalSubjectData();
+        }
+
+        public static final int ORDERTIMEDATA_FIELD_NUMBER = 9;
+        private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData_;
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+         */
+        public boolean hasOrderTimeData() {
+            return orderTimeData_ != null;
+        }
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getOrderTimeData() {
+            return orderTimeData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance() : orderTimeData_;
+        }
+
+        /**
+         * <pre>
+         * 数据
+         * </pre>
+         *
+         * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+         */
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder() {
+            return getOrderTimeData();
+        }
+
+        public static final int MODIFYSHOPINFO_FIELD_NUMBER = 10;
+
+        private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo modifyShopInfo_;
+
+        public boolean hasModifyShopInfo() {
+            return modifyShopInfo_ != null;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getModifyShopInfo() {
+            return orderTimeData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance() : modifyShopInfo_;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder getModifyShopInfoOrBuilder() {
+            return getModifyShopInfo();
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (workType_ != com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE.getNumber()) {
+                output.writeEnum(1, workType_);
+            }
+            if (phoneCode_ != null) {
+                output.writeMessage(2, getPhoneCode());
+            }
+            if (heartData_ != null) {
+                output.writeMessage(3, getHeartData());
+            }
+            if (pushData_ != null) {
+                output.writeMessage(4, getPushData());
+            }
+            if (qiniuReviewResult_ != null) {
+                output.writeMessage(5, getQiniuReviewResult());
+            }
+            if (qiniuWaitReviewResData_ != null) {
+                output.writeMessage(6, getQiniuWaitReviewResData());
+            }
+            if (videoWeightData_ != null) {
+                output.writeMessage(7, getVideoWeightData());
+            }
+            if (shopLegalSubjectData_ != null) {
+                output.writeMessage(8, getShopLegalSubjectData());
+            }
+            if (orderTimeData_ != null) {
+                output.writeMessage(9, getOrderTimeData());
+            }
+            if (modifyShopInfo_ != null) {
+                output.writeMessage(10, getModifyShopInfo());
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (workType_ != com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE.getNumber()) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeEnumSize(1, workType_);
+            }
+            if (phoneCode_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(2, getPhoneCode());
+            }
+            if (heartData_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(3, getHeartData());
+            }
+            if (pushData_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(4, getPushData());
+            }
+            if (qiniuReviewResult_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(5, getQiniuReviewResult());
+            }
+            if (qiniuWaitReviewResData_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(6, getQiniuWaitReviewResData());
+            }
+            if (videoWeightData_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(7, getVideoWeightData());
+            }
+            if (shopLegalSubjectData_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(8, getShopLegalSubjectData());
+            }
+            if (orderTimeData_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(9, getOrderTimeData());
+            }
+            if (modifyShopInfo_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(10, getModifyShopInfo());
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) obj;
+
+            boolean result = true;
+            result = result && workType_ == other.workType_;
+            result = result && (hasPhoneCode() == other.hasPhoneCode());
+            if (hasPhoneCode()) {
+                result = result && getPhoneCode()
+                        .equals(other.getPhoneCode());
+            }
+            result = result && (hasHeartData() == other.hasHeartData());
+            if (hasHeartData()) {
+                result = result && getHeartData()
+                        .equals(other.getHeartData());
+            }
+            result = result && (hasPushData() == other.hasPushData());
+            if (hasPushData()) {
+                result = result && getPushData()
+                        .equals(other.getPushData());
+            }
+            result = result && (hasQiniuReviewResult() == other.hasQiniuReviewResult());
+            if (hasQiniuReviewResult()) {
+                result = result && getQiniuReviewResult()
+                        .equals(other.getQiniuReviewResult());
+            }
+            result = result && (hasQiniuWaitReviewResData() == other.hasQiniuWaitReviewResData());
+            if (hasQiniuWaitReviewResData()) {
+                result = result && getQiniuWaitReviewResData()
+                        .equals(other.getQiniuWaitReviewResData());
+            }
+            result = result && (hasVideoWeightData() == other.hasVideoWeightData());
+            if (hasVideoWeightData()) {
+                result = result && getVideoWeightData()
+                        .equals(other.getVideoWeightData());
+            }
+            result = result && (hasShopLegalSubjectData() == other.hasShopLegalSubjectData());
+            if (hasShopLegalSubjectData()) {
+                result = result && getShopLegalSubjectData()
+                        .equals(other.getShopLegalSubjectData());
+            }
+            result = result && (hasOrderTimeData() == other.hasOrderTimeData());
+            if (hasOrderTimeData()) {
+                result = result && getOrderTimeData()
+                        .equals(other.getOrderTimeData());
+            }
+            if (hasModifyShopInfo()) {
+                result = result && getModifyShopInfo().equals(other.getModifyShopInfo());
+            }
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + WORKTYPE_FIELD_NUMBER;
+            hash = (53 * hash) + workType_;
+            if (hasPhoneCode()) {
+                hash = (37 * hash) + PHONECODE_FIELD_NUMBER;
+                hash = (53 * hash) + getPhoneCode().hashCode();
+            }
+            if (hasHeartData()) {
+                hash = (37 * hash) + HEARTDATA_FIELD_NUMBER;
+                hash = (53 * hash) + getHeartData().hashCode();
+            }
+            if (hasPushData()) {
+                hash = (37 * hash) + PUSHDATA_FIELD_NUMBER;
+                hash = (53 * hash) + getPushData().hashCode();
+            }
+            if (hasQiniuReviewResult()) {
+                hash = (37 * hash) + QINIUREVIEWRESULT_FIELD_NUMBER;
+                hash = (53 * hash) + getQiniuReviewResult().hashCode();
+            }
+            if (hasQiniuWaitReviewResData()) {
+                hash = (37 * hash) + QINIUWAITREVIEWRESDATA_FIELD_NUMBER;
+                hash = (53 * hash) + getQiniuWaitReviewResData().hashCode();
+            }
+            if (hasVideoWeightData()) {
+                hash = (37 * hash) + VIDEOWEIGHTDATA_FIELD_NUMBER;
+                hash = (53 * hash) + getVideoWeightData().hashCode();
+            }
+            if (hasShopLegalSubjectData()) {
+                hash = (37 * hash) + SHOPLEGALSUBJECTDATA_FIELD_NUMBER;
+                hash = (53 * hash) + getShopLegalSubjectData().hashCode();
+            }
+            if (hasOrderTimeData()) {
+                hash = (37 * hash) + ORDERTIMEDATA_FIELD_NUMBER;
+                hash = (53 * hash) + getOrderTimeData().hashCode();
+            }
+            if (hasModifyShopInfo()) {
+                hash = (37 * hash) + MODIFYSHOPINFO_FIELD_NUMBER;
+                hash = (53 * hash) + getModifyShopInfo().hashCode();
+            }
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code QueueWorkInfo}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkInfo)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfoOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                workType_ = 0;
+
+                if (phoneCodeBuilder_ == null) {
+                    phoneCode_ = null;
+                } else {
+                    phoneCode_ = null;
+                    phoneCodeBuilder_ = null;
+                }
+                if (heartDataBuilder_ == null) {
+                    heartData_ = null;
+                } else {
+                    heartData_ = null;
+                    heartDataBuilder_ = null;
+                }
+                if (pushDataBuilder_ == null) {
+                    pushData_ = null;
+                } else {
+                    pushData_ = null;
+                    pushDataBuilder_ = null;
+                }
+                if (qiniuReviewResultBuilder_ == null) {
+                    qiniuReviewResult_ = null;
+                } else {
+                    qiniuReviewResult_ = null;
+                    qiniuReviewResultBuilder_ = null;
+                }
+                if (qiniuWaitReviewResDataBuilder_ == null) {
+                    qiniuWaitReviewResData_ = null;
+                } else {
+                    qiniuWaitReviewResData_ = null;
+                    qiniuWaitReviewResDataBuilder_ = null;
+                }
+                if (videoWeightDataBuilder_ == null) {
+                    videoWeightData_ = null;
+                } else {
+                    videoWeightData_ = null;
+                    videoWeightDataBuilder_ = null;
+                }
+                if (shopLegalSubjectDataBuilder_ == null) {
+                    shopLegalSubjectData_ = null;
+                } else {
+                    shopLegalSubjectData_ = null;
+                    shopLegalSubjectDataBuilder_ = null;
+                }
+                if (orderTimeDataBuilder_ == null) {
+                    orderTimeData_ = null;
+                } else {
+                    orderTimeData_ = null;
+                    orderTimeDataBuilder_ = null;
+                }
+                if (modifyShopInfoBuilder_ == null) {
+                    modifyShopInfoBuilder_ = null;
+                } else {
+                    modifyShopInfo_ = null;
+                    modifyShopInfo_ = null;
+                }
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo(this);
+                result.workType_ = workType_;
+                if (phoneCodeBuilder_ == null) {
+                    result.phoneCode_ = phoneCode_;
+                } else {
+                    result.phoneCode_ = phoneCodeBuilder_.build();
+                }
+                if (heartDataBuilder_ == null) {
+                    result.heartData_ = heartData_;
+                } else {
+                    result.heartData_ = heartDataBuilder_.build();
+                }
+                if (pushDataBuilder_ == null) {
+                    result.pushData_ = pushData_;
+                } else {
+                    result.pushData_ = pushDataBuilder_.build();
+                }
+                if (qiniuReviewResultBuilder_ == null) {
+                    result.qiniuReviewResult_ = qiniuReviewResult_;
+                } else {
+                    result.qiniuReviewResult_ = qiniuReviewResultBuilder_.build();
+                }
+                if (qiniuWaitReviewResDataBuilder_ == null) {
+                    result.qiniuWaitReviewResData_ = qiniuWaitReviewResData_;
+                } else {
+                    result.qiniuWaitReviewResData_ = qiniuWaitReviewResDataBuilder_.build();
+                }
+                if (videoWeightDataBuilder_ == null) {
+                    result.videoWeightData_ = videoWeightData_;
+                } else {
+                    result.videoWeightData_ = videoWeightDataBuilder_.build();
+                }
+                if (shopLegalSubjectDataBuilder_ == null) {
+                    result.shopLegalSubjectData_ = shopLegalSubjectData_;
+                } else {
+                    result.shopLegalSubjectData_ = shopLegalSubjectDataBuilder_.build();
+                }
+                if (orderTimeDataBuilder_ == null) {
+                    result.orderTimeData_ = orderTimeData_;
+                } else {
+                    result.orderTimeData_ = orderTimeDataBuilder_.build();
+                }
+                if (modifyShopInfoBuilder_ == null) {
+                    result.modifyShopInfo_ = modifyShopInfo_;
+                } else {
+                    result.modifyShopInfo_ = modifyShopInfoBuilder_.build();
+                }
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.getDefaultInstance())
+                    return this;
+                if (other.workType_ != 0) {
+                    setWorkTypeValue(other.getWorkTypeValue());
+                }
+                if (other.hasPhoneCode()) {
+                    mergePhoneCode(other.getPhoneCode());
+                }
+                if (other.hasHeartData()) {
+                    mergeHeartData(other.getHeartData());
+                }
+                if (other.hasPushData()) {
+                    mergePushData(other.getPushData());
+                }
+                if (other.hasQiniuReviewResult()) {
+                    mergeQiniuReviewResult(other.getQiniuReviewResult());
+                }
+                if (other.hasQiniuWaitReviewResData()) {
+                    mergeQiniuWaitReviewResData(other.getQiniuWaitReviewResData());
+                }
+                if (other.hasVideoWeightData()) {
+                    mergeVideoWeightData(other.getVideoWeightData());
+                }
+                if (other.hasShopLegalSubjectData()) {
+                    mergeShopLegalSubjectData(other.getShopLegalSubjectData());
+                }
+                if (other.hasOrderTimeData()) {
+                    mergeOrderTimeData(other.getOrderTimeData());
+                }
+                if (other.hasModifyShopInfo()) {
+                    mergeModifyShopInfo(other.getModifyShopInfo());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private int workType_ = 0;
+
+            /**
+             * <pre>
+             * 任务标识
+             * </pre>
+             *
+             * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
+             */
+            public int getWorkTypeValue() {
+                return workType_;
+            }
+
+            /**
+             * <pre>
+             * 任务标识
+             * </pre>
+             *
+             * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
+             */
+            public Builder setWorkTypeValue(int value) {
+                workType_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 任务标识
+             * </pre>
+             *
+             * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.valueOf(workType_);
+                return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.UNRECOGNIZED : result;
+            }
+
+            /**
+             * <pre>
+             * 任务标识
+             * </pre>
+             *
+             * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
+             */
+            public Builder setWorkType(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                workType_ = value.getNumber();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 任务标识
+             * </pre>
+             *
+             * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
+             */
+            public Builder clearWorkType() {
+
+                workType_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode phoneCode_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder> phoneCodeBuilder_;
+
+            /**
+             * <pre>
+             * 验证码数据
+             * </pre>
+             *
+             * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+             */
+            public boolean hasPhoneCode() {
+                return phoneCodeBuilder_ != null || phoneCode_ != null;
+            }
+
+            /**
+             * <pre>
+             * 验证码数据
+             * </pre>
+             *
+             * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getPhoneCode() {
+                if (phoneCodeBuilder_ == null) {
+                    return phoneCode_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance() : phoneCode_;
+                } else {
+                    return phoneCodeBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <pre>
+             * 验证码数据
+             * </pre>
+             *
+             * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+             */
+            public Builder setPhoneCode(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode value) {
+                if (phoneCodeBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    phoneCode_ = value;
+                    onChanged();
+                } else {
+                    phoneCodeBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 验证码数据
+             * </pre>
+             *
+             * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+             */
+            public Builder setPhoneCode(
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder builderForValue) {
+                if (phoneCodeBuilder_ == null) {
+                    phoneCode_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    phoneCodeBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 验证码数据
+             * </pre>
+             *
+             * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+             */
+            public Builder mergePhoneCode(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode value) {
+                if (phoneCodeBuilder_ == null) {
+                    if (phoneCode_ != null) {
+                        phoneCode_ =
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.newBuilder(phoneCode_).mergeFrom(value).buildPartial();
+                    } else {
+                        phoneCode_ = value;
+                    }
+                    onChanged();
+                } else {
+                    phoneCodeBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 验证码数据
+             * </pre>
+             *
+             * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+             */
+            public Builder clearPhoneCode() {
+                if (phoneCodeBuilder_ == null) {
+                    phoneCode_ = null;
+                    onChanged();
+                } else {
+                    phoneCode_ = null;
+                    phoneCodeBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 验证码数据
+             * </pre>
+             *
+             * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder getPhoneCodeBuilder() {
+
+                onChanged();
+                return getPhoneCodeFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <pre>
+             * 验证码数据
+             * </pre>
+             *
+             * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder getPhoneCodeOrBuilder() {
+                if (phoneCodeBuilder_ != null) {
+                    return phoneCodeBuilder_.getMessageOrBuilder();
+                } else {
+                    return phoneCode_ == null ?
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance() : phoneCode_;
+                }
+            }
+
+            /**
+             * <pre>
+             * 验证码数据
+             * </pre>
+             *
+             * <code>.QueueWorkPhoneCode phoneCode = 2;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder>
+            getPhoneCodeFieldBuilder() {
+                if (phoneCodeBuilder_ == null) {
+                    phoneCodeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder>(
+                            getPhoneCode(),
+                            getParentForChildren(),
+                            isClean());
+                    phoneCode_ = null;
+                }
+                return phoneCodeBuilder_;
+            }
+
+            private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart heartData_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder> heartDataBuilder_;
+
+            /**
+             * <pre>
+             * 点赞数据
+             * </pre>
+             *
+             * <code>.QueueWorkHeart heartData = 3;</code>
+             */
+            public boolean hasHeartData() {
+                return heartDataBuilder_ != null || heartData_ != null;
+            }
+
+            /**
+             * <pre>
+             * 点赞数据
+             * </pre>
+             *
+             * <code>.QueueWorkHeart heartData = 3;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getHeartData() {
+                if (heartDataBuilder_ == null) {
+                    return heartData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance() : heartData_;
+                } else {
+                    return heartDataBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <pre>
+             * 点赞数据
+             * </pre>
+             *
+             * <code>.QueueWorkHeart heartData = 3;</code>
+             */
+            public Builder setHeartData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart value) {
+                if (heartDataBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    heartData_ = value;
+                    onChanged();
+                } else {
+                    heartDataBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 点赞数据
+             * </pre>
+             *
+             * <code>.QueueWorkHeart heartData = 3;</code>
+             */
+            public Builder setHeartData(
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder builderForValue) {
+                if (heartDataBuilder_ == null) {
+                    heartData_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    heartDataBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 点赞数据
+             * </pre>
+             *
+             * <code>.QueueWorkHeart heartData = 3;</code>
+             */
+            public Builder mergeHeartData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart value) {
+                if (heartDataBuilder_ == null) {
+                    if (heartData_ != null) {
+                        heartData_ =
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.newBuilder(heartData_).mergeFrom(value).buildPartial();
+                    } else {
+                        heartData_ = value;
+                    }
+                    onChanged();
+                } else {
+                    heartDataBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 点赞数据
+             * </pre>
+             *
+             * <code>.QueueWorkHeart heartData = 3;</code>
+             */
+            public Builder clearHeartData() {
+                if (heartDataBuilder_ == null) {
+                    heartData_ = null;
+                    onChanged();
+                } else {
+                    heartData_ = null;
+                    heartDataBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 点赞数据
+             * </pre>
+             *
+             * <code>.QueueWorkHeart heartData = 3;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder getHeartDataBuilder() {
+
+                onChanged();
+                return getHeartDataFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <pre>
+             * 点赞数据
+             * </pre>
+             *
+             * <code>.QueueWorkHeart heartData = 3;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder getHeartDataOrBuilder() {
+                if (heartDataBuilder_ != null) {
+                    return heartDataBuilder_.getMessageOrBuilder();
+                } else {
+                    return heartData_ == null ?
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance() : heartData_;
+                }
+            }
+
+            /**
+             * <pre>
+             * 点赞数据
+             * </pre>
+             *
+             * <code>.QueueWorkHeart heartData = 3;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder>
+            getHeartDataFieldBuilder() {
+                if (heartDataBuilder_ == null) {
+                    heartDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder>(
+                            getHeartData(),
+                            getParentForChildren(),
+                            isClean());
+                    heartData_ = null;
+                }
+                return heartDataBuilder_;
+            }
+
+            private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush pushData_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder> pushDataBuilder_;
+
+            /**
+             * <pre>
+             * 推送数据
+             * </pre>
+             *
+             * <code>.QueueWorkPush pushData = 4;</code>
+             */
+            public boolean hasPushData() {
+                return pushDataBuilder_ != null || pushData_ != null;
+            }
+
+            /**
+             * <pre>
+             * 推送数据
+             * </pre>
+             *
+             * <code>.QueueWorkPush pushData = 4;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getPushData() {
+                if (pushDataBuilder_ == null) {
+                    return pushData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance() : pushData_;
+                } else {
+                    return pushDataBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <pre>
+             * 推送数据
+             * </pre>
+             *
+             * <code>.QueueWorkPush pushData = 4;</code>
+             */
+            public Builder setPushData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush value) {
+                if (pushDataBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    pushData_ = value;
+                    onChanged();
+                } else {
+                    pushDataBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 推送数据
+             * </pre>
+             *
+             * <code>.QueueWorkPush pushData = 4;</code>
+             */
+            public Builder setPushData(
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder builderForValue) {
+                if (pushDataBuilder_ == null) {
+                    pushData_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    pushDataBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 推送数据
+             * </pre>
+             *
+             * <code>.QueueWorkPush pushData = 4;</code>
+             */
+            public Builder mergePushData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush value) {
+                if (pushDataBuilder_ == null) {
+                    if (pushData_ != null) {
+                        pushData_ =
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.newBuilder(pushData_).mergeFrom(value).buildPartial();
+                    } else {
+                        pushData_ = value;
+                    }
+                    onChanged();
+                } else {
+                    pushDataBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 推送数据
+             * </pre>
+             *
+             * <code>.QueueWorkPush pushData = 4;</code>
+             */
+            public Builder clearPushData() {
+                if (pushDataBuilder_ == null) {
+                    pushData_ = null;
+                    onChanged();
+                } else {
+                    pushData_ = null;
+                    pushDataBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 推送数据
+             * </pre>
+             *
+             * <code>.QueueWorkPush pushData = 4;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder getPushDataBuilder() {
+
+                onChanged();
+                return getPushDataFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <pre>
+             * 推送数据
+             * </pre>
+             *
+             * <code>.QueueWorkPush pushData = 4;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder getPushDataOrBuilder() {
+                if (pushDataBuilder_ != null) {
+                    return pushDataBuilder_.getMessageOrBuilder();
+                } else {
+                    return pushData_ == null ?
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance() : pushData_;
+                }
+            }
+
+            /**
+             * <pre>
+             * 推送数据
+             * </pre>
+             *
+             * <code>.QueueWorkPush pushData = 4;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder>
+            getPushDataFieldBuilder() {
+                if (pushDataBuilder_ == null) {
+                    pushDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder>(
+                            getPushData(),
+                            getParentForChildren(),
+                            isClean());
+                    pushData_ = null;
+                }
+                return pushDataBuilder_;
+            }
+
+            private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult qiniuReviewResult_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder> qiniuReviewResultBuilder_;
+
+            /**
+             * <pre>
+             * 七牛审核的结果
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+             */
+            public boolean hasQiniuReviewResult() {
+                return qiniuReviewResultBuilder_ != null || qiniuReviewResult_ != null;
+            }
+
+            /**
+             * <pre>
+             * 七牛审核的结果
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getQiniuReviewResult() {
+                if (qiniuReviewResultBuilder_ == null) {
+                    return qiniuReviewResult_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance() : qiniuReviewResult_;
+                } else {
+                    return qiniuReviewResultBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛审核的结果
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+             */
+            public Builder setQiniuReviewResult(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult value) {
+                if (qiniuReviewResultBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    qiniuReviewResult_ = value;
+                    onChanged();
+                } else {
+                    qiniuReviewResultBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛审核的结果
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+             */
+            public Builder setQiniuReviewResult(
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder builderForValue) {
+                if (qiniuReviewResultBuilder_ == null) {
+                    qiniuReviewResult_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    qiniuReviewResultBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛审核的结果
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+             */
+            public Builder mergeQiniuReviewResult(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult value) {
+                if (qiniuReviewResultBuilder_ == null) {
+                    if (qiniuReviewResult_ != null) {
+                        qiniuReviewResult_ =
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.newBuilder(qiniuReviewResult_).mergeFrom(value).buildPartial();
+                    } else {
+                        qiniuReviewResult_ = value;
+                    }
+                    onChanged();
+                } else {
+                    qiniuReviewResultBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛审核的结果
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+             */
+            public Builder clearQiniuReviewResult() {
+                if (qiniuReviewResultBuilder_ == null) {
+                    qiniuReviewResult_ = null;
+                    onChanged();
+                } else {
+                    qiniuReviewResult_ = null;
+                    qiniuReviewResultBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛审核的结果
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder getQiniuReviewResultBuilder() {
+
+                onChanged();
+                return getQiniuReviewResultFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <pre>
+             * 七牛审核的结果
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder getQiniuReviewResultOrBuilder() {
+                if (qiniuReviewResultBuilder_ != null) {
+                    return qiniuReviewResultBuilder_.getMessageOrBuilder();
+                } else {
+                    return qiniuReviewResult_ == null ?
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance() : qiniuReviewResult_;
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛审核的结果
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuReviewResult qiniuReviewResult = 5;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder>
+            getQiniuReviewResultFieldBuilder() {
+                if (qiniuReviewResultBuilder_ == null) {
+                    qiniuReviewResultBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder>(
+                            getQiniuReviewResult(),
+                            getParentForChildren(),
+                            isClean());
+                    qiniuReviewResult_ = null;
+                }
+                return qiniuReviewResultBuilder_;
+            }
+
+            private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder> qiniuWaitReviewResDataBuilder_;
+
+            /**
+             * <pre>
+             * 七牛需要待审核的资源
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+             */
+            public boolean hasQiniuWaitReviewResData() {
+                return qiniuWaitReviewResDataBuilder_ != null || qiniuWaitReviewResData_ != null;
+            }
+
+            /**
+             * <pre>
+             * 七牛需要待审核的资源
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getQiniuWaitReviewResData() {
+                if (qiniuWaitReviewResDataBuilder_ == null) {
+                    return qiniuWaitReviewResData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance() : qiniuWaitReviewResData_;
+                } else {
+                    return qiniuWaitReviewResDataBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛需要待审核的资源
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+             */
+            public Builder setQiniuWaitReviewResData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData value) {
+                if (qiniuWaitReviewResDataBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    qiniuWaitReviewResData_ = value;
+                    onChanged();
+                } else {
+                    qiniuWaitReviewResDataBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛需要待审核的资源
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+             */
+            public Builder setQiniuWaitReviewResData(
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder builderForValue) {
+                if (qiniuWaitReviewResDataBuilder_ == null) {
+                    qiniuWaitReviewResData_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    qiniuWaitReviewResDataBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛需要待审核的资源
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+             */
+            public Builder mergeQiniuWaitReviewResData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData value) {
+                if (qiniuWaitReviewResDataBuilder_ == null) {
+                    if (qiniuWaitReviewResData_ != null) {
+                        qiniuWaitReviewResData_ =
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.newBuilder(qiniuWaitReviewResData_).mergeFrom(value).buildPartial();
+                    } else {
+                        qiniuWaitReviewResData_ = value;
+                    }
+                    onChanged();
+                } else {
+                    qiniuWaitReviewResDataBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛需要待审核的资源
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+             */
+            public Builder clearQiniuWaitReviewResData() {
+                if (qiniuWaitReviewResDataBuilder_ == null) {
+                    qiniuWaitReviewResData_ = null;
+                    onChanged();
+                } else {
+                    qiniuWaitReviewResData_ = null;
+                    qiniuWaitReviewResDataBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛需要待审核的资源
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder getQiniuWaitReviewResDataBuilder() {
+
+                onChanged();
+                return getQiniuWaitReviewResDataFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <pre>
+             * 七牛需要待审核的资源
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder getQiniuWaitReviewResDataOrBuilder() {
+                if (qiniuWaitReviewResDataBuilder_ != null) {
+                    return qiniuWaitReviewResDataBuilder_.getMessageOrBuilder();
+                } else {
+                    return qiniuWaitReviewResData_ == null ?
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance() : qiniuWaitReviewResData_;
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛需要待审核的资源
+             * </pre>
+             *
+             * <code>.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData = 6;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder>
+            getQiniuWaitReviewResDataFieldBuilder() {
+                if (qiniuWaitReviewResDataBuilder_ == null) {
+                    qiniuWaitReviewResDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder>(
+                            getQiniuWaitReviewResData(),
+                            getParentForChildren(),
+                            isClean());
+                    qiniuWaitReviewResData_ = null;
+                }
+                return qiniuWaitReviewResDataBuilder_;
+            }
+
+            private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData videoWeightData_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder> videoWeightDataBuilder_;
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+             */
+            public boolean hasVideoWeightData() {
+                return videoWeightDataBuilder_ != null || videoWeightData_ != null;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getVideoWeightData() {
+                if (videoWeightDataBuilder_ == null) {
+                    return videoWeightData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance() : videoWeightData_;
+                } else {
+                    return videoWeightDataBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+             */
+            public Builder setVideoWeightData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData value) {
+                if (videoWeightDataBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    videoWeightData_ = value;
+                    onChanged();
+                } else {
+                    videoWeightDataBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+             */
+            public Builder setVideoWeightData(
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder builderForValue) {
+                if (videoWeightDataBuilder_ == null) {
+                    videoWeightData_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    videoWeightDataBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+             */
+            public Builder mergeVideoWeightData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData value) {
+                if (videoWeightDataBuilder_ == null) {
+                    if (videoWeightData_ != null) {
+                        videoWeightData_ =
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.newBuilder(videoWeightData_).mergeFrom(value).buildPartial();
+                    } else {
+                        videoWeightData_ = value;
+                    }
+                    onChanged();
+                } else {
+                    videoWeightDataBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+             */
+            public Builder clearVideoWeightData() {
+                if (videoWeightDataBuilder_ == null) {
+                    videoWeightData_ = null;
+                    onChanged();
+                } else {
+                    videoWeightData_ = null;
+                    videoWeightDataBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder getVideoWeightDataBuilder() {
+
+                onChanged();
+                return getVideoWeightDataFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder getVideoWeightDataOrBuilder() {
+                if (videoWeightDataBuilder_ != null) {
+                    return videoWeightDataBuilder_.getMessageOrBuilder();
+                } else {
+                    return videoWeightData_ == null ?
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance() : videoWeightData_;
+                }
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkVideoWeightData videoWeightData = 7;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder>
+            getVideoWeightDataFieldBuilder() {
+                if (videoWeightDataBuilder_ == null) {
+                    videoWeightDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder>(
+                            getVideoWeightData(),
+                            getParentForChildren(),
+                            isClean());
+                    videoWeightData_ = null;
+                }
+                return videoWeightDataBuilder_;
+            }
+
+            private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData shopLegalSubjectData_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder> shopLegalSubjectDataBuilder_;
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+             */
+            public boolean hasShopLegalSubjectData() {
+                return shopLegalSubjectDataBuilder_ != null || shopLegalSubjectData_ != null;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getShopLegalSubjectData() {
+                if (shopLegalSubjectDataBuilder_ == null) {
+                    return shopLegalSubjectData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance() : shopLegalSubjectData_;
+                } else {
+                    return shopLegalSubjectDataBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+             */
+            public Builder setShopLegalSubjectData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData value) {
+                if (shopLegalSubjectDataBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    shopLegalSubjectData_ = value;
+                    onChanged();
+                } else {
+                    shopLegalSubjectDataBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+             */
+            public Builder setShopLegalSubjectData(
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder builderForValue) {
+                if (shopLegalSubjectDataBuilder_ == null) {
+                    shopLegalSubjectData_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    shopLegalSubjectDataBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+             */
+            public Builder mergeShopLegalSubjectData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData value) {
+                if (shopLegalSubjectDataBuilder_ == null) {
+                    if (shopLegalSubjectData_ != null) {
+                        shopLegalSubjectData_ =
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder(shopLegalSubjectData_).mergeFrom(value).buildPartial();
+                    } else {
+                        shopLegalSubjectData_ = value;
+                    }
+                    onChanged();
+                } else {
+                    shopLegalSubjectDataBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+             */
+            public Builder clearShopLegalSubjectData() {
+                if (shopLegalSubjectDataBuilder_ == null) {
+                    shopLegalSubjectData_ = null;
+                    onChanged();
+                } else {
+                    shopLegalSubjectData_ = null;
+                    shopLegalSubjectDataBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder getShopLegalSubjectDataBuilder() {
+
+                onChanged();
+                return getShopLegalSubjectDataFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder getShopLegalSubjectDataOrBuilder() {
+                if (shopLegalSubjectDataBuilder_ != null) {
+                    return shopLegalSubjectDataBuilder_.getMessageOrBuilder();
+                } else {
+                    return shopLegalSubjectData_ == null ?
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance() : shopLegalSubjectData_;
+                }
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkShopLegalSubjectData shopLegalSubjectData = 8;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder>
+            getShopLegalSubjectDataFieldBuilder() {
+                if (shopLegalSubjectDataBuilder_ == null) {
+                    shopLegalSubjectDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder>(
+                            getShopLegalSubjectData(),
+                            getParentForChildren(),
+                            isClean());
+                    shopLegalSubjectData_ = null;
+                }
+                return shopLegalSubjectDataBuilder_;
+            }
+
+            private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder> orderTimeDataBuilder_;
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+             */
+            public boolean hasOrderTimeData() {
+                return orderTimeDataBuilder_ != null || orderTimeData_ != null;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getOrderTimeData() {
+                if (orderTimeDataBuilder_ == null) {
+                    return orderTimeData_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance() : orderTimeData_;
+                } else {
+                    return orderTimeDataBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+             */
+            public Builder setOrderTimeData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData value) {
+                if (orderTimeDataBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    orderTimeData_ = value;
+                    onChanged();
+                } else {
+                    orderTimeDataBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+             */
+            public Builder setOrderTimeData(
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder builderForValue) {
+                if (orderTimeDataBuilder_ == null) {
+                    orderTimeData_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    orderTimeDataBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+             */
+            public Builder mergeOrderTimeData(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData value) {
+                if (orderTimeDataBuilder_ == null) {
+                    if (orderTimeData_ != null) {
+                        orderTimeData_ =
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder(orderTimeData_).mergeFrom(value).buildPartial();
+                    } else {
+                        orderTimeData_ = value;
+                    }
+                    onChanged();
+                } else {
+                    orderTimeDataBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+             */
+            public Builder clearOrderTimeData() {
+                if (orderTimeDataBuilder_ == null) {
+                    orderTimeData_ = null;
+                    onChanged();
+                } else {
+                    orderTimeData_ = null;
+                    orderTimeDataBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder getOrderTimeDataBuilder() {
+
+                onChanged();
+                return getOrderTimeDataFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+             */
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder() {
+                if (orderTimeDataBuilder_ != null) {
+                    return orderTimeDataBuilder_.getMessageOrBuilder();
+                } else {
+                    return orderTimeData_ == null ?
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance() : orderTimeData_;
+                }
+            }
+
+            /**
+             * <pre>
+             * 数据
+             * </pre>
+             *
+             * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder>
+            getOrderTimeDataFieldBuilder() {
+                if (orderTimeDataBuilder_ == null) {
+                    orderTimeDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder>(
+                            getOrderTimeData(),
+                            getParentForChildren(),
+                            isClean());
+                    orderTimeData_ = null;
+                }
+                return orderTimeDataBuilder_;
+            }
+
+
+            private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo modifyShopInfo_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder> modifyShopInfoBuilder_;
+
+            public boolean hasModifyShopInfo() {
+                return modifyShopInfoBuilder_ != null || modifyShopInfo_ != null;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getModifyShopInfo() {
+                if (modifyShopInfoBuilder_ == null) {
+                    return modifyShopInfo_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance() : modifyShopInfo_;
+                } else {
+                    return modifyShopInfoBuilder_.getMessage();
+                }
+            }
+
+            public Builder setModifyShopInfo(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo value) {
+                if (modifyShopInfoBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    modifyShopInfo_ = value;
+                    onChanged();
+                } else {
+                    modifyShopInfoBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            public Builder setModifyShopInfo(
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder builderForValue) {
+                if (modifyShopInfoBuilder_ == null) {
+                    modifyShopInfo_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    modifyShopInfoBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            public Builder mergeModifyShopInfo(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo value) {
+                if (modifyShopInfoBuilder_ == null) {
+                    if (modifyShopInfo_ != null) {
+                        modifyShopInfo_ =
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.newBuilder(modifyShopInfo_).mergeFrom(value).buildPartial();
+                    } else {
+                        modifyShopInfo_ = value;
+                    }
+                    onChanged();
+                } else {
+                    modifyShopInfoBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            public Builder clearModifyShopInfo() {
+                if (modifyShopInfoBuilder_ == null) {
+                    modifyShopInfo_ = null;
+                    onChanged();
+                } else {
+                    modifyShopInfo_ = null;
+                    modifyShopInfoBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder getModifyShopInfoBuilder() {
+
+                onChanged();
+                return getModifyShopInfoFieldBuilder().getBuilder();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder getModifyShopInfoOrBuilder() {
+                if (modifyShopInfoBuilder_ != null) {
+                    return modifyShopInfoBuilder_.getMessageOrBuilder();
+                } else {
+                    return modifyShopInfo_ == null ?
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance() : modifyShopInfo_;
+                }
+            }
+
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder>
+            getModifyShopInfoFieldBuilder() {
+                if (modifyShopInfoBuilder_ == null) {
+                    modifyShopInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder>(
+                            getModifyShopInfo(),
+                            getParentForChildren(),
+                            isClean());
+                    modifyShopInfo_ = null;
+                }
+                return modifyShopInfoBuilder_;
+            }
+
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:QueueWorkInfo)
+        }
+
+        // @@protoc_insertion_point(class_scope:QueueWorkInfo)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkInfo>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkInfo>() {
+            public QueueWorkInfo parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkInfo(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkInfo> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkInfo> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    // @@protoc_insertion_point(class_scope:QueueWorkInfo)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo();
-    }
+    public interface QueueWorkShopLegalSubjectDataOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkShopLegalSubjectData)
+            com.google.protobuf.MessageOrBuilder {
 
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
+        /**
+         * <pre>
+         * 商家名
+         * </pre>
+         *
+         * <code>string name = 1;</code>
+         */
+        java.lang.String getName();
 
-    private static final com.google.protobuf.Parser<QueueWorkInfo>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkInfo>() {
-      public QueueWorkInfo parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkInfo(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueueWorkInfo> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkInfo> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueueWorkShopLegalSubjectDataOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkShopLegalSubjectData)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *商家名
-     * </pre>
-     *
-     * <code>string name = 1;</code>
-     */
-    java.lang.String getName();
-    /**
-     * <pre>
-     *商家名
-     * </pre>
-     *
-     * <code>string name = 1;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 商家名
+         * </pre>
+         *
+         * <code>string name = 1;</code>
+         */
+        com.google.protobuf.ByteString
         getNameBytes();
 
-    /**
-     * <pre>
-     *商家店主的名字
-     * </pre>
-     *
-     * <code>string contactPerson = 2;</code>
-     */
-    java.lang.String getContactPerson();
-    /**
-     * <pre>
-     *商家店主的名字
-     * </pre>
-     *
-     * <code>string contactPerson = 2;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 商家店主的名字
+         * </pre>
+         *
+         * <code>string contactPerson = 2;</code>
+         */
+        java.lang.String getContactPerson();
+
+        /**
+         * <pre>
+         * 商家店主的名字
+         * </pre>
+         *
+         * <code>string contactPerson = 2;</code>
+         */
+        com.google.protobuf.ByteString
         getContactPersonBytes();
 
-    /**
-     * <pre>
-     *商家联系人手机号
-     * </pre>
-     *
-     * <code>string phone = 3;</code>
-     */
-    java.lang.String getPhone();
-    /**
-     * <pre>
-     *商家联系人手机号
-     * </pre>
-     *
-     * <code>string phone = 3;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 商家联系人手机号
+         * </pre>
+         *
+         * <code>string phone = 3;</code>
+         */
+        java.lang.String getPhone();
+
+        /**
+         * <pre>
+         * 商家联系人手机号
+         * </pre>
+         *
+         * <code>string phone = 3;</code>
+         */
+        com.google.protobuf.ByteString
         getPhoneBytes();
 
-    /**
-     * <pre>
-     *商家联系电话
-     * </pre>
-     *
-     * <code>string contactNumber = 4;</code>
-     */
-    java.lang.String getContactNumber();
-    /**
-     * <pre>
-     *商家联系电话
-     * </pre>
-     *
-     * <code>string contactNumber = 4;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 商家联系电话
+         * </pre>
+         *
+         * <code>string contactNumber = 4;</code>
+         */
+        java.lang.String getContactNumber();
+
+        /**
+         * <pre>
+         * 商家联系电话
+         * </pre>
+         *
+         * <code>string contactNumber = 4;</code>
+         */
+        com.google.protobuf.ByteString
         getContactNumberBytes();
 
-    /**
-     * <pre>
-     *电商系统中的商户ID
-     * </pre>
-     *
-     * <code>int64 legalSubjectId = 5;</code>
-     */
-    long getLegalSubjectId();
+        /**
+         * <pre>
+         * 电商系统中的商户ID
+         * </pre>
+         *
+         * <code>int64 legalSubjectId = 5;</code>
+         */
+        long getLegalSubjectId();
 
-    /**
-     * <pre>
-     *1为添加商铺，2为修改商铺，3为删除商铺
-     * </pre>
-     *
-     * <code>int32 type = 6;</code>
-     */
-    int getType();
+        /**
+         * <pre>
+         * 1为添加商铺，2为修改商铺，3为删除商铺
+         * </pre>
+         *
+         * <code>int32 type = 6;</code>
+         */
+        int getType();
 
-    /**
-     * <pre>
-     *城市id
-     * </pre>
-     *
-     * <code>int32 cityId = 7;</code>
-     */
-    int getCityId();
+        /**
+         * <pre>
+         * 城市id
+         * </pre>
+         *
+         * <code>int32 cityId = 7;</code>
+         */
+        int getCityId();
 
-    /**
-     * <pre>
-     *商家的类型:P:个人；B:企业
-     * </pre>
-     *
-     * <code>string legalType = 8;</code>
-     */
-    java.lang.String getLegalType();
-    /**
-     * <pre>
-     *商家的类型:P:个人；B:企业
-     * </pre>
-     *
-     * <code>string legalType = 8;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 商家的类型:P:个人；B:企业
+         * </pre>
+         *
+         * <code>string legalType = 8;</code>
+         */
+        java.lang.String getLegalType();
+
+        /**
+         * <pre>
+         * 商家的类型:P:个人；B:企业
+         * </pre>
+         *
+         * <code>string legalType = 8;</code>
+         */
+        com.google.protobuf.ByteString
         getLegalTypeBytes();
 
-    /**
-     * <pre>
-     *商家法人姓名
-     * </pre>
-     *
-     * <code>string leagalRepresentativeName = 9;</code>
-     */
-    java.lang.String getLeagalRepresentativeName();
-    /**
-     * <pre>
-     *商家法人姓名
-     * </pre>
-     *
-     * <code>string leagalRepresentativeName = 9;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 商家法人姓名
+         * </pre>
+         *
+         * <code>string leagalRepresentativeName = 9;</code>
+         */
+        java.lang.String getLeagalRepresentativeName();
+
+        /**
+         * <pre>
+         * 商家法人姓名
+         * </pre>
+         *
+         * <code>string leagalRepresentativeName = 9;</code>
+         */
+        com.google.protobuf.ByteString
         getLeagalRepresentativeNameBytes();
 
-    /**
-     * <pre>
-     *商家法人身份证号码
-     * </pre>
-     *
-     * <code>string leagalRepresentativeID = 10;</code>
-     */
-    java.lang.String getLeagalRepresentativeID();
-    /**
-     * <pre>
-     *商家法人身份证号码
-     * </pre>
-     *
-     * <code>string leagalRepresentativeID = 10;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 商家法人身份证号码
+         * </pre>
+         *
+         * <code>string leagalRepresentativeID = 10;</code>
+         */
+        java.lang.String getLeagalRepresentativeID();
+
+        /**
+         * <pre>
+         * 商家法人身份证号码
+         * </pre>
+         *
+         * <code>string leagalRepresentativeID = 10;</code>
+         */
+        com.google.protobuf.ByteString
         getLeagalRepresentativeIDBytes();
 
-    /**
-     * <pre>
-     *店铺主营类目
-     * </pre>
-     *
-     * <code>int64 categoryId = 11;</code>
-     */
-    long getCategoryId();
+        /**
+         * <pre>
+         * 店铺主营类目
+         * </pre>
+         *
+         * <code>int64 categoryId = 11;</code>
+         */
+        long getCategoryId();
 
-    /**
-     * <pre>
-     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
-     * </pre>
-     *
-     * <code>string storeType = 12;</code>
-     */
-    java.lang.String getStoreType();
-    /**
-     * <pre>
-     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
-     * </pre>
-     *
-     * <code>string storeType = 12;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+         * </pre>
+         *
+         * <code>string storeType = 12;</code>
+         */
+        java.lang.String getStoreType();
+
+        /**
+         * <pre>
+         * 店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+         * </pre>
+         *
+         * <code>string storeType = 12;</code>
+         */
+        com.google.protobuf.ByteString
         getStoreTypeBytes();
-  }
-  /**
-   * Protobuf type {@code QueueWorkShopLegalSubjectData}
-   */
-  public  static final class QueueWorkShopLegalSubjectData extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkShopLegalSubjectData)
-      QueueWorkShopLegalSubjectDataOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkShopLegalSubjectData.newBuilder() to construct.
-    private QueueWorkShopLegalSubjectData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkShopLegalSubjectData() {
-      name_ = "";
-      contactPerson_ = "";
-      phone_ = "";
-      contactNumber_ = "";
-      legalSubjectId_ = 0L;
-      type_ = 0;
-      cityId_ = 0;
-      legalType_ = "";
-      leagalRepresentativeName_ = "";
-      leagalRepresentativeID_ = "";
-      categoryId_ = 0L;
-      storeType_ = "";
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkShopLegalSubjectData(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              contactPerson_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              phone_ = s;
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              contactNumber_ = s;
-              break;
-            }
-            case 40: {
-
-              legalSubjectId_ = input.readInt64();
-              break;
-            }
-            case 48: {
-
-              type_ = input.readInt32();
-              break;
-            }
-            case 56: {
-
-              cityId_ = input.readInt32();
-              break;
-            }
-            case 66: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              legalType_ = s;
-              break;
-            }
-            case 74: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              leagalRepresentativeName_ = s;
-              break;
-            }
-            case 82: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              leagalRepresentativeID_ = s;
-              break;
-            }
-            case 88: {
-
-              categoryId_ = input.readInt64();
-              break;
-            }
-            case 98: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              storeType_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder.class);
-    }
-
-    public static final int NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object name_;
-    /**
-     * <pre>
-     *商家名
-     * </pre>
-     *
-     * <code>string name = 1;</code>
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *商家名
-     * </pre>
-     *
-     * <code>string name = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int CONTACTPERSON_FIELD_NUMBER = 2;
-    private volatile java.lang.Object contactPerson_;
-    /**
-     * <pre>
-     *商家店主的名字
-     * </pre>
-     *
-     * <code>string contactPerson = 2;</code>
-     */
-    public java.lang.String getContactPerson() {
-      java.lang.Object ref = contactPerson_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        contactPerson_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *商家店主的名字
-     * </pre>
-     *
-     * <code>string contactPerson = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getContactPersonBytes() {
-      java.lang.Object ref = contactPerson_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        contactPerson_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PHONE_FIELD_NUMBER = 3;
-    private volatile java.lang.Object phone_;
-    /**
-     * <pre>
-     *商家联系人手机号
-     * </pre>
-     *
-     * <code>string phone = 3;</code>
-     */
-    public java.lang.String getPhone() {
-      java.lang.Object ref = phone_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        phone_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *商家联系人手机号
-     * </pre>
-     *
-     * <code>string phone = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPhoneBytes() {
-      java.lang.Object ref = phone_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        phone_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int CONTACTNUMBER_FIELD_NUMBER = 4;
-    private volatile java.lang.Object contactNumber_;
-    /**
-     * <pre>
-     *商家联系电话
-     * </pre>
-     *
-     * <code>string contactNumber = 4;</code>
-     */
-    public java.lang.String getContactNumber() {
-      java.lang.Object ref = contactNumber_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        contactNumber_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *商家联系电话
-     * </pre>
-     *
-     * <code>string contactNumber = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getContactNumberBytes() {
-      java.lang.Object ref = contactNumber_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        contactNumber_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int LEGALSUBJECTID_FIELD_NUMBER = 5;
-    private long legalSubjectId_;
-    /**
-     * <pre>
-     *电商系统中的商户ID
-     * </pre>
-     *
-     * <code>int64 legalSubjectId = 5;</code>
-     */
-    public long getLegalSubjectId() {
-      return legalSubjectId_;
-    }
-
-    public static final int TYPE_FIELD_NUMBER = 6;
-    private int type_;
-    /**
-     * <pre>
-     *1为添加商铺，2为修改商铺，3为删除商铺
-     * </pre>
-     *
-     * <code>int32 type = 6;</code>
-     */
-    public int getType() {
-      return type_;
-    }
-
-    public static final int CITYID_FIELD_NUMBER = 7;
-    private int cityId_;
-    /**
-     * <pre>
-     *城市id
-     * </pre>
-     *
-     * <code>int32 cityId = 7;</code>
-     */
-    public int getCityId() {
-      return cityId_;
-    }
-
-    public static final int LEGALTYPE_FIELD_NUMBER = 8;
-    private volatile java.lang.Object legalType_;
-    /**
-     * <pre>
-     *商家的类型:P:个人；B:企业
-     * </pre>
-     *
-     * <code>string legalType = 8;</code>
-     */
-    public java.lang.String getLegalType() {
-      java.lang.Object ref = legalType_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        legalType_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *商家的类型:P:个人；B:企业
-     * </pre>
-     *
-     * <code>string legalType = 8;</code>
-     */
-    public com.google.protobuf.ByteString
-        getLegalTypeBytes() {
-      java.lang.Object ref = legalType_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        legalType_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int LEAGALREPRESENTATIVENAME_FIELD_NUMBER = 9;
-    private volatile java.lang.Object leagalRepresentativeName_;
-    /**
-     * <pre>
-     *商家法人姓名
-     * </pre>
-     *
-     * <code>string leagalRepresentativeName = 9;</code>
-     */
-    public java.lang.String getLeagalRepresentativeName() {
-      java.lang.Object ref = leagalRepresentativeName_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        leagalRepresentativeName_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *商家法人姓名
-     * </pre>
-     *
-     * <code>string leagalRepresentativeName = 9;</code>
-     */
-    public com.google.protobuf.ByteString
-        getLeagalRepresentativeNameBytes() {
-      java.lang.Object ref = leagalRepresentativeName_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        leagalRepresentativeName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int LEAGALREPRESENTATIVEID_FIELD_NUMBER = 10;
-    private volatile java.lang.Object leagalRepresentativeID_;
-    /**
-     * <pre>
-     *商家法人身份证号码
-     * </pre>
-     *
-     * <code>string leagalRepresentativeID = 10;</code>
-     */
-    public java.lang.String getLeagalRepresentativeID() {
-      java.lang.Object ref = leagalRepresentativeID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        leagalRepresentativeID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *商家法人身份证号码
-     * </pre>
-     *
-     * <code>string leagalRepresentativeID = 10;</code>
-     */
-    public com.google.protobuf.ByteString
-        getLeagalRepresentativeIDBytes() {
-      java.lang.Object ref = leagalRepresentativeID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        leagalRepresentativeID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int CATEGORYID_FIELD_NUMBER = 11;
-    private long categoryId_;
-    /**
-     * <pre>
-     *店铺主营类目
-     * </pre>
-     *
-     * <code>int64 categoryId = 11;</code>
-     */
-    public long getCategoryId() {
-      return categoryId_;
-    }
-
-    public static final int STORETYPE_FIELD_NUMBER = 12;
-    private volatile java.lang.Object storeType_;
-    /**
-     * <pre>
-     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
-     * </pre>
-     *
-     * <code>string storeType = 12;</code>
-     */
-    public java.lang.String getStoreType() {
-      java.lang.Object ref = storeType_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        storeType_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
-     * </pre>
-     *
-     * <code>string storeType = 12;</code>
-     */
-    public com.google.protobuf.ByteString
-        getStoreTypeBytes() {
-      java.lang.Object ref = storeType_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        storeType_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
-      }
-      if (!getContactPersonBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, contactPerson_);
-      }
-      if (!getPhoneBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, phone_);
-      }
-      if (!getContactNumberBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, contactNumber_);
-      }
-      if (legalSubjectId_ != 0L) {
-        output.writeInt64(5, legalSubjectId_);
-      }
-      if (type_ != 0) {
-        output.writeInt32(6, type_);
-      }
-      if (cityId_ != 0) {
-        output.writeInt32(7, cityId_);
-      }
-      if (!getLegalTypeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, legalType_);
-      }
-      if (!getLeagalRepresentativeNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, leagalRepresentativeName_);
-      }
-      if (!getLeagalRepresentativeIDBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, leagalRepresentativeID_);
-      }
-      if (categoryId_ != 0L) {
-        output.writeInt64(11, categoryId_);
-      }
-      if (!getStoreTypeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, storeType_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
-      }
-      if (!getContactPersonBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, contactPerson_);
-      }
-      if (!getPhoneBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, phone_);
-      }
-      if (!getContactNumberBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, contactNumber_);
-      }
-      if (legalSubjectId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(5, legalSubjectId_);
-      }
-      if (type_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, type_);
-      }
-      if (cityId_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, cityId_);
-      }
-      if (!getLegalTypeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, legalType_);
-      }
-      if (!getLeagalRepresentativeNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, leagalRepresentativeName_);
-      }
-      if (!getLeagalRepresentativeIDBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, leagalRepresentativeID_);
-      }
-      if (categoryId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(11, categoryId_);
-      }
-      if (!getStoreTypeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, storeType_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) obj;
-
-      boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
-      result = result && getContactPerson()
-          .equals(other.getContactPerson());
-      result = result && getPhone()
-          .equals(other.getPhone());
-      result = result && getContactNumber()
-          .equals(other.getContactNumber());
-      result = result && (getLegalSubjectId()
-          == other.getLegalSubjectId());
-      result = result && (getType()
-          == other.getType());
-      result = result && (getCityId()
-          == other.getCityId());
-      result = result && getLegalType()
-          .equals(other.getLegalType());
-      result = result && getLeagalRepresentativeName()
-          .equals(other.getLeagalRepresentativeName());
-      result = result && getLeagalRepresentativeID()
-          .equals(other.getLeagalRepresentativeID());
-      result = result && (getCategoryId()
-          == other.getCategoryId());
-      result = result && getStoreType()
-          .equals(other.getStoreType());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
-      hash = (37 * hash) + CONTACTPERSON_FIELD_NUMBER;
-      hash = (53 * hash) + getContactPerson().hashCode();
-      hash = (37 * hash) + PHONE_FIELD_NUMBER;
-      hash = (53 * hash) + getPhone().hashCode();
-      hash = (37 * hash) + CONTACTNUMBER_FIELD_NUMBER;
-      hash = (53 * hash) + getContactNumber().hashCode();
-      hash = (37 * hash) + LEGALSUBJECTID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getLegalSubjectId());
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getType();
-      hash = (37 * hash) + CITYID_FIELD_NUMBER;
-      hash = (53 * hash) + getCityId();
-      hash = (37 * hash) + LEGALTYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getLegalType().hashCode();
-      hash = (37 * hash) + LEAGALREPRESENTATIVENAME_FIELD_NUMBER;
-      hash = (53 * hash) + getLeagalRepresentativeName().hashCode();
-      hash = (37 * hash) + LEAGALREPRESENTATIVEID_FIELD_NUMBER;
-      hash = (53 * hash) + getLeagalRepresentativeID().hashCode();
-      hash = (37 * hash) + CATEGORYID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCategoryId());
-      hash = (37 * hash) + STORETYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getStoreType().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * Protobuf type {@code QueueWorkShopLegalSubjectData}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkShopLegalSubjectData)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
-      }
+    public static final class QueueWorkShopLegalSubjectData extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkShopLegalSubjectData)
+            QueueWorkShopLegalSubjectDataOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use QueueWorkShopLegalSubjectData.newBuilder() to construct.
+        private QueueWorkShopLegalSubjectData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      public Builder clear() {
-        super.clear();
-        name_ = "";
 
-        contactPerson_ = "";
-
-        phone_ = "";
-
-        contactNumber_ = "";
-
-        legalSubjectId_ = 0L;
-
-        type_ = 0;
-
-        cityId_ = 0;
-
-        legalType_ = "";
-
-        leagalRepresentativeName_ = "";
-
-        leagalRepresentativeID_ = "";
-
-        categoryId_ = 0L;
-
-        storeType_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private QueueWorkShopLegalSubjectData() {
+            name_ = "";
+            contactPerson_ = "";
+            phone_ = "";
+            contactNumber_ = "";
+            legalSubjectId_ = 0L;
+            type_ = 0;
+            cityId_ = 0;
+            legalType_ = "";
+            leagalRepresentativeName_ = "";
+            leagalRepresentativeID_ = "";
+            categoryId_ = 0L;
+            storeType_ = "";
         }
-        return result;
-      }
 
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData(this);
-        result.name_ = name_;
-        result.contactPerson_ = contactPerson_;
-        result.phone_ = phone_;
-        result.contactNumber_ = contactNumber_;
-        result.legalSubjectId_ = legalSubjectId_;
-        result.type_ = type_;
-        result.cityId_ = cityId_;
-        result.legalType_ = legalType_;
-        result.leagalRepresentativeName_ = leagalRepresentativeName_;
-        result.leagalRepresentativeID_ = leagalRepresentativeID_;
-        result.categoryId_ = categoryId_;
-        result.storeType_ = storeType_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-      }
 
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance()) return this;
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
-        }
-        if (!other.getContactPerson().isEmpty()) {
-          contactPerson_ = other.contactPerson_;
-          onChanged();
-        }
-        if (!other.getPhone().isEmpty()) {
-          phone_ = other.phone_;
-          onChanged();
-        }
-        if (!other.getContactNumber().isEmpty()) {
-          contactNumber_ = other.contactNumber_;
-          onChanged();
-        }
-        if (other.getLegalSubjectId() != 0L) {
-          setLegalSubjectId(other.getLegalSubjectId());
-        }
-        if (other.getType() != 0) {
-          setType(other.getType());
-        }
-        if (other.getCityId() != 0) {
-          setCityId(other.getCityId());
-        }
-        if (!other.getLegalType().isEmpty()) {
-          legalType_ = other.legalType_;
-          onChanged();
-        }
-        if (!other.getLeagalRepresentativeName().isEmpty()) {
-          leagalRepresentativeName_ = other.leagalRepresentativeName_;
-          onChanged();
-        }
-        if (!other.getLeagalRepresentativeID().isEmpty()) {
-          leagalRepresentativeID_ = other.leagalRepresentativeID_;
-          onChanged();
-        }
-        if (other.getCategoryId() != 0L) {
-          setCategoryId(other.getCategoryId());
-        }
-        if (!other.getStoreType().isEmpty()) {
-          storeType_ = other.storeType_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object name_ = "";
-      /**
-       * <pre>
-       *商家名
-       * </pre>
-       *
-       * <code>string name = 1;</code>
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家名
-       * </pre>
-       *
-       * <code>string name = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家名
-       * </pre>
-       *
-       * <code>string name = 1;</code>
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家名
-       * </pre>
-       *
-       * <code>string name = 1;</code>
-       */
-      public Builder clearName() {
-        
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家名
-       * </pre>
-       *
-       * <code>string name = 1;</code>
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object contactPerson_ = "";
-      /**
-       * <pre>
-       *商家店主的名字
-       * </pre>
-       *
-       * <code>string contactPerson = 2;</code>
-       */
-      public java.lang.String getContactPerson() {
-        java.lang.Object ref = contactPerson_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          contactPerson_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家店主的名字
-       * </pre>
-       *
-       * <code>string contactPerson = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getContactPersonBytes() {
-        java.lang.Object ref = contactPerson_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          contactPerson_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家店主的名字
-       * </pre>
-       *
-       * <code>string contactPerson = 2;</code>
-       */
-      public Builder setContactPerson(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        contactPerson_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家店主的名字
-       * </pre>
-       *
-       * <code>string contactPerson = 2;</code>
-       */
-      public Builder clearContactPerson() {
-        
-        contactPerson_ = getDefaultInstance().getContactPerson();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家店主的名字
-       * </pre>
-       *
-       * <code>string contactPerson = 2;</code>
-       */
-      public Builder setContactPersonBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        contactPerson_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object phone_ = "";
-      /**
-       * <pre>
-       *商家联系人手机号
-       * </pre>
-       *
-       * <code>string phone = 3;</code>
-       */
-      public java.lang.String getPhone() {
-        java.lang.Object ref = phone_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          phone_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家联系人手机号
-       * </pre>
-       *
-       * <code>string phone = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPhoneBytes() {
-        java.lang.Object ref = phone_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          phone_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家联系人手机号
-       * </pre>
-       *
-       * <code>string phone = 3;</code>
-       */
-      public Builder setPhone(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        phone_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家联系人手机号
-       * </pre>
-       *
-       * <code>string phone = 3;</code>
-       */
-      public Builder clearPhone() {
-        
-        phone_ = getDefaultInstance().getPhone();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家联系人手机号
-       * </pre>
-       *
-       * <code>string phone = 3;</code>
-       */
-      public Builder setPhoneBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        phone_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object contactNumber_ = "";
-      /**
-       * <pre>
-       *商家联系电话
-       * </pre>
-       *
-       * <code>string contactNumber = 4;</code>
-       */
-      public java.lang.String getContactNumber() {
-        java.lang.Object ref = contactNumber_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          contactNumber_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家联系电话
-       * </pre>
-       *
-       * <code>string contactNumber = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getContactNumberBytes() {
-        java.lang.Object ref = contactNumber_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          contactNumber_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家联系电话
-       * </pre>
-       *
-       * <code>string contactNumber = 4;</code>
-       */
-      public Builder setContactNumber(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        contactNumber_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家联系电话
-       * </pre>
-       *
-       * <code>string contactNumber = 4;</code>
-       */
-      public Builder clearContactNumber() {
-        
-        contactNumber_ = getDefaultInstance().getContactNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家联系电话
-       * </pre>
-       *
-       * <code>string contactNumber = 4;</code>
-       */
-      public Builder setContactNumberBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        contactNumber_ = value;
-        onChanged();
-        return this;
-      }
-
-      private long legalSubjectId_ ;
-      /**
-       * <pre>
-       *电商系统中的商户ID
-       * </pre>
-       *
-       * <code>int64 legalSubjectId = 5;</code>
-       */
-      public long getLegalSubjectId() {
-        return legalSubjectId_;
-      }
-      /**
-       * <pre>
-       *电商系统中的商户ID
-       * </pre>
-       *
-       * <code>int64 legalSubjectId = 5;</code>
-       */
-      public Builder setLegalSubjectId(long value) {
-        
-        legalSubjectId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *电商系统中的商户ID
-       * </pre>
-       *
-       * <code>int64 legalSubjectId = 5;</code>
-       */
-      public Builder clearLegalSubjectId() {
-        
-        legalSubjectId_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private int type_ ;
-      /**
-       * <pre>
-       *1为添加商铺，2为修改商铺，3为删除商铺
-       * </pre>
-       *
-       * <code>int32 type = 6;</code>
-       */
-      public int getType() {
-        return type_;
-      }
-      /**
-       * <pre>
-       *1为添加商铺，2为修改商铺，3为删除商铺
-       * </pre>
-       *
-       * <code>int32 type = 6;</code>
-       */
-      public Builder setType(int value) {
-        
-        type_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *1为添加商铺，2为修改商铺，3为删除商铺
-       * </pre>
-       *
-       * <code>int32 type = 6;</code>
-       */
-      public Builder clearType() {
-        
-        type_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int cityId_ ;
-      /**
-       * <pre>
-       *城市id
-       * </pre>
-       *
-       * <code>int32 cityId = 7;</code>
-       */
-      public int getCityId() {
-        return cityId_;
-      }
-      /**
-       * <pre>
-       *城市id
-       * </pre>
-       *
-       * <code>int32 cityId = 7;</code>
-       */
-      public Builder setCityId(int value) {
-        
-        cityId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *城市id
-       * </pre>
-       *
-       * <code>int32 cityId = 7;</code>
-       */
-      public Builder clearCityId() {
-        
-        cityId_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object legalType_ = "";
-      /**
-       * <pre>
-       *商家的类型:P:个人；B:企业
-       * </pre>
-       *
-       * <code>string legalType = 8;</code>
-       */
-      public java.lang.String getLegalType() {
-        java.lang.Object ref = legalType_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          legalType_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家的类型:P:个人；B:企业
-       * </pre>
-       *
-       * <code>string legalType = 8;</code>
-       */
-      public com.google.protobuf.ByteString
-          getLegalTypeBytes() {
-        java.lang.Object ref = legalType_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          legalType_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家的类型:P:个人；B:企业
-       * </pre>
-       *
-       * <code>string legalType = 8;</code>
-       */
-      public Builder setLegalType(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        legalType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家的类型:P:个人；B:企业
-       * </pre>
-       *
-       * <code>string legalType = 8;</code>
-       */
-      public Builder clearLegalType() {
-        
-        legalType_ = getDefaultInstance().getLegalType();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家的类型:P:个人；B:企业
-       * </pre>
-       *
-       * <code>string legalType = 8;</code>
-       */
-      public Builder setLegalTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        legalType_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object leagalRepresentativeName_ = "";
-      /**
-       * <pre>
-       *商家法人姓名
-       * </pre>
-       *
-       * <code>string leagalRepresentativeName = 9;</code>
-       */
-      public java.lang.String getLeagalRepresentativeName() {
-        java.lang.Object ref = leagalRepresentativeName_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          leagalRepresentativeName_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家法人姓名
-       * </pre>
-       *
-       * <code>string leagalRepresentativeName = 9;</code>
-       */
-      public com.google.protobuf.ByteString
-          getLeagalRepresentativeNameBytes() {
-        java.lang.Object ref = leagalRepresentativeName_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          leagalRepresentativeName_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家法人姓名
-       * </pre>
-       *
-       * <code>string leagalRepresentativeName = 9;</code>
-       */
-      public Builder setLeagalRepresentativeName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        leagalRepresentativeName_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家法人姓名
-       * </pre>
-       *
-       * <code>string leagalRepresentativeName = 9;</code>
-       */
-      public Builder clearLeagalRepresentativeName() {
-        
-        leagalRepresentativeName_ = getDefaultInstance().getLeagalRepresentativeName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家法人姓名
-       * </pre>
-       *
-       * <code>string leagalRepresentativeName = 9;</code>
-       */
-      public Builder setLeagalRepresentativeNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        leagalRepresentativeName_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object leagalRepresentativeID_ = "";
-      /**
-       * <pre>
-       *商家法人身份证号码
-       * </pre>
-       *
-       * <code>string leagalRepresentativeID = 10;</code>
-       */
-      public java.lang.String getLeagalRepresentativeID() {
-        java.lang.Object ref = leagalRepresentativeID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          leagalRepresentativeID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家法人身份证号码
-       * </pre>
-       *
-       * <code>string leagalRepresentativeID = 10;</code>
-       */
-      public com.google.protobuf.ByteString
-          getLeagalRepresentativeIDBytes() {
-        java.lang.Object ref = leagalRepresentativeID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          leagalRepresentativeID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *商家法人身份证号码
-       * </pre>
-       *
-       * <code>string leagalRepresentativeID = 10;</code>
-       */
-      public Builder setLeagalRepresentativeID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        leagalRepresentativeID_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家法人身份证号码
-       * </pre>
-       *
-       * <code>string leagalRepresentativeID = 10;</code>
-       */
-      public Builder clearLeagalRepresentativeID() {
-        
-        leagalRepresentativeID_ = getDefaultInstance().getLeagalRepresentativeID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *商家法人身份证号码
-       * </pre>
-       *
-       * <code>string leagalRepresentativeID = 10;</code>
-       */
-      public Builder setLeagalRepresentativeIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        leagalRepresentativeID_ = value;
-        onChanged();
-        return this;
-      }
-
-      private long categoryId_ ;
-      /**
-       * <pre>
-       *店铺主营类目
-       * </pre>
-       *
-       * <code>int64 categoryId = 11;</code>
-       */
-      public long getCategoryId() {
-        return categoryId_;
-      }
-      /**
-       * <pre>
-       *店铺主营类目
-       * </pre>
-       *
-       * <code>int64 categoryId = 11;</code>
-       */
-      public Builder setCategoryId(long value) {
-        
-        categoryId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *店铺主营类目
-       * </pre>
-       *
-       * <code>int64 categoryId = 11;</code>
-       */
-      public Builder clearCategoryId() {
-        
-        categoryId_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object storeType_ = "";
-      /**
-       * <pre>
-       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
-       * </pre>
-       *
-       * <code>string storeType = 12;</code>
-       */
-      public java.lang.String getStoreType() {
-        java.lang.Object ref = storeType_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          storeType_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
-       * </pre>
-       *
-       * <code>string storeType = 12;</code>
-       */
-      public com.google.protobuf.ByteString
-          getStoreTypeBytes() {
-        java.lang.Object ref = storeType_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          storeType_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
-       * </pre>
-       *
-       * <code>string storeType = 12;</code>
-       */
-      public Builder setStoreType(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        storeType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
-       * </pre>
-       *
-       * <code>string storeType = 12;</code>
-       */
-      public Builder clearStoreType() {
-        
-        storeType_ = getDefaultInstance().getStoreType();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
-       * </pre>
-       *
-       * <code>string storeType = 12;</code>
-       */
-      public Builder setStoreTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        storeType_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:QueueWorkShopLegalSubjectData)
-    }
-
-    // @@protoc_insertion_point(class_scope:QueueWorkShopLegalSubjectData)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData();
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueueWorkShopLegalSubjectData>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkShopLegalSubjectData>() {
-      public QueueWorkShopLegalSubjectData parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkShopLegalSubjectData(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueueWorkShopLegalSubjectData> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkShopLegalSubjectData> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueueWorkOrderTimeDataOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkOrderTimeData)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *订单id
-     * </pre>
-     *
-     * <code>int64 orderId = 1;</code>
-     */
-    long getOrderId();
-
-    /**
-     * <pre>
-     *用户的id
-     * </pre>
-     *
-     * <code>int64 userId = 2;</code>
-     */
-    long getUserId();
-  }
-  /**
-   * Protobuf type {@code QueueWorkOrderTimeData}
-   */
-  public  static final class QueueWorkOrderTimeData extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkOrderTimeData)
-      QueueWorkOrderTimeDataOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkOrderTimeData.newBuilder() to construct.
-    private QueueWorkOrderTimeData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkOrderTimeData() {
-      orderId_ = 0L;
-      userId_ = 0L;
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkOrderTimeData(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
+        private QueueWorkShopLegalSubjectData(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
             }
-            case 8: {
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 10: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
-              orderId_ = input.readInt64();
-              break;
-            }
-            case 16: {
+                            name_ = s;
+                            break;
+                        }
+                        case 18: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
-              userId_ = input.readInt64();
-              break;
+                            contactPerson_ = s;
+                            break;
+                        }
+                        case 26: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            phone_ = s;
+                            break;
+                        }
+                        case 34: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            contactNumber_ = s;
+                            break;
+                        }
+                        case 40: {
+
+                            legalSubjectId_ = input.readInt64();
+                            break;
+                        }
+                        case 48: {
+
+                            type_ = input.readInt32();
+                            break;
+                        }
+                        case 56: {
+
+                            cityId_ = input.readInt32();
+                            break;
+                        }
+                        case 66: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            legalType_ = s;
+                            break;
+                        }
+                        case 74: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            leagalRepresentativeName_ = s;
+                            break;
+                        }
+                        case 82: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            leagalRepresentativeID_ = s;
+                            break;
+                        }
+                        case 88: {
+
+                            categoryId_ = input.readInt64();
+                            break;
+                        }
+                        case 98: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            storeType_ = s;
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
             }
-          }
         }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
+
+        public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
-    }
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
+        }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder.class);
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder.class);
+        }
+
+        public static final int NAME_FIELD_NUMBER = 1;
+        private volatile java.lang.Object name_;
+
+        /**
+         * <pre>
+         * 商家名
+         * </pre>
+         *
+         * <code>string name = 1;</code>
+         */
+        public java.lang.String getName() {
+            java.lang.Object ref = name_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                name_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 商家名
+         * </pre>
+         *
+         * <code>string name = 1;</code>
+         */
+        public com.google.protobuf.ByteString
+        getNameBytes() {
+            java.lang.Object ref = name_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                name_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int CONTACTPERSON_FIELD_NUMBER = 2;
+        private volatile java.lang.Object contactPerson_;
+
+        /**
+         * <pre>
+         * 商家店主的名字
+         * </pre>
+         *
+         * <code>string contactPerson = 2;</code>
+         */
+        public java.lang.String getContactPerson() {
+            java.lang.Object ref = contactPerson_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                contactPerson_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 商家店主的名字
+         * </pre>
+         *
+         * <code>string contactPerson = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+        getContactPersonBytes() {
+            java.lang.Object ref = contactPerson_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                contactPerson_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int PHONE_FIELD_NUMBER = 3;
+        private volatile java.lang.Object phone_;
+
+        /**
+         * <pre>
+         * 商家联系人手机号
+         * </pre>
+         *
+         * <code>string phone = 3;</code>
+         */
+        public java.lang.String getPhone() {
+            java.lang.Object ref = phone_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                phone_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 商家联系人手机号
+         * </pre>
+         *
+         * <code>string phone = 3;</code>
+         */
+        public com.google.protobuf.ByteString
+        getPhoneBytes() {
+            java.lang.Object ref = phone_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                phone_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int CONTACTNUMBER_FIELD_NUMBER = 4;
+        private volatile java.lang.Object contactNumber_;
+
+        /**
+         * <pre>
+         * 商家联系电话
+         * </pre>
+         *
+         * <code>string contactNumber = 4;</code>
+         */
+        public java.lang.String getContactNumber() {
+            java.lang.Object ref = contactNumber_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                contactNumber_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 商家联系电话
+         * </pre>
+         *
+         * <code>string contactNumber = 4;</code>
+         */
+        public com.google.protobuf.ByteString
+        getContactNumberBytes() {
+            java.lang.Object ref = contactNumber_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                contactNumber_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int LEGALSUBJECTID_FIELD_NUMBER = 5;
+        private long legalSubjectId_;
+
+        /**
+         * <pre>
+         * 电商系统中的商户ID
+         * </pre>
+         *
+         * <code>int64 legalSubjectId = 5;</code>
+         */
+        public long getLegalSubjectId() {
+            return legalSubjectId_;
+        }
+
+        public static final int TYPE_FIELD_NUMBER = 6;
+        private int type_;
+
+        /**
+         * <pre>
+         * 1为添加商铺，2为修改商铺，3为删除商铺
+         * </pre>
+         *
+         * <code>int32 type = 6;</code>
+         */
+        public int getType() {
+            return type_;
+        }
+
+        public static final int CITYID_FIELD_NUMBER = 7;
+        private int cityId_;
+
+        /**
+         * <pre>
+         * 城市id
+         * </pre>
+         *
+         * <code>int32 cityId = 7;</code>
+         */
+        public int getCityId() {
+            return cityId_;
+        }
+
+        public static final int LEGALTYPE_FIELD_NUMBER = 8;
+        private volatile java.lang.Object legalType_;
+
+        /**
+         * <pre>
+         * 商家的类型:P:个人；B:企业
+         * </pre>
+         *
+         * <code>string legalType = 8;</code>
+         */
+        public java.lang.String getLegalType() {
+            java.lang.Object ref = legalType_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                legalType_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 商家的类型:P:个人；B:企业
+         * </pre>
+         *
+         * <code>string legalType = 8;</code>
+         */
+        public com.google.protobuf.ByteString
+        getLegalTypeBytes() {
+            java.lang.Object ref = legalType_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                legalType_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int LEAGALREPRESENTATIVENAME_FIELD_NUMBER = 9;
+        private volatile java.lang.Object leagalRepresentativeName_;
+
+        /**
+         * <pre>
+         * 商家法人姓名
+         * </pre>
+         *
+         * <code>string leagalRepresentativeName = 9;</code>
+         */
+        public java.lang.String getLeagalRepresentativeName() {
+            java.lang.Object ref = leagalRepresentativeName_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                leagalRepresentativeName_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 商家法人姓名
+         * </pre>
+         *
+         * <code>string leagalRepresentativeName = 9;</code>
+         */
+        public com.google.protobuf.ByteString
+        getLeagalRepresentativeNameBytes() {
+            java.lang.Object ref = leagalRepresentativeName_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                leagalRepresentativeName_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int LEAGALREPRESENTATIVEID_FIELD_NUMBER = 10;
+        private volatile java.lang.Object leagalRepresentativeID_;
+
+        /**
+         * <pre>
+         * 商家法人身份证号码
+         * </pre>
+         *
+         * <code>string leagalRepresentativeID = 10;</code>
+         */
+        public java.lang.String getLeagalRepresentativeID() {
+            java.lang.Object ref = leagalRepresentativeID_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                leagalRepresentativeID_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 商家法人身份证号码
+         * </pre>
+         *
+         * <code>string leagalRepresentativeID = 10;</code>
+         */
+        public com.google.protobuf.ByteString
+        getLeagalRepresentativeIDBytes() {
+            java.lang.Object ref = leagalRepresentativeID_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                leagalRepresentativeID_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int CATEGORYID_FIELD_NUMBER = 11;
+        private long categoryId_;
+
+        /**
+         * <pre>
+         * 店铺主营类目
+         * </pre>
+         *
+         * <code>int64 categoryId = 11;</code>
+         */
+        public long getCategoryId() {
+            return categoryId_;
+        }
+
+        public static final int STORETYPE_FIELD_NUMBER = 12;
+        private volatile java.lang.Object storeType_;
+
+        /**
+         * <pre>
+         * 店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+         * </pre>
+         *
+         * <code>string storeType = 12;</code>
+         */
+        public java.lang.String getStoreType() {
+            java.lang.Object ref = storeType_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                storeType_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+         * </pre>
+         *
+         * <code>string storeType = 12;</code>
+         */
+        public com.google.protobuf.ByteString
+        getStoreTypeBytes() {
+            java.lang.Object ref = storeType_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                storeType_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (!getNameBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+            }
+            if (!getContactPersonBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, contactPerson_);
+            }
+            if (!getPhoneBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 3, phone_);
+            }
+            if (!getContactNumberBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 4, contactNumber_);
+            }
+            if (legalSubjectId_ != 0L) {
+                output.writeInt64(5, legalSubjectId_);
+            }
+            if (type_ != 0) {
+                output.writeInt32(6, type_);
+            }
+            if (cityId_ != 0) {
+                output.writeInt32(7, cityId_);
+            }
+            if (!getLegalTypeBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 8, legalType_);
+            }
+            if (!getLeagalRepresentativeNameBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 9, leagalRepresentativeName_);
+            }
+            if (!getLeagalRepresentativeIDBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 10, leagalRepresentativeID_);
+            }
+            if (categoryId_ != 0L) {
+                output.writeInt64(11, categoryId_);
+            }
+            if (!getStoreTypeBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 12, storeType_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (!getNameBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+            }
+            if (!getContactPersonBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, contactPerson_);
+            }
+            if (!getPhoneBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, phone_);
+            }
+            if (!getContactNumberBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, contactNumber_);
+            }
+            if (legalSubjectId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(5, legalSubjectId_);
+            }
+            if (type_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(6, type_);
+            }
+            if (cityId_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(7, cityId_);
+            }
+            if (!getLegalTypeBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, legalType_);
+            }
+            if (!getLeagalRepresentativeNameBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, leagalRepresentativeName_);
+            }
+            if (!getLeagalRepresentativeIDBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, leagalRepresentativeID_);
+            }
+            if (categoryId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(11, categoryId_);
+            }
+            if (!getStoreTypeBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, storeType_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) obj;
+
+            boolean result = true;
+            result = result && getName()
+                    .equals(other.getName());
+            result = result && getContactPerson()
+                    .equals(other.getContactPerson());
+            result = result && getPhone()
+                    .equals(other.getPhone());
+            result = result && getContactNumber()
+                    .equals(other.getContactNumber());
+            result = result && (getLegalSubjectId()
+                    == other.getLegalSubjectId());
+            result = result && (getType()
+                    == other.getType());
+            result = result && (getCityId()
+                    == other.getCityId());
+            result = result && getLegalType()
+                    .equals(other.getLegalType());
+            result = result && getLeagalRepresentativeName()
+                    .equals(other.getLeagalRepresentativeName());
+            result = result && getLeagalRepresentativeID()
+                    .equals(other.getLeagalRepresentativeID());
+            result = result && (getCategoryId()
+                    == other.getCategoryId());
+            result = result && getStoreType()
+                    .equals(other.getStoreType());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + NAME_FIELD_NUMBER;
+            hash = (53 * hash) + getName().hashCode();
+            hash = (37 * hash) + CONTACTPERSON_FIELD_NUMBER;
+            hash = (53 * hash) + getContactPerson().hashCode();
+            hash = (37 * hash) + PHONE_FIELD_NUMBER;
+            hash = (53 * hash) + getPhone().hashCode();
+            hash = (37 * hash) + CONTACTNUMBER_FIELD_NUMBER;
+            hash = (53 * hash) + getContactNumber().hashCode();
+            hash = (37 * hash) + LEGALSUBJECTID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getLegalSubjectId());
+            hash = (37 * hash) + TYPE_FIELD_NUMBER;
+            hash = (53 * hash) + getType();
+            hash = (37 * hash) + CITYID_FIELD_NUMBER;
+            hash = (53 * hash) + getCityId();
+            hash = (37 * hash) + LEGALTYPE_FIELD_NUMBER;
+            hash = (53 * hash) + getLegalType().hashCode();
+            hash = (37 * hash) + LEAGALREPRESENTATIVENAME_FIELD_NUMBER;
+            hash = (53 * hash) + getLeagalRepresentativeName().hashCode();
+            hash = (37 * hash) + LEAGALREPRESENTATIVEID_FIELD_NUMBER;
+            hash = (53 * hash) + getLeagalRepresentativeID().hashCode();
+            hash = (37 * hash) + CATEGORYID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getCategoryId());
+            hash = (37 * hash) + STORETYPE_FIELD_NUMBER;
+            hash = (53 * hash) + getStoreType().hashCode();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code QueueWorkShopLegalSubjectData}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkShopLegalSubjectData)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                name_ = "";
+
+                contactPerson_ = "";
+
+                phone_ = "";
+
+                contactNumber_ = "";
+
+                legalSubjectId_ = 0L;
+
+                type_ = 0;
+
+                cityId_ = 0;
+
+                legalType_ = "";
+
+                leagalRepresentativeName_ = "";
+
+                leagalRepresentativeID_ = "";
+
+                categoryId_ = 0L;
+
+                storeType_ = "";
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData(this);
+                result.name_ = name_;
+                result.contactPerson_ = contactPerson_;
+                result.phone_ = phone_;
+                result.contactNumber_ = contactNumber_;
+                result.legalSubjectId_ = legalSubjectId_;
+                result.type_ = type_;
+                result.cityId_ = cityId_;
+                result.legalType_ = legalType_;
+                result.leagalRepresentativeName_ = leagalRepresentativeName_;
+                result.leagalRepresentativeID_ = leagalRepresentativeID_;
+                result.categoryId_ = categoryId_;
+                result.storeType_ = storeType_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance())
+                    return this;
+                if (!other.getName().isEmpty()) {
+                    name_ = other.name_;
+                    onChanged();
+                }
+                if (!other.getContactPerson().isEmpty()) {
+                    contactPerson_ = other.contactPerson_;
+                    onChanged();
+                }
+                if (!other.getPhone().isEmpty()) {
+                    phone_ = other.phone_;
+                    onChanged();
+                }
+                if (!other.getContactNumber().isEmpty()) {
+                    contactNumber_ = other.contactNumber_;
+                    onChanged();
+                }
+                if (other.getLegalSubjectId() != 0L) {
+                    setLegalSubjectId(other.getLegalSubjectId());
+                }
+                if (other.getType() != 0) {
+                    setType(other.getType());
+                }
+                if (other.getCityId() != 0) {
+                    setCityId(other.getCityId());
+                }
+                if (!other.getLegalType().isEmpty()) {
+                    legalType_ = other.legalType_;
+                    onChanged();
+                }
+                if (!other.getLeagalRepresentativeName().isEmpty()) {
+                    leagalRepresentativeName_ = other.leagalRepresentativeName_;
+                    onChanged();
+                }
+                if (!other.getLeagalRepresentativeID().isEmpty()) {
+                    leagalRepresentativeID_ = other.leagalRepresentativeID_;
+                    onChanged();
+                }
+                if (other.getCategoryId() != 0L) {
+                    setCategoryId(other.getCategoryId());
+                }
+                if (!other.getStoreType().isEmpty()) {
+                    storeType_ = other.storeType_;
+                    onChanged();
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private java.lang.Object name_ = "";
+
+            /**
+             * <pre>
+             * 商家名
+             * </pre>
+             *
+             * <code>string name = 1;</code>
+             */
+            public java.lang.String getName() {
+                java.lang.Object ref = name_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    name_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家名
+             * </pre>
+             *
+             * <code>string name = 1;</code>
+             */
+            public com.google.protobuf.ByteString
+            getNameBytes() {
+                java.lang.Object ref = name_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    name_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家名
+             * </pre>
+             *
+             * <code>string name = 1;</code>
+             */
+            public Builder setName(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                name_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家名
+             * </pre>
+             *
+             * <code>string name = 1;</code>
+             */
+            public Builder clearName() {
+
+                name_ = getDefaultInstance().getName();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家名
+             * </pre>
+             *
+             * <code>string name = 1;</code>
+             */
+            public Builder setNameBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                name_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object contactPerson_ = "";
+
+            /**
+             * <pre>
+             * 商家店主的名字
+             * </pre>
+             *
+             * <code>string contactPerson = 2;</code>
+             */
+            public java.lang.String getContactPerson() {
+                java.lang.Object ref = contactPerson_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    contactPerson_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家店主的名字
+             * </pre>
+             *
+             * <code>string contactPerson = 2;</code>
+             */
+            public com.google.protobuf.ByteString
+            getContactPersonBytes() {
+                java.lang.Object ref = contactPerson_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    contactPerson_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家店主的名字
+             * </pre>
+             *
+             * <code>string contactPerson = 2;</code>
+             */
+            public Builder setContactPerson(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                contactPerson_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家店主的名字
+             * </pre>
+             *
+             * <code>string contactPerson = 2;</code>
+             */
+            public Builder clearContactPerson() {
+
+                contactPerson_ = getDefaultInstance().getContactPerson();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家店主的名字
+             * </pre>
+             *
+             * <code>string contactPerson = 2;</code>
+             */
+            public Builder setContactPersonBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                contactPerson_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object phone_ = "";
+
+            /**
+             * <pre>
+             * 商家联系人手机号
+             * </pre>
+             *
+             * <code>string phone = 3;</code>
+             */
+            public java.lang.String getPhone() {
+                java.lang.Object ref = phone_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    phone_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家联系人手机号
+             * </pre>
+             *
+             * <code>string phone = 3;</code>
+             */
+            public com.google.protobuf.ByteString
+            getPhoneBytes() {
+                java.lang.Object ref = phone_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    phone_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家联系人手机号
+             * </pre>
+             *
+             * <code>string phone = 3;</code>
+             */
+            public Builder setPhone(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                phone_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家联系人手机号
+             * </pre>
+             *
+             * <code>string phone = 3;</code>
+             */
+            public Builder clearPhone() {
+
+                phone_ = getDefaultInstance().getPhone();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家联系人手机号
+             * </pre>
+             *
+             * <code>string phone = 3;</code>
+             */
+            public Builder setPhoneBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                phone_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object contactNumber_ = "";
+
+            /**
+             * <pre>
+             * 商家联系电话
+             * </pre>
+             *
+             * <code>string contactNumber = 4;</code>
+             */
+            public java.lang.String getContactNumber() {
+                java.lang.Object ref = contactNumber_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    contactNumber_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家联系电话
+             * </pre>
+             *
+             * <code>string contactNumber = 4;</code>
+             */
+            public com.google.protobuf.ByteString
+            getContactNumberBytes() {
+                java.lang.Object ref = contactNumber_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    contactNumber_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家联系电话
+             * </pre>
+             *
+             * <code>string contactNumber = 4;</code>
+             */
+            public Builder setContactNumber(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                contactNumber_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家联系电话
+             * </pre>
+             *
+             * <code>string contactNumber = 4;</code>
+             */
+            public Builder clearContactNumber() {
+
+                contactNumber_ = getDefaultInstance().getContactNumber();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家联系电话
+             * </pre>
+             *
+             * <code>string contactNumber = 4;</code>
+             */
+            public Builder setContactNumberBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                contactNumber_ = value;
+                onChanged();
+                return this;
+            }
+
+            private long legalSubjectId_;
+
+            /**
+             * <pre>
+             * 电商系统中的商户ID
+             * </pre>
+             *
+             * <code>int64 legalSubjectId = 5;</code>
+             */
+            public long getLegalSubjectId() {
+                return legalSubjectId_;
+            }
+
+            /**
+             * <pre>
+             * 电商系统中的商户ID
+             * </pre>
+             *
+             * <code>int64 legalSubjectId = 5;</code>
+             */
+            public Builder setLegalSubjectId(long value) {
+
+                legalSubjectId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 电商系统中的商户ID
+             * </pre>
+             *
+             * <code>int64 legalSubjectId = 5;</code>
+             */
+            public Builder clearLegalSubjectId() {
+
+                legalSubjectId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private int type_;
+
+            /**
+             * <pre>
+             * 1为添加商铺，2为修改商铺，3为删除商铺
+             * </pre>
+             *
+             * <code>int32 type = 6;</code>
+             */
+            public int getType() {
+                return type_;
+            }
+
+            /**
+             * <pre>
+             * 1为添加商铺，2为修改商铺，3为删除商铺
+             * </pre>
+             *
+             * <code>int32 type = 6;</code>
+             */
+            public Builder setType(int value) {
+
+                type_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 1为添加商铺，2为修改商铺，3为删除商铺
+             * </pre>
+             *
+             * <code>int32 type = 6;</code>
+             */
+            public Builder clearType() {
+
+                type_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int cityId_;
+
+            /**
+             * <pre>
+             * 城市id
+             * </pre>
+             *
+             * <code>int32 cityId = 7;</code>
+             */
+            public int getCityId() {
+                return cityId_;
+            }
+
+            /**
+             * <pre>
+             * 城市id
+             * </pre>
+             *
+             * <code>int32 cityId = 7;</code>
+             */
+            public Builder setCityId(int value) {
+
+                cityId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 城市id
+             * </pre>
+             *
+             * <code>int32 cityId = 7;</code>
+             */
+            public Builder clearCityId() {
+
+                cityId_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object legalType_ = "";
+
+            /**
+             * <pre>
+             * 商家的类型:P:个人；B:企业
+             * </pre>
+             *
+             * <code>string legalType = 8;</code>
+             */
+            public java.lang.String getLegalType() {
+                java.lang.Object ref = legalType_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    legalType_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家的类型:P:个人；B:企业
+             * </pre>
+             *
+             * <code>string legalType = 8;</code>
+             */
+            public com.google.protobuf.ByteString
+            getLegalTypeBytes() {
+                java.lang.Object ref = legalType_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    legalType_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家的类型:P:个人；B:企业
+             * </pre>
+             *
+             * <code>string legalType = 8;</code>
+             */
+            public Builder setLegalType(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                legalType_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家的类型:P:个人；B:企业
+             * </pre>
+             *
+             * <code>string legalType = 8;</code>
+             */
+            public Builder clearLegalType() {
+
+                legalType_ = getDefaultInstance().getLegalType();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家的类型:P:个人；B:企业
+             * </pre>
+             *
+             * <code>string legalType = 8;</code>
+             */
+            public Builder setLegalTypeBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                legalType_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object leagalRepresentativeName_ = "";
+
+            /**
+             * <pre>
+             * 商家法人姓名
+             * </pre>
+             *
+             * <code>string leagalRepresentativeName = 9;</code>
+             */
+            public java.lang.String getLeagalRepresentativeName() {
+                java.lang.Object ref = leagalRepresentativeName_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    leagalRepresentativeName_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家法人姓名
+             * </pre>
+             *
+             * <code>string leagalRepresentativeName = 9;</code>
+             */
+            public com.google.protobuf.ByteString
+            getLeagalRepresentativeNameBytes() {
+                java.lang.Object ref = leagalRepresentativeName_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    leagalRepresentativeName_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家法人姓名
+             * </pre>
+             *
+             * <code>string leagalRepresentativeName = 9;</code>
+             */
+            public Builder setLeagalRepresentativeName(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                leagalRepresentativeName_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家法人姓名
+             * </pre>
+             *
+             * <code>string leagalRepresentativeName = 9;</code>
+             */
+            public Builder clearLeagalRepresentativeName() {
+
+                leagalRepresentativeName_ = getDefaultInstance().getLeagalRepresentativeName();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家法人姓名
+             * </pre>
+             *
+             * <code>string leagalRepresentativeName = 9;</code>
+             */
+            public Builder setLeagalRepresentativeNameBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                leagalRepresentativeName_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object leagalRepresentativeID_ = "";
+
+            /**
+             * <pre>
+             * 商家法人身份证号码
+             * </pre>
+             *
+             * <code>string leagalRepresentativeID = 10;</code>
+             */
+            public java.lang.String getLeagalRepresentativeID() {
+                java.lang.Object ref = leagalRepresentativeID_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    leagalRepresentativeID_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家法人身份证号码
+             * </pre>
+             *
+             * <code>string leagalRepresentativeID = 10;</code>
+             */
+            public com.google.protobuf.ByteString
+            getLeagalRepresentativeIDBytes() {
+                java.lang.Object ref = leagalRepresentativeID_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    leagalRepresentativeID_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 商家法人身份证号码
+             * </pre>
+             *
+             * <code>string leagalRepresentativeID = 10;</code>
+             */
+            public Builder setLeagalRepresentativeID(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                leagalRepresentativeID_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家法人身份证号码
+             * </pre>
+             *
+             * <code>string leagalRepresentativeID = 10;</code>
+             */
+            public Builder clearLeagalRepresentativeID() {
+
+                leagalRepresentativeID_ = getDefaultInstance().getLeagalRepresentativeID();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 商家法人身份证号码
+             * </pre>
+             *
+             * <code>string leagalRepresentativeID = 10;</code>
+             */
+            public Builder setLeagalRepresentativeIDBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                leagalRepresentativeID_ = value;
+                onChanged();
+                return this;
+            }
+
+            private long categoryId_;
+
+            /**
+             * <pre>
+             * 店铺主营类目
+             * </pre>
+             *
+             * <code>int64 categoryId = 11;</code>
+             */
+            public long getCategoryId() {
+                return categoryId_;
+            }
+
+            /**
+             * <pre>
+             * 店铺主营类目
+             * </pre>
+             *
+             * <code>int64 categoryId = 11;</code>
+             */
+            public Builder setCategoryId(long value) {
+
+                categoryId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 店铺主营类目
+             * </pre>
+             *
+             * <code>int64 categoryId = 11;</code>
+             */
+            public Builder clearCategoryId() {
+
+                categoryId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object storeType_ = "";
+
+            /**
+             * <pre>
+             * 店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+             * </pre>
+             *
+             * <code>string storeType = 12;</code>
+             */
+            public java.lang.String getStoreType() {
+                java.lang.Object ref = storeType_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    storeType_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+             * </pre>
+             *
+             * <code>string storeType = 12;</code>
+             */
+            public com.google.protobuf.ByteString
+            getStoreTypeBytes() {
+                java.lang.Object ref = storeType_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    storeType_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+             * </pre>
+             *
+             * <code>string storeType = 12;</code>
+             */
+            public Builder setStoreType(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                storeType_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+             * </pre>
+             *
+             * <code>string storeType = 12;</code>
+             */
+            public Builder clearStoreType() {
+
+                storeType_ = getDefaultInstance().getStoreType();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 店铺类型&gt;&gt;SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
+             * </pre>
+             *
+             * <code>string storeType = 12;</code>
+             */
+            public Builder setStoreTypeBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                storeType_ = value;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:QueueWorkShopLegalSubjectData)
+        }
+
+        // @@protoc_insertion_point(class_scope:QueueWorkShopLegalSubjectData)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkShopLegalSubjectData>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkShopLegalSubjectData>() {
+            public QueueWorkShopLegalSubjectData parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkShopLegalSubjectData(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkShopLegalSubjectData> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkShopLegalSubjectData> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    public static final int ORDERID_FIELD_NUMBER = 1;
-    private long orderId_;
-    /**
-     * <pre>
-     *订单id
-     * </pre>
-     *
-     * <code>int64 orderId = 1;</code>
-     */
-    public long getOrderId() {
-      return orderId_;
+    public interface QueueWorkOrderTimeDataOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkOrderTimeData)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <pre>
+         * 订单id
+         * </pre>
+         *
+         * <code>int64 orderId = 1;</code>
+         */
+        long getOrderId();
+
+        /**
+         * <pre>
+         * 用户的id
+         * </pre>
+         *
+         * <code>int64 userId = 2;</code>
+         */
+        long getUserId();
     }
 
-    public static final int USERID_FIELD_NUMBER = 2;
-    private long userId_;
-    /**
-     * <pre>
-     *用户的id
-     * </pre>
-     *
-     * <code>int64 userId = 2;</code>
-     */
-    public long getUserId() {
-      return userId_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (orderId_ != 0L) {
-        output.writeInt64(1, orderId_);
-      }
-      if (userId_ != 0L) {
-        output.writeInt64(2, userId_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (orderId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, orderId_);
-      }
-      if (userId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, userId_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) obj;
-
-      boolean result = true;
-      result = result && (getOrderId()
-          == other.getOrderId());
-      result = result && (getUserId()
-          == other.getUserId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ORDERID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getOrderId());
-      hash = (37 * hash) + USERID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getUserId());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * Protobuf type {@code QueueWorkOrderTimeData}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkOrderTimeData)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
-      }
+    public static final class QueueWorkOrderTimeData extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkOrderTimeData)
+            QueueWorkOrderTimeDataOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use QueueWorkOrderTimeData.newBuilder() to construct.
+        private QueueWorkOrderTimeData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      public Builder clear() {
-        super.clear();
-        orderId_ = 0L;
 
-        userId_ = 0L;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private QueueWorkOrderTimeData() {
+            orderId_ = 0L;
+            userId_ = 0L;
         }
-        return result;
-      }
 
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData(this);
-        result.orderId_ = orderId_;
-        result.userId_ = userId_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-      }
 
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance()) return this;
-        if (other.getOrderId() != 0L) {
-          setOrderId(other.getOrderId());
+        private QueueWorkOrderTimeData(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 8: {
+
+                            orderId_ = input.readInt64();
+                            break;
+                        }
+                        case 16: {
+
+                            userId_ = input.readInt64();
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
         }
-        if (other.getUserId() != 0L) {
-          setUserId(other.getUserId());
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
 
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder.class);
         }
-        return this;
-      }
 
-      private long orderId_ ;
-      /**
-       * <pre>
-       *订单id
-       * </pre>
-       *
-       * <code>int64 orderId = 1;</code>
-       */
-      public long getOrderId() {
-        return orderId_;
-      }
-      /**
-       * <pre>
-       *订单id
-       * </pre>
-       *
-       * <code>int64 orderId = 1;</code>
-       */
-      public Builder setOrderId(long value) {
-        
-        orderId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *订单id
-       * </pre>
-       *
-       * <code>int64 orderId = 1;</code>
-       */
-      public Builder clearOrderId() {
-        
-        orderId_ = 0L;
-        onChanged();
-        return this;
-      }
+        public static final int ORDERID_FIELD_NUMBER = 1;
+        private long orderId_;
 
-      private long userId_ ;
-      /**
-       * <pre>
-       *用户的id
-       * </pre>
-       *
-       * <code>int64 userId = 2;</code>
-       */
-      public long getUserId() {
-        return userId_;
-      }
-      /**
-       * <pre>
-       *用户的id
-       * </pre>
-       *
-       * <code>int64 userId = 2;</code>
-       */
-      public Builder setUserId(long value) {
-        
-        userId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *用户的id
-       * </pre>
-       *
-       * <code>int64 userId = 2;</code>
-       */
-      public Builder clearUserId() {
-        
-        userId_ = 0L;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
+        /**
+         * <pre>
+         * 订单id
+         * </pre>
+         *
+         * <code>int64 orderId = 1;</code>
+         */
+        public long getOrderId() {
+            return orderId_;
+        }
 
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+        public static final int USERID_FIELD_NUMBER = 2;
+        private long userId_;
+
+        /**
+         * <pre>
+         * 用户的id
+         * </pre>
+         *
+         * <code>int64 userId = 2;</code>
+         */
+        public long getUserId() {
+            return userId_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (orderId_ != 0L) {
+                output.writeInt64(1, orderId_);
+            }
+            if (userId_ != 0L) {
+                output.writeInt64(2, userId_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (orderId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, orderId_);
+            }
+            if (userId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(2, userId_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) obj;
+
+            boolean result = true;
+            result = result && (getOrderId()
+                    == other.getOrderId());
+            result = result && (getUserId()
+                    == other.getUserId());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + ORDERID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getOrderId());
+            hash = (37 * hash) + USERID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getUserId());
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code QueueWorkOrderTimeData}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkOrderTimeData)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                orderId_ = 0L;
+
+                userId_ = 0L;
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData(this);
+                result.orderId_ = orderId_;
+                result.userId_ = userId_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance())
+                    return this;
+                if (other.getOrderId() != 0L) {
+                    setOrderId(other.getOrderId());
+                }
+                if (other.getUserId() != 0L) {
+                    setUserId(other.getUserId());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private long orderId_;
+
+            /**
+             * <pre>
+             * 订单id
+             * </pre>
+             *
+             * <code>int64 orderId = 1;</code>
+             */
+            public long getOrderId() {
+                return orderId_;
+            }
+
+            /**
+             * <pre>
+             * 订单id
+             * </pre>
+             *
+             * <code>int64 orderId = 1;</code>
+             */
+            public Builder setOrderId(long value) {
+
+                orderId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 订单id
+             * </pre>
+             *
+             * <code>int64 orderId = 1;</code>
+             */
+            public Builder clearOrderId() {
+
+                orderId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private long userId_;
+
+            /**
+             * <pre>
+             * 用户的id
+             * </pre>
+             *
+             * <code>int64 userId = 2;</code>
+             */
+            public long getUserId() {
+                return userId_;
+            }
+
+            /**
+             * <pre>
+             * 用户的id
+             * </pre>
+             *
+             * <code>int64 userId = 2;</code>
+             */
+            public Builder setUserId(long value) {
+
+                userId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 用户的id
+             * </pre>
+             *
+             * <code>int64 userId = 2;</code>
+             */
+            public Builder clearUserId() {
+
+                userId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:QueueWorkOrderTimeData)
+            // @@protoc_insertion_point(builder_scope:QueueWorkOrderTimeData)
+        }
+
+        // @@protoc_insertion_point(class_scope:QueueWorkOrderTimeData)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkOrderTimeData>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkOrderTimeData>() {
+            public QueueWorkOrderTimeData parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkOrderTimeData(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkOrderTimeData> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkOrderTimeData> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    // @@protoc_insertion_point(class_scope:QueueWorkOrderTimeData)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData();
-    }
+    public interface QueueWorkHeartOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkHeart)
+            com.google.protobuf.MessageOrBuilder {
 
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
+        /**
+         * <pre>
+         * 被点赞的资源
+         * </pre>
+         *
+         * <code>string resourceId = 1;</code>
+         */
+        java.lang.String getResourceId();
 
-    private static final com.google.protobuf.Parser<QueueWorkOrderTimeData>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkOrderTimeData>() {
-      public QueueWorkOrderTimeData parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkOrderTimeData(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueueWorkOrderTimeData> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkOrderTimeData> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueueWorkHeartOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkHeart)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *被点赞的资源
-     * </pre>
-     *
-     * <code>string resourceId = 1;</code>
-     */
-    java.lang.String getResourceId();
-    /**
-     * <pre>
-     *被点赞的资源
-     * </pre>
-     *
-     * <code>string resourceId = 1;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 被点赞的资源
+         * </pre>
+         *
+         * <code>string resourceId = 1;</code>
+         */
+        com.google.protobuf.ByteString
         getResourceIdBytes();
 
-    /**
-     * <pre>
-     *资源类型
-     * </pre>
-     *
-     * <code>string resourceType = 2;</code>
-     */
-    java.lang.String getResourceType();
-    /**
-     * <pre>
-     *资源类型
-     * </pre>
-     *
-     * <code>string resourceType = 2;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 资源类型
+         * </pre>
+         *
+         * <code>string resourceType = 2;</code>
+         */
+        java.lang.String getResourceType();
+
+        /**
+         * <pre>
+         * 资源类型
+         * </pre>
+         *
+         * <code>string resourceType = 2;</code>
+         */
+        com.google.protobuf.ByteString
         getResourceTypeBytes();
 
-    /**
-     * <pre>
-     *点赞的用户ID
-     * </pre>
-     *
-     * <code>int64 userId = 3;</code>
-     */
-    long getUserId();
+        /**
+         * <pre>
+         * 点赞的用户ID
+         * </pre>
+         *
+         * <code>int64 userId = 3;</code>
+         */
+        long getUserId();
 
-    /**
-     * <pre>
-     *取消/关注点赞
-     * </pre>
-     *
-     * <code>bool unHeart = 4;</code>
-     */
-    boolean getUnHeart();
-  }
-  /**
-   * Protobuf type {@code QueueWorkHeart}
-   */
-  public  static final class QueueWorkHeart extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkHeart)
-      QueueWorkHeartOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkHeart.newBuilder() to construct.
-    private QueueWorkHeart(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkHeart() {
-      resourceId_ = "";
-      resourceType_ = "";
-      userId_ = 0L;
-      unHeart_ = false;
+        /**
+         * <pre>
+         * 取消/关注点赞
+         * </pre>
+         *
+         * <code>bool unHeart = 4;</code>
+         */
+        boolean getUnHeart();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkHeart(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              resourceId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              resourceType_ = s;
-              break;
-            }
-            case 24: {
-
-              userId_ = input.readInt64();
-              break;
-            }
-            case 32: {
-
-              unHeart_ = input.readBool();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder.class);
-    }
-
-    public static final int RESOURCEID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object resourceId_;
-    /**
-     * <pre>
-     *被点赞的资源
-     * </pre>
-     *
-     * <code>string resourceId = 1;</code>
-     */
-    public java.lang.String getResourceId() {
-      java.lang.Object ref = resourceId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        resourceId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *被点赞的资源
-     * </pre>
-     *
-     * <code>string resourceId = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getResourceIdBytes() {
-      java.lang.Object ref = resourceId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        resourceId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int RESOURCETYPE_FIELD_NUMBER = 2;
-    private volatile java.lang.Object resourceType_;
-    /**
-     * <pre>
-     *资源类型
-     * </pre>
-     *
-     * <code>string resourceType = 2;</code>
-     */
-    public java.lang.String getResourceType() {
-      java.lang.Object ref = resourceType_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        resourceType_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *资源类型
-     * </pre>
-     *
-     * <code>string resourceType = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getResourceTypeBytes() {
-      java.lang.Object ref = resourceType_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        resourceType_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int USERID_FIELD_NUMBER = 3;
-    private long userId_;
-    /**
-     * <pre>
-     *点赞的用户ID
-     * </pre>
-     *
-     * <code>int64 userId = 3;</code>
-     */
-    public long getUserId() {
-      return userId_;
-    }
-
-    public static final int UNHEART_FIELD_NUMBER = 4;
-    private boolean unHeart_;
-    /**
-     * <pre>
-     *取消/关注点赞
-     * </pre>
-     *
-     * <code>bool unHeart = 4;</code>
-     */
-    public boolean getUnHeart() {
-      return unHeart_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getResourceIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, resourceId_);
-      }
-      if (!getResourceTypeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, resourceType_);
-      }
-      if (userId_ != 0L) {
-        output.writeInt64(3, userId_);
-      }
-      if (unHeart_ != false) {
-        output.writeBool(4, unHeart_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getResourceIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, resourceId_);
-      }
-      if (!getResourceTypeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, resourceType_);
-      }
-      if (userId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, userId_);
-      }
-      if (unHeart_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(4, unHeart_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) obj;
-
-      boolean result = true;
-      result = result && getResourceId()
-          .equals(other.getResourceId());
-      result = result && getResourceType()
-          .equals(other.getResourceType());
-      result = result && (getUserId()
-          == other.getUserId());
-      result = result && (getUnHeart()
-          == other.getUnHeart());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + RESOURCEID_FIELD_NUMBER;
-      hash = (53 * hash) + getResourceId().hashCode();
-      hash = (37 * hash) + RESOURCETYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getResourceType().hashCode();
-      hash = (37 * hash) + USERID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getUserId());
-      hash = (37 * hash) + UNHEART_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUnHeart());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * Protobuf type {@code QueueWorkHeart}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkHeart)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
-      }
+    public static final class QueueWorkHeart extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkHeart)
+            QueueWorkHeartOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use QueueWorkHeart.newBuilder() to construct.
+        private QueueWorkHeart(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      public Builder clear() {
-        super.clear();
-        resourceId_ = "";
 
-        resourceType_ = "";
-
-        userId_ = 0L;
-
-        unHeart_ = false;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private QueueWorkHeart() {
+            resourceId_ = "";
+            resourceType_ = "";
+            userId_ = 0L;
+            unHeart_ = false;
         }
-        return result;
-      }
 
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart(this);
-        result.resourceId_ = resourceId_;
-        result.resourceType_ = resourceType_;
-        result.userId_ = userId_;
-        result.unHeart_ = unHeart_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-      }
 
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance()) return this;
-        if (!other.getResourceId().isEmpty()) {
-          resourceId_ = other.resourceId_;
-          onChanged();
+        private QueueWorkHeart(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 10: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            resourceId_ = s;
+                            break;
+                        }
+                        case 18: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            resourceType_ = s;
+                            break;
+                        }
+                        case 24: {
+
+                            userId_ = input.readInt64();
+                            break;
+                        }
+                        case 32: {
+
+                            unHeart_ = input.readBool();
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
         }
-        if (!other.getResourceType().isEmpty()) {
-          resourceType_ = other.resourceType_;
-          onChanged();
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
         }
-        if (other.getUserId() != 0L) {
-          setUserId(other.getUserId());
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder.class);
         }
-        if (other.getUnHeart() != false) {
-          setUnHeart(other.getUnHeart());
+
+        public static final int RESOURCEID_FIELD_NUMBER = 1;
+        private volatile java.lang.Object resourceId_;
+
+        /**
+         * <pre>
+         * 被点赞的资源
+         * </pre>
+         *
+         * <code>string resourceId = 1;</code>
+         */
+        public java.lang.String getResourceId() {
+            java.lang.Object ref = resourceId_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                resourceId_ = s;
+                return s;
+            }
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
 
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+        /**
+         * <pre>
+         * 被点赞的资源
+         * </pre>
+         *
+         * <code>string resourceId = 1;</code>
+         */
+        public com.google.protobuf.ByteString
+        getResourceIdBytes() {
+            java.lang.Object ref = resourceId_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                resourceId_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
         }
-        return this;
-      }
 
-      private java.lang.Object resourceId_ = "";
-      /**
-       * <pre>
-       *被点赞的资源
-       * </pre>
-       *
-       * <code>string resourceId = 1;</code>
-       */
-      public java.lang.String getResourceId() {
-        java.lang.Object ref = resourceId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          resourceId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
+        public static final int RESOURCETYPE_FIELD_NUMBER = 2;
+        private volatile java.lang.Object resourceType_;
+
+        /**
+         * <pre>
+         * 资源类型
+         * </pre>
+         *
+         * <code>string resourceType = 2;</code>
+         */
+        public java.lang.String getResourceType() {
+            java.lang.Object ref = resourceType_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                resourceType_ = s;
+                return s;
+            }
         }
-      }
-      /**
-       * <pre>
-       *被点赞的资源
-       * </pre>
-       *
-       * <code>string resourceId = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getResourceIdBytes() {
-        java.lang.Object ref = resourceId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          resourceId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+
+        /**
+         * <pre>
+         * 资源类型
+         * </pre>
+         *
+         * <code>string resourceType = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+        getResourceTypeBytes() {
+            java.lang.Object ref = resourceType_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                resourceType_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
         }
-      }
-      /**
-       * <pre>
-       *被点赞的资源
-       * </pre>
-       *
-       * <code>string resourceId = 1;</code>
-       */
-      public Builder setResourceId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        resourceId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *被点赞的资源
-       * </pre>
-       *
-       * <code>string resourceId = 1;</code>
-       */
-      public Builder clearResourceId() {
-        
-        resourceId_ = getDefaultInstance().getResourceId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *被点赞的资源
-       * </pre>
-       *
-       * <code>string resourceId = 1;</code>
-       */
-      public Builder setResourceIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        resourceId_ = value;
-        onChanged();
-        return this;
-      }
 
-      private java.lang.Object resourceType_ = "";
-      /**
-       * <pre>
-       *资源类型
-       * </pre>
-       *
-       * <code>string resourceType = 2;</code>
-       */
-      public java.lang.String getResourceType() {
-        java.lang.Object ref = resourceType_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          resourceType_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
+        public static final int USERID_FIELD_NUMBER = 3;
+        private long userId_;
+
+        /**
+         * <pre>
+         * 点赞的用户ID
+         * </pre>
+         *
+         * <code>int64 userId = 3;</code>
+         */
+        public long getUserId() {
+            return userId_;
         }
-      }
-      /**
-       * <pre>
-       *资源类型
-       * </pre>
-       *
-       * <code>string resourceType = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getResourceTypeBytes() {
-        java.lang.Object ref = resourceType_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          resourceType_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+
+        public static final int UNHEART_FIELD_NUMBER = 4;
+        private boolean unHeart_;
+
+        /**
+         * <pre>
+         * 取消/关注点赞
+         * </pre>
+         *
+         * <code>bool unHeart = 4;</code>
+         */
+        public boolean getUnHeart() {
+            return unHeart_;
         }
-      }
-      /**
-       * <pre>
-       *资源类型
-       * </pre>
-       *
-       * <code>string resourceType = 2;</code>
-       */
-      public Builder setResourceType(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        resourceType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *资源类型
-       * </pre>
-       *
-       * <code>string resourceType = 2;</code>
-       */
-      public Builder clearResourceType() {
-        
-        resourceType_ = getDefaultInstance().getResourceType();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *资源类型
-       * </pre>
-       *
-       * <code>string resourceType = 2;</code>
-       */
-      public Builder setResourceTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        resourceType_ = value;
-        onChanged();
-        return this;
-      }
 
-      private long userId_ ;
-      /**
-       * <pre>
-       *点赞的用户ID
-       * </pre>
-       *
-       * <code>int64 userId = 3;</code>
-       */
-      public long getUserId() {
-        return userId_;
-      }
-      /**
-       * <pre>
-       *点赞的用户ID
-       * </pre>
-       *
-       * <code>int64 userId = 3;</code>
-       */
-      public Builder setUserId(long value) {
-        
-        userId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *点赞的用户ID
-       * </pre>
-       *
-       * <code>int64 userId = 3;</code>
-       */
-      public Builder clearUserId() {
-        
-        userId_ = 0L;
-        onChanged();
-        return this;
-      }
+        private byte memoizedIsInitialized = -1;
 
-      private boolean unHeart_ ;
-      /**
-       * <pre>
-       *取消/关注点赞
-       * </pre>
-       *
-       * <code>bool unHeart = 4;</code>
-       */
-      public boolean getUnHeart() {
-        return unHeart_;
-      }
-      /**
-       * <pre>
-       *取消/关注点赞
-       * </pre>
-       *
-       * <code>bool unHeart = 4;</code>
-       */
-      public Builder setUnHeart(boolean value) {
-        
-        unHeart_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *取消/关注点赞
-       * </pre>
-       *
-       * <code>bool unHeart = 4;</code>
-       */
-      public Builder clearUnHeart() {
-        
-        unHeart_ = false;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
 
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (!getResourceIdBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, resourceId_);
+            }
+            if (!getResourceTypeBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, resourceType_);
+            }
+            if (userId_ != 0L) {
+                output.writeInt64(3, userId_);
+            }
+            if (unHeart_ != false) {
+                output.writeBool(4, unHeart_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (!getResourceIdBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, resourceId_);
+            }
+            if (!getResourceTypeBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, resourceType_);
+            }
+            if (userId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(3, userId_);
+            }
+            if (unHeart_ != false) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBoolSize(4, unHeart_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) obj;
+
+            boolean result = true;
+            result = result && getResourceId()
+                    .equals(other.getResourceId());
+            result = result && getResourceType()
+                    .equals(other.getResourceType());
+            result = result && (getUserId()
+                    == other.getUserId());
+            result = result && (getUnHeart()
+                    == other.getUnHeart());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + RESOURCEID_FIELD_NUMBER;
+            hash = (53 * hash) + getResourceId().hashCode();
+            hash = (37 * hash) + RESOURCETYPE_FIELD_NUMBER;
+            hash = (53 * hash) + getResourceType().hashCode();
+            hash = (37 * hash) + USERID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getUserId());
+            hash = (37 * hash) + UNHEART_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+                    getUnHeart());
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code QueueWorkHeart}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkHeart)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                resourceId_ = "";
+
+                resourceType_ = "";
+
+                userId_ = 0L;
+
+                unHeart_ = false;
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart(this);
+                result.resourceId_ = resourceId_;
+                result.resourceType_ = resourceType_;
+                result.userId_ = userId_;
+                result.unHeart_ = unHeart_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance())
+                    return this;
+                if (!other.getResourceId().isEmpty()) {
+                    resourceId_ = other.resourceId_;
+                    onChanged();
+                }
+                if (!other.getResourceType().isEmpty()) {
+                    resourceType_ = other.resourceType_;
+                    onChanged();
+                }
+                if (other.getUserId() != 0L) {
+                    setUserId(other.getUserId());
+                }
+                if (other.getUnHeart() != false) {
+                    setUnHeart(other.getUnHeart());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private java.lang.Object resourceId_ = "";
+
+            /**
+             * <pre>
+             * 被点赞的资源
+             * </pre>
+             *
+             * <code>string resourceId = 1;</code>
+             */
+            public java.lang.String getResourceId() {
+                java.lang.Object ref = resourceId_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    resourceId_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 被点赞的资源
+             * </pre>
+             *
+             * <code>string resourceId = 1;</code>
+             */
+            public com.google.protobuf.ByteString
+            getResourceIdBytes() {
+                java.lang.Object ref = resourceId_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    resourceId_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 被点赞的资源
+             * </pre>
+             *
+             * <code>string resourceId = 1;</code>
+             */
+            public Builder setResourceId(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                resourceId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 被点赞的资源
+             * </pre>
+             *
+             * <code>string resourceId = 1;</code>
+             */
+            public Builder clearResourceId() {
+
+                resourceId_ = getDefaultInstance().getResourceId();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 被点赞的资源
+             * </pre>
+             *
+             * <code>string resourceId = 1;</code>
+             */
+            public Builder setResourceIdBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                resourceId_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object resourceType_ = "";
+
+            /**
+             * <pre>
+             * 资源类型
+             * </pre>
+             *
+             * <code>string resourceType = 2;</code>
+             */
+            public java.lang.String getResourceType() {
+                java.lang.Object ref = resourceType_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    resourceType_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 资源类型
+             * </pre>
+             *
+             * <code>string resourceType = 2;</code>
+             */
+            public com.google.protobuf.ByteString
+            getResourceTypeBytes() {
+                java.lang.Object ref = resourceType_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    resourceType_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 资源类型
+             * </pre>
+             *
+             * <code>string resourceType = 2;</code>
+             */
+            public Builder setResourceType(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                resourceType_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 资源类型
+             * </pre>
+             *
+             * <code>string resourceType = 2;</code>
+             */
+            public Builder clearResourceType() {
+
+                resourceType_ = getDefaultInstance().getResourceType();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 资源类型
+             * </pre>
+             *
+             * <code>string resourceType = 2;</code>
+             */
+            public Builder setResourceTypeBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                resourceType_ = value;
+                onChanged();
+                return this;
+            }
+
+            private long userId_;
+
+            /**
+             * <pre>
+             * 点赞的用户ID
+             * </pre>
+             *
+             * <code>int64 userId = 3;</code>
+             */
+            public long getUserId() {
+                return userId_;
+            }
+
+            /**
+             * <pre>
+             * 点赞的用户ID
+             * </pre>
+             *
+             * <code>int64 userId = 3;</code>
+             */
+            public Builder setUserId(long value) {
+
+                userId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 点赞的用户ID
+             * </pre>
+             *
+             * <code>int64 userId = 3;</code>
+             */
+            public Builder clearUserId() {
+
+                userId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private boolean unHeart_;
+
+            /**
+             * <pre>
+             * 取消/关注点赞
+             * </pre>
+             *
+             * <code>bool unHeart = 4;</code>
+             */
+            public boolean getUnHeart() {
+                return unHeart_;
+            }
+
+            /**
+             * <pre>
+             * 取消/关注点赞
+             * </pre>
+             *
+             * <code>bool unHeart = 4;</code>
+             */
+            public Builder setUnHeart(boolean value) {
+
+                unHeart_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 取消/关注点赞
+             * </pre>
+             *
+             * <code>bool unHeart = 4;</code>
+             */
+            public Builder clearUnHeart() {
+
+                unHeart_ = false;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:QueueWorkHeart)
+            // @@protoc_insertion_point(builder_scope:QueueWorkHeart)
+        }
+
+        // @@protoc_insertion_point(class_scope:QueueWorkHeart)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkHeart>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkHeart>() {
+            public QueueWorkHeart parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkHeart(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkHeart> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkHeart> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    // @@protoc_insertion_point(class_scope:QueueWorkHeart)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart();
-    }
+    public interface QueueWorkPhoneCodeOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkPhoneCode)
+            com.google.protobuf.MessageOrBuilder {
 
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
+        /**
+         * <code>string phone = 1;</code>
+         */
+        java.lang.String getPhone();
 
-    private static final com.google.protobuf.Parser<QueueWorkHeart>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkHeart>() {
-      public QueueWorkHeart parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkHeart(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueueWorkHeart> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkHeart> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueueWorkPhoneCodeOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkPhoneCode)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string phone = 1;</code>
-     */
-    java.lang.String getPhone();
-    /**
-     * <code>string phone = 1;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <code>string phone = 1;</code>
+         */
+        com.google.protobuf.ByteString
         getPhoneBytes();
 
-    /**
-     * <code>string code = 2;</code>
-     */
-    java.lang.String getCode();
-    /**
-     * <code>string code = 2;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <code>string code = 2;</code>
+         */
+        java.lang.String getCode();
+
+        /**
+         * <code>string code = 2;</code>
+         */
+        com.google.protobuf.ByteString
         getCodeBytes();
-  }
-  /**
-   * Protobuf type {@code QueueWorkPhoneCode}
-   */
-  public  static final class QueueWorkPhoneCode extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkPhoneCode)
-      QueueWorkPhoneCodeOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkPhoneCode.newBuilder() to construct.
-    private QueueWorkPhoneCode(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkPhoneCode() {
-      phone_ = "";
-      code_ = "";
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkPhoneCode(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              phone_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              code_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder.class);
-    }
-
-    public static final int PHONE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object phone_;
-    /**
-     * <code>string phone = 1;</code>
-     */
-    public java.lang.String getPhone() {
-      java.lang.Object ref = phone_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        phone_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string phone = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPhoneBytes() {
-      java.lang.Object ref = phone_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        phone_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int CODE_FIELD_NUMBER = 2;
-    private volatile java.lang.Object code_;
-    /**
-     * <code>string code = 2;</code>
-     */
-    public java.lang.String getCode() {
-      java.lang.Object ref = code_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        code_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string code = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getCodeBytes() {
-      java.lang.Object ref = code_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        code_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getPhoneBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, phone_);
-      }
-      if (!getCodeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, code_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getPhoneBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, phone_);
-      }
-      if (!getCodeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, code_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) obj;
-
-      boolean result = true;
-      result = result && getPhone()
-          .equals(other.getPhone());
-      result = result && getCode()
-          .equals(other.getCode());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + PHONE_FIELD_NUMBER;
-      hash = (53 * hash) + getPhone().hashCode();
-      hash = (37 * hash) + CODE_FIELD_NUMBER;
-      hash = (53 * hash) + getCode().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * Protobuf type {@code QueueWorkPhoneCode}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkPhoneCode)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
-      }
+    public static final class QueueWorkPhoneCode extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkPhoneCode)
+            QueueWorkPhoneCodeOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use QueueWorkPhoneCode.newBuilder() to construct.
+        private QueueWorkPhoneCode(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      public Builder clear() {
-        super.clear();
-        phone_ = "";
 
-        code_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private QueueWorkPhoneCode() {
+            phone_ = "";
+            code_ = "";
         }
-        return result;
-      }
 
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode(this);
-        result.phone_ = phone_;
-        result.code_ = code_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-      }
 
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance()) return this;
-        if (!other.getPhone().isEmpty()) {
-          phone_ = other.phone_;
-          onChanged();
+        private QueueWorkPhoneCode(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 10: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            phone_ = s;
+                            break;
+                        }
+                        case 18: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            code_ = s;
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
         }
-        if (!other.getCode().isEmpty()) {
-          code_ = other.code_;
-          onChanged();
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
 
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder.class);
         }
-        return this;
-      }
 
-      private java.lang.Object phone_ = "";
-      /**
-       * <code>string phone = 1;</code>
-       */
-      public java.lang.String getPhone() {
-        java.lang.Object ref = phone_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          phone_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
+        public static final int PHONE_FIELD_NUMBER = 1;
+        private volatile java.lang.Object phone_;
+
+        /**
+         * <code>string phone = 1;</code>
+         */
+        public java.lang.String getPhone() {
+            java.lang.Object ref = phone_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                phone_ = s;
+                return s;
+            }
         }
-      }
-      /**
-       * <code>string phone = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPhoneBytes() {
-        java.lang.Object ref = phone_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          phone_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+
+        /**
+         * <code>string phone = 1;</code>
+         */
+        public com.google.protobuf.ByteString
+        getPhoneBytes() {
+            java.lang.Object ref = phone_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                phone_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
         }
-      }
-      /**
-       * <code>string phone = 1;</code>
-       */
-      public Builder setPhone(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        phone_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string phone = 1;</code>
-       */
-      public Builder clearPhone() {
-        
-        phone_ = getDefaultInstance().getPhone();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string phone = 1;</code>
-       */
-      public Builder setPhoneBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        phone_ = value;
-        onChanged();
-        return this;
-      }
 
-      private java.lang.Object code_ = "";
-      /**
-       * <code>string code = 2;</code>
-       */
-      public java.lang.String getCode() {
-        java.lang.Object ref = code_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          code_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
+        public static final int CODE_FIELD_NUMBER = 2;
+        private volatile java.lang.Object code_;
+
+        /**
+         * <code>string code = 2;</code>
+         */
+        public java.lang.String getCode() {
+            java.lang.Object ref = code_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                code_ = s;
+                return s;
+            }
         }
-      }
-      /**
-       * <code>string code = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getCodeBytes() {
-        java.lang.Object ref = code_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          code_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+
+        /**
+         * <code>string code = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+        getCodeBytes() {
+            java.lang.Object ref = code_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                code_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
         }
-      }
-      /**
-       * <code>string code = 2;</code>
-       */
-      public Builder setCode(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        code_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string code = 2;</code>
-       */
-      public Builder clearCode() {
-        
-        code_ = getDefaultInstance().getCode();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string code = 2;</code>
-       */
-      public Builder setCodeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        code_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
 
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (!getPhoneBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, phone_);
+            }
+            if (!getCodeBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, code_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (!getPhoneBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, phone_);
+            }
+            if (!getCodeBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, code_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) obj;
+
+            boolean result = true;
+            result = result && getPhone()
+                    .equals(other.getPhone());
+            result = result && getCode()
+                    .equals(other.getCode());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + PHONE_FIELD_NUMBER;
+            hash = (53 * hash) + getPhone().hashCode();
+            hash = (37 * hash) + CODE_FIELD_NUMBER;
+            hash = (53 * hash) + getCode().hashCode();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code QueueWorkPhoneCode}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkPhoneCode)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                phone_ = "";
+
+                code_ = "";
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode(this);
+                result.phone_ = phone_;
+                result.code_ = code_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance())
+                    return this;
+                if (!other.getPhone().isEmpty()) {
+                    phone_ = other.phone_;
+                    onChanged();
+                }
+                if (!other.getCode().isEmpty()) {
+                    code_ = other.code_;
+                    onChanged();
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private java.lang.Object phone_ = "";
+
+            /**
+             * <code>string phone = 1;</code>
+             */
+            public java.lang.String getPhone() {
+                java.lang.Object ref = phone_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    phone_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <code>string phone = 1;</code>
+             */
+            public com.google.protobuf.ByteString
+            getPhoneBytes() {
+                java.lang.Object ref = phone_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    phone_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <code>string phone = 1;</code>
+             */
+            public Builder setPhone(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                phone_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>string phone = 1;</code>
+             */
+            public Builder clearPhone() {
+
+                phone_ = getDefaultInstance().getPhone();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>string phone = 1;</code>
+             */
+            public Builder setPhoneBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                phone_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object code_ = "";
+
+            /**
+             * <code>string code = 2;</code>
+             */
+            public java.lang.String getCode() {
+                java.lang.Object ref = code_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    code_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <code>string code = 2;</code>
+             */
+            public com.google.protobuf.ByteString
+            getCodeBytes() {
+                java.lang.Object ref = code_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    code_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <code>string code = 2;</code>
+             */
+            public Builder setCode(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                code_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>string code = 2;</code>
+             */
+            public Builder clearCode() {
+
+                code_ = getDefaultInstance().getCode();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>string code = 2;</code>
+             */
+            public Builder setCodeBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                code_ = value;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:QueueWorkPhoneCode)
+            // @@protoc_insertion_point(builder_scope:QueueWorkPhoneCode)
+        }
+
+        // @@protoc_insertion_point(class_scope:QueueWorkPhoneCode)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkPhoneCode>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkPhoneCode>() {
+            public QueueWorkPhoneCode parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkPhoneCode(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkPhoneCode> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkPhoneCode> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    // @@protoc_insertion_point(class_scope:QueueWorkPhoneCode)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode();
-    }
+    public interface QueueWorkPushOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkPush)
+            com.google.protobuf.MessageOrBuilder {
 
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
+        /**
+         * <code>int64 pushId = 1;</code>
+         */
+        long getPushId();
 
-    private static final com.google.protobuf.Parser<QueueWorkPhoneCode>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkPhoneCode>() {
-      public QueueWorkPhoneCode parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkPhoneCode(input, extensionRegistry);
-      }
-    };
+        /**
+         * <pre>
+         * 消息创建者/发起者
+         * </pre>
+         *
+         * <code>int64 creatorUserId = 2;</code>
+         */
+        long getCreatorUserId();
 
-    public static com.google.protobuf.Parser<QueueWorkPhoneCode> parser() {
-      return PARSER;
-    }
+        /**
+         * <pre>
+         * 消息文本内容
+         * </pre>
+         *
+         * <code>string msgContent = 3;</code>
+         */
+        java.lang.String getMsgContent();
 
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkPhoneCode> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueueWorkPushOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkPush)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>int64 pushId = 1;</code>
-     */
-    long getPushId();
-
-    /**
-     * <pre>
-     *消息创建者/发起者
-     * </pre>
-     *
-     * <code>int64 creatorUserId = 2;</code>
-     */
-    long getCreatorUserId();
-
-    /**
-     * <pre>
-     *消息文本内容
-     * </pre>
-     *
-     * <code>string msgContent = 3;</code>
-     */
-    java.lang.String getMsgContent();
-    /**
-     * <pre>
-     *消息文本内容
-     * </pre>
-     *
-     * <code>string msgContent = 3;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 消息文本内容
+         * </pre>
+         *
+         * <code>string msgContent = 3;</code>
+         */
+        com.google.protobuf.ByteString
         getMsgContentBytes();
 
-    /**
-     * <pre>
-     *消息携带的数据
-     * </pre>
-     *
-     * <code>string dataContent = 4;</code>
-     */
-    java.lang.String getDataContent();
-    /**
-     * <pre>
-     *消息携带的数据
-     * </pre>
-     *
-     * <code>string dataContent = 4;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 消息携带的数据
+         * </pre>
+         *
+         * <code>string dataContent = 4;</code>
+         */
+        java.lang.String getDataContent();
+
+        /**
+         * <pre>
+         * 消息携带的数据
+         * </pre>
+         *
+         * <code>string dataContent = 4;</code>
+         */
+        com.google.protobuf.ByteString
         getDataContentBytes();
 
-    /**
-     * <pre>
-     *消息关联的网页
-     * </pre>
-     *
-     * <code>string refUrl = 5;</code>
-     */
-    java.lang.String getRefUrl();
-    /**
-     * <pre>
-     *消息关联的网页
-     * </pre>
-     *
-     * <code>string refUrl = 5;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 消息关联的网页
+         * </pre>
+         *
+         * <code>string refUrl = 5;</code>
+         */
+        java.lang.String getRefUrl();
+
+        /**
+         * <pre>
+         * 消息关联的网页
+         * </pre>
+         *
+         * <code>string refUrl = 5;</code>
+         */
+        com.google.protobuf.ByteString
         getRefUrlBytes();
 
-    /**
-     * <pre>
-     *消息目的地用户
-     * </pre>
-     *
-     * <code>int64 toUserId = 6;</code>
-     */
-    long getToUserId();
+        /**
+         * <pre>
+         * 消息目的地用户
+         * </pre>
+         *
+         * <code>int64 toUserId = 6;</code>
+         */
+        long getToUserId();
 
-    /**
-     * <pre>
-     *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
-     * </pre>
-     *
-     * <code>int32 messageType = 7;</code>
-     */
-    int getMessageType();
-  }
-  /**
-   * Protobuf type {@code QueueWorkPush}
-   */
-  public  static final class QueueWorkPush extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkPush)
-      QueueWorkPushOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkPush.newBuilder() to construct.
-    private QueueWorkPush(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkPush() {
-      pushId_ = 0L;
-      creatorUserId_ = 0L;
-      msgContent_ = "";
-      dataContent_ = "";
-      refUrl_ = "";
-      toUserId_ = 0L;
-      messageType_ = 0;
+        /**
+         * <pre>
+         * 消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
+         * </pre>
+         *
+         * <code>int32 messageType = 7;</code>
+         */
+        int getMessageType();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkPush(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-
-              pushId_ = input.readInt64();
-              break;
-            }
-            case 16: {
-
-              creatorUserId_ = input.readInt64();
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              msgContent_ = s;
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              dataContent_ = s;
-              break;
-            }
-            case 42: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              refUrl_ = s;
-              break;
-            }
-            case 48: {
-
-              toUserId_ = input.readInt64();
-              break;
-            }
-            case 56: {
-
-              messageType_ = input.readInt32();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder.class);
-    }
-
-    public static final int PUSHID_FIELD_NUMBER = 1;
-    private long pushId_;
-    /**
-     * <code>int64 pushId = 1;</code>
-     */
-    public long getPushId() {
-      return pushId_;
-    }
-
-    public static final int CREATORUSERID_FIELD_NUMBER = 2;
-    private long creatorUserId_;
-    /**
-     * <pre>
-     *消息创建者/发起者
-     * </pre>
-     *
-     * <code>int64 creatorUserId = 2;</code>
-     */
-    public long getCreatorUserId() {
-      return creatorUserId_;
-    }
-
-    public static final int MSGCONTENT_FIELD_NUMBER = 3;
-    private volatile java.lang.Object msgContent_;
-    /**
-     * <pre>
-     *消息文本内容
-     * </pre>
-     *
-     * <code>string msgContent = 3;</code>
-     */
-    public java.lang.String getMsgContent() {
-      java.lang.Object ref = msgContent_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        msgContent_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *消息文本内容
-     * </pre>
-     *
-     * <code>string msgContent = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getMsgContentBytes() {
-      java.lang.Object ref = msgContent_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        msgContent_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DATACONTENT_FIELD_NUMBER = 4;
-    private volatile java.lang.Object dataContent_;
-    /**
-     * <pre>
-     *消息携带的数据
-     * </pre>
-     *
-     * <code>string dataContent = 4;</code>
-     */
-    public java.lang.String getDataContent() {
-      java.lang.Object ref = dataContent_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        dataContent_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *消息携带的数据
-     * </pre>
-     *
-     * <code>string dataContent = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getDataContentBytes() {
-      java.lang.Object ref = dataContent_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        dataContent_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int REFURL_FIELD_NUMBER = 5;
-    private volatile java.lang.Object refUrl_;
-    /**
-     * <pre>
-     *消息关联的网页
-     * </pre>
-     *
-     * <code>string refUrl = 5;</code>
-     */
-    public java.lang.String getRefUrl() {
-      java.lang.Object ref = refUrl_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        refUrl_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *消息关联的网页
-     * </pre>
-     *
-     * <code>string refUrl = 5;</code>
-     */
-    public com.google.protobuf.ByteString
-        getRefUrlBytes() {
-      java.lang.Object ref = refUrl_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        refUrl_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TOUSERID_FIELD_NUMBER = 6;
-    private long toUserId_;
-    /**
-     * <pre>
-     *消息目的地用户
-     * </pre>
-     *
-     * <code>int64 toUserId = 6;</code>
-     */
-    public long getToUserId() {
-      return toUserId_;
-    }
-
-    public static final int MESSAGETYPE_FIELD_NUMBER = 7;
-    private int messageType_;
-    /**
-     * <pre>
-     *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
-     * </pre>
-     *
-     * <code>int32 messageType = 7;</code>
-     */
-    public int getMessageType() {
-      return messageType_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (pushId_ != 0L) {
-        output.writeInt64(1, pushId_);
-      }
-      if (creatorUserId_ != 0L) {
-        output.writeInt64(2, creatorUserId_);
-      }
-      if (!getMsgContentBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, msgContent_);
-      }
-      if (!getDataContentBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, dataContent_);
-      }
-      if (!getRefUrlBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, refUrl_);
-      }
-      if (toUserId_ != 0L) {
-        output.writeInt64(6, toUserId_);
-      }
-      if (messageType_ != 0) {
-        output.writeInt32(7, messageType_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (pushId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, pushId_);
-      }
-      if (creatorUserId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, creatorUserId_);
-      }
-      if (!getMsgContentBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, msgContent_);
-      }
-      if (!getDataContentBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, dataContent_);
-      }
-      if (!getRefUrlBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, refUrl_);
-      }
-      if (toUserId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(6, toUserId_);
-      }
-      if (messageType_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, messageType_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) obj;
-
-      boolean result = true;
-      result = result && (getPushId()
-          == other.getPushId());
-      result = result && (getCreatorUserId()
-          == other.getCreatorUserId());
-      result = result && getMsgContent()
-          .equals(other.getMsgContent());
-      result = result && getDataContent()
-          .equals(other.getDataContent());
-      result = result && getRefUrl()
-          .equals(other.getRefUrl());
-      result = result && (getToUserId()
-          == other.getToUserId());
-      result = result && (getMessageType()
-          == other.getMessageType());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + PUSHID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getPushId());
-      hash = (37 * hash) + CREATORUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCreatorUserId());
-      hash = (37 * hash) + MSGCONTENT_FIELD_NUMBER;
-      hash = (53 * hash) + getMsgContent().hashCode();
-      hash = (37 * hash) + DATACONTENT_FIELD_NUMBER;
-      hash = (53 * hash) + getDataContent().hashCode();
-      hash = (37 * hash) + REFURL_FIELD_NUMBER;
-      hash = (53 * hash) + getRefUrl().hashCode();
-      hash = (37 * hash) + TOUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getToUserId());
-      hash = (37 * hash) + MESSAGETYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getMessageType();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * Protobuf type {@code QueueWorkPush}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkPush)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
-      }
+    public static final class QueueWorkPush extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkPush)
+            QueueWorkPushOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use QueueWorkPush.newBuilder() to construct.
+        private QueueWorkPush(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      public Builder clear() {
-        super.clear();
-        pushId_ = 0L;
 
-        creatorUserId_ = 0L;
-
-        msgContent_ = "";
-
-        dataContent_ = "";
-
-        refUrl_ = "";
-
-        toUserId_ = 0L;
-
-        messageType_ = 0;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private QueueWorkPush() {
+            pushId_ = 0L;
+            creatorUserId_ = 0L;
+            msgContent_ = "";
+            dataContent_ = "";
+            refUrl_ = "";
+            toUserId_ = 0L;
+            messageType_ = 0;
         }
-        return result;
-      }
 
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush(this);
-        result.pushId_ = pushId_;
-        result.creatorUserId_ = creatorUserId_;
-        result.msgContent_ = msgContent_;
-        result.dataContent_ = dataContent_;
-        result.refUrl_ = refUrl_;
-        result.toUserId_ = toUserId_;
-        result.messageType_ = messageType_;
-        onBuilt();
-        return result;
-      }
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
 
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
+        private QueueWorkPush(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 8: {
 
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance()) return this;
-        if (other.getPushId() != 0L) {
-          setPushId(other.getPushId());
-        }
-        if (other.getCreatorUserId() != 0L) {
-          setCreatorUserId(other.getCreatorUserId());
-        }
-        if (!other.getMsgContent().isEmpty()) {
-          msgContent_ = other.msgContent_;
-          onChanged();
-        }
-        if (!other.getDataContent().isEmpty()) {
-          dataContent_ = other.dataContent_;
-          onChanged();
-        }
-        if (!other.getRefUrl().isEmpty()) {
-          refUrl_ = other.refUrl_;
-          onChanged();
-        }
-        if (other.getToUserId() != 0L) {
-          setToUserId(other.getToUserId());
-        }
-        if (other.getMessageType() != 0) {
-          setMessageType(other.getMessageType());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
+                            pushId_ = input.readInt64();
+                            break;
+                        }
+                        case 16: {
 
-      public final boolean isInitialized() {
-        return true;
-      }
+                            creatorUserId_ = input.readInt64();
+                            break;
+                        }
+                        case 26: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+                            msgContent_ = s;
+                            break;
+                        }
+                        case 34: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            dataContent_ = s;
+                            break;
+                        }
+                        case 42: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            refUrl_ = s;
+                            break;
+                        }
+                        case 48: {
+
+                            toUserId_ = input.readInt64();
+                            break;
+                        }
+                        case 56: {
+
+                            messageType_ = input.readInt32();
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
         }
-        return this;
-      }
 
-      private long pushId_ ;
-      /**
-       * <code>int64 pushId = 1;</code>
-       */
-      public long getPushId() {
-        return pushId_;
-      }
-      /**
-       * <code>int64 pushId = 1;</code>
-       */
-      public Builder setPushId(long value) {
-        
-        pushId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 pushId = 1;</code>
-       */
-      public Builder clearPushId() {
-        
-        pushId_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private long creatorUserId_ ;
-      /**
-       * <pre>
-       *消息创建者/发起者
-       * </pre>
-       *
-       * <code>int64 creatorUserId = 2;</code>
-       */
-      public long getCreatorUserId() {
-        return creatorUserId_;
-      }
-      /**
-       * <pre>
-       *消息创建者/发起者
-       * </pre>
-       *
-       * <code>int64 creatorUserId = 2;</code>
-       */
-      public Builder setCreatorUserId(long value) {
-        
-        creatorUserId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *消息创建者/发起者
-       * </pre>
-       *
-       * <code>int64 creatorUserId = 2;</code>
-       */
-      public Builder clearCreatorUserId() {
-        
-        creatorUserId_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object msgContent_ = "";
-      /**
-       * <pre>
-       *消息文本内容
-       * </pre>
-       *
-       * <code>string msgContent = 3;</code>
-       */
-      public java.lang.String getMsgContent() {
-        java.lang.Object ref = msgContent_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          msgContent_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
         }
-      }
-      /**
-       * <pre>
-       *消息文本内容
-       * </pre>
-       *
-       * <code>string msgContent = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getMsgContentBytes() {
-        java.lang.Object ref = msgContent_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          msgContent_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder.class);
         }
-      }
-      /**
-       * <pre>
-       *消息文本内容
-       * </pre>
-       *
-       * <code>string msgContent = 3;</code>
-       */
-      public Builder setMsgContent(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        msgContent_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *消息文本内容
-       * </pre>
-       *
-       * <code>string msgContent = 3;</code>
-       */
-      public Builder clearMsgContent() {
-        
-        msgContent_ = getDefaultInstance().getMsgContent();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *消息文本内容
-       * </pre>
-       *
-       * <code>string msgContent = 3;</code>
-       */
-      public Builder setMsgContentBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        msgContent_ = value;
-        onChanged();
-        return this;
-      }
 
-      private java.lang.Object dataContent_ = "";
-      /**
-       * <pre>
-       *消息携带的数据
-       * </pre>
-       *
-       * <code>string dataContent = 4;</code>
-       */
-      public java.lang.String getDataContent() {
-        java.lang.Object ref = dataContent_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          dataContent_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
+        public static final int PUSHID_FIELD_NUMBER = 1;
+        private long pushId_;
+
+        /**
+         * <code>int64 pushId = 1;</code>
+         */
+        public long getPushId() {
+            return pushId_;
         }
-      }
-      /**
-       * <pre>
-       *消息携带的数据
-       * </pre>
-       *
-       * <code>string dataContent = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getDataContentBytes() {
-        java.lang.Object ref = dataContent_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          dataContent_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+
+        public static final int CREATORUSERID_FIELD_NUMBER = 2;
+        private long creatorUserId_;
+
+        /**
+         * <pre>
+         * 消息创建者/发起者
+         * </pre>
+         *
+         * <code>int64 creatorUserId = 2;</code>
+         */
+        public long getCreatorUserId() {
+            return creatorUserId_;
         }
-      }
-      /**
-       * <pre>
-       *消息携带的数据
-       * </pre>
-       *
-       * <code>string dataContent = 4;</code>
-       */
-      public Builder setDataContent(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        dataContent_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *消息携带的数据
-       * </pre>
-       *
-       * <code>string dataContent = 4;</code>
-       */
-      public Builder clearDataContent() {
-        
-        dataContent_ = getDefaultInstance().getDataContent();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *消息携带的数据
-       * </pre>
-       *
-       * <code>string dataContent = 4;</code>
-       */
-      public Builder setDataContentBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        dataContent_ = value;
-        onChanged();
-        return this;
-      }
 
-      private java.lang.Object refUrl_ = "";
-      /**
-       * <pre>
-       *消息关联的网页
-       * </pre>
-       *
-       * <code>string refUrl = 5;</code>
-       */
-      public java.lang.String getRefUrl() {
-        java.lang.Object ref = refUrl_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          refUrl_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
+        public static final int MSGCONTENT_FIELD_NUMBER = 3;
+        private volatile java.lang.Object msgContent_;
+
+        /**
+         * <pre>
+         * 消息文本内容
+         * </pre>
+         *
+         * <code>string msgContent = 3;</code>
+         */
+        public java.lang.String getMsgContent() {
+            java.lang.Object ref = msgContent_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                msgContent_ = s;
+                return s;
+            }
         }
-      }
-      /**
-       * <pre>
-       *消息关联的网页
-       * </pre>
-       *
-       * <code>string refUrl = 5;</code>
-       */
-      public com.google.protobuf.ByteString
-          getRefUrlBytes() {
-        java.lang.Object ref = refUrl_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          refUrl_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+
+        /**
+         * <pre>
+         * 消息文本内容
+         * </pre>
+         *
+         * <code>string msgContent = 3;</code>
+         */
+        public com.google.protobuf.ByteString
+        getMsgContentBytes() {
+            java.lang.Object ref = msgContent_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                msgContent_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
         }
-      }
-      /**
-       * <pre>
-       *消息关联的网页
-       * </pre>
-       *
-       * <code>string refUrl = 5;</code>
-       */
-      public Builder setRefUrl(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        refUrl_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *消息关联的网页
-       * </pre>
-       *
-       * <code>string refUrl = 5;</code>
-       */
-      public Builder clearRefUrl() {
-        
-        refUrl_ = getDefaultInstance().getRefUrl();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *消息关联的网页
-       * </pre>
-       *
-       * <code>string refUrl = 5;</code>
-       */
-      public Builder setRefUrlBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        refUrl_ = value;
-        onChanged();
-        return this;
-      }
 
-      private long toUserId_ ;
-      /**
-       * <pre>
-       *消息目的地用户
-       * </pre>
-       *
-       * <code>int64 toUserId = 6;</code>
-       */
-      public long getToUserId() {
-        return toUserId_;
-      }
-      /**
-       * <pre>
-       *消息目的地用户
-       * </pre>
-       *
-       * <code>int64 toUserId = 6;</code>
-       */
-      public Builder setToUserId(long value) {
-        
-        toUserId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *消息目的地用户
-       * </pre>
-       *
-       * <code>int64 toUserId = 6;</code>
-       */
-      public Builder clearToUserId() {
-        
-        toUserId_ = 0L;
-        onChanged();
-        return this;
-      }
+        public static final int DATACONTENT_FIELD_NUMBER = 4;
+        private volatile java.lang.Object dataContent_;
 
-      private int messageType_ ;
-      /**
-       * <pre>
-       *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
-       * </pre>
-       *
-       * <code>int32 messageType = 7;</code>
-       */
-      public int getMessageType() {
-        return messageType_;
-      }
-      /**
-       * <pre>
-       *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
-       * </pre>
-       *
-       * <code>int32 messageType = 7;</code>
-       */
-      public Builder setMessageType(int value) {
-        
-        messageType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
-       * </pre>
-       *
-       * <code>int32 messageType = 7;</code>
-       */
-      public Builder clearMessageType() {
-        
-        messageType_ = 0;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
+        /**
+         * <pre>
+         * 消息携带的数据
+         * </pre>
+         *
+         * <code>string dataContent = 4;</code>
+         */
+        public java.lang.String getDataContent() {
+            java.lang.Object ref = dataContent_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                dataContent_ = s;
+                return s;
+            }
+        }
 
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+        /**
+         * <pre>
+         * 消息携带的数据
+         * </pre>
+         *
+         * <code>string dataContent = 4;</code>
+         */
+        public com.google.protobuf.ByteString
+        getDataContentBytes() {
+            java.lang.Object ref = dataContent_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                dataContent_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int REFURL_FIELD_NUMBER = 5;
+        private volatile java.lang.Object refUrl_;
+
+        /**
+         * <pre>
+         * 消息关联的网页
+         * </pre>
+         *
+         * <code>string refUrl = 5;</code>
+         */
+        public java.lang.String getRefUrl() {
+            java.lang.Object ref = refUrl_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                refUrl_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 消息关联的网页
+         * </pre>
+         *
+         * <code>string refUrl = 5;</code>
+         */
+        public com.google.protobuf.ByteString
+        getRefUrlBytes() {
+            java.lang.Object ref = refUrl_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                refUrl_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int TOUSERID_FIELD_NUMBER = 6;
+        private long toUserId_;
+
+        /**
+         * <pre>
+         * 消息目的地用户
+         * </pre>
+         *
+         * <code>int64 toUserId = 6;</code>
+         */
+        public long getToUserId() {
+            return toUserId_;
+        }
+
+        public static final int MESSAGETYPE_FIELD_NUMBER = 7;
+        private int messageType_;
+
+        /**
+         * <pre>
+         * 消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
+         * </pre>
+         *
+         * <code>int32 messageType = 7;</code>
+         */
+        public int getMessageType() {
+            return messageType_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (pushId_ != 0L) {
+                output.writeInt64(1, pushId_);
+            }
+            if (creatorUserId_ != 0L) {
+                output.writeInt64(2, creatorUserId_);
+            }
+            if (!getMsgContentBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 3, msgContent_);
+            }
+            if (!getDataContentBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 4, dataContent_);
+            }
+            if (!getRefUrlBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 5, refUrl_);
+            }
+            if (toUserId_ != 0L) {
+                output.writeInt64(6, toUserId_);
+            }
+            if (messageType_ != 0) {
+                output.writeInt32(7, messageType_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (pushId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, pushId_);
+            }
+            if (creatorUserId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(2, creatorUserId_);
+            }
+            if (!getMsgContentBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, msgContent_);
+            }
+            if (!getDataContentBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, dataContent_);
+            }
+            if (!getRefUrlBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, refUrl_);
+            }
+            if (toUserId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(6, toUserId_);
+            }
+            if (messageType_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(7, messageType_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) obj;
+
+            boolean result = true;
+            result = result && (getPushId()
+                    == other.getPushId());
+            result = result && (getCreatorUserId()
+                    == other.getCreatorUserId());
+            result = result && getMsgContent()
+                    .equals(other.getMsgContent());
+            result = result && getDataContent()
+                    .equals(other.getDataContent());
+            result = result && getRefUrl()
+                    .equals(other.getRefUrl());
+            result = result && (getToUserId()
+                    == other.getToUserId());
+            result = result && (getMessageType()
+                    == other.getMessageType());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + PUSHID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getPushId());
+            hash = (37 * hash) + CREATORUSERID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getCreatorUserId());
+            hash = (37 * hash) + MSGCONTENT_FIELD_NUMBER;
+            hash = (53 * hash) + getMsgContent().hashCode();
+            hash = (37 * hash) + DATACONTENT_FIELD_NUMBER;
+            hash = (53 * hash) + getDataContent().hashCode();
+            hash = (37 * hash) + REFURL_FIELD_NUMBER;
+            hash = (53 * hash) + getRefUrl().hashCode();
+            hash = (37 * hash) + TOUSERID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getToUserId());
+            hash = (37 * hash) + MESSAGETYPE_FIELD_NUMBER;
+            hash = (53 * hash) + getMessageType();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code QueueWorkPush}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkPush)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                pushId_ = 0L;
+
+                creatorUserId_ = 0L;
+
+                msgContent_ = "";
+
+                dataContent_ = "";
+
+                refUrl_ = "";
+
+                toUserId_ = 0L;
+
+                messageType_ = 0;
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush(this);
+                result.pushId_ = pushId_;
+                result.creatorUserId_ = creatorUserId_;
+                result.msgContent_ = msgContent_;
+                result.dataContent_ = dataContent_;
+                result.refUrl_ = refUrl_;
+                result.toUserId_ = toUserId_;
+                result.messageType_ = messageType_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance())
+                    return this;
+                if (other.getPushId() != 0L) {
+                    setPushId(other.getPushId());
+                }
+                if (other.getCreatorUserId() != 0L) {
+                    setCreatorUserId(other.getCreatorUserId());
+                }
+                if (!other.getMsgContent().isEmpty()) {
+                    msgContent_ = other.msgContent_;
+                    onChanged();
+                }
+                if (!other.getDataContent().isEmpty()) {
+                    dataContent_ = other.dataContent_;
+                    onChanged();
+                }
+                if (!other.getRefUrl().isEmpty()) {
+                    refUrl_ = other.refUrl_;
+                    onChanged();
+                }
+                if (other.getToUserId() != 0L) {
+                    setToUserId(other.getToUserId());
+                }
+                if (other.getMessageType() != 0) {
+                    setMessageType(other.getMessageType());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private long pushId_;
+
+            /**
+             * <code>int64 pushId = 1;</code>
+             */
+            public long getPushId() {
+                return pushId_;
+            }
+
+            /**
+             * <code>int64 pushId = 1;</code>
+             */
+            public Builder setPushId(long value) {
+
+                pushId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int64 pushId = 1;</code>
+             */
+            public Builder clearPushId() {
+
+                pushId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private long creatorUserId_;
+
+            /**
+             * <pre>
+             * 消息创建者/发起者
+             * </pre>
+             *
+             * <code>int64 creatorUserId = 2;</code>
+             */
+            public long getCreatorUserId() {
+                return creatorUserId_;
+            }
+
+            /**
+             * <pre>
+             * 消息创建者/发起者
+             * </pre>
+             *
+             * <code>int64 creatorUserId = 2;</code>
+             */
+            public Builder setCreatorUserId(long value) {
+
+                creatorUserId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息创建者/发起者
+             * </pre>
+             *
+             * <code>int64 creatorUserId = 2;</code>
+             */
+            public Builder clearCreatorUserId() {
+
+                creatorUserId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object msgContent_ = "";
+
+            /**
+             * <pre>
+             * 消息文本内容
+             * </pre>
+             *
+             * <code>string msgContent = 3;</code>
+             */
+            public java.lang.String getMsgContent() {
+                java.lang.Object ref = msgContent_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    msgContent_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 消息文本内容
+             * </pre>
+             *
+             * <code>string msgContent = 3;</code>
+             */
+            public com.google.protobuf.ByteString
+            getMsgContentBytes() {
+                java.lang.Object ref = msgContent_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    msgContent_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 消息文本内容
+             * </pre>
+             *
+             * <code>string msgContent = 3;</code>
+             */
+            public Builder setMsgContent(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                msgContent_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息文本内容
+             * </pre>
+             *
+             * <code>string msgContent = 3;</code>
+             */
+            public Builder clearMsgContent() {
+
+                msgContent_ = getDefaultInstance().getMsgContent();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息文本内容
+             * </pre>
+             *
+             * <code>string msgContent = 3;</code>
+             */
+            public Builder setMsgContentBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                msgContent_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object dataContent_ = "";
+
+            /**
+             * <pre>
+             * 消息携带的数据
+             * </pre>
+             *
+             * <code>string dataContent = 4;</code>
+             */
+            public java.lang.String getDataContent() {
+                java.lang.Object ref = dataContent_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    dataContent_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 消息携带的数据
+             * </pre>
+             *
+             * <code>string dataContent = 4;</code>
+             */
+            public com.google.protobuf.ByteString
+            getDataContentBytes() {
+                java.lang.Object ref = dataContent_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    dataContent_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 消息携带的数据
+             * </pre>
+             *
+             * <code>string dataContent = 4;</code>
+             */
+            public Builder setDataContent(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                dataContent_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息携带的数据
+             * </pre>
+             *
+             * <code>string dataContent = 4;</code>
+             */
+            public Builder clearDataContent() {
+
+                dataContent_ = getDefaultInstance().getDataContent();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息携带的数据
+             * </pre>
+             *
+             * <code>string dataContent = 4;</code>
+             */
+            public Builder setDataContentBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                dataContent_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object refUrl_ = "";
+
+            /**
+             * <pre>
+             * 消息关联的网页
+             * </pre>
+             *
+             * <code>string refUrl = 5;</code>
+             */
+            public java.lang.String getRefUrl() {
+                java.lang.Object ref = refUrl_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    refUrl_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 消息关联的网页
+             * </pre>
+             *
+             * <code>string refUrl = 5;</code>
+             */
+            public com.google.protobuf.ByteString
+            getRefUrlBytes() {
+                java.lang.Object ref = refUrl_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    refUrl_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 消息关联的网页
+             * </pre>
+             *
+             * <code>string refUrl = 5;</code>
+             */
+            public Builder setRefUrl(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                refUrl_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息关联的网页
+             * </pre>
+             *
+             * <code>string refUrl = 5;</code>
+             */
+            public Builder clearRefUrl() {
+
+                refUrl_ = getDefaultInstance().getRefUrl();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息关联的网页
+             * </pre>
+             *
+             * <code>string refUrl = 5;</code>
+             */
+            public Builder setRefUrlBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                refUrl_ = value;
+                onChanged();
+                return this;
+            }
+
+            private long toUserId_;
+
+            /**
+             * <pre>
+             * 消息目的地用户
+             * </pre>
+             *
+             * <code>int64 toUserId = 6;</code>
+             */
+            public long getToUserId() {
+                return toUserId_;
+            }
+
+            /**
+             * <pre>
+             * 消息目的地用户
+             * </pre>
+             *
+             * <code>int64 toUserId = 6;</code>
+             */
+            public Builder setToUserId(long value) {
+
+                toUserId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息目的地用户
+             * </pre>
+             *
+             * <code>int64 toUserId = 6;</code>
+             */
+            public Builder clearToUserId() {
+
+                toUserId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private int messageType_;
+
+            /**
+             * <pre>
+             * 消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
+             * </pre>
+             *
+             * <code>int32 messageType = 7;</code>
+             */
+            public int getMessageType() {
+                return messageType_;
+            }
+
+            /**
+             * <pre>
+             * 消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
+             * </pre>
+             *
+             * <code>int32 messageType = 7;</code>
+             */
+            public Builder setMessageType(int value) {
+
+                messageType_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播6:打赏
+             * </pre>
+             *
+             * <code>int32 messageType = 7;</code>
+             */
+            public Builder clearMessageType() {
+
+                messageType_ = 0;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:QueueWorkPush)
+            // @@protoc_insertion_point(builder_scope:QueueWorkPush)
+        }
+
+        // @@protoc_insertion_point(class_scope:QueueWorkPush)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkPush>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkPush>() {
+            public QueueWorkPush parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkPush(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkPush> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkPush> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    // @@protoc_insertion_point(class_scope:QueueWorkPush)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush();
-    }
+    public interface QueueWorkQiniuReviewResultOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkQiniuReviewResult)
+            com.google.protobuf.MessageOrBuilder {
 
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
+        /**
+         * <pre>
+         * 七牛审核返回的结果
+         * </pre>
+         *
+         * <code>string resultContent = 1;</code>
+         */
+        java.lang.String getResultContent();
 
-    private static final com.google.protobuf.Parser<QueueWorkPush>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkPush>() {
-      public QueueWorkPush parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkPush(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueueWorkPush> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkPush> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueueWorkQiniuReviewResultOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkQiniuReviewResult)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *七牛审核返回的结果
-     * </pre>
-     *
-     * <code>string resultContent = 1;</code>
-     */
-    java.lang.String getResultContent();
-    /**
-     * <pre>
-     *七牛审核返回的结果
-     * </pre>
-     *
-     * <code>string resultContent = 1;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 七牛审核返回的结果
+         * </pre>
+         *
+         * <code>string resultContent = 1;</code>
+         */
+        com.google.protobuf.ByteString
         getResultContentBytes();
 
-    /**
-     * <pre>
-     *重试的次数
-     * </pre>
-     *
-     * <code>int32 retryCount = 2;</code>
-     */
-    int getRetryCount();
-  }
-  /**
-   * <pre>
-   * 七牛直播、视频、图片审核的结果
-   * </pre>
-   *
-   * Protobuf type {@code QueueWorkQiniuReviewResult}
-   */
-  public  static final class QueueWorkQiniuReviewResult extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkQiniuReviewResult)
-      QueueWorkQiniuReviewResultOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkQiniuReviewResult.newBuilder() to construct.
-    private QueueWorkQiniuReviewResult(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkQiniuReviewResult() {
-      resultContent_ = "";
-      retryCount_ = 0;
+        /**
+         * <pre>
+         * 重试的次数
+         * </pre>
+         *
+         * <code>int32 retryCount = 2;</code>
+         */
+        int getRetryCount();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkQiniuReviewResult(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              resultContent_ = s;
-              break;
-            }
-            case 16: {
-
-              retryCount_ = input.readInt32();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder.class);
-    }
-
-    public static final int RESULTCONTENT_FIELD_NUMBER = 1;
-    private volatile java.lang.Object resultContent_;
-    /**
-     * <pre>
-     *七牛审核返回的结果
-     * </pre>
-     *
-     * <code>string resultContent = 1;</code>
-     */
-    public java.lang.String getResultContent() {
-      java.lang.Object ref = resultContent_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        resultContent_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *七牛审核返回的结果
-     * </pre>
-     *
-     * <code>string resultContent = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getResultContentBytes() {
-      java.lang.Object ref = resultContent_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        resultContent_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int RETRYCOUNT_FIELD_NUMBER = 2;
-    private int retryCount_;
-    /**
-     * <pre>
-     *重试的次数
-     * </pre>
-     *
-     * <code>int32 retryCount = 2;</code>
-     */
-    public int getRetryCount() {
-      return retryCount_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getResultContentBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, resultContent_);
-      }
-      if (retryCount_ != 0) {
-        output.writeInt32(2, retryCount_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getResultContentBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, resultContent_);
-      }
-      if (retryCount_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, retryCount_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) obj;
-
-      boolean result = true;
-      result = result && getResultContent()
-          .equals(other.getResultContent());
-      result = result && (getRetryCount()
-          == other.getRetryCount());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + RESULTCONTENT_FIELD_NUMBER;
-      hash = (53 * hash) + getResultContent().hashCode();
-      hash = (37 * hash) + RETRYCOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + getRetryCount();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * <pre>
      * 七牛直播、视频、图片审核的结果
      * </pre>
-     *
+     * <p>
      * Protobuf type {@code QueueWorkQiniuReviewResult}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkQiniuReviewResult)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
-      }
+    public static final class QueueWorkQiniuReviewResult extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkQiniuReviewResult)
+            QueueWorkQiniuReviewResultOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use QueueWorkQiniuReviewResult.newBuilder() to construct.
+        private QueueWorkQiniuReviewResult(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      public Builder clear() {
-        super.clear();
-        resultContent_ = "";
 
-        retryCount_ = 0;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private QueueWorkQiniuReviewResult() {
+            resultContent_ = "";
+            retryCount_ = 0;
         }
-        return result;
-      }
 
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult(this);
-        result.resultContent_ = resultContent_;
-        result.retryCount_ = retryCount_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-      }
 
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance()) return this;
-        if (!other.getResultContent().isEmpty()) {
-          resultContent_ = other.resultContent_;
-          onChanged();
+        private QueueWorkQiniuReviewResult(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 10: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            resultContent_ = s;
+                            break;
+                        }
+                        case 16: {
+
+                            retryCount_ = input.readInt32();
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
         }
-        if (other.getRetryCount() != 0) {
-          setRetryCount(other.getRetryCount());
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
 
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder.class);
         }
-        return this;
-      }
 
-      private java.lang.Object resultContent_ = "";
-      /**
-       * <pre>
-       *七牛审核返回的结果
-       * </pre>
-       *
-       * <code>string resultContent = 1;</code>
-       */
-      public java.lang.String getResultContent() {
-        java.lang.Object ref = resultContent_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          resultContent_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
+        public static final int RESULTCONTENT_FIELD_NUMBER = 1;
+        private volatile java.lang.Object resultContent_;
+
+        /**
+         * <pre>
+         * 七牛审核返回的结果
+         * </pre>
+         *
+         * <code>string resultContent = 1;</code>
+         */
+        public java.lang.String getResultContent() {
+            java.lang.Object ref = resultContent_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                resultContent_ = s;
+                return s;
+            }
         }
-      }
-      /**
-       * <pre>
-       *七牛审核返回的结果
-       * </pre>
-       *
-       * <code>string resultContent = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getResultContentBytes() {
-        java.lang.Object ref = resultContent_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          resultContent_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+
+        /**
+         * <pre>
+         * 七牛审核返回的结果
+         * </pre>
+         *
+         * <code>string resultContent = 1;</code>
+         */
+        public com.google.protobuf.ByteString
+        getResultContentBytes() {
+            java.lang.Object ref = resultContent_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                resultContent_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
         }
-      }
-      /**
-       * <pre>
-       *七牛审核返回的结果
-       * </pre>
-       *
-       * <code>string resultContent = 1;</code>
-       */
-      public Builder setResultContent(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        resultContent_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛审核返回的结果
-       * </pre>
-       *
-       * <code>string resultContent = 1;</code>
-       */
-      public Builder clearResultContent() {
-        
-        resultContent_ = getDefaultInstance().getResultContent();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛审核返回的结果
-       * </pre>
-       *
-       * <code>string resultContent = 1;</code>
-       */
-      public Builder setResultContentBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        resultContent_ = value;
-        onChanged();
-        return this;
-      }
 
-      private int retryCount_ ;
-      /**
-       * <pre>
-       *重试的次数
-       * </pre>
-       *
-       * <code>int32 retryCount = 2;</code>
-       */
-      public int getRetryCount() {
-        return retryCount_;
-      }
-      /**
-       * <pre>
-       *重试的次数
-       * </pre>
-       *
-       * <code>int32 retryCount = 2;</code>
-       */
-      public Builder setRetryCount(int value) {
-        
-        retryCount_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *重试的次数
-       * </pre>
-       *
-       * <code>int32 retryCount = 2;</code>
-       */
-      public Builder clearRetryCount() {
-        
-        retryCount_ = 0;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
+        public static final int RETRYCOUNT_FIELD_NUMBER = 2;
+        private int retryCount_;
 
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+        /**
+         * <pre>
+         * 重试的次数
+         * </pre>
+         *
+         * <code>int32 retryCount = 2;</code>
+         */
+        public int getRetryCount() {
+            return retryCount_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (!getResultContentBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, resultContent_);
+            }
+            if (retryCount_ != 0) {
+                output.writeInt32(2, retryCount_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (!getResultContentBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, resultContent_);
+            }
+            if (retryCount_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(2, retryCount_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) obj;
+
+            boolean result = true;
+            result = result && getResultContent()
+                    .equals(other.getResultContent());
+            result = result && (getRetryCount()
+                    == other.getRetryCount());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + RESULTCONTENT_FIELD_NUMBER;
+            hash = (53 * hash) + getResultContent().hashCode();
+            hash = (37 * hash) + RETRYCOUNT_FIELD_NUMBER;
+            hash = (53 * hash) + getRetryCount();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * 七牛直播、视频、图片审核的结果
+         * </pre>
+         * <p>
+         * Protobuf type {@code QueueWorkQiniuReviewResult}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkQiniuReviewResult)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                resultContent_ = "";
+
+                retryCount_ = 0;
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult(this);
+                result.resultContent_ = resultContent_;
+                result.retryCount_ = retryCount_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance())
+                    return this;
+                if (!other.getResultContent().isEmpty()) {
+                    resultContent_ = other.resultContent_;
+                    onChanged();
+                }
+                if (other.getRetryCount() != 0) {
+                    setRetryCount(other.getRetryCount());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private java.lang.Object resultContent_ = "";
+
+            /**
+             * <pre>
+             * 七牛审核返回的结果
+             * </pre>
+             *
+             * <code>string resultContent = 1;</code>
+             */
+            public java.lang.String getResultContent() {
+                java.lang.Object ref = resultContent_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    resultContent_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛审核返回的结果
+             * </pre>
+             *
+             * <code>string resultContent = 1;</code>
+             */
+            public com.google.protobuf.ByteString
+            getResultContentBytes() {
+                java.lang.Object ref = resultContent_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    resultContent_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛审核返回的结果
+             * </pre>
+             *
+             * <code>string resultContent = 1;</code>
+             */
+            public Builder setResultContent(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                resultContent_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛审核返回的结果
+             * </pre>
+             *
+             * <code>string resultContent = 1;</code>
+             */
+            public Builder clearResultContent() {
+
+                resultContent_ = getDefaultInstance().getResultContent();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛审核返回的结果
+             * </pre>
+             *
+             * <code>string resultContent = 1;</code>
+             */
+            public Builder setResultContentBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                resultContent_ = value;
+                onChanged();
+                return this;
+            }
+
+            private int retryCount_;
+
+            /**
+             * <pre>
+             * 重试的次数
+             * </pre>
+             *
+             * <code>int32 retryCount = 2;</code>
+             */
+            public int getRetryCount() {
+                return retryCount_;
+            }
+
+            /**
+             * <pre>
+             * 重试的次数
+             * </pre>
+             *
+             * <code>int32 retryCount = 2;</code>
+             */
+            public Builder setRetryCount(int value) {
+
+                retryCount_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 重试的次数
+             * </pre>
+             *
+             * <code>int32 retryCount = 2;</code>
+             */
+            public Builder clearRetryCount() {
+
+                retryCount_ = 0;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:QueueWorkQiniuReviewResult)
+            // @@protoc_insertion_point(builder_scope:QueueWorkQiniuReviewResult)
+        }
+
+        // @@protoc_insertion_point(class_scope:QueueWorkQiniuReviewResult)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkQiniuReviewResult>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkQiniuReviewResult>() {
+            public QueueWorkQiniuReviewResult parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkQiniuReviewResult(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkQiniuReviewResult> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkQiniuReviewResult> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    // @@protoc_insertion_point(class_scope:QueueWorkQiniuReviewResult)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult();
-    }
+    public interface QueueWorkQiniuWaitReviewResDataOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkQiniuWaitReviewResData)
+            com.google.protobuf.MessageOrBuilder {
 
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
+        /**
+         * <pre>
+         * 七牛资源key
+         * </pre>
+         *
+         * <code>string resContent = 1;</code>
+         */
+        java.lang.String getResContent();
 
-    private static final com.google.protobuf.Parser<QueueWorkQiniuReviewResult>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkQiniuReviewResult>() {
-      public QueueWorkQiniuReviewResult parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkQiniuReviewResult(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueueWorkQiniuReviewResult> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkQiniuReviewResult> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueueWorkQiniuWaitReviewResDataOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkQiniuWaitReviewResData)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *七牛资源key
-     * </pre>
-     *
-     * <code>string resContent = 1;</code>
-     */
-    java.lang.String getResContent();
-    /**
-     * <pre>
-     *七牛资源key
-     * </pre>
-     *
-     * <code>string resContent = 1;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 七牛资源key
+         * </pre>
+         *
+         * <code>string resContent = 1;</code>
+         */
+        com.google.protobuf.ByteString
         getResContentBytes();
 
-    /**
-     * <pre>
-     *七牛空间名
-     * </pre>
-     *
-     * <code>string bucketName = 2;</code>
-     */
-    java.lang.String getBucketName();
-    /**
-     * <pre>
-     *七牛空间名
-     * </pre>
-     *
-     * <code>string bucketName = 2;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 七牛空间名
+         * </pre>
+         *
+         * <code>string bucketName = 2;</code>
+         */
+        java.lang.String getBucketName();
+
+        /**
+         * <pre>
+         * 七牛空间名
+         * </pre>
+         *
+         * <code>string bucketName = 2;</code>
+         */
+        com.google.protobuf.ByteString
         getBucketNameBytes();
 
-    /**
-     * <pre>
-     *七牛资源的类型，0:七牛图片1:七牛视频
-     * </pre>
-     *
-     * <code>int32 resType = 3;</code>
-     */
-    int getResType();
+        /**
+         * <pre>
+         * 七牛资源的类型，0:七牛图片1:七牛视频
+         * </pre>
+         *
+         * <code>int32 resType = 3;</code>
+         */
+        int getResType();
 
-    /**
-     * <pre>
-     *关联的数据ID
-     * </pre>
-     *
-     * <code>int64 dataId = 4;</code>
-     */
-    long getDataId();
+        /**
+         * <pre>
+         * 关联的数据ID
+         * </pre>
+         *
+         * <code>int64 dataId = 4;</code>
+         */
+        long getDataId();
 
-    /**
-     * <pre>
-     *关联的数据类型0:用户头像1:宠物头像2:短视频
-     * </pre>
-     *
-     * <code>int32 dataType = 5;</code>
-     */
-    int getDataType();
-  }
-  /**
-   * <pre>
-   * 七牛需要被审核的资源列表
-   * </pre>
-   *
-   * Protobuf type {@code QueueWorkQiniuWaitReviewResData}
-   */
-  public  static final class QueueWorkQiniuWaitReviewResData extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkQiniuWaitReviewResData)
-      QueueWorkQiniuWaitReviewResDataOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkQiniuWaitReviewResData.newBuilder() to construct.
-    private QueueWorkQiniuWaitReviewResData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkQiniuWaitReviewResData() {
-      resContent_ = "";
-      bucketName_ = "";
-      resType_ = 0;
-      dataId_ = 0L;
-      dataType_ = 0;
+        /**
+         * <pre>
+         * 关联的数据类型0:用户头像1:宠物头像2:短视频
+         * </pre>
+         *
+         * <code>int32 dataType = 5;</code>
+         */
+        int getDataType();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkQiniuWaitReviewResData(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              resContent_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              bucketName_ = s;
-              break;
-            }
-            case 24: {
-
-              resType_ = input.readInt32();
-              break;
-            }
-            case 32: {
-
-              dataId_ = input.readInt64();
-              break;
-            }
-            case 40: {
-
-              dataType_ = input.readInt32();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder.class);
-    }
-
-    public static final int RESCONTENT_FIELD_NUMBER = 1;
-    private volatile java.lang.Object resContent_;
-    /**
-     * <pre>
-     *七牛资源key
-     * </pre>
-     *
-     * <code>string resContent = 1;</code>
-     */
-    public java.lang.String getResContent() {
-      java.lang.Object ref = resContent_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        resContent_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *七牛资源key
-     * </pre>
-     *
-     * <code>string resContent = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getResContentBytes() {
-      java.lang.Object ref = resContent_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        resContent_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int BUCKETNAME_FIELD_NUMBER = 2;
-    private volatile java.lang.Object bucketName_;
-    /**
-     * <pre>
-     *七牛空间名
-     * </pre>
-     *
-     * <code>string bucketName = 2;</code>
-     */
-    public java.lang.String getBucketName() {
-      java.lang.Object ref = bucketName_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        bucketName_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *七牛空间名
-     * </pre>
-     *
-     * <code>string bucketName = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getBucketNameBytes() {
-      java.lang.Object ref = bucketName_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        bucketName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int RESTYPE_FIELD_NUMBER = 3;
-    private int resType_;
-    /**
-     * <pre>
-     *七牛资源的类型，0:七牛图片1:七牛视频
-     * </pre>
-     *
-     * <code>int32 resType = 3;</code>
-     */
-    public int getResType() {
-      return resType_;
-    }
-
-    public static final int DATAID_FIELD_NUMBER = 4;
-    private long dataId_;
-    /**
-     * <pre>
-     *关联的数据ID
-     * </pre>
-     *
-     * <code>int64 dataId = 4;</code>
-     */
-    public long getDataId() {
-      return dataId_;
-    }
-
-    public static final int DATATYPE_FIELD_NUMBER = 5;
-    private int dataType_;
-    /**
-     * <pre>
-     *关联的数据类型0:用户头像1:宠物头像2:短视频
-     * </pre>
-     *
-     * <code>int32 dataType = 5;</code>
-     */
-    public int getDataType() {
-      return dataType_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getResContentBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, resContent_);
-      }
-      if (!getBucketNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, bucketName_);
-      }
-      if (resType_ != 0) {
-        output.writeInt32(3, resType_);
-      }
-      if (dataId_ != 0L) {
-        output.writeInt64(4, dataId_);
-      }
-      if (dataType_ != 0) {
-        output.writeInt32(5, dataType_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getResContentBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, resContent_);
-      }
-      if (!getBucketNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, bucketName_);
-      }
-      if (resType_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, resType_);
-      }
-      if (dataId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, dataId_);
-      }
-      if (dataType_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, dataType_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) obj;
-
-      boolean result = true;
-      result = result && getResContent()
-          .equals(other.getResContent());
-      result = result && getBucketName()
-          .equals(other.getBucketName());
-      result = result && (getResType()
-          == other.getResType());
-      result = result && (getDataId()
-          == other.getDataId());
-      result = result && (getDataType()
-          == other.getDataType());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + RESCONTENT_FIELD_NUMBER;
-      hash = (53 * hash) + getResContent().hashCode();
-      hash = (37 * hash) + BUCKETNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getBucketName().hashCode();
-      hash = (37 * hash) + RESTYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getResType();
-      hash = (37 * hash) + DATAID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getDataId());
-      hash = (37 * hash) + DATATYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getDataType();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * <pre>
      * 七牛需要被审核的资源列表
      * </pre>
-     *
+     * <p>
      * Protobuf type {@code QueueWorkQiniuWaitReviewResData}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkQiniuWaitReviewResData)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
-      }
+    public static final class QueueWorkQiniuWaitReviewResData extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkQiniuWaitReviewResData)
+            QueueWorkQiniuWaitReviewResDataOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use QueueWorkQiniuWaitReviewResData.newBuilder() to construct.
+        private QueueWorkQiniuWaitReviewResData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      public Builder clear() {
-        super.clear();
-        resContent_ = "";
 
-        bucketName_ = "";
-
-        resType_ = 0;
-
-        dataId_ = 0L;
-
-        dataType_ = 0;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private QueueWorkQiniuWaitReviewResData() {
+            resContent_ = "";
+            bucketName_ = "";
+            resType_ = 0;
+            dataId_ = 0L;
+            dataType_ = 0;
         }
-        return result;
-      }
 
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData(this);
-        result.resContent_ = resContent_;
-        result.bucketName_ = bucketName_;
-        result.resType_ = resType_;
-        result.dataId_ = dataId_;
-        result.dataType_ = dataType_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-      }
 
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance()) return this;
-        if (!other.getResContent().isEmpty()) {
-          resContent_ = other.resContent_;
-          onChanged();
-        }
-        if (!other.getBucketName().isEmpty()) {
-          bucketName_ = other.bucketName_;
-          onChanged();
-        }
-        if (other.getResType() != 0) {
-          setResType(other.getResType());
-        }
-        if (other.getDataId() != 0L) {
-          setDataId(other.getDataId());
-        }
-        if (other.getDataType() != 0) {
-          setDataType(other.getDataType());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object resContent_ = "";
-      /**
-       * <pre>
-       *七牛资源key
-       * </pre>
-       *
-       * <code>string resContent = 1;</code>
-       */
-      public java.lang.String getResContent() {
-        java.lang.Object ref = resContent_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          resContent_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *七牛资源key
-       * </pre>
-       *
-       * <code>string resContent = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getResContentBytes() {
-        java.lang.Object ref = resContent_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          resContent_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *七牛资源key
-       * </pre>
-       *
-       * <code>string resContent = 1;</code>
-       */
-      public Builder setResContent(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        resContent_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛资源key
-       * </pre>
-       *
-       * <code>string resContent = 1;</code>
-       */
-      public Builder clearResContent() {
-        
-        resContent_ = getDefaultInstance().getResContent();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛资源key
-       * </pre>
-       *
-       * <code>string resContent = 1;</code>
-       */
-      public Builder setResContentBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        resContent_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object bucketName_ = "";
-      /**
-       * <pre>
-       *七牛空间名
-       * </pre>
-       *
-       * <code>string bucketName = 2;</code>
-       */
-      public java.lang.String getBucketName() {
-        java.lang.Object ref = bucketName_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          bucketName_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *七牛空间名
-       * </pre>
-       *
-       * <code>string bucketName = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getBucketNameBytes() {
-        java.lang.Object ref = bucketName_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          bucketName_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *七牛空间名
-       * </pre>
-       *
-       * <code>string bucketName = 2;</code>
-       */
-      public Builder setBucketName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        bucketName_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛空间名
-       * </pre>
-       *
-       * <code>string bucketName = 2;</code>
-       */
-      public Builder clearBucketName() {
-        
-        bucketName_ = getDefaultInstance().getBucketName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛空间名
-       * </pre>
-       *
-       * <code>string bucketName = 2;</code>
-       */
-      public Builder setBucketNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        bucketName_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int resType_ ;
-      /**
-       * <pre>
-       *七牛资源的类型，0:七牛图片1:七牛视频
-       * </pre>
-       *
-       * <code>int32 resType = 3;</code>
-       */
-      public int getResType() {
-        return resType_;
-      }
-      /**
-       * <pre>
-       *七牛资源的类型，0:七牛图片1:七牛视频
-       * </pre>
-       *
-       * <code>int32 resType = 3;</code>
-       */
-      public Builder setResType(int value) {
-        
-        resType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *七牛资源的类型，0:七牛图片1:七牛视频
-       * </pre>
-       *
-       * <code>int32 resType = 3;</code>
-       */
-      public Builder clearResType() {
-        
-        resType_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private long dataId_ ;
-      /**
-       * <pre>
-       *关联的数据ID
-       * </pre>
-       *
-       * <code>int64 dataId = 4;</code>
-       */
-      public long getDataId() {
-        return dataId_;
-      }
-      /**
-       * <pre>
-       *关联的数据ID
-       * </pre>
-       *
-       * <code>int64 dataId = 4;</code>
-       */
-      public Builder setDataId(long value) {
-        
-        dataId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *关联的数据ID
-       * </pre>
-       *
-       * <code>int64 dataId = 4;</code>
-       */
-      public Builder clearDataId() {
-        
-        dataId_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private int dataType_ ;
-      /**
-       * <pre>
-       *关联的数据类型0:用户头像1:宠物头像2:短视频
-       * </pre>
-       *
-       * <code>int32 dataType = 5;</code>
-       */
-      public int getDataType() {
-        return dataType_;
-      }
-      /**
-       * <pre>
-       *关联的数据类型0:用户头像1:宠物头像2:短视频
-       * </pre>
-       *
-       * <code>int32 dataType = 5;</code>
-       */
-      public Builder setDataType(int value) {
-        
-        dataType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *关联的数据类型0:用户头像1:宠物头像2:短视频
-       * </pre>
-       *
-       * <code>int32 dataType = 5;</code>
-       */
-      public Builder clearDataType() {
-        
-        dataType_ = 0;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:QueueWorkQiniuWaitReviewResData)
-    }
-
-    // @@protoc_insertion_point(class_scope:QueueWorkQiniuWaitReviewResData)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData();
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueueWorkQiniuWaitReviewResData>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkQiniuWaitReviewResData>() {
-      public QueueWorkQiniuWaitReviewResData parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkQiniuWaitReviewResData(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueueWorkQiniuWaitReviewResData> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkQiniuWaitReviewResData> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueueWorkVideoWeightDataOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkVideoWeightData)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *视频的ID
-     * </pre>
-     *
-     * <code>int64 id = 1;</code>
-     */
-    long getId();
-  }
-  /**
-   * <pre>
-   * 处理视频权重数据
-   * </pre>
-   *
-   * Protobuf type {@code QueueWorkVideoWeightData}
-   */
-  public  static final class QueueWorkVideoWeightData extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkVideoWeightData)
-      QueueWorkVideoWeightDataOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkVideoWeightData.newBuilder() to construct.
-    private QueueWorkVideoWeightData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkVideoWeightData() {
-      id_ = 0L;
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkVideoWeightData(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
+        private QueueWorkQiniuWaitReviewResData(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
             }
-            case 8: {
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 10: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
-              id_ = input.readInt64();
-              break;
+                            resContent_ = s;
+                            break;
+                        }
+                        case 18: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            bucketName_ = s;
+                            break;
+                        }
+                        case 24: {
+
+                            resType_ = input.readInt32();
+                            break;
+                        }
+                        case 32: {
+
+                            dataId_ = input.readInt64();
+                            break;
+                        }
+                        case 40: {
+
+                            dataType_ = input.readInt32();
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
             }
-          }
         }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
+
+        public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
-    }
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
+        }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder.class);
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder.class);
+        }
+
+        public static final int RESCONTENT_FIELD_NUMBER = 1;
+        private volatile java.lang.Object resContent_;
+
+        /**
+         * <pre>
+         * 七牛资源key
+         * </pre>
+         *
+         * <code>string resContent = 1;</code>
+         */
+        public java.lang.String getResContent() {
+            java.lang.Object ref = resContent_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                resContent_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 七牛资源key
+         * </pre>
+         *
+         * <code>string resContent = 1;</code>
+         */
+        public com.google.protobuf.ByteString
+        getResContentBytes() {
+            java.lang.Object ref = resContent_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                resContent_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int BUCKETNAME_FIELD_NUMBER = 2;
+        private volatile java.lang.Object bucketName_;
+
+        /**
+         * <pre>
+         * 七牛空间名
+         * </pre>
+         *
+         * <code>string bucketName = 2;</code>
+         */
+        public java.lang.String getBucketName() {
+            java.lang.Object ref = bucketName_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                bucketName_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <pre>
+         * 七牛空间名
+         * </pre>
+         *
+         * <code>string bucketName = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+        getBucketNameBytes() {
+            java.lang.Object ref = bucketName_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                bucketName_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int RESTYPE_FIELD_NUMBER = 3;
+        private int resType_;
+
+        /**
+         * <pre>
+         * 七牛资源的类型，0:七牛图片1:七牛视频
+         * </pre>
+         *
+         * <code>int32 resType = 3;</code>
+         */
+        public int getResType() {
+            return resType_;
+        }
+
+        public static final int DATAID_FIELD_NUMBER = 4;
+        private long dataId_;
+
+        /**
+         * <pre>
+         * 关联的数据ID
+         * </pre>
+         *
+         * <code>int64 dataId = 4;</code>
+         */
+        public long getDataId() {
+            return dataId_;
+        }
+
+        public static final int DATATYPE_FIELD_NUMBER = 5;
+        private int dataType_;
+
+        /**
+         * <pre>
+         * 关联的数据类型0:用户头像1:宠物头像2:短视频
+         * </pre>
+         *
+         * <code>int32 dataType = 5;</code>
+         */
+        public int getDataType() {
+            return dataType_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (!getResContentBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, resContent_);
+            }
+            if (!getBucketNameBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, bucketName_);
+            }
+            if (resType_ != 0) {
+                output.writeInt32(3, resType_);
+            }
+            if (dataId_ != 0L) {
+                output.writeInt64(4, dataId_);
+            }
+            if (dataType_ != 0) {
+                output.writeInt32(5, dataType_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (!getResContentBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, resContent_);
+            }
+            if (!getBucketNameBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, bucketName_);
+            }
+            if (resType_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(3, resType_);
+            }
+            if (dataId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(4, dataId_);
+            }
+            if (dataType_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(5, dataType_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) obj;
+
+            boolean result = true;
+            result = result && getResContent()
+                    .equals(other.getResContent());
+            result = result && getBucketName()
+                    .equals(other.getBucketName());
+            result = result && (getResType()
+                    == other.getResType());
+            result = result && (getDataId()
+                    == other.getDataId());
+            result = result && (getDataType()
+                    == other.getDataType());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + RESCONTENT_FIELD_NUMBER;
+            hash = (53 * hash) + getResContent().hashCode();
+            hash = (37 * hash) + BUCKETNAME_FIELD_NUMBER;
+            hash = (53 * hash) + getBucketName().hashCode();
+            hash = (37 * hash) + RESTYPE_FIELD_NUMBER;
+            hash = (53 * hash) + getResType();
+            hash = (37 * hash) + DATAID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getDataId());
+            hash = (37 * hash) + DATATYPE_FIELD_NUMBER;
+            hash = (53 * hash) + getDataType();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * 七牛需要被审核的资源列表
+         * </pre>
+         * <p>
+         * Protobuf type {@code QueueWorkQiniuWaitReviewResData}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkQiniuWaitReviewResData)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                resContent_ = "";
+
+                bucketName_ = "";
+
+                resType_ = 0;
+
+                dataId_ = 0L;
+
+                dataType_ = 0;
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData(this);
+                result.resContent_ = resContent_;
+                result.bucketName_ = bucketName_;
+                result.resType_ = resType_;
+                result.dataId_ = dataId_;
+                result.dataType_ = dataType_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance())
+                    return this;
+                if (!other.getResContent().isEmpty()) {
+                    resContent_ = other.resContent_;
+                    onChanged();
+                }
+                if (!other.getBucketName().isEmpty()) {
+                    bucketName_ = other.bucketName_;
+                    onChanged();
+                }
+                if (other.getResType() != 0) {
+                    setResType(other.getResType());
+                }
+                if (other.getDataId() != 0L) {
+                    setDataId(other.getDataId());
+                }
+                if (other.getDataType() != 0) {
+                    setDataType(other.getDataType());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private java.lang.Object resContent_ = "";
+
+            /**
+             * <pre>
+             * 七牛资源key
+             * </pre>
+             *
+             * <code>string resContent = 1;</code>
+             */
+            public java.lang.String getResContent() {
+                java.lang.Object ref = resContent_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    resContent_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛资源key
+             * </pre>
+             *
+             * <code>string resContent = 1;</code>
+             */
+            public com.google.protobuf.ByteString
+            getResContentBytes() {
+                java.lang.Object ref = resContent_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    resContent_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛资源key
+             * </pre>
+             *
+             * <code>string resContent = 1;</code>
+             */
+            public Builder setResContent(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                resContent_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛资源key
+             * </pre>
+             *
+             * <code>string resContent = 1;</code>
+             */
+            public Builder clearResContent() {
+
+                resContent_ = getDefaultInstance().getResContent();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛资源key
+             * </pre>
+             *
+             * <code>string resContent = 1;</code>
+             */
+            public Builder setResContentBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                resContent_ = value;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object bucketName_ = "";
+
+            /**
+             * <pre>
+             * 七牛空间名
+             * </pre>
+             *
+             * <code>string bucketName = 2;</code>
+             */
+            public java.lang.String getBucketName() {
+                java.lang.Object ref = bucketName_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    bucketName_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛空间名
+             * </pre>
+             *
+             * <code>string bucketName = 2;</code>
+             */
+            public com.google.protobuf.ByteString
+            getBucketNameBytes() {
+                java.lang.Object ref = bucketName_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    bucketName_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 七牛空间名
+             * </pre>
+             *
+             * <code>string bucketName = 2;</code>
+             */
+            public Builder setBucketName(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                bucketName_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛空间名
+             * </pre>
+             *
+             * <code>string bucketName = 2;</code>
+             */
+            public Builder clearBucketName() {
+
+                bucketName_ = getDefaultInstance().getBucketName();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛空间名
+             * </pre>
+             *
+             * <code>string bucketName = 2;</code>
+             */
+            public Builder setBucketNameBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                bucketName_ = value;
+                onChanged();
+                return this;
+            }
+
+            private int resType_;
+
+            /**
+             * <pre>
+             * 七牛资源的类型，0:七牛图片1:七牛视频
+             * </pre>
+             *
+             * <code>int32 resType = 3;</code>
+             */
+            public int getResType() {
+                return resType_;
+            }
+
+            /**
+             * <pre>
+             * 七牛资源的类型，0:七牛图片1:七牛视频
+             * </pre>
+             *
+             * <code>int32 resType = 3;</code>
+             */
+            public Builder setResType(int value) {
+
+                resType_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 七牛资源的类型，0:七牛图片1:七牛视频
+             * </pre>
+             *
+             * <code>int32 resType = 3;</code>
+             */
+            public Builder clearResType() {
+
+                resType_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private long dataId_;
+
+            /**
+             * <pre>
+             * 关联的数据ID
+             * </pre>
+             *
+             * <code>int64 dataId = 4;</code>
+             */
+            public long getDataId() {
+                return dataId_;
+            }
+
+            /**
+             * <pre>
+             * 关联的数据ID
+             * </pre>
+             *
+             * <code>int64 dataId = 4;</code>
+             */
+            public Builder setDataId(long value) {
+
+                dataId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 关联的数据ID
+             * </pre>
+             *
+             * <code>int64 dataId = 4;</code>
+             */
+            public Builder clearDataId() {
+
+                dataId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private int dataType_;
+
+            /**
+             * <pre>
+             * 关联的数据类型0:用户头像1:宠物头像2:短视频
+             * </pre>
+             *
+             * <code>int32 dataType = 5;</code>
+             */
+            public int getDataType() {
+                return dataType_;
+            }
+
+            /**
+             * <pre>
+             * 关联的数据类型0:用户头像1:宠物头像2:短视频
+             * </pre>
+             *
+             * <code>int32 dataType = 5;</code>
+             */
+            public Builder setDataType(int value) {
+
+                dataType_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 关联的数据类型0:用户头像1:宠物头像2:短视频
+             * </pre>
+             *
+             * <code>int32 dataType = 5;</code>
+             */
+            public Builder clearDataType() {
+
+                dataType_ = 0;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:QueueWorkQiniuWaitReviewResData)
+        }
+
+        // @@protoc_insertion_point(class_scope:QueueWorkQiniuWaitReviewResData)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkQiniuWaitReviewResData>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkQiniuWaitReviewResData>() {
+            public QueueWorkQiniuWaitReviewResData parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkQiniuWaitReviewResData(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkQiniuWaitReviewResData> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkQiniuWaitReviewResData> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
-    private long id_;
-    /**
-     * <pre>
-     *视频的ID
-     * </pre>
-     *
-     * <code>int64 id = 1;</code>
-     */
-    public long getId() {
-      return id_;
+    public interface QueueWorkVideoWeightDataOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkVideoWeightData)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <pre>
+         * 视频的ID
+         * </pre>
+         *
+         * <code>int64 id = 1;</code>
+         */
+        long getId();
     }
 
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (id_ != 0L) {
-        output.writeInt64(1, id_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (id_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, id_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) obj;
-
-      boolean result = true;
-      result = result && (getId()
-          == other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getId());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * <pre>
      * 处理视频权重数据
      * </pre>
-     *
+     * <p>
      * Protobuf type {@code QueueWorkVideoWeightData}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkVideoWeightData)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
-      }
+    public static final class QueueWorkVideoWeightData extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkVideoWeightData)
+            QueueWorkVideoWeightDataOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use QueueWorkVideoWeightData.newBuilder() to construct.
+        private QueueWorkVideoWeightData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      public Builder clear() {
-        super.clear();
-        id_ = 0L;
 
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private QueueWorkVideoWeightData() {
+            id_ = 0L;
         }
-        return result;
-      }
 
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData(this);
-        result.id_ = id_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-      }
 
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance()) return this;
-        if (other.getId() != 0L) {
-          setId(other.getId());
+        private QueueWorkVideoWeightData(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 8: {
+
+                            id_ = input.readInt64();
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
 
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
         }
-        return this;
-      }
 
-      private long id_ ;
-      /**
-       * <pre>
-       *视频的ID
-       * </pre>
-       *
-       * <code>int64 id = 1;</code>
-       */
-      public long getId() {
-        return id_;
-      }
-      /**
-       * <pre>
-       *视频的ID
-       * </pre>
-       *
-       * <code>int64 id = 1;</code>
-       */
-      public Builder setId(long value) {
-        
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *视频的ID
-       * </pre>
-       *
-       * <code>int64 id = 1;</code>
-       */
-      public Builder clearId() {
-        
-        id_ = 0L;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder.class);
+        }
 
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+        public static final int ID_FIELD_NUMBER = 1;
+        private long id_;
+
+        /**
+         * <pre>
+         * 视频的ID
+         * </pre>
+         *
+         * <code>int64 id = 1;</code>
+         */
+        public long getId() {
+            return id_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (id_ != 0L) {
+                output.writeInt64(1, id_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (id_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, id_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) obj;
+
+            boolean result = true;
+            result = result && (getId()
+                    == other.getId());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + ID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getId());
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * 处理视频权重数据
+         * </pre>
+         * <p>
+         * Protobuf type {@code QueueWorkVideoWeightData}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkVideoWeightData)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                id_ = 0L;
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData(this);
+                result.id_ = id_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance())
+                    return this;
+                if (other.getId() != 0L) {
+                    setId(other.getId());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private long id_;
+
+            /**
+             * <pre>
+             * 视频的ID
+             * </pre>
+             *
+             * <code>int64 id = 1;</code>
+             */
+            public long getId() {
+                return id_;
+            }
+
+            /**
+             * <pre>
+             * 视频的ID
+             * </pre>
+             *
+             * <code>int64 id = 1;</code>
+             */
+            public Builder setId(long value) {
+
+                id_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 视频的ID
+             * </pre>
+             *
+             * <code>int64 id = 1;</code>
+             */
+            public Builder clearId() {
+
+                id_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:QueueWorkVideoWeightData)
+            // @@protoc_insertion_point(builder_scope:QueueWorkVideoWeightData)
+        }
+
+        // @@protoc_insertion_point(class_scope:QueueWorkVideoWeightData)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkVideoWeightData>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkVideoWeightData>() {
+            public QueueWorkVideoWeightData parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkVideoWeightData(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkVideoWeightData> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkVideoWeightData> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    // @@protoc_insertion_point(class_scope:QueueWorkVideoWeightData)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData();
-    }
+    public interface QueueWorkUserTaskCoinOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:QueueWorkUserTaskCoin)
+            com.google.protobuf.MessageOrBuilder {
 
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
+        /**
+         * <pre>
+         * 用户ID
+         * </pre>
+         *
+         * <code>int64 userId = 1;</code>
+         */
+        long getUserId();
 
-    private static final com.google.protobuf.Parser<QueueWorkVideoWeightData>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkVideoWeightData>() {
-      public QueueWorkVideoWeightData parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkVideoWeightData(input, extensionRegistry);
-      }
-    };
+        /**
+         * <pre>
+         * 任务名称
+         * </pre>
+         *
+         * <code>string taskName = 2;</code>
+         */
+        java.lang.String getTaskName();
 
-    public static com.google.protobuf.Parser<QueueWorkVideoWeightData> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkVideoWeightData> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueueWorkUserTaskCoinOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:QueueWorkUserTaskCoin)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *用户ID
-     * </pre>
-     *
-     * <code>int64 userId = 1;</code>
-     */
-    long getUserId();
-
-    /**
-     * <pre>
-     *任务名称
-     * </pre>
-     *
-     * <code>string taskName = 2;</code>
-     */
-    java.lang.String getTaskName();
-    /**
-     * <pre>
-     *任务名称
-     * </pre>
-     *
-     * <code>string taskName = 2;</code>
-     */
-    com.google.protobuf.ByteString
+        /**
+         * <pre>
+         * 任务名称
+         * </pre>
+         *
+         * <code>string taskName = 2;</code>
+         */
+        com.google.protobuf.ByteString
         getTaskNameBytes();
 
-    /**
-     * <pre>
-     *任务ID
-     * </pre>
-     *
-     * <code>int64 taskId = 3;</code>
-     */
-    long getTaskId();
+        /**
+         * <pre>
+         * 任务ID
+         * </pre>
+         *
+         * <code>int64 taskId = 3;</code>
+         */
+        long getTaskId();
 
-    /**
-     * <pre>
-     *获取的金币数
-     * </pre>
-     *
-     * <code>int32 coin = 4;</code>
-     */
-    int getCoin();
+        /**
+         * <pre>
+         * 获取的金币数
+         * </pre>
+         *
+         * <code>int32 coin = 4;</code>
+         */
+        int getCoin();
 
-    /**
-     * <pre>
-     * 发生的时间，时间戳，单位秒
-     * </pre>
-     *
-     * <code>int64 actionTimestamp = 5;</code>
-     */
-    long getActionTimestamp();
-  }
-  /**
-   * <pre>
-   * 用户做任务后获取金币
-   * </pre>
-   *
-   * Protobuf type {@code QueueWorkUserTaskCoin}
-   */
-  public  static final class QueueWorkUserTaskCoin extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:QueueWorkUserTaskCoin)
-      QueueWorkUserTaskCoinOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueueWorkUserTaskCoin.newBuilder() to construct.
-    private QueueWorkUserTaskCoin(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueueWorkUserTaskCoin() {
-      userId_ = 0L;
-      taskName_ = "";
-      taskId_ = 0L;
-      coin_ = 0;
-      actionTimestamp_ = 0L;
+        /**
+         * <pre>
+         * 发生的时间，时间戳，单位秒
+         * </pre>
+         *
+         * <code>int64 actionTimestamp = 5;</code>
+         */
+        long getActionTimestamp();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueueWorkUserTaskCoin(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-
-              userId_ = input.readInt64();
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              taskName_ = s;
-              break;
-            }
-            case 24: {
-
-              taskId_ = input.readInt64();
-              break;
-            }
-            case 32: {
-
-              coin_ = input.readInt32();
-              break;
-            }
-            case 40: {
-
-              actionTimestamp_ = input.readInt64();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.Builder.class);
-    }
-
-    public static final int USERID_FIELD_NUMBER = 1;
-    private long userId_;
-    /**
-     * <pre>
-     *用户ID
-     * </pre>
-     *
-     * <code>int64 userId = 1;</code>
-     */
-    public long getUserId() {
-      return userId_;
-    }
-
-    public static final int TASKNAME_FIELD_NUMBER = 2;
-    private volatile java.lang.Object taskName_;
-    /**
-     * <pre>
-     *任务名称
-     * </pre>
-     *
-     * <code>string taskName = 2;</code>
-     */
-    public java.lang.String getTaskName() {
-      java.lang.Object ref = taskName_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        taskName_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *任务名称
-     * </pre>
-     *
-     * <code>string taskName = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getTaskNameBytes() {
-      java.lang.Object ref = taskName_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        taskName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TASKID_FIELD_NUMBER = 3;
-    private long taskId_;
-    /**
-     * <pre>
-     *任务ID
-     * </pre>
-     *
-     * <code>int64 taskId = 3;</code>
-     */
-    public long getTaskId() {
-      return taskId_;
-    }
-
-    public static final int COIN_FIELD_NUMBER = 4;
-    private int coin_;
-    /**
-     * <pre>
-     *获取的金币数
-     * </pre>
-     *
-     * <code>int32 coin = 4;</code>
-     */
-    public int getCoin() {
-      return coin_;
-    }
-
-    public static final int ACTIONTIMESTAMP_FIELD_NUMBER = 5;
-    private long actionTimestamp_;
-    /**
-     * <pre>
-     * 发生的时间，时间戳，单位秒
-     * </pre>
-     *
-     * <code>int64 actionTimestamp = 5;</code>
-     */
-    public long getActionTimestamp() {
-      return actionTimestamp_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (userId_ != 0L) {
-        output.writeInt64(1, userId_);
-      }
-      if (!getTaskNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, taskName_);
-      }
-      if (taskId_ != 0L) {
-        output.writeInt64(3, taskId_);
-      }
-      if (coin_ != 0) {
-        output.writeInt32(4, coin_);
-      }
-      if (actionTimestamp_ != 0L) {
-        output.writeInt64(5, actionTimestamp_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (userId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, userId_);
-      }
-      if (!getTaskNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, taskName_);
-      }
-      if (taskId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, taskId_);
-      }
-      if (coin_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, coin_);
-      }
-      if (actionTimestamp_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(5, actionTimestamp_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin)) {
-        return super.equals(obj);
-      }
-      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin) obj;
-
-      boolean result = true;
-      result = result && (getUserId()
-          == other.getUserId());
-      result = result && getTaskName()
-          .equals(other.getTaskName());
-      result = result && (getTaskId()
-          == other.getTaskId());
-      result = result && (getCoin()
-          == other.getCoin());
-      result = result && (getActionTimestamp()
-          == other.getActionTimestamp());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + USERID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getUserId());
-      hash = (37 * hash) + TASKNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getTaskName().hashCode();
-      hash = (37 * hash) + TASKID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTaskId());
-      hash = (37 * hash) + COIN_FIELD_NUMBER;
-      hash = (53 * hash) + getCoin();
-      hash = (37 * hash) + ACTIONTIMESTAMP_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getActionTimestamp());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * <pre>
      * 用户做任务后获取金币
      * </pre>
-     *
+     * <p>
      * Protobuf type {@code QueueWorkUserTaskCoin}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:QueueWorkUserTaskCoin)
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoinOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_descriptor;
-      }
+    public static final class QueueWorkUserTaskCoin extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkUserTaskCoin)
+            QueueWorkUserTaskCoinOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.Builder.class);
-      }
-
-      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use QueueWorkUserTaskCoin.newBuilder() to construct.
+        private QueueWorkUserTaskCoin(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      public Builder clear() {
-        super.clear();
-        userId_ = 0L;
 
-        taskName_ = "";
-
-        taskId_ = 0L;
-
-        coin_ = 0;
-
-        actionTimestamp_ = 0L;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_descriptor;
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin getDefaultInstanceForType() {
-        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.getDefaultInstance();
-      }
-
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin build() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private QueueWorkUserTaskCoin() {
+            userId_ = 0L;
+            taskName_ = "";
+            taskId_ = 0L;
+            coin_ = 0;
+            actionTimestamp_ = 0L;
         }
-        return result;
-      }
 
-      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin buildPartial() {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin(this);
-        result.userId_ = userId_;
-        result.taskName_ = taskName_;
-        result.taskId_ = taskId_;
-        result.coin_ = coin_;
-        result.actionTimestamp_ = actionTimestamp_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin) {
-          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-      }
 
-      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin other) {
-        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.getDefaultInstance()) return this;
-        if (other.getUserId() != 0L) {
-          setUserId(other.getUserId());
+        private QueueWorkUserTaskCoin(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 8: {
+
+                            userId_ = input.readInt64();
+                            break;
+                        }
+                        case 18: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            taskName_ = s;
+                            break;
+                        }
+                        case 24: {
+
+                            taskId_ = input.readInt64();
+                            break;
+                        }
+                        case 32: {
+
+                            coin_ = input.readInt32();
+                            break;
+                        }
+                        case 40: {
+
+                            actionTimestamp_ = input.readInt64();
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
         }
-        if (!other.getTaskName().isEmpty()) {
-          taskName_ = other.taskName_;
-          onChanged();
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_descriptor;
         }
-        if (other.getTaskId() != 0L) {
-          setTaskId(other.getTaskId());
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.Builder.class);
         }
-        if (other.getCoin() != 0) {
-          setCoin(other.getCoin());
+
+        public static final int USERID_FIELD_NUMBER = 1;
+        private long userId_;
+
+        /**
+         * <pre>
+         * 用户ID
+         * </pre>
+         *
+         * <code>int64 userId = 1;</code>
+         */
+        public long getUserId() {
+            return userId_;
         }
-        if (other.getActionTimestamp() != 0L) {
-          setActionTimestamp(other.getActionTimestamp());
+
+        public static final int TASKNAME_FIELD_NUMBER = 2;
+        private volatile java.lang.Object taskName_;
+
+        /**
+         * <pre>
+         * 任务名称
+         * </pre>
+         *
+         * <code>string taskName = 2;</code>
+         */
+        public java.lang.String getTaskName() {
+            java.lang.Object ref = taskName_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                taskName_ = s;
+                return s;
+            }
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
 
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+        /**
+         * <pre>
+         * 任务名称
+         * </pre>
+         *
+         * <code>string taskName = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+        getTaskNameBytes() {
+            java.lang.Object ref = taskName_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                taskName_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
         }
-        return this;
-      }
 
-      private long userId_ ;
-      /**
-       * <pre>
-       *用户ID
-       * </pre>
-       *
-       * <code>int64 userId = 1;</code>
-       */
-      public long getUserId() {
-        return userId_;
-      }
-      /**
-       * <pre>
-       *用户ID
-       * </pre>
-       *
-       * <code>int64 userId = 1;</code>
-       */
-      public Builder setUserId(long value) {
-        
-        userId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *用户ID
-       * </pre>
-       *
-       * <code>int64 userId = 1;</code>
-       */
-      public Builder clearUserId() {
-        
-        userId_ = 0L;
-        onChanged();
-        return this;
-      }
+        public static final int TASKID_FIELD_NUMBER = 3;
+        private long taskId_;
 
-      private java.lang.Object taskName_ = "";
-      /**
-       * <pre>
-       *任务名称
-       * </pre>
-       *
-       * <code>string taskName = 2;</code>
-       */
-      public java.lang.String getTaskName() {
-        java.lang.Object ref = taskName_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          taskName_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
+        /**
+         * <pre>
+         * 任务ID
+         * </pre>
+         *
+         * <code>int64 taskId = 3;</code>
+         */
+        public long getTaskId() {
+            return taskId_;
         }
-      }
-      /**
-       * <pre>
-       *任务名称
-       * </pre>
-       *
-       * <code>string taskName = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getTaskNameBytes() {
-        java.lang.Object ref = taskName_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          taskName_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+
+        public static final int COIN_FIELD_NUMBER = 4;
+        private int coin_;
+
+        /**
+         * <pre>
+         * 获取的金币数
+         * </pre>
+         *
+         * <code>int32 coin = 4;</code>
+         */
+        public int getCoin() {
+            return coin_;
         }
-      }
-      /**
-       * <pre>
-       *任务名称
-       * </pre>
-       *
-       * <code>string taskName = 2;</code>
-       */
-      public Builder setTaskName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        taskName_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *任务名称
-       * </pre>
-       *
-       * <code>string taskName = 2;</code>
-       */
-      public Builder clearTaskName() {
-        
-        taskName_ = getDefaultInstance().getTaskName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *任务名称
-       * </pre>
-       *
-       * <code>string taskName = 2;</code>
-       */
-      public Builder setTaskNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        taskName_ = value;
-        onChanged();
-        return this;
-      }
 
-      private long taskId_ ;
-      /**
-       * <pre>
-       *任务ID
-       * </pre>
-       *
-       * <code>int64 taskId = 3;</code>
-       */
-      public long getTaskId() {
-        return taskId_;
-      }
-      /**
-       * <pre>
-       *任务ID
-       * </pre>
-       *
-       * <code>int64 taskId = 3;</code>
-       */
-      public Builder setTaskId(long value) {
-        
-        taskId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *任务ID
-       * </pre>
-       *
-       * <code>int64 taskId = 3;</code>
-       */
-      public Builder clearTaskId() {
-        
-        taskId_ = 0L;
-        onChanged();
-        return this;
-      }
+        public static final int ACTIONTIMESTAMP_FIELD_NUMBER = 5;
+        private long actionTimestamp_;
 
-      private int coin_ ;
-      /**
-       * <pre>
-       *获取的金币数
-       * </pre>
-       *
-       * <code>int32 coin = 4;</code>
-       */
-      public int getCoin() {
-        return coin_;
-      }
-      /**
-       * <pre>
-       *获取的金币数
-       * </pre>
-       *
-       * <code>int32 coin = 4;</code>
-       */
-      public Builder setCoin(int value) {
-        
-        coin_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *获取的金币数
-       * </pre>
-       *
-       * <code>int32 coin = 4;</code>
-       */
-      public Builder clearCoin() {
-        
-        coin_ = 0;
-        onChanged();
-        return this;
-      }
+        /**
+         * <pre>
+         * 发生的时间，时间戳，单位秒
+         * </pre>
+         *
+         * <code>int64 actionTimestamp = 5;</code>
+         */
+        public long getActionTimestamp() {
+            return actionTimestamp_;
+        }
 
-      private long actionTimestamp_ ;
-      /**
-       * <pre>
-       * 发生的时间，时间戳，单位秒
-       * </pre>
-       *
-       * <code>int64 actionTimestamp = 5;</code>
-       */
-      public long getActionTimestamp() {
-        return actionTimestamp_;
-      }
-      /**
-       * <pre>
-       * 发生的时间，时间戳，单位秒
-       * </pre>
-       *
-       * <code>int64 actionTimestamp = 5;</code>
-       */
-      public Builder setActionTimestamp(long value) {
-        
-        actionTimestamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * 发生的时间，时间戳，单位秒
-       * </pre>
-       *
-       * <code>int64 actionTimestamp = 5;</code>
-       */
-      public Builder clearActionTimestamp() {
-        
-        actionTimestamp_ = 0L;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
+        private byte memoizedIsInitialized = -1;
 
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (userId_ != 0L) {
+                output.writeInt64(1, userId_);
+            }
+            if (!getTaskNameBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, taskName_);
+            }
+            if (taskId_ != 0L) {
+                output.writeInt64(3, taskId_);
+            }
+            if (coin_ != 0) {
+                output.writeInt32(4, coin_);
+            }
+            if (actionTimestamp_ != 0L) {
+                output.writeInt64(5, actionTimestamp_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (userId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, userId_);
+            }
+            if (!getTaskNameBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, taskName_);
+            }
+            if (taskId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(3, taskId_);
+            }
+            if (coin_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(4, coin_);
+            }
+            if (actionTimestamp_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(5, actionTimestamp_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin) obj;
+
+            boolean result = true;
+            result = result && (getUserId()
+                    == other.getUserId());
+            result = result && getTaskName()
+                    .equals(other.getTaskName());
+            result = result && (getTaskId()
+                    == other.getTaskId());
+            result = result && (getCoin()
+                    == other.getCoin());
+            result = result && (getActionTimestamp()
+                    == other.getActionTimestamp());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + USERID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getUserId());
+            hash = (37 * hash) + TASKNAME_FIELD_NUMBER;
+            hash = (53 * hash) + getTaskName().hashCode();
+            hash = (37 * hash) + TASKID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getTaskId());
+            hash = (37 * hash) + COIN_FIELD_NUMBER;
+            hash = (53 * hash) + getCoin();
+            hash = (37 * hash) + ACTIONTIMESTAMP_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getActionTimestamp());
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * 用户做任务后获取金币
+         * </pre>
+         * <p>
+         * Protobuf type {@code QueueWorkUserTaskCoin}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkUserTaskCoin)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoinOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.Builder.class);
+            }
+
+            // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                userId_ = 0L;
+
+                taskName_ = "";
+
+                taskId_ = 0L;
+
+                coin_ = 0;
+
+                actionTimestamp_ = 0L;
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin(this);
+                result.userId_ = userId_;
+                result.taskName_ = taskName_;
+                result.taskId_ = taskId_;
+                result.coin_ = coin_;
+                result.actionTimestamp_ = actionTimestamp_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.getDefaultInstance())
+                    return this;
+                if (other.getUserId() != 0L) {
+                    setUserId(other.getUserId());
+                }
+                if (!other.getTaskName().isEmpty()) {
+                    taskName_ = other.taskName_;
+                    onChanged();
+                }
+                if (other.getTaskId() != 0L) {
+                    setTaskId(other.getTaskId());
+                }
+                if (other.getCoin() != 0) {
+                    setCoin(other.getCoin());
+                }
+                if (other.getActionTimestamp() != 0L) {
+                    setActionTimestamp(other.getActionTimestamp());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private long userId_;
+
+            /**
+             * <pre>
+             * 用户ID
+             * </pre>
+             *
+             * <code>int64 userId = 1;</code>
+             */
+            public long getUserId() {
+                return userId_;
+            }
+
+            /**
+             * <pre>
+             * 用户ID
+             * </pre>
+             *
+             * <code>int64 userId = 1;</code>
+             */
+            public Builder setUserId(long value) {
+
+                userId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 用户ID
+             * </pre>
+             *
+             * <code>int64 userId = 1;</code>
+             */
+            public Builder clearUserId() {
+
+                userId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private java.lang.Object taskName_ = "";
+
+            /**
+             * <pre>
+             * 任务名称
+             * </pre>
+             *
+             * <code>string taskName = 2;</code>
+             */
+            public java.lang.String getTaskName() {
+                java.lang.Object ref = taskName_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    taskName_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 任务名称
+             * </pre>
+             *
+             * <code>string taskName = 2;</code>
+             */
+            public com.google.protobuf.ByteString
+            getTaskNameBytes() {
+                java.lang.Object ref = taskName_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    taskName_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <pre>
+             * 任务名称
+             * </pre>
+             *
+             * <code>string taskName = 2;</code>
+             */
+            public Builder setTaskName(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                taskName_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 任务名称
+             * </pre>
+             *
+             * <code>string taskName = 2;</code>
+             */
+            public Builder clearTaskName() {
+
+                taskName_ = getDefaultInstance().getTaskName();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 任务名称
+             * </pre>
+             *
+             * <code>string taskName = 2;</code>
+             */
+            public Builder setTaskNameBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                taskName_ = value;
+                onChanged();
+                return this;
+            }
+
+            private long taskId_;
+
+            /**
+             * <pre>
+             * 任务ID
+             * </pre>
+             *
+             * <code>int64 taskId = 3;</code>
+             */
+            public long getTaskId() {
+                return taskId_;
+            }
+
+            /**
+             * <pre>
+             * 任务ID
+             * </pre>
+             *
+             * <code>int64 taskId = 3;</code>
+             */
+            public Builder setTaskId(long value) {
+
+                taskId_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 任务ID
+             * </pre>
+             *
+             * <code>int64 taskId = 3;</code>
+             */
+            public Builder clearTaskId() {
+
+                taskId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private int coin_;
+
+            /**
+             * <pre>
+             * 获取的金币数
+             * </pre>
+             *
+             * <code>int32 coin = 4;</code>
+             */
+            public int getCoin() {
+                return coin_;
+            }
+
+            /**
+             * <pre>
+             * 获取的金币数
+             * </pre>
+             *
+             * <code>int32 coin = 4;</code>
+             */
+            public Builder setCoin(int value) {
+
+                coin_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 获取的金币数
+             * </pre>
+             *
+             * <code>int32 coin = 4;</code>
+             */
+            public Builder clearCoin() {
+
+                coin_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private long actionTimestamp_;
+
+            /**
+             * <pre>
+             * 发生的时间，时间戳，单位秒
+             * </pre>
+             *
+             * <code>int64 actionTimestamp = 5;</code>
+             */
+            public long getActionTimestamp() {
+                return actionTimestamp_;
+            }
+
+            /**
+             * <pre>
+             * 发生的时间，时间戳，单位秒
+             * </pre>
+             *
+             * <code>int64 actionTimestamp = 5;</code>
+             */
+            public Builder setActionTimestamp(long value) {
+
+                actionTimestamp_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 发生的时间，时间戳，单位秒
+             * </pre>
+             *
+             * <code>int64 actionTimestamp = 5;</code>
+             */
+            public Builder clearActionTimestamp() {
+
+                actionTimestamp_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:QueueWorkUserTaskCoin)
-    }
+            // @@protoc_insertion_point(builder_scope:QueueWorkUserTaskCoin)
+        }
 
-    // @@protoc_insertion_point(class_scope:QueueWorkUserTaskCoin)
-    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin();
-    }
+        // @@protoc_insertion_point(class_scope:QueueWorkUserTaskCoin)
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin DEFAULT_INSTANCE;
 
-    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin();
+        }
 
-    private static final com.google.protobuf.Parser<QueueWorkUserTaskCoin>
-        PARSER = new com.google.protobuf.AbstractParser<QueueWorkUserTaskCoin>() {
-      public QueueWorkUserTaskCoin parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueueWorkUserTaskCoin(input, extensionRegistry);
-      }
-    };
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
 
-    public static com.google.protobuf.Parser<QueueWorkUserTaskCoin> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueueWorkUserTaskCoin> getParserForType() {
-      return PARSER;
-    }
-
-    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkInfo_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkInfo_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkShopLegalSubjectData_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkOrderTimeData_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkOrderTimeData_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkHeart_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkHeart_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkPhoneCode_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkPhoneCode_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkPush_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkPush_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkQiniuReviewResult_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkVideoWeightData_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkVideoWeightData_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_QueueWorkUserTaskCoin_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_QueueWorkUserTaskCoin_fieldAccessorTable;
-
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
-    return descriptor;
-  }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
-  static {
-    java.lang.String[] descriptorData = {
-      "\n\023QueueWorkInfo.proto\"\267\005\n\rQueueWorkInfo\022" +
-      "-\n\010workType\030\001 \001(\0162\033.QueueWorkInfo.WorkTy" +
-      "peEnum\022&\n\tphoneCode\030\002 \001(\0132\023.QueueWorkPho" +
-      "neCode\022\"\n\theartData\030\003 \001(\0132\017.QueueWorkHea" +
-      "rt\022 \n\010pushData\030\004 \001(\0132\016.QueueWorkPush\0226\n\021" +
-      "qiniuReviewResult\030\005 \001(\0132\033.QueueWorkQiniu" +
-      "ReviewResult\022@\n\026qiniuWaitReviewResData\030\006" +
-      " \001(\0132 .QueueWorkQiniuWaitReviewResData\0222" +
-      "\n\017videoWeightData\030\007 \001(\0132\031.QueueWorkVideo" +
-      "WeightData\022<\n\024shopLegalSubjectData\030\010 \001(\013" +
-      "2\036.QueueWorkShopLegalSubjectData\022.\n\rorde" +
-      "rTimeData\030\t \001(\0132\027.QueueWorkOrderTimeData" +
-      "\"\354\001\n\014WorkTypeEnum\022\023\n\017SEND_PHONE_CODE\020\000\022\t" +
-      "\n\005HEART\020\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_R" +
-      "EVIEW_RESULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESU" +
-      "LT\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014" +
-      "VIDEO_WEIGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\022\022" +
-      "\n\016USER_TASK_COIN\020\010\022\023\n\017USER_ORDER_TIME\020\t\"" +
-      "\234\002\n\035QueueWorkShopLegalSubjectData\022\014\n\004nam" +
-      "e\030\001 \001(\t\022\025\n\rcontactPerson\030\002 \001(\t\022\r\n\005phone\030" +
-      "\003 \001(\t\022\025\n\rcontactNumber\030\004 \001(\t\022\026\n\016legalSub" +
-      "jectId\030\005 \001(\003\022\014\n\004type\030\006 \001(\005\022\016\n\006cityId\030\007 \001" +
-      "(\005\022\021\n\tlegalType\030\010 \001(\t\022 \n\030leagalRepresent" +
-      "ativeName\030\t \001(\t\022\036\n\026leagalRepresentativeI" +
-      "D\030\n \001(\t\022\022\n\ncategoryId\030\013 \001(\003\022\021\n\tstoreType" +
-      "\030\014 \001(\t\"9\n\026QueueWorkOrderTimeData\022\017\n\007orde" +
-      "rId\030\001 \001(\003\022\016\n\006userId\030\002 \001(\003\"[\n\016QueueWorkHe" +
-      "art\022\022\n\nresourceId\030\001 \001(\t\022\024\n\014resourceType\030" +
-      "\002 \001(\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1" +
-      "\n\022QueueWorkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004c" +
-      "ode\030\002 \001(\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 " +
-      "\001(\003\022\025\n\rcreatorUserId\030\002 \001(\003\022\022\n\nmsgContent" +
-      "\030\003 \001(\t\022\023\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 " +
-      "\001(\t\022\020\n\010toUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001" +
-      "(\005\"G\n\032QueueWorkQiniuReviewResult\022\025\n\rresu" +
-      "ltContent\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037Q" +
-      "ueueWorkQiniuWaitReviewResData\022\022\n\nresCon" +
-      "tent\030\001 \001(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resTyp" +
-      "e\030\003 \001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(" +
-      "\005\"&\n\030QueueWorkVideoWeightData\022\n\n\002id\030\001 \001(" +
-      "\003\"p\n\025QueueWorkUserTaskCoin\022\016\n\006userId\030\001 \001" +
-      "(\003\022\020\n\010taskName\030\002 \001(\t\022\016\n\006taskId\030\003 \001(\003\022\014\n\004" +
-      "coin\030\004 \001(\005\022\027\n\017actionTimestamp\030\005 \001(\003B;\n%c" +
-      "om.zwdbj.server.probuf.middleware.mqB\022Qu" +
-      "eueWorkInfoModelb\006proto3"
-    };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
+        private static final com.google.protobuf.Parser<QueueWorkUserTaskCoin>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkUserTaskCoin>() {
+            public QueueWorkUserTaskCoin parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkUserTaskCoin(input, extensionRegistry);
+            }
         };
-    com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
-    internal_static_QueueWorkInfo_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_QueueWorkInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkInfo_descriptor,
-        new java.lang.String[] { "WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", "VideoWeightData", "ShopLegalSubjectData", "OrderTimeData", });
-    internal_static_QueueWorkShopLegalSubjectData_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkShopLegalSubjectData_descriptor,
-        new java.lang.String[] { "Name", "ContactPerson", "Phone", "ContactNumber", "LegalSubjectId", "Type", "CityId", "LegalType", "LeagalRepresentativeName", "LeagalRepresentativeID", "CategoryId", "StoreType", });
-    internal_static_QueueWorkOrderTimeData_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_QueueWorkOrderTimeData_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkOrderTimeData_descriptor,
-        new java.lang.String[] { "OrderId", "UserId", });
-    internal_static_QueueWorkHeart_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_QueueWorkHeart_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkHeart_descriptor,
-        new java.lang.String[] { "ResourceId", "ResourceType", "UserId", "UnHeart", });
-    internal_static_QueueWorkPhoneCode_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_QueueWorkPhoneCode_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkPhoneCode_descriptor,
-        new java.lang.String[] { "Phone", "Code", });
-    internal_static_QueueWorkPush_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_QueueWorkPush_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkPush_descriptor,
-        new java.lang.String[] { "PushId", "CreatorUserId", "MsgContent", "DataContent", "RefUrl", "ToUserId", "MessageType", });
-    internal_static_QueueWorkQiniuReviewResult_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkQiniuReviewResult_descriptor,
-        new java.lang.String[] { "ResultContent", "RetryCount", });
-    internal_static_QueueWorkQiniuWaitReviewResData_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkQiniuWaitReviewResData_descriptor,
-        new java.lang.String[] { "ResContent", "BucketName", "ResType", "DataId", "DataType", });
-    internal_static_QueueWorkVideoWeightData_descriptor =
-      getDescriptor().getMessageTypes().get(8);
-    internal_static_QueueWorkVideoWeightData_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkVideoWeightData_descriptor,
-        new java.lang.String[] { "Id", });
-    internal_static_QueueWorkUserTaskCoin_descriptor =
-      getDescriptor().getMessageTypes().get(9);
-    internal_static_QueueWorkUserTaskCoin_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_QueueWorkUserTaskCoin_descriptor,
-        new java.lang.String[] { "UserId", "TaskName", "TaskId", "Coin", "ActionTimestamp", });
-  }
 
-  // @@protoc_insertion_point(outer_class_scope)
+        public static com.google.protobuf.Parser<QueueWorkUserTaskCoin> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkUserTaskCoin> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
+    public interface QueueWorkModifyShopInfoOrBuilder extends com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <pre>
+         * 店铺的ID
+         * </pre>
+         *
+         * <code>int64 storeId = 1;</code>
+         */
+        long getStoreId();
+    }
+
+    /**
+     * <pre>
+     * 处理店铺信息
+     * </pre>
+     * <p>
+     * Protobuf type {@code QueueWorkModifyShopInfo}
+     */
+    public static final class QueueWorkModifyShopInfo extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:QueueWorkModifyShopInfo)
+            QueueWorkModifyShopInfoOrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        private QueueWorkModifyShopInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private QueueWorkModifyShopInfo() {
+            storeId_ = 0L;
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private QueueWorkModifyShopInfo(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 8: {
+
+                            storeId_ = input.readInt64();
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder.class);
+        }
+
+        public static final int STOREID_FIELD_NUMBER = 1;
+        private long storeId_;
+
+        public long getStoreId() {
+            return storeId_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (storeId_ != 0L) {
+                output.writeInt64(1, storeId_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (storeId_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, storeId_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo)) {
+                return super.equals(obj);
+            }
+            com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo) obj;
+
+            boolean result = true;
+            result = result && (getStoreId()
+                    == other.getStoreId());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + STOREID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getStoreId());
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public QueueWorkModifyShopInfo.Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:QueueWorkVideoWeightData)
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder.class);
+            }
+
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public QueueWorkModifyShopInfo.Builder clear() {
+                super.clear();
+                storeId_ = 0L;
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_descriptor;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getDefaultInstanceForType() {
+                return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance();
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo build() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo buildPartial() {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo(this);
+                result.storeId_ = storeId_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo) {
+                    return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public QueueWorkModifyShopInfo.Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo other) {
+                if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance())
+                    return this;
+                if (other.getStoreId() != 0L) {
+                    setStoreId(other.getStoreId());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public QueueWorkModifyShopInfo.Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private long storeId_;
+
+            public long getStoreId() {
+                return storeId_;
+            }
+
+            public Builder setStoreId(long value) {
+                storeId_ = value;
+                onChanged();
+                return this;
+            }
+
+            public Builder clearStoreId() {
+                storeId_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            public final QueueWorkModifyShopInfo.Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFieldsProto3(unknownFields);
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+        }
+
+        private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo();
+        }
+
+        public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<QueueWorkModifyShopInfo>
+                PARSER = new com.google.protobuf.AbstractParser<QueueWorkModifyShopInfo>() {
+            public QueueWorkModifyShopInfo parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new QueueWorkModifyShopInfo(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<QueueWorkModifyShopInfo> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<QueueWorkModifyShopInfo> getParserForType() {
+            return PARSER;
+        }
+
+        public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+    }
+
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkInfo_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkInfo_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkShopLegalSubjectData_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkOrderTimeData_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkOrderTimeData_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkHeart_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkHeart_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkPhoneCode_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkPhoneCode_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkPush_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkPush_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkQiniuReviewResult_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkVideoWeightData_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkVideoWeightData_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkUserTaskCoin_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkUserTaskCoin_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_QueueWorkModifyShopInfo_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_QueueWorkModifyShopInfo_fieldAccessorTable;
+
+    public static com.google.protobuf.Descriptors.FileDescriptor
+    getDescriptor() {
+        return descriptor;
+    }
+
+    private static com.google.protobuf.Descriptors.FileDescriptor
+            descriptor;
+
+    static {
+        java.lang.String[] descriptorData = {
+                "\n\023QueueWorkInfo.proto\"\267\005\n\rQueueWorkInfo\022" +
+                        "-\n\010workType\030\001 \001(\0162\033.QueueWorkInfo.WorkTy" +
+                        "peEnum\022&\n\tphoneCode\030\002 \001(\0132\023.QueueWorkPho" +
+                        "neCode\022\"\n\theartData\030\003 \001(\0132\017.QueueWorkHea" +
+                        "rt\022 \n\010pushData\030\004 \001(\0132\016.QueueWorkPush\0226\n\021" +
+                        "qiniuReviewResult\030\005 \001(\0132\033.QueueWorkQiniu" +
+                        "ReviewResult\022@\n\026qiniuWaitReviewResData\030\006" +
+                        " \001(\0132 .QueueWorkQiniuWaitReviewResData\0222" +
+                        "\n\017videoWeightData\030\007 \001(\0132\031.QueueWorkVideo" +
+                        "WeightData\022<\n\024shopLegalSubjectData\030\010 \001(\013" +
+                        "2\036.QueueWorkShopLegalSubjectData\022.\n\rorde" +
+                        "rTimeData\030\t \001(\0132\027.QueueWorkOrderTimeData" +
+                        "\"\354\001\n\014WorkTypeEnum\022\023\n\017SEND_PHONE_CODE\020\000\022\t" +
+                        "\n\005HEART\020\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_R" +
+                        "EVIEW_RESULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESU" +
+                        "LT\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014" +
+                        "VIDEO_WEIGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\022\022" +
+                        "\n\016USER_TASK_COIN\020\010\022\023\n\017USER_ORDER_TIME\020\t\"" +
+                        "\234\002\n\035QueueWorkShopLegalSubjectData\022\014\n\004nam" +
+                        "e\030\001 \001(\t\022\025\n\rcontactPerson\030\002 \001(\t\022\r\n\005phone\030" +
+                        "\003 \001(\t\022\025\n\rcontactNumber\030\004 \001(\t\022\026\n\016legalSub" +
+                        "jectId\030\005 \001(\003\022\014\n\004type\030\006 \001(\005\022\016\n\006cityId\030\007 \001" +
+                        "(\005\022\021\n\tlegalType\030\010 \001(\t\022 \n\030leagalRepresent" +
+                        "ativeName\030\t \001(\t\022\036\n\026leagalRepresentativeI" +
+                        "D\030\n \001(\t\022\022\n\ncategoryId\030\013 \001(\003\022\021\n\tstoreType" +
+                        "\030\014 \001(\t\"9\n\026QueueWorkOrderTimeData\022\017\n\007orde" +
+                        "rId\030\001 \001(\003\022\016\n\006userId\030\002 \001(\003\"[\n\016QueueWorkHe" +
+                        "art\022\022\n\nresourceId\030\001 \001(\t\022\024\n\014resourceType\030" +
+                        "\002 \001(\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1" +
+                        "\n\022QueueWorkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004c" +
+                        "ode\030\002 \001(\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 " +
+                        "\001(\003\022\025\n\rcreatorUserId\030\002 \001(\003\022\022\n\nmsgContent" +
+                        "\030\003 \001(\t\022\023\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 " +
+                        "\001(\t\022\020\n\010toUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001" +
+                        "(\005\"G\n\032QueueWorkQiniuReviewResult\022\025\n\rresu" +
+                        "ltContent\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037Q" +
+                        "ueueWorkQiniuWaitReviewResData\022\022\n\nresCon" +
+                        "tent\030\001 \001(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resTyp" +
+                        "e\030\003 \001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(" +
+                        "\005\"&\n\030QueueWorkVideoWeightData\022\n\n\002id\030\001 \001(" +
+                        "\003\"p\n\025QueueWorkUserTaskCoin\022\016\n\006userId\030\001 \001" +
+                        "(\003\022\020\n\010taskName\030\002 \001(\t\022\016\n\006taskId\030\003 \001(\003\022\014\n\004" +
+                        "coin\030\004 \001(\005\022\027\n\017actionTimestamp\030\005 \001(\003B;\n%c" +
+                        "om.zwdbj.server.probuf.middleware.mqB\022Qu" +
+                        "eueWorkInfoModelb\006proto3"
+        };
+        com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+                new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
+                    public com.google.protobuf.ExtensionRegistry assignDescriptors(
+                            com.google.protobuf.Descriptors.FileDescriptor root) {
+                        descriptor = root;
+                        return null;
+                    }
+                };
+        com.google.protobuf.Descriptors.FileDescriptor
+                .internalBuildGeneratedFileFrom(descriptorData,
+                        new com.google.protobuf.Descriptors.FileDescriptor[]{
+                        }, assigner);
+        internal_static_QueueWorkInfo_descriptor =
+                getDescriptor().getMessageTypes().get(0);
+        internal_static_QueueWorkInfo_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkInfo_descriptor,
+                new java.lang.String[]{"WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", "VideoWeightData", "ShopLegalSubjectData", "OrderTimeData",});
+        internal_static_QueueWorkShopLegalSubjectData_descriptor =
+                getDescriptor().getMessageTypes().get(1);
+        internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkShopLegalSubjectData_descriptor,
+                new java.lang.String[]{"Name", "ContactPerson", "Phone", "ContactNumber", "LegalSubjectId", "Type", "CityId", "LegalType", "LeagalRepresentativeName", "LeagalRepresentativeID", "CategoryId", "StoreType",});
+        internal_static_QueueWorkOrderTimeData_descriptor =
+                getDescriptor().getMessageTypes().get(2);
+        internal_static_QueueWorkOrderTimeData_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkOrderTimeData_descriptor,
+                new java.lang.String[]{"OrderId", "UserId",});
+        internal_static_QueueWorkHeart_descriptor =
+                getDescriptor().getMessageTypes().get(3);
+        internal_static_QueueWorkHeart_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkHeart_descriptor,
+                new java.lang.String[]{"ResourceId", "ResourceType", "UserId", "UnHeart",});
+        internal_static_QueueWorkPhoneCode_descriptor =
+                getDescriptor().getMessageTypes().get(4);
+        internal_static_QueueWorkPhoneCode_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkPhoneCode_descriptor,
+                new java.lang.String[]{"Phone", "Code",});
+        internal_static_QueueWorkPush_descriptor =
+                getDescriptor().getMessageTypes().get(5);
+        internal_static_QueueWorkPush_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkPush_descriptor,
+                new java.lang.String[]{"PushId", "CreatorUserId", "MsgContent", "DataContent", "RefUrl", "ToUserId", "MessageType",});
+        internal_static_QueueWorkQiniuReviewResult_descriptor =
+                getDescriptor().getMessageTypes().get(6);
+        internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkQiniuReviewResult_descriptor,
+                new java.lang.String[]{"ResultContent", "RetryCount",});
+        internal_static_QueueWorkQiniuWaitReviewResData_descriptor =
+                getDescriptor().getMessageTypes().get(7);
+        internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkQiniuWaitReviewResData_descriptor,
+                new java.lang.String[]{"ResContent", "BucketName", "ResType", "DataId", "DataType",});
+        internal_static_QueueWorkVideoWeightData_descriptor =
+                getDescriptor().getMessageTypes().get(8);
+        internal_static_QueueWorkVideoWeightData_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkVideoWeightData_descriptor,
+                new java.lang.String[]{"Id",});
+        internal_static_QueueWorkUserTaskCoin_descriptor =
+                getDescriptor().getMessageTypes().get(9);
+        internal_static_QueueWorkUserTaskCoin_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkUserTaskCoin_descriptor,
+                new java.lang.String[]{"UserId", "TaskName", "TaskId", "Coin", "ActionTimestamp",});
+        internal_static_QueueWorkModifyShopInfo_descriptor =
+                getDescriptor().getMessageTypes().get(10);
+        internal_static_QueueWorkModifyShopInfo_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_QueueWorkModifyShopInfo_descriptor,
+                new java.lang.String[]{"StoreId",});
+    }
+
+    // @@protoc_insertion_point(outer_class_scope)
 }

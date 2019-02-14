@@ -17,5 +17,6 @@ public interface OfflineStoreOpeningHoursService {
 
     ServiceStatusInfo<OfflineStoreOpeningHours> selectById(Long id);
 
+    ServiceStatusInfo<List<OfflineStoreOpeningHours>> select(long storeId);
 
 }

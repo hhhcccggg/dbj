@@ -14,7 +14,7 @@ public class OfflineStoreOpeningHours {
     /// <value>The day.</value>
     @ApiModelProperty(value = "周一到周日")
     int day;
-    long offlineStoreId;
+    long storeId;
     /// <summary>
     /// 营业时间，单位秒
     /// </summary>
@@ -45,12 +45,12 @@ public class OfflineStoreOpeningHours {
         this.day = day;
     }
 
-    public long getOfflineStoreId() {
-        return offlineStoreId;
+    public long getStoreId() {
+        return storeId;
     }
 
-    public void setOfflineStoreId(long offlineStoreId) {
-        this.offlineStoreId = offlineStoreId;
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
     }
 
     public int getOpenTime() {

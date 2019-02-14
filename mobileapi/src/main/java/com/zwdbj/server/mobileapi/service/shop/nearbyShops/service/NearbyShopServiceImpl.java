@@ -207,8 +207,10 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 }
                 logger.info("当前是第" + page + "页");
                 for (SearchHit searchHit : hits) {
+                    logger.info(searchHit.getId());
                     SearchShop nearbyShop = JSON.parseObject(searchHit.getSourceAsString(), new TypeReference<SearchShop>() {
                     });
+                    nearbyShop.setId(Long.parseLong(searchHit.getId()));
                     result.add(nearbyShop);
 
                 }

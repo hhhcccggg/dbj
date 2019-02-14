@@ -31,5 +31,5 @@ public interface ShopDetailService {
 
     ServiceStatusInfo<Long> modifylocation(LocationInfo info, long storeId);
 
-
+    ServiceStatusInfo<ShopInfo> storeDetailInfo(long legalSubjectId);
 }
