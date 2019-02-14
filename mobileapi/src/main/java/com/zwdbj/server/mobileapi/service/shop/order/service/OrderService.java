@@ -172,6 +172,23 @@ public class OrderService {
         }
         this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes);
     }
+    @Transactional
+    public void updateOrderState(long id,String tradeNo,String status){
+        ProductOrderDetailModel model = this.getOrderById(id).getData();
+        if (status.equals("STATE_REFUNDING")){
+            if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
+                    || model.getStatus().equals("STATE_UNUSED")){
+                this.orderMapper.updateOrderState(id,tradeNo,status);
+            }
+        }else if (status.equals("STATE_REFUND_SUCCESS")){
+            if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
+                    || model.getStatus().equals("STATE_REFUNDING") || model.getStatus().equals("STATE_UNUSED")){
+                this.orderMapper.updateOrderState(id,tradeNo,status);
+                //更新商品的库存  是否有使用金币抵扣
+            }
+        }
+
+    }
 
     @Transactional
     public ServiceStatusInfo<Integer> takeOverGoods(long orderId,long userId){

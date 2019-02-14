@@ -148,6 +148,7 @@ public class AlipayBizService {
         if (!serviceStatusInfo.isSuccess()) {
             return new ServiceStatusInfo<>(1,serviceStatusInfo.getMsg(),null);
         }
+        this.orderService.updateOrderState(input.getOrderId(),input.getTradeNo(),"STATE_REFUNDING");
 
         return new ServiceStatusInfo<>(0,"OK",serviceStatusInfo.getData());
     }
@@ -189,9 +190,9 @@ public class AlipayBizService {
     public ServiceStatusInfo<Object> paramsRefundRsaCheckV1(Map<String,String> params) {
         //TODO 安全性校验
         //TODO 异步处理
-        logger.info("==支付宝支付回调信息==");
+        logger.info("==支付宝退款回调信息==");
         logger.info(params.toString());
-        logger.info("==支付宝支付回调信息==");
+        logger.info("==支付宝退款回调信息==");
         ServiceStatusInfo<Object> serviceStatusInfo = this.alipayService.paramsRsaCheckV1(params);
         if(serviceStatusInfo.isSuccess()) {
             String outTradeNo = params.get("out_trade_no");
@@ -240,5 +241,6 @@ public class AlipayBizService {
         if (!isSuccess) return;
         long id = Long.parseLong(outTradeNo);
         //处理内部业务
+        this.orderService.updateOrderState(id,tradeNo,"STATE_REFUND_SUCCESS");
     }
 }
