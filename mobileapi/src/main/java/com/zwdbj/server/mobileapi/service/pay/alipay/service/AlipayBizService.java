@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.pay.alipay.service;
 
+import com.zwdbj.server.mobileapi.service.pay.alipay.model.AliRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.alipay.model.ChargeCoinAlipayResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
@@ -9,6 +10,7 @@ import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyI
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.pay.alipay.AlipayService;
 import com.zwdbj.server.pay.alipay.model.*;
+import com.zwdbj.server.pay.wechat.wechatpay.model.RefundQueryResultDto;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,6 +125,43 @@ public class AlipayBizService {
         }
         return serviceStatusInfo;
     }
+    /**
+     * @param input 退款信息
+     * @param userId 谁退款
+     * @return 返回退款信息
+     */
+    @Transactional
+    public ServiceStatusInfo<AliAppRefundDto> refundOrder(AliRefundInput input, long userId){
+        int rmbs = input.getRefundAmount();
+        rmbs=1;//测试数据
+        AliAppRefundInput aliAppRefundInput = new AliAppRefundInput();
+        aliAppRefundInput.setOutRequestNo(String.valueOf(input.getOrderItemId()));
+        aliAppRefundInput.setOutTradeNo(String.valueOf(input.getOrderId()));
+        aliAppRefundInput.setRefundReason(input.getRefundReason());
+
+        float amount = rmbs/100f;
+        BigDecimal b = new BigDecimal(amount);
+        float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+        aliAppRefundInput.setRefundAmount(String.valueOf(f1));
+
+        ServiceStatusInfo<AliAppRefundDto> serviceStatusInfo = this.alipayService.appPayRefund(aliAppRefundInput);
+        if (!serviceStatusInfo.isSuccess()) {
+            return new ServiceStatusInfo<>(1,serviceStatusInfo.getMsg(),null);
+        }
+
+        return new ServiceStatusInfo<>(0,"OK",serviceStatusInfo.getData());
+    }
+
+    public ServiceStatusInfo<AliAppRefundQueryDto> orderRefundQuery(AliAppRefundQueryInput input) {
+        ServiceStatusInfo<AliAppRefundQueryDto> serviceStatusInfo = this.alipayService.orderRefundQuery(input);
+        if (!serviceStatusInfo.isSuccess()) {
+            logger.warn(serviceStatusInfo.getMsg());
+            return serviceStatusInfo;
+        }
+        boolean isSuccess = serviceStatusInfo.getData().getSubCode().equals("ACQ.TRADE_HAS_SUCCESS");
+        this.orderRefundResult(serviceStatusInfo.getData().getOutTradeNo(),serviceStatusInfo.getData().getTradeNo(),isSuccess);
+        return serviceStatusInfo;
+    }
 
     public ServiceStatusInfo<Object> paramsRsaCheckV1(Map<String,String> params,int type) {
         //TODO 安全性校验
@@ -143,6 +182,25 @@ public class AlipayBizService {
             }else if (type==2){
                 orderPayResult(outTradeNo,tradeNo, isSuccess,params.toString());
             }
+
+        }
+        return serviceStatusInfo;
+    }
+    public ServiceStatusInfo<Object> paramsRefundRsaCheckV1(Map<String,String> params) {
+        //TODO 安全性校验
+        //TODO 异步处理
+        logger.info("==支付宝支付回调信息==");
+        logger.info(params.toString());
+        logger.info("==支付宝支付回调信息==");
+        ServiceStatusInfo<Object> serviceStatusInfo = this.alipayService.paramsRsaCheckV1(params);
+        if(serviceStatusInfo.isSuccess()) {
+            String outTradeNo = params.get("out_trade_no");
+            String tradeNo = params.get("trade_no");
+            boolean isSuccess = false;
+            if (params.containsKey("sub_code")) {
+                isSuccess = params.get("sub_code").equals("ACQ.TRADE_HAS_SUCCESS");
+            }
+            this.orderRefundResult(outTradeNo,tradeNo, isSuccess);
 
         }
         return serviceStatusInfo;
@@ -176,5 +234,11 @@ public class AlipayBizService {
         if (!isSuccess) return;
         long id = Long.parseLong(outTradeNo);
         this.orderService.updateOrderPay(id,"ALIPAY",tradeNo,params);
+    }
+    @Transactional
+    protected void orderRefundResult(String outTradeNo, String tradeNo,boolean isSuccess) {
+        if (!isSuccess) return;
+        long id = Long.parseLong(outTradeNo);
+        //处理内部业务
     }
 }

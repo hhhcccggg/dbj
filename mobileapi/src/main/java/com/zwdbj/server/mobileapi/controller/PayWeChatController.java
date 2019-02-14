@@ -2,10 +2,10 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
+import com.zwdbj.server.mobileapi.service.pay.wechat.model.WXRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.wechat.service.WXPayService;
 import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
-import com.zwdbj.server.pay.wechat.wechatpay.model.OrderPayResultDto;
-import com.zwdbj.server.pay.wechat.wechatpay.model.OrderQueryInput;
+import com.zwdbj.server.pay.wechat.wechatpay.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ResponseDataCode;
@@ -55,6 +55,17 @@ public class PayWeChatController {
         }
     }
     @RequiresAuthentication
+    @RequestMapping(value = "/order/refund",method = RequestMethod.POST)
+    @ApiOperation("订单退款")
+    public ResponseData<RefundOrderDto> refundOrder(@RequestBody WXRefundInput input) {
+        ServiceStatusInfo<RefundOrderDto> serviceStatusInfo = this.weChatService.refundOrder(input,JWTUtil.getCurrentId());
+        if(serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
+        } else {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+        }
+    }
+    @RequiresAuthentication
     @RequestMapping(value = "/orderQuery",method = RequestMethod.POST)
     @ApiOperation("查询小饼干订单")
     public ResponseData<OrderPayResultDto> orderQuery(@RequestBody OrderQueryInput input) {
@@ -70,6 +81,17 @@ public class PayWeChatController {
     @ApiOperation("查询付款订单")
     public ResponseData<OrderPayResultDto> payOrderQuery(@RequestBody OrderQueryInput input) {
         ServiceStatusInfo<OrderPayResultDto> serviceStatusInfo = this.weChatService.orderQuery(input,2);
+        if(serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
+        } else {
+            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+        }
+    }
+    @RequiresAuthentication
+    @RequestMapping(value = "/refundOrder/orderQuery",method = RequestMethod.POST)
+    @ApiOperation("查询退款订单")
+    public ResponseData<RefundQueryResultDto> refundOrderQuery(@RequestBody RefundQueryInput input) {
+        ServiceStatusInfo<RefundQueryResultDto> serviceStatusInfo = this.weChatService.refundOrderQuery(input);
         if(serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
         } else {
@@ -102,6 +124,23 @@ public class PayWeChatController {
         }
         //校验响应
         ServiceStatusInfo<String> stringServiceStatusInfo = this.weChatService.responseWeChatPayResult(wholeStr,2);
+        OutputStream outputStream = response.getOutputStream();
+        if (stringServiceStatusInfo.isSuccess()) {
+            response.setStatus(200);
+        } else {
+            response.setStatus(500);
+        }
+        outputStream.write(stringServiceStatusInfo.getData().getBytes("UTF-8"));
+    }
+    @RequestMapping(value = "/refund/payNotify",method = RequestMethod.POST)
+    public void refundNotify(HttpServletResponse response, HttpServletRequest request) throws IOException {
+        BufferedReader reader = request.getReader();
+        String str, wholeStr = "";
+        while((str = reader.readLine()) != null){
+            wholeStr += str;
+        }
+        //校验响应
+        ServiceStatusInfo<String> stringServiceStatusInfo = this.weChatService.responseWeChatRefundResult(wholeStr);
         OutputStream outputStream = response.getOutputStream();
         if (stringServiceStatusInfo.isSuccess()) {
             response.setStatus(200);

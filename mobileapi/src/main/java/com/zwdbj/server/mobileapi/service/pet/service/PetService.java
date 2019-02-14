@@ -13,6 +13,8 @@ import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInpu
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.mobileapi.service.video.model.VideoHeartStatusDto;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.UserTaskModel;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.service.TaskService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
@@ -61,8 +63,24 @@ public class PetService {
     @Autowired
     protected MessageCenterService messageCenterService;
 
+    @Autowired
+    private TaskService taskService;
     public List<PetModelDto> list(long userId) {
         List<PetModelDto> pets = this.petMapper.list(userId);
+        int num = this.petMapper.findAllMyPets(userId);
+        if (num>0){
+            List<UserTaskModel> models = this.taskService.getUserTaskById(userId,"DONE","FIRSTADDPET");
+            if (models==null){
+                this.userAssetServiceImpl.userIsExist(userId);
+                UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
+                userCoinDetailAddInput.setStatus("SUCCESS");
+                userCoinDetailAddInput.setNum(10);
+                userCoinDetailAddInput.setTitle("首次添加宠物信息获得小饼干"+10+"个");
+                userCoinDetailAddInput.setType("TASK");
+                this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,userId,"TASK",10,"FIRSTADDPET","DONE");
+            }
+
+        }
         // TODO 解析宠物的分类
         return pets;
     }

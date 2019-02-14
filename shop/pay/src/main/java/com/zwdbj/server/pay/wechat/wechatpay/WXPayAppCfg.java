@@ -14,10 +14,20 @@ public class WXPayAppCfg {
     private String payResultCallbackUrl;
     @Value("${app.pay.wechat.orderPayResultCallbackUrl}")
     private String orderPayResultCallbackUrl;
+    @Value("${{app.pay.wechat.orderRefundResultCallbackUrl}")
+    private String orderRefundResultCallbackUrl;
     @Value("${app.pay.wechat.certPath}")
     private String certPath;
     @Value("${app.pay.wechat.test}")
     private boolean isTest;
+
+    public String getOrderRefundResultCallbackUrl() {
+        return orderRefundResultCallbackUrl;
+    }
+
+    public void setOrderRefundResultCallbackUrl(String orderRefundResultCallbackUrl) {
+        this.orderRefundResultCallbackUrl = orderRefundResultCallbackUrl;
+    }
 
     public String getOrderPayResultCallbackUrl() {
         return orderPayResultCallbackUrl;

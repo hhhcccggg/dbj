@@ -17,6 +17,8 @@ public interface ITaskMapper {
             "left join core_userTasks ut on ut.taskId=t.id " +
             "where t.type=#{type} and ut.userId=#{userId}")
     List<UserTaskModel> getUserTasks(@Param("userId")long userId, @Param("type")String type);
+    @Select("select * from core_userTasks where taskId=#{taskId} and userId=#{userId} and state=#{state}")
+    List<UserTaskModel> getUserTaskById(@Param("userId")long userId,@Param("state")String state,@Param("taskId")String taskId);
     @Select("select t.*,ut.userId as userId,ut.state as state from core_tasks t " +
             "left join core_userTasks ut on ut.taskId=t.id " +
             "where t.type=#{type} and ut.userId=#{userId} and to_days(ut.createTime)=to_days(now())")

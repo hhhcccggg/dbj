@@ -3,6 +3,7 @@ package com.zwdbj.server.pay.wechat.wechatpay.service;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
+import com.zwdbj.server.pay.wechat.wechatpay.MD5Util;
 import com.zwdbj.server.pay.wechat.wechatpay.WXPayAppCfg;
 import com.zwdbj.server.pay.wechat.wechatpay.WeChatPayConfig;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
@@ -10,14 +11,19 @@ import com.zwdbj.server.utility.common.IP;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
+import sun.security.provider.MD5;
 
 import javax.annotation.Resource;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -265,4 +271,172 @@ public class WechatPayService {
             return new ServiceStatusInfo<>(1,"来自微信查询失败",null);
         }
     }
+
+
+    /**
+     * @param input
+     * @return 统一申请退款
+     */
+    public ServiceStatusInfo<RefundOrderDto> refundOrder(RefundOrderInput input) {
+        try {
+            WeChatPayConfig config = chatConfig();
+            WXPay pay = new WXPay(config,WXPayConstants.SignType.MD5,isSandbox);
+
+            Map<String,String> data = new HashMap<String, String>();
+            if (input.getType().equals("WECHAT")){
+                data.put("transaction_id", input.getTransactionId());
+            }else {
+                data.put("out_trade_no", input.getTransactionId());
+            }
+
+            data.put("refund_fee", Integer.toString(input.getRefundFee()));
+            data.put("total_fee", Integer.toString(input.getTotalFee()));
+            data.put("out_refund_no", input.getOutRefundNo());
+            data.put("notify_url", input.getNotifyUrl());
+
+            logger.info(data.toString());
+
+            Map<String,String> resp = pay.refund(data);
+            System.out.println(resp);
+            PayResult payResult = this.parseResult(resp);
+            if (payResult.isSuccess()) {
+                RefundOrderDto dto = new RefundOrderDto();
+                dto.setCashFee(Integer.valueOf(resp.get("cash_fee")));
+                dto.setOutRefundNo(resp.get("out_refund_no"));
+                dto.setOutTradeNo(resp.get("out_trade_no"));
+                dto.setRefundFee(Integer.valueOf(resp.get("refund_fee")));
+                dto.setRefundId(resp.get("refund_id"));
+                dto.setTransactionId(resp.get("transaction_id"));
+                dto.setTotalFee(Integer.valueOf(resp.get("total_fee")));
+                return new ServiceStatusInfo<>(0,"OK",dto);
+            } else {
+                return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
+            }
+        } catch ( Exception e ) {
+            logger.info(e.getMessage());
+            logger.info(e.getStackTrace().toString());
+        }
+        return new ServiceStatusInfo<>(1,"退款失败",null);
+    }
+
+
+    public ServiceStatusInfo<RefundQueryResultDto> RefundOrderQuery(RefundQueryInput input) {
+        try {
+            WeChatPayConfig config = chatConfig();
+            WXPay pay = new WXPay(config,WXPayConstants.SignType.MD5,isSandbox);
+            Map<String,String> reqData=new HashMap<>();
+            // 微信单号
+            if (input.getType().equals("WECHAT")) {
+                reqData.put("transaction_id",input.getTransactionId());
+            } else if (input.getType().equals("MCH")){ //商户单号
+                reqData.put("out_trade_no",input.getTransactionId());
+            }else if (input.getType().equals("REWECHAT")){ //微信退款单号
+                reqData.put("out_trade_no",input.getTransactionId());
+            }else if (input.getType().equals("REMCH")){ //商户退款单号
+                reqData.put("out_trade_no",input.getTransactionId());
+            }
+            logger.info("REFUNDORDERQUERY>>"+reqData.toString());
+            Map<String,String> resp = pay.refundQuery(reqData);
+            logger.info("REFUNDORDERQUERY>>"+resp.toString());
+            PayResult payResult = this.parseResult(resp);
+            if (payResult.isSuccess()) {
+                RefundQueryResultDto dto = new RefundQueryResultDto();
+                if (resp.containsKey("cash_fee")){
+                    dto.setCashFee(Integer.valueOf(resp.get("cash_fee")));
+                }
+                if (resp.containsKey("total_fee")){
+                    dto.setTotalFee(Integer.valueOf(resp.get("total_fee")));
+                }
+                if (resp.containsKey("refund_fee_$n")){
+                    dto.setRefundFee(Integer.valueOf(resp.get("refund_fee_$n")));
+                }
+                if (resp.containsKey("refund_count")){
+                    dto.setRefundCount(Integer.valueOf(resp.get("refund_count")));
+                }
+                dto.setOutRefundNo(resp.get("out_refund_no_$n"));
+                dto.setOutTradeNo(resp.get("out_trade_no"));
+                dto.setRefundId(resp.get("refund_id_$n"));
+                dto.setRefundRecvAccout(resp.get("refund_recv_accout_$n"));
+                dto.setRefundStatus(resp.get("refund_status_$n"));
+                dto.setTransactionId(resp.get("transaction_id"));
+                if (resp.containsKey("refund_success_time_$n")) {
+                    dto.setRefundSuccessTime(resp.get("refund_success_time_$n"));
+                }
+                if (resp.containsKey("settlement_refund_fee_$n")) {
+                    dto.setSettlementRefundFee(Integer.parseInt(resp.get("settlement_refund_fee_$n")));
+                }
+                return new ServiceStatusInfo<>(0,"OK",dto);
+            } else {
+                return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
+            }
+        }catch ( Exception ex ) {
+            logger.error(ex.toString());
+            logger.info(ex.getMessage());
+            logger.info(ex.getStackTrace().toString());
+            logger.info(ex.getLocalizedMessage());
+            return new ServiceStatusInfo<>(1,"来自微信退款查询失败",null);
+        }
+    }
+
+
+    /**
+     * @param responseRefundFromWeChat 微信退款异步结果通知
+     * @return 响应微信
+     */
+    public ServiceStatusInfo<RefundNotifyResult> responseWeChatRefundResult(String responseRefundFromWeChat) {
+        try {
+            WeChatPayConfig config = chatConfig();
+            WXPay pay = new WXPay(config, WXPayConstants.SignType.MD5, isSandbox);
+            Map<String,String> resData = pay.processResponseXml(responseRefundFromWeChat);
+            PayResult payResult = this.parseResult(resData);
+            if (!payResult.isSuccess()) {
+                return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
+            }
+            //解密
+            byte[] b = Base64Utils.decode(resData.get("req_info").getBytes());
+            SecretKeySpec key = new SecretKeySpec(MD5Util.MD5Encode("JpP6T3AqRCNXJVKKbLai391yWd6tXsPD","UTF-8").toLowerCase().getBytes(), "AES");
+
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding");
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            Map<String,String> reqInfo =pay.processResponseXml(new String(cipher.doFinal(b),"utf-8"));
+
+            RefundNotifyResult notifyResult = new RefundNotifyResult();
+            //解析支付结果
+            RefundQueryResultDto resultDto = new RefundQueryResultDto();
+            resultDto.setTransactionId(reqInfo.get("transaction_id"));
+            if(reqInfo.containsKey("cash_fee")) {
+                resultDto.setCashFee(Integer.parseInt(reqInfo.get("cash_fee")));
+            }
+            if(reqInfo.containsKey("total_fee")) {
+                resultDto.setTotalFee(Integer.parseInt(resData.get("total_fee")));
+            }
+
+            if (reqInfo.containsKey("settlement_refund_fee")){
+                resultDto.setSettlementRefundFee(Integer.valueOf(reqInfo.get("settlement_refund_fee")));
+            }
+
+            resultDto.setOutRefundNo(reqInfo.get("out_trade_no"));
+            resultDto.setRefundAccount(reqInfo.get("refund_account"));
+            resultDto.setOutTradeNo(reqInfo.get("out_trade_no"));
+            resultDto.setRefundId(reqInfo.get("refund_id"));
+            if (reqInfo.containsKey("refund_fee")){
+                resultDto.setRefundFee(Integer.valueOf(reqInfo.get("refund_fee")));
+            }
+            resultDto.setRefundRecvAccout(reqInfo.get("refund_recv_accout"));
+            resultDto.setReFundRequestSource(reqInfo.get("refund_request_source"));
+            resultDto.setRefundStatus(reqInfo.get("refund_status"));
+            notifyResult.setDto(resultDto);
+            notifyResult.setResponseWeChatXML("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
+
+
+            return new ServiceStatusInfo<>(
+                    0,
+                    "OK",
+                    notifyResult);
+        } catch ( Exception ex ){
+            logger.info(ex.getMessage());
+        }
+        return new ServiceStatusInfo<>(1,"参数或者签名失败",null);
+    }
+
 }
