@@ -110,6 +110,79 @@ public class AlipayService {
         }
     }
 
+
+    /**
+     * @param input
+     * @return 阿里支付退款
+     */
+    public ServiceStatusInfo<AliAppRefundDto> appPayRefund(AliAppRefundInput input) {
+        try {
+            AlipayTradeRefundRequest request = new AlipayTradeRefundRequest ();
+            String bizJson = JSON.toJSONString(input);
+            request.setBizContent(bizJson);
+            //  异步回调
+            // TODO 订单退款的回调地址
+            request.setNotifyUrl(this.aliPayConfig.getOrderRefundResultCallbackUrl());
+
+            AlipayTradeRefundResponse response = alipayClient.execute(request);
+            if (response.isSuccess()) {
+                AliAppRefundDto result = new AliAppRefundDto();
+                result.setOutTradeNo(response.getOutTradeNo());
+                result.setTradeNo(response.getTradeNo());
+                result.setBuyerLogonId(response.getBuyerLogonId());
+                result.setFundChange(response.getFundChange());
+                result.setRefundFee(response.getRefundFee());
+                result.setGmtRefundPay(response.getGmtRefundPay());
+                result.setBuyerUserId(response.getBuyerUserId());
+                return new ServiceStatusInfo<>(0,"OK",result);
+            } else {
+                logger.info(response.getCode()+","+response.getMsg());
+                return new ServiceStatusInfo<>(1,"退款失败("+response.getCode()+")",null);
+            }
+        } catch ( AlipayApiException ex ) {
+            logger.info(ex.getErrMsg());
+            logger.info(ex.getErrCode());
+            return new ServiceStatusInfo<>(1,ex.getErrMsg(),null);
+        }
+    }
+
+    /**
+     * @param input 订单退款查询参数
+     * @return 返回订单退款情况
+     */
+    public ServiceStatusInfo<AliAppRefundQueryDto> orderRefundQuery(AliAppRefundQueryInput input) {
+        try {
+            AlipayTradeFastpayRefundQueryRequest  request = new AlipayTradeFastpayRefundQueryRequest ();
+            String json = JSON.toJSONString(input);
+            request.setBizContent(json);
+            AlipayTradeFastpayRefundQueryResponse  response = alipayClient.execute(request);
+            if (response.isSuccess()) {
+                AliAppRefundQueryDto appRefundQueryDto = new AliAppRefundQueryDto();
+                appRefundQueryDto.setOutRequestNo(response.getOutRequestNo());
+                appRefundQueryDto.setOutTradeNo(response.getOutTradeNo());
+                appRefundQueryDto.setTotalAmount(response.getTotalAmount());
+                appRefundQueryDto.setTradeNo(response.getTradeNo());
+                appRefundQueryDto.setRefundReason(response.getRefundReason());
+                appRefundQueryDto.setRefundAmount(response.getRefundAmount());
+                appRefundQueryDto.setSendBackFee(response.getSendBackFee());
+                appRefundQueryDto.setGmtRefundPay(response.getGmtRefundPay());
+                appRefundQueryDto.setSubCode(response.getSubCode());
+                return new ServiceStatusInfo<>(0,"OK",appRefundQueryDto);
+            } else {
+                logger.warn(response.getCode());
+                logger.warn(response.getMsg());
+                logger.warn(response.getSubCode());
+                logger.warn(response.getSubMsg());
+                return new ServiceStatusInfo<>(1,response.getMsg()+","+response.getSubMsg(),null);
+            }
+        } catch ( AlipayApiException ex ) {
+            logger.info(ex.getLocalizedMessage());
+            logger.info(ex.getErrMsg());
+            logger.info(ex.getErrCode());
+            return new ServiceStatusInfo<>(1,"退款查询失败("+ex.getErrCode()+")",null);
+        }
+    }
+
     /**
      * 支付宝账号之间转账
      * @param input 转账输入参数

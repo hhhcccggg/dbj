@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.controller;
 
+import com.zwdbj.server.mobileapi.service.pay.alipay.model.AliRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.alipay.model.ChargeCoinAlipayResult;
 import com.zwdbj.server.mobileapi.service.pay.alipay.service.AlipayBizService;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
@@ -53,6 +54,16 @@ public class PayAlipayController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
     }
+    @RequiresAuthentication
+    @ApiOperation("申请退款")
+    @RequestMapping(value = "/order/refund",method = RequestMethod.POST)
+    public ResponseData<AliAppRefundDto> refundOrder(@RequestBody AliRefundInput input) {
+        ServiceStatusInfo<AliAppRefundDto> serviceStatusInfo = this.alipayBizService.refundOrder(input,JWTUtil.getCurrentId());
+        if (serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+    }
 
     @RequiresAuthentication
     @ApiOperation("订单查询")
@@ -69,6 +80,16 @@ public class PayAlipayController {
     @RequestMapping(value = "/payOrder/orderQuery",method = RequestMethod.POST)
     public ResponseData<AliOrderQueryResult> payOrderQuery(@RequestBody AliOrderQueryInput input) {
         ServiceStatusInfo<AliOrderQueryResult> serviceStatusInfo = this.alipayBizService.orderQuery(input,2);
+        if (serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",serviceStatusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+    }
+    @RequiresAuthentication
+    @ApiOperation("阿里退款查询")
+    @RequestMapping(value = "/refund/orderQuery",method = RequestMethod.POST)
+    public ResponseData<AliAppRefundQueryDto> refundOrderQuery(@RequestBody AliAppRefundQueryInput input) {
+        ServiceStatusInfo<AliAppRefundQueryDto> serviceStatusInfo = this.alipayBizService.orderRefundQuery(input);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",serviceStatusInfo.getData());
         }
@@ -117,6 +138,29 @@ public class PayAlipayController {
             params.put(name, valueStr);
         }
         ServiceStatusInfo<Object> serviceStatusInfo = this.alipayBizService.paramsRsaCheckV1(params,2);
+        if (serviceStatusInfo.isSuccess()) {
+            response.setStatus(200);
+            OutputStream outputStream = response.getOutputStream();
+            outputStream.write("success".getBytes("UTF-8"));
+        } else {
+            response.setStatus(500);
+        }
+    }
+    @RequestMapping(value = "/refund/payNotify",method = RequestMethod.POST)
+    public void orderRefundNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map<String,String> params = new HashMap<>();
+        Map requestParams = request.getParameterMap();
+        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+            String name = (String) iter.next();
+            String[] values = (String[]) requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+            params.put(name, valueStr);
+        }
+        ServiceStatusInfo<Object> serviceStatusInfo = this.alipayBizService.paramsRefundRsaCheckV1(params);
         if (serviceStatusInfo.isSuccess()) {
             response.setStatus(200);
             OutputStream outputStream = response.getOutputStream();
