@@ -51,4 +51,11 @@ public interface DiscountCouponService {
      * @return
      */
     ServiceStatusInfo<Long> issueDiscountCoupon(long id,long userId, int couponCount);
+
+    /**
+     * 查询店铺的所有优惠券
+     * @param storeId
+     * @return
+     */
+    ServiceStatusInfo<List<DiscountCouponModel>> selectByStoreId(long storeId);
 }
