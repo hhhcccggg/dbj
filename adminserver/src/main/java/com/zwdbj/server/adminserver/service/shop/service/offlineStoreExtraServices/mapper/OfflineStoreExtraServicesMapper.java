@@ -8,8 +8,8 @@ import java.util.List;
 
 @Mapper
 public interface OfflineStoreExtraServicesMapper {
-    @Insert("insert into o2o_offlineStoreExtraServices (id,offlineStoreId,extraServiceId,status,notes) " +
-            "values(#{id},#{offlineStoreExtraServices.offlineStoreId},#{offlineStoreExtraServices.extraServiceId}," +
+    @Insert("insert into o2o_offlineStoreExtraServices (id,storeId,extraServiceId,status,notes) " +
+            "values(#{id},#{offlineStoreExtraServices.storeId},#{offlineStoreExtraServices.extraServiceId}," +
             "#{offlineStoreExtraServices.status},#{offlineStoreExtraServices.notes})")
     Long create(@Param("id") Long id, @Param("offlineStoreExtraServices") OfflineStoreExtraServices offlineStoreExtraServices);
 
@@ -18,15 +18,15 @@ public interface OfflineStoreExtraServicesMapper {
 
     @Update("update o2o_offlineStoreExtraServices set " +
             "status=#{offlineStoreExtraServices.status}," +
-            "notes=#{offlineStoreExtraServices.notes} where offlineStoreId=#{offlineStoreExtraServices.offlineStoreId} " +
+            "notes=#{offlineStoreExtraServices.notes} where storeId=#{offlineStoreExtraServices.storeId} " +
             "and extraServiceId=#{offlineStoreExtraServices.extraServiceId} ")
     Long update(@Param("offlineStoreExtraServices") OfflineStoreExtraServices offlineStoreExtraServices);
 
     @Select("select * from o2o_offlineStoreExtraServices where isDeleted=0 order by createTime")
     List<OfflineStoreExtraServices> select();
 
-    @Select("select * from o2o_offlineStoreExtraServices where offlineStoreId=#{offlineStoreId} and isDeleted=0")
-    List<OfflineStoreExtraServices> selectByofflineStoreId(@Param("offlineStoreId") Long offlineStoreId);
+    @Select("select id,storeId,extraServiceId,status,notes from o2o_offlineStoreExtraServices where storeId=#{storeId} and isDeleted=0")
+    List<OfflineStoreExtraServices> selectByofflineStoreId(@Param("storeId") Long storeId);
 
 
 }

@@ -1,15 +1,12 @@
 package com.zwdbj.server.adminserver.service.shop.service.shopdetail.mapper;
 
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.OpeningHours;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.QualificationInput;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.StoreDto;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.mapstruct.Mapper;
 
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.LocationInfo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -76,4 +73,7 @@ public interface ShopDetailMapper {
     Long uploadCheck(@Param("id") long id,
                      @Param("qualificationInput") QualificationInput qualificationInput,
                      @Param("legalSubjectId") long legalSubjectId);
+
+    @Select("select * from shop_stores as s where s.legalSubjectId=#{legalSubjectId}")
+    ShopInfo storeDeatilInfo(@Param("legalSubjectId") long legalSubjectId);
 }

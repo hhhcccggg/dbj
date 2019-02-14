@@ -7,14 +7,14 @@ import java.util.List;
 
 @Mapper
 public interface OfflineStoreOpeningHoursMapper {
-    @Insert("insert into o2o_offlineStoreOpeningHours (id,day,offlineStoreId,openTime,closeTime)" +
-            "values(#{id},#{offlineStoreOpeningHours.day},#{offlineStoreOpeningHours.offlineStoreId}," +
+    @Insert("insert into o2o_offlineStoreOpeningHours (id,day,storeId,openTime,closeTime)" +
+            "values(#{id},#{offlineStoreOpeningHours.day},#{offlineStoreOpeningHours.storeId}," +
             "#{offlineStoreOpeningHours.openTime}," +
             "#{offlineStoreOpeningHours.closeTime})")
     Long create(@Param("id") Long id, @Param("offlineStoreOpeningHours") OfflineStoreOpeningHours offlineStoreOpeningHours);
 
     @Update("update o2o_offlineStoreOpeningHours set day=#{offlineStoreOpeningHours.day}," +
-            "offlineStoreId=#{offlineStoreOpeningHours.offlineStoreId}," +
+            "storeId=#{offlineStoreOpeningHours.storeId}," +
             "openTime=#{offlineStoreOpeningHours.openTime}," +
             "closeTime=#{offlineStoreOpeningHours.closeTime}" +
             " where id=#{offlineStoreOpeningHours.id}")
@@ -25,6 +25,9 @@ public interface OfflineStoreOpeningHoursMapper {
 
     @Select("select * from o2o_offlineStoreOpeningHours where isDeleted=0 order by createTime")
     List<OfflineStoreOpeningHours> select();
+
+    @Select("select id,day,storeId,openTime,closeTime from o2o_offlineStoreOpeningHours where isDeleted=0 and storeId=#{storeId} order by createTime")
+    List<OfflineStoreOpeningHours> select(@Param("storeId") long storeId);
 
     @Select("select * from o2o_offlineStoreOpeningHours where id=#{id} order by createTime")
     OfflineStoreOpeningHours selectById(@Param("id") Long id);
