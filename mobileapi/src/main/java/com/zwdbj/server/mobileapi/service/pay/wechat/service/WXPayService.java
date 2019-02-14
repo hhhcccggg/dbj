@@ -169,6 +169,7 @@ public class WXPayService {
         if (!refundOrderDtoServiceStatusInfo.isSuccess()) {
             return new ServiceStatusInfo<>(1,refundOrderDtoServiceStatusInfo.getMsg(),null);
         }
+        this.orderService.updateOrderState(input.getOrderId(),refundOrderDtoServiceStatusInfo.getData().getTransactionId(),"STATE_REFUNDING");
         return new ServiceStatusInfo<>(0,"OK", refundOrderDtoServiceStatusInfo.getData());
     }
 
@@ -278,6 +279,7 @@ public class WXPayService {
         if (resultDto.getRefundStatus().equals("SUCCESS")) {
             logger.info("退款成功");
             long orderId = Long.valueOf(resultDto.getOutTradeNo());
+            this.orderService.updateOrderState(orderId,resultDto.getTransactionId(),"STATE_REFUND_SUCCESS");
             String tradeNo = resultDto.getTransactionId();
             String params = resultDto.toString();
             //TODO  解决退款后的问题
