@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.service.shop.service.products.service;
 
 
 import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.adminserver.config.MainKeyType;
 import com.zwdbj.server.adminserver.service.shop.service.productCard.mapper.IProductCardMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productCard.model.ProductCard;
 import com.zwdbj.server.adminserver.service.shop.service.productCashCoupon.mapper.IProductCashCouponMapper;
@@ -17,6 +18,7 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private StoreService storeServiceImpl;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public ServiceStatusInfo<Long> createProducts(CreateProducts createProducts) {
@@ -77,6 +82,7 @@ public class ProductServiceImpl implements ProductService {
                 ProductCashCoupon productCashCoupon = new ProductCashCoupon(createProducts,id);
                 this.iProductCashCouponMapper.createProductCashCoupon(UniqueIDCreater.generateID(),productCashCoupon);
             }
+            redisTemplate.delete(MainKeyType.MAINPRODUCT);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "创建失败：" + e.getMessage(), result);
@@ -94,6 +100,7 @@ public class ProductServiceImpl implements ProductService {
         long storeId = (long)serviceStatusInfo.getData();
         try {
             result = this.iProductMapper.deleteProduct(id,storeId);
+            redisTemplate.delete(MainKeyType.MAINPRODUCT);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "删除失败" + e.getMessage(), result);
@@ -128,6 +135,7 @@ public class ProductServiceImpl implements ProductService {
                 ProductCashCoupon productCashCoupon = new ProductCashCoupon(updateProducts,updateProducts.getId());
                 this.iProductCashCouponMapper.updateByProductIdByProductCashCoupon(productCashCoupon);
             }
+            redisTemplate.delete(MainKeyType.MAINPRODUCT);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改失败" + e.getMessage(), result);
@@ -172,6 +180,7 @@ public class ProductServiceImpl implements ProductService {
                 return serviceStatusInfo;
             }
             long result = this.iProductMapper.updatePublishs(id,publish,(long)serviceStatusInfo.getData());
+            redisTemplate.delete(MainKeyType.MAINPRODUCT);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "上下架失败" + e.getMessage(), 0L);
@@ -201,6 +210,7 @@ public class ProductServiceImpl implements ProductService {
                 return serviceStatusInfo;
             }
             long result = this.iProductMapper.deleteByProducts(id,(long)serviceStatusInfo.getData());
+            redisTemplate.delete(MainKeyType.MAINPRODUCT);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "批量失败" + e.getMessage(), 0L);
