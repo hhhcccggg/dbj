@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.products.service;
 
 
+import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.adminserver.service.shop.service.productCard.mapper.IProductCardMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productCard.model.ProductCard;
 import com.zwdbj.server.adminserver.service.shop.service.productCashCoupon.mapper.IProductCashCouponMapper;
@@ -20,10 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
@@ -48,19 +46,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ServiceStatusInfo<Long> createProducts(CreateProducts createProducts) {
-        AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
-        if(authUser == null){
-            return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
+        ServiceStatusInfo serviceStatusInfo = judgeStoreId();
+        if(!serviceStatusInfo.isSuccess()){
+            return serviceStatusInfo;
         }
-        if(authUser.getLegalSubjectId()==0){
-            return new ServiceStatusInfo(1,"用户不是商户",null);
-        }
-        Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
-        if(storeId == null){
-            return new ServiceStatusInfo(1,"用户没有店铺",null);
-        }
-        createProducts.setStoreId(authUser.getLegalSubjectId());
-        ServiceStatusInfo serviceStatusInfo = judgeProducts(createProducts);
+        createProducts.setStoreId((long)serviceStatusInfo.getData());
+        serviceStatusInfo = judgeProducts(createProducts);
         if(serviceStatusInfo != null){
             return serviceStatusInfo;
         }
@@ -96,8 +87,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ServiceStatusInfo<Long> deleteProductsById(Long id) {
         Long result = 0L;
+        ServiceStatusInfo serviceStatusInfo = judgeStoreId();
+        if(!serviceStatusInfo.isSuccess()){
+            return serviceStatusInfo;
+        }
+        long storeId = (long)serviceStatusInfo.getData();
         try {
-            result = this.iProductMapper.deleteProduct(id);
+            result = this.iProductMapper.deleteProduct(id,storeId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "删除失败" + e.getMessage(), result);
@@ -106,10 +102,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ServiceStatusInfo<Long> updateProducts(UpdateProducts updateProducts){
-//        ServiceStatusInfo serviceStatusInfo = judgeProducts(createProducts);
-//        if(serviceStatusInfo != null){
-//            return serviceStatusInfo;
-//        }
+        ServiceStatusInfo serviceStatusInfo = judgeStoreId();
+        if(!serviceStatusInfo.isSuccess()){
+            return serviceStatusInfo;
+        }
+        updateProducts.setStoreId((long)serviceStatusInfo.getData());
         Long result = 0L;
         try {
             result = this.iProductMapper.update(updateProducts);
@@ -152,6 +149,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ServiceStatusInfo<List<Products>> searchProducts(SearchProducts searchProduct) {
+        ServiceStatusInfo serviceStatusInfo = judgeStoreId();
+        if(!serviceStatusInfo.isSuccess()){
+            return serviceStatusInfo;
+        }
+        searchProduct.setStoreId((long)serviceStatusInfo.getData());
         List<Products>result=null;
         try{
             result=this.iProductMapper.search(searchProduct);
@@ -165,7 +167,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ServiceStatusInfo<Long> updatePublishs(Long[] id, boolean publish) {
         try {
-            long result = this.iProductMapper.updatePublishs(id,publish);
+            ServiceStatusInfo serviceStatusInfo = judgeStoreId();
+            if(!serviceStatusInfo.isSuccess()){
+                return serviceStatusInfo;
+            }
+            long result = this.iProductMapper.updatePublishs(id,publish,(long)serviceStatusInfo.getData());
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "上下架失败" + e.getMessage(), 0L);
@@ -190,7 +196,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ServiceStatusInfo<Long> deleteByProducts(Long[] id) {
         try {
-            long result = this.iProductMapper.deleteByProducts(id);
+            ServiceStatusInfo serviceStatusInfo = judgeStoreId();
+            if(!serviceStatusInfo.isSuccess()){
+                return serviceStatusInfo;
+            }
+            long result = this.iProductMapper.deleteByProducts(id,(long)serviceStatusInfo.getData());
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "批量失败" + e.getMessage(), 0L);
@@ -198,9 +208,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ServiceStatusInfo<List<Products>> searchCondition(SearchProducts searchProduct, int type) {
+    public ServiceStatusInfo<List<Products>> searchCondition(SearchProducts searchProduct, int type,int pageNo,int rows) {
         List<Products> result=null;
         try {
+            ServiceStatusInfo serviceStatusInfo = judgeStoreId();
+            if(!serviceStatusInfo.isSuccess()){
+                return serviceStatusInfo;
+            }
+            searchProduct.setStoreId((long)serviceStatusInfo.getData());
+            PageHelper.startPage(pageNo,rows);
             result =this.iProductMapper.searchCondition(searchProduct,type);
             for (Products pro:result){
                 ProductSKUs productSKUs = this.iProductSKUsMapper.selectByProductId(pro.getId());
@@ -211,6 +227,25 @@ public class ProductServiceImpl implements ProductService {
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),result);
         }
+    }
+
+    /**
+     * 判断是不是店铺
+     * @return
+     */
+    public ServiceStatusInfo<?> judgeStoreId(){
+        AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
+        if(authUser == null){
+            return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
+        }
+        if(authUser.getLegalSubjectId()==0){
+            return new ServiceStatusInfo(1,"用户不是商户",null);
+        }
+        long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
+        if(storeId <= 0){
+            return new ServiceStatusInfo(1,"用户没有店铺",null);
+        }
+        return new ServiceStatusInfo(0,"",storeId);
     }
 
     /**

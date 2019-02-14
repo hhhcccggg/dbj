@@ -78,6 +78,7 @@ public class ProductsSqlProvider {
         if (searchProduct.getSalseDown() != 0) {
             sql.WHERE("salesDown>=" + searchProduct.getSalseDown());
         }
+        sql.WHERE("storeId="+searchProduct.getStoreId());
         sql.WHERE("isDeleted=0");
         sql.ORDER_BY("createTime desc");
         return sql.toString();
@@ -90,6 +91,7 @@ public class ProductsSqlProvider {
      */
     public String updatePublish(Map map){
         Long[] id = (Long[]) map.get("id");
+        Long storeId = (Long) map.get("storeId");
         boolean publish = (boolean) map.get("publish");
         SQL sql = new SQL()
                 .UPDATE("shop_products")
@@ -100,6 +102,7 @@ public class ProductsSqlProvider {
         sql.WHERE(stringSqlUtil(id));
         sql.AND();
         sql.WHERE("isDeleted=0");
+        sql.WHERE("storeId="+storeId);
         return sql.toString();
     }
 
@@ -110,9 +113,11 @@ public class ProductsSqlProvider {
      */
     public String deleteByProducts(Map map){
         Long[] id = (Long[]) map.get("id");
+        Long storeId = (Long) map.get("storeId");
         SQL sql = new SQL().UPDATE("shop_products").SET("isDeleted=1").SET("deleteTime=now()");
         sql.WHERE(stringSqlUtil(id));
-        System.out.println(sql.toString());
+        sql.AND();
+        sql.WHERE("storeId="+storeId);
         return sql.toString();
     }
 
