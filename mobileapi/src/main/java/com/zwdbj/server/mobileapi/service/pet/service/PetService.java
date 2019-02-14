@@ -70,7 +70,7 @@ public class PetService {
         int num = this.petMapper.findAllMyPets(userId);
         if (num>0){
             List<UserTaskModel> models = this.taskService.getUserTaskById(userId,"DONE","FIRSTADDPET");
-            if (models==null){
+            if (models==null || models.size()==0){
                 this.userAssetServiceImpl.userIsExist(userId);
                 UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
                 userCoinDetailAddInput.setStatus("SUCCESS");
