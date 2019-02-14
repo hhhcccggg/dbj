@@ -33,6 +33,8 @@ import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.client.RestClientBuilder;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -801,9 +803,15 @@ public class VideoService {
         }
     }
 
+    /**
+     * 主页视频查询
+     * @param videoMainInput
+     * @return
+     */
     public ServiceStatusInfo<List<VideoMainDto>> mainVideo(VideoMainInput videoMainInput){
         try{
             //TODO es查询数据
+            //RestHighLevelClient restHighLevelClient =  new RestHighLevelClient()
             return new ServiceStatusInfo<>(0,"",null);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,e.getMessage(),null);

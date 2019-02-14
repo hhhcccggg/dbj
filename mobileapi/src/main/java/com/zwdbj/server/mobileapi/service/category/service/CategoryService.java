@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.category.service;
 
+import com.zwdbj.server.mobileapi.config.MainKeyType;
 import com.zwdbj.server.mobileapi.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.mobileapi.service.category.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -26,16 +27,15 @@ public class CategoryService {
     public ServiceStatusInfo<List<CategoryMainDto>> mainSelect(){
         try{
             List<CategoryMainDto> categoryMainDtos;
-            //TODO 未更新数据
-            if(redisTemplate.hasKey("MAINCATEGORY")){
-                categoryMainDtos = (List<CategoryMainDto>) redisTemplate.opsForValue().get("MAINPRODUCT");
+            if(redisTemplate.hasKey(MainKeyType.MAINCATEGORY)){
+                categoryMainDtos = (List<CategoryMainDto>) redisTemplate.opsForValue().get(MainKeyType.MAINCATEGORY);
                 return new ServiceStatusInfo<>(0,"",categoryMainDtos);
             }
             categoryMainDtos = this.categoryMapper.mainSelect(0);
             for (CategoryMainDto categoryMainDto: categoryMainDtos) {
                 categoryMainDto.setCategoryMainDtoList(categoryMapper.mainSelect(categoryMainDto.getId()));
             }
-            redisTemplate.opsForValue().set("MAINCATEGORY",categoryMainDtos);
+            redisTemplate.opsForValue().set(MainKeyType.MAINCATEGORY,categoryMainDtos);
             return new ServiceStatusInfo<>(0,"",categoryMainDtos);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,e.getMessage(),null);

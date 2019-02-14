@@ -8,7 +8,7 @@ public class VideoMainInput {
 
     @ApiModelProperty(value = "分页字段,如第一次可不传,")
     String scroll_id;
-    @ApiModelProperty(value = "为你推荐,查看附近")
+    @ApiModelProperty(value = "RECOMMEND //推荐  NEARBY      //附近",required = true)
     VideoMainType type;
     @ApiModelProperty(value = "坐标位置;如:30.6377966390,104.1077166796")
     String location;

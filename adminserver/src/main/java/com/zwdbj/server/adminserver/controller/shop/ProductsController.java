@@ -29,8 +29,10 @@ public class ProductsController {
     public ResponsePageInfoData<List<Products>> findAllProducts(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                 @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
                                                                 SearchProducts searchProduct) {
-        PageHelper.startPage(pageNo,rows);
-        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(searchProduct,1);
+        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(searchProduct,1,pageNo,rows);
+        if(!serviceStatusInfo.isSuccess()){
+            return new ResponsePageInfoData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null, 0L);
+        }
         List<Products> productsList = serviceStatusInfo.getData();
         PageInfo<Products> pageInfo = new PageInfo(productsList);
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), productsList, pageInfo.getTotal());
@@ -41,8 +43,10 @@ public class ProductsController {
     public ResponsePageInfoData<List<Products>> findSellOut(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                             @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
                                                             SearchProducts searchProduct){
-        PageHelper.startPage(pageNo,rows);
-        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(new SearchProducts(),2);
+        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(new SearchProducts(),2,pageNo,rows);
+        if(!serviceStatusInfo.isSuccess()){
+            return new ResponsePageInfoData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null, 0L);
+        }
         List<Products> productsList = serviceStatusInfo.getData();
         PageInfo<Products> pageInfo = new PageInfo(productsList);
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), productsList, pageInfo.getTotal());
@@ -53,8 +57,10 @@ public class ProductsController {
     public ResponsePageInfoData<List<Products>> findToStayOn(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                             @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
                                                             SearchProducts searchProduct){
-        PageHelper.startPage(pageNo,rows);
-        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(searchProduct,3);
+        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(searchProduct,3,pageNo,rows);
+        if(!serviceStatusInfo.isSuccess()){
+            return new ResponsePageInfoData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null, 0L);
+        }
         List<Products> productsList = serviceStatusInfo.getData();
         PageInfo<Products> pageInfo = new PageInfo(productsList);
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), productsList, pageInfo.getTotal());

@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 
+import com.zwdbj.server.mobileapi.config.MainKeyType;
 import com.zwdbj.server.mobileapi.service.user.mapper.IUserMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper.IProductMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
@@ -128,7 +129,7 @@ public class ProductServiceImpl implements  ProductService{
             List<ProductMainDto> list;
             //TODO 未更新缓存和推荐
             if(redisTemplate.hasKey("MAINPRODUCT")){
-                 list = (List<ProductMainDto>) redisTemplate.opsForValue().get("MAINPRODUCT");
+                 list = (List<ProductMainDto>) redisTemplate.opsForValue().get(MainKeyType.MAINPRODUCT);
                  return new ServiceStatusInfo<>(0,"",list);
             }
            list = this.iProductMapper.mainSelectProduct();
@@ -136,7 +137,7 @@ public class ProductServiceImpl implements  ProductService{
                 ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(productMainDto.getId());
                 productMainDto.setProductSKUId(serviceStatusInfo.getData().getId());
             }
-            redisTemplate.opsForValue().set("MAINPRODUCT",list);
+            redisTemplate.opsForValue().set(MainKeyType.MAINPRODUCT,list);
             return new ServiceStatusInfo<>(0,"",list);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,e.getMessage(),null);
