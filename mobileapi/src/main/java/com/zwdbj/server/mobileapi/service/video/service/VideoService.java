@@ -33,6 +33,9 @@ import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
+import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
@@ -811,7 +814,10 @@ public class VideoService {
     public ServiceStatusInfo<List<VideoMainDto>> mainVideo(VideoMainInput videoMainInput){
         try{
             //TODO es查询数据
-            //RestHighLevelClient restHighLevelClient =  new RestHighLevelClient()
+//            RestHighLevelClient restHighLevelClient =  new RestHighLevelClient(
+//                    RestClient.builder(new HttpHost("127.0.0.1",9200,"http")).setMaxRetryTimeoutMillis(60000));
+//            CreateIndexRequest createIndexRequest = new
+
             return new ServiceStatusInfo<>(0,"",null);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,e.getMessage(),null);

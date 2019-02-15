@@ -30,7 +30,7 @@ public class VideoMainDto {
         this.videoMains = videoMains;
     }
 
-    class VideoMain{
+    public class VideoMain{
         private long id;
         @ApiModelProperty(value = "视频路径")
         private String videoUrl;
@@ -44,16 +44,36 @@ public class VideoMainDto {
         private double coverImageHeight;
         @ApiModelProperty(value = "标签")
         private String tags;
+        @ApiModelProperty(value = "用户ID")
+        private long userId;
         @ApiModelProperty(value = "头像")
         private String avatarUrl;
         @ApiModelProperty(value = "昵称")
         private String username;
         @ApiModelProperty(value = "点赞数")
         private long heartCount;
+        @ApiModelProperty(value = "店铺Id")
+        private long storeId;
         @ApiModelProperty(value = "店铺名称")
         private String storeName;
         @ApiModelProperty(value = "logo地址")
         private String logoUrl;
+
+        public long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(long userId) {
+            this.userId = userId;
+        }
+
+        public long getStoreId() {
+            return storeId;
+        }
+
+        public void setStoreId(long storeId) {
+            this.storeId = storeId;
+        }
 
         public double getCoverImageWidth() {
             return coverImageWidth;
