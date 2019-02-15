@@ -14,6 +14,14 @@ public class VideoMainDto {
     @ApiModelProperty(value = "视频数据")
     List<VideoMain> videoMains;
 
+    public VideoMainDto(String scroll_id, List<VideoMain> videoMains) {
+        this.scroll_id = scroll_id;
+        this.videoMains = videoMains;
+    }
+
+    public VideoMainDto() {
+    }
+
     public String getScroll_id() {
         return scroll_id;
     }
@@ -30,24 +38,84 @@ public class VideoMainDto {
         this.videoMains = videoMains;
     }
 
-    class VideoMain{
-       private long id;
-       @ApiModelProperty(value = "视频路径")
-       private String videoUrl;
-       @ApiModelProperty(value = "标题")
-       private String title;
-       @ApiModelProperty(value = "封面图片")
-       private String coverImageUrl;
-       @ApiModelProperty(value = "标签")
-       private String tags;
-       @ApiModelProperty(value = "头像")
-       private String avatarUrl;
-       @ApiModelProperty(value = "昵称")
-       private String username;
-       @ApiModelProperty(value = "点赞数")
-       private long heartCount;
+    public class VideoMain{
+        private long id;
+        @ApiModelProperty(value = "视频路径")
+        private String videoUrl;
+        @ApiModelProperty(value = "标题")
+        private String title;
+        @ApiModelProperty(value = "封面图片")
+        private String coverImageUrl;
+        @ApiModelProperty(value = "封面图片宽")
+        private double coverImageWidth;
+        @ApiModelProperty(value = "封面图片高")
+        private double coverImageHeight;
+        @ApiModelProperty(value = "标签")
+        private String tags;
+        @ApiModelProperty(value = "用户ID")
+        private long userId;
+        @ApiModelProperty(value = "头像")
+        private String avatarUrl;
+        @ApiModelProperty(value = "昵称")
+        private String username;
+        @ApiModelProperty(value = "点赞数")
+        private long heartCount;
+        @ApiModelProperty(value = "店铺Id")
+        private long storeId;
+        @ApiModelProperty(value = "店铺名称")
+        private String storeName;
+        @ApiModelProperty(value = "logo地址")
+        private String logoUrl;
 
-       public String getAvatarUrl() {
+        public long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(long userId) {
+            this.userId = userId;
+        }
+
+        public long getStoreId() {
+            return storeId;
+        }
+
+        public void setStoreId(long storeId) {
+            this.storeId = storeId;
+        }
+
+        public double getCoverImageWidth() {
+            return coverImageWidth;
+        }
+
+        public void setCoverImageWidth(double coverImageWidth) {
+            this.coverImageWidth = coverImageWidth;
+        }
+
+        public double getCoverImageHeight() {
+            return coverImageHeight;
+        }
+
+        public void setCoverImageHeight(double coverImageHeight) {
+            this.coverImageHeight = coverImageHeight;
+        }
+
+        public String getStoreName() {
+            return storeName;
+        }
+
+        public void setStoreName(String storeName) {
+            this.storeName = storeName;
+        }
+
+        public String getLogoUrl() {
+            return logoUrl;
+        }
+
+        public void setLogoUrl(String logoUrl) {
+            this.logoUrl = logoUrl;
+        }
+
+        public String getAvatarUrl() {
            return avatarUrl;
        }
 
