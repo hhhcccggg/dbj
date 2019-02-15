@@ -37,6 +37,22 @@ public class ReceiveAddressModel {
     private Date updateTime;
     @ApiModelProperty(value = "是否为默认地址")
     private boolean defaultAddr;
+    @ApiModelProperty(value = "收货人地址的街,道")
+    private String receiverStreet;
+    @ApiModelProperty(value = "省市区详细地址")
+    private String detailedly;
+
+    public String getReceiverStreet() {
+        return receiverStreet;
+    }
+
+    public void setReceiverStreet(String receiverStreet) {
+        this.receiverStreet = receiverStreet;
+    }
+
+    public String getDetailedly() {
+        return reveiverState+receiverCity+receiverCountry+detailedly+receiverAddress;
+    }
 
     public long getId() {
         return id;
