@@ -14,6 +14,14 @@ public class VideoMainDto {
     @ApiModelProperty(value = "视频数据")
     List<VideoMain> videoMains;
 
+    public VideoMainDto(String scroll_id, List<VideoMain> videoMains) {
+        this.scroll_id = scroll_id;
+        this.videoMains = videoMains;
+    }
+
+    public VideoMainDto() {
+    }
+
     public String getScroll_id() {
         return scroll_id;
     }

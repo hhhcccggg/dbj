@@ -7,6 +7,8 @@ import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
+import com.zwdbj.server.mobileapi.service.store.model.StoreModel;
+import com.zwdbj.server.mobileapi.service.store.service.StoreService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
@@ -81,6 +83,8 @@ public class VideoService {
     protected UserAssetServiceImpl userAssetServiceImpl;
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
+    @Autowired
+    protected StoreService storeServiceImpl;
     @Autowired
     protected RedisTemplate redisTemplate;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
@@ -811,14 +815,28 @@ public class VideoService {
      * @param videoMainInput
      * @return
      */
-    public ServiceStatusInfo<List<VideoMainDto>> mainVideo(VideoMainInput videoMainInput){
+    public ServiceStatusInfo<VideoMainDto> mainVideo(VideoMainInput videoMainInput){
         try{
             //TODO es查询数据
 //            RestHighLevelClient restHighLevelClient =  new RestHighLevelClient(
 //                    RestClient.builder(new HttpHost("127.0.0.1",9200,"http")).setMaxRetryTimeoutMillis(60000));
 //            CreateIndexRequest createIndexRequest = new
-
-            return new ServiceStatusInfo<>(0,"",null);
+            //TODO 测试数据
+            List<VideoMainDto.VideoMain> list = videoMapper.mainVideo();
+            for (VideoMainDto.VideoMain videoMain: list) {
+                UserModel userModel = userService.findUserById(videoMain.getUserId());
+                if(userModel != null ){
+                    videoMain.setAvatarUrl(userModel.getAvatarUrl());
+                    videoMain.setUsername(userModel.getUsername());
+                }
+                StoreModel storeModel = storeServiceImpl.selectById(videoMain.getStoreId()).getData();
+                if(storeModel != null){
+                    videoMain.setLogoUrl(storeModel.getLogoUrl());
+                    videoMain.setStoreName(storeModel.getName());
+                }
+            }
+            VideoMainDto videoMainDto = new VideoMainDto("",list);
+            return new ServiceStatusInfo<>(0,"",videoMainDto);
         }catch(Exception e){
             return new ServiceStatusInfo<>(1,e.getMessage(),null);
         }
