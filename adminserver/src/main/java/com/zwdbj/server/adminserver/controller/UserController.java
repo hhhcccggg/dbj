@@ -65,6 +65,15 @@ public class UserController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, statusInfo.getMsg(), null);
     }
+    @RequestMapping(value = "/shop/login", method = RequestMethod.POST)
+    @ApiOperation(value = "店铺登录")
+    public ResponseData<UserLoginInfoDto> shopLogin(@RequestBody ShopUserLoginInput input) {
+        ServiceStatusInfo<UserLoginInfoDto> statusInfo = this.userService.loginByPhonePwd(input.getPhone(), input.getPassword());
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, statusInfo.getMsg(), null);
+    }
 
 
     @RequiresAuthentication
