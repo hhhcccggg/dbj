@@ -49,10 +49,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -87,6 +84,8 @@ public class VideoService {
     protected StoreService storeServiceImpl;
     @Autowired
     protected RedisTemplate redisTemplate;
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -844,6 +843,32 @@ public class VideoService {
 
     public int userVideosNum(long userId){
         return this.videoMapper.userVideosNum(userId);
+    }
+
+    private void createEs(){
+        CreateIndexRequest createIndexRequest = new CreateIndexRequest();
+        createIndexRequest.index("video");
+        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> properties = new HashMap<>();
+
+        Map<String,Object> longt = new HashMap<>();
+        longt.put("type","long");
+
+        Map<String,Object> text = new HashMap<>();
+        text.put("type","text");
+
+        Map<String,Object> ik_max_word = new HashMap<>();
+        ik_max_word.put("type","text");
+        ik_max_word.put("analyzer","ik_max_word");
+
+        properties.put("videoUrl",text);
+        properties.put("title",text);
+        properties.put("coverImageUrl",text);
+        properties.put("coverImageWidth",text);
+        properties.put("coverImageHeight",text);
+        properties.put("tags",text);
+        properties.put("userId",text);
+        createIndexRequest.mapping("",map);
     }
 
 }
