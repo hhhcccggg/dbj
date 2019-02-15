@@ -244,7 +244,7 @@ public class ProductServiceImpl implements ProductService {
      * @return
      */
     public ServiceStatusInfo<?> judgeStoreId(){
-        AuthUser authUser = tokenCenterManager.fetchUser(JWTUtil.getCurrentId()+"").getData();
+        AuthUser authUser = tokenCenterManager.fetchUser(String.valueOf(JWTUtil.getCurrentId())).getData();
         if(authUser == null){
             return new ServiceStatusInfo(1,"查询失败:用户不存在",null);
         }

@@ -7,6 +7,7 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,6 +16,8 @@ import java.util.*;
 public class TagService {
     @Autowired
     ITagMapper tagMapper;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
     private Logger logger = LoggerFactory.getLogger(TagService.class);
 
     public List<TagDto> search(TagSearchInput input) {
@@ -67,6 +70,24 @@ public class TagService {
     public TagDetailDto tagDetail(String name){
         TagDetailDto tagDetailDto = this.tagMapper.tagDetail(name);
         return tagDetailDto;
+    }
+    /**
+     * 主题的详情
+     */
+    public TagDetailDto tagDetailById(long id ){
+        TagDetailDto tagDetailDto = this.tagMapper.tagDetailById(id);
+        return tagDetailDto;
+    }
+
+    public TagDetailDto todayTag(){
+        if (this.stringRedisTemplate.hasKey("66todayDayTag:")){
+            long id = Long.valueOf(this.stringRedisTemplate.opsForValue().get("66todayDayTag:"));
+            TagDetailDto tagDetailDto = this.tagDetailById(id);
+            if (tagDetailDto==null)return null;
+            return tagDetailDto;
+        }else {
+            return null;
+        }
     }
 
 

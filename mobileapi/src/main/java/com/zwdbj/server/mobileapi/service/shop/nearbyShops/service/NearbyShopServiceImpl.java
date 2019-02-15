@@ -217,4 +217,12 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             }
         }
     }
+
+
+    @Override
+    public List<DiscountCoupon> getNearByDiscount(double longitude, double latitude) {
+        List<DiscountCoupon> discountCouponDetails = this.nearbyShopsMapper.getNearByDiscount(longitude,latitude);
+
+        return discountCouponDetails;
+    }
 }
