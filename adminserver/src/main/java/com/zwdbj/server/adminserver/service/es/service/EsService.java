@@ -43,8 +43,26 @@ public class EsService {
         }
     }
 
-//    //更新文档
-//    public ServiceStatusInfo<Long> update()
+    //更新文档
+    public ServiceStatusInfo<Long> update(Object data, String index, String type, String id) {
+        try {
+            IndexRequest request = new IndexRequest(index, type, id);
+            request.opType(DocWriteRequest.OpType.UPDATE);
+            String jsonStr = JSON.toJSONString(data);
+            request.source(jsonStr, XContentType.JSON);
+            IndexResponse indexResponse = restHighLevelClient.index(request, RequestOptions.DEFAULT);
+            if (indexResponse.getResult() == DocWriteResponse.Result.UPDATED) {
+                logger.info("更新文档成功");
+                return new ServiceStatusInfo<>(0, "更新文档成功", 1L);
+            }
+            return new ServiceStatusInfo<>(1, "更新文档失败" + indexResponse.status().getStatus(), 0L);
+        } catch (Exception e) {
+            logger.error("更新文档失败" + e.getMessage());
+            return new ServiceStatusInfo<>(1, "更新文档出错" + e.getMessage(), 0L);
+        }
+
+
+    }
 
 
 }

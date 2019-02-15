@@ -6,12 +6,8 @@ import com.alibaba.fastjson.TypeReference;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.mapper.NearbyShopsMapper;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import org.apache.http.HttpHost;
-import org.apache.http.client.config.RequestConfig;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.MatchQueryBuilder;
@@ -41,14 +37,8 @@ public class NearbyShopServiceImpl implements NearbyShopService {
     @Resource
     private NearbyShopsMapper nearbyShopsMapper;
     private Logger logger = LoggerFactory.getLogger(NearbyShopServiceImpl.class);
-    private RestClientBuilder builder = RestClient.builder(
-            new HttpHost("localhost", 9200, "http"))
-            .setRequestConfigCallback(new RestClientBuilder.RequestConfigCallback() {
-                public RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder builder) {
-                    return builder.setConnectTimeout(5000)//设置连接超时
-                            .setSocketTimeout(60000);//设置socket超时
-                }
-            }).setMaxRetryTimeoutMillis(60000);//设置最大重试超时时间}
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
 
     @Override
     public ServiceStatusInfo<ShopInfo> shopHomePage(long storeId) {
@@ -141,7 +131,6 @@ public class NearbyShopServiceImpl implements NearbyShopService {
     public ServiceStatusInfo<List<SearchShop>> searchShop(int page, int rows, SearchInfo info) {
 
 
-        RestHighLevelClient client = new RestHighLevelClient(builder);
         try {
             SearchRequest searchRequest = new SearchRequest("shop");//可以设置检索的索引，类型
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -198,7 +187,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
             List<SearchShop> result = new ArrayList<>();
 
-            SearchResponse searchResponse = client.search(searchRequest);
+            SearchResponse searchResponse = restHighLevelClient.search(searchRequest);
             if (searchResponse.status().getStatus() == 200) {
 
                 SearchHit[] hits = searchResponse.getHits().getHits();
@@ -222,7 +211,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             return new ServiceStatusInfo<>(1, "搜索商家失败" + e.getMessage(), null);
         } finally {
             try {
-                client.close();
+                restHighLevelClient.close();
             } catch (IOException e) {
                 logger.info(e.getMessage());
             }

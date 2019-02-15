@@ -86,9 +86,19 @@ public class PetService {
         return pets;
     }
 
+    public List<PetModelDto> list2(long userId){
+        List<PetModelDto> pets = this.petMapper.list(userId);
+        return pets;
+    }
+
     public PetModelDto get(long id) {
         // TODO 解析宠物的分类
-        return this.petMapper.get(id);
+        PetModelDto dto = this.petMapper.get(id);
+        long userId = JWTUtil.getCurrentId();
+        if (userId<=0)dto.setHeart(false);
+        HeartModel heartModel = this.heartService.findHeart(userId, id);
+        dto.setHeart(heartModel!=null);
+        return dto;
     }
 
     public List<PetModelDto> findMore(List<EntityKeyModel<Long>> ids) {
@@ -214,6 +224,7 @@ public class PetService {
         HeartModel heartModel = this.heartService.findHeart(userId, input.getId());
         Long pUserId = this.findUserIdByPetId(input.getId());
         if (heartModel != null && input.isHeart()) {
+            petHeartDto.setHeart(true);
             return new ServiceStatusInfo<>(1, "已经点赞过", null,null);
         }
         if (heartModel != null && !input.isHeart()) {

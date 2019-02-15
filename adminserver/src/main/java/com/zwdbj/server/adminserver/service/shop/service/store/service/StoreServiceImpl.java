@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.service;
 
+import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.DiscountCouponModel;
 import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.service.DiscountCouponServiceImpl;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.model.OfflineStoreExtraServices;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.service.OfflineStoreExtraServicesServiceImpl;
@@ -8,6 +9,7 @@ import com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.service.OfflineStoreServiceScopesServiceImpl;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.DiscountCoupon;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.DiscountCouponDetail;
 import com.zwdbj.server.adminserver.service.shop.service.store.mapper.IStoreMapper;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -47,7 +49,11 @@ public class StoreServiceImpl implements StoreService {
             ServiceStatusInfo<List<OfflineStoreExtraServices>> extraServices = extraServicesService.selectByofflineStoreId(storeId);
             ServiceStatusInfo<List<OfflineStoreOpeningHours>> openingHours = openingHoursService.select(storeId);
             ServiceStatusInfo<List<OfflineStoreServiceScopes>> serviceScopes = serviceScopesService.selectByofflineStoreId(storeId);
-//            ServiceStatusInfo<List<DiscountCoupon>> disCountCoupon=discountCouponService.
+            ServiceStatusInfo<List<DiscountCouponModel>> disCountCoupon = discountCouponService.selectByStoreId(storeId);
+            storeInfo.setOpeningHours(openingHours.getData());
+            storeInfo.setDiscountCoupons(disCountCoupon.getData());
+            storeInfo.setExtraServices(extraServices.getData());
+            storeInfo.setServiceScopes(serviceScopes.getData());
             return new ServiceStatusInfo<>(0, "", storeInfo);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);

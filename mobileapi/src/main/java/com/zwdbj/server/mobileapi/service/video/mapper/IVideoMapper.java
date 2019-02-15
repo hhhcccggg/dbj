@@ -142,6 +142,8 @@ public interface IVideoMapper {
 
     @Select("select ifnull(sum(heartCount),0) from core_videos where userId=#{userId} and isDeleted=0 and status=0")
     Long getUserVideosHeartCount(@Param("userId") long userId);
+    @Select("select count(id) from core_videos where userId=#{userId} and status=0")
+    int userVideosNum(@Param("userId")long userId);
 
     /**
      * 首页测试sql
