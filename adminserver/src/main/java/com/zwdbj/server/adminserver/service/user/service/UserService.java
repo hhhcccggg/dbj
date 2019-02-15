@@ -373,6 +373,32 @@ public class UserService {
             return 0;
         }
     }
+    public ServiceStatusInfo<UserLoginInfoDto> loginByPhonePwd(String phone,String password){
+        boolean isLogined = false;
+        UserModel userModel = null;
+        try {
+            String encodePassword = SHAEncrypt.encryptSHA(password);
+            userModel = this.userMapper.findUserByPhonePwd(phone, encodePassword);
+            isLogined = userModel != null;
+        } catch (Exception ex) {
+            isLogined = false;
+        }
+        if (isLogined && userModel != null) {
+            UserLoginInfoDto infoDto = new UserLoginInfoDto();
+            String token = JWTUtil.sign(String.valueOf(userModel.getId()));
+            UserToken userToken = new UserToken(token, JWTUtil.EXPIRE_TIME);
+            infoDto.setUserToken(userToken);
+            infoDto.setEmail(userModel.getEmail());
+            infoDto.setAvatarUrl(userModel.getAvatarUrl());
+            infoDto.setId(userModel.getId());
+            infoDto.setPhone(userModel.getPhone());
+            infoDto.setUsername(userModel.getUsername());
+            this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()), iAuthUserManagerImpl);
+            return new ServiceStatusInfo<>(0, "登录成功", infoDto);
+        } else {
+            return new ServiceStatusInfo<>(1, "用户名或密码错误!", null);
+        }
+    }
 
     public ServiceStatusInfo<UserLoginInfoDto> loginByUserPwd(String username, String password) {
         boolean isLogined = false;
