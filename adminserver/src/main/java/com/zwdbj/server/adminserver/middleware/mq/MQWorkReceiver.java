@@ -130,7 +130,7 @@ public class MQWorkReceiver extends MQConnection {
                 if (statusInfo.isSuccess()) {
                     StoreInfo storeInfo = statusInfo.getData();
                     //更新店铺信息到es
-                    esService.index(storeInfo, "shop", "shopInfo", String.valueOf(storeInfo.getId()));
+                    esService.update(storeInfo, "shop", "shopInfo", String.valueOf(storeInfo.getId()));
                     logger.info("[MQ]商家" + info.getModifyShopInfo().getStoreId() + "信息更新成功");
                 } else {
                     logger.error("[MQ]商家" + info.getModifyShopInfo().getStoreId() + "信息更新失败");

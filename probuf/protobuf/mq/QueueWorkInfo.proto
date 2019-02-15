@@ -33,9 +33,16 @@ message QueueWorkInfo {
 
 }
 message QueueWorkModifyShopInfo{
-      int64 storeId=1;//商家id
-}
+      enum OperationEnum {
+      CREATE=0;
+      DELETE=1;
+      UPDATE=2;
 
+      }
+      OperationEnum operation=1;
+      int64 storeId=2;//商家id
+
+}
 
 message QueueWorkShopLegalSubjectData{
     string name = 1; //商家名
