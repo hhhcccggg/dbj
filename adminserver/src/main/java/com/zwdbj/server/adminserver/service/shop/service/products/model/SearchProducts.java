@@ -24,6 +24,17 @@ public class SearchProducts {
     @ApiModelProperty(value = "商品分组")
     long productGroupId;
 
+    @ApiModelProperty(value = "卖家编号",hidden = true)
+    long storeId;
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
+    }
+
     public Long getProductType() {
         return productType;
     }

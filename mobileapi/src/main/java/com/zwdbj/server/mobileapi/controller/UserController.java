@@ -352,5 +352,17 @@ public class UserController {
         return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, statusInfo.getMsg(), null);
     }
 
+    @ApiOperation(value = "查询同城用户")
+    @RequiresAuthentication
+    @RequestMapping(value = "/city/users",method = RequestMethod.GET)
+    public ResponsePageInfoData<List<UserOnNearbyDto>> getUsersByLocation(@RequestBody UserOnNearbyInput input,
+                                                                          @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                          @RequestParam(value = "rows", defaultValue = "13", required = true) int rows){
+        Page<UserOnNearbyDto> pageInfo = PageHelper.startPage(pageNo, rows);
+        List<UserOnNearbyDto> dtos = this.userService.nearUsers(input);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", dtos, pageInfo.getTotal());
+    }
+
+
 
 }

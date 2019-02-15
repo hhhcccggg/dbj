@@ -11,7 +11,7 @@ public class OfflineStoreServiceScopes {
     /// </summary>
     /// <value>The offline store identifier.</value>
     @ApiModelProperty(value = "商户id")
-    long offlineStoreId;
+    long storeId;
     /// <summary>
     /// 分类ID
     /// </summary>
@@ -35,12 +35,12 @@ public class OfflineStoreServiceScopes {
         this.id = id;
     }
 
-    public long getOfflineStoreId() {
-        return offlineStoreId;
+    public long getStoreId() {
+        return storeId;
     }
 
-    public void setOfflineStoreId(long offlineStoreId) {
-        this.offlineStoreId = offlineStoreId;
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
     }
 
     public long getServiceScopeId() {

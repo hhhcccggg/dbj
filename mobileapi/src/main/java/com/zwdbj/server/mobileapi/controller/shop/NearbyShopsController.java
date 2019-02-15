@@ -3,6 +3,8 @@ package com.zwdbj.server.mobileapi.controller.shop;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.NearbyShop;
+import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.SearchInfo;
+import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.SearchShop;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.ShopInfo;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.service.NearbyShopService;
 import com.zwdbj.server.utility.model.ResponseData;
@@ -43,17 +45,14 @@ public class NearbyShopsController {
     }
 
     @ApiOperation(value = "搜索商家")
-    @RequestMapping(value = "/searchShop", method = RequestMethod.GET)
-    public ResponseData<List<NearbyShop>> searchShop(@RequestParam(value = "search") String search,
-                                                     @RequestParam(value = "rank") String rank,
-                                                     @RequestParam(value = "lat") double lat,
-                                                     @RequestParam(value = "lon") double lon) {
-        ServiceStatusInfo<List<NearbyShop>> statusInfo = this.nearbyShopServiceImpl.searchShop(search, rank, lat, lon);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(0, "", statusInfo.getData());
+    @RequestMapping(value = "/searchShop", method = RequestMethod.POST)
+    public ResponsePageInfoData<List<SearchShop>> searchShop(@RequestParam(value = "page", required = true, defaultValue = "1") int page,
+                                                             @RequestParam(value = "rows", required = true, defaultValue = "10") int rows,
+                                                             @RequestBody SearchInfo searchInfo
+    ) {
+        ServiceStatusInfo<List<SearchShop>> statusInfo = this.nearbyShopServiceImpl.searchShop(page, rows, searchInfo);
 
-        }
-        return new ResponseData<>(1, statusInfo.getMsg(), null);
+        return new ResponsePageInfoData<>(0, statusInfo.getMsg(), statusInfo.getData(), statusInfo.getData().size());
 
     }
 }

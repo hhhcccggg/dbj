@@ -42,6 +42,15 @@ public class ProductOrderController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
+    @RequestMapping(value = "/search/order/orderNo", method = RequestMethod.POST)
+    @ApiOperation(value = "根据订单号查询订单")
+    public ResponseData<ProductOrderDetailModel> getOrderByOrderNo(@RequestBody GetOrderByOrderNoInput input){
+        ServiceStatusInfo<ProductOrderDetailModel> statusInfo = this.productOrderService.getOrderByOrderNo(input.getOrderNo());
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
 
     @RequestMapping(value = "/deliver/{orderId}", method = RequestMethod.POST)
     @ApiOperation(value = "店铺发货")

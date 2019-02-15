@@ -26,7 +26,7 @@ public class OfflineStoreOpeningHoursServiceImpl implements OfflineStoreOpeningH
             result = offlineStoreOpeningHourMapper.create(id, offlineStoreOpeningHours);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "创建营业数据失败"+e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "创建营业时间失败" + e.getMessage(), result);
         }
     }
 
@@ -37,7 +37,7 @@ public class OfflineStoreOpeningHoursServiceImpl implements OfflineStoreOpeningH
             result = offlineStoreOpeningHourMapper.deleteById(id);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "删除营业数据失败"+e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "删除营业时间失败" + e.getMessage(), result);
         }
     }
 
@@ -48,7 +48,7 @@ public class OfflineStoreOpeningHoursServiceImpl implements OfflineStoreOpeningH
             result = offlineStoreOpeningHourMapper.update(offlineStoreOpeningHours);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "修改营业数据失败"+e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "修改营业时间失败" + e.getMessage(), result);
         }
     }
 
@@ -56,10 +56,21 @@ public class OfflineStoreOpeningHoursServiceImpl implements OfflineStoreOpeningH
     public ServiceStatusInfo<List<OfflineStoreOpeningHours>> select() {
         List<OfflineStoreOpeningHours> list = null;
         try {
-            list = offlineStoreOpeningHourMapper.select();
+            list = offlineStoreOpeningHourMapper.select1();
             return new ServiceStatusInfo(0, "", list);
         } catch (Exception e) {
-            return new ServiceStatusInfo(1, "查询营业数据失败"+e.getMessage(), list);
+            return new ServiceStatusInfo(1, "查询营业时间失败" + e.getMessage(), list);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<List<OfflineStoreOpeningHours>> select(long storeId) {
+        List<OfflineStoreOpeningHours> list = null;
+        try {
+            list = offlineStoreOpeningHourMapper.select(storeId);
+            return new ServiceStatusInfo(0, "", list);
+        } catch (Exception e) {
+            return new ServiceStatusInfo(1, "查询店铺营业时间失败" + e.getMessage(), list);
         }
     }
 
@@ -70,7 +81,7 @@ public class OfflineStoreOpeningHoursServiceImpl implements OfflineStoreOpeningH
             offlineStoreOpeningHours = offlineStoreOpeningHourMapper.selectById(id);
             return new ServiceStatusInfo(0, "", offlineStoreOpeningHours);
         } catch (Exception e) {
-            return new ServiceStatusInfo(1, "通过id查询营业数据失败"+e.getMessage(), null);
+            return new ServiceStatusInfo(1, "通过id时间营业数据失败" + e.getMessage(), null);
         }
 
     }

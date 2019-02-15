@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import org.apache.ibatis.annotations.*;
@@ -54,4 +55,8 @@ public interface IProductMapper {
     int getProductSkuInventory(@Param("id")long productSkuId);
     @Select("select inventory from shop_products where id=#{id}")
     long getProductInventory(@Param("id")long productId);
+
+    @Select("select id,`productType`,`productDetailType`,`name`,`imageUrls` from shop_products  where publish=1 and isDeleted=0" +
+            " order by sales desc limit 3")
+    List<ProductMainDto> mainSelectProduct();
 }

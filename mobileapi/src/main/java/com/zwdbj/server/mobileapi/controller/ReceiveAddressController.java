@@ -95,4 +95,13 @@ public class ReceiveAddressController {
         }
         return new ResponseData(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
+
+    @GetMapping(value = "getDefault")
+    @ApiOperation(value = "获取默认收货地址")
+    @RequiresAuthentication
+    public  ResponseData<ReceiveAddressModel> getDefault(){
+        ServiceStatusInfo<ReceiveAddressModel> serviceStatusInfo= receiveAddressServiceImpl.getDefault();
+        return new ResponseData(serviceStatusInfo.isSuccess()?ResponseDataCode.STATUS_NORMAL:ResponseDataCode.STATUS_ERROR,
+                serviceStatusInfo.getMsg(),serviceStatusInfo.getData());
+    }
 }

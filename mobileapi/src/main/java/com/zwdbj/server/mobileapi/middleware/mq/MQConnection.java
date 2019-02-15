@@ -82,7 +82,7 @@ public class MQConnection implements ShutdownListener {
             };
             timer.schedule(task,3*1000,3 * 1000);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.info("MQ异步异常:"+e.getMessage());
         }
 
     }

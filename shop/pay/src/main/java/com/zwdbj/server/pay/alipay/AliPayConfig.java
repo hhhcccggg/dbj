@@ -9,7 +9,16 @@ public class AliPayConfig {
     private String payResultCallbackUrl;
     @Value("${app.pay.ali.orderPayResultCallbackUrl}")
     private String orderPayResultCallbackUrl;
+    @Value("${app.pay.ali.orderPayResultCallbackUrl}")
+    private String orderRefundResultCallbackUrl;
 
+    public String getOrderRefundResultCallbackUrl() {
+        return orderRefundResultCallbackUrl;
+    }
+
+    public void setOrderRefundResultCallbackUrl(String orderRefundResultCallbackUrl) {
+        this.orderRefundResultCallbackUrl = orderRefundResultCallbackUrl;
+    }
 
     public String getOrderPayResultCallbackUrl() {
         return orderPayResultCallbackUrl;

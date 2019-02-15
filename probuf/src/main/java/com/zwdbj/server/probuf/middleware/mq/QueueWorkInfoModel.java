@@ -234,6 +234,28 @@ public final class QueueWorkInfoModel {
      * <code>.QueueWorkOrderTimeData orderTimeData = 9;</code>
      */
     com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder getOrderTimeDataOrBuilder();
+
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+     */
+    boolean hasModifyShopInfo();
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+     */
+    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getModifyShopInfo();
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+     */
+    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder getModifyShopInfoOrBuilder();
   }
   /**
    * Protobuf type {@code QueueWorkInfo}
@@ -275,13 +297,6 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               int rawValue = input.readEnum();
 
@@ -392,6 +407,26 @@ public final class QueueWorkInfoModel {
 
               break;
             }
+            case 82: {
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder subBuilder = null;
+              if (modifyShopInfo_ != null) {
+                subBuilder = modifyShopInfo_.toBuilder();
+              }
+              modifyShopInfo_ = input.readMessage(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(modifyShopInfo_);
+                modifyShopInfo_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -409,6 +444,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_fieldAccessorTable
@@ -497,6 +533,10 @@ public final class QueueWorkInfoModel {
        * <code>USER_ORDER_TIME = 9;</code>
        */
       USER_ORDER_TIME(9),
+      /**
+       * <code>MODIFY_SHOP_INFO = 10;</code>
+       */
+      MODIFY_SHOP_INFO(10),
       UNRECOGNIZED(-1),
       ;
 
@@ -576,6 +616,10 @@ public final class QueueWorkInfoModel {
        * <code>USER_ORDER_TIME = 9;</code>
        */
       public static final int USER_ORDER_TIME_VALUE = 9;
+      /**
+       * <code>MODIFY_SHOP_INFO = 10;</code>
+       */
+      public static final int MODIFY_SHOP_INFO_VALUE = 10;
 
 
       public final int getNumber() {
@@ -606,6 +650,7 @@ public final class QueueWorkInfoModel {
           case 7: return SHOP_LEGAL_SUBJECT;
           case 8: return USER_TASK_COIN;
           case 9: return USER_ORDER_TIME;
+          case 10: return MODIFY_SHOP_INFO;
           default: return null;
         }
       }
@@ -678,6 +723,7 @@ public final class QueueWorkInfoModel {
      * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
      */
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType() {
+      @SuppressWarnings("deprecation")
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.valueOf(workType_);
       return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.UNRECOGNIZED : result;
     }
@@ -946,7 +992,38 @@ public final class QueueWorkInfoModel {
       return getOrderTimeData();
     }
 
+    public static final int MODIFYSHOPINFO_FIELD_NUMBER = 10;
+    private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo modifyShopInfo_;
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+     */
+    public boolean hasModifyShopInfo() {
+      return modifyShopInfo_ != null;
+    }
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+     */
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getModifyShopInfo() {
+      return modifyShopInfo_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance() : modifyShopInfo_;
+    }
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+     */
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder getModifyShopInfoOrBuilder() {
+      return getModifyShopInfo();
+    }
+
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -956,6 +1033,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (workType_ != com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE.getNumber()) {
@@ -985,9 +1063,13 @@ public final class QueueWorkInfoModel {
       if (orderTimeData_ != null) {
         output.writeMessage(9, getOrderTimeData());
       }
+      if (modifyShopInfo_ != null) {
+        output.writeMessage(10, getModifyShopInfo());
+      }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1029,6 +1111,10 @@ public final class QueueWorkInfoModel {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(9, getOrderTimeData());
       }
+      if (modifyShopInfo_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, getModifyShopInfo());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1044,50 +1130,54 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) obj;
 
-      boolean result = true;
-      result = result && workType_ == other.workType_;
-      result = result && (hasPhoneCode() == other.hasPhoneCode());
+      if (workType_ != other.workType_) return false;
+      if (hasPhoneCode() != other.hasPhoneCode()) return false;
       if (hasPhoneCode()) {
-        result = result && getPhoneCode()
-            .equals(other.getPhoneCode());
+        if (!getPhoneCode()
+            .equals(other.getPhoneCode())) return false;
       }
-      result = result && (hasHeartData() == other.hasHeartData());
+      if (hasHeartData() != other.hasHeartData()) return false;
       if (hasHeartData()) {
-        result = result && getHeartData()
-            .equals(other.getHeartData());
+        if (!getHeartData()
+            .equals(other.getHeartData())) return false;
       }
-      result = result && (hasPushData() == other.hasPushData());
+      if (hasPushData() != other.hasPushData()) return false;
       if (hasPushData()) {
-        result = result && getPushData()
-            .equals(other.getPushData());
+        if (!getPushData()
+            .equals(other.getPushData())) return false;
       }
-      result = result && (hasQiniuReviewResult() == other.hasQiniuReviewResult());
+      if (hasQiniuReviewResult() != other.hasQiniuReviewResult()) return false;
       if (hasQiniuReviewResult()) {
-        result = result && getQiniuReviewResult()
-            .equals(other.getQiniuReviewResult());
+        if (!getQiniuReviewResult()
+            .equals(other.getQiniuReviewResult())) return false;
       }
-      result = result && (hasQiniuWaitReviewResData() == other.hasQiniuWaitReviewResData());
+      if (hasQiniuWaitReviewResData() != other.hasQiniuWaitReviewResData()) return false;
       if (hasQiniuWaitReviewResData()) {
-        result = result && getQiniuWaitReviewResData()
-            .equals(other.getQiniuWaitReviewResData());
+        if (!getQiniuWaitReviewResData()
+            .equals(other.getQiniuWaitReviewResData())) return false;
       }
-      result = result && (hasVideoWeightData() == other.hasVideoWeightData());
+      if (hasVideoWeightData() != other.hasVideoWeightData()) return false;
       if (hasVideoWeightData()) {
-        result = result && getVideoWeightData()
-            .equals(other.getVideoWeightData());
+        if (!getVideoWeightData()
+            .equals(other.getVideoWeightData())) return false;
       }
-      result = result && (hasShopLegalSubjectData() == other.hasShopLegalSubjectData());
+      if (hasShopLegalSubjectData() != other.hasShopLegalSubjectData()) return false;
       if (hasShopLegalSubjectData()) {
-        result = result && getShopLegalSubjectData()
-            .equals(other.getShopLegalSubjectData());
+        if (!getShopLegalSubjectData()
+            .equals(other.getShopLegalSubjectData())) return false;
       }
-      result = result && (hasOrderTimeData() == other.hasOrderTimeData());
+      if (hasOrderTimeData() != other.hasOrderTimeData()) return false;
       if (hasOrderTimeData()) {
-        result = result && getOrderTimeData()
-            .equals(other.getOrderTimeData());
+        if (!getOrderTimeData()
+            .equals(other.getOrderTimeData())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (hasModifyShopInfo() != other.hasModifyShopInfo()) return false;
+      if (hasModifyShopInfo()) {
+        if (!getModifyShopInfo()
+            .equals(other.getModifyShopInfo())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1130,6 +1220,10 @@ public final class QueueWorkInfoModel {
       if (hasOrderTimeData()) {
         hash = (37 * hash) + ORDERTIMEDATA_FIELD_NUMBER;
         hash = (53 * hash) + getOrderTimeData().hashCode();
+      }
+      if (hasModifyShopInfo()) {
+        hash = (37 * hash) + MODIFYSHOPINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getModifyShopInfo().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1206,6 +1300,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1213,6 +1308,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1236,6 +1332,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_fieldAccessorTable
@@ -1258,6 +1355,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         workType_ = 0;
@@ -1310,18 +1408,27 @@ public final class QueueWorkInfoModel {
           orderTimeData_ = null;
           orderTimeDataBuilder_ = null;
         }
+        if (modifyShopInfoBuilder_ == null) {
+          modifyShopInfo_ = null;
+        } else {
+          modifyShopInfo_ = null;
+          modifyShopInfoBuilder_ = null;
+        }
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkInfo_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo result = buildPartial();
         if (!result.isInitialized()) {
@@ -1330,6 +1437,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo(this);
         result.workType_ = workType_;
@@ -1373,36 +1481,48 @@ public final class QueueWorkInfoModel {
         } else {
           result.orderTimeData_ = orderTimeDataBuilder_.build();
         }
+        if (modifyShopInfoBuilder_ == null) {
+          result.modifyShopInfo_ = modifyShopInfo_;
+        } else {
+          result.modifyShopInfo_ = modifyShopInfoBuilder_.build();
+        }
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo)other);
@@ -1441,15 +1561,20 @@ public final class QueueWorkInfoModel {
         if (other.hasOrderTimeData()) {
           mergeOrderTimeData(other.getOrderTimeData());
         }
+        if (other.hasModifyShopInfo()) {
+          mergeModifyShopInfo(other.getModifyShopInfo());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1499,6 +1624,7 @@ public final class QueueWorkInfoModel {
        * <code>.QueueWorkInfo.WorkTypeEnum workType = 1;</code>
        */
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum getWorkType() {
+        @SuppressWarnings("deprecation")
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.valueOf(workType_);
         return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.UNRECOGNIZED : result;
       }
@@ -1532,7 +1658,7 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode phoneCode_ = null;
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode phoneCode_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCodeOrBuilder> phoneCodeBuilder_;
       /**
@@ -1685,7 +1811,7 @@ public final class QueueWorkInfoModel {
         return phoneCodeBuilder_;
       }
 
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart heartData_ = null;
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart heartData_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeartOrBuilder> heartDataBuilder_;
       /**
@@ -1838,7 +1964,7 @@ public final class QueueWorkInfoModel {
         return heartDataBuilder_;
       }
 
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush pushData_ = null;
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush pushData_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPushOrBuilder> pushDataBuilder_;
       /**
@@ -1991,7 +2117,7 @@ public final class QueueWorkInfoModel {
         return pushDataBuilder_;
       }
 
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult qiniuReviewResult_ = null;
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult qiniuReviewResult_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResultOrBuilder> qiniuReviewResultBuilder_;
       /**
@@ -2144,7 +2270,7 @@ public final class QueueWorkInfoModel {
         return qiniuReviewResultBuilder_;
       }
 
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData_ = null;
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData qiniuWaitReviewResData_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResDataOrBuilder> qiniuWaitReviewResDataBuilder_;
       /**
@@ -2297,7 +2423,7 @@ public final class QueueWorkInfoModel {
         return qiniuWaitReviewResDataBuilder_;
       }
 
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData videoWeightData_ = null;
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData videoWeightData_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightDataOrBuilder> videoWeightDataBuilder_;
       /**
@@ -2450,7 +2576,7 @@ public final class QueueWorkInfoModel {
         return videoWeightDataBuilder_;
       }
 
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData shopLegalSubjectData_ = null;
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData shopLegalSubjectData_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectDataOrBuilder> shopLegalSubjectDataBuilder_;
       /**
@@ -2603,7 +2729,7 @@ public final class QueueWorkInfoModel {
         return shopLegalSubjectDataBuilder_;
       }
 
-      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData_ = null;
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeDataOrBuilder> orderTimeDataBuilder_;
       /**
@@ -2755,11 +2881,157 @@ public final class QueueWorkInfoModel {
         }
         return orderTimeDataBuilder_;
       }
+
+      private com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo modifyShopInfo_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder> modifyShopInfoBuilder_;
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+       */
+      public boolean hasModifyShopInfo() {
+        return modifyShopInfoBuilder_ != null || modifyShopInfo_ != null;
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getModifyShopInfo() {
+        if (modifyShopInfoBuilder_ == null) {
+          return modifyShopInfo_ == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance() : modifyShopInfo_;
+        } else {
+          return modifyShopInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+       */
+      public Builder setModifyShopInfo(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo value) {
+        if (modifyShopInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          modifyShopInfo_ = value;
+          onChanged();
+        } else {
+          modifyShopInfoBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+       */
+      public Builder setModifyShopInfo(
+          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder builderForValue) {
+        if (modifyShopInfoBuilder_ == null) {
+          modifyShopInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          modifyShopInfoBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+       */
+      public Builder mergeModifyShopInfo(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo value) {
+        if (modifyShopInfoBuilder_ == null) {
+          if (modifyShopInfo_ != null) {
+            modifyShopInfo_ =
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.newBuilder(modifyShopInfo_).mergeFrom(value).buildPartial();
+          } else {
+            modifyShopInfo_ = value;
+          }
+          onChanged();
+        } else {
+          modifyShopInfoBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+       */
+      public Builder clearModifyShopInfo() {
+        if (modifyShopInfoBuilder_ == null) {
+          modifyShopInfo_ = null;
+          onChanged();
+        } else {
+          modifyShopInfo_ = null;
+          modifyShopInfoBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder getModifyShopInfoBuilder() {
+        
+        onChanged();
+        return getModifyShopInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder getModifyShopInfoOrBuilder() {
+        if (modifyShopInfoBuilder_ != null) {
+          return modifyShopInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return modifyShopInfo_ == null ?
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance() : modifyShopInfo_;
+        }
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>.QueueWorkModifyShopInfo modifyShopInfo = 10;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder> 
+          getModifyShopInfoFieldBuilder() {
+        if (modifyShopInfoBuilder_ == null) {
+          modifyShopInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder>(
+                  getModifyShopInfo(),
+                  getParentForChildren(),
+                  isClean());
+          modifyShopInfo_ = null;
+        }
+        return modifyShopInfoBuilder_;
+      }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -2781,6 +3053,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkInfo>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkInfo>() {
+      @java.lang.Override
       public QueueWorkInfo parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2798,7 +3071,704 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueueWorkModifyShopInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:QueueWorkModifyShopInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.QueueWorkModifyShopInfo.OperationEnum operation = 1;</code>
+     */
+    int getOperationValue();
+    /**
+     * <code>.QueueWorkModifyShopInfo.OperationEnum operation = 1;</code>
+     */
+    com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum getOperation();
+
+    /**
+     * <pre>
+     *商家id
+     * </pre>
+     *
+     * <code>int64 storeId = 2;</code>
+     */
+    long getStoreId();
+  }
+  /**
+   * Protobuf type {@code QueueWorkModifyShopInfo}
+   */
+  public  static final class QueueWorkModifyShopInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:QueueWorkModifyShopInfo)
+      QueueWorkModifyShopInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueueWorkModifyShopInfo.newBuilder() to construct.
+    private QueueWorkModifyShopInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueueWorkModifyShopInfo() {
+      operation_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueueWorkModifyShopInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              int rawValue = input.readEnum();
+
+              operation_ = rawValue;
+              break;
+            }
+            case 16: {
+
+              storeId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code QueueWorkModifyShopInfo.OperationEnum}
+     */
+    public enum OperationEnum
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>CREATE = 0;</code>
+       */
+      CREATE(0),
+      /**
+       * <code>DELETE = 1;</code>
+       */
+      DELETE(1),
+      /**
+       * <code>UPDATE = 2;</code>
+       */
+      UPDATE(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>CREATE = 0;</code>
+       */
+      public static final int CREATE_VALUE = 0;
+      /**
+       * <code>DELETE = 1;</code>
+       */
+      public static final int DELETE_VALUE = 1;
+      /**
+       * <code>UPDATE = 2;</code>
+       */
+      public static final int UPDATE_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static OperationEnum valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static OperationEnum forNumber(int value) {
+        switch (value) {
+          case 0: return CREATE;
+          case 1: return DELETE;
+          case 2: return UPDATE;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<OperationEnum>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          OperationEnum> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<OperationEnum>() {
+              public OperationEnum findValueByNumber(int number) {
+                return OperationEnum.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final OperationEnum[] VALUES = values();
+
+      public static OperationEnum valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private OperationEnum(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:QueueWorkModifyShopInfo.OperationEnum)
+    }
+
+    public static final int OPERATION_FIELD_NUMBER = 1;
+    private int operation_;
+    /**
+     * <code>.QueueWorkModifyShopInfo.OperationEnum operation = 1;</code>
+     */
+    public int getOperationValue() {
+      return operation_;
+    }
+    /**
+     * <code>.QueueWorkModifyShopInfo.OperationEnum operation = 1;</code>
+     */
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum getOperation() {
+      @SuppressWarnings("deprecation")
+      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.valueOf(operation_);
+      return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UNRECOGNIZED : result;
+    }
+
+    public static final int STOREID_FIELD_NUMBER = 2;
+    private long storeId_;
+    /**
+     * <pre>
+     *商家id
+     * </pre>
+     *
+     * <code>int64 storeId = 2;</code>
+     */
+    public long getStoreId() {
+      return storeId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (operation_ != com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.CREATE.getNumber()) {
+        output.writeEnum(1, operation_);
+      }
+      if (storeId_ != 0L) {
+        output.writeInt64(2, storeId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (operation_ != com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.CREATE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, operation_);
+      }
+      if (storeId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, storeId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo)) {
+        return super.equals(obj);
+      }
+      com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo) obj;
+
+      if (operation_ != other.operation_) return false;
+      if (getStoreId()
+          != other.getStoreId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + OPERATION_FIELD_NUMBER;
+      hash = (53 * hash) + operation_;
+      hash = (37 * hash) + STOREID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getStoreId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code QueueWorkModifyShopInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:QueueWorkModifyShopInfo)
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.class, com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.Builder.class);
+      }
+
+      // Construct using com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        operation_ = 0;
+
+        storeId_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkModifyShopInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getDefaultInstanceForType() {
+        return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo build() {
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo buildPartial() {
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo(this);
+        result.operation_ = operation_;
+        result.storeId_ = storeId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo) {
+          return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo other) {
+        if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.getDefaultInstance()) return this;
+        if (other.operation_ != 0) {
+          setOperationValue(other.getOperationValue());
+        }
+        if (other.getStoreId() != 0L) {
+          setStoreId(other.getStoreId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int operation_ = 0;
+      /**
+       * <code>.QueueWorkModifyShopInfo.OperationEnum operation = 1;</code>
+       */
+      public int getOperationValue() {
+        return operation_;
+      }
+      /**
+       * <code>.QueueWorkModifyShopInfo.OperationEnum operation = 1;</code>
+       */
+      public Builder setOperationValue(int value) {
+        operation_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.QueueWorkModifyShopInfo.OperationEnum operation = 1;</code>
+       */
+      public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum getOperation() {
+        @SuppressWarnings("deprecation")
+        com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum result = com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.valueOf(operation_);
+        return result == null ? com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.QueueWorkModifyShopInfo.OperationEnum operation = 1;</code>
+       */
+      public Builder setOperation(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        operation_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.QueueWorkModifyShopInfo.OperationEnum operation = 1;</code>
+       */
+      public Builder clearOperation() {
+        
+        operation_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long storeId_ ;
+      /**
+       * <pre>
+       *商家id
+       * </pre>
+       *
+       * <code>int64 storeId = 2;</code>
+       */
+      public long getStoreId() {
+        return storeId_;
+      }
+      /**
+       * <pre>
+       *商家id
+       * </pre>
+       *
+       * <code>int64 storeId = 2;</code>
+       */
+      public Builder setStoreId(long value) {
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *商家id
+       * </pre>
+       *
+       * <code>int64 storeId = 2;</code>
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:QueueWorkModifyShopInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:QueueWorkModifyShopInfo)
+    private static final com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo();
+    }
+
+    public static com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueueWorkModifyShopInfo>
+        PARSER = new com.google.protobuf.AbstractParser<QueueWorkModifyShopInfo>() {
+      @java.lang.Override
+      public QueueWorkModifyShopInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueueWorkModifyShopInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueueWorkModifyShopInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueueWorkModifyShopInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkModifyShopInfo getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3005,13 +3975,9 @@ public final class QueueWorkInfoModel {
       contactPerson_ = "";
       phone_ = "";
       contactNumber_ = "";
-      legalSubjectId_ = 0L;
-      type_ = 0;
-      cityId_ = 0;
       legalType_ = "";
       leagalRepresentativeName_ = "";
       leagalRepresentativeID_ = "";
-      categoryId_ = 0L;
       storeType_ = "";
     }
 
@@ -3039,13 +4005,6 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -3114,6 +4073,13 @@ public final class QueueWorkInfoModel {
               storeType_ = s;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -3131,6 +4097,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable
@@ -3527,6 +4494,7 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -3536,6 +4504,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getNameBytes().isEmpty()) {
@@ -3577,6 +4546,7 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -3637,33 +4607,32 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) obj;
 
-      boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
-      result = result && getContactPerson()
-          .equals(other.getContactPerson());
-      result = result && getPhone()
-          .equals(other.getPhone());
-      result = result && getContactNumber()
-          .equals(other.getContactNumber());
-      result = result && (getLegalSubjectId()
-          == other.getLegalSubjectId());
-      result = result && (getType()
-          == other.getType());
-      result = result && (getCityId()
-          == other.getCityId());
-      result = result && getLegalType()
-          .equals(other.getLegalType());
-      result = result && getLeagalRepresentativeName()
-          .equals(other.getLeagalRepresentativeName());
-      result = result && getLeagalRepresentativeID()
-          .equals(other.getLeagalRepresentativeID());
-      result = result && (getCategoryId()
-          == other.getCategoryId());
-      result = result && getStoreType()
-          .equals(other.getStoreType());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getContactPerson()
+          .equals(other.getContactPerson())) return false;
+      if (!getPhone()
+          .equals(other.getPhone())) return false;
+      if (!getContactNumber()
+          .equals(other.getContactNumber())) return false;
+      if (getLegalSubjectId()
+          != other.getLegalSubjectId()) return false;
+      if (getType()
+          != other.getType()) return false;
+      if (getCityId()
+          != other.getCityId()) return false;
+      if (!getLegalType()
+          .equals(other.getLegalType())) return false;
+      if (!getLeagalRepresentativeName()
+          .equals(other.getLeagalRepresentativeName())) return false;
+      if (!getLeagalRepresentativeID()
+          .equals(other.getLeagalRepresentativeID())) return false;
+      if (getCategoryId()
+          != other.getCategoryId()) return false;
+      if (!getStoreType()
+          .equals(other.getStoreType())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3774,6 +4743,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -3781,6 +4751,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -3804,6 +4775,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable
@@ -3826,6 +4798,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         name_ = "";
@@ -3855,15 +4828,18 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkShopLegalSubjectData_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData result = buildPartial();
         if (!result.isInitialized()) {
@@ -3872,6 +4848,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData(this);
         result.name_ = name_;
@@ -3890,32 +4867,39 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData)other);
@@ -3976,10 +4960,12 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4861,11 +5847,13 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -4887,6 +5875,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkShopLegalSubjectData>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkShopLegalSubjectData>() {
+      @java.lang.Override
       public QueueWorkShopLegalSubjectData parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4904,6 +5893,7 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkShopLegalSubjectData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -4945,8 +5935,6 @@ public final class QueueWorkInfoModel {
       super(builder);
     }
     private QueueWorkOrderTimeData() {
-      orderId_ = 0L;
-      userId_ = 0L;
     }
 
     @java.lang.Override
@@ -4973,13 +5961,6 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
 
               orderId_ = input.readInt64();
@@ -4988,6 +5969,13 @@ public final class QueueWorkInfoModel {
             case 16: {
 
               userId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -5007,6 +5995,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_fieldAccessorTable
@@ -5041,6 +6030,7 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -5050,6 +6040,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (orderId_ != 0L) {
@@ -5061,6 +6052,7 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -5089,13 +6081,12 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) obj;
 
-      boolean result = true;
-      result = result && (getOrderId()
-          == other.getOrderId());
-      result = result && (getUserId()
-          == other.getUserId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getOrderId()
+          != other.getOrderId()) return false;
+      if (getUserId()
+          != other.getUserId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5186,6 +6177,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -5193,6 +6185,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -5216,6 +6209,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_fieldAccessorTable
@@ -5238,6 +6232,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         orderId_ = 0L;
@@ -5247,15 +6242,18 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkOrderTimeData_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData result = buildPartial();
         if (!result.isInitialized()) {
@@ -5264,6 +6262,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData(this);
         result.orderId_ = orderId_;
@@ -5272,32 +6271,39 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData)other);
@@ -5320,10 +6326,12 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5417,11 +6425,13 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -5443,6 +6453,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkOrderTimeData>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkOrderTimeData>() {
+      @java.lang.Override
       public QueueWorkOrderTimeData parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5460,6 +6471,7 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderTimeData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -5539,8 +6551,6 @@ public final class QueueWorkInfoModel {
     private QueueWorkHeart() {
       resourceId_ = "";
       resourceType_ = "";
-      userId_ = 0L;
-      unHeart_ = false;
     }
 
     @java.lang.Override
@@ -5567,13 +6577,6 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -5596,6 +6599,13 @@ public final class QueueWorkInfoModel {
               unHeart_ = input.readBool();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -5613,6 +6623,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_fieldAccessorTable
@@ -5731,6 +6742,7 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -5740,6 +6752,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getResourceIdBytes().isEmpty()) {
@@ -5757,6 +6770,7 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -5791,17 +6805,16 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) obj;
 
-      boolean result = true;
-      result = result && getResourceId()
-          .equals(other.getResourceId());
-      result = result && getResourceType()
-          .equals(other.getResourceType());
-      result = result && (getUserId()
-          == other.getUserId());
-      result = result && (getUnHeart()
-          == other.getUnHeart());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getResourceId()
+          .equals(other.getResourceId())) return false;
+      if (!getResourceType()
+          .equals(other.getResourceType())) return false;
+      if (getUserId()
+          != other.getUserId()) return false;
+      if (getUnHeart()
+          != other.getUnHeart()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5896,6 +6909,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -5903,6 +6917,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -5926,6 +6941,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_fieldAccessorTable
@@ -5948,6 +6964,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         resourceId_ = "";
@@ -5961,15 +6978,18 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkHeart_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart result = buildPartial();
         if (!result.isInitialized()) {
@@ -5978,6 +6998,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart(this);
         result.resourceId_ = resourceId_;
@@ -5988,32 +7009,39 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart)other);
@@ -6044,10 +7072,12 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6319,11 +7349,13 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -6345,6 +7377,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkHeart>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkHeart>() {
+      @java.lang.Override
       public QueueWorkHeart parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6362,6 +7395,7 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkHeart getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -6433,13 +7467,6 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -6450,6 +7477,13 @@ public final class QueueWorkInfoModel {
               java.lang.String s = input.readStringRequireUtf8();
 
               code_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -6469,6 +7503,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_fieldAccessorTable
@@ -6545,6 +7580,7 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -6554,6 +7590,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getPhoneBytes().isEmpty()) {
@@ -6565,6 +7602,7 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -6591,13 +7629,12 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) obj;
 
-      boolean result = true;
-      result = result && getPhone()
-          .equals(other.getPhone());
-      result = result && getCode()
-          .equals(other.getCode());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getPhone()
+          .equals(other.getPhone())) return false;
+      if (!getCode()
+          .equals(other.getCode())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -6686,6 +7723,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -6693,6 +7731,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -6716,6 +7755,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_fieldAccessorTable
@@ -6738,6 +7778,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         phone_ = "";
@@ -6747,15 +7788,18 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPhoneCode_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode result = buildPartial();
         if (!result.isInitialized()) {
@@ -6764,6 +7808,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode(this);
         result.phone_ = phone_;
@@ -6772,32 +7817,39 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode)other);
@@ -6822,10 +7874,12 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6981,11 +8035,13 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -7007,6 +8063,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkPhoneCode>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkPhoneCode>() {
+      @java.lang.Override
       public QueueWorkPhoneCode parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7024,6 +8081,7 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPhoneCode getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -7133,13 +8191,9 @@ public final class QueueWorkInfoModel {
       super(builder);
     }
     private QueueWorkPush() {
-      pushId_ = 0L;
-      creatorUserId_ = 0L;
       msgContent_ = "";
       dataContent_ = "";
       refUrl_ = "";
-      toUserId_ = 0L;
-      messageType_ = 0;
     }
 
     @java.lang.Override
@@ -7166,13 +8220,6 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
 
               pushId_ = input.readInt64();
@@ -7211,6 +8258,13 @@ public final class QueueWorkInfoModel {
               messageType_ = input.readInt32();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -7228,6 +8282,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_fieldAccessorTable
@@ -7410,6 +8465,7 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -7419,6 +8475,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (pushId_ != 0L) {
@@ -7445,6 +8502,7 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -7490,23 +8548,22 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) obj;
 
-      boolean result = true;
-      result = result && (getPushId()
-          == other.getPushId());
-      result = result && (getCreatorUserId()
-          == other.getCreatorUserId());
-      result = result && getMsgContent()
-          .equals(other.getMsgContent());
-      result = result && getDataContent()
-          .equals(other.getDataContent());
-      result = result && getRefUrl()
-          .equals(other.getRefUrl());
-      result = result && (getToUserId()
-          == other.getToUserId());
-      result = result && (getMessageType()
-          == other.getMessageType());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getPushId()
+          != other.getPushId()) return false;
+      if (getCreatorUserId()
+          != other.getCreatorUserId()) return false;
+      if (!getMsgContent()
+          .equals(other.getMsgContent())) return false;
+      if (!getDataContent()
+          .equals(other.getDataContent())) return false;
+      if (!getRefUrl()
+          .equals(other.getRefUrl())) return false;
+      if (getToUserId()
+          != other.getToUserId()) return false;
+      if (getMessageType()
+          != other.getMessageType()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -7608,6 +8665,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -7615,6 +8673,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -7638,6 +8697,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_fieldAccessorTable
@@ -7660,6 +8720,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         pushId_ = 0L;
@@ -7679,15 +8740,18 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkPush_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush result = buildPartial();
         if (!result.isInitialized()) {
@@ -7696,6 +8760,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush(this);
         result.pushId_ = pushId_;
@@ -7709,32 +8774,39 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush)other);
@@ -7775,10 +8847,12 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8203,11 +9277,13 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -8229,6 +9305,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkPush>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkPush>() {
+      @java.lang.Override
       public QueueWorkPush parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8246,6 +9323,7 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkPush getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -8301,7 +9379,6 @@ public final class QueueWorkInfoModel {
     }
     private QueueWorkQiniuReviewResult() {
       resultContent_ = "";
-      retryCount_ = 0;
     }
 
     @java.lang.Override
@@ -8328,13 +9405,6 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -8344,6 +9414,13 @@ public final class QueueWorkInfoModel {
             case 16: {
 
               retryCount_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -8363,6 +9440,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable
@@ -8426,6 +9504,7 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -8435,6 +9514,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getResultContentBytes().isEmpty()) {
@@ -8446,6 +9526,7 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -8473,13 +9554,12 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) obj;
 
-      boolean result = true;
-      result = result && getResultContent()
-          .equals(other.getResultContent());
-      result = result && (getRetryCount()
-          == other.getRetryCount());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getResultContent()
+          .equals(other.getResultContent())) return false;
+      if (getRetryCount()
+          != other.getRetryCount()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -8568,6 +9648,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -8575,6 +9656,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -8602,6 +9684,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable
@@ -8624,6 +9707,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         resultContent_ = "";
@@ -8633,15 +9717,18 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuReviewResult_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult result = buildPartial();
         if (!result.isInitialized()) {
@@ -8650,6 +9737,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult(this);
         result.resultContent_ = resultContent_;
@@ -8658,32 +9746,39 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult)other);
@@ -8707,10 +9802,12 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8855,11 +9952,13 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -8881,6 +9980,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkQiniuReviewResult>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkQiniuReviewResult>() {
+      @java.lang.Override
       public QueueWorkQiniuReviewResult parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8898,6 +9998,7 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuReviewResult getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -8990,9 +10091,6 @@ public final class QueueWorkInfoModel {
     private QueueWorkQiniuWaitReviewResData() {
       resContent_ = "";
       bucketName_ = "";
-      resType_ = 0;
-      dataId_ = 0L;
-      dataType_ = 0;
     }
 
     @java.lang.Override
@@ -9019,13 +10117,6 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -9053,6 +10144,13 @@ public final class QueueWorkInfoModel {
               dataType_ = input.readInt32();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -9070,6 +10168,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable
@@ -9201,6 +10300,7 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -9210,6 +10310,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getResContentBytes().isEmpty()) {
@@ -9230,6 +10331,7 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -9268,19 +10370,18 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) obj;
 
-      boolean result = true;
-      result = result && getResContent()
-          .equals(other.getResContent());
-      result = result && getBucketName()
-          .equals(other.getBucketName());
-      result = result && (getResType()
-          == other.getResType());
-      result = result && (getDataId()
-          == other.getDataId());
-      result = result && (getDataType()
-          == other.getDataType());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getResContent()
+          .equals(other.getResContent())) return false;
+      if (!getBucketName()
+          .equals(other.getBucketName())) return false;
+      if (getResType()
+          != other.getResType()) return false;
+      if (getDataId()
+          != other.getDataId()) return false;
+      if (getDataType()
+          != other.getDataType()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -9376,6 +10477,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -9383,6 +10485,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -9410,6 +10513,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable
@@ -9432,6 +10536,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         resContent_ = "";
@@ -9447,15 +10552,18 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkQiniuWaitReviewResData_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData result = buildPartial();
         if (!result.isInitialized()) {
@@ -9464,6 +10572,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData(this);
         result.resContent_ = resContent_;
@@ -9475,32 +10584,39 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData)other);
@@ -9534,10 +10650,12 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9847,11 +10965,13 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -9873,6 +10993,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkQiniuWaitReviewResData>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkQiniuWaitReviewResData>() {
+      @java.lang.Override
       public QueueWorkQiniuWaitReviewResData parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9890,6 +11011,7 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkQiniuWaitReviewResData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -9926,7 +11048,6 @@ public final class QueueWorkInfoModel {
       super(builder);
     }
     private QueueWorkVideoWeightData() {
-      id_ = 0L;
     }
 
     @java.lang.Override
@@ -9953,16 +11074,16 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
 
               id_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -9982,6 +11103,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
@@ -10003,6 +11125,7 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -10012,6 +11135,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (id_ != 0L) {
@@ -10020,6 +11144,7 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -10044,11 +11169,10 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) obj;
 
-      boolean result = true;
-      result = result && (getId()
-          == other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getId()
+          != other.getId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10136,6 +11260,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -10143,6 +11268,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -10170,6 +11296,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_fieldAccessorTable
@@ -10192,6 +11319,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = 0L;
@@ -10199,15 +11327,18 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkVideoWeightData_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = buildPartial();
         if (!result.isInitialized()) {
@@ -10216,6 +11347,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData(this);
         result.id_ = id_;
@@ -10223,32 +11355,39 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData)other);
@@ -10268,10 +11407,12 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10327,11 +11468,13 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -10353,6 +11496,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkVideoWeightData>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkVideoWeightData>() {
+      @java.lang.Override
       public QueueWorkVideoWeightData parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10370,6 +11514,7 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkVideoWeightData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -10451,11 +11596,7 @@ public final class QueueWorkInfoModel {
       super(builder);
     }
     private QueueWorkUserTaskCoin() {
-      userId_ = 0L;
       taskName_ = "";
-      taskId_ = 0L;
-      coin_ = 0;
-      actionTimestamp_ = 0L;
     }
 
     @java.lang.Override
@@ -10482,13 +11623,6 @@ public final class QueueWorkInfoModel {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
 
               userId_ = input.readInt64();
@@ -10515,6 +11649,13 @@ public final class QueueWorkInfoModel {
               actionTimestamp_ = input.readInt64();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -10532,6 +11673,7 @@ public final class QueueWorkInfoModel {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_fieldAccessorTable
@@ -10634,6 +11776,7 @@ public final class QueueWorkInfoModel {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -10643,6 +11786,7 @@ public final class QueueWorkInfoModel {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (userId_ != 0L) {
@@ -10663,6 +11807,7 @@ public final class QueueWorkInfoModel {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -10702,19 +11847,18 @@ public final class QueueWorkInfoModel {
       }
       com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin other = (com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin) obj;
 
-      boolean result = true;
-      result = result && (getUserId()
-          == other.getUserId());
-      result = result && getTaskName()
-          .equals(other.getTaskName());
-      result = result && (getTaskId()
-          == other.getTaskId());
-      result = result && (getCoin()
-          == other.getCoin());
-      result = result && (getActionTimestamp()
-          == other.getActionTimestamp());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getUserId()
+          != other.getUserId()) return false;
+      if (!getTaskName()
+          .equals(other.getTaskName())) return false;
+      if (getTaskId()
+          != other.getTaskId()) return false;
+      if (getCoin()
+          != other.getCoin()) return false;
+      if (getActionTimestamp()
+          != other.getActionTimestamp()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10812,6 +11956,7 @@ public final class QueueWorkInfoModel {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -10819,6 +11964,7 @@ public final class QueueWorkInfoModel {
     public static Builder newBuilder(com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -10846,6 +11992,7 @@ public final class QueueWorkInfoModel {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_fieldAccessorTable
@@ -10868,6 +12015,7 @@ public final class QueueWorkInfoModel {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         userId_ = 0L;
@@ -10883,15 +12031,18 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.internal_static_QueueWorkUserTaskCoin_descriptor;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin getDefaultInstanceForType() {
         return com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin build() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin result = buildPartial();
         if (!result.isInitialized()) {
@@ -10900,6 +12051,7 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin(this);
         result.userId_ = userId_;
@@ -10911,32 +12063,39 @@ public final class QueueWorkInfoModel {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin) {
           return mergeFrom((com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin)other);
@@ -10969,10 +12128,12 @@ public final class QueueWorkInfoModel {
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -11231,11 +12392,13 @@ public final class QueueWorkInfoModel {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -11257,6 +12420,7 @@ public final class QueueWorkInfoModel {
 
     private static final com.google.protobuf.Parser<QueueWorkUserTaskCoin>
         PARSER = new com.google.protobuf.AbstractParser<QueueWorkUserTaskCoin>() {
+      @java.lang.Override
       public QueueWorkUserTaskCoin parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -11274,6 +12438,7 @@ public final class QueueWorkInfoModel {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkUserTaskCoin getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -11285,6 +12450,11 @@ public final class QueueWorkInfoModel {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_QueueWorkInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_QueueWorkModifyShopInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_QueueWorkModifyShopInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_QueueWorkShopLegalSubjectData_descriptor;
   private static final 
@@ -11339,7 +12509,7 @@ public final class QueueWorkInfoModel {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\023QueueWorkInfo.proto\"\267\005\n\rQueueWorkInfo\022" +
+      "\n\023QueueWorkInfo.proto\"\377\005\n\rQueueWorkInfo\022" +
       "-\n\010workType\030\001 \001(\0162\033.QueueWorkInfo.WorkTy" +
       "peEnum\022&\n\tphoneCode\030\002 \001(\0132\023.QueueWorkPho" +
       "neCode\022\"\n\theartData\030\003 \001(\0132\017.QueueWorkHea" +
@@ -11351,39 +12521,45 @@ public final class QueueWorkInfoModel {
       "WeightData\022<\n\024shopLegalSubjectData\030\010 \001(\013" +
       "2\036.QueueWorkShopLegalSubjectData\022.\n\rorde" +
       "rTimeData\030\t \001(\0132\027.QueueWorkOrderTimeData" +
-      "\"\354\001\n\014WorkTypeEnum\022\023\n\017SEND_PHONE_CODE\020\000\022\t" +
-      "\n\005HEART\020\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_VIDEO_IMG_R" +
-      "EVIEW_RESULT\020\003\022\034\n\030QINIU_LIVE_REVIEW_RESU" +
-      "LT\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_DATA\020\005\022\020\n\014" +
-      "VIDEO_WEIGHT\020\006\022\026\n\022SHOP_LEGAL_SUBJECT\020\007\022\022" +
-      "\n\016USER_TASK_COIN\020\010\022\023\n\017USER_ORDER_TIME\020\t\"" +
-      "\234\002\n\035QueueWorkShopLegalSubjectData\022\014\n\004nam" +
-      "e\030\001 \001(\t\022\025\n\rcontactPerson\030\002 \001(\t\022\r\n\005phone\030" +
-      "\003 \001(\t\022\025\n\rcontactNumber\030\004 \001(\t\022\026\n\016legalSub" +
-      "jectId\030\005 \001(\003\022\014\n\004type\030\006 \001(\005\022\016\n\006cityId\030\007 \001" +
-      "(\005\022\021\n\tlegalType\030\010 \001(\t\022 \n\030leagalRepresent" +
-      "ativeName\030\t \001(\t\022\036\n\026leagalRepresentativeI" +
-      "D\030\n \001(\t\022\022\n\ncategoryId\030\013 \001(\003\022\021\n\tstoreType" +
-      "\030\014 \001(\t\"9\n\026QueueWorkOrderTimeData\022\017\n\007orde" +
-      "rId\030\001 \001(\003\022\016\n\006userId\030\002 \001(\003\"[\n\016QueueWorkHe" +
-      "art\022\022\n\nresourceId\030\001 \001(\t\022\024\n\014resourceType\030" +
-      "\002 \001(\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1" +
-      "\n\022QueueWorkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004c" +
-      "ode\030\002 \001(\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 " +
-      "\001(\003\022\025\n\rcreatorUserId\030\002 \001(\003\022\022\n\nmsgContent" +
-      "\030\003 \001(\t\022\023\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 " +
-      "\001(\t\022\020\n\010toUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001" +
-      "(\005\"G\n\032QueueWorkQiniuReviewResult\022\025\n\rresu" +
-      "ltContent\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037Q" +
-      "ueueWorkQiniuWaitReviewResData\022\022\n\nresCon" +
-      "tent\030\001 \001(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resTyp" +
-      "e\030\003 \001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(" +
-      "\005\"&\n\030QueueWorkVideoWeightData\022\n\n\002id\030\001 \001(" +
-      "\003\"p\n\025QueueWorkUserTaskCoin\022\016\n\006userId\030\001 \001" +
-      "(\003\022\020\n\010taskName\030\002 \001(\t\022\016\n\006taskId\030\003 \001(\003\022\014\n\004" +
-      "coin\030\004 \001(\005\022\027\n\017actionTimestamp\030\005 \001(\003B;\n%c" +
-      "om.zwdbj.server.probuf.middleware.mqB\022Qu" +
-      "eueWorkInfoModelb\006proto3"
+      "\0220\n\016modifyShopInfo\030\n \001(\0132\030.QueueWorkModi" +
+      "fyShopInfo\"\202\002\n\014WorkTypeEnum\022\023\n\017SEND_PHON" +
+      "E_CODE\020\000\022\t\n\005HEART\020\001\022\010\n\004PUSH\020\002\022!\n\035QINIU_V" +
+      "IDEO_IMG_REVIEW_RESULT\020\003\022\034\n\030QINIU_LIVE_R" +
+      "EVIEW_RESULT\020\004\022\036\n\032QINIU_RES_WAIT_REVIEW_" +
+      "DATA\020\005\022\020\n\014VIDEO_WEIGHT\020\006\022\026\n\022SHOP_LEGAL_S" +
+      "UBJECT\020\007\022\022\n\016USER_TASK_COIN\020\010\022\023\n\017USER_ORD" +
+      "ER_TIME\020\t\022\024\n\020MODIFY_SHOP_INFO\020\n\"\232\001\n\027Queu" +
+      "eWorkModifyShopInfo\0229\n\toperation\030\001 \001(\0162&" +
+      ".QueueWorkModifyShopInfo.OperationEnum\022\017" +
+      "\n\007storeId\030\002 \001(\003\"3\n\rOperationEnum\022\n\n\006CREA" +
+      "TE\020\000\022\n\n\006DELETE\020\001\022\n\n\006UPDATE\020\002\"\234\002\n\035QueueWo" +
+      "rkShopLegalSubjectData\022\014\n\004name\030\001 \001(\t\022\025\n\r" +
+      "contactPerson\030\002 \001(\t\022\r\n\005phone\030\003 \001(\t\022\025\n\rco" +
+      "ntactNumber\030\004 \001(\t\022\026\n\016legalSubjectId\030\005 \001(" +
+      "\003\022\014\n\004type\030\006 \001(\005\022\016\n\006cityId\030\007 \001(\005\022\021\n\tlegal" +
+      "Type\030\010 \001(\t\022 \n\030leagalRepresentativeName\030\t" +
+      " \001(\t\022\036\n\026leagalRepresentativeID\030\n \001(\t\022\022\n\n" +
+      "categoryId\030\013 \001(\003\022\021\n\tstoreType\030\014 \001(\t\"9\n\026Q" +
+      "ueueWorkOrderTimeData\022\017\n\007orderId\030\001 \001(\003\022\016" +
+      "\n\006userId\030\002 \001(\003\"[\n\016QueueWorkHeart\022\022\n\nreso" +
+      "urceId\030\001 \001(\t\022\024\n\014resourceType\030\002 \001(\t\022\016\n\006us" +
+      "erId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n\022QueueWork" +
+      "PhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"\226" +
+      "\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 \001(\003\022\025\n\rcrea" +
+      "torUserId\030\002 \001(\003\022\022\n\nmsgContent\030\003 \001(\t\022\023\n\013d" +
+      "ataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001(\t\022\020\n\010toUs" +
+      "erId\030\006 \001(\003\022\023\n\013messageType\030\007 \001(\005\"G\n\032Queue" +
+      "WorkQiniuReviewResult\022\025\n\rresultContent\030\001" +
+      " \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037QueueWorkQin" +
+      "iuWaitReviewResData\022\022\n\nresContent\030\001 \001(\t\022" +
+      "\022\n\nbucketName\030\002 \001(\t\022\017\n\007resType\030\003 \001(\005\022\016\n\006" +
+      "dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(\005\"&\n\030QueueW" +
+      "orkVideoWeightData\022\n\n\002id\030\001 \001(\003\"p\n\025QueueW" +
+      "orkUserTaskCoin\022\016\n\006userId\030\001 \001(\003\022\020\n\010taskN" +
+      "ame\030\002 \001(\t\022\016\n\006taskId\030\003 \001(\003\022\014\n\004coin\030\004 \001(\005\022" +
+      "\027\n\017actionTimestamp\030\005 \001(\003B;\n%com.zwdbj.se" +
+      "rver.probuf.middleware.mqB\022QueueWorkInfo" +
+      "Modelb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -11402,57 +12578,63 @@ public final class QueueWorkInfoModel {
     internal_static_QueueWorkInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkInfo_descriptor,
-        new java.lang.String[] { "WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", "VideoWeightData", "ShopLegalSubjectData", "OrderTimeData", });
-    internal_static_QueueWorkShopLegalSubjectData_descriptor =
+        new java.lang.String[] { "WorkType", "PhoneCode", "HeartData", "PushData", "QiniuReviewResult", "QiniuWaitReviewResData", "VideoWeightData", "ShopLegalSubjectData", "OrderTimeData", "ModifyShopInfo", });
+    internal_static_QueueWorkModifyShopInfo_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_QueueWorkModifyShopInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_QueueWorkModifyShopInfo_descriptor,
+        new java.lang.String[] { "Operation", "StoreId", });
+    internal_static_QueueWorkShopLegalSubjectData_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_QueueWorkShopLegalSubjectData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkShopLegalSubjectData_descriptor,
         new java.lang.String[] { "Name", "ContactPerson", "Phone", "ContactNumber", "LegalSubjectId", "Type", "CityId", "LegalType", "LeagalRepresentativeName", "LeagalRepresentativeID", "CategoryId", "StoreType", });
     internal_static_QueueWorkOrderTimeData_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_QueueWorkOrderTimeData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkOrderTimeData_descriptor,
         new java.lang.String[] { "OrderId", "UserId", });
     internal_static_QueueWorkHeart_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_QueueWorkHeart_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkHeart_descriptor,
         new java.lang.String[] { "ResourceId", "ResourceType", "UserId", "UnHeart", });
     internal_static_QueueWorkPhoneCode_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_QueueWorkPhoneCode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkPhoneCode_descriptor,
         new java.lang.String[] { "Phone", "Code", });
     internal_static_QueueWorkPush_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_QueueWorkPush_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkPush_descriptor,
         new java.lang.String[] { "PushId", "CreatorUserId", "MsgContent", "DataContent", "RefUrl", "ToUserId", "MessageType", });
     internal_static_QueueWorkQiniuReviewResult_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_QueueWorkQiniuReviewResult_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkQiniuReviewResult_descriptor,
         new java.lang.String[] { "ResultContent", "RetryCount", });
     internal_static_QueueWorkQiniuWaitReviewResData_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_QueueWorkQiniuWaitReviewResData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkQiniuWaitReviewResData_descriptor,
         new java.lang.String[] { "ResContent", "BucketName", "ResType", "DataId", "DataType", });
     internal_static_QueueWorkVideoWeightData_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_QueueWorkVideoWeightData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkVideoWeightData_descriptor,
         new java.lang.String[] { "Id", });
     internal_static_QueueWorkUserTaskCoin_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_QueueWorkUserTaskCoin_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkUserTaskCoin_descriptor,

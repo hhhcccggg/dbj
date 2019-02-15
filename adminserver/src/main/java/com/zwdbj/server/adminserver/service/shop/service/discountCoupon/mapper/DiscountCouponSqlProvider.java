@@ -16,7 +16,7 @@ public class DiscountCouponSqlProvider {
         long[] ids = (long[]) map.get("ids");
         long storeId = (long)map.get("storeId");
         long legalSubjectId = (long)map.get("legalSubjectId");
-        SQL sql  = new SQL().UPDATE("shop_discountcoupons").SET("isDeleted=1")
+        SQL sql  = new SQL().UPDATE("shop_discountCoupons").SET("isDeleted=1")
                 .SET("deleteTime=now()");
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = 0; i < ids.length; i++) {
@@ -38,7 +38,7 @@ public class DiscountCouponSqlProvider {
         SearchDiscountCoupon searchDiscountCoupon = (SearchDiscountCoupon) map.get("searchDiscountCoupon");
         SQL sql  = new SQL().SELECT("id","name","couponCount","discountType","discountValue","limitMoney"
                 ,"limitGetPerPerson","useInfo","onlySupportOriginProduct","validStartTime","validEndTime","storeId","legalSubjectId")
-                .FROM("shop_discountcoupons");
+                .FROM("shop_discountCoupons");
         if( searchDiscountCoupon.getDiscountType() !=null ){
             sql.WHERE("discountType = #{searchDiscountCoupon.discountType}");
         }
@@ -54,7 +54,6 @@ public class DiscountCouponSqlProvider {
         sql.WHERE("storeId = #{searchDiscountCoupon.storeId} and " +
                 "legalSubjectId = #{searchDiscountCoupon.legalSubjectId} and isDeleted=0");
         sql.ORDER_BY("createTime desc");
-        System.out.println(sql.toString());
         return sql.toString();
     }
 }

@@ -33,7 +33,7 @@ public class ReceiveAddressServiceImpl implements ReceiveAddressService {
         try {
             ReceiveAddressModel receiveAddressModel = this.receiveAddressMapper.getReceiveAddressById(id);
             long userId = receiveAddressModel.getUserId();
-            receiveAddressModel.setNickName(this.userService.getUserDetail(userId).getNickName());
+            receiveAddressModel.setNickName(this.userService.getNickNameById(userId));
             return new ServiceStatusInfo<>(0,"",receiveAddressModel);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"获取地址失败",null);

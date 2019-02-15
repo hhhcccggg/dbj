@@ -11,8 +11,8 @@ public class ProductInput {
     @ApiModelProperty(value = "排序:0默认 1 销量 2上架时间")
     int type;
 
-    @Min(1)
-    @ApiModelProperty(value = "店铺ID")
+    @Min(0)
+    @ApiModelProperty(value = "店铺ID,如果为0这查询全部商品")
     long storeId;
 
     public long getStoreId() {

@@ -46,6 +46,6 @@ public interface ProductService {
      * @param type 1销售中 2已售完 3待上架
      * @return
      */
-    ServiceStatusInfo<List<Products>> searchCondition(SearchProducts searchProduct, int type);
+    ServiceStatusInfo<List<Products>> searchCondition(SearchProducts searchProduct, int type,int pageNo,int rows);
 
 }

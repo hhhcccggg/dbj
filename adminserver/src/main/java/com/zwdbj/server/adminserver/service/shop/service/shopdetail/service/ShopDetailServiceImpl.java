@@ -32,6 +32,16 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+    @Override
+    public ServiceStatusInfo<ShopInfo> storeDetailInfo(long legalSubjectId) {
+        ShopInfo result = null;
+        try {
+            result = this.shopDetailMapper.storeDeatilInfo(legalSubjectId);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询店铺详细信息失败" + e.getMessage(), null);
+        }
+    }
 
     @Override
     public ServiceStatusInfo<StoreDto> findStoreDetail(long legalSubjectId) {

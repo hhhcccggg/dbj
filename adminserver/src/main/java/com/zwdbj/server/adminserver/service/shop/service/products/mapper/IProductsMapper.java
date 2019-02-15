@@ -35,15 +35,15 @@ public interface IProductsMapper {
             ");")
     Long createProducts(@Param("id") Long id, @Param("products") CreateProducts products);
 
-    @Update("update  shop_products set isDeleted=1,deleteTime=now() where id=#{id}")
-    Long deleteProduct(@Param("id") Long id);
+    @Update("update  shop_products set isDeleted=1,deleteTime=now() where id=#{id} and storeId=#{storeId}")
+    Long deleteProduct(@Param("id") Long id,@Param("storeId")long storeId);
 
     @Update("update shop_products set " +
             "name=#{products.name},storeId=#{products.storeId}," +
             "inventory=#{products.inventory},publish=#{products.isPublish},imageUrls=#{products.imageUrls}," +
             "brandId=#{products.brandId},supportCoin=#{products.supportCoin},categoryId=#{products.categoryId},"+
             "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription},limitPerPerson=#{products.limitPerPerson},ruleDescription=#{products.ruleDescription}" +
-            " where id=#{products.id} and isDeleted=0")
+            " where id=#{products.id} and storeId=#{products.storeId} and isDeleted=0")
     Long update(@Param("products") UpdateProducts products);
 
     @Select("select * from shop_products where isDeleted=0 order by createTime")
@@ -72,13 +72,13 @@ public interface IProductsMapper {
 
 
     @UpdateProvider(type = ProductsSqlProvider.class , method = "updatePublish")
-    Long updatePublishs(Long[] id, boolean publish);
+    Long updatePublishs(Long[] id, boolean publish,long storeId);
 
     @Select("select * from shop_products where id=#{id} and isDeleted=0")
     Products selectById(@Param("id") long id);
 
     @DeleteProvider(type = ProductsSqlProvider.class , method = "deleteByProducts")
-    Long deleteByProducts(@Param("id") Long[] id);
+    Long deleteByProducts(@Param("id") Long[] id,@Param("storeId")long storeId);
 }
 
 

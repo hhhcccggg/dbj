@@ -5,6 +5,7 @@ import com.zwdbj.server.mobileapi.service.share.model.ShareDto;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
 import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.mobileapi.service.video.model.VideoInfoDto;
+import com.zwdbj.server.mobileapi.service.video.model.VideoMainDto;
 import com.zwdbj.server.mobileapi.service.video.model.VideoPublishInput;
 import org.apache.ibatis.annotations.*;
 
@@ -141,4 +142,34 @@ public interface IVideoMapper {
 
     @Select("select ifnull(sum(heartCount),0) from core_videos where userId=#{userId} and isDeleted=0 and status=0")
     Long getUserVideosHeartCount(@Param("userId") long userId);
+    @Select("select count(id) from core_videos where userId=#{userId} and status=0")
+    int userVideosNum(@Param("userId")long userId);
+
+    /**
+     * 首页测试sql
+     * @return
+     */
+    @Select("SELECT " +
+            "core_videos.id, " +
+            "core_videos.title, " +
+            "core_videos.coverImageUrl, " +
+            "core_videos.coverImageWidth, " +
+            "core_videos.coverImageHeight, " +
+            "core_videos.videoUrl, " +
+            "core_videos.tags, " +
+            "core_videos.userId, " +
+            "core_videos.heartCount " +
+            "FROM " +
+            "core_videos , " +
+            "core_comments , " +
+            "core_comment_extraDatas " +
+            "WHERE " +
+            "core_videos.id = core_comment_extraDatas.dataId AND " +
+            "core_comments.id = core_comment_extraDatas.commentId AND " +
+            "core_comment_extraDatas.type = 'VIDEO' AND " +
+            "core_videos.type = 'SHOPCOMMENT' " +
+            "ORDER BY " +
+            "rand() " +
+            "limit 10")
+    List<VideoMainDto.VideoMain> mainVideo();
 }

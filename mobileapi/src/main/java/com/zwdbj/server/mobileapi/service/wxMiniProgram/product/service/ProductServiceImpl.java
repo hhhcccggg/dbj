@@ -1,8 +1,10 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 
+import com.zwdbj.server.mobileapi.config.MainKeyType;
 import com.zwdbj.server.mobileapi.service.user.mapper.IUserMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper.IProductMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
@@ -11,6 +13,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.Prod
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +33,9 @@ public class ProductServiceImpl implements  ProductService{
 
     @Autowired
     protected IUserMapper iUserMapper;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public ServiceStatusInfo<List<ProductOut>> selectShopProduct(ProductInput productInput) {
@@ -114,6 +120,27 @@ public class ProductServiceImpl implements  ProductService{
 
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"出现异常："+e.getMessage(),false);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<List<ProductMainDto>> mainProduct() {
+        try{
+            List<ProductMainDto> list;
+            //TODO 未更新缓存和推荐
+            if(redisTemplate.hasKey("MAINPRODUCT")){
+                 list = (List<ProductMainDto>) redisTemplate.opsForValue().get(MainKeyType.MAINPRODUCT);
+                 return new ServiceStatusInfo<>(0,"",list);
+            }
+           list = this.iProductMapper.mainSelectProduct();
+            for (ProductMainDto productMainDto: list) {
+                ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(productMainDto.getId());
+                productMainDto.setProductSKUId(serviceStatusInfo.getData().getId());
+            }
+            redisTemplate.opsForValue().set(MainKeyType.MAINPRODUCT,list);
+            return new ServiceStatusInfo<>(0,"",list);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1,e.getMessage(),null);
         }
     }
 }

@@ -33,6 +33,9 @@ public interface IOrderMapper {
             "where id=#{id}")
     int updateOrderPay(@Param("id")long id,@Param("paymentType")String paymentType,@Param("thirdPaymentTradeNo")String thirdPaymentTradeNo,
                        @Param("thirdPaymentTradeNotes")String thirdPaymentTradeNotes);
+
+    @Update("update shop_productOrders set `status`=#{status} where id=#{id} and thirdPaymentTradeNo=#{thirdPaymentTradeNo}")
+    int updateOrderState(@Param("id")long id,@Param("thirdPaymentTradeNo")String thirdPaymentTradeNo,@Param("status")String status);
     @Update("update shop_productOrders set `status`='STATE_BUYER_DELIVERIED',updateTime=now(),endTime=now() " +
             "where id=#{id} and userId=#{userId} and `status`='STATE_SELLER_DELIVERIED'")
     int takeOverGoods(@Param("id")long orderId,@Param("userId")long userId);

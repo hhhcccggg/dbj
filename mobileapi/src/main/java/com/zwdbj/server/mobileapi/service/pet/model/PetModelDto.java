@@ -27,6 +27,16 @@ public class PetModelDto {
     String categoryName;
     @ApiModelProperty(value = "用户id")
     private long userId;
+    @ApiModelProperty(value = "用户是否对此宠物点赞")
+    private boolean isHeart;
+
+    public boolean isHeart() {
+        return isHeart;
+    }
+
+    public void setHeart(boolean heart) {
+        isHeart = heart;
+    }
 
     public long getUserId() {
         return userId;

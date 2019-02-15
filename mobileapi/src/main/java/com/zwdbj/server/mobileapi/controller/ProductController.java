@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
@@ -69,5 +70,14 @@ public class ProductController {
         PageInfo<ProductOut> pageInfo = new PageInfo(serviceStatusInfo.getData());
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", pageInfo.getList(), pageInfo.getTotal());
 
+    }
+
+    @GetMapping(value = "mainByProduct")
+    @ApiOperation(value = "主页的兑换商城")
+    public ResponseData<List<ProductMainDto>> mainByProduct(){
+        ServiceStatusInfo<List<ProductMainDto>> serviceStatusInfo = this.productServiceImpl.mainProduct();
+        if(serviceStatusInfo.isSuccess())
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
     }
 }
