@@ -59,7 +59,7 @@ public class Products {
     @ApiModelProperty(value = "物流模板")
     long deliverytemplateId;
     @ApiModelProperty(value = "是否上架")
-    boolean isPublish;
+    boolean publish;
     @ApiModelProperty(value = "上架时间")
     long specifyPublishTime;
     @ApiModelProperty(value = "商品详情")
@@ -340,11 +340,11 @@ public class Products {
     }
 
     public boolean isPublish() {
-        return isPublish;
+        return publish;
     }
 
     public void setPublish(boolean publish) {
-        isPublish = publish;
+        this.publish = publish;
     }
 
     public long getSpecifyPublishTime() {

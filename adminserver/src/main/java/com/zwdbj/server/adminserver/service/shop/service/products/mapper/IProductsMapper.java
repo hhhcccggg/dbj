@@ -40,7 +40,7 @@ public interface IProductsMapper {
 
     @Update("update shop_products set " +
             "name=#{products.name},storeId=#{products.storeId}," +
-            "inventory=#{products.inventory},publish=#{products.isPublish},imageUrls=#{products.imageUrls}," +
+            "inventory=#{products.inventory},publish=#{products.publish},imageUrls=#{products.imageUrls}," +
             "brandId=#{products.brandId},supportCoin=#{products.supportCoin},categoryId=#{products.categoryId},"+
             "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription},limitPerPerson=#{products.limitPerPerson},ruleDescription=#{products.ruleDescription}" +
             " where id=#{products.id} and storeId=#{products.storeId} and isDeleted=0")
