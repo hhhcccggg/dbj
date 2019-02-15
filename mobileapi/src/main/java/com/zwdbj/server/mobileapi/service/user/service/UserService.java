@@ -817,6 +817,19 @@ public class UserService {
         }
     }
 
+    public List<UserOnNearbyDto> nearUsers(UserOnNearbyInput input){
+        List<UserOnNearbyDto> userOnNearbyDtos = this.userMapper.nearUsers(input.getLongitude(),input.getLatitude(),input.getDistance());
+        for (UserOnNearbyDto dto: userOnNearbyDtos){
+            List<PetModelDto> pets = this.petService.list2(dto.getUserId());
+            if (pets!=null)
+            dto.setPetModelDtos(pets);
+            int num = this.videoService.userVideosNum(dto.getUserId());
+            dto.setUserVideoNums(num);
+        }
+        return userOnNearbyDtos;
+
+    }
+
 }
 
 
