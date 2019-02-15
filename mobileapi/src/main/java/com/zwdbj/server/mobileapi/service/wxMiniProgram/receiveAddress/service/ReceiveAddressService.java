@@ -49,4 +49,10 @@ public interface ReceiveAddressService {
      * @return
      */
     ServiceStatusInfo<Long> deleteById(long id);
+
+    /**
+     * 获取默认收货地址
+     * @return
+     */
+    ServiceStatusInfo<ReceiveAddressModel> getDefault();
 }

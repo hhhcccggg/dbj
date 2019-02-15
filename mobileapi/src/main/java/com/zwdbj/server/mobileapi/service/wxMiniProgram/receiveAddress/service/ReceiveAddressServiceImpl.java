@@ -96,4 +96,14 @@ public class ReceiveAddressServiceImpl implements ReceiveAddressService{
             return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_ERROR,"删除失败"+e.getMessage(),null);
         }
     }
+
+    @Override
+    public ServiceStatusInfo<ReceiveAddressModel> getDefault() {
+        try{
+            long userId = JWTUtil.getCurrentId();
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_NORMAL,"",iReceiveAddressMapper.getDefault(userId));
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(ServiceStatusCode.STATUS_ERROR,"获取地址失败"+e.getMessage(),null);
+        }
+    }
 }

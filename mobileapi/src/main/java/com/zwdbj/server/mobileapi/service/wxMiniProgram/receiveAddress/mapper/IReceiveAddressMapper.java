@@ -75,4 +75,12 @@ public interface IReceiveAddressMapper {
      */
     @Select("select * from shop_receiveAddresses where userId=#{userId} and isDeleted=0 and id = #{id}")
     ReceiveAddressModel selectById(@Param("id") long id , @Param("userId") long userId);
+
+    /**
+     * 根据ID查询
+     * @param userId
+     * @return
+     */
+    @Select("select * from shop_receiveAddresses where userId=#{userId} and isDeleted=0 and defaultAddr = 1 limit 1")
+    ReceiveAddressModel getDefault(@Param("userId") long userId);
 }
