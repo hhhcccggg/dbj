@@ -11,14 +11,16 @@ import java.util.List;
 
 @ApiModel(description = "店铺详细信息")
 public class StoreInfo {
-    @ApiModelProperty(value = "店铺id")
-    long id;
+//    @ApiModelProperty(value = "店铺id")
+//    long id;
     @ApiModelProperty(value = "店铺名称")
     String name;
     @ApiModelProperty(value = "店主姓名")
     String contactName;
     @ApiModelProperty(value = "店主手机号 同联系人电话")
-    String conntactPhone;
+    String contactPhone;
+    @ApiModelProperty(value = "优惠券")
+    List<DiscountCouponModel> discountCoupons;
     @ApiModelProperty(value = "营业时间")
     List<OfflineStoreOpeningHours> openingHours;
     @ApiModelProperty(value = "服务范围")
@@ -43,8 +45,7 @@ public class StoreInfo {
     String coverImages;
     @ApiModelProperty(value = "头像")
     String logoUrl;
-    @ApiModelProperty(value = "优惠券")
-    List<DiscountCouponModel> discountCoupons;
+
     @ApiModelProperty(value = "城市")
     int cityId;
     @ApiModelProperty(value = "cityLevel")
@@ -90,12 +91,12 @@ public class StoreInfo {
         this.contactName = contactName;
     }
 
-    public String getConntactPhone() {
-        return conntactPhone;
+    public String getContactPhone() {
+        return contactPhone;
     }
 
-    public void setConntactPhone(String conntactPhone) {
-        this.conntactPhone = conntactPhone;
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 
     public List<OfflineStoreOpeningHours> getOpeningHours() {
@@ -186,13 +187,13 @@ public class StoreInfo {
         this.logoUrl = logoUrl;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;

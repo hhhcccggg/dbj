@@ -3,13 +3,16 @@ package com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mod
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 @ApiModel(description = " 门店员工，或者代言人")
 public class OfflineStoreStaffs {
 
-    @ApiModelProperty(value = "id")
-    Long id;
+
     @ApiModelProperty(value = "线下门店id")
     long storeId;
+    @ApiModelProperty(value = "联系电话")
+    String phone;
     @ApiModelProperty(value = "用户id")
     long userId;
     /// <summary>
@@ -19,14 +22,45 @@ public class OfflineStoreStaffs {
 
     @ApiModelProperty(value = "是否成为代言人")
     boolean isSuperStar;
+    @ApiModelProperty(value = "认证资质")
+    String qualification;
+    @ApiModelProperty(value = "添加时间")
+    Date createTime;
+    @ApiModelProperty(value = "备注")
+    String notes;
 
-    public Long getId() {
-        return id;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
 
     public long getStoreId() {
         return storeId;

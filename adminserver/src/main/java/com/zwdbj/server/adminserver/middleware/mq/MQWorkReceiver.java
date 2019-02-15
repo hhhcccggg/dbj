@@ -126,26 +126,37 @@ public class MQWorkReceiver extends MQConnection {
                 logger.error("[MQ]找不到服务");
             } else {
                 long storeId = info.getModifyShopInfo().getStoreId();
-                ServiceStatusInfo<StoreInfo> statusInfo = storeService.selectByStoreId(storeId);
-                if (statusInfo.isSuccess()) {
-                    StoreInfo storeInfo = statusInfo.getData();
-                    //更新店铺信息到es
-                    esService.update(storeInfo, "shop", "shopInfo", String.valueOf(storeInfo.getId()));
-                    logger.info("[MQ]商家" + info.getModifyShopInfo().getStoreId() + "信息更新成功");
-                } else {
-                    logger.error("[MQ]商家" + info.getModifyShopInfo().getStoreId() + "信息更新失败");
+                ServiceStatusInfo<StoreInfo> statusInfo = null;
+                StoreInfo storeInfo = null;
+                switch (info.getModifyShopInfo().getOperation()) {
+                    case CREATE:
+                        statusInfo = storeService.selectByStoreId(storeId);
+                        storeInfo = statusInfo.getData();
+                        esService.index(storeInfo, "shop", "shopinfo", String.valueOf(storeId));
+                        break;
+                    case UPDATE:
+                        statusInfo = storeService.selectByStoreId(storeId);
+                        storeInfo = statusInfo.getData();
+                        //更新店铺信息到es
+                        esService.update(storeInfo, "shop", "shopinfo", String.valueOf(storeId));
+                        break;
+                    case DELETE:
+                        esService.delete("shop", "shopinfo", String.valueOf(storeId));
+                        break;
                 }
-
+                logger.info("[MQ]商家" + info.getModifyShopInfo().getStoreId() + "信息更新成功");
             }
 
             channel.basicAck(envelope.getDeliveryTag(), false);
         }
+
+
+    }
         /*else {
             logger.info("[MQ]收到数据类型:"+info.getWorkType()+"后端暂时没有合适的服务处理");
             channel.basicAck(envelope.getDeliveryTag(),false);
         }*/
 
-    }
 }
 
 
