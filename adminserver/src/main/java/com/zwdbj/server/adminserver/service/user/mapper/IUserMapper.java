@@ -20,7 +20,7 @@ public interface IUserMapper {
     @Select("select u.*,ur.roleName FROM core_users u INNER JOIN core_userRoles ur ON ur.userId=u.id where username=#{username} and password=#{password}")
     UserModel findUserByUserPwd(@Param("username") String username, @Param("password") String password);
     @Select("select * FROM core_users where phone=#{phone} and password=#{password}")
-    UserModel findUserByPhonePwd(@Param("username") String username, @Param("password") String password);
+    UserModel findUserByPhonePwd(@Param("phone") String username, @Param("password") String password);
     @Select("SELECT *, (select count(*) from core_pets as pet where pet.userId = u.id) as petCount," +
             "(select count(*) from core_videos as vd where vd.userId = u.id) as videoCount," +
             "(select count(*) from core_livings as li where li.userId = u.id) as liveCount," +
