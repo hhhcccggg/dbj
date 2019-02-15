@@ -1,9 +1,9 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.model;
 
+import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.DiscountCouponModel;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.model.OfflineStoreExtraServices;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour.model.OfflineStoreOpeningHours;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.DiscountCoupon;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -44,17 +44,17 @@ public class StoreInfo {
     @ApiModelProperty(value = "头像")
     String logoUrl;
     @ApiModelProperty(value = "优惠券")
-    List<DiscountCoupon> discountCoupons;
+    List<DiscountCouponModel> discountCoupons;
     @ApiModelProperty(value = "城市")
     int cityId;
     @ApiModelProperty(value = "cityLevel")
     String cityLevel;
 
-    public List<DiscountCoupon> getDiscountCoupons() {
+    public List<DiscountCouponModel> getDiscountCoupons() {
         return discountCoupons;
     }
 
-    public void setDiscountCoupons(List<DiscountCoupon> discountCoupons) {
+    public void setDiscountCoupons(List<DiscountCouponModel> discountCoupons) {
         this.discountCoupons = discountCoupons;
     }
 
