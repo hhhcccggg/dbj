@@ -3,10 +3,7 @@ package com.zwdbj.server.mobileapi.service.video.mapper;
 
 import com.zwdbj.server.mobileapi.service.share.model.ShareDto;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
-import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
-import com.zwdbj.server.mobileapi.service.video.model.VideoInfoDto;
-import com.zwdbj.server.mobileapi.service.video.model.VideoMainDto;
-import com.zwdbj.server.mobileapi.service.video.model.VideoPublishInput;
+import com.zwdbj.server.mobileapi.service.video.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -160,16 +157,9 @@ public interface IVideoMapper {
             "core_videos.userId, " +
             "core_videos.heartCount " +
             "FROM " +
-            "core_videos , " +
-            "core_comments , " +
-            "core_comment_extraDatas " +
-            "WHERE " +
-            "core_videos.id = core_comment_extraDatas.dataId AND " +
-            "core_comments.id = core_comment_extraDatas.commentId AND " +
-            "core_comment_extraDatas.type = 'VIDEO' AND " +
-            "core_videos.type = 'SHOPCOMMENT' " +
+            "core_videos " +
             "ORDER BY " +
             "rand() " +
             "limit 10")
-    List<VideoMainDto.VideoMain> mainVideo();
+    List<VideoMain> mainVideo();
 }

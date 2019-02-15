@@ -42,13 +42,13 @@ public class ReceiveAddressInput {
     @ApiModelProperty(value = "详细地址")
     private String receiverAddress;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "邮政编码")
     private String receiverZip;
 
-    @ApiModelProperty(value = "城市的编号")
+    @ApiModelProperty(value = "城市的编号,最后一级id")
     private long cityId;
 
-    @ApiModelProperty(value = "城市的等级")
+    @ApiModelProperty(value = "城市的等级,所有地址Id以逗号拼接")
     private String cityLevel;
 
     @ApiModelProperty(value = "是否为默认地址")

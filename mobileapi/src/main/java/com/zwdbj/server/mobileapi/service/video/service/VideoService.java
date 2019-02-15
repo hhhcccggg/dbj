@@ -37,6 +37,9 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
+import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
+import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -48,6 +51,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -820,9 +824,10 @@ public class VideoService {
 //            RestHighLevelClient restHighLevelClient =  new RestHighLevelClient(
 //                    RestClient.builder(new HttpHost("127.0.0.1",9200,"http")).setMaxRetryTimeoutMillis(60000));
 //            CreateIndexRequest createIndexRequest = new
+            //createEs();
             //TODO 测试数据
-            List<VideoMainDto.VideoMain> list = videoMapper.mainVideo();
-            for (VideoMainDto.VideoMain videoMain: list) {
+            List<VideoMain> list = videoMapper.mainVideo();
+            for (VideoMain videoMain: list) {
                 UserModel userModel = userService.findUserById(videoMain.getUserId());
                 if(userModel != null ){
                     videoMain.setAvatarUrl(userModel.getAvatarUrl());
@@ -845,30 +850,75 @@ public class VideoService {
         return this.videoMapper.userVideosNum(userId);
     }
 
-    private void createEs(){
+    private void createEs() throws IOException {
+        GetIndexRequest getIndexRequest = new GetIndexRequest();
+        getIndexRequest.indices("video");
+        getIndexRequest.local(false);
+        getIndexRequest.humanReadable(true);
+        if(restHighLevelClient.indices().exists(getIndexRequest,RequestOptions.DEFAULT)){
+            return ;
+        }
         CreateIndexRequest createIndexRequest = new CreateIndexRequest();
         createIndexRequest.index("video");
-        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> mapping = new HashMap<>();
         Map<String,Object> properties = new HashMap<>();
 
         Map<String,Object> longt = new HashMap<>();
         longt.put("type","long");
 
+        Map<String,Object> booleant = new HashMap<>();
+        booleant.put("type","boolean");
+
         Map<String,Object> text = new HashMap<>();
         text.put("type","text");
+
+        Map<String,Object> date = new HashMap<>();
+        date.put("type","date");
+        date.put("format","yyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis");
+
+        Map<String,Object> geo_point = new HashMap<>();
+        geo_point.put("type","geo_point");
 
         Map<String,Object> ik_max_word = new HashMap<>();
         ik_max_word.put("type","text");
         ik_max_word.put("analyzer","ik_max_word");
 
-        properties.put("videoUrl",text);
-        properties.put("title",text);
+        properties.put("id",longt);
+        properties.put("createTime",date);
+        properties.put("title",ik_max_word);
         properties.put("coverImageUrl",text);
         properties.put("coverImageWidth",text);
         properties.put("coverImageHeight",text);
-        properties.put("tags",text);
-        properties.put("userId",text);
-        createIndexRequest.mapping("",map);
+        properties.put("firstFrameUrl",text);
+        properties.put("firstFrameWidth",text);
+        properties.put("firstFrameHeight",text);
+        properties.put("videoUrl",text);
+        properties.put("linkPets",text);
+        properties.put("tags",ik_max_word);
+        properties.put("longitude",text);
+        properties.put("latitude",text);
+        properties.put("location",geo_point);
+        properties.put("address",text);
+        properties.put("isHiddenLocation",booleant);
+        properties.put("status",longt);
+        properties.put("rejectMsg",text);
+        properties.put("reviewUserId",text);
+        properties.put("reviewTime",date);
+        properties.put("recommendIndex",longt);
+        properties.put("isManualRecommend",booleant);
+        properties.put("playCount",longt);
+        properties.put("commentCount",longt);
+        properties.put("heartCount",longt);
+        properties.put("shareCount",longt);
+        properties.put("userId",longt);
+        properties.put("musicId",longt);
+        properties.put("linkProductCount",longt);
+        properties.put("complainCount",longt);
+        properties.put("tipCount",longt);
+        properties.put("type",text);
+        mapping.put("properties",properties);
+        createIndexRequest.mapping("doc",mapping);
+        restHighLevelClient.indices().create(createIndexRequest,RequestOptions.DEFAULT);
     }
 
 }
