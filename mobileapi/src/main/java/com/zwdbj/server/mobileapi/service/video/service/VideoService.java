@@ -818,4 +818,8 @@ public class VideoService {
         }
     }
 
+    public int userVideosNum(long userId){
+        return this.videoMapper.userVideosNum(userId);
+    }
+
 }

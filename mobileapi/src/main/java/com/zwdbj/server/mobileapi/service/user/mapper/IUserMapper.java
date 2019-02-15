@@ -125,4 +125,8 @@ public interface IUserMapper {
 
     @Update("update core_users set `recommendUserId`=#{recommendUserId} where id=#{userId} and recommendUserId is null")
     long updaterRecommendUserId(@Param("userId")long userId,@Param("recommendUserId") long recommendUserId);
+
+    //附近的用户
+    @SelectProvider(type = UserSqlProvider.class, method = "nearby")
+    List<UserOnNearbyDto> nearUsers(@Param("longitude") double longitude, @Param("latitude") double latitude, @Param("distance") float distance);
 }
