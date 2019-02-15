@@ -39,6 +39,10 @@ public class ReceiveAddressInput {
     private String receiverCountry;
 
     @NotNull
+    @ApiModelProperty(value = "收货人地址的街,道")
+    private String receiverStreet;
+
+    @NotNull
     @ApiModelProperty(value = "详细地址")
     private String receiverAddress;
 
@@ -53,6 +57,14 @@ public class ReceiveAddressInput {
 
     @ApiModelProperty(value = "是否为默认地址")
     private boolean defaultAddr;
+
+    public String getReceiverStreet() {
+        return receiverStreet;
+    }
+
+    public void setReceiverStreet(String receiverStreet) {
+        this.receiverStreet = receiverStreet;
+    }
 
     public long getId() {
         return id;
