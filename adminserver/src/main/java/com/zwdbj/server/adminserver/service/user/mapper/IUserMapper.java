@@ -19,7 +19,7 @@ public interface IUserMapper {
 
     @Select("select u.*,ur.roleName FROM core_users u INNER JOIN core_userRoles ur ON ur.userId=u.id where username=#{username} and password=#{password}")
     UserModel findUserByUserPwd(@Param("username") String username, @Param("password") String password);
-    @Select("select * FROM core_users where phone=#{phone} and password=#{password}")
+    @Select("select u.*,ur.roleName FROM core_users u INNER JOIN core_userRoles ur ON ur.userId=u.id where u.phone=#{phone} and u.password=#{password}")
     UserModel findUserByPhonePwd(@Param("phone") String username, @Param("password") String password);
     @Select("SELECT *, (select count(*) from core_pets as pet where pet.userId = u.id) as petCount," +
             "(select count(*) from core_videos as vd where vd.userId = u.id) as videoCount," +
@@ -53,8 +53,8 @@ public interface IUserMapper {
                    "values(#{userId},#{input.userName},#{input.userName},#{input.phone}," +
                    "'http://res.pet.zwdbj.com/default_avatar.png',false,true,#{input.gender})")
     Long newMarketAd(@Param("userId") Long userId,@Param("input") AdNewMarketInput input);
-    @Insert("insert into core_userRoles(id,userId,roleName) values(#{id},#{userId},'market')")
-    Long insertUserRole(@Param("id") Long id,@Param("userId") Long userId);
+    @Insert("insert into core_userRoles(id,userId,roleName,tenantId) values(#{id},#{userId},#{roleName},#{tenantId})")
+    Long insertUserRole(@Param("id") Long id,@Param("userId") Long userId,@Param("roleName")String roleName,@Param("tenantId")long tenantId);
 
     @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager) " +
             "values(#{id},'00000000000','admin','admin','http://res.pet.zwdbj.com/default_avatar.png',true,#{password},true)")
@@ -98,6 +98,11 @@ public interface IUserMapper {
     int updateUserTanById(@Param("id")long id,@Param("tenantId")long tenantId,@Param("isSuper")boolean isSuper);
     @Select("select nickName from core_users where id=#{id}")
     String getNickNameById(@Param("id")long id);
+
+    @Select("select count(id) from core_userRoles where userId=#{userId} and roleName=#{roleName}")
+    int findUserRole(@Param("userId")long userId,@Param("roleName")String roleName);
+    @Update("update core_userRoles set tenantId=#{tenantId} where userId=#{userId} and roleName=#{roleName}")
+    int updateUserRole(@Param("userId")long userId,@Param("roleName")String roleName,@Param("tenantId")long tenantId);
 
     //用户认证
     @Update("update core_users set isLivingOpen=#{input.isOpen},isReviewed=#{input.isOpen},isLivingWatch=#{input.isOpen} where id=#{input.id}")

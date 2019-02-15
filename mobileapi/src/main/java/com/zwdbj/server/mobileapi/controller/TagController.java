@@ -56,6 +56,12 @@ public class TagController {
         TagDetailDto tagDetailDto = this.tagService.tagDetail(name);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",tagDetailDto);
     }
+    @RequestMapping(value = "/todayTag",method = RequestMethod.GET)
+    @ApiOperation(value = "今日主题")
+    public ResponseData<TagDetailDto> todayTag(){
+        TagDetailDto tagDetailDto = this.tagService.todayTag();
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",tagDetailDto);
+    }
 
 
 }

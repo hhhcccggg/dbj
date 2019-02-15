@@ -137,14 +137,25 @@ public class UserService {
     public int greateUserByTenant (String nickName,String phone,long tenantId,boolean isSuper){
         try {
             long result = this.userMapper.phoneIsExist(phone);
+            long rId =  UniqueIDCreater.generateID();
             if (result==0){
                 long id = UniqueIDCreater.generateID();
                 String username = UniqueIDCreater.generateUserName();
                 String password = SHAEncrypt.encryptSHA(phone.substring(8)+"123456");
-                return this.userMapper.greateUserByTenant(id,username,password,nickName,phone,tenantId,isSuper);
+                int a = this.userMapper.greateUserByTenant(id,username,password,nickName,phone,tenantId,isSuper);
+                this.userMapper.insertUserRole(rId, id,"shopUser",tenantId);
+                return a;
             }else {
                 UserModel u = this.userMapper.findUserByPhone(phone);
-                return this.userMapper.updateUserTanById(u.getId(),tenantId,isSuper);
+                int b = this.userMapper.updateUserTanById(u.getId(),tenantId,isSuper);
+                int c = this.userMapper.findUserRole(u.getId(),"shopUser");
+                if (c==0){
+                    this.userMapper.insertUserRole(rId, u.getId(),"shopUser",tenantId);
+                }else {
+                    this.userMapper.updateUserRole(u.getId(),"shopUser",tenantId);
+                }
+
+                return b;
             }
 
         }catch (Exception e){
@@ -153,8 +164,11 @@ public class UserService {
 
 
     }
-    public int modifyUserByTenantId(long tenantId){
-        return this.userMapper.modifyUserByTenantId(tenantId);
+    public int modifyUserByTenantId(String phone,long tenantId){
+        int a = this.userMapper.modifyUserByTenantId(tenantId);
+        UserModel userModel= this.userMapper.findUserByPhone(phone);
+        this.userMapper.updateUserRole(userModel.getId(),"shopUser",0L);
+        return a;
     }
 
 
@@ -166,7 +180,7 @@ public class UserService {
         Long result = 0L;
         try {
             result = this.userMapper.newMarketAd(userId, input);
-            Long roleResult = this.userMapper.insertUserRole(id, userId);
+            Long roleResult = this.userMapper.insertUserRole(id, userId,"market",0L);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "创建失败" + e.getMessage(), result);
@@ -393,6 +407,7 @@ public class UserService {
             infoDto.setId(userModel.getId());
             infoDto.setPhone(userModel.getPhone());
             infoDto.setUsername(userModel.getUsername());
+            infoDto.setRoleName(userModel.getRoleName());
             this.tokenCenterManager.fetchToken(String.valueOf(userModel.getId()), iAuthUserManagerImpl);
             return new ServiceStatusInfo<>(0, "登录成功", infoDto);
         } else {
