@@ -13,7 +13,7 @@ namespace dbdesgin.Models
         public string name { get; set; }
         // 父节点,默认传0
         public long parentId { get; set; }
-        // 0:宠物分类
+        // 0:宠物分类，1：线下商家服务分类2：商城产品分类
         public int type { get; set; }
         // 分类创建者，如果是系统内置分类，此字段保持为null
         public long? userId { get; set; }
