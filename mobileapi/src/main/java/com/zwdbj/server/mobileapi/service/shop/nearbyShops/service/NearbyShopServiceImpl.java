@@ -49,9 +49,8 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 String str = valueOperations.get("shopInfo" + storeId);
                 ShopInfo shopInfo = JSON.parseObject(str, new TypeReference<ShopInfo>() {
                 });
-                System.out.println("有缓存---shopInfo" + storeId);
-                System.out.println(str);
-                System.out.println(shopInfo);
+               logger.info("有缓存---shopInfo" + storeId);
+                logger.info(str);
 
                 return new ServiceStatusInfo<>(0, "", shopInfo);
             }
@@ -68,8 +67,8 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
             List<OpeningHours> openingHours = this.nearbyShopsMapper.searchOpeningHours(storeId);
             result.setOpeningHours(openingHours);
-            System.out.println("无缓存---shopInfo" + storeId);
-            System.out.println(valueOperations.get("shopInfo" + storeId));
+            logger.info("无缓存---shopInfo" + storeId);
+            logger.info(valueOperations.get("shopInfo" + storeId));
 //            redisTemplate.expire("shopInfo" + String.valueOf(storeId), 30, TimeUnit.MINUTES);
             if (result != null) {
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(result));
@@ -112,7 +111,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 String str = valueOperations.get("nearbyShopList---pageNo" + pageNo);
                 List<NearbyShop> list = JSON.parseObject(str, new TypeReference<List<NearbyShop>>() {
                 });
-                System.out.println("从缓存中拉取商家列表");
+                logger.info("从缓存中拉取商家列表");
                 return new ServiceStatusInfo<>(0, "", list);
             }
             List<NearbyShop> result = this.nearbyShopsMapper.nearbyShopList();
@@ -120,7 +119,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 valueOperations.set("nearbyShopList---pageNo" + pageNo, JSONArray.toJSONString(result));
 
             }
-            System.out.println("从数据库中拉取商家列表");
+            logger.info("从数据库中拉取商家列表");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "拉取附近商家列表失败" + e.getMessage(), null);
@@ -209,12 +208,6 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             return new ServiceStatusInfo<>(1, "搜索失败" + searchResponse.status().getStatus(), null);
         } catch (IOException e) {
             return new ServiceStatusInfo<>(1, "搜索商家失败" + e.getMessage(), null);
-        } finally {
-            try {
-                restHighLevelClient.close();
-            } catch (IOException e) {
-                logger.info(e.getMessage());
-            }
         }
     }
 

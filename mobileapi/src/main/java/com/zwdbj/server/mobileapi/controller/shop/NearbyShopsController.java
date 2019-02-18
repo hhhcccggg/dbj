@@ -48,13 +48,17 @@ public class NearbyShopsController {
                                                              @RequestBody SearchInfo searchInfo
     ) {
         ServiceStatusInfo<List<SearchShop>> statusInfo = this.nearbyShopServiceImpl.searchShop(page, rows, searchInfo);
+        if (statusInfo.isSuccess()) {
+            return new ResponsePageInfoData<>(0, statusInfo.getMsg(), statusInfo.getData(), statusInfo.getData().size());
+        }
+        return new ResponsePageInfoData<>(1, statusInfo.getMsg(), null, 0);
 
-        return new ResponsePageInfoData<>(0, statusInfo.getMsg(), statusInfo.getData(), statusInfo.getData().size());
 
     }
+
     @ApiOperation(value = "根据优惠券的id查询此优惠券的详情")
-    @RequestMapping(value = "/getDetail/discount/{id}",method = RequestMethod.GET)
-    public ResponseData<DiscountCouponDetail> getDiscountById(@PathVariable long id){
+    @RequestMapping(value = "/getDetail/discount/{id}", method = RequestMethod.GET)
+    public ResponseData<DiscountCouponDetail> getDiscountById(@PathVariable long id) {
         ServiceStatusInfo<DiscountCouponDetail> statusInfo = this.nearbyShopServiceImpl.searchDiscountCouponDetail(id);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
@@ -63,13 +67,13 @@ public class NearbyShopsController {
     }
 
     @ApiOperation(value = "查询附近的优惠券")
-    @RequestMapping(value = "/nearby/discount/{longitude}/{latitude}",method = RequestMethod.GET)
+    @RequestMapping(value = "/nearby/discount/{longitude}/{latitude}", method = RequestMethod.GET)
     public ResponsePageInfoData<List<DiscountCoupon>> getNearByDiscount(@PathVariable double longitude,
-                                                                              @PathVariable double latitude,
-                                                                              @RequestParam(value = "page", required = true, defaultValue = "1") int pageNo,
-                                                                              @RequestParam(value = "rows", required = true, defaultValue = "10") int rows){
-        Page<DiscountCoupon> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<DiscountCoupon> discountCouponDetails = this.nearbyShopServiceImpl.getNearByDiscount(longitude,latitude);
+                                                                        @PathVariable double latitude,
+                                                                        @RequestParam(value = "page", required = true, defaultValue = "1") int pageNo,
+                                                                        @RequestParam(value = "rows", required = true, defaultValue = "10") int rows) {
+        Page<DiscountCoupon> pageInfo = PageHelper.startPage(pageNo, rows);
+        List<DiscountCoupon> discountCouponDetails = this.nearbyShopServiceImpl.getNearByDiscount(longitude, latitude);
         return new ResponsePageInfoData<>(0, "", discountCouponDetails, pageInfo.getTotal());
     }
 }
