@@ -58,7 +58,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             ShopInfo result = nearbyShopsMapper.searchShopsById(storeId);
 
             List<DiscountCoupon> discountCoupons = this.nearbyShopsMapper.searchDiscountCoupon(storeId);
-            result.setDiscountCoupons(discountCoupons);
+            result.setProducts(discountCoupons);
 
             List<StoreServiceCategory> serviceScopes = this.nearbyShopsMapper.searchServiceScopes(storeId);
             result.setServiceScopes(serviceScopes);
