@@ -28,6 +28,15 @@ public interface IProductMapper {
     ProductlShow selectByIdByStoreId(@Param("id") long id, @Param("storeId") long storeId);
 
     /**
+     * 根据storeId查询数据
+     * @param storeId
+     * @return
+     */
+    @Select("SELECT  * from shop_products " +
+            "where publish=1 and isDeleted=0 and storeId=#{storeId}")
+    List<ProductlShow> selectByStoreId(@Param("storeId") long storeId);
+
+    /**
      * 根据id查询数据
      * @param id
      * @return

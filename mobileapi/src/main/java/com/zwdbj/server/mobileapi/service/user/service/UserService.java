@@ -6,6 +6,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobUser;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.favorite.service.FavoriteService;
@@ -45,6 +46,7 @@ import com.zwdbj.server.mobileapi.service.user.mapper.IUserMapper;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -828,6 +830,11 @@ public class UserService {
         }
         return userOnNearbyDtos;
 
+    }
+
+    public List<Map<String,String>> pageSelectAll(int page,int row){
+        PageHelper.startPage(page,row);
+        return userMapper.pageSelectAll();
     }
 
 }
