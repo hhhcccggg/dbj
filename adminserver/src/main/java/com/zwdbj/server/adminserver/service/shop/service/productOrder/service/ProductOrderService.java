@@ -83,6 +83,25 @@ public class ProductOrderService {
         }
     }
 
+    /**
+     * 用户确认收货
+     * @param orderId
+     * @param userId
+     * @return
+     */
+    public ServiceStatusInfo<Integer> deliverOrderByUser(long orderId,long userId){
+        try {
+            long userId2 = JWTUtil.getCurrentId();
+            if (userId2<=0)return new ServiceStatusInfo<>(1,"请重新登录",null);
+            if (userId!=userId2)return new ServiceStatusInfo<>(1,"账号有误",null);
+            int result = this.productOrderMapper.deliverOrderByUser(orderId,userId2);
+            if (result==0)return new ServiceStatusInfo<>(1,"收货失败",0);
+            return  new ServiceStatusInfo<>(0,"",result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"收货失败:"+e.getMessage(),0);
+        }
+    }
+
     @Transactional
     public  ServiceStatusInfo<Integer> identifyingCode(long orderId, IdentifyCodeInput input){
         try {

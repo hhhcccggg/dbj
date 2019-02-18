@@ -6,6 +6,8 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductS
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.OrderOut;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
@@ -24,6 +26,8 @@ public class ProductOrderService {
     private UserAssetServiceImpl userAssetServiceImpl;
     @Autowired
     private ProductService productServiceImpl;
+    @Autowired
+    private ProductSKUsService productSKUsServiceImpl;
 
 
     @Transactional
@@ -35,6 +39,9 @@ public class ProductOrderService {
             if (lock.lock(true, 500L, 2)) {
                 // TODO 考虑加锁
                 long userId = JWTUtil.getCurrentId();
+                //查看此商品的sku信息
+                ProductSKUs productSKUs =  this.productSKUsServiceImpl.selectById(input.getProductskuId()).getData();
+                if (productSKUs==null)return new ServiceStatusInfo<>(1, "兑换失败", 0);
 
                 //如果有限购，则要查看订单表，看兑换次数是否已经用完
                 if (input.getLimitPerPerson() != 0) {
@@ -55,21 +62,21 @@ public class ProductOrderService {
                 this.userAssetServiceImpl.userIsExist(userId);
                 //用户小饼干总数
                 long counts = userAssetServiceImpl.getCoinsByUserId().getData();
-                if (counts < 0 || counts < input.getUseCoin()) {
+                if (counts < 0 || counts < input.getUseCoin() || counts<productSKUs.getPromotionPrice()/10) {
                     return new ServiceStatusInfo<>(1, "您的小饼干不足，请获取足够的小饼干", null);
                 }
                 //创建order
-                int payment = input.getUseCoin() * 10;
+                int payment = (int)productSKUs.getPromotionPrice();
                 this.productOrderMapper.createOrder(orderId, userId, input, payment);
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();
-                int price = input.getPrice_coin() * 10;
+                int price = (int)productSKUs.getPromotionPrice();
                 int totalFee = price * input.getNum();
                 this.productOrderMapper.createOrderItem(orderItemId, orderId, input, price, totalFee);
                 // 减去商品和sku的库存并更新销量
                 this.productServiceImpl.updateProductNum(input.getProductId(), input.getProductskuId(), input.getNum());
                 //兑换后减去用户所需的小饼干
-                boolean flag = this.userAssetServiceImpl.minusUserCoins(input.getUseCoin(), userId, orderId);
+                boolean flag = this.userAssetServiceImpl.minusUserCoins(totalFee/10, userId, orderId);
                 if (!flag) return new ServiceStatusInfo<>(1, "兑换失败", 0);
                 return new ServiceStatusInfo<>(0, "兑换成功", 1);
             }

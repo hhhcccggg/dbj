@@ -62,6 +62,16 @@ public class ProductOrderController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
+    @RequestMapping(value = "/user/deliver/{orderId}/{userId}", method = RequestMethod.POST)
+    @ApiOperation(value = "用户确认收货,orderId为订单id,userId为用户id")
+    public ResponseData<Integer> deliverOrderByUser(@PathVariable long orderId,
+                                                    @PathVariable long userId){
+        ServiceStatusInfo<Integer> statusInfo = this.productOrderService.deliverOrderByUser(orderId,userId);
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
     @RequestMapping(value = "/identifyingCode/{orderId}", method = RequestMethod.POST)
     @ApiOperation(value = "验证消费码")
     public ResponseData<Integer> identifyingCode(@PathVariable long orderId,
