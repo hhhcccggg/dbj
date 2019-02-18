@@ -167,7 +167,13 @@ public class UserService {
     public int modifyUserByTenantId(String phone,long tenantId){
         int a = this.userMapper.modifyUserByTenantId(tenantId);
         UserModel userModel= this.userMapper.findUserByPhone(phone);
-        this.userMapper.updateUserRole(userModel.getId(),"shopUser",0L);
+        this.userMapper.updateUserRole(userModel.getId(),"shopUser",tenantId);
+        return a;
+    }
+    public int delUserByTenantId(String phone,long tenantId){
+        int a = this.userMapper.modifyUserByTenantId(tenantId);
+        UserModel userModel= this.userMapper.findUserByPhone(phone);
+        this.userMapper.deleteUserRole(userModel.getId(),"shopUser",tenantId);
         return a;
     }
 

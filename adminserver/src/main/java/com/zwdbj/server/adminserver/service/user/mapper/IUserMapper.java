@@ -103,6 +103,8 @@ public interface IUserMapper {
     int findUserRole(@Param("userId")long userId,@Param("roleName")String roleName);
     @Update("update core_userRoles set tenantId=#{tenantId} where userId=#{userId} and roleName=#{roleName}")
     int updateUserRole(@Param("userId")long userId,@Param("roleName")String roleName,@Param("tenantId")long tenantId);
+    @Delete("delete from core_userRoles where userId=#{userId} and roleName=#{roleName} and tenantId=#{tenantId}")
+    int deleteUserRole(@Param("userId")long userId,@Param("roleName")String roleName,@Param("tenantId")long tenantId);
 
     //用户认证
     @Update("update core_users set isLivingOpen=#{input.isOpen},isReviewed=#{input.isOpen},isLivingWatch=#{input.isOpen} where id=#{input.id}")
