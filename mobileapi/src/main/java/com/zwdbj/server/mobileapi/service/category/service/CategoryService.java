@@ -43,5 +43,14 @@ public class CategoryService {
     }
 
 
+    public ServiceStatusInfo<List<CategoryRecommendDto>> categoryRecommends(){
+        try {
+            List<CategoryRecommendDto> categoryRecommendDtos = this.categoryMapper.categoryRecommends();
+            return new ServiceStatusInfo<>(0,"",categoryRecommendDtos);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,e.getMessage(),null);
+        }
+    }
+
 
 }

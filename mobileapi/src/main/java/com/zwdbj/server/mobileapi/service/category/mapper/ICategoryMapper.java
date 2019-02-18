@@ -25,4 +25,7 @@ public interface ICategoryMapper {
             "</if>" +
             "</script>")
     List<CategoryMainDto> mainSelect(@Param("parentId") long parentId);
+
+    @Select("select id,name from core_categories where isDeleted=0 and status=0 and `type`=1 and parentId=0")
+    List<CategoryRecommendDto> categoryRecommends();
 }
