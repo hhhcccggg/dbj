@@ -127,7 +127,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
     }
 
     @Override
-    public ServiceStatusInfo<List<SearchShop>> searchShop(int page, int rows, SearchInfo info) {
+    public ServiceStatusInfo<List<SearchShop>> searchShop(int pageNo, int rows, SearchInfo info) {
 
 
         try {
@@ -137,7 +137,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             if ("all".equals(info.getFilter())) {
                 if (info.getSearch() == null || "".equals(info.getSearch())) {
                     matchQuery = QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                            .distance(10, DistanceUnit.KILOMETERS);
+                            .distance(50, DistanceUnit.KILOMETERS);
 
                 } else {
                     matchQuery = QueryBuilders.boolQuery().should(new MultiMatchQueryBuilder(info.getSearch(),
@@ -147,7 +147,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                                     "address")
 //                            .fuzziness(Fuzziness.AUTO)//模糊匹配
                     ).filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                            .distance(10, DistanceUnit.KILOMETERS)
+                            .distance(50, DistanceUnit.KILOMETERS)
                     );
                 }
             } else {
@@ -155,7 +155,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                     matchQuery = QueryBuilders.boolQuery()
                             .should(new MatchQueryBuilder("name", info.getFilter()))
                             .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                                    .distance(10, DistanceUnit.KILOMETERS)
+                                    .distance(50, DistanceUnit.KILOMETERS)
                             );
                 } else {
                     matchQuery = QueryBuilders.boolQuery()
@@ -167,7 +167,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                                     "address"))
 //                                    .fuzziness(Fuzziness.AUTO))//多字段查询
                             .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                                    .distance(10, DistanceUnit.KILOMETERS)
+                                    .distance(50, DistanceUnit.KILOMETERS)
                             );
                 }
             }
@@ -181,7 +181,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             }
 
             searchSourceBuilder.query(matchQuery);
-            searchSourceBuilder.size(rows).from((page - 1) * rows);//分页
+            searchSourceBuilder.size(rows).from((pageNo - 1) * rows);//分页
             searchRequest.source(searchSourceBuilder);
 
             List<SearchShop> result = new ArrayList<>();
@@ -193,7 +193,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 if (hits.length == 0 || hits == null) {
                     return new ServiceStatusInfo<>(1, "没有符合条件的商家", null);
                 }
-                logger.info("当前是第" + page + "页");
+                logger.info("当前是第" + pageNo + "页");
                 for (SearchHit searchHit : hits) {
                     logger.info(searchHit.getId());
                     SearchShop nearbyShop = JSON.parseObject(searchHit.getSourceAsString(), new TypeReference<SearchShop>() {
