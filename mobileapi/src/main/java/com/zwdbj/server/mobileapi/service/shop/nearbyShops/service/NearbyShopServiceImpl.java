@@ -127,7 +127,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
     }
 
     @Override
-    public ServiceStatusInfo<List<SearchShop>> searchShop(int pageNo, int rows, SearchInfo info) {
+    public ServiceStatusInfo<List<SearchShop>> searchShop(SearchInfo info) {
 
 
         try {
@@ -181,7 +181,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             }
 
             searchSourceBuilder.query(matchQuery);
-            searchSourceBuilder.size(rows).from((pageNo - 1) * rows);//分页
+            searchSourceBuilder.size(info.getRows()).from((info.getPageNo() - 1) * info.getRows());//分页
             searchRequest.source(searchSourceBuilder);
 
             List<SearchShop> result = new ArrayList<>();
@@ -193,7 +193,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 if (hits.length == 0 || hits == null) {
                     return new ServiceStatusInfo<>(0, "没有符合条件的商家", result);
                 }
-                logger.info("当前是第" + pageNo + "页");
+                logger.info("当前是第" + info.getPageNo() + "页");
                 for (SearchHit searchHit : hits) {
                     logger.info(searchHit.getId());
                     SearchShop nearbyShop = JSON.parseObject(searchHit.getSourceAsString(), new TypeReference<SearchShop>() {
