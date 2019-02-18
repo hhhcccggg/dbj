@@ -9,7 +9,6 @@ import com.zwdbj.server.utility.model.ResponsePageInfoData;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +22,7 @@ public class NearbyShopsController {
     private NearbyShopService nearbyShopServiceImpl;
 
     @ApiOperation(value = "商家首页")
-    @RequestMapping(value = "/shopHomePage{storeId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/shopHomePage/{storeId}", method = RequestMethod.GET)
     public ResponseData<ShopInfo> shopHomePage(@PathVariable("storeId") long storeId) {
         ServiceStatusInfo<ShopInfo> statusInfo = nearbyShopServiceImpl.shopHomePage(storeId);
         if (statusInfo.isSuccess()) {
