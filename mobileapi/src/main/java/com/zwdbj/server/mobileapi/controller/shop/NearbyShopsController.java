@@ -43,11 +43,8 @@ public class NearbyShopsController {
 
     @ApiOperation(value = "搜索商家")
     @RequestMapping(value = "/searchShop", method = RequestMethod.POST)
-    public ResponsePageInfoData<List<SearchShop>> searchShop(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
-                                                             @RequestParam(value = "rows", required = true, defaultValue = "10") int rows,
-                                                             @RequestBody SearchInfo searchInfo
-    ) {
-        ServiceStatusInfo<List<SearchShop>> statusInfo = this.nearbyShopServiceImpl.searchShop(pageNo, rows, searchInfo);
+    public ResponsePageInfoData<List<SearchShop>> searchShop(@RequestBody SearchInfo searchInfo) {
+        ServiceStatusInfo<List<SearchShop>> statusInfo = this.nearbyShopServiceImpl.searchShop(searchInfo);
         if (statusInfo.isSuccess()) {
             return new ResponsePageInfoData<>(0, statusInfo.getMsg(), statusInfo.getData(), statusInfo.getData().size());
         }

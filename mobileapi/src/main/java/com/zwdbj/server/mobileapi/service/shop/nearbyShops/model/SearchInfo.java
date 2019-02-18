@@ -5,6 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "搜索条件")
 public class SearchInfo {
+    @ApiModelProperty("起始页")
+    int pageNo;
+    @ApiModelProperty("行数")
+    int rows;
     @ApiModelProperty(value = "搜索内容 可以为空")
     String search;
     @ApiModelProperty(value = "过滤 默认为all")
@@ -15,6 +19,22 @@ public class SearchInfo {
     double lat;
     @ApiModelProperty(value = "经度")
     double lon;
+
+    public int getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(int pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
 
     public String getSearch() {
         return search;
