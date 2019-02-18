@@ -84,6 +84,27 @@ public class ProductServiceImpl implements  ProductService{
     }
 
     @Override
+    public ServiceStatusInfo<List<ProductlShow>> selectByStoreId(long storeId) {
+        try{
+            List<ProductlShow> productlShowList = this.iProductMapper.selectByStoreId(storeId);
+            for (ProductlShow productlShow: productlShowList) {
+                ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(productlShow.getId());
+                if(!serviceStatusInfo.isSuccess()){
+                    continue;
+                }
+                ProductSKUs productSKUs = serviceStatusInfo.getData();
+                productlShow.setProductSKUId(productSKUs.getId());
+                productlShow.setPromotionPrice(productSKUs.getPromotionPrice());
+                productlShow.setInventory(productSKUs.getInventory());
+                productlShow.setOriginalPrice(productSKUs.getOriginalPrice());
+            }
+            return new ServiceStatusInfo<>(0,"",productlShowList);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+        }
+    }
+
+    @Override
     public ServiceStatusInfo<ProductOut> selectById(long id) {
         try{
             ProductOut productOut = iProductMapper.selectById(id);

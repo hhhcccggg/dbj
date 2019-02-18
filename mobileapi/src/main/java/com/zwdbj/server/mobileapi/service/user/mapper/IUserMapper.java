@@ -4,6 +4,7 @@ import com.zwdbj.server.mobileapi.service.user.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface IUserMapper {
@@ -129,4 +130,7 @@ public interface IUserMapper {
     //附近的用户
     @SelectProvider(type = UserSqlProvider.class, method = "nearby")
     List<UserOnNearbyDto> nearUsers(@Param("longitude") double longitude, @Param("latitude") double latitude, @Param("distance") float distance);
+
+    @Select("select * from core_users")
+    List<Map<String,String>> pageSelectAll();
 }
