@@ -31,6 +31,8 @@ public class NearbyShop implements Serializable {
     @ApiModelProperty(value = "cityLevel")
     private String cityLevel;
 
+
+
     public float getLongitude() {
         return longitude;
     }
