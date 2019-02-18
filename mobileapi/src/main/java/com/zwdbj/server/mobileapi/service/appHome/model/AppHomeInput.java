@@ -9,7 +9,7 @@ import java.io.Serializable;
 @ApiModel(description = "APP首页相关")
 public class AppHomeInput implements Serializable {
     @ApiModelProperty(value = "城市id")
-    private int citrId;
+    private int cityId;
     @ApiModelProperty(value = "城市名称")
     private String cityName;
     @ApiModelProperty(value = "经度")
@@ -23,12 +23,12 @@ public class AppHomeInput implements Serializable {
     @ApiModelProperty(value = "优惠折扣的banner输入字段")
     private AdBannerInput adBannerInput3;
 
-    public int getCitrId() {
-        return citrId;
+    public int getCityId() {
+        return cityId;
     }
 
-    public void setCitrId(int citrId) {
-        this.citrId = citrId;
+    public void setCityId(int citrId) {
+        this.cityId = citrId;
     }
 
     public String getCityName() {
