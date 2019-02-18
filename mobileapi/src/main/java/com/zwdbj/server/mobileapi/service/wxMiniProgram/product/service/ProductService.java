@@ -25,6 +25,13 @@ public interface ProductService {
     ServiceStatusInfo<ProductlShow> selectByIdByStoreId(long id, long storeId);
 
     /**
+     * 根据storeId商品
+     * @param id
+     * @return
+     */
+    ServiceStatusInfo< List<ProductlShow>> selectByStoreId(long storeId);
+
+    /**
      * 查询单个商品
      * @param id
      * @return
