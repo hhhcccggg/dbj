@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface NearbyShopsMapper {
-    @Select("select id,name,logoUrl,grade,subName,address,contact,mainConverImage,coverImages,legalSubjectId from shop_stores where id=#{storeId}")
+    @Select("select id,name,logoUrl,grade,subName,address,contactPhone,mainConverImage,coverImages,legalSubjectId from shop_stores where id=#{storeId}")
     ShopInfo searchShopsById(@Param("storeId") long storeId);
 
     @Select("select c.id,c.name from core_categories as c,o2o_offlineStoreServiceScopes as o where " +
