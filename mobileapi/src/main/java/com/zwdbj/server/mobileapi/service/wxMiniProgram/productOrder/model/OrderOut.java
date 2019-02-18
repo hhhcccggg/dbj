@@ -8,11 +8,14 @@ import java.util.Date;
 @ApiModel(description = "我的兑换")
 public class OrderOut {
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "订单编号")
     private long orderNo;
 
     @ApiModelProperty(value = "商品ID")
     private long productId;
+
+    @ApiModelProperty(value = "商品productskuId")
+    private long productskuId;
 
     @ApiModelProperty(value = "商品标题")
     private String title;
@@ -51,6 +54,9 @@ public class OrderOut {
     @ApiModelProperty(value = "区县")
     private String receiverCountry;
 
+    @ApiModelProperty(value = "街道")
+    private String receiverStreet;
+
     @ApiModelProperty(value = "联系地址")
     private String receiverAddress;
 
@@ -59,6 +65,29 @@ public class OrderOut {
 
     @ApiModelProperty(value = "订单创建时间")
     private Date createTime;
+
+    @ApiModelProperty(value = "省市区详细地址")
+    private String detailedly;
+
+    public String getDetailedly() {
+        return reveiverState+receiverCity+receiverCountry+detailedly+receiverAddress;
+    }
+
+    public long getProductskuId() {
+        return productskuId;
+    }
+
+    public void setProductskuId(long productskuId) {
+        this.productskuId = productskuId;
+    }
+
+    public String getReceiverStreet() {
+        return receiverStreet;
+    }
+
+    public void setReceiverStreet(String receiverStreet) {
+        this.receiverStreet = receiverStreet;
+    }
 
     public long getOrderNo() {
         return orderNo;
