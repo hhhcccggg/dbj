@@ -44,10 +44,6 @@ public class AddOrderInput {
     @ApiModelProperty(value = "购买的商品数量")
     private int num;
 
-    @NotNull
-    @Min(value = 1)
-    @ApiModelProperty(value = "购买的商品单价（小饼干）")
-    private int price_coin;
     @NotNull(message = "商品标题不能为空")
     @ApiModelProperty(value = "商品标题")
     private String title;
@@ -132,11 +128,4 @@ public class AddOrderInput {
         this.num = num;
     }
 
-    public int getPrice_coin() {
-        return price_coin;
-    }
-
-    public void setPrice_coin(int price_coin) {
-        this.price_coin = price_coin;
-    }
 }

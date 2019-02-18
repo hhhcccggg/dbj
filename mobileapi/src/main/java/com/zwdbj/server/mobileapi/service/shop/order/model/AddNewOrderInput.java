@@ -39,9 +39,6 @@ public class AddNewOrderInput {
     @ApiModelProperty(value = "优惠的金额")
     private int coupon;
 
-    @Min(value = 1)
-    @ApiModelProperty(value = "购买的商品单价")
-    private int price;
     @ApiModelProperty(value = "商品标题")
     private String title;
     @ApiModelProperty(value = "优惠券id")
@@ -133,14 +130,6 @@ public class AddNewOrderInput {
 
     public void setNum(int num) {
         this.num = num;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public String getTitle() {

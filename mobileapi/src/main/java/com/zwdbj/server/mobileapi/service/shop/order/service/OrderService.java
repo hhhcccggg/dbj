@@ -9,6 +9,8 @@ import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.service.ReceiveAddressService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.service.UserDiscountCouponService;
@@ -47,6 +49,8 @@ public class OrderService {
     private ISettlement settlement;
     @Autowired
     private UserDiscountCouponService userDiscountCouponServiceImpl;
+    @Autowired
+    private ProductSKUsService productSKUsServiceImpl;
     private Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     public List<ProductOrderModel> getMyOrders(int status){
@@ -91,6 +95,9 @@ public class OrderService {
                 // TODO 考虑加锁
                 long userId = JWTUtil.getCurrentId();
                 //如果有限购，则要查看订单表，看兑换次数是否已经用完
+                //查看此商品的sku信息
+                ProductSKUs productSKUs =  this.productSKUsServiceImpl.selectById(input.getProductskuId()).getData();
+                if (productSKUs==null)return new ServiceStatusInfo<>(1, "购买失败", 0);
                 if (input.getLimitPerPerson()!=0){
                     int account = this.orderMapper.userBuyProductAccounts(userId,input.getProductId());
                     if (account>=input.getLimitPerPerson()){
@@ -116,11 +123,11 @@ public class OrderService {
 
 
                 //创建order
-                int payment = input.getPrice()*input.getNum()+input.getDeliveryFee();
+                int payment = (int)productSKUs.getPromotionPrice()*input.getNum()+input.getDeliveryFee();
                 this.orderMapper.createOrder(orderId,userId,input,payment);
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();
-                int price = input.getPrice();
+                int price = (int)productSKUs.getPromotionPrice();
                 int totalFee = price*input.getNum();
                 this.orderMapper.createOrderItem(orderItemId,orderId,input,price,totalFee);
                 // 减去商品和sku的库存并更新销量
