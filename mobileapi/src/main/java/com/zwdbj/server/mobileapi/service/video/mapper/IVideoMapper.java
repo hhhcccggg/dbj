@@ -7,6 +7,7 @@ import com.zwdbj.server.mobileapi.service.video.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface IVideoMapper {
@@ -162,4 +163,11 @@ public interface IVideoMapper {
             "rand() " +
             "limit 10")
     List<VideoMain> mainVideo();
+
+    /**
+     * 查询所有
+     * @return
+     */
+    @Select("select *,CONCAT(latitude,',',longitude) as `location` from core_videos")
+    List<Map<String,String>> selectAll();
 }
