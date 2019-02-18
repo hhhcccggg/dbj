@@ -27,8 +27,8 @@ public class AppHomeInput implements Serializable {
         return cityId;
     }
 
-    public void setCityId(int citrId) {
-        this.cityId = citrId;
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
     public String getCityName() {
