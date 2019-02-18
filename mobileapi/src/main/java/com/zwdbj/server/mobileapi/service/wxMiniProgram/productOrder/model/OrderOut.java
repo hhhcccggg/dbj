@@ -17,6 +17,9 @@ public class OrderOut {
     @ApiModelProperty(value = "商品productskuId")
     private long productskuId;
 
+    @ApiModelProperty(value = "storeId")
+    private long storeId;
+
     @ApiModelProperty(value = "商品标题")
     private String title;
 
@@ -66,8 +69,64 @@ public class OrderOut {
     @ApiModelProperty(value = "订单创建时间")
     private Date createTime;
 
+    @ApiModelProperty(value = "订单关闭时间")
+    private Date closeTime;
+
+    @ApiModelProperty(value = "订单发货时间")
+    private Date deliveryTime;
+
+    @ApiModelProperty(value = "订单付款时间")
+    private Date paymentTime;
+
+    @ApiModelProperty(value = "订单更新时间")
+    private Date updateTime;
+
     @ApiModelProperty(value = "省市区详细地址")
     private String detailedly;
+
+    public Date getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(Date closeTime) {
+        this.closeTime = closeTime;
+    }
+
+    public Date getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public void setDeliveryTime(Date deliveryTime) {
+        this.deliveryTime = deliveryTime;
+    }
+
+    public Date getPaymentTime() {
+        return paymentTime;
+    }
+
+    public void setPaymentTime(Date paymentTime) {
+        this.paymentTime = paymentTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
+    }
+
+    public void setDetailedly(String detailedly) {
+        this.detailedly = detailedly;
+    }
 
     public String getDetailedly() {
         return reveiverState+receiverCity+receiverCountry+detailedly+receiverAddress;
