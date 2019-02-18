@@ -44,8 +44,9 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public ServiceStatusInfo<StoreInfo> selectByStoreId(long storeId) {
+        StoreInfo storeInfo = null;
         try {
-            StoreInfo storeInfo = iStoreMapper.selectByStoreId(storeId);
+            storeInfo = iStoreMapper.selectByStoreId(storeId);
             ServiceStatusInfo<List<OfflineStoreExtraServices>> extraServices = extraServicesService.selectByofflineStoreId(storeId);
             ServiceStatusInfo<List<OfflineStoreOpeningHours>> openingHours = openingHoursService.select(storeId);
             ServiceStatusInfo<List<OfflineStoreServiceScopes>> serviceScopes = serviceScopesService.selectByofflineStoreId(storeId);
@@ -56,7 +57,7 @@ public class StoreServiceImpl implements StoreService {
             storeInfo.setServiceScopes(serviceScopes.getData());
             return new ServiceStatusInfo<>(0, "", storeInfo);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
+            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), storeInfo);
         }
     }
 }

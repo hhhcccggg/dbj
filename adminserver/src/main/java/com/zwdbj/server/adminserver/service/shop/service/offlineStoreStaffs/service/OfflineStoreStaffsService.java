@@ -12,9 +12,9 @@ public interface OfflineStoreStaffsService {
 
     ServiceStatusInfo<Long> deleteById(Long id);
 
-    ServiceStatusInfo<OfflineStoreStaffs> selectById(Long id);
+    ServiceStatusInfo< List<OfflineStoreStaffs>> selectStaffs(Long legalSubjectId);
 
-    ServiceStatusInfo<List<OfflineStoreStaffs>> select();
+    ServiceStatusInfo<List<OfflineStoreStaffs>> selectSuperStar();
 
 
 }

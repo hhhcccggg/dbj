@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.map
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.model.OfflineStoreStaffs;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -19,25 +20,30 @@ public interface OfflineStoreStaffsMapper {
     @Update("update o2o_offlineStoreStaffs set isDeleted=1,deleteTime=now() where id=#{id}")
     Long deleteById(@Param("id") Long id);
 
-    @Select("select * from o2o_offlineStoreStaffs where isDeleted=0 order by createTime")
-    List<OfflineStoreStaffs> select();
+    @Select("SELECT u.phone,u.id,t.createTime,t.legalSubjectId FROM core_users as u, " +
+            "( SELECT id,legalSubjectId,createTime  from core_user_tenants  where isDeleted=0 and legalSubjectId=1 ) as t " +
+            "WHERE u.tenantId=t.id ORDER BY t.createTime")
+    List<OfflineStoreStaffs> selectStaffs(@Param("legalSubjectId") long legalSubjectId);
 
-    @Select("select * from o2o_offlineStoreStaffs where id=#{id}")
-    OfflineStoreStaffs selectById(@Param("id") Long id);
+    @Select("select createTime from o2o_offlineStoreStaffs where storeId=#{storeId} and userId=#{userId} and isDeleted=0 ")
+    Date selectSuperStarCreateTime(@Param("storeId") long storeId, @Param("userId") long userId);
+
 
     /**
      * 批量删除
+     *
      * @param id
      * @return
      */
-    @UpdateProvider(type = OfflineStoreStaffsSqlProvide.class , method = "cancelRepresent")
-    Long cancelRepresent(@Param("id") long[] id,@Param("storeId") long storeId);
+    @UpdateProvider(type = OfflineStoreStaffsSqlProvide.class, method = "cancelRepresent")
+    Long cancelRepresent(@Param("id") long[] id, @Param("storeId") long storeId);
 
     /**
      * 批量设置代言人
+     *
      * @param id
      * @return
      */
-    @InsertProvider(type = OfflineStoreStaffsSqlProvide.class , method = "setRepresent")
-    Long setRepresent(@Param("id") long[] id,@Param("storeId")long storeId);
+    @InsertProvider(type = OfflineStoreStaffsSqlProvide.class, method = "setRepresent")
+    Long setRepresent(@Param("id") long[] id, @Param("storeId") long storeId);
 }
