@@ -7,8 +7,8 @@ import java.util.Date;
 
 @ApiModel(description = " 门店员工，或者代言人")
 public class OfflineStoreStaffs {
-
-
+    @ApiModelProperty(value = "员工名称")
+    String name;
     @ApiModelProperty(value = "线下门店id")
     long storeId;
     @ApiModelProperty(value = "联系电话")
@@ -28,6 +28,14 @@ public class OfflineStoreStaffs {
     Date createTime;
     @ApiModelProperty(value = "备注")
     String notes;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getPhone() {
         return phone;
