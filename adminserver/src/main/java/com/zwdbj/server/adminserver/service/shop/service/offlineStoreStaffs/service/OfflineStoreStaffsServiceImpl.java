@@ -85,4 +85,10 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
             return new ServiceStatusInfo<>(1, "查询门店代言人失败" + e.getMessage(), list);
         }
     }
+
+//    public ServiceStatusInfo<List<OfflineStoreStaffs>> searchStaffs(SearchStaffInfo searchStaffInfo, long legalSubjectId) {
+//
+//    }
+
+
 }

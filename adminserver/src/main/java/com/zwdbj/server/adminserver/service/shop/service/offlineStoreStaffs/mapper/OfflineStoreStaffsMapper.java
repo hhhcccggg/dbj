@@ -20,14 +20,18 @@ public interface OfflineStoreStaffsMapper {
     @Update("update o2o_offlineStoreStaffs set isDeleted=1,deleteTime=now() where id=#{id}")
     Long deleteById(@Param("id") Long id);
 
-    @Select("SELECT u.phone,u.id,t.createTime,t.legalSubjectId FROM core_users as u, " +
-            "( SELECT id,legalSubjectId,createTime  from core_user_tenants  where isDeleted=0 and legalSubjectId=1 ) as t " +
+    @Select("SELECT u.name,u.phone,u.id,t.createTime,t.legalSubjectId FROM core_users as u, " +
+            "( SELECT id,legalSubjectId,createTime  from core_user_tenants  where isDeleted=0 and legalSubjectId=#{legalSubjectId} ) as t " +
             "WHERE u.tenantId=t.id ORDER BY t.createTime")
     List<OfflineStoreStaffs> selectStaffs(@Param("legalSubjectId") long legalSubjectId);
 
     @Select("select createTime from o2o_offlineStoreStaffs where storeId=#{storeId} and userId=#{userId} and isDeleted=0 ")
     Date selectSuperStarCreateTime(@Param("storeId") long storeId, @Param("userId") long userId);
 
+    @Select("SELECT u.name,u.phone,u.id,t.createTime,t.legalSubjectId FROM core_users as u, " +
+            "( SELECT id,legalSubjectId,createTime from core_user_tenants  where isDeleted=0 and legalSubjectId=#{legalSubjectId} ) as t " +
+            "WHERE u.tenantId=t.id and u.name like '%#{search}%' ORDER BY t.createTime")
+    List<OfflineStoreStaffs> searchStaffs(@Param("legalSubjectId") long legalSubjectId, @Param("search") String search);
 
     /**
      * 批量删除

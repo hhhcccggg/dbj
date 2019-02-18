@@ -49,7 +49,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 String str = valueOperations.get("shopInfo" + storeId);
                 ShopInfo shopInfo = JSON.parseObject(str, new TypeReference<ShopInfo>() {
                 });
-               logger.info("有缓存---shopInfo" + storeId);
+                logger.info("有缓存---shopInfo" + storeId);
                 logger.info(str);
 
                 return new ServiceStatusInfo<>(0, "", shopInfo);
@@ -191,7 +191,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
                 SearchHit[] hits = searchResponse.getHits().getHits();
                 if (hits.length == 0 || hits == null) {
-                    return new ServiceStatusInfo<>(1, "没有符合条件的商家", null);
+                    return new ServiceStatusInfo<>(0, "没有符合条件的商家", result);
                 }
                 logger.info("当前是第" + pageNo + "页");
                 for (SearchHit searchHit : hits) {
@@ -214,7 +214,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
     @Override
     public List<DiscountCoupon> getNearByDiscount(double longitude, double latitude) {
-        List<DiscountCoupon> discountCouponDetails = this.nearbyShopsMapper.getNearByDiscount(longitude,latitude);
+        List<DiscountCoupon> discountCouponDetails = this.nearbyShopsMapper.getNearByDiscount(longitude, latitude);
 
         return discountCouponDetails;
     }
