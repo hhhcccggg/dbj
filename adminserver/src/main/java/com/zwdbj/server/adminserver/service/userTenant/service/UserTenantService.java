@@ -86,7 +86,7 @@ public class UserTenantService {
     public ServiceStatusInfo<Integer> deleteUserTenant(long id){
             UserTenantModel model = this.getUserTenantById(id);
             if (model==null)return new ServiceStatusInfo<>(1,"该租户不存在",null);
-            int b = this.userService.modifyUserByTenantId(model.getPhone(),id);
+            int b = this.userService.delUserByTenantId(model.getPhone(),id);
             if (b==0)return new ServiceStatusInfo<>(1,"租户用户修改失败",null);
             //假删
             int d  = this.userTenantMapper.delTenantById(id);
