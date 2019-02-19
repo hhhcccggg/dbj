@@ -33,7 +33,7 @@ public class CreateProducts {
     long inventory;
 
     @ApiModelProperty(value = "是否上架")
-    boolean isPublish;
+    boolean publish;
 
     @ApiModelProperty(value = "上架时间")
     long specifyPublishTime;
@@ -41,7 +41,7 @@ public class CreateProducts {
     @ApiModelProperty(value = "商品详情")
     String detailDescription;
 
-    @ApiModelProperty(value = "是否限购")
+    @ApiModelProperty(value = "是否限购 0：表示不限购 大于0数字表示没人只能买商品的数量")
     int limitPerPerson;
 
     @ApiModelProperty(value = "原价")
@@ -62,11 +62,11 @@ public class CreateProducts {
     int validDays;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     Date validStartTime;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     Date validEndTime;
 
     @ApiModelProperty(value = "生效类型 PAY_VALIDED:付款后立即生效 PAY_NEXTDAY_VALIDED:付款后次日生效 PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
@@ -177,11 +177,11 @@ public class CreateProducts {
     }
 
     public boolean isPublish() {
-        return isPublish;
+        return publish;
     }
 
     public void setPublish(boolean publish) {
-        isPublish = publish;
+        this.publish = publish;
     }
 
     public long getSpecifyPublishTime() {

@@ -17,11 +17,17 @@ public interface IProductOrderMapper {
             "left join shop_productOrderItems oi on oi.orderId=o.id where o.id=#{id}")
     ProductOrderDetailModel getOrderById(@Param("id")long id);
     @Update("update shop_productOrders set `status`='STATE_SELLER_DELIVERIED',deliveryName=#{input.deliveryName},deliveryType=#{input.deliveryType}," +
-            "deliveryCode=#{input.deliveryCode} where id=#{id} and storeId=#{storeId} and `status`='STATE_BUYER_PAYED'")
+            "deliveryCode=#{input.deliveryCode},updateTime=now() where id=#{id} and storeId=#{storeId} and `status`='STATE_BUYER_PAYED'")
     int deliverOrder(@Param("id") long orderId, @Param("input") DeliverOrderInput input,@Param("storeId")long storeId);
+    @Update("update shop_productOrders set `status`='STATE_BUYER_DELIVERIED',updateTime=now() " +
+            " where id=#{id} and userId=#{userId} and `status`='STATE_SELLER_DELIVERIED'")
+    int deliverOrderByUser(@Param("id") long orderId, @Param("userId") long userId);
 
     @Update("update shop_productOrders set`status`='STATE_SUCCESS',updateTime=now(),endTime=now(),where id=#{id}")
     int updateOrderSuccess(@Param("id")long orderId);
+    @Select("select o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price from shop_productOrders o " +
+            "left join shop_productOrderItems oi on oi.orderId=o.id where o.orderNo=#{orderNo}")
+    ProductOrderDetailModel getOrderByOrderNo(@Param("orderNo")String orderNo);
 
 
     @Update("update shop_productOrders set`status`=STATE_CLOSED',updateTime=now(),endTime=now(),where id=#{id} and userId=#{userId}")

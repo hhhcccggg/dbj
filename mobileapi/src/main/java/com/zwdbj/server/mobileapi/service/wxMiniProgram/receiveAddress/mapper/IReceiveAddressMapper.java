@@ -16,10 +16,10 @@ public interface IReceiveAddressMapper {
      * @return
      */
     @Insert("insert into shop_receiveAddresses(id,receiverName,receiverPhone,receiverMobile,reveiverState,receiverCity," +
-            "receiverCountry,receiverAddress,receiverZip,cityId,cityLevel,updateTime,defaultAddr,userId) values(#{id},#{input.receiverName}," +
+            "receiverCountry,receiverAddress,receiverZip,cityId,cityLevel,updateTime,defaultAddr,userId,receiverStreet) values(#{id},#{input.receiverName}," +
             "#{input.receiverPhone},#{input.receiverMobile},#{input.reveiverState},#{input.receiverCity}," +
             "#{input.receiverCountry},#{input.receiverAddress},#{input.receiverZip},#{input.cityId},#{input.cityLevel}," +
-            "now(),#{input.defaultAddr},#{input.userId})")
+            "now(),#{input.defaultAddr},#{input.userId},#{input.receiverStreet})")
     long createReceiveAddress(@Param("id") long id, @Param("input") ReceiveAddressInput input);
 
     /**
@@ -31,7 +31,7 @@ public interface IReceiveAddressMapper {
             "receiverPhone=#{input.receiverPhone},receiverMobile=#{input.receiverMobile},reveiverState=#{input.reveiverState}," +
             "receiverCity=#{input.receiverCity},receiverCountry=#{input.receiverCountry},receiverAddress=#{input.receiverAddress}," +
             "receiverZip=#{input.receiverZip},cityId=#{input.cityId},cityLevel=#{input.cityLevel}," +
-            "updateTime=now(),defaultAddr=#{input.defaultAddr} where id=#{input.id} and userId=#{input.userId} and isDeleted=0")
+            "updateTime=now(),defaultAddr=#{input.defaultAddr},receiverStreet=#{input.receiverStreet} where id=#{input.id} and userId=#{input.userId} and isDeleted=0")
     long updateReceiveAddress(@Param("input") ReceiveAddressInput input);
 
     /**
@@ -75,4 +75,12 @@ public interface IReceiveAddressMapper {
      */
     @Select("select * from shop_receiveAddresses where userId=#{userId} and isDeleted=0 and id = #{id}")
     ReceiveAddressModel selectById(@Param("id") long id , @Param("userId") long userId);
+
+    /**
+     * 根据ID查询
+     * @param userId
+     * @return
+     */
+    @Select("select * from shop_receiveAddresses where userId=#{userId} and isDeleted=0 and defaultAddr = 1 limit 1")
+    ReceiveAddressModel getDefault(@Param("userId") long userId);
 }

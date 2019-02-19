@@ -10,13 +10,13 @@ public class OpeningHours implements Serializable {
 
     private static final long serialVersionUID = 1617780388792869686L;
     @ApiModelProperty(value = "开门时间")
-    int openTime;
+    private int openTime;
     @ApiModelProperty(value = "打烊时间")
-    int closeTime;
+    private int closeTime;
     @ApiModelProperty(value = "星期几")
-    int day;
+    private int day;
     @ApiModelProperty(value = "店铺id")
-    long storeId;
+    private long storeId;
 
     public int getOpenTime() {
         return openTime;

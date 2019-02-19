@@ -3,12 +3,11 @@ package com.zwdbj.server.mobileapi.service.video.mapper;
 
 import com.zwdbj.server.mobileapi.service.share.model.ShareDto;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
-import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
-import com.zwdbj.server.mobileapi.service.video.model.VideoInfoDto;
-import com.zwdbj.server.mobileapi.service.video.model.VideoPublishInput;
+import com.zwdbj.server.mobileapi.service.video.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface IVideoMapper {
@@ -141,4 +140,34 @@ public interface IVideoMapper {
 
     @Select("select ifnull(sum(heartCount),0) from core_videos where userId=#{userId} and isDeleted=0 and status=0")
     Long getUserVideosHeartCount(@Param("userId") long userId);
+    @Select("select count(id) from core_videos where userId=#{userId} and status=0")
+    int userVideosNum(@Param("userId")long userId);
+
+    /**
+     * 首页测试sql
+     * @return
+     */
+    @Select("SELECT " +
+            "core_videos.id, " +
+            "core_videos.title, " +
+            "core_videos.coverImageUrl, " +
+            "core_videos.coverImageWidth, " +
+            "core_videos.coverImageHeight, " +
+            "core_videos.videoUrl, " +
+            "core_videos.tags, " +
+            "core_videos.userId, " +
+            "core_videos.heartCount " +
+            "FROM " +
+            "core_videos " +
+            "ORDER BY " +
+            "rand() " +
+            "limit 10")
+    List<VideoMain> mainVideo();
+
+    /**
+     * 查询所有
+     * @return
+     */
+    @Select("select *,CONCAT(latitude,',',longitude) as `location` from core_videos")
+    List<Map<String,String>> selectAll();
 }

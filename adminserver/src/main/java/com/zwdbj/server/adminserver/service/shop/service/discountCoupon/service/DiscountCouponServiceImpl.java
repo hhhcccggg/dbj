@@ -188,6 +188,15 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
         }
     }
 
+    @Override
+    public ServiceStatusInfo<List<DiscountCouponModel>> selectByStoreId(long storeId) {
+        try{
+            return new ServiceStatusInfo(0,"",this.iDiscountCouponMapper.selectByStoreId(storeId));
+        }catch (Exception e){
+            return new ServiceStatusInfo(1,e.getMessage(),null);
+        }
+    }
+
     /**
      * TODO 未回滚
      * 发券

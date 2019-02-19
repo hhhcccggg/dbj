@@ -39,20 +39,32 @@ public class ReceiveAddressInput {
     private String receiverCountry;
 
     @NotNull
+    @ApiModelProperty(value = "收货人地址的街,道")
+    private String receiverStreet;
+
+    @NotNull
     @ApiModelProperty(value = "详细地址")
     private String receiverAddress;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "邮政编码")
     private String receiverZip;
 
-    @ApiModelProperty(value = "城市的编号")
+    @ApiModelProperty(value = "城市的编号,最后一级id")
     private long cityId;
 
-    @ApiModelProperty(value = "城市的等级")
+    @ApiModelProperty(value = "城市的等级,所有地址Id以逗号拼接")
     private String cityLevel;
 
     @ApiModelProperty(value = "是否为默认地址")
     private boolean defaultAddr;
+
+    public String getReceiverStreet() {
+        return receiverStreet;
+    }
+
+    public void setReceiverStreet(String receiverStreet) {
+        this.receiverStreet = receiverStreet;
+    }
 
     public long getId() {
         return id;

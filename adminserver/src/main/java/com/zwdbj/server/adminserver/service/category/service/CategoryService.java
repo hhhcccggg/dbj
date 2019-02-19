@@ -1,11 +1,13 @@
 package com.zwdbj.server.adminserver.service.category.service;
 
+import com.zwdbj.server.adminserver.config.MainKeyType;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.adminserver.service.category.model.*;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,8 @@ public class CategoryService {
     ICategoryMapper categoryMapper;
     @Autowired
     QiniuService qiniuService;
+    @Autowired
+    RedisTemplate redisTemplate;
 
     public List<CategoryDto> search(CategorySearchInput input) {
         List<CategoryDto> dtos = this.categoryMapper.search(input);
@@ -43,7 +47,8 @@ public class CategoryService {
             } else if (parentId != null) {
                 result = this.categoryMapper.addCategoryAd2(id, input, parentId);
             }
-
+            //清空首页缓存
+            redisTemplate.delete(MainKeyType.MAINCATEGORY);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "创建失败" + e.getMessage(), result);
@@ -57,6 +62,7 @@ public class CategoryService {
         Long result = 0L;
         try {
             result = this.categoryMapper.editCategoryAd(id, input);
+            redisTemplate.delete(MainKeyType.MAINCATEGORY);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改失败" + e.getMessage(), result);
@@ -73,6 +79,7 @@ public class CategoryService {
         Long result = 0L;
         try {
             result = this.categoryMapper.delCategoryAd(id);
+            redisTemplate.delete(MainKeyType.MAINCATEGORY);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改失败" + e.getMessage(), result);

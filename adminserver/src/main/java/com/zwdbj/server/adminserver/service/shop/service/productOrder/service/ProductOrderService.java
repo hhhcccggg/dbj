@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,12 +35,9 @@ public class ProductOrderService {
     public List<ProductOrderModel> getStoreOrders(long storeId, ProductOrderInput input){
         try {
             List<ProductOrderModel> orderModels = this.productOrderMapper.getStoreOrders(storeId,input);
-            for (ProductOrderModel model:orderModels){
-                model.setNickName(this.userService.getUserDetail(model.getUserId()).getNickName());
-                ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.getReceiveAddressById(model.getReceiveAddressId()).getData();
-                if (addressModel!=null)
-                    model.setAddressModel(addressModel);
-            }
+            /*for (ProductOrderModel model:orderModels){
+                model.setNickName(this.userService.getNickNameById(model.getUserId()));
+            }*/
             return orderModels;
         }catch (Exception e){
             e.printStackTrace();
@@ -48,11 +46,22 @@ public class ProductOrderService {
 
     }
 
+    public ServiceStatusInfo<ProductOrderDetailModel> getOrderByOrderNo(String orderNo){
+        try {
+            ProductOrderDetailModel model = this.productOrderMapper.getOrderByOrderNo(orderNo);
+            ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.getReceiveAddressById(model.getReceiveAddressId()).getData();
+            model.setNickName(this.userService.getNickNameById(model.getUserId()));
+            model.setAddressModel(addressModel);
+            return new ServiceStatusInfo<>(0,"",model);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "获得订单失败：" + e.getMessage(), null);
+        }
+    }
     public ServiceStatusInfo<ProductOrderDetailModel> getOrderById(long orderId){
         try {
             ProductOrderDetailModel model = this.productOrderMapper.getOrderById(orderId);
             ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.getReceiveAddressById(model.getReceiveAddressId()).getData();
-            model.setNickName(this.userService.getUserDetail(model.getUserId()).getNickName());
+            model.setNickName(this.userService.getNickNameById(model.getUserId()));
             model.setAddressModel(addressModel);
             return new ServiceStatusInfo<>(0,"",model);
         }catch (Exception e){
@@ -71,6 +80,25 @@ public class ProductOrderService {
             return  new ServiceStatusInfo<>(0,"",result);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"发货失败:"+e.getMessage(),0);
+        }
+    }
+
+    /**
+     * 用户确认收货
+     * @param orderId
+     * @param userId
+     * @return
+     */
+    public ServiceStatusInfo<Integer> deliverOrderByUser(long orderId,long userId){
+        try {
+            long userId2 = JWTUtil.getCurrentId();
+            if (userId2<=0)return new ServiceStatusInfo<>(1,"请重新登录",null);
+            if (userId!=userId2)return new ServiceStatusInfo<>(1,"账号有误",null);
+            int result = this.productOrderMapper.deliverOrderByUser(orderId,userId2);
+            if (result==0)return new ServiceStatusInfo<>(1,"收货失败",0);
+            return  new ServiceStatusInfo<>(0,"",result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"收货失败:"+e.getMessage(),0);
         }
     }
 

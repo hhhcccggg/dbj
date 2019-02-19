@@ -26,6 +26,10 @@ public class TaskService {
 
         return userTaskModels;
     }
+    public List<UserTaskModel> getUserTaskById(long userId, String state,String taskId){
+        List<UserTaskModel> models = this.taskMapper.getUserTaskById(userId,state,taskId);
+        return models;
+    }
 
     public ServiceStatusInfo<Integer> doUserTask(String id,String type){
         if ("DAILY".equals(type)){

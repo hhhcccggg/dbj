@@ -9,14 +9,19 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TagService {
     @Autowired
     ITagMapper tagMapper;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
     private Logger logger = LoggerFactory.getLogger(TagService.class);
 
 
@@ -52,5 +57,16 @@ public class TagService {
         int result = this.tagMapper.addHotTag(input);
         return new ServiceStatusInfo<>(0,"",result);
 
+    }
+
+    public ServiceStatusInfo<Object> addTodayTag(long id){
+        LocalTime midnight = LocalTime.MIDNIGHT;
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Shanghai"));
+        LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
+        LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
+        long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(ZoneId.of("Asia/Shanghai")), tomorrowMidnight).toNanos());
+        this.stringRedisTemplate.opsForValue().set("66todayDayTag:", String.valueOf(id), s, TimeUnit.SECONDS);
+
+        return new ServiceStatusInfo<>(0,"",true);
     }
 }

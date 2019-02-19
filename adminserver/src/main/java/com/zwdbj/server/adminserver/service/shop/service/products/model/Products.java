@@ -36,6 +36,10 @@ public class Products {
     long sales;
     @ApiModelProperty(value = "库存")
     long inventory;
+    @ApiModelProperty(value = "原价")
+    long originalPrice;
+    @ApiModelProperty(value = "促销价")
+    long promotionPrice;
     @ApiModelProperty(value = "商品价格上限")
     long priceUp;
     @ApiModelProperty(value = "商品价格下限")
@@ -55,7 +59,7 @@ public class Products {
     @ApiModelProperty(value = "物流模板")
     long deliverytemplateId;
     @ApiModelProperty(value = "是否上架")
-    boolean isPublish;
+    boolean publish;
     @ApiModelProperty(value = "上架时间")
     long specifyPublishTime;
     @ApiModelProperty(value = "商品详情")
@@ -70,6 +74,22 @@ public class Products {
     boolean supportCoin;
     @ApiModelProperty(value = "规则说明")
     String ruleDescription;
+
+    public long getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(long originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public long getPromotionPrice() {
+        return promotionPrice;
+    }
+
+    public void setPromotionPrice(long promotionPrice) {
+        this.promotionPrice = promotionPrice;
+    }
 
     public String getRuleDescription() {
         return ruleDescription;
@@ -320,11 +340,11 @@ public class Products {
     }
 
     public boolean isPublish() {
-        return isPublish;
+        return publish;
     }
 
     public void setPublish(boolean publish) {
-        isPublish = publish;
+        this.publish = publish;
     }
 
     public long getSpecifyPublishTime() {

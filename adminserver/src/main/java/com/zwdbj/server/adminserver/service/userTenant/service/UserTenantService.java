@@ -47,7 +47,7 @@ public class UserTenantService {
             int a =  this.userTenantMapper.modifyUserTenant(id,input.getName());
             if (a==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
             long legalSubjectId = this.userTenantMapper.findLegalSubjectIdById(id);
-            int b = this.userService.modifyUserByTenantId(id);
+            int b = this.userService.modifyUserByTenantId(input.getPhone(),id);
             if (b==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
             int c = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,true);
             if (c==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
@@ -86,7 +86,7 @@ public class UserTenantService {
     public ServiceStatusInfo<Integer> deleteUserTenant(long id){
             UserTenantModel model = this.getUserTenantById(id);
             if (model==null)return new ServiceStatusInfo<>(1,"该租户不存在",null);
-            int b = this.userService.modifyUserByTenantId(id);
+            int b = this.userService.delUserByTenantId(model.getPhone(),id);
             if (b==0)return new ServiceStatusInfo<>(1,"租户用户修改失败",null);
             //假删
             int d  = this.userTenantMapper.delTenantById(id);

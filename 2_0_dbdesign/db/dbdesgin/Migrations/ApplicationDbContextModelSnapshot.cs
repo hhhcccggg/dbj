@@ -1336,6 +1336,9 @@ namespace dbdesgin.Migrations
                     b.Property<string>("receiverPhone")
                         .HasMaxLength(50);
 
+                    b.Property<string>("receiverStreet")
+                        .HasMaxLength(50);
+
                     b.Property<string>("receiverZip")
                         .HasMaxLength(20);
 

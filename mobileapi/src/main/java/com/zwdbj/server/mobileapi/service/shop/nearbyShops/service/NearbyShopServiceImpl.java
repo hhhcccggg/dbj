@@ -6,19 +6,14 @@ import com.alibaba.fastjson.TypeReference;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.mapper.NearbyShopsMapper;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.*;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import org.apache.http.HttpHost;
-import org.apache.http.client.config.RequestConfig;
-import org.elasticsearch.action.search.*;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestClientBuilder;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.common.unit.Fuzziness;
-import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
@@ -42,6 +37,8 @@ public class NearbyShopServiceImpl implements NearbyShopService {
     @Resource
     private NearbyShopsMapper nearbyShopsMapper;
     private Logger logger = LoggerFactory.getLogger(NearbyShopServiceImpl.class);
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
 
     @Override
     public ServiceStatusInfo<ShopInfo> shopHomePage(long storeId) {
@@ -52,16 +49,15 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 String str = valueOperations.get("shopInfo" + storeId);
                 ShopInfo shopInfo = JSON.parseObject(str, new TypeReference<ShopInfo>() {
                 });
-                System.out.println("有缓存---shopInfo" + storeId);
-                System.out.println(str);
-                System.out.println(shopInfo);
+                logger.info("有缓存---shopInfo" + storeId);
+                logger.info(str);
 
                 return new ServiceStatusInfo<>(0, "", shopInfo);
             }
             ShopInfo result = nearbyShopsMapper.searchShopsById(storeId);
 
             List<DiscountCoupon> discountCoupons = this.nearbyShopsMapper.searchDiscountCoupon(storeId);
-            result.setDiscountCoupons(discountCoupons);
+            result.setProducts(discountCoupons);
 
             List<StoreServiceCategory> serviceScopes = this.nearbyShopsMapper.searchServiceScopes(storeId);
             result.setServiceScopes(serviceScopes);
@@ -71,8 +67,8 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
             List<OpeningHours> openingHours = this.nearbyShopsMapper.searchOpeningHours(storeId);
             result.setOpeningHours(openingHours);
-            System.out.println("无缓存---shopInfo" + storeId);
-            System.out.println(valueOperations.get("shopInfo" + storeId));
+            logger.info("无缓存---shopInfo" + storeId);
+            logger.info(valueOperations.get("shopInfo" + storeId));
 //            redisTemplate.expire("shopInfo" + String.valueOf(storeId), 30, TimeUnit.MINUTES);
             if (result != null) {
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(result));
@@ -115,7 +111,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 String str = valueOperations.get("nearbyShopList---pageNo" + pageNo);
                 List<NearbyShop> list = JSON.parseObject(str, new TypeReference<List<NearbyShop>>() {
                 });
-                System.out.println("从缓存中拉取商家列表");
+                logger.info("从缓存中拉取商家列表");
                 return new ServiceStatusInfo<>(0, "", list);
             }
             List<NearbyShop> result = this.nearbyShopsMapper.nearbyShopList();
@@ -123,7 +119,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 valueOperations.set("nearbyShopList---pageNo" + pageNo, JSONArray.toJSONString(result));
 
             }
-            System.out.println("从数据库中拉取商家列表");
+            logger.info("从数据库中拉取商家列表");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "拉取附近商家列表失败" + e.getMessage(), null);
@@ -131,68 +127,95 @@ public class NearbyShopServiceImpl implements NearbyShopService {
     }
 
     @Override
-    public ServiceStatusInfo<List<NearbyShop>> searchShop(String search, String rank, double lat, double lon) {
-        RestClientBuilder builder = RestClient.builder(
-                new HttpHost("localhost", 9200, "http"))
-                .setRequestConfigCallback(new RestClientBuilder.RequestConfigCallback() {
-                    public RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder builder) {
-                        return builder.setConnectTimeout(5000)//设置连接超时
-                                .setSocketTimeout(60000);//设置socket超时
-                    }
-                }).setMaxRetryTimeoutMillis(60000);//设置最大重试超时时间}
-        RestHighLevelClient client = new RestHighLevelClient(builder);
-        SearchRequest searchRequest = new SearchRequest();//可以设置检索的索引，类型
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        QueryBuilder matchQuery = QueryBuilders.boolQuery().must(new MultiMatchQueryBuilder("Chipotle")//全文检索
-                .fuzziness(Fuzziness.AUTO)).filter(QueryBuilders.geoDistanceQuery("location").point(lat, lon)//过滤十公里内的商家
-                .distance(10, DistanceUnit.KILOMETERS));
+    public ServiceStatusInfo<List<SearchShop>> searchShop(SearchInfo info) {
 
-        searchSourceBuilder.sort(new GeoDistanceSortBuilder("location", lat, lon).unit(DistanceUnit.KILOMETERS)
-                .order(SortOrder.ASC));//按距离排序
-        searchSourceBuilder.query(matchQuery);
-        searchSourceBuilder.size(10);//一次取回10条数据
-        searchRequest.source(searchSourceBuilder);
-        searchRequest.scroll(TimeValue.timeValueMinutes(1L));//设置sroll间隔
-        List<NearbyShop> result = new ArrayList<>();
+
         try {
-            SearchResponse searchResponse = client.search(searchRequest);
-            if (searchResponse.status().getStatus() == 200) {
-                String scrollId = searchResponse.getScrollId();//返回当前的scrollId，下次查询从当前位置开始
-                SearchHit[] hits = searchResponse.getHits().getHits();
-                logger.info("first scroll:");
-                if (hits.length == 0) {
-                    return new ServiceStatusInfo<>(1, "没有符合条件的商家", null);
+            SearchRequest searchRequest = new SearchRequest("shop");//可以设置检索的索引，类型
+            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+            QueryBuilder matchQuery = null;
+            if ("all".equals(info.getFilter())) {
+                if (info.getSearch() == null || "".equals(info.getSearch())) {
+                    matchQuery = QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
+                            .distance(50, DistanceUnit.KILOMETERS);
+
+                } else {
+                    matchQuery = QueryBuilders.boolQuery().should(new MultiMatchQueryBuilder(info.getSearch(),
+                                    "name",
+                                    "discountCoupons.name",
+                                    "serviceScopes.name",
+                                    "address")
+//                            .fuzziness(Fuzziness.AUTO)//模糊匹配
+                    ).filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
+                            .distance(50, DistanceUnit.KILOMETERS)
+                    );
                 }
-                for (SearchHit searchHit : hits) {
-                    NearbyShop nearbyShop = JSON.parseObject(searchHit.getSourceAsString(), new TypeReference<NearbyShop>() {
-                    });
-                    result.add(nearbyShop);
-                    logger.info(searchHit.getSourceAsString());
+            } else {
+                if (info.getSearch() == null || "".equals(info.getSearch())) {
+                    matchQuery = QueryBuilders.boolQuery()
+                            .should(new MatchQueryBuilder("name", info.getFilter()))
+                            .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
+                                    .distance(50, DistanceUnit.KILOMETERS)
+                            );
+                } else {
+                    matchQuery = QueryBuilders.boolQuery()
+                            .should(new MatchQueryBuilder("name", info.getFilter()))
+                            .should(new MultiMatchQueryBuilder(info.getSearch(),
+                                    "name",
+                                    "discountCoupons.name",
+                                    "serviceScopes.name",
+                                    "address"))
+//                                    .fuzziness(Fuzziness.AUTO))//多字段查询
+                            .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
+                                    .distance(50, DistanceUnit.KILOMETERS)
+                            );
                 }
-                Scroll scroll = new Scroll(TimeValue.timeValueMinutes(1L));
-                logger.info("loop scroll:");
-                while (hits != null && hits.length > 0) {
-                    SearchScrollRequest scrollRequest = new SearchScrollRequest(scrollId);
-                    scrollRequest.scroll(scroll);
-                    searchResponse = client.searchScroll(scrollRequest);
-                    scrollId = searchResponse.getScrollId();
-                    hits = searchResponse.getHits().getHits();
-                    for (SearchHit searchHit : hits) {
-                        result.add(JSON.parseObject(searchHit.getSourceAsString(), new TypeReference<NearbyShop>() {
-                        }));
-                        logger.info(searchHit.getSourceAsString());
-                    }
-                }
-                ClearScrollRequest clearScrollRequest = new ClearScrollRequest();
-                clearScrollRequest.addScrollId(scrollId);
-                ClearScrollResponse clearScrollResponse = client.clearScroll(clearScrollRequest);
-                boolean succeeded = clearScrollResponse.isSucceeded();
-                logger.info("cleared:" + succeeded);
             }
-            return new ServiceStatusInfo<>(0, "", result);
+
+            //选择排序方式
+            if ("distance".equals(info.getRank())) {
+                searchSourceBuilder.sort(new GeoDistanceSortBuilder("location", info.getLat(), info.getLon()).unit(DistanceUnit.KILOMETERS)
+                        .order(SortOrder.ASC));//按距离排序
+            } else if ("grade".equals(info.getRank())) {
+                searchSourceBuilder.sort("grade");//按评分排序
+            }
+
+            searchSourceBuilder.query(matchQuery);
+            searchSourceBuilder.size(info.getRows()).from((info.getPageNo() - 1) * info.getRows());//分页
+            searchRequest.source(searchSourceBuilder);
+
+            List<SearchShop> result = new ArrayList<>();
+
+            SearchResponse searchResponse = restHighLevelClient.search(searchRequest);
+            if (searchResponse.status().getStatus() == 200) {
+
+                SearchHit[] hits = searchResponse.getHits().getHits();
+                if (hits.length == 0 || hits == null) {
+                    return new ServiceStatusInfo<>(0, "没有符合条件的商家", result);
+                }
+                logger.info("当前是第" + info.getPageNo() + "页");
+                for (SearchHit searchHit : hits) {
+                    logger.info(searchHit.getId());
+                    SearchShop nearbyShop = JSON.parseObject(searchHit.getSourceAsString(), new TypeReference<SearchShop>() {
+                    });
+                    nearbyShop.setId(Long.parseLong(searchHit.getId()));
+                    result.add(nearbyShop);
+
+                }
+                return new ServiceStatusInfo<>(0, "", result);
+
+            }
+            return new ServiceStatusInfo<>(1, "搜索失败" + searchResponse.status().getStatus(), null);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             return new ServiceStatusInfo<>(1, "搜索商家失败" + e.getMessage(), null);
         }
+    }
+
+
+    @Override
+    public List<DiscountCoupon> getNearByDiscount(double longitude, double latitude) {
+        List<DiscountCoupon> discountCouponDetails = this.nearbyShopsMapper.getNearByDiscount(longitude, latitude);
+
+        return discountCouponDetails;
     }
 }

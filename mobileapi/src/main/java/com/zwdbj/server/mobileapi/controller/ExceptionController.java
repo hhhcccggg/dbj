@@ -41,7 +41,7 @@ public class ExceptionController {
         logger.warn(ex.getMessage());
         logger.warn(ex.getLocalizedMessage());
         ex.printStackTrace();
-        return new ResponseData<String>(500, "服务器内部异常", null);
+        return new ResponseData<String>(500, "服务器内部异常"+ex.getMessage(), null);
     }
 
     private HttpStatus getStatus(HttpServletRequest request) {

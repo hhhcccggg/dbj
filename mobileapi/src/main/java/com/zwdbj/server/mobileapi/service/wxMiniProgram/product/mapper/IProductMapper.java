@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import org.apache.ibatis.annotations.*;
@@ -25,6 +26,15 @@ public interface IProductMapper {
     @Select("SELECT  * from shop_products " +
             "where publish=1 and isDeleted=0 and storeId=#{storeId} and id=#{id}")
     ProductlShow selectByIdByStoreId(@Param("id") long id, @Param("storeId") long storeId);
+
+    /**
+     * 根据storeId查询数据
+     * @param storeId
+     * @return
+     */
+    @Select("SELECT  * from shop_products " +
+            "where publish=1 and isDeleted=0 and storeId=#{storeId}")
+    List<ProductlShow> selectByStoreId(@Param("storeId") long storeId);
 
     /**
      * 根据id查询数据
@@ -54,4 +64,8 @@ public interface IProductMapper {
     int getProductSkuInventory(@Param("id")long productSkuId);
     @Select("select inventory from shop_products where id=#{id}")
     long getProductInventory(@Param("id")long productId);
+
+    @Select("select id,`productType`,`productDetailType`,`name`,`imageUrls`,storeId from shop_products  where publish=1 and isDeleted=0" +
+            " order by sales desc limit 3")
+    List<ProductMainDto> mainSelectProduct();
 }

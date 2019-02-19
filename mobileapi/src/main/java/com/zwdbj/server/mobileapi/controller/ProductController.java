@@ -2,7 +2,9 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zwdbj.server.mobileapi.config.MainKeyType;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
@@ -16,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +35,9 @@ public class ProductController {
 
     @Autowired
     ProductOrderService productOrderService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @GetMapping(value = "findByProduct")
     @ApiOperation(value = "兑换商城列表")
@@ -69,5 +75,20 @@ public class ProductController {
         PageInfo<ProductOut> pageInfo = new PageInfo(serviceStatusInfo.getData());
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", pageInfo.getList(), pageInfo.getTotal());
 
+    }
+
+    @GetMapping(value = "mainByProduct")
+    @ApiOperation(value = "主页的兑换商城")
+    public ResponseData<List<ProductMainDto>> mainByProduct(){
+        ServiceStatusInfo<List<ProductMainDto>> serviceStatusInfo = this.productServiceImpl.mainProduct();
+        if(serviceStatusInfo.isSuccess())
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
+    }
+    @DeleteMapping(value = "del")
+    @ApiOperation(value = "删除",hidden = true)
+    public void deleteReidsKey(){
+        redisTemplate.delete(MainKeyType.MAINPRODUCT);
+        redisTemplate.delete(MainKeyType.MAINCATEGORY);
     }
 }

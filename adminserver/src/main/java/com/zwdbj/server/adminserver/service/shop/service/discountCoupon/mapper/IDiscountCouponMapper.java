@@ -15,7 +15,7 @@ public interface IDiscountCouponMapper {
      * @param discountCouponInput
      * @return
      */
-    @Insert("INSERT INTO `shop_discountcoupons` (" +
+    @Insert("INSERT INTO `shop_discountCoupons` (" +
             "`id`,`name`,`couponCount`,`discountType`,`discountValue`,`limitMoney`," +
             "`limitGetPerPerson`,`useInfo`,`onlySupportOriginProduct`,`validStartTime`," +
             "`validEndTime`,`storeId`,`legalSubjectId`" +
@@ -30,7 +30,7 @@ public interface IDiscountCouponMapper {
      * @param discountCouponInput
      * @return
      */
-    @Update("UPDATE `shop_discountcoupons` SET " +
+    @Update("UPDATE `shop_discountCoupons` SET " +
             " `name` = #{input.name}," +
             " `couponCount` = #{input.couponCount}," +
             " `discountType` = #{input.discountType}," +
@@ -69,7 +69,7 @@ public interface IDiscountCouponMapper {
      * @param legalSubjectId
      * @return
      */
-    @Select("select * from `shop_discountcoupons` where id=#{id} and isDeleted=0 and storeId=#{storeId} and legalSubjectId=#{legalSubjectId}")
+    @Select("select * from `shop_discountCoupons` where id=#{id} and isDeleted=0 and storeId=#{storeId} and legalSubjectId=#{legalSubjectId}")
     DiscountCouponModel selectById(@Param("id") long id ,@Param("storeId") long storeId,@Param("legalSubjectId") long legalSubjectId);
 
     /**
@@ -77,7 +77,10 @@ public interface IDiscountCouponMapper {
      * @param couponCount
      * @return
      */
-    @Update("UPDATE `shop_discountcoupons` SET  `couponCount` = `couponCount` - #{couponCount} where id = #{id} " +
+    @Update("UPDATE `shop_discountCoupons` SET  `couponCount` = `couponCount` - #{couponCount} where id = #{id} " +
             "and isDeleted=0 and storeId=#{storeId} and legalSubjectId=#{legalSubjectId}  and `couponCount`-#{couponCount}>=0")
     long reduceCouponCount(@Param("id") long id ,@Param("storeId") long storeId,@Param("legalSubjectId") long legalSubjectId , @Param("couponCount") int couponCount);
+
+    @Select("select * from `shop_discountCoupons` where  isDeleted=0 and storeId=#{storeId}")
+    List<DiscountCouponModel> selectByStoreId(@Param("storeId") long storeId);
 }

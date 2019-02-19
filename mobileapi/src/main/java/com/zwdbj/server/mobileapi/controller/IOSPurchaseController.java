@@ -7,6 +7,7 @@ import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ public class IOSPurchaseController {
     @Autowired
     private PurchaseService purchaseServiceImpl;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/purchase", method = RequestMethod.POST)
     @ApiOperation(value = "二次验证")
     public ResponseData<ResponseMsg> purchase (@RequestBody RequestMsg requestMsg, @RequestParam long userId) throws Exception{

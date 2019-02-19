@@ -24,10 +24,13 @@ public class AuthUserManagerImpl implements IAuthUserManager {
         authUser = authUserMapper.findAuthUser(id);
         String[] roleNames = authUserMapper.findRoleNames(id);
         TenantInfo tenantInfo = authUserMapper.findTenant(Long.parseLong(id));
-        authUser.setRoles(roleNames);
-        String roles = String.join(",", roleNames);
-        String[] permissionNames = authUserMapper.findPermissionName(roles);
-        authUser.setPermissions(permissionNames);
+        if (roleNames!=null || roleNames.length!=0){
+            authUser.setRoles(roleNames);
+            String roles = String.join(",", roleNames);
+            String[] permissionNames = authUserMapper.findPermissionName(roles);
+            authUser.setPermissions(permissionNames);
+        }
+
         if (tenantInfo!=null) {
             authUser.setTenantId(tenantInfo.getId());
             authUser.setIdentifyTenantName(tenantInfo.getIdentifyName());

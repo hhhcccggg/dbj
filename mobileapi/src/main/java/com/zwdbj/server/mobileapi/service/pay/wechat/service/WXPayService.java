@@ -3,7 +3,9 @@ package com.zwdbj.server.mobileapi.service.pay.wechat.service;
 import com.alibaba.fastjson.JSON;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
+import com.zwdbj.server.mobileapi.service.pay.wechat.model.WXRefundInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
+import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
@@ -100,6 +102,8 @@ public class WXPayService {
         // TODO 解析充值模板，当前直接解析小饼干
         // 生成充值明细订单
         // 1:10比例充值小饼干，单位分
+        ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
+        if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
         int rmbs = 0;
         if(this.wxPayAppCfg.isSandBox()) {
             rmbs = 201;
@@ -107,7 +111,7 @@ public class WXPayService {
             if (this.wxPayAppCfg.getIsTest()) {
                 rmbs = 1;
             } else {
-                rmbs = input.getPayMoney();
+                rmbs = productOrderDetailModel.getActualPayment();
             }
         }
         // 生成预付单
@@ -138,6 +142,41 @@ public class WXPayService {
         chargeCoinWXResult.setOutTradeNo(String.valueOf(input.getOrderId()));
         return new ServiceStatusInfo<>(0,"OK", chargeCoinWXResult);
     }
+    /**
+     * @param input 退款信息
+     * @param userId 谁退款
+     * @return 返回退款信息
+     */
+    @Transactional
+    public ServiceStatusInfo<RefundOrderDto> refundOrder(WXRefundInput input, long userId) {
+        ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
+        if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
+        int rmbs = 0;
+        if(this.wxPayAppCfg.isSandBox()) {
+            rmbs = 201;
+        } else {
+            if (this.wxPayAppCfg.getIsTest()) {
+                rmbs = 1;
+            } else {
+                rmbs = productOrderDetailModel.getActualPayment();
+            }
+        }
+        // 生成预付单
+        RefundOrderInput refundOrderInput = new RefundOrderInput();
+        refundOrderInput.setRefundDesc(input.getRefundDesc());
+        refundOrderInput.setTotalFee(rmbs);
+        refundOrderInput.setRefundFee(rmbs);
+        refundOrderInput.setTransactionId(input.getTransactionId());
+        refundOrderInput.setType("WECHAT");
+        refundOrderInput.setNotifyUrl(this.wxPayAppCfg.getOrderRefundResultCallbackUrl());
+        ServiceStatusInfo<RefundOrderDto> refundOrderDtoServiceStatusInfo =
+                this.wechatPayService.refundOrder(refundOrderInput);
+        if (!refundOrderDtoServiceStatusInfo.isSuccess()) {
+            return new ServiceStatusInfo<>(1,refundOrderDtoServiceStatusInfo.getMsg(),null);
+        }
+        this.orderService.updateOrderState(input.getOrderId(),refundOrderDtoServiceStatusInfo.getData().getTransactionId(),"STATE_REFUNDING");
+        return new ServiceStatusInfo<>(0,"OK", refundOrderDtoServiceStatusInfo.getData());
+    }
 
     /**
      * @param type  1:小饼干充值  2:订单付款
@@ -160,6 +199,22 @@ public class WXPayService {
     }
 
     /**
+     * 查询退款
+     * @param input
+     * @return
+     */
+    public ServiceStatusInfo<RefundQueryResultDto> refundOrderQuery(RefundQueryInput input){
+        ServiceStatusInfo<RefundQueryResultDto> serviceStatusInfo = this.wechatPayService.RefundOrderQuery(input);
+        logger.info(JSON.toJSONString(serviceStatusInfo));
+        if (!serviceStatusInfo.isSuccess()) {
+            return serviceStatusInfo;
+        }
+        this.orderRefundResult(serviceStatusInfo.getData());
+
+        return serviceStatusInfo;
+    }
+
+    /**
      * @param type 1:小饼干充值  2:订单付款
      * @param resFromWX 来自微信的支付结果通知
      * @return 响应微信支付结果通知
@@ -176,6 +231,22 @@ public class WXPayService {
         }else if (type==2){
             orderPayResult(stringServiceStatusInfo.getData().getPayResultDto());
         }
+
+        return new ServiceStatusInfo<>(0,"OK",stringServiceStatusInfo.getData().getResponseWeChatXML());
+    }
+    /**
+     * @param
+     * @param resFromWX 来自微信的退款结果通知
+     * @return 响应微信退款结果通知
+     */
+    public ServiceStatusInfo<String> responseWeChatRefundResult(String resFromWX) {
+        logger.info("收到微信支付回调："+resFromWX);
+        ServiceStatusInfo<RefundNotifyResult> stringServiceStatusInfo = this.wechatPayService.responseWeChatRefundResult(resFromWX);
+        if(!stringServiceStatusInfo.isSuccess()) {
+            logger.info(stringServiceStatusInfo.getMsg());
+            return new ServiceStatusInfo<>(stringServiceStatusInfo.getCode(),stringServiceStatusInfo.getMsg(),null);
+        }
+        this.orderRefundResult(stringServiceStatusInfo.getData().getDto());
 
         return new ServiceStatusInfo<>(0,"OK",stringServiceStatusInfo.getData().getResponseWeChatXML());
     }
@@ -203,6 +274,20 @@ public class WXPayService {
             String tradeNo = resultDto.getTransactionId();
             String params = resultDto.toString();
             this.orderService.updateOrderPay(id,"WECHAT",tradeNo,params);
+        } else {
+            logger.info("交易失败");
+        }
+    }
+    @Transactional
+    protected void orderRefundResult(RefundQueryResultDto resultDto) {
+        logger.info("处理微信退款结果"+resultDto.toString());
+        if (resultDto.getRefundStatus().equals("SUCCESS")) {
+            logger.info("退款成功");
+            long orderId = Long.valueOf(resultDto.getOutTradeNo());
+            this.orderService.updateOrderState(orderId,resultDto.getTransactionId(),"STATE_REFUND_SUCCESS");
+            String tradeNo = resultDto.getTransactionId();
+            String params = resultDto.toString();
+            //TODO  解决退款后的问题
         } else {
             logger.info("交易失败");
         }

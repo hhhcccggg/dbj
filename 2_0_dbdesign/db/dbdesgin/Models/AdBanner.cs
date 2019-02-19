@@ -15,6 +15,8 @@ namespace db.video.Models
         /// 不同地方的Banner
         /// MINIAPP_HOME:微信小程序首页
         /// APP_O2O_HOME:app周边首页
+        /// DISCOUNT_APP:app优惠折扣
+        /// COIN_TASK_APP:app金币任务
         /// </summary>
         /// <value>The type.</value>
         [Required]

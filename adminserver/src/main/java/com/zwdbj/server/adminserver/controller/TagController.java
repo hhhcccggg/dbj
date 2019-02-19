@@ -62,4 +62,15 @@ public class TagController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"",null);
     }
+    @RequiresAuthentication
+    @RequestMapping(value = "/dbj/add/todayTag/{id}",method = RequestMethod.POST)
+    @ApiOperation("添加今日主题标签")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    public ResponseData<Object> addTodayTag(@PathVariable long id){
+        ServiceStatusInfo<Object> statusInfo = this.tagService.addTodayTag(id);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"",null);
+    }
 }

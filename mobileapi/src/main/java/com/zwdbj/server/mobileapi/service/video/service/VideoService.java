@@ -7,6 +7,8 @@ import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
+import com.zwdbj.server.mobileapi.service.store.model.StoreModel;
+import com.zwdbj.server.mobileapi.service.store.service.StoreService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
@@ -33,6 +35,14 @@ import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
+import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
+import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +51,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -77,7 +85,11 @@ public class VideoService {
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
     @Autowired
+    protected StoreService storeServiceImpl;
+    @Autowired
     protected RedisTemplate redisTemplate;
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -381,6 +393,7 @@ public class VideoService {
                 String[] petIds = pets.split(",");
                 for (String petId : petIds) {
                     PetModelDto petModelDto = this.petService.get(Long.valueOf(petId));
+                    if (petModelDto!=null)
                     petModelDtos.add(petModelDto);
                 }
                 dto.setPetModelDtoList(petModelDtos);
@@ -798,6 +811,47 @@ public class VideoService {
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
         }
+    }
+
+    /**
+     * 主页视频查询
+     * @param videoMainInput
+     * @return
+     */
+    public ServiceStatusInfo<VideoMainDto> mainVideo(VideoMainInput videoMainInput){
+        try{
+            //TODO es查询数据
+//            RestHighLevelClient restHighLevelClient =  new RestHighLevelClient(
+//                    RestClient.builder(new HttpHost("127.0.0.1",9200,"http")).setMaxRetryTimeoutMillis(60000));
+//            CreateIndexRequest createIndexRequest = new
+            //createEs();
+            //TODO 测试数据
+            List<VideoMain> list = videoMapper.mainVideo();
+            for (VideoMain videoMain: list) {
+                UserModel userModel = userService.findUserById(videoMain.getUserId());
+                if(userModel != null ){
+                    videoMain.setAvatarUrl(userModel.getAvatarUrl());
+                    videoMain.setUsername(userModel.getUsername());
+                }
+                StoreModel storeModel = storeServiceImpl.selectById(videoMain.getStoreId()).getData();
+                if(storeModel != null){
+                    videoMain.setLogoUrl(storeModel.getLogoUrl());
+                    videoMain.setStoreName(storeModel.getName());
+                }
+            }
+            VideoMainDto videoMainDto = new VideoMainDto("",list);
+            return new ServiceStatusInfo<>(0,"",videoMainDto);
+        }catch(Exception e){
+            return new ServiceStatusInfo<>(1,e.getMessage(),null);
+        }
+    }
+
+    public int userVideosNum(long userId){
+        return this.videoMapper.userVideosNum(userId);
+    }
+
+    public List<Map<String,String>> selectAll(){
+        return this.videoMapper.selectAll();
     }
 
 }

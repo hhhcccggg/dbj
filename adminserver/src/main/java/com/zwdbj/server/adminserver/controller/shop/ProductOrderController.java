@@ -42,12 +42,31 @@ public class ProductOrderController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
+    @RequestMapping(value = "/search/order/orderNo", method = RequestMethod.POST)
+    @ApiOperation(value = "根据订单号查询订单")
+    public ResponseData<ProductOrderDetailModel> getOrderByOrderNo(@RequestBody GetOrderByOrderNoInput input){
+        ServiceStatusInfo<ProductOrderDetailModel> statusInfo = this.productOrderService.getOrderByOrderNo(input.getOrderNo());
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
 
     @RequestMapping(value = "/deliver/{orderId}", method = RequestMethod.POST)
     @ApiOperation(value = "店铺发货")
     public ResponseData<Integer> deliverOrder(@PathVariable long orderId,
                                               @RequestBody DeliverOrderInput input){
         ServiceStatusInfo<Integer> statusInfo = this.productOrderService.deliverOrder(orderId,input);
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+    @RequestMapping(value = "/user/deliver/{orderId}/{userId}", method = RequestMethod.POST)
+    @ApiOperation(value = "用户确认收货,orderId为订单id,userId为用户id")
+    public ResponseData<Integer> deliverOrderByUser(@PathVariable long orderId,
+                                                    @PathVariable long userId){
+        ServiceStatusInfo<Integer> statusInfo = this.productOrderService.deliverOrderByUser(orderId,userId);
         if (statusInfo.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
         }

@@ -45,6 +45,12 @@ namespace db.shop.Models.shop
         [MaxLength(50)]
         public String receiverCountry { get; set; }
         /// <summary>
+        /// 街道
+        /// </summary>
+        /// <value>The receiver street.</value>
+        [MaxLength(50)]
+        public String receiverStreet { get; set; }
+        /// <summary>
         /// 联系地址
         /// </summary>
         /// <value>The receiver address.</value>
