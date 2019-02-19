@@ -62,11 +62,11 @@ public class CreateProducts {
     int validDays;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     Date validStartTime;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     Date validEndTime;
 
     @ApiModelProperty(value = "生效类型 PAY_VALIDED:付款后立即生效 PAY_NEXTDAY_VALIDED:付款后次日生效 PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
