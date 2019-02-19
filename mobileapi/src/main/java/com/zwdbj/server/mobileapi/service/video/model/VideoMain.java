@@ -1,8 +1,11 @@
 package com.zwdbj.server.mobileapi.service.video.model;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "主页视频")
 public class VideoMain{
+        @ApiModelProperty(value = "视频ID")
         private long id;
         @ApiModelProperty(value = "视频路径")
         private String videoUrl;
