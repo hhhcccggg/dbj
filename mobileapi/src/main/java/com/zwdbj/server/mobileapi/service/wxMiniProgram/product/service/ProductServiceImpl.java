@@ -149,7 +149,7 @@ public class ProductServiceImpl implements  ProductService{
         try{
             List<ProductMainDto> list;
             //TODO 未更新缓存和推荐
-            if(redisTemplate.hasKey("MAINPRODUCT")){
+            if(redisTemplate.hasKey(MainKeyType.MAINPRODUCT)){
                  list = (List<ProductMainDto>) redisTemplate.opsForValue().get(MainKeyType.MAINPRODUCT);
                  return new ServiceStatusInfo<>(0,"",list);
             }
