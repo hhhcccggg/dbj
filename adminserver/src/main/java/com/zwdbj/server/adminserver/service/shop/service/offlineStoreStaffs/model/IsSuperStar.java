@@ -8,7 +8,7 @@ public class IsSuperStar {
     @ApiModelProperty(value = "设为/取消代言人 true/false")
     boolean isSuperStar;
     @ApiModelProperty(value = "员工id")
-    long staffId;
+    long userId;
 
     public boolean isSuperStar() {
         return isSuperStar;
@@ -18,11 +18,11 @@ public class IsSuperStar {
         isSuperStar = superStar;
     }
 
-    public long getStaffId() {
-        return staffId;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setStaffId(long staffId) {
-        this.staffId = staffId;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }
