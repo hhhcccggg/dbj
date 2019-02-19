@@ -25,7 +25,7 @@ public class AppHomeController {
     public ResponseData<AppHomeResDto> allHome(@RequestBody AppHomeInput input){
         ServiceStatusInfo<AppHomeResDto> statusInfo = this.appHomeService.allHome(input);
         if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "成功", null);
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "成功", statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
