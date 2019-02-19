@@ -29,12 +29,13 @@ public class CategoryController {
 
     @ApiOperation("首页分类")
     @GetMapping("/mainCategory")
-    public ResponseData<List<CategoryMainDto>> mainCategory(){
-        ServiceStatusInfo<List<CategoryMainDto>> serviceStatusInfo = this.categoryService.mainSelect();
+    public ResponseData<CategoryMainDto> mainCategory(){
+        ServiceStatusInfo<CategoryMainDto> serviceStatusInfo = this.categoryService.mainSelect();
         if(serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
+
 
 
 }

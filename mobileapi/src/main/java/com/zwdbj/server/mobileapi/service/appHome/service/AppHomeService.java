@@ -45,7 +45,7 @@ public class AppHomeService {
             adBannerInput3.setType(Type.DISCOUNT_APP);
             List<AdBannerDto> adBannerDtos3 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput3).getData();
             if (adBannerDtos3!=null)dto.setAdBannerDtos1(adBannerDtos3);
-            List<CategoryMainDto> categoryMainDtos = this.categoryService.mainSelect().getData();
+            CategoryMainDto categoryMainDtos = this.categoryService.mainSelect().getData();
             if (categoryMainDtos!=null)dto.setCategoryMainDtos(categoryMainDtos);
             List<ProductMainDto> productMainDtos = this.productServiceImpl.mainProduct().getData();
             if (productMainDtos!=null)dto.setProductMainDtos(productMainDtos);

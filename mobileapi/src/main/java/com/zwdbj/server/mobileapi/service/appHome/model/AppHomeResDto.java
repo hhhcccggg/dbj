@@ -17,7 +17,7 @@ public class AppHomeResDto implements Serializable {
     @ApiModelProperty(value = "app首页优惠折扣banner返回值")
     private List<AdBannerDto> adBannerDtos3;
     @ApiModelProperty(value = "APP首页分类返回值")
-    private List<CategoryMainDto> categoryMainDtos;
+    private CategoryMainDto categoryMainDto;
     @ApiModelProperty(value = "APP首页兑换商城返回值")
     private List<ProductMainDto> productMainDtos;
     @ApiModelProperty(value = "APP首页为你推荐的返回分类")
@@ -55,12 +55,12 @@ public class AppHomeResDto implements Serializable {
         this.adBannerDtos3 = adBannerDtos3;
     }
 
-    public List<CategoryMainDto> getCategoryMainDtos() {
-        return categoryMainDtos;
+    public CategoryMainDto getCategoryMainDtos() {
+        return categoryMainDto;
     }
 
-    public void setCategoryMainDtos(List<CategoryMainDto> categoryMainDtos) {
-        this.categoryMainDtos = categoryMainDtos;
+    public void setCategoryMainDtos(CategoryMainDto categoryMainDtos) {
+        this.categoryMainDto = categoryMainDtos;
     }
 
     public List<ProductMainDto> getProductMainDtos() {

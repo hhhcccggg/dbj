@@ -16,6 +16,9 @@ public class ProductMainDto implements Serializable {
     @ApiModelProperty(value = "产品详细类型")
     private String productDetailType;
 
+    @ApiModelProperty(value = "storeId")
+    private Long storeId;
+
     @ApiModelProperty(value = "商品名称")
     private String name;
 
@@ -24,6 +27,14 @@ public class ProductMainDto implements Serializable {
 
     @ApiModelProperty(value = "productSKUId")
     private long productSKUId;
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
 
     public Long getId() {
         return id;

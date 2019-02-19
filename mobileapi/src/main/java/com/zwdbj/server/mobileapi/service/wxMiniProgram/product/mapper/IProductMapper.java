@@ -65,7 +65,7 @@ public interface IProductMapper {
     @Select("select inventory from shop_products where id=#{id}")
     long getProductInventory(@Param("id")long productId);
 
-    @Select("select id,`productType`,`productDetailType`,`name`,`imageUrls` from shop_products  where publish=1 and isDeleted=0" +
+    @Select("select id,`productType`,`productDetailType`,`name`,`imageUrls`,storeId from shop_products  where publish=1 and isDeleted=0" +
             " order by sales desc limit 3")
     List<ProductMainDto> mainSelectProduct();
 }
