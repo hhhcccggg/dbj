@@ -66,6 +66,51 @@ public class QuartzService {
     }
 
     /**
+     * 每月1号生成下个月的时间
+     */
+    public void everydayTagInsert() {
+        Date d = new Date();
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        int year = Integer.valueOf(date.substring(0,4));
+        int mon = Integer.valueOf(date.substring(5,7));
+        int days = this.operateService.getDays(year,mon);
+        String s = date.substring(0,7).trim()+"monthTags";
+        for (int i=0;i<days;i++){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(d);
+            calendar.add(Calendar.DAY_OF_MONTH, i);
+            String ss = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()).trim();
+            this.redisTemplate.opsForHash().put(s,ss,"");
+        }
+
+    }
+    /**
+     * 生成当月的时间
+     */
+    public void everydayTagNowInsert() {
+        try {
+            Date d = new Date();
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+            int year = Integer.valueOf(date.substring(0,4));
+            int mon = Integer.valueOf(date.substring(5,7));
+            int day = Integer.valueOf(date.substring(8));
+            int days = this.operateService.getDays(year,mon)-day+1;
+            String s = date.substring(0,7).trim()+"monthTags";
+            for (int i=0;i<days;i++){
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(d);
+                calendar.add(Calendar.DAY_OF_MONTH, i);
+                String ss = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()).trim();
+                this.redisTemplate.opsForHash().put(s,ss,"");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /**
      * 定时每天凌晨3点插入昨天user和video的增量
      */
 

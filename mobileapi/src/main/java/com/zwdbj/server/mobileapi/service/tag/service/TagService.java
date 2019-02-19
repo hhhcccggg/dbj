@@ -7,9 +7,11 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -18,6 +20,8 @@ public class TagService {
     ITagMapper tagMapper;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
     private Logger logger = LoggerFactory.getLogger(TagService.class);
 
     public List<TagDto> search(TagSearchInput input) {
@@ -80,8 +84,12 @@ public class TagService {
     }
 
     public TagDetailDto todayTag(){
-        if (this.stringRedisTemplate.hasKey("66todayDayTag:")){
-            long id = Long.valueOf(this.stringRedisTemplate.opsForValue().get("66todayDayTag:"));
+        Date d = new Date();
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        String s = date.substring(0,7).trim()+"monthTags";
+
+        if (this.redisTemplate.hasKey(s)){
+            long id = (Long)this.redisTemplate.opsForHash().get(s,date);
             TagDetailDto tagDetailDto = this.tagDetailById(id);
             if (tagDetailDto==null)return null;
             return tagDetailDto;
