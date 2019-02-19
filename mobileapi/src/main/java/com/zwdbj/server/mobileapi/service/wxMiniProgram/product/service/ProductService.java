@@ -46,7 +46,7 @@ public interface ProductService {
      * @param id
      * @return
      */
-    ServiceStatusInfo<ProductOut> selectById(long id);
+    ServiceStatusInfo<ProductOut>  selectById(long id);
 
     /**
      * 根据productId和productSkuId更新相对应的库存
