@@ -132,7 +132,9 @@ public class CommentInfoDto {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-        this.setCreateTimeFormat(DateTimeFriendly.friendlyShow(this.createTime));
+//        this.setCreateTimeFormat(DateTimeFriendly.friendlyShow(this.createTime));
+        //TODO 按照运营要求去掉时间显示
+        this.setCreateTimeFormat("");
     }
 
     public String getCreateTimeFormat() {
