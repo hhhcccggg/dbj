@@ -5,6 +5,7 @@ import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.WXRefundInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
+import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
@@ -101,6 +102,8 @@ public class WXPayService {
         // TODO 解析充值模板，当前直接解析小饼干
         // 生成充值明细订单
         // 1:10比例充值小饼干，单位分
+        ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
+        if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
         int rmbs = 0;
         if(this.wxPayAppCfg.isSandBox()) {
             rmbs = 201;
@@ -108,7 +111,7 @@ public class WXPayService {
             if (this.wxPayAppCfg.getIsTest()) {
                 rmbs = 1;
             } else {
-                rmbs = input.getPayMoney();
+                rmbs = productOrderDetailModel.getActualPayment();
             }
         }
         // 生成预付单
@@ -146,6 +149,8 @@ public class WXPayService {
      */
     @Transactional
     public ServiceStatusInfo<RefundOrderDto> refundOrder(WXRefundInput input, long userId) {
+        ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
+        if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
         int rmbs = 0;
         if(this.wxPayAppCfg.isSandBox()) {
             rmbs = 201;
@@ -153,7 +158,7 @@ public class WXPayService {
             if (this.wxPayAppCfg.getIsTest()) {
                 rmbs = 1;
             } else {
-                rmbs = input.getRefundFee();
+                rmbs = productOrderDetailModel.getActualPayment();
             }
         }
         // 生成预付单
