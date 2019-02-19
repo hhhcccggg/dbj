@@ -11,6 +11,7 @@ public interface FavoriteService {
 
     /**
      * 添加收藏
+     *
      * @param favoriteInput
      * @return
      */
@@ -18,6 +19,7 @@ public interface FavoriteService {
 
     /**
      * 删除收藏
+     *
      * @param id
      * @return
      */
@@ -25,6 +27,7 @@ public interface FavoriteService {
 
     /**
      * 分页查询
+     *
      * @param searchFavorite
      * @return
      */
@@ -34,4 +37,6 @@ public interface FavoriteService {
      * 查询我的收藏数量
      */
     int getUserFavoriteNum(long userId);
+
+    int isFavorite(long userId, long targetId, String targetType);
 }

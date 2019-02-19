@@ -3,10 +3,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 import com.zwdbj.server.mobileapi.config.MainKeyType;
 import com.zwdbj.server.mobileapi.service.user.mapper.IUserMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper.IProductMapper;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.*;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
@@ -20,7 +17,7 @@ import java.util.List;
 
 
 @Service
-public class ProductServiceImpl implements  ProductService{
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     protected IProductMapper iProductMapper;
@@ -40,31 +37,31 @@ public class ProductServiceImpl implements  ProductService{
     @Override
     public ServiceStatusInfo<List<ProductOut>> selectShopProduct(ProductInput productInput) {
         //TODO 后期可能会换成缓存
-        try{
+        try {
             long userId = JWTUtil.getCurrentId();
             List<ProductOut> list = this.iProductMapper.selectShopProduct(productInput);
-            for(ProductOut productOut:list){
+            for (ProductOut productOut : list) {
                 ProductSKUs productSKUs = productSKUsServiceImpl.selectByProductId(productOut.getId()).getData();
-                if(productSKUs != null){
+                if (productSKUs != null) {
                     productOut.setProductSKUId(productSKUs.getId());
                     productOut.setPromotionPrice(productSKUs.getPromotionPrice());
                     productOut.setOriginalPrice(productSKUs.getOriginalPrice());
                 }
-                productOut.setExchange(iProductOrderMapper.userBuyProductAccounts(userId,productOut.getId()));
+                productOut.setExchange(iProductOrderMapper.userBuyProductAccounts(userId, productOut.getId()));
             }
-            return new ServiceStatusInfo<>(0,"",list);
-        }catch(Exception e){
-            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+            return new ServiceStatusInfo<>(0, "", list);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
         }
     }
 
     @Override
     public ServiceStatusInfo<ProductlShow> selectByIdByStoreId(long id, long storeId) {
-        try{
-            ProductlShow productlShow = this.iProductMapper.selectByIdByStoreId(id,storeId);
+        try {
+            ProductlShow productlShow = this.iProductMapper.selectByIdByStoreId(id, storeId);
             ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(id);
-            if(!serviceStatusInfo.isSuccess()){
-                return new ServiceStatusInfo<>(1,"查询失败,SUK不存在",null);
+            if (!serviceStatusInfo.isSuccess()) {
+                return new ServiceStatusInfo<>(1, "查询失败,SUK不存在", null);
             }
             ProductSKUs productSKUs = serviceStatusInfo.getData();
             productlShow.setProductSKUId(productSKUs.getId());
@@ -72,24 +69,24 @@ public class ProductServiceImpl implements  ProductService{
             productlShow.setInventory(productSKUs.getInventory());
             productlShow.setOriginalPrice(productSKUs.getOriginalPrice());
             List<Long> userIds = iProductOrderMapper.selectByOrder(id);
-            List<String> exchangeList =  null;
-            if(userIds.size()>0){
+            List<String> exchangeList = null;
+            if (userIds.size() > 0) {
                 exchangeList = iUserMapper.selectUserAvatarUrl(userIds);
             }
             productlShow.setExchangeList(exchangeList);
-            return new ServiceStatusInfo<>(0,"",productlShow);
-        }catch(Exception e){
-            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+            return new ServiceStatusInfo<>(0, "", productlShow);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
         }
     }
 
     @Override
     public ServiceStatusInfo<List<ProductlShow>> selectByStoreId(long storeId) {
-        try{
+        try {
             List<ProductlShow> productlShowList = this.iProductMapper.selectByStoreId(storeId);
-            for (ProductlShow productlShow: productlShowList) {
+            for (ProductlShow productlShow : productlShowList) {
                 ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(productlShow.getId());
-                if(!serviceStatusInfo.isSuccess()){
+                if (!serviceStatusInfo.isSuccess()) {
                     continue;
                 }
                 ProductSKUs productSKUs = serviceStatusInfo.getData();
@@ -98,19 +95,19 @@ public class ProductServiceImpl implements  ProductService{
                 productlShow.setInventory(productSKUs.getInventory());
                 productlShow.setOriginalPrice(productSKUs.getOriginalPrice());
             }
-            return new ServiceStatusInfo<>(0,"",productlShowList);
-        }catch(Exception e){
-            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+            return new ServiceStatusInfo<>(0, "", productlShowList);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
         }
     }
 
     @Override
     public ServiceStatusInfo<ProductOut> selectById(long id) {
-        try{
+        try {
             ProductOut productOut = iProductMapper.selectById(id);
-            return new ServiceStatusInfo<>(0,"",productOut);
-        }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
+            return new ServiceStatusInfo<>(0, "", productOut);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
         }
 
     }
@@ -119,13 +116,13 @@ public class ProductServiceImpl implements  ProductService{
     public ServiceStatusInfo<Integer> updateProductNum(long productId, long productSkuId, int num) {
         try {
             int result = this.iProductMapper.updateProductSkuNum(productSkuId, num);
-            if (result==0)return new ServiceStatusInfo<>(1,"商品数量更新失败",0);
+            if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
             result = this.iProductMapper.updateProductNum(productId, num);
-            if (result==0)return new ServiceStatusInfo<>(1,"商品数量更新失败",0);
-            return new ServiceStatusInfo<>(0,"",result);
+            if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
+            return new ServiceStatusInfo<>(0, "", result);
 
-        }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"商品数量更新失败:"+e.getMessage(),0);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "商品数量更新失败:" + e.getMessage(), 0);
         }
 
     }
@@ -134,34 +131,46 @@ public class ProductServiceImpl implements  ProductService{
     public ServiceStatusInfo<Boolean> getProductInventory(long productId, long productSkuId, int num) {
         try {
             long allInventory = this.iProductMapper.getProductInventory(productId);
-            if (allInventory<=0 || allInventory<num)return new ServiceStatusInfo<>(1,"该商品库存不足",false);
+            if (allInventory <= 0 || allInventory < num) return new ServiceStatusInfo<>(1, "该商品库存不足", false);
             int inventory = this.iProductMapper.getProductSkuInventory(productSkuId);
-            if (inventory<=0 || inventory<num)return new ServiceStatusInfo<>(1,"该商品规格库存不足",false);
-            return new ServiceStatusInfo<>(0,"",true);
+            if (inventory <= 0 || inventory < num) return new ServiceStatusInfo<>(1, "该商品规格库存不足", false);
+            return new ServiceStatusInfo<>(0, "", true);
 
-        }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"出现异常："+e.getMessage(),false);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "出现异常：" + e.getMessage(), false);
         }
     }
 
     @Override
     public ServiceStatusInfo<List<ProductMainDto>> mainProduct() {
-        try{
+        try {
             List<ProductMainDto> list;
             //TODO 未更新缓存和推荐
-            if(redisTemplate.hasKey("MAINPRODUCT")){
-                 list = (List<ProductMainDto>) redisTemplate.opsForValue().get(MainKeyType.MAINPRODUCT);
-                 return new ServiceStatusInfo<>(0,"",list);
+            if (redisTemplate.hasKey("MAINPRODUCT")) {
+                list = (List<ProductMainDto>) redisTemplate.opsForValue().get(MainKeyType.MAINPRODUCT);
+                return new ServiceStatusInfo<>(0, "", list);
             }
-           list = this.iProductMapper.mainSelectProduct();
-            for (ProductMainDto productMainDto: list) {
+            list = this.iProductMapper.mainSelectProduct();
+            for (ProductMainDto productMainDto : list) {
                 ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(productMainDto.getId());
                 productMainDto.setProductSKUId(serviceStatusInfo.getData().getId());
             }
-            redisTemplate.opsForValue().set(MainKeyType.MAINPRODUCT,list);
-            return new ServiceStatusInfo<>(0,"",list);
-        }catch(Exception e){
-            return new ServiceStatusInfo<>(1,e.getMessage(),null);
+            redisTemplate.opsForValue().set(MainKeyType.MAINPRODUCT, list);
+            return new ServiceStatusInfo<>(0, "", list);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, e.getMessage(), null);
         }
+    }
+
+    @Override
+    public ServiceStatusInfo<List<ProductInfo>> selectProductByStoreId(Long storeId) {
+        List<ProductInfo> result = null;
+        try {
+            result = iProductMapper.selectProductByStoreId(storeId);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询失败", null);
+        }
+
     }
 }

@@ -49,4 +49,10 @@ public interface IFavoriteMapper {
 
     @Select("select count(id) from shop_Favorites where userId=#{userId} and isDeleted=0")
     int getUserFavoriteNum(@Param("userId")long userId);
+
+    /**
+     * 查询用户是否收藏
+     */
+    @Select("select count(*) from shop_Favorites where userId=#{userId} and targetId=#{targetId} and targetType=#{targetType}")
+    int isFavorite(@Param("userId")long userId,@Param("targetId")long targetId,@Param("targetType")String targetType );
 }

@@ -28,7 +28,7 @@ public interface NearbyShopsMapper {
     @Select("select storeId, day,openTime,closeTime from o2o_offlineStoreOpeningHours where storeId=#{storeId}")
     List<OpeningHours> searchOpeningHours(@Param("storeId") long storeId);
 
-    @Select("select o.userId,o.storeId,u.userName,count(v.id) as videoCounts from " +
+    @Select("select o.userId,o.storeId,u.userName,u.avatarUrl,count(v.id) as videoCounts from " +
             "o2o_offlineStoreStaffs as o,core_users as u,core_videos as v where " +
             "o.storeId=#{storeId} and o.userId=u.id=v.userId GROUP BY v.userId")
     SuperStar searchSuperStar(@Param("storeId") long storeId);

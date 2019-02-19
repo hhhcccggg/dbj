@@ -1,9 +1,6 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper;
 
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -13,13 +10,15 @@ public interface IProductMapper {
 
     /**
      * 查询小程序的兑换商城
+     *
      * @return
      */
-    @SelectProvider(type = ProductSqlProvider.class,method = "seleteList")
+    @SelectProvider(type = ProductSqlProvider.class, method = "seleteList")
     List<ProductOut> selectShopProduct(@Param("productInput") ProductInput productInput);
 
     /**
      * 根据id查询数据
+     *
      * @param id
      * @return
      */
@@ -29,6 +28,7 @@ public interface IProductMapper {
 
     /**
      * 根据storeId查询数据
+     *
      * @param storeId
      * @return
      */
@@ -38,6 +38,7 @@ public interface IProductMapper {
 
     /**
      * 根据id查询数据
+     *
      * @param id
      * @return
      */
@@ -56,16 +57,22 @@ public interface IProductMapper {
     ProductOut selectById(long id);
 
     @Update("update shop_productSKUs set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
-    int updateProductSkuNum( @Param("id") long productSkuId, @Param("num") int num);
+    int updateProductSkuNum(@Param("id") long productSkuId, @Param("num") int num);
+
     @Update("update shop_products set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
-    int updateProductNum(@Param("id")long productId,@Param("num")int num);
+    int updateProductNum(@Param("id") long productId, @Param("num") int num);
 
     @Select("select inventory from shop_productSKUs where id=#{id}")
-    int getProductSkuInventory(@Param("id")long productSkuId);
+    int getProductSkuInventory(@Param("id") long productSkuId);
+
     @Select("select inventory from shop_products where id=#{id}")
-    long getProductInventory(@Param("id")long productId);
+    long getProductInventory(@Param("id") long productId);
 
     @Select("select id,`productType`,`productDetailType`,`name`,`imageUrls` from shop_products  where publish=1 and isDeleted=0" +
             " order by sales desc limit 3")
     List<ProductMainDto> mainSelectProduct();
+
+    @Select("select id,storeId,productType,productDetailType,name,inventory,sales,originalPrice,promotionPrice,limitPerPerson "+
+            "where productType=1 and productDetailType='CARD' or productDetailType='CASHCOUPON' and storeId=#{storeId}")
+    List<ProductInfo> selectProductByStoreId(@Param("storeId") Long storeId);
 }
