@@ -147,16 +147,7 @@ public interface IVideoMapper {
      * 首页测试sql
      * @return
      */
-    @Select("SELECT " +
-            "core_videos.id, " +
-            "core_videos.title, " +
-            "core_videos.coverImageUrl, " +
-            "core_videos.coverImageWidth, " +
-            "core_videos.coverImageHeight, " +
-            "core_videos.videoUrl, " +
-            "core_videos.tags, " +
-            "core_videos.userId, " +
-            "core_videos.heartCount " +
+    @Select("SELECT *" +
             "FROM " +
             "core_videos " +
             "ORDER BY " +

@@ -10,28 +10,10 @@ public class VideoMainInput {
     String scroll_id;
     @ApiModelProperty(value = "RECOMMEND //推荐  NEARBY      //附近",required = true)
     VideoMainType type;
-    @ApiModelProperty(value = "经度")
-    String longitude;
-    @ApiModelProperty(value = "纬度")
-    String latitude;
+    @ApiModelProperty(value = "坐标位置;如:30.6377966390,104.1077166796")
+    String location;
     @ApiModelProperty(value = "分类ID")
     Long category;
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
 
     public String getScroll_id() {
         return scroll_id;
@@ -47,6 +29,14 @@ public class VideoMainInput {
 
     public void setType(VideoMainType type) {
         this.type = type;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Long getCategory() {

@@ -828,11 +828,7 @@ public class VideoService {
             //TODO 测试数据
             List<VideoMain> list = videoMapper.mainVideo();
             for (VideoMain videoMain: list) {
-                UserModel userModel = userService.findUserById(videoMain.getUserId());
-                if(userModel != null ){
-                    videoMain.setAvatarUrl(userModel.getAvatarUrl());
-                    videoMain.setUsername(userModel.getUsername());
-                }
+                loadVideoInfoDto(videoMain);
                 StoreModel storeModel = storeServiceImpl.selectById(videoMain.getStoreId()).getData();
                 if(storeModel != null){
                     videoMain.setLogoUrl(storeModel.getLogoUrl());
