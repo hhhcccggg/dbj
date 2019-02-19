@@ -87,7 +87,7 @@ public interface IUserMapper {
     @Update("update core_users set password=#{input.mNewPassword} where id=#{id} and password=#{input.oldPassword}")
     Long modifyPwdAd(@Param("id")Long id,@Param("input")AdModifyManagerPasswordInput input);
 
-    @Select("select count(*) from core_users where phone=#{phone}")
+    @Select("select count(*) from core_users where phone=#{phone} and isManualData=0")
     Long phoneIsExist(@Param("phone")String phone);
     @Select("select count(*) from core_users where userName=#{userName}")
     Long userNameIsExist(@Param("userName")String userName);

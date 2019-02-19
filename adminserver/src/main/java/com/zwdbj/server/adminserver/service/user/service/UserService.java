@@ -143,16 +143,30 @@ public class UserService {
                 String username = UniqueIDCreater.generateUserName();
                 String password = SHAEncrypt.encryptSHA(phone.substring(8)+"123456");
                 int a = this.userMapper.greateUserByTenant(id,username,password,nickName,phone,tenantId,isSuper);
-                this.userMapper.insertUserRole(rId, id,"shopUser",tenantId);
+                if (isSuper){
+                    this.userMapper.insertUserRole(rId, id,"shopUser",tenantId);
+                }else {
+                    this.userMapper.insertUserRole(rId, id,"shopUserCommon",tenantId);
+                }
+
                 return a;
             }else {
                 UserModel u = this.userMapper.findUserByPhone(phone);
                 int b = this.userMapper.updateUserTanById(u.getId(),tenantId,isSuper);
                 int c = this.userMapper.findUserRole(u.getId(),"shopUser");
                 if (c==0){
-                    this.userMapper.insertUserRole(rId, u.getId(),"shopUser",tenantId);
+                    if (isSuper){
+                        this.userMapper.insertUserRole(rId, u.getId(),"shopUser",tenantId);
+                    }else {
+                        this.userMapper.insertUserRole(rId, u.getId(),"shopUserCommon",tenantId);
+                    }
                 }else {
-                    this.userMapper.updateUserRole(u.getId(),"shopUser",tenantId);
+                    if (isSuper){
+                        this.userMapper.updateUserRole(u.getId(),"shopUser",tenantId);
+                    }else {
+                        this.userMapper.updateUserRole(u.getId(),"shopUserCommon",tenantId);
+                    }
+
                 }
 
                 return b;

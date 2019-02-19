@@ -4,6 +4,7 @@ import com.zwdbj.server.mobileapi.service.pay.alipay.model.AliRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.alipay.model.ChargeCoinAlipayResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
+import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
@@ -83,10 +84,12 @@ public class AlipayBizService {
      */
     @Transactional
     public ServiceStatusInfo<ChargeCoinAlipayResult> payOrder(PayOrderInput input, long userId){
-        int rmbs = input.getPayMoney();
+        ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
+        if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
+        int rmbs = productOrderDetailModel.getActualPayment();
         rmbs=1;//测试数据
         AliAppPayInput aliAppPayInput = new AliAppPayInput();
-        aliAppPayInput.setBody("付款"+(input.getPayMoney()/100f)+"元");
+        aliAppPayInput.setBody("付款"+(productOrderDetailModel.getActualPayment()/100f)+"元");
         aliAppPayInput.setSubject("爪子订单付款");
         aliAppPayInput.setOutTradeNo(String.valueOf(input.getOrderId()));
         aliAppPayInput.setTimeoutExpress("15m");
@@ -132,7 +135,9 @@ public class AlipayBizService {
      */
     @Transactional
     public ServiceStatusInfo<AliAppRefundDto> refundOrder(AliRefundInput input, long userId){
-        int rmbs = input.getRefundAmount();
+        ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
+        if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
+        int rmbs = productOrderDetailModel.getActualPayment();
         rmbs=1;//测试数据
         AliAppRefundInput aliAppRefundInput = new AliAppRefundInput();
         aliAppRefundInput.setOutRequestNo(String.valueOf(input.getOrderItemId()));

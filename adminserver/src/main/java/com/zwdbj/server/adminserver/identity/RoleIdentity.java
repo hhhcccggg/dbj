@@ -11,6 +11,7 @@ public class RoleIdentity {
     public static final String NORMAL_ROLE = "normal";
     public static final String DATA_REPORT_ROLE = "datareport";
     public static final String SHOP_USER_ROLE = "shopUser";
+    public static final String SHOP_USER_ROLE_COMMON = "shopUserCommon";
 
     List<String> roles;
     public List<String> getRoles() {
@@ -24,6 +25,7 @@ public class RoleIdentity {
         roles.add(RoleIdentity.MARKET_ROLE);
         roles.add(RoleIdentity.DATA_REPORT_ROLE);
         roles.add(RoleIdentity.SHOP_USER_ROLE);
+        roles.add(RoleIdentity.SHOP_USER_ROLE_COMMON);
     }
 
 
