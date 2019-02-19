@@ -9,28 +9,25 @@ import java.util.List;
 @Mapper
 public interface OfflineStoreStaffsMapper {
 
-    @Insert("insert into o2o_offlineStoreStaffs (id,storeId,userId,isSuperStar) values(" +
-            "#{id},#{offlineStoreStaffs.storeId},#{offlineStoreStaffs.userId},#{offlineStoreStaffs.isSuperStar})")
-    Long create(@Param("id") Long id, @Param("offlineStoreStaffs") OfflineStoreStaffs offlineStoreStaffs);
 
     @Update("update o2o_offlineStoreStaffs set storeId=#{offlineStoreStaffs.storeId}," +
             "userId=#{offlineStoreStaffs.userId},isSuperStar=#{offlineStoreStaffs.isSuperStar} where id=#{offlineStoreStaffs.id}")
     Long update(@Param("offlineStoreStaffs") OfflineStoreStaffs offlineStoreStaffs);
 
-    @Update("update o2o_offlineStoreStaffs set isDeleted=1,deleteTime=now() where id=#{id}")
-    Long deleteById(@Param("id") Long id);
+    @Update("update core_users set isDeleted=1,deleteTime=now() where id=#{userId} ")
+    Long cancelStaff(@Param("userId") long userId);
 
-    @Select("SELECT u.name,u.phone,u.id,t.createTime,t.legalSubjectId FROM core_users as u, " +
-            "( SELECT id,legalSubjectId,createTime  from core_user_tenants  where isDeleted=0 and legalSubjectId=#{legalSubjectId} ) as t " +
-            "WHERE u.tenantId=t.id and u.isDeleted=0 ORDER BY t.createTime")
-    List<OfflineStoreStaffs> selectStaffs(@Param("legalSubjectId") long legalSubjectId);
+    @Select("SELECT u.nickName,u.phone,u.id,u.createTime,u.tenantId FROM core_users as u, " +
+            "( SELECT id from core_user_tenants  where isDeleted=0 and legalSubjectId=#{legalSubjectId} ) as t " +
+            "WHERE u.tenantId=t.id and u.isDeleted=0 ORDER BY u.nickName")
+    List<OfflineStoreStaffs> getStaffs(@Param("legalSubjectId") long legalSubjectId);
 
     @Select("select createTime from o2o_offlineStoreStaffs where storeId=#{storeId} and userId=#{userId} and isDeleted=0 ")
     Date selectSuperStarCreateTime(@Param("storeId") long storeId, @Param("userId") long userId);
 
-    @Select("SELECT u.name,u.phone,u.id,t.createTime,t.legalSubjectId FROM core_users as u, " +
-            "( SELECT id,legalSubjectId,createTime from core_user_tenants  where isDeleted=0 and legalSubjectId=#{legalSubjectId} ) as t " +
-            "WHERE u.tenantId=t.id and u.name like '%#{search}%' and u.isDeleted=0 ORDER BY t.createTime")
+    @Select("SELECT u.nickName,u.phone,u.id,u.createTime,u.tenantId FROM core_users as u, " +
+            "( SELECT id from core_user_tenants  where isDeleted=0 and legalSubjectId=#{legalSubjectId} ) as t " +
+            "WHERE u.tenantId=t.id and u.isDeleted=0 and u.nickName like %#{search}% ORDER BY u.nickName")
     List<OfflineStoreStaffs> searchStaffs(@Param("legalSubjectId") long legalSubjectId, @Param("search") String search);
 
     @Select("SELECT u.name,u.phone,u.id,s.createTime from core_users as u,(select userId from o2o_offlineStoreStaffs where storeId=#{storeId} and isDeleted=0 ) as s " +
@@ -40,8 +37,8 @@ public interface OfflineStoreStaffsMapper {
     @Insert("insert into o2o_offlineStoreStaffs (id,storeId,userId) values(#{id},#{storeId},#{userId})")
     Long setSuperStar(@Param("id") long id, @Param("storeId") long storeId, @Param("userId") long userId);
 
-    @Update("update o2o_offlineStoreStaffs set isDeleted=1 and deleteTime=now() where userId=#{userId} and storeId=#{storeId}")
-    Long cancelSuperStar(@Param("userId") long userId, @Param("storeId") long storeId);
+    @Update("update o2o_offlineStoreStaffs set isDeleted=1 and deleteTime=now() where userId=#{userId} and storeId=#{legalSubjectId}")
+    Long cancelSuperStar(@Param("userId") long userId, @Param("legalSubjectId") long legalSubjectId);
 
     /**
      * 批量删除

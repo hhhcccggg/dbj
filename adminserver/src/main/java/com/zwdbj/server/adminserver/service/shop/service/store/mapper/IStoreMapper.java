@@ -21,4 +21,7 @@ public interface IStoreMapper {
     @Select("select name,contactName,contactPhone,latitude,longitude,address,grade," +
             "status,mainConverImage,coverImages,logoUrl,cityId,cityLevel from shop_stores  where id=#{storeId}")
     StoreInfo selectByStoreId(@Param("storeId") long storeId);
+
+    @Select("select id from core_user_tenants where legalSubjectId=#{legalSubjectId} and isDeleted=0")
+    long selectTenantId(@Param("legalSubjectId") long legalSubjectId);
 }

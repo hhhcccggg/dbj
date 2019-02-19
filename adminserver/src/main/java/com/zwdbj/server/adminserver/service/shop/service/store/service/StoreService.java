@@ -14,4 +14,6 @@ public interface StoreService {
     ServiceStatusInfo<Long> selectByLegalSubjectId(long legalSubjectId);
 
     ServiceStatusInfo<StoreInfo> selectByStoreId(long storeId);
+
+    long selectTenantId(long legalSubjectId);
 }

@@ -8,9 +8,9 @@ import java.util.Date;
 @ApiModel(description = " 门店员工，或者代言人")
 public class OfflineStoreStaffs {
     @ApiModelProperty(value = "员工名称")
-    String name;
-    @ApiModelProperty(value = "线下门店id")
-    long storeId;
+    String nickName;
+    @ApiModelProperty(value = "租户id")
+    long tenantId;
     @ApiModelProperty(value = "联系电话")
     String phone;
     @ApiModelProperty(value = "用户id")
@@ -29,12 +29,12 @@ public class OfflineStoreStaffs {
     @ApiModelProperty(value = "备注")
     String notes;
 
-    public String getName() {
-        return name;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getPhone() {
@@ -70,12 +70,12 @@ public class OfflineStoreStaffs {
     }
 
 
-    public long getStoreId() {
-        return storeId;
+    public long getTenantId() {
+        return tenantId;
     }
 
-    public void setStoreId(long storeId) {
-        this.storeId = storeId;
+    public void setTenantId(long tenantId) {
+        this.tenantId = tenantId;
     }
 
     public long getUserId() {

@@ -60,4 +60,9 @@ public class StoreServiceImpl implements StoreService {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), storeInfo);
         }
     }
+
+    public long selectTenantId(long legalSubjectId) {
+        return iStoreMapper.selectTenantId(legalSubjectId);
+
+    }
 }
