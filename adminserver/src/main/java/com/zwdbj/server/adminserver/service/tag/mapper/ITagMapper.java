@@ -24,4 +24,7 @@ public interface ITagMapper {
 
     @Update("update core_tags set isHot=#{input.isOpen} where id=#{input.id}")
     int addHotTag(@Param("input")ResourceOpenInput<Long> input);
+
+    @Select("select * from core_tags where id=#{id}")
+    AdVideoTagDto getTagDetailById(@Param("id")long id);
 }

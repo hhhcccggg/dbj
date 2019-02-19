@@ -63,14 +63,29 @@ public class TagController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"",null);
     }
     @RequiresAuthentication
-    @RequestMapping(value = "/dbj/add/todayTag/{id}",method = RequestMethod.POST)
+    @RequestMapping(value = "/add/todayTag/{id}",method = RequestMethod.POST)
     @ApiOperation("添加今日主题标签")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
-    public ResponseData<Object> addTodayTag(@PathVariable long id){
-        ServiceStatusInfo<Object> statusInfo = this.tagService.addTodayTag(id);
+    public ResponseData<Object> addTodayTag(@PathVariable long id,
+                                            @RequestParam String date){
+        ServiceStatusInfo<Object> statusInfo = this.tagService.addTodayTag(id,date);
         if (statusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",null);
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"",null);
+    }
+    @RequiresAuthentication
+    @RequestMapping(value = "/search/todayTags",method = RequestMethod.POST)
+    @ApiOperation("根据年月查看今日主题标签")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    public ResponsePageInfoData<List<TodayTagsDto>> getTagsByYearAndMonth(@RequestParam String yearAndMonth,
+                                                                          @RequestParam(value = "pageNo",defaultValue = "1",required = true) int pageNo,
+                                                                          @RequestParam(value = "rows",defaultValue = "15",required = true) int rows){
+        Page<TodayTagsDto> pageInfo = PageHelper.startPage(pageNo,rows);
+        ServiceStatusInfo<List<TodayTagsDto>> statusInfo = this.tagService.getTagsByYearAndMonth(yearAndMonth);
+        if (statusInfo.isSuccess()) {
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData(),pageInfo.getTotal());
+        }
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR,"",null,0);
     }
 }
