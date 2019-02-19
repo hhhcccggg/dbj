@@ -96,12 +96,18 @@ public class ElasticsearchInit implements ApplicationRunner {
         properties.put("latitude",text);
         properties.put("location",geo_point);
         properties.put("address",text);
+        properties.put("recommendIndex",longt);
+        properties.put("playCount",longt);
+        properties.put("commentCount",longt);
         properties.put("heartCount",longt);
+        properties.put("shareCount",longt);
+        properties.put("musicId",longt);
+        properties.put("status",longt);
+        properties.put("rejectMsg",text);
 
         properties.put("userId",longt);
-        properties.put("username",ik_max_word);
-        properties.put("nickName",text);
-        properties.put("avatarUrl",text);
+        properties.put("userNickName",ik_max_word);
+        properties.put("userAvatarUrl",text);
 
         properties.put("type",text);
         mapping.put("properties",properties);
