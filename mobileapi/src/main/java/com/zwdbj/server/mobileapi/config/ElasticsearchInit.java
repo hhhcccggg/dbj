@@ -82,8 +82,6 @@ public class ElasticsearchInit implements ApplicationRunner {
 
         properties.put("id",longt);
         properties.put("createTime",date);
-        properties.put("deleteTime",date);
-        properties.put("isDeleted",booleant);
         properties.put("title",ik_max_word);
         properties.put("coverImageUrl",text);
         properties.put("coverImageWidth",text);
@@ -98,23 +96,13 @@ public class ElasticsearchInit implements ApplicationRunner {
         properties.put("latitude",text);
         properties.put("location",geo_point);
         properties.put("address",text);
-        properties.put("isHiddenLocation",booleant);
-        properties.put("status",longt);
-        properties.put("rejectMsg",text);
-        properties.put("reviewUserId",text);
-        properties.put("reviewTime",date);
-        properties.put("recommendIndex",longt);
-        properties.put("isManualRecommend",booleant);
-        properties.put("isManualData",booleant);
-        properties.put("playCount",longt);
-        properties.put("commentCount",longt);
         properties.put("heartCount",longt);
-        properties.put("shareCount",longt);
+
         properties.put("userId",longt);
-        properties.put("musicId",longt);
-        properties.put("linkProductCount",longt);
-        properties.put("complainCount",longt);
-        properties.put("tipCount",longt);
+        properties.put("username",ik_max_word);
+        properties.put("nickName",text);
+        properties.put("avatarUrl",text);
+
         properties.put("type",text);
         mapping.put("properties",properties);
         createIndexRequest.mapping("doc",mapping);
