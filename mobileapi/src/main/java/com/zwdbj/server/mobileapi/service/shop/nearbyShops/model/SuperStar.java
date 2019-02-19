@@ -13,6 +13,16 @@ public class SuperStar {
     String userName;
     @ApiModelProperty(value = "视频数量")
     int videoCounts;
+    @ApiModelProperty(value = "头像")
+    String avatarUrl;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     public long getUserId() {
         return userId;

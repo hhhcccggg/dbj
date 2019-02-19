@@ -7,6 +7,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInp
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.*;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
@@ -158,10 +159,22 @@ public class ProductServiceImpl implements  ProductService{
                 ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(productMainDto.getId());
                 productMainDto.setProductSKUId(serviceStatusInfo.getData().getId());
             }
-            redisTemplate.opsForValue().set(MainKeyType.MAINPRODUCT,list);
-            return new ServiceStatusInfo<>(0,"",list);
-        }catch(Exception e){
-            return new ServiceStatusInfo<>(1,e.getMessage(),null);
+            redisTemplate.opsForValue().set(MainKeyType.MAINPRODUCT, list);
+            return new ServiceStatusInfo<>(0, "", list);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, e.getMessage(), null);
         }
+    }
+
+    @Override
+    public ServiceStatusInfo<List<ProductInfo>> selectProductByStoreId(Long storeId) {
+        List<ProductInfo> result = null;
+        try {
+            result = iProductMapper.selectProductByStoreId(storeId);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询失败", null);
+        }
+
     }
 }
