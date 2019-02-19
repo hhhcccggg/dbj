@@ -1,6 +1,9 @@
 package com.zwdbj.server.mobileapi.service.appHome.service;
 
 import com.zwdbj.server.mobileapi.service.adBanner.moder.AdBannerDto;
+import com.zwdbj.server.mobileapi.service.adBanner.moder.AdBannerInput;
+import com.zwdbj.server.mobileapi.service.adBanner.moder.Platform;
+import com.zwdbj.server.mobileapi.service.adBanner.moder.Type;
 import com.zwdbj.server.mobileapi.service.adBanner.service.AdBannerService;
 import com.zwdbj.server.mobileapi.service.appHome.model.AppHomeInput;
 import com.zwdbj.server.mobileapi.service.appHome.model.AppHomeResDto;
@@ -27,11 +30,20 @@ public class AppHomeService {
     public ServiceStatusInfo<AppHomeResDto> allHome(AppHomeInput input){
         try {
             AppHomeResDto dto = new AppHomeResDto();
-            List<AdBannerDto> adBannerDtos1 =  this.adBannerServiceImpl.searchAdBanner(input.getAdBannerInput1()).getData();
+            AdBannerInput adBannerInput1 = new AdBannerInput();
+            adBannerInput1.setPlatform(input.getPlatform());
+            adBannerInput1.setType(Type.APP_O2O_HOME);
+            List<AdBannerDto> adBannerDtos1 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput1).getData();
             if (adBannerDtos1!=null)dto.setAdBannerDtos1(adBannerDtos1);
-            List<AdBannerDto> adBannerDtos2 =  this.adBannerServiceImpl.searchAdBanner(input.getAdBannerInput2()).getData();
+            AdBannerInput adBannerInput2 = new AdBannerInput();
+            adBannerInput2.setPlatform(input.getPlatform());
+            adBannerInput2.setType(Type.COIN_TASK_APP);
+            List<AdBannerDto> adBannerDtos2 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput2).getData();
             if (adBannerDtos2!=null)dto.setAdBannerDtos1(adBannerDtos2);
-            List<AdBannerDto> adBannerDtos3 =  this.adBannerServiceImpl.searchAdBanner(input.getAdBannerInput3()).getData();
+            AdBannerInput adBannerInput3 = new AdBannerInput();
+            adBannerInput3.setPlatform(input.getPlatform());
+            adBannerInput3.setType(Type.DISCOUNT_APP);
+            List<AdBannerDto> adBannerDtos3 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput3).getData();
             if (adBannerDtos3!=null)dto.setAdBannerDtos1(adBannerDtos3);
             CategoryMainDto categoryMainDtos = this.categoryService.mainSelect().getData();
             if (categoryMainDtos!=null)dto.setCategoryMainDtos(categoryMainDtos);
