@@ -33,7 +33,11 @@ public class CategoryService {
             }
             categoryMainDtos = this.categoryMapper.mainSelect(0);
             for (CategoryMainDto categoryMainDto: categoryMainDtos) {
-                categoryMainDto.setCategoryMainDtoList(categoryMapper.mainSelect(categoryMainDto.getId()));
+                List<CategoryMainDto> list = categoryMapper.mainSelect(categoryMainDto.getId());
+                if(list!=null){
+                    categoryMainDto.setCategoryMainDtoList(list);
+                }
+
             }
             redisTemplate.opsForValue().set(MainKeyType.MAINCATEGORY,categoryMainDtos);
             return new ServiceStatusInfo<>(0,"",categoryMainDtos);
