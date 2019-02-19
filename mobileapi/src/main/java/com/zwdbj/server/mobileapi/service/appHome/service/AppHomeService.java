@@ -31,17 +31,17 @@ public class AppHomeService {
         try {
             AppHomeResDto dto = new AppHomeResDto();
             AdBannerInput adBannerInput1 = new AdBannerInput();
-            adBannerInput1.setPlatform(Platform.ALL);
+            adBannerInput1.setPlatform(input.getPlatform());
             adBannerInput1.setType(Type.APP_O2O_HOME);
             List<AdBannerDto> adBannerDtos1 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput1).getData();
             if (adBannerDtos1!=null)dto.setAdBannerDtos1(adBannerDtos1);
             AdBannerInput adBannerInput2 = new AdBannerInput();
-            adBannerInput2.setPlatform(Platform.ALL);
+            adBannerInput2.setPlatform(input.getPlatform());
             adBannerInput2.setType(Type.COIN_TASK_APP);
             List<AdBannerDto> adBannerDtos2 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput2).getData();
             if (adBannerDtos2!=null)dto.setAdBannerDtos1(adBannerDtos2);
             AdBannerInput adBannerInput3 = new AdBannerInput();
-            adBannerInput3.setPlatform(Platform.ALL);
+            adBannerInput3.setPlatform(input.getPlatform());
             adBannerInput3.setType(Type.DISCOUNT_APP);
             List<AdBannerDto> adBannerDtos3 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput3).getData();
             if (adBannerDtos3!=null)dto.setAdBannerDtos1(adBannerDtos3);
