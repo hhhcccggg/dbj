@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.service.adBanner.mapper;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerDto;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInfo;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInput;
+import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerSerchInput;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface AdBannerMapper {
     List<AdBannerInfo> searchAllAdBanners();
 
     @SelectProvider(type = AdBannerSqlProvider.class, method = "search")
-    List<AdBannerInfo> searchAdBanners(@Param("input") AdBannerInput input);
+    List<AdBannerInfo> searchAdBanners(@Param("input") AdBannerSerchInput input);
 
     @UpdateProvider(type = AdBannerSqlProvider.class, method = "modify")
     Long modifyAdBanner(@Param("input") AdBannerDto input, @Param("id") long id);
