@@ -16,6 +16,7 @@ public interface StoreService {
      * @return
      */
     ServiceStatusInfo<Long> selectByLegalSubjectId(long legalSubjectId);
+    ServiceStatusInfo<Integer> updateStoreStatus(long storeId,long legalSubjectId,int state);
 
     ServiceStatusInfo<StoreInfo> selectByStoreId(long storeId);
 

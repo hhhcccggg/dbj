@@ -28,8 +28,12 @@ public interface OfflineStoreServiceScopesMapper {
     @Select("select * from o2o_offlineStoreServiceScopes where isDeleted=0 order by createTime")
     List<OfflineStoreServiceScopes> select();
 
-    @Select(("select id,storeId,serviceScopeId,notes,status from o2o_offlineStoreServiceScopes where storeId=#{storeId} and isDeleted=0"))
+    @Select(("select os.id,os.storeId,os.serviceScopeId,os.notes,os.status,c.name as categoryName from o2o_offlineStoreServiceScopes os " +
+            "left join core_categories c on c.id=os.serviceScopeId where os.storeId=#{storeId} and os.isDeleted=0"))
     List<OfflineStoreServiceScopes> selectByofflineStoreId(@Param("storeId") Long storeId);
+    @Select(("select c.name as categoryName from o2o_offlineStoreServiceScopes os " +
+            "left join core_categories c on c.id=os.serviceScopeId where os.storeId=#{storeId} and os.isDeleted=0"))
+    List<String> selectCateNameByofflineStoreId(@Param("storeId") Long storeId);
 
 
 }

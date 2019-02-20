@@ -61,4 +61,7 @@ public interface ILegalSubjectMapper {
     //审核商家需要审核的资料
     @Update("update shop_legalSubjectReviews set `status`=#{input.status},rejectMsg=#{input.rejectMsg} where id=#[id]")
     int verityLegalSubjectReview(@Param("id")long id,@Param("input")LegalSubjectReviewVerityInput input);
+
+    @Update("update shop_legalSubjects set `status`=#{status} where id=#{id} and `status`<>#{status}")
+    int updateStatusById(@Param("id") long legalSubjectId,@Param("status")int status);
 }

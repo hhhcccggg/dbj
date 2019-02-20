@@ -9,30 +9,30 @@ public class StoreSqlProvider {
 
     public String searchStore(Map param){
         StoreSearchInput input = (StoreSearchInput)param.get("input");
-        SQL sql = new SQL().SELECT("*")
+        SQL sql = new SQL().SELECT("s.*")
                 .FROM("shop_stores s")
-                .WHERE("isDeleted=0");
+                .WHERE("s.isDeleted=0");
         if (input.getReviewed()!=0){
             if (input.getReviewed()==1){
-                sql.WHERE("reviewed=true");
+                sql.WHERE("s.reviewed=true");
             }else if (input.getReviewed()==2){
-                sql.WHERE("reviewed=false");
+                sql.WHERE("s.reviewed=false");
             }
         }
         if (input.getStopService()!=0){
             if (input.getStopService()==1){
-                sql.WHERE("stopService=true");
+                sql.WHERE("s.stopService=true");
             }else if (input.getStopService()==2){
-                sql.WHERE("stopService=false");
+                sql.WHERE("s.stopService=false");
             }
         }
         if (input.getStatus()!=-1){
-            sql.WHERE("`status`=#{input.status}");
+            sql.WHERE("s.`status`=#{input.status}");
         }
         if (input.getKeyWords()!=null && input.getKeyWords().length()>0){
-            sql.WHERE(String.format("title like '%s'",("%"+input.getKeyWords()+"%")));
+            sql.WHERE(String.format("s.title like '%s'",("%"+input.getKeyWords()+"%")));
         }
-        sql.ORDER_BY("createTime desc");
+        sql.ORDER_BY("s.createTime desc");
         return sql.toString();
     }
 }
