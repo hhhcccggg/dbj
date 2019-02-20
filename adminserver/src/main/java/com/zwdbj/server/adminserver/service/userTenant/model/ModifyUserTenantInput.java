@@ -16,7 +16,6 @@ public class ModifyUserTenantInput {
     @NotNull(message = "手机号码不能为空")
     private String phone;
     @ApiModelProperty(value = "租户法人姓名")
-    @NotNull(message = "法人姓名不能为空")
     private String leagalRepresentativeName;
     @ApiModelProperty(value = "租户法人身份证号码")
     @NotNull(message = "法人身份证号码不能为空")
@@ -34,7 +33,6 @@ public class ModifyUserTenantInput {
     @NotNull(message = "租户的店铺类型不能为空")
     private String storeType;
     @ApiModelProperty(value = "在平台开店的有效期")
-    @NotNull(message = "租户的店铺有效期不能为空")
     private String expireTime;
 
 

@@ -32,6 +32,7 @@ public class UserTenantService {
         String identifyName = UniqueIDCreater.generateUserName();
         input.setIdentifyName(identifyName);
         input.setExpireTime("2099-01-01");
+        input.setLeagalRepresentativeName(input.getUsername());
         int result = this.userTenantMapper.identifyNameIsExsit(input.getIdentifyName());
         if (result!=0)return new ServiceStatusInfo<>(1,"租户标识已经存在，请更换标识后再添加",null);
         long id = UniqueIDCreater.generateID();
