@@ -4,6 +4,7 @@ import com.zwdbj.server.adminserver.service.adBanner.mapper.AdBannerMapper;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerDto;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInfo;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInput;
+import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerSerchInput;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -31,7 +32,7 @@ public class AdBannerServiceImpl implements AdBannerService {
     }
 
     @Override
-    public ServiceStatusInfo<List<AdBannerInfo>> searchAdBanners(AdBannerInput input) {
+    public ServiceStatusInfo<List<AdBannerInfo>> searchAdBanners(AdBannerSerchInput input) {
         List<AdBannerInfo> result = null;
         try {
             result = this.adBannerMapper.searchAdBanners(input);

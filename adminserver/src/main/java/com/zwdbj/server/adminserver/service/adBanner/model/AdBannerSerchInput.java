@@ -3,19 +3,14 @@ package com.zwdbj.server.adminserver.service.adBanner.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.List;
-
 @ApiModel(description = "adBanner搜索条件")
-public class AdBannerInput {
-    @ApiModelProperty(value = "不同地方的banner MINIAPP_HOME:微信小程序首页 APP_O2O_HOME:app周边首页 " +
-            "DISCOUNT_APP:app优惠折扣 COIN_TASK_APP:app金币任务")
-    private Type type;
-    @ApiModelProperty(value = "平台类型  IOS:苹果ANDROID:安卓ALL:所有")
-    private Platform platform;
+public class AdBannerSerchInput {
     @ApiModelProperty(value = "banner的展示范围")
     private String exhibitionScope;
+    @ApiModelProperty(value = "搜索关键字")
+    private String keyWords;
     @ApiModelProperty(value = "状态 ONLINE:上线 OFFLINE:下线")
-    private State state;
+    private String state;
     @ApiModelProperty("banner活动的开始时间")
     private String startTime;
     @ApiModelProperty("banner活动的结束时间")
@@ -29,6 +24,22 @@ public class AdBannerInput {
 
     public void setExhibitionScope(String exhibitionScope) {
         this.exhibitionScope = exhibitionScope;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getStartTime() {
@@ -53,29 +64,5 @@ public class AdBannerInput {
 
     public void setApplyUser(String applyUser) {
         this.applyUser = applyUser;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public Platform getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(Platform platform) {
-        this.platform = platform;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
     }
 }

@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.service.adBanner.mapper;
 
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerDto;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInput;
+import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerSerchInput;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.util.Map;
@@ -9,19 +10,16 @@ import java.util.Map;
 public class AdBannerSqlProvider {
 
     public String search(Map paras) {
-        AdBannerInput input = (AdBannerInput) paras.get("input");
-        SQL sql = new SQL().SELECT("id,title,imageUrl,refUrl,type,platform,state,createTime").SELECT().
-                FROM("core_adBanners").WHERE("isDeleted=0").ORDER_BY("createTime");
-        if (input.getPlatform() != null && !"".equals(input.getPlatform())) {
-            sql.WHERE("platform=#{input.platform}");
-        }
+        AdBannerSerchInput input = (AdBannerSerchInput) paras.get("input");
+        SQL sql = new SQL().SELECT("id,title,imageUrl,refUrl,type,platform,state,createTime").
+                FROM("core_adBanners").WHERE("isDeleted=0");
         if (input.getState() != null && !"".equals(input.getState())) {
             sql.WHERE("state=#{input.state}");
-
         }
-        if (input.getType() != null && !"".equals(input.getType())) {
-            sql.WHERE("type=#{input.type}");
+        if (input.getKeyWords()!=null && input.getKeyWords().length()>0){
+            sql.WHERE(String.format("title like '%s'",("%"+input.getKeyWords()+"%")));
         }
+        sql.ORDER_BY("createTime desc");
         return sql.toString();
 
 
