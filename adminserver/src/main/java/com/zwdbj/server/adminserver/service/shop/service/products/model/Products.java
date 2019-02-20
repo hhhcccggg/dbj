@@ -1,10 +1,14 @@
 package com.zwdbj.server.adminserver.service.shop.service.products.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "商品信息")
 public class Products {
+
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "id")
     Long id;
     @ApiModelProperty(value = "商品类型")
@@ -22,10 +26,12 @@ public class Products {
     Long categoryId;
     String categoryLevel;
     boolean isDeleted;
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "品牌ID")
     Long brandId;
     @ApiModelProperty(value = "分享描述")
     String shareDesc;
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "卖家编号")
     long storeId;
     @ApiModelProperty(value = "评论数")
