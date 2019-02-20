@@ -11,20 +11,13 @@ public interface ICategoryMapper {
     List<CategoryDto> search(@Param("input") CategorySearchInput input);
 
 
-    @Select("<script>select id," +
+    @Select("select id," +
             "`name`," +
             "parentId," +
             "iconUrl," +
             "orderIndex from core_categories where  isDeleted=0 and status=0 and `type`=1" +
-            "<if test='parentId!=0'>" +
-                "and parentId=#{parentId}" +
-            "</if>" +
-            " order by orderIndex desc " +
-            "<if test='parentId==0'>" +
-            "limit 5" +
-            "</if>" +
-            "</script>")
-    List<CategoryOut> mainSelect(@Param("parentId") long parentId);
+            " order by orderIndex desc ")
+    List<CategoryOut> mainSelect();
 
     @Select("select id,name from core_categories where isDeleted=0 and status=0 and `type`=1 and parentId=0")
     List<CategoryRecommendDto> categoryRecommends();
