@@ -103,6 +103,7 @@ public class ElasticsearchInit implements ApplicationRunner {
         properties.put("shareCount",longt);
         properties.put("musicId",longt);
         properties.put("status",longt);
+        properties.put("categoryId",longt);
         properties.put("linkProductCount",longt);
         properties.put("rejectMsg",text);
 
@@ -115,7 +116,9 @@ public class ElasticsearchInit implements ApplicationRunner {
         createIndexRequest.mapping("doc",mapping);
         restHighLevelClient.indices().create(createIndexRequest,RequestOptions.DEFAULT);
         BulkRequest bulkRequest = new BulkRequest();
-        createIndexRequest("video","doc",videoService.selectES(),bulkRequest);
+        List<Map<String,String>> maps = videoService.selectES();
+
+        createIndexRequest("video","doc",maps,bulkRequest);
         restHighLevelClient.bulk(bulkRequest,RequestOptions.DEFAULT);
     }
 

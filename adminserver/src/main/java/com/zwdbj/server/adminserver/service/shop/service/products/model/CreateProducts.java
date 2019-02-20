@@ -91,6 +91,17 @@ public class CreateProducts {
     @ApiModelProperty(value = "规则说明")
     String ruleDescription;
 
+    @ApiModelProperty(value = "叠加使用")
+    boolean overlay;
+
+    public boolean isOverlay() {
+        return overlay;
+    }
+
+    public void setOverlay(boolean overlay) {
+        this.overlay = overlay;
+    }
+
     public String getRuleDescription() {
         return ruleDescription;
     }
