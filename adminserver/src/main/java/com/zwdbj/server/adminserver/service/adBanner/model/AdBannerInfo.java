@@ -92,7 +92,7 @@ public class AdBannerInfo {
     }
 
     public void setRefUrl(String refUrl) {
-        this.refUrl = "http://www.zwdbj.com/";
+        this.refUrl = refUrl;
     }
 
     public String getType() {
