@@ -95,7 +95,7 @@ namespace db.shop.Models.shop
         /// <value>The grade.</value>
         public int grade { get; set; }
         /// <summary>
-        /// 0：正常1：关闭
+        /// 0：正常1：关闭,2审核中
         /// </summary>
         /// <value>The status.</value>
         public int status { get; set; }

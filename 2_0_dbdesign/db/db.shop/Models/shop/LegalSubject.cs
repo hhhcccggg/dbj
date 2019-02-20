@@ -78,7 +78,7 @@ namespace db.shop.Models.shop
         [MaxLength(50)]
         public String wechat { get; set; }
         /// <summary>
-        /// 0：正常1：关闭
+        /// 0：正常1：关闭2:审核中
         /// </summary>
         /// <value>The status.</value>
         public int status { get; set; }
