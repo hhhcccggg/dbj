@@ -30,7 +30,7 @@ public class CreateProducts {
     @ApiModelProperty(value = "店铺ID")
     long storeId;
 
-    @ApiModelProperty(value = "库存")
+    @ApiModelProperty(value = "库存 库存 -10000不限库存")
     long inventory;
 
     @ApiModelProperty(value = "是否上架")
@@ -90,6 +90,17 @@ public class CreateProducts {
 
     @ApiModelProperty(value = "规则说明")
     String ruleDescription;
+
+    @ApiModelProperty(value = "叠加使用")
+    boolean overlay;
+
+    public boolean isOverlay() {
+        return overlay;
+    }
+
+    public void setOverlay(boolean overlay) {
+        this.overlay = overlay;
+    }
 
     public String getRuleDescription() {
         return ruleDescription;

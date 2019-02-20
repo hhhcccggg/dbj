@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.video.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.ecwid.consul.v1.ConsulClient;
 import com.github.pagehelper.Page;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
@@ -39,10 +40,24 @@ import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchScrollRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.geo.GeoPoint;
+import org.elasticsearch.common.unit.DistanceUnit;
+import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.GeoDistanceQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
+import org.elasticsearch.search.sort.SortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -838,6 +853,56 @@ public class VideoService {
             VideoMainDto videoMainDto = new VideoMainDto("",list);
             return new ServiceStatusInfo<>(0,"",videoMainDto);
         }catch(Exception e){
+            return new ServiceStatusInfo<>(1,e.getMessage(),null);
+        }
+    }
+
+    /**
+     * 主页ES视频查询
+     * @param videoMainInput
+     * @return
+     */
+    public ServiceStatusInfo<VideoMainDto> mainESVideo(VideoMainInput videoMainInput){
+        try{
+            VideoMainDto videoMainDto = new VideoMainDto();
+            SearchResponse searchResponse ;
+            SearchRequest searchRequest = new SearchRequest("video");
+            searchRequest.scroll(TimeValue.timeValueMinutes(5L));
+            if(videoMainInput.getScroll_id() != null && videoMainInput.getScroll_id().length()>0){
+                SearchScrollRequest searchScrollRequest = new SearchScrollRequest(videoMainInput.getScroll_id());
+                searchScrollRequest.scroll(TimeValue.timeValueMinutes(5L));
+                searchResponse = restHighLevelClient.scroll(searchScrollRequest,RequestOptions.DEFAULT);
+            }else{
+                BoolQueryBuilder boolQueryBuilder =  QueryBuilders.boolQuery();
+                boolQueryBuilder.filter(QueryBuilders.termQuery("type",videoMainInput.getType()));
+                if(videoMainInput.getCategory() != null){
+                    boolQueryBuilder.filter(QueryBuilders.termQuery("categoryId",videoMainInput.getCategory()));
+                }
+                searchRequest.source().size(10).query(boolQueryBuilder);
+                //距离
+                if(videoMainInput.getType() == VideoMainType.NEARBY &&videoMainInput.getLocation() != null && videoMainInput.getLocation().length()>0) {
+                    GeoDistanceQueryBuilder geoDistanceQueryBuilder = QueryBuilders.geoDistanceQuery("location")
+                            .point(GeoPoint.parseFromLatLon(videoMainInput.getLocation())).distance(100000, DistanceUnit.METERS);
+                    geoDistanceQueryBuilder.geoDistance();
+                    String[] location = videoMainInput.getLocation().split(",");
+                    GeoDistanceSortBuilder geoDistanceSortBuilder = SortBuilders.geoDistanceSort("location", Double.parseDouble(location[0]), Double.parseDouble(location[1]));
+                    geoDistanceSortBuilder.unit(DistanceUnit.METERS);
+                    geoDistanceSortBuilder.order(SortOrder.ASC);
+                    searchRequest.source().postFilter(geoDistanceQueryBuilder).sort(geoDistanceSortBuilder);
+                }
+                searchResponse = restHighLevelClient.search(searchRequest,RequestOptions.DEFAULT);
+            }
+            videoMainDto.setScroll_id(searchResponse.getScrollId());
+            List<Map<String,Object>> mapList= new ArrayList<>();
+            SearchHit[] searchHits = searchResponse.getHits().getHits();
+            for (SearchHit searchHit: searchHits) {
+                mapList.add(searchHit.getSourceAsMap());
+            }
+            List<VideoMain> list = JSONArray.parseArray(JSONArray.toJSONString(mapList),VideoMain.class);
+            videoMainDto.setVideoMains(list);
+            return new ServiceStatusInfo<>(0,"",videoMainDto);
+        }catch(Exception e){
+            e.printStackTrace();
             return new ServiceStatusInfo<>(1,e.getMessage(),null);
         }
     }

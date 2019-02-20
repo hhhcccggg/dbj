@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
+import java.util.Map;
 
 @ApiModel(description = "单个商品展示")
 public class ProductlShow {
@@ -14,7 +15,8 @@ public class ProductlShow {
     @ApiModelProperty(value = "商品类型")
     Long productType;
 
-    @ApiModelProperty(value = "产品详细类型")
+    @ApiModelProperty(value = "产品详细类型 /// DELIVERY: 实物产品 NODELIVERY:虚拟商品(不需要物流)\n" +
+            "        /// CARD:卡券(服务中套餐)，关联[ProductCard]表 CASHCOUPON:代金券，类似70抵100，关联[ProductCashCoupon]表")
     String productDetailType;
 
     @ApiModelProperty(value = "商品名称")
@@ -61,6 +63,17 @@ public class ProductlShow {
 
     @ApiModelProperty(value = "规则说明")
     String ruleDescription;
+
+    @ApiModelProperty(value = "购买说明")
+    List<Map<String,String>> specification;
+
+    public List<Map<String,String>> getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(List<Map<String,String>> specification) {
+        this.specification = specification;
+    }
 
     public String getRuleDescription() {
         return ruleDescription;

@@ -8,6 +8,10 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMai
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.*;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productCard.model.ProductCard;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productCard.service.ProductCardService;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productCashCoupon.model.ProductCashCoupon;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productCashCoupon.service.ProductCashCouponService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
@@ -17,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -25,6 +29,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     protected IProductMapper iProductMapper;
+
+    @Autowired
+    private ProductCardService productCardServiceImpl;
+
+    @Autowired
+    private ProductCashCouponService productCashCouponServiceImpl;
 
     @Autowired
     protected IProductOrderMapper iProductOrderMapper;
@@ -63,6 +73,54 @@ public class ProductServiceImpl implements ProductService {
     public ServiceStatusInfo<ProductlShow> selectByIdByStoreId(long id, long storeId) {
         try {
             ProductlShow productlShow = this.iProductMapper.selectByIdByStoreId(id, storeId);
+            if ( productlShow == null ) {
+                return new ServiceStatusInfo<>(1, "查询失败,商品不存在", null);
+            }
+            List<Map<String,String>> mapList = new ArrayList<>();
+            Map<String,String> map = new HashMap<>();
+            String time=null;
+            map.put("title","有效期");
+            if(productlShow.getProductDetailType().equals("CARD") || productlShow.getProductDetailType().equals("CASHCOUPON")){
+                if(productlShow.getProductDetailType().equals("CARD")){
+                    ProductCard productCard = productCardServiceImpl.selectByProductId(id);
+                    if(productCard.getValidDays() == 0){
+                        time ="长期有效";
+                    }else if(productCard.getValidDays() > 0 ){
+                        time ="有效期"+productCard.getValidDays()+"天";
+                    }
+
+                }
+                if(productlShow.getProductDetailType().equals("CASHCOUPON")){
+                    ProductCashCoupon productCashCoupon = productCashCouponServiceImpl.selectByProductId(id);
+                    if(productCashCoupon.getValidDays() == 0){
+                        time ="长期有效";
+                    }else if(productCashCoupon.getValidDays() > 0 ){
+                        time ="有效期"+productCashCoupon.getValidDays()+"天";
+                    }
+                }
+
+                map.put("value",time);
+            }else{
+                map.put("value","长期有效");
+            }
+            map.put("type","text");
+            mapList.add(map);
+            map = new HashMap<>();
+            map.put("title","预约信息");
+            map.put("value ","无需预约，如遇高峰期可能排队");
+            map.put("type","text");
+            mapList.add(map);
+            map = new HashMap<>();
+            map.put("title","规则提醒");
+            map.put("value","可与其他优惠共享");
+            map.put("type","text");
+            mapList.add(map);
+            map = new HashMap<>();
+            map.put("title","适用范围");
+            map.put("value","适用范围");
+            map.put("type","text");
+            mapList.add(map);
+            productlShow.setSpecification(mapList);
             ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(id);
             if (!serviceStatusInfo.isSuccess()) {
                 return new ServiceStatusInfo<>(1, "查询失败,SUK不存在", null);
