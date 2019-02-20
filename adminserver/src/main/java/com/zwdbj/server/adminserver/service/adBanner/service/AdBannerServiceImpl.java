@@ -60,6 +60,8 @@ public class AdBannerServiceImpl implements AdBannerService {
     public ServiceStatusInfo<Long> createAdBanner(AdBannerDto dto) {
         Long result = 0L;
         try {
+            if (dto.getPlatform().equals("") || dto.getPlatform()==null)dto.setPlatform("ALL");
+            if (dto.getType().equals("") || dto.getType()==null)dto.setType("ALL");
             long id = UniqueIDCreater.generateID();
             dto.setImageUrl(qiniuService.url(dto.getImageUrl()));
             result = this.adBannerMapper.createAdBanner(id, dto);
