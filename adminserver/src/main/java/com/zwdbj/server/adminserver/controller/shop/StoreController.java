@@ -44,5 +44,15 @@ public class StoreController {
         if (statusInfo.isSuccess())return new ResponseData<>(0,"",statusInfo.getData());
         return new ResponseData<>(1,"查询失败",null);
     }
+    @RequiresAuthentication
+    @RequestMapping(value = "/update/storeStatus/{storeId}/{legalSubjectId}", method = RequestMethod.GET)
+    @ApiOperation(value = "店铺 的上线和下线 state为0时上线,为1时下线")
+    public ResponseData<Integer> updateStoreStatus(@PathVariable long storeId,
+                                                   @PathVariable long legalSubjectId,
+                                                   @RequestParam int state){
+        ServiceStatusInfo<Integer> statusInfo = this.storeServiceImpl.updateStoreStatus(storeId,legalSubjectId,state);
+        if (statusInfo.isSuccess())return new ResponseData<>(0,"",statusInfo.getData());
+        return new ResponseData<>(1,"更新失败",null);
+    }
 
 }

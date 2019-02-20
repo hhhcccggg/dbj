@@ -17,7 +17,9 @@ public class OfflineStoreServiceScopes {
     /// </summary>
     /// <value>The service scope identifier.</value>
     @ApiModelProperty(value = "服务分类ID")
-    long serviceScopeId;
+    private long serviceScopeId;
+    @ApiModelProperty(value = "服务名称")
+    private String categoryName;
     @ApiModelProperty(value = "notes")
     String notes;
     /// <summary>
@@ -26,6 +28,14 @@ public class OfflineStoreServiceScopes {
     /// <value>The status.</value>
     @ApiModelProperty(value = "营业状态")
     int status;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public Long getId() {
         return id;

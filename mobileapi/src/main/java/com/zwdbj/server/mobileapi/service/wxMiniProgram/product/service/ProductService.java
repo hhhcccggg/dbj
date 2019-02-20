@@ -57,6 +57,8 @@ public interface ProductService {
      * 根据productId和productSkuId查询相对应的库存
      */
     ServiceStatusInfo<Boolean> getProductInventory(long productId, long productSkuId, int num);
+    long getProductInventoryNum(long productId);
+
 
     /**
      * 主页的兑换列表3个

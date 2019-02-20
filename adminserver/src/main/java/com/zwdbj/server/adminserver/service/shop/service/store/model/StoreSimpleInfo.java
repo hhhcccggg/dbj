@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.model;
 
+import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class StoreSimpleInfo {
     @ApiModelProperty(value = "店铺名称")
     private String name;
     @ApiModelProperty(value = "服务范围")//后面再整理
-    private List<String> serviceScopes;
+    private String serviceScopes;
     @ApiModelProperty(value = "店铺状态是否停止服务 0 正常1关闭2审核中")
     private int status;
     @ApiModelProperty(value = "是否通过审核")
@@ -21,6 +22,14 @@ public class StoreSimpleInfo {
     private String shopAptitude;
     @ApiModelProperty(value = "商家的legalSubjectId")
     private long legalSubjectId;
+
+    public String getServiceScopes() {
+        return serviceScopes;
+    }
+
+    public void setServiceScopes(String serviceScopes) {
+        this.serviceScopes = serviceScopes;
+    }
 
     public long getLegalSubjectId() {
         return legalSubjectId;
@@ -46,13 +55,6 @@ public class StoreSimpleInfo {
         this.name = name;
     }
 
-    public List<String> getServiceScopes() {
-        return serviceScopes;
-    }
-
-    public void setServiceScopes(List<String> serviceScopes) {
-        this.serviceScopes = serviceScopes;
-    }
 
     public int getStatus() {
         return status;

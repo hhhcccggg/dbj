@@ -102,6 +102,7 @@ public class QuartzService {
                 calendar.add(Calendar.DAY_OF_MONTH, i);
                 String ss = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()).trim();
                 this.redisTemplate.opsForHash().put(s,ss,"");
+                logger.info(ss+":"+i);
             }
         }catch (Exception e){
             e.printStackTrace();
