@@ -150,7 +150,7 @@ public class MyScheduler {
         scheduler.scheduleJob(jobDetail, cronTrigger);
     }
     private void startJob10(Scheduler scheduler) throws SchedulerException {
-        JobDetail jobDetail = JobBuilder.newJob(EveryMonInsertTagJob.class)
+        JobDetail jobDetail = JobBuilder.newJob(MonInsertTagJob.class)
                 .withIdentity("job10", "group02")
                 .build();
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 55 17 20 2 ? 2019");
