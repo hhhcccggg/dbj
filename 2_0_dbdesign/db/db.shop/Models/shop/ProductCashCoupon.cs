@@ -11,6 +11,17 @@ namespace db.shop.Models.shop
     public class ProductCashCoupon:db.common.BaseModelWithTime<long>
     {
         /// <summary>
+        /// 是否可以与其他优惠叠加使用
+        /// </summary>
+        /// <value><c>true</c> if stack use; otherwise, <c>false</c>.</value>
+        public bool stackUse { get; set; }
+        /// <summary>
+        /// 预约信息
+        /// </summary>
+        /// <value>The appointment.</value>
+        [MaxLength(128)]
+        public String appointment { get; set; }
+        /// <summary>
         /// 代金券面值
         /// 单位分
         /// 用于抵扣金额的值
