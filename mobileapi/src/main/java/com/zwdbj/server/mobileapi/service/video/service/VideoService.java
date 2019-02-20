@@ -846,8 +846,8 @@ public class VideoService {
         return this.videoMapper.userVideosNum(userId);
     }
 
-    public List<Map<String,String>> selectAll(){
-        return this.videoMapper.selectAll();
+    public List<Map<String,String>> selectES(){
+        return this.videoMapper.selectES();
     }
 
 }

@@ -86,7 +86,7 @@ public class ProductController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
     }
     @DeleteMapping(value = "del")
-    @ApiOperation(value = "删除",hidden = true)
+    @ApiOperation(value = "删除首页缓存数据")
     public void deleteReidsKey(){
         redisTemplate.delete(MainKeyType.MAINPRODUCT);
         redisTemplate.delete(MainKeyType.MAINCATEGORY);

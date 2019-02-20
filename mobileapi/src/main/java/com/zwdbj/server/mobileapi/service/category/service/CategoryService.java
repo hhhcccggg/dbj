@@ -34,16 +34,14 @@ public class CategoryService {
                    return new ServiceStatusInfo<>(0,"",categoryMainDto);
                }catch (Exception e){}
             }
-            List<CategoryOut> categoryOuts = this.categoryMapper.mainSelect(0);
+            List<CategoryOut> categoryOuts = this.categoryMapper.mainSelect();
             if(categoryOuts != null && categoryOuts.size()>0){
-                categoryMainDto.setCategoryOneOut(categoryOuts);
+                List<CategoryOut> category = categoryOuts.subList(0,5);
+                categoryMainDto.setCategoryOneOut(new ArrayList<>(category));
             }
-            List<CategoryOut> list = new ArrayList<>();
-            for (CategoryOut categoryOut: categoryMainDto.getCategoryOneOut()) {
-                list.addAll(categoryMapper.mainSelect(categoryOut.getId()));
-            }
-            if(list != null && list.size()>0){
-                categoryMainDto.setCategoryTwoOut(list);
+            if(categoryOuts != null && categoryOuts.size()>5){
+                List<CategoryOut> category = categoryOuts.subList(5,categoryOuts.size());
+                categoryMainDto.setCategoryTwoOut(new ArrayList<>(category));
             }
             redisTemplate.opsForValue().set(MainKeyType.MAINCATEGORY,categoryMainDto);
             return new ServiceStatusInfo<>(0,"",categoryMainDto);
