@@ -1,10 +1,13 @@
 package com.zwdbj.server.mobileapi.service.shop.nearbyShops.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
+import com.zwdbj.server.mobileapi.service.favorite.service.FavoriteServiceImpl;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.mapper.NearbyShopsMapper;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.*;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInfo;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductServiceImpl;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -36,6 +39,10 @@ public class NearbyShopServiceImpl implements NearbyShopService {
     private StringRedisTemplate stringRedisTemplate;
     @Resource
     private NearbyShopsMapper nearbyShopsMapper;
+    @Autowired
+    private ProductServiceImpl productServiceImpl;
+    @Autowired
+    private FavoriteServiceImpl favoriteServiceImpl;
     private Logger logger = LoggerFactory.getLogger(NearbyShopServiceImpl.class);
     @Autowired
     private RestHighLevelClient restHighLevelClient;
@@ -54,10 +61,19 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
                 return new ServiceStatusInfo<>(0, "", shopInfo);
             }
+            long userId = JWTUtil.getCurrentId();
             ShopInfo result = nearbyShopsMapper.searchShopsById(storeId);
-
-            List<DiscountCoupon> discountCoupons = this.nearbyShopsMapper.searchDiscountCoupon(storeId);
-            result.setProducts(discountCoupons);
+            //判断用户是否收藏该商家
+            int isFavorite = favoriteServiceImpl.isFavorite(userId, storeId, "STORE");
+            if (isFavorite == 0) {
+                result.setFavorited(false);
+            } else {
+                result.setFavorited(true);
+            }
+            result.setVerify(true);
+            //查询店铺商品
+            List<ProductInfo> products = this.productServiceImpl.selectProductByStoreId(storeId).getData();
+            result.setProducts(products);
 
             List<StoreServiceCategory> serviceScopes = this.nearbyShopsMapper.searchServiceScopes(storeId);
             result.setServiceScopes(serviceScopes);
@@ -103,28 +119,33 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
     }
 
-    @Override
-    public ServiceStatusInfo<List<NearbyShop>> nearbyShopList(int pageNo) {
-        try {
-            ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
-            if (valueOperations.get("nearbyShopList---pageNo" + pageNo) != null) {
-                String str = valueOperations.get("nearbyShopList---pageNo" + pageNo);
-                List<NearbyShop> list = JSON.parseObject(str, new TypeReference<List<NearbyShop>>() {
-                });
-                logger.info("从缓存中拉取商家列表");
-                return new ServiceStatusInfo<>(0, "", list);
-            }
-            List<NearbyShop> result = this.nearbyShopsMapper.nearbyShopList();
-            if (result != null) {
-                valueOperations.set("nearbyShopList---pageNo" + pageNo, JSONArray.toJSONString(result));
-
-            }
-            logger.info("从数据库中拉取商家列表");
-            return new ServiceStatusInfo<>(0, "", result);
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "拉取附近商家列表失败" + e.getMessage(), null);
-        }
-    }
+//    @Override
+//    public ServiceStatusInfo<List<NearbyShop>> nearbyShopList(int pageNo) {
+//        try {
+//            ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+//            if (valueOperations.get("nearbyShopList---pageNo" + pageNo) != null) {
+//                String str = valueOperations.get("nearbyShopList---pageNo" + pageNo);
+//                List<NearbyShop> list = JSON.parseObject(str, new TypeReference<List<NearbyShop>>() {
+//                });
+//                logger.info("从缓存中拉取商家列表");
+//                return new ServiceStatusInfo<>(0, "", list);
+//            }
+//            List<NearbyShop> result = this.nearbyShopsMapper.nearbyShopList();
+//            if (result != null) {
+//                for (NearbyShop nearbyShop : result) {
+//                    nearbyShop.setProducts();
+//
+//                }
+//
+//                valueOperations.set("nearbyShopList---pageNo" + pageNo, JSONArray.toJSONString(result));
+//
+//            }
+//            logger.info("从数据库中拉取商家列表");
+//            return new ServiceStatusInfo<>(0, "", result);
+//        } catch (Exception e) {
+//            return new ServiceStatusInfo<>(1, "拉取附近商家列表失败" + e.getMessage(), null);
+//        }
+//    }
 
     @Override
     public ServiceStatusInfo<List<SearchShop>> searchShop(SearchInfo info) {

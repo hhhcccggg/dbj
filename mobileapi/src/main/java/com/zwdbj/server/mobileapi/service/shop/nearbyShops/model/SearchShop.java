@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.shop.nearbyShops.model;
 
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.StoreProduct;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -16,7 +17,7 @@ public class SearchShop {
     @ApiModelProperty(value = "综合评分")
     int grade;
     @ApiModelProperty(value = "优惠券")
-    List<DiscountCoupon> discountCoupons;
+    List<StoreProduct> discountCoupons;
     @ApiModelProperty(value = "服务范围")
     List<StoreServiceCategory> serviceScopes;
 
@@ -93,11 +94,11 @@ public class SearchShop {
         this.grade = grade;
     }
 
-    public List<DiscountCoupon> getDiscountCoupons() {
+    public List<StoreProduct> getDiscountCoupons() {
         return discountCoupons;
     }
 
-    public void setDiscountCoupons(List<DiscountCoupon> discountCoupons) {
+    public void setDiscountCoupons(List<StoreProduct> discountCoupons) {
         this.discountCoupons = discountCoupons;
     }
 

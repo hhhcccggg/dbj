@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.shop.nearbyShops.model;
 
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,7 +18,7 @@ public class NearbyShop implements Serializable {
     @ApiModelProperty(value = "综合评分")
     private int grade;
     @ApiModelProperty(value = "服务套餐")
-    private List<DiscountCoupon> products;
+    private List<ProductInfo> products;
     @ApiModelProperty(value = "服务范围")
     private List<StoreServiceCategory> serviceScopes;
     @ApiModelProperty(value = "经度")
@@ -31,7 +32,13 @@ public class NearbyShop implements Serializable {
     @ApiModelProperty(value = "cityLevel")
     private String cityLevel;
 
+    public List<ProductInfo> getProducts() {
+        return products;
+    }
 
+    public void setProducts(List<ProductInfo> products) {
+        this.products = products;
+    }
 
     public float getLongitude() {
         return longitude;
@@ -105,13 +112,6 @@ public class NearbyShop implements Serializable {
         this.grade = grade;
     }
 
-    public List<DiscountCoupon> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<DiscountCoupon> products) {
-        this.products = products;
-    }
 
     public List<StoreServiceCategory> getServiceScopes() {
         return serviceScopes;
@@ -120,7 +120,6 @@ public class NearbyShop implements Serializable {
     public void setServiceScopes(List<StoreServiceCategory> serviceScopes) {
         this.serviceScopes = serviceScopes;
     }
-
 
 
 }

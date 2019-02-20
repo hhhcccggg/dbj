@@ -12,7 +12,7 @@ public interface NearbyShopService {
 
     ServiceStatusInfo<DiscountCouponDetail> searchDiscountCouponDetail(long discountCouponId);
 
-    ServiceStatusInfo<List<NearbyShop>> nearbyShopList(int pageNo);
+//    ServiceStatusInfo<List<NearbyShop>> nearbyShopList(int pageNo);
 
     ServiceStatusInfo<List<SearchShop>> searchShop(SearchInfo info);
 
