@@ -9,7 +9,6 @@ import java.io.Serializable;
 @ApiModel(description = "租户相关")
 public class UserTenantInput extends ModifyUserTenantInput implements Serializable {
     @ApiModelProperty(value = "租户标识，要保持唯一性")
-    @NotNull(message = "租户标识不能为空")
     private String identifyName;
 
     public String getIdentifyName() {

@@ -35,14 +35,14 @@ public class ModifyUserTenantInput {
     private String storeType;
     @ApiModelProperty(value = "在平台开店的有效期")
     @NotNull(message = "租户的店铺有效期不能为空")
-    private Date expireTime;
+    private String expireTime;
 
 
-    public Date getExpireTime() {
+    public String getExpireTime() {
         return expireTime;
     }
 
-    public void setExpireTime(Date expireTime) {
+    public void setExpireTime(String expireTime) {
         this.expireTime = expireTime;
     }
 

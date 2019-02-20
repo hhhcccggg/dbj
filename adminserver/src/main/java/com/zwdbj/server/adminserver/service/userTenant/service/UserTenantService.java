@@ -29,17 +29,20 @@ public class UserTenantService {
     @Transactional
     public ServiceStatusInfo<Integer> addUserTenant(UserTenantInput input){
             //检验租户标识是否存在
-            int result = this.userTenantMapper.identifyNameIsExsit(input.getIdentifyName());
-            if (result!=0)return new ServiceStatusInfo<>(1,"租户标识已经存在，请更换标识后再添加",null);
-            long id = UniqueIDCreater.generateID();
-            long legalSubjectId = UniqueIDCreater.generateID();
-            int a = this.userTenantMapper.addUserTenant(id,input.getName(),input.getIdentifyName(),legalSubjectId);
-            if (a==0)return new ServiceStatusInfo<>(1,"租户创建失败",null);
-            int b = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,true);
-            if (b==0)return new ServiceStatusInfo<>(1,"租户用户创建失败",null);
-            int c = this.legalSubjectServiceImpl.addLegalSubject(legalSubjectId,input);
-            if (c==0)return new ServiceStatusInfo<>(1,"租户商户创建失败",null);
-            return  new ServiceStatusInfo<>(0,"租户创建成功",1);
+        String identifyName = UniqueIDCreater.generateUserName();
+        input.setIdentifyName(identifyName);
+        input.setExpireTime("2099-01-01");
+        int result = this.userTenantMapper.identifyNameIsExsit(input.getIdentifyName());
+        if (result!=0)return new ServiceStatusInfo<>(1,"租户标识已经存在，请更换标识后再添加",null);
+        long id = UniqueIDCreater.generateID();
+        long legalSubjectId = UniqueIDCreater.generateID();
+        int a = this.userTenantMapper.addUserTenant(id,input.getName(),input.getIdentifyName(),legalSubjectId);
+        if (a==0)return new ServiceStatusInfo<>(1,"租户创建失败",null);
+        int b = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,true);
+        if (b==0)return new ServiceStatusInfo<>(1,"租户用户创建失败",null);
+        int c = this.legalSubjectServiceImpl.addLegalSubject(legalSubjectId,input);
+        if (c==0)return new ServiceStatusInfo<>(1,"租户商户创建失败",null);
+        return  new ServiceStatusInfo<>(0,"租户创建成功",1);
     }
 
     @Transactional
