@@ -31,20 +31,20 @@ public class AppHomeService {
         try {
             AppHomeResDto dto = new AppHomeResDto();
             AdBannerInput adBannerInput1 = new AdBannerInput();
-            adBannerInput1.setPlatform(input.getPlatform());
+            adBannerInput1.setPlatform("ALL");
             adBannerInput1.setType("APP_O2O_HOME");
             List<AdBannerDto> adBannerDtos1 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput1).getData();
             if (adBannerDtos1!=null)dto.setAdBannerDtos1(adBannerDtos1);
             AdBannerInput adBannerInput2 = new AdBannerInput();
-            adBannerInput2.setPlatform(input.getPlatform());
+            adBannerInput2.setPlatform("ALL");
             adBannerInput2.setType("COIN_TASK_APP");
             List<AdBannerDto> adBannerDtos2 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput2).getData();
-            if (adBannerDtos2!=null)dto.setAdBannerDtos1(adBannerDtos2);
+            if (adBannerDtos2!=null)dto.setAdBannerDtos2(adBannerDtos2);
             AdBannerInput adBannerInput3 = new AdBannerInput();
-            adBannerInput3.setPlatform(input.getPlatform());
+            adBannerInput3.setPlatform("ALL");
             adBannerInput3.setType("DISCOUNT_APP");
             List<AdBannerDto> adBannerDtos3 =  this.adBannerServiceImpl.searchAdBanner(adBannerInput3).getData();
-            if (adBannerDtos3!=null)dto.setAdBannerDtos1(adBannerDtos3);
+            if (adBannerDtos3!=null)dto.setAdBannerDtos3(adBannerDtos3);
             CategoryMainDto categoryMainDtos = this.categoryService.mainSelect().getData();
             if (categoryMainDtos!=null)dto.setCategoryMainDtos(categoryMainDtos);
             List<ProductMainDto> productMainDtos = this.productServiceImpl.mainProduct().getData();

@@ -12,6 +12,8 @@ import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.Discou
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.DiscountCouponDetail;
 import com.zwdbj.server.adminserver.service.shop.service.store.mapper.IStoreMapper;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
+import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
+import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,16 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    public ServiceStatusInfo<List<StoreSimpleInfo>> searchStore(StoreSearchInput input) {
+        try {
+            List<StoreSimpleInfo> storeSimpleInfos = this.iStoreMapper.searchStore(input);
+            return new ServiceStatusInfo<>(0, "", storeSimpleInfos);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
+        }
+    }
+
+    @Override
     public ServiceStatusInfo<StoreInfo> selectByStoreId(long storeId) {
         StoreInfo storeInfo = null;
         try {
@@ -65,4 +77,6 @@ public class StoreServiceImpl implements StoreService {
         return iStoreMapper.selectTenantId(legalSubjectId);
 
     }
+
+
 }

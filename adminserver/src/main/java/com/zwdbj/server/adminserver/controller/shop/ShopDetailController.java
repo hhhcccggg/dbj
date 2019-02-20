@@ -156,7 +156,7 @@ public class ShopDetailController {
 
     @RequestMapping(value = "/serviceScopes", method = RequestMethod.GET)
     @ApiOperation(value = "展示店铺服务范围")
-    public ResponseData<List<StoreServiceCategory>> showserviceScopes() {
+    public ResponseData<List<StoreServiceCategory>> showServiceScopes() {
         long userId = JWTUtil.getCurrentId();
 
         long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();

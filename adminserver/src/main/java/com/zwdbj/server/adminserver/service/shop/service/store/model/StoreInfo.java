@@ -11,8 +11,8 @@ import java.util.List;
 
 @ApiModel(description = "店铺详细信息")
 public class StoreInfo {
-//    @ApiModelProperty(value = "店铺id")
-//    long id;
+    @ApiModelProperty(value = "店铺id")
+    long id;
     @ApiModelProperty(value = "店铺名称")
     String name;
     @ApiModelProperty(value = "店主姓名")
@@ -37,7 +37,7 @@ public class StoreInfo {
     String address;
     @ApiModelProperty(value = "综合评分")
     int grade;
-    @ApiModelProperty(value = "营业状态 0 正常1关闭")
+    @ApiModelProperty(value = "店铺状态 0：正常1：关闭2:审核中")
     int status;
     @ApiModelProperty(value = "封面图")
     String mainConverImage;
@@ -50,6 +50,34 @@ public class StoreInfo {
     int cityId;
     @ApiModelProperty(value = "cityLevel")
     String cityLevel;
+    @ApiModelProperty(value = "店铺营业状态,是否停止服务")
+    private boolean stopService;
+    @ApiModelProperty(value = "是否通过审核")
+    private boolean reviewed;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public boolean isStopService() {
+        return stopService;
+    }
+
+    public void setStopService(boolean stopService) {
+        this.stopService = stopService;
+    }
+
+    public boolean isReviewed() {
+        return reviewed;
+    }
+
+    public void setReviewed(boolean reviewed) {
+        this.reviewed = reviewed;
+    }
 
     public List<DiscountCouponModel> getDiscountCoupons() {
         return discountCoupons;
