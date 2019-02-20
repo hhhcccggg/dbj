@@ -40,7 +40,7 @@ public class Products {
     long grade;
     @ApiModelProperty(value = "销量")
     long sales;
-    @ApiModelProperty(value = "库存")
+    @ApiModelProperty(value = "库存 -10000不限库存")
     long inventory;
     @ApiModelProperty(value = "原价")
     long originalPrice;

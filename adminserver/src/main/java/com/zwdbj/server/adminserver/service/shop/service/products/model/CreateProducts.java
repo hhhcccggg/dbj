@@ -30,7 +30,7 @@ public class CreateProducts {
     @ApiModelProperty(value = "店铺ID")
     long storeId;
 
-    @ApiModelProperty(value = "库存")
+    @ApiModelProperty(value = "库存 库存 -10000不限库存")
     long inventory;
 
     @ApiModelProperty(value = "是否上架")
