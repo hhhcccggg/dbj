@@ -132,6 +132,7 @@ public class ProductServiceImpl implements ProductService {
             StoreModel storeModel =  storeServiceImpl.selectById(storeId).getData();
             productlShow.setStoreName(storeModel==null?"":storeModel.getName());
             productlShow.setExchangeList(exchangeList);
+            productlShow.setStoreId(storeId);
             return new ServiceStatusInfo<>(0, "", productlShow);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);

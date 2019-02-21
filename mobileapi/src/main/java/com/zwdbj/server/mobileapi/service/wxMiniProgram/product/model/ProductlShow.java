@@ -76,6 +76,17 @@ public class ProductlShow {
     @ApiModelProperty(value = "店铺名称")
     private String storeName;
 
+    @ApiModelProperty(value = "storeId")
+    private long storeId;
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
+    }
+
     public String getStoreName() {
         return storeName;
     }
