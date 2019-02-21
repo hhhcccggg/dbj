@@ -128,49 +128,36 @@ public class UserService {
 
     /**
      *
-     * @param nickName
+     * @param fullName
      * @param phone
      * @param tenantId
-     * @param isSuper 是否为店主
+     * @param businessType 1:店主,2:普通员工
      * @return
      */
-    public int greateUserByTenant (String nickName,String phone,long tenantId,boolean isSuper){
+    public int greateUserByTenant (String fullName,String phone,long tenantId,int businessType,String notes){
         try {
             long result = this.userMapper.phoneIsExist(phone);
             long rId =  UniqueIDCreater.generateID();
+            long id;
+            int a=0;
             if (result==0){
-                long id = UniqueIDCreater.generateID();
+                id = UniqueIDCreater.generateID();
                 String username = UniqueIDCreater.generateUserName();
                 String password = SHAEncrypt.encryptSHA(phone.substring(8)+"123456");
-                int a = this.userMapper.greateUserByTenant(id,username,password,nickName,phone,tenantId,isSuper);
-                if (isSuper){
-                    this.userMapper.insertUserRole(rId, id,"shopUser",tenantId);
-                }else {
-                    this.userMapper.insertUserRole(rId, id,"shopUserCommon",tenantId);
-                }
-
-                return a;
+                a = this.userMapper.greateUserByTenant(id,username,password,fullName,phone,tenantId,notes,"BUSINESS");
             }else {
                 UserModel u = this.userMapper.findUserByPhone(phone);
-                int b = this.userMapper.updateUserTanById(u.getId(),tenantId,isSuper);
-                int c = this.userMapper.findUserRole(u.getId(),"shopUser");
-                if (c==0){
-                    if (isSuper){
-                        this.userMapper.insertUserRole(rId, u.getId(),"shopUser",tenantId);
-                    }else {
-                        this.userMapper.insertUserRole(rId, u.getId(),"shopUserCommon",tenantId);
-                    }
-                }else {
-                    if (isSuper){
-                        this.userMapper.updateUserRole(u.getId(),"shopUser",tenantId);
-                    }else {
-                        this.userMapper.updateUserRole(u.getId(),"shopUserCommon",tenantId);
-                    }
-
-                }
-
-                return b;
+                a = this.userMapper.updateUserTanById(u.getId(),tenantId,notes,"BUSINESS");
+                this.userMapper.deleteBusinessRole(u.getId(),tenantId);
+                id=u.getId();
             }
+            if (businessType==1){
+                this.userMapper.insertUserRole(rId, id,"business_admin",tenantId);
+            }else if (businessType==2){
+                this.userMapper.insertUserRole(rId, id,"business_user",tenantId);
+            }
+
+            return a;
 
         }catch (Exception e){
             throw new RuntimeException("异常");
@@ -178,16 +165,16 @@ public class UserService {
 
 
     }
-    public int modifyUserByTenantId(String phone,long tenantId){
-        int a = this.userMapper.modifyUserByTenantId(tenantId);
-        UserModel userModel= this.userMapper.findUserByPhone(phone);
-        this.userMapper.updateUserRole(userModel.getId(),"shopUser",tenantId);
+    public int modifyUserByTenantId(long tenantId){
+        long userId = this.userMapper.findUserByTenId(tenantId,"business_admin");
+        this.userMapper.deleteBusinessRole(userId,tenantId);
+        int a = this.userMapper.updateUserTanById(userId,tenantId,"","NORMAL");
         return a;
     }
-    public int delUserByTenantId(String phone,long tenantId){
-        int a = this.userMapper.modifyUserByTenantId(tenantId);
-        UserModel userModel= this.userMapper.findUserByPhone(phone);
-        this.userMapper.deleteUserRole(userModel.getId(),"shopUser",tenantId);
+    public int delUserByTenantId(long tenantId){
+        long userId = this.userMapper.findUserByTenId(tenantId,"business_admin");
+        this.userMapper.deleteAllBusinessRole(tenantId);
+        int a = this.userMapper.updateUserTanById(userId,tenantId,"","NORMAL");
         return a;
     }
 

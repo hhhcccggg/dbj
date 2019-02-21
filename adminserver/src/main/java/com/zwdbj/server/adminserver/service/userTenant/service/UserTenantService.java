@@ -39,7 +39,7 @@ public class UserTenantService {
         long legalSubjectId = UniqueIDCreater.generateID();
         int a = this.userTenantMapper.addUserTenant(id,input.getName(),input.getIdentifyName(),legalSubjectId);
         if (a==0)return new ServiceStatusInfo<>(1,"租户创建失败",null);
-        int b = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,true);
+        int b = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,1,"店主");
         if (b==0)return new ServiceStatusInfo<>(1,"租户用户创建失败",null);
         int c = this.legalSubjectServiceImpl.addLegalSubject(legalSubjectId,input);
         if (c==0)return new ServiceStatusInfo<>(1,"租户商户创建失败",null);
@@ -48,16 +48,16 @@ public class UserTenantService {
 
     @Transactional
     public ServiceStatusInfo<Integer> modifyUserTenant(long id,ModifyUserTenantInput input){
-            int a =  this.userTenantMapper.modifyUserTenant(id,input.getName());
-            if (a==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
-            long legalSubjectId = this.userTenantMapper.findLegalSubjectIdById(id);
-            int b = this.userService.modifyUserByTenantId(input.getPhone(),id);
-            if (b==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
-            int c = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,true);
-            if (c==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
-            int d = this.legalSubjectServiceImpl.modifyBasicLegalSubject(legalSubjectId,input);
-            if (d==0)return new ServiceStatusInfo<>(1,"租户商户修改失败",null);
-            return  new ServiceStatusInfo<>(0,"修改租户成功",1);
+        int a =  this.userTenantMapper.modifyUserTenant(id,input.getName());
+        if (a==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
+        long legalSubjectId = this.userTenantMapper.findLegalSubjectIdById(id);
+        int b = this.userService.modifyUserByTenantId(id);
+        if (b==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
+        int c = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,1,"店主");
+        if (c==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
+        int d = this.legalSubjectServiceImpl.modifyBasicLegalSubject(legalSubjectId,input);
+        if (d==0)return new ServiceStatusInfo<>(1,"租户商户修改失败",null);
+        return  new ServiceStatusInfo<>(0,"修改租户成功",1);
 
     }
     public UserTenantModel getUserTenantById(long id){
@@ -90,7 +90,7 @@ public class UserTenantService {
     public ServiceStatusInfo<Integer> deleteUserTenant(long id){
             UserTenantModel model = this.getUserTenantById(id);
             if (model==null)return new ServiceStatusInfo<>(1,"该租户不存在",null);
-            int b = this.userService.delUserByTenantId(model.getPhone(),id);
+            int b = this.userService.delUserByTenantId(id);
             if (b==0)return new ServiceStatusInfo<>(1,"租户用户修改失败",null);
             //假删
             int d  = this.userTenantMapper.delTenantById(id);

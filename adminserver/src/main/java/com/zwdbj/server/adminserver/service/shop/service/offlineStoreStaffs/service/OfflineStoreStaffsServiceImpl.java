@@ -33,7 +33,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
 
         try {
             long tenantId = storeServiceImpl.selectTenantId(legalSubjectId);
-            userService.greateUserByTenant(staffInput.getFullName(), staffInput.getPhone(), tenantId, staffInput.isSuperStar());
+            userService.greateUserByTenant(staffInput.getNickName(), staffInput.getPhone(), tenantId, 2,"店员");
             if (staffInput.isSuperStar()) {
                 long userId = iUserMapper.findUserIdByPhone(staffInput.getPhone());
                 mapper.setSuperStar(UniqueIDCreater.generateID(), legalSubjectId, userId);
@@ -105,7 +105,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         try {
             result = mapper.getStaffs(legalSubjectId);
             for (OfflineStoreStaffs o : result) {
-                Date createTime = mapper.selectSuperStarCreateTime(legalSubjectId, o.getId());
+                Date createTime = mapper.selectSuperStarCreateTime(legalSubjectId, o.getUserId());
                 if (createTime != null) {
                     o.setCreateTime(createTime);
                     o.setSuperStar(true);

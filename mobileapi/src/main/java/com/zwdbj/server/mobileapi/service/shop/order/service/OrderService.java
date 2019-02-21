@@ -86,7 +86,7 @@ public class OrderService {
     }*/
 
     @Transactional
-    public ServiceStatusInfo<Integer> createOrder(AddNewOrderInput input){
+    public ServiceStatusInfo<Long> createOrder(AddNewOrderInput input){
         String key = String.valueOf(input.getProductskuId());
         ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
         Lock lock = new Lock(consulClient, "mobileapi", "productOrder:" + key);
@@ -97,13 +97,13 @@ public class OrderService {
                 //如果有限购，则要查看订单表，看兑换次数是否已经用完
                 //查看此商品的sku信息
                 ProductSKUs productSKUs =  this.productSKUsServiceImpl.selectById(input.getProductskuId()).getData();
-                if (productSKUs==null)return new ServiceStatusInfo<>(1, "购买失败", 0);
+                if (productSKUs==null)return new ServiceStatusInfo<>(1, "购买失败", null);
                 if (input.getLimitPerPerson()!=0){
                     int account = this.orderMapper.userBuyProductAccounts(userId,input.getProductId());
                     if (account>=input.getLimitPerPerson()){
-                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", 0);
+                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", null);
                     }else if ((account+input.getNum())>input.getLimitPerPerson()){
-                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", 0);
+                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", null);
                     }
 
                 }
@@ -111,7 +111,7 @@ public class OrderService {
                 long inventoryNum = this.productServiceImpl.getProductInventoryNum(input.getProductId());
                 if (inventoryNum!=-10000L){
                     boolean a = this.productServiceImpl.getProductInventory(input.getProductId(),input.getProductskuId(),input.getNum()).getData();
-                    if (!a)return new ServiceStatusInfo<>(1, "商品库存不足", 0);
+                    if (!a)return new ServiceStatusInfo<>(1, "商品库存不足", null);
                 }
 
                 long orderId = UniqueIDCreater.generateID();
@@ -121,7 +121,7 @@ public class OrderService {
                     //用户小饼干总数
                     long counts = userAssetServiceImpl.getCoinsByUserId().getData();
                     if (counts<0 || counts<input.getUseCoin()){
-                        return new ServiceStatusInfo<>(1, "您的小饼干不足，请获取足够的小饼干", 0);
+                        return new ServiceStatusInfo<>(1, "您的小饼干不足，请获取足够的小饼干", null);
                     }
                 }
 
@@ -149,17 +149,17 @@ public class OrderService {
                         .build();
                 DelayMQWorkSender.shareSender().send(workInfo,30);*/
 
-                return new ServiceStatusInfo<>(0,"下单成功",1);
+                return new ServiceStatusInfo<>(0,"下单成功",orderId);
             }
 
 
         }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"下单失败"+e.getMessage(),0);
+            return new ServiceStatusInfo<>(1,"下单失败"+e.getMessage(),null);
         }finally {
             lock.unlock();
         }
 
-        return new ServiceStatusInfo<>(1,"下单失败",0);
+        return new ServiceStatusInfo<>(1,"下单失败",null);
     }
 
     @Transactional

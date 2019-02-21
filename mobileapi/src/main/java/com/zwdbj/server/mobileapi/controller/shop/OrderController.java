@@ -60,8 +60,8 @@ public class OrderController {
     @RequestMapping(value = "/createOrder",method = RequestMethod.POST)
     @ApiOperation(value = "创建订单")
     @RequiresAuthentication
-    public ResponseData<Integer> createOrder(@RequestBody @Valid AddNewOrderInput input){
-        ServiceStatusInfo<Integer> statusInfo = this.orderService.createOrder(input);
+    public ResponseData<Long> createOrder(@RequestBody @Valid AddNewOrderInput input){
+        ServiceStatusInfo<Long> statusInfo = this.orderService.createOrder(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
         }
