@@ -79,13 +79,14 @@ public class TagService {
         try {
             List<TodayTagsDto> tagsDtoList = new ArrayList<>();
             Map result = this.redisTemplate.opsForHash().entries(yearAndMonth);
+            logger.info("aaaaaaa");
             Iterator entries = result.entrySet().iterator();
             while (entries.hasNext()) {
                 TodayTagsDto dto = new TodayTagsDto();
                 Map.Entry entry = (Map.Entry) entries.next();
                 String date = (String)entry.getKey();
                 String tagId = (String)entry.getValue();
-                System.out.println("date = " + date + ", tagId = " + tagId);
+                logger.info("date = " + date + ", tagId = " + tagId);
                 dto.setDate(date);
                 if (!tagId.equals("")){
                     long id = Long.valueOf(tagId);
@@ -94,6 +95,7 @@ public class TagService {
                     dto.setName(tagDto.getName());
                     dto.setResNumber((long)(tagDto.getResNumber()*0.9));
                     dto.setResVideoNumber(tagDto.getResNumber());
+                    logger.info(dto.toString());
                 }
                 tagsDtoList.add(dto);
 
