@@ -1,6 +1,8 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 
 import com.zwdbj.server.mobileapi.config.MainKeyType;
+import com.zwdbj.server.mobileapi.service.store.model.StoreModel;
+import com.zwdbj.server.mobileapi.service.store.service.StoreService;
 import com.zwdbj.server.mobileapi.service.user.mapper.IUserMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper.IProductMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
@@ -46,6 +48,9 @@ public class ProductServiceImpl implements ProductService {
     protected IUserMapper iUserMapper;
 
     @Autowired
+    private StoreService storeServiceImpl;
+
+    @Autowired
     private RedisTemplate redisTemplate;
 
     @Override
@@ -78,6 +83,8 @@ public class ProductServiceImpl implements ProductService {
             }
             List<Map<String,String>> mapList = new ArrayList<>();
             String time=null;
+            String appointment=null;
+            boolean stackUse=false;
             if(productlShow.getProductDetailType().equals("CARD") || productlShow.getProductDetailType().equals("CASHCOUPON")){
                 if(productlShow.getProductDetailType().equals("CARD")){
                     ProductCard productCard = productCardServiceImpl.selectByProductId(id);
@@ -86,7 +93,8 @@ public class ProductServiceImpl implements ProductService {
                     }else if(productCard.getValidDays() > 0 ){
                         time ="有效期"+productCard.getValidDays()+"天";
                     }
-
+                    appointment=productCard.getAppointment();
+                    stackUse = productCard.isStackUse();
                 }
                 if(productlShow.getProductDetailType().equals("CASHCOUPON")){
                     ProductCashCoupon productCashCoupon = productCashCouponServiceImpl.selectByProductId(id);
@@ -95,13 +103,16 @@ public class ProductServiceImpl implements ProductService {
                     }else if(productCashCoupon.getValidDays() > 0 ){
                         time ="有效期"+productCashCoupon.getValidDays()+"天";
                     }
+                    appointment=productCashCoupon.getAppointment();
+                    stackUse = productCashCoupon.isStackUse();
                 }
             }else{
-                time="长期有效";
+                time ="长期有效";
+                appointment="无需预约，如遇高峰期可能排队";
             }
             mapList.add(newMap("有效期",time,"text"));
-            mapList.add(newMap("预约信息","无需预约，如遇高峰期可能排队","text"));
-            mapList.add(newMap("规则提醒","可与其他优惠共享","text"));
+            mapList.add(newMap("预约信息",appointment,"text"));
+            mapList.add(newMap("规则提醒",stackUse?"":"不"+"可与其他优惠共享","text"));
             mapList.add(newMap("适用范围","适用范围","text"));
             productlShow.setSpecification(mapList);
             ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(id);
@@ -118,6 +129,8 @@ public class ProductServiceImpl implements ProductService {
             if (userIds.size() > 0) {
                 exchangeList = iUserMapper.selectUserAvatarUrl(userIds);
             }
+            StoreModel storeModel =  storeServiceImpl.selectById(storeId).getData();
+            productlShow.setStoreName(storeModel==null?"":storeModel.getName());
             productlShow.setExchangeList(exchangeList);
             return new ServiceStatusInfo<>(0, "", productlShow);
         } catch (Exception e) {

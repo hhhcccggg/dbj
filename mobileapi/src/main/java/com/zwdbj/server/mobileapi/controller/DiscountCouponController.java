@@ -66,19 +66,18 @@ public class DiscountCouponController {
 
     @GetMapping("getVaildCoupon")
     @ApiOperation("查询订单可用优惠券")
-    public ResponseData<List<Coupon>> getVaildCoupon(@ApiParam(value = "店铺ID") long storeId,@ApiParam(value = "商家ID")long legalSubjectId,
-                                                                    @ApiParam(value = "订单价格") long price){
-        ServiceStatusInfo<List<Coupon>> serviceStatusInfo = userDiscountCouponServiceImpl.getVaildCoupon(storeId,legalSubjectId,price);
+    public ResponseData<List<UserDiscountCouponOut>> getVaildCoupon(@ApiParam(value = "店铺ID") long storeId,@ApiParam(value = "订单价格") long price){
+        ServiceStatusInfo<List<UserDiscountCouponOut>> serviceStatusInfo = userDiscountCouponServiceImpl.getVaildCoupon(storeId,price);
         if(serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
     }
 
     @GetMapping("getVaildCouponById/{id}")
-    @ApiOperation("查询订单可用优惠券")
-    public ResponseData<Coupon> getVaildCouponById(@ApiParam(value = "店铺ID") long storeId,@ApiParam(value = "商家ID")long legalSubjectId,
+    @ApiOperation("查询单个可用优惠券")
+    public ResponseData<UserDiscountCouponOut> getVaildCouponById(@ApiParam(value = "店铺ID") long storeId,
                                                      @ApiParam(value = "订单价格") long price,@PathVariable long id){
-        ServiceStatusInfo<Coupon> serviceStatusInfo = userDiscountCouponServiceImpl.getVaildCouponById(storeId,legalSubjectId,price,id);
+        ServiceStatusInfo<UserDiscountCouponOut> serviceStatusInfo = userDiscountCouponServiceImpl.getVaildCouponById(storeId,price,id);
         if(serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);

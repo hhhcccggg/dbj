@@ -64,8 +64,41 @@ public class ProductlShow {
     @ApiModelProperty(value = "规则说明")
     String ruleDescription;
 
+    @ApiModelProperty(value = "预约信息")
+    private String appointment;
+
+    @ApiModelProperty(value = "是否与其他优惠券共用")
+    private boolean stackUse;
+
     @ApiModelProperty(value = "购买说明")
     List<Map<String,String>> specification;
+
+    @ApiModelProperty(value = "店铺名称")
+    private String storeName;
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(String appointment) {
+        this.appointment = appointment;
+    }
+
+    public boolean isStackUse() {
+        return stackUse;
+    }
+
+    public void setStackUse(boolean stackUse) {
+        this.stackUse = stackUse;
+    }
 
     public List<Map<String,String>> getSpecification() {
         return specification;
