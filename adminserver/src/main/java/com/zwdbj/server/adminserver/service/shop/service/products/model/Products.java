@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 @ApiModel(description = "商品信息")
 public class Products {
 
@@ -87,6 +89,17 @@ public class Products {
 
     @ApiModelProperty(value = "是否与其他优惠券共用")
     private boolean stackUse;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public String getAppointment() {
         return appointment;

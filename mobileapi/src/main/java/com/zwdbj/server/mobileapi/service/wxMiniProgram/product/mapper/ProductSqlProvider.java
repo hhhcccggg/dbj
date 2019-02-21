@@ -19,7 +19,7 @@ public class ProductSqlProvider {
             storeId="and storeId="+productInput.getStoreId();
         }
         SQL sql = new SQL().SELECT("id","productType","productDetailType","name","storeId","categoryId", "sales",
-                "brandId","inventory","imageUrls","limitPerPerson","detailDescription","supportCoin","ruleDescription");
+                "brandId","inventory","imageUrls","limitPerPerson","detailDescription","supportCoin","ruleDescription","createTime");
         sql.FROM("shop_products");
         sql.WHERE("publish=1 and isDeleted=0 "+storeId+" and specifyPublishTime<now()");
 
