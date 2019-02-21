@@ -44,6 +44,28 @@ public class ProductCashCoupon {
     @ApiModelProperty(value = "存在规格有特殊定制?")
     long productSKUId;
 
+    @ApiModelProperty(value = "预约信息")
+    private String appointment;
+
+    @ApiModelProperty(value = "是否与其他优惠券共用")
+    private boolean stackUse;
+
+    public String getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(String appointment) {
+        this.appointment = appointment;
+    }
+
+    public boolean isStackUse() {
+        return stackUse;
+    }
+
+    public void setStackUse(boolean stackUse) {
+        this.stackUse = stackUse;
+    }
+
     public ProductCashCoupon() {
     }
 
@@ -54,6 +76,8 @@ public class ProductCashCoupon {
         this.validDays = createProducts.getValidDays();
         this.validStartTime = createProducts.getValidStartTime();
         this.validEndTime = createProducts.getValidEndTime();
+        this.appointment = createProducts.getAppointment();
+        this.stackUse = createProducts.isStackUse();
         this.productId = productId;
     }
     public ProductCashCoupon(UpdateProducts updateProducts, Long productId) {
@@ -63,6 +87,8 @@ public class ProductCashCoupon {
         this.validDays = updateProducts.getValidDays();
         this.validStartTime = updateProducts.getValidStartTime();
         this.validEndTime = updateProducts.getValidEndTime();
+        this.appointment = updateProducts.getAppointment();
+        this.stackUse = updateProducts.isStackUse();
         this.productId = productId;
     }
 
