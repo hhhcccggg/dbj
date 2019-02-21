@@ -1,21 +1,18 @@
 package com.zwdbj.server.mobileapi.service.shop.comments.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.TypeReference;
 import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;
 import com.zwdbj.server.mobileapi.service.shop.comments.mapper.ShopCommentsMapper;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentInput;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.ShopCommentsExtraDatas;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.UserComments;
+import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,7 +46,11 @@ public class ShopCommentServiceImpl implements ShopCommentService {
         List<ShopCommentsExtraDatas> result = null;
         try {
             result = this.shopCommentsMapper.commentList(storeId);
+            for (ShopCommentsExtraDatas comment : result) {
+                VideoDetailInfoDto videoDetailInfoDto = videoService.video(comment.getDataId());
+                comment.setVideoDetailInfoDto(videoDetailInfoDto);
 
+            }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "拉取评论失败" + e.getMessage(), null);
