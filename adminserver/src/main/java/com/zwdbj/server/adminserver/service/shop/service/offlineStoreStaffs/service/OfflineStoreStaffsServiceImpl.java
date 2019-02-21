@@ -33,7 +33,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
 
         try {
             long tenantId = storeServiceImpl.selectTenantId(legalSubjectId);
-            userService.greateUserByTenant(staffInput.getNickName(), staffInput.getPhone(), tenantId, staffInput.isSuper());
+            userService.greateUserByTenant(staffInput.getNickName(), staffInput.getPhone(), tenantId, 2,"店员");
             if (staffInput.isSuperStar()) {
                 long userId = iUserMapper.findUserIdByPhone(staffInput.getPhone());
                 mapper.setSuperStar(UniqueIDCreater.generateID(), legalSubjectId, userId);
