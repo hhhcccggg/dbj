@@ -70,7 +70,7 @@ public interface IUserMapper {
     @UpdateProvider(type = UserSqlProvider.class, method = "updateField")
     long updateField(@Param("fields") String fields, @Param("id") long id);
 
-    @Update("update core_users set nickName=#{modifyStaff.nickName},phone=#{modifyStaff.phone} where id=#{modifyStaff.userId}")
+    @Update("update core_users set fullName=#{modifyStaff.fullName},phone=#{modifyStaff.phone},notes=#{modifyStaff.notes} where id=#{modifyStaff.userId}")
     long updateStaffInfo(@Param("modify") ModifyStaff modifyStaff);
 
     //举报用户

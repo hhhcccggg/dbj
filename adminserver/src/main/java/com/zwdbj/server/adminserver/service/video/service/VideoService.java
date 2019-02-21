@@ -85,7 +85,7 @@ public class VideoService {
                 if (input.getStatus() == 0) {
                     this.videoRandRecommendService.pushNewVideo(id);
                 }
-            } catch ( Exception ex ) {
+            } catch (Exception ex) {
                 logger.warn(ex.getMessage());
             }
             return new ServiceStatusInfo<>(0, "", result);
@@ -108,7 +108,7 @@ public class VideoService {
         Long result = 0L;
         try {
             result = this.videoMapper.doComplainInfoAd(toResId, input);
-            if (input.getTreatment()==2)this.videoRandRecommendService.popVideo(toResId);
+            if (input.getTreatment() == 2) this.videoRandRecommendService.popVideo(toResId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改失败：" + e.getMessage(), result);
@@ -289,6 +289,16 @@ public class VideoService {
     public Long findVideoHeartCount(Long id) {
         Long hearCount = this.videoMapper.findVideoHeartCount(id);
         return hearCount;
+    }
+
+    public ServiceStatusInfo<List<SuperStarVideos>> searchSuperStarVideos(long userId, String rank, String sort) {
+        List<SuperStarVideos> result = null;
+        try {
+            result = videoMapper.searchSuperStarVideos(userId, rank, sort);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询代言人视频失败" + e.getMessage(), null);
+        }
     }
 
 }

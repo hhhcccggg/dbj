@@ -69,7 +69,7 @@ public class VideoController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", videoInfoDto);
     }
 
-    @RequestMapping(value = "/videoTipDetails/{videoId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/videoTipDetails/{videoId}", method = RequestMethod.GET)
     @ApiModelProperty(value = "获取视频打赏金币详情")
     public ResponsePageInfoData<List<VideoTipDetails>> videoTipDetails(@PathVariable("videoId") Long videoId,
                                                                        @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
@@ -269,4 +269,18 @@ public class VideoController {
         }
     }
 
+    @RequestMapping(value = "/dbj/getSuperStarViodes/{userId}", method = RequestMethod.GET)
+    @ApiOperation(value = "获取代言人视频详情")
+    public ResponsePageInfoData<List<SuperStarVideos>> getSuperStarViodes(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                          @RequestParam(value = "rows", defaultValue = "10", required = true) int rows,
+                                                                          @RequestParam(value = "rank", defaultValue = "createTime", required = true) String rank,
+                                                                          @RequestParam(value = "sort", defaultValue = "desc", required = true) String sort,
+                                                                          @PathVariable long userId) {
+        PageHelper.startPage(pageNo, rows);
+        List<SuperStarVideos> result = videoService.searchSuperStarVideos(userId, rank, sort).getData();
+        PageInfo<SuperStarVideos> pageInfo = new PageInfo<>(result);
+        return new ResponsePageInfoData<>(0, "", pageInfo.getList(), pageInfo.getTotal());
+
+
+    }
 }

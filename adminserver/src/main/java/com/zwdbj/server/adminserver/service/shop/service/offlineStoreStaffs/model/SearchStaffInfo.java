@@ -7,8 +7,18 @@ import io.swagger.annotations.ApiModelProperty;
 public class SearchStaffInfo {
     @ApiModelProperty(value = "搜索条件(仅支持姓名搜索)")
     private String search;
+    @ApiModelProperty(value = "手机号")
+    private String phone;
     @ApiModelProperty(value = "是否代言")
     private boolean isSuperStar;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getSearch() {
         return search;

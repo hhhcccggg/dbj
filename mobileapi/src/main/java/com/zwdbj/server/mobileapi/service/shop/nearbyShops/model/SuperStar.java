@@ -6,15 +6,25 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "代言人")
 public class SuperStar {
     @ApiModelProperty(value = "代言人用户id")
-    long userId;
+    private long userId;
     @ApiModelProperty(value = "代言人店铺id")
-    long storeId;
+    private long storeId;
     @ApiModelProperty(value = "昵称")
-    String userName;
+    private String nickName;
     @ApiModelProperty(value = "视频数量")
-    int videoCounts;
+    private int videoCounts;
     @ApiModelProperty(value = "头像")
-    String avatarUrl;
+    private String avatarUrl;
+    @ApiModelProperty(value = "认证资质")
+    private String qualification;
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
 
     public String getAvatarUrl() {
         return avatarUrl;
@@ -40,12 +50,12 @@ public class SuperStar {
         this.storeId = storeId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public int getVideoCounts() {
