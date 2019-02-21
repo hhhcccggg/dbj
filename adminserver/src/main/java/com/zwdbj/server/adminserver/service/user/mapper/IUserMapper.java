@@ -63,8 +63,8 @@ public interface IUserMapper {
     @Insert("insert into core_userRoles(id,userId,roleName,tenantId) values(#{id},#{userId},#{roleName},#{tenantId})")
     Long insertUserRole(@Param("id") Long id, @Param("userId") Long userId, @Param("roleName") String roleName, @Param("tenantId") long tenantId);
 
-    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager) " +
-            "values(#{id},'00000000000','admin','admin','http://res.pet.zwdbj.com/default_avatar.png',true,#{password},true)")
+    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager,`type`) " +
+            "values(#{id},'00000000000','admin','admin','http://res.pet.zwdbj.com/default_avatar.png',true,#{password},true,'PLATFORM')")
     long regAdmin(@Param("password") String password, @Param("id") long id);
 
     @UpdateProvider(type = UserSqlProvider.class, method = "updateField")
