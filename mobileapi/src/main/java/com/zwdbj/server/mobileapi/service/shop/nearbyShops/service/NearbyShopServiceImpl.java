@@ -62,6 +62,9 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 //            }
             long userId = JWTUtil.getCurrentId();
             ShopInfo result = nearbyShopsMapper.searchShopsById(storeId);
+            if (result == null) {
+                return new ServiceStatusInfo<>(0, "没有此店铺", null);
+            }
             //判断用户是否收藏该商家
             int isFavorite = favoriteServiceImpl.isFavorite(userId, storeId, "STORE");
             if (isFavorite == 0) {
