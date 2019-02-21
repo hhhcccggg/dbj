@@ -48,10 +48,11 @@ public interface IUserMapper {
 
     @Insert("insert into core_users(id,username,nickName,fullName,avatarUrl,password,phone,isPhoneVerification,tenantId,notes,`type`) " +
             "values(#{id},#{username},'爪子用户',#{fullName},'http://res.pet.zwdbj.com/default_avatar.png',#{password}," +
-            "#{phone},true,#{tenantId},#{notes},'BUSINESS')")
+            "#{phone},true,#{tenantId},#{notes},#{type})")
     int greateUserByTenant(@Param("id") long id, @Param("username") String username, @Param("password") String password,
                            @Param("fullName") String fullName, @Param("phone") String phone,
-                           @Param("tenantId") long tenantId, @Param("notes") String notes);
+                           @Param("tenantId") long tenantId, @Param("notes") String notes,
+                           @Param("type")String type);
 
     @Update("update core_users set isSuper=0 where tenantId=#{tenantId} and isSuper=1")
     int modifyUserByTenantId(@Param("tenantId") long tenantId);
