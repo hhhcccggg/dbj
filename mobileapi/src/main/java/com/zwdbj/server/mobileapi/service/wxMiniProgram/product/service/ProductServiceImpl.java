@@ -77,9 +77,7 @@ public class ProductServiceImpl implements ProductService {
                 return new ServiceStatusInfo<>(1, "查询失败,商品不存在", null);
             }
             List<Map<String,String>> mapList = new ArrayList<>();
-            Map<String,String> map = new HashMap<>();
             String time=null;
-            map.put("title","有效期");
             if(productlShow.getProductDetailType().equals("CARD") || productlShow.getProductDetailType().equals("CASHCOUPON")){
                 if(productlShow.getProductDetailType().equals("CARD")){
                     ProductCard productCard = productCardServiceImpl.selectByProductId(id);
@@ -98,28 +96,13 @@ public class ProductServiceImpl implements ProductService {
                         time ="有效期"+productCashCoupon.getValidDays()+"天";
                     }
                 }
-
-                map.put("value",time);
             }else{
-                map.put("value","长期有效");
+                time="长期有效";
             }
-            map.put("type","text");
-            mapList.add(map);
-            map = new HashMap<>();
-            map.put("title","预约信息");
-            map.put("value ","无需预约，如遇高峰期可能排队");
-            map.put("type","text");
-            mapList.add(map);
-            map = new HashMap<>();
-            map.put("title","规则提醒");
-            map.put("value","可与其他优惠共享");
-            map.put("type","text");
-            mapList.add(map);
-            map = new HashMap<>();
-            map.put("title","适用范围");
-            map.put("value","适用范围");
-            map.put("type","text");
-            mapList.add(map);
+            mapList.add(newMap("有效期",time,"text"));
+            mapList.add(newMap("预约信息","无需预约，如遇高峰期可能排队","text"));
+            mapList.add(newMap("规则提醒","可与其他优惠共享","text"));
+            mapList.add(newMap("适用范围","适用范围","text"));
             productlShow.setSpecification(mapList);
             ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(id);
             if (!serviceStatusInfo.isSuccess()) {
@@ -140,6 +123,14 @@ public class ProductServiceImpl implements ProductService {
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
         }
+    }
+
+    public Map<String,String> newMap(String title,String value,String type){
+        Map map = new HashMap<>();
+        map.put("title",title);
+        map.put("value",value);
+        map.put("type",type);
+        return map;
     }
 
     @Override
