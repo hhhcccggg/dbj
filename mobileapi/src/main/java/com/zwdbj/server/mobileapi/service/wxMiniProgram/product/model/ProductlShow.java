@@ -70,6 +70,20 @@ public class ProductlShow {
     @ApiModelProperty(value = "是否与其他优惠券共用")
     private boolean stackUse;
 
+    @ApiModelProperty(value = "购买说明")
+    List<Map<String,String>> specification;
+
+    @ApiModelProperty(value = "店铺名称")
+    private String storeName;
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
     public String getAppointment() {
         return appointment;
     }
@@ -85,9 +99,6 @@ public class ProductlShow {
     public void setStackUse(boolean stackUse) {
         this.stackUse = stackUse;
     }
-
-    @ApiModelProperty(value = "购买说明")
-    List<Map<String,String>> specification;
 
     public List<Map<String,String>> getSpecification() {
         return specification;

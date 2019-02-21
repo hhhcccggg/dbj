@@ -1,6 +1,8 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 
 import com.zwdbj.server.mobileapi.config.MainKeyType;
+import com.zwdbj.server.mobileapi.service.store.model.StoreModel;
+import com.zwdbj.server.mobileapi.service.store.service.StoreService;
 import com.zwdbj.server.mobileapi.service.user.mapper.IUserMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper.IProductMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
@@ -44,6 +46,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     protected IUserMapper iUserMapper;
+
+    @Autowired
+    private StoreService storeServiceImpl;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -124,6 +129,8 @@ public class ProductServiceImpl implements ProductService {
             if (userIds.size() > 0) {
                 exchangeList = iUserMapper.selectUserAvatarUrl(userIds);
             }
+            StoreModel storeModel =  storeServiceImpl.selectById(storeId).getData();
+            productlShow.setStoreName(storeModel==null?"":storeModel.getName());
             productlShow.setExchangeList(exchangeList);
             return new ServiceStatusInfo<>(0, "", productlShow);
         } catch (Exception e) {
