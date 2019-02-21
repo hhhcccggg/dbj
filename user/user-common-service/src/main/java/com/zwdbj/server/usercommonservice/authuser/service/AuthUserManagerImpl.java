@@ -22,12 +22,12 @@ public class AuthUserManagerImpl implements IAuthUserManager {
         AuthUser authUser = new AuthUser();
 
         authUser = authUserMapper.findAuthUser(id);
-        String[] roleNames = authUserMapper.findRoleNames(id);
+        String[] roleNames = authUserMapper.findRoleNames(id,authUser.getTenantId());
         TenantInfo tenantInfo = authUserMapper.findTenant(Long.parseLong(id));
-        if (roleNames!=null || roleNames.length!=0){
+        if (roleNames!=null && roleNames.length>0){
             authUser.setRoles(roleNames);
             String roles = String.join(",", roleNames);
-            String[] permissionNames = authUserMapper.findPermissionName(roles);
+            String[] permissionNames = authUserMapper.findPermissionName(roles,authUser.getTenantId());
             authUser.setPermissions(permissionNames);
         }
 
