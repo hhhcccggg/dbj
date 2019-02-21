@@ -149,7 +149,7 @@ namespace db.shop.Models.shop
         /// <value>The detail description.</value>
         public String detailDescription { get; set; }
         /// <summary>
-        /// 规则说明
+        /// 兑换规则说明
         /// </summary>
         /// <value>The rule description.</value>
         public String ruleDescription { get; set; }

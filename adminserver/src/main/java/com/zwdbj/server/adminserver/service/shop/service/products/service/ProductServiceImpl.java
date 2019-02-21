@@ -191,6 +191,9 @@ public class ProductServiceImpl implements ProductService {
     public ServiceStatusInfo<ProductsOut> selectById(long id) {
         try{
             Products products =this.iProductMapper.selectById(id);
+            ProductSKUs productSKUs = iProductSKUsMapper.selectByProductId(products.getId());
+            products.setPromotionPrice(productSKUs.getPromotionPrice());
+            products.setOriginalPrice(productSKUs.getOriginalPrice());
             ProductsOut productsOut = new ProductsOut();
             productsOut.setProducts(products);
             productsOut.setProductCard(this.iProductCardMapper.selectByProductId(products.getId()));

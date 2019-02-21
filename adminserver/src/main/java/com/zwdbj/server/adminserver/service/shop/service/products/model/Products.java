@@ -1,10 +1,14 @@
 package com.zwdbj.server.adminserver.service.shop.service.products.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "商品信息")
 public class Products {
+
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "id")
     Long id;
     @ApiModelProperty(value = "商品类型")
@@ -22,10 +26,12 @@ public class Products {
     Long categoryId;
     String categoryLevel;
     boolean isDeleted;
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "品牌ID")
     Long brandId;
     @ApiModelProperty(value = "分享描述")
     String shareDesc;
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "卖家编号")
     long storeId;
     @ApiModelProperty(value = "评论数")
@@ -34,7 +40,7 @@ public class Products {
     long grade;
     @ApiModelProperty(value = "销量")
     long sales;
-    @ApiModelProperty(value = "库存")
+    @ApiModelProperty(value = "库存 -10000不限库存")
     long inventory;
     @ApiModelProperty(value = "原价")
     long originalPrice;
@@ -74,6 +80,17 @@ public class Products {
     boolean supportCoin;
     @ApiModelProperty(value = "规则说明")
     String ruleDescription;
+
+    @ApiModelProperty(value = "叠加使用")
+    boolean overlay;
+
+    public boolean isOverlay() {
+        return overlay;
+    }
+
+    public void setOverlay(boolean overlay) {
+        this.overlay = overlay;
+    }
 
     public long getOriginalPrice() {
         return originalPrice;

@@ -225,6 +225,7 @@ namespace dbdesgin.Data
             userEntity.Property(cw => cw.occupationId).HasDefaultValue(0);
             userEntity.Property(cw => cw.loveStatusId).HasDefaultValue(0);
             userEntity.Property(cw => cw.isLivingWatch).HasDefaultValue(false);
+            userEntity.Property(cw => cw.type).HasDefaultValue("NORMAL");
             //UserThirdAccountBind
             var userActBindEntity = modelBuilder.Entity<UserThirdAccountBind>();
             userActBindEntity.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
@@ -493,12 +494,14 @@ namespace dbdesgin.Data
             productCard.Property(c => c.IsDeleted).HasDefaultValue(false);
             productCard.Property(cw => cw.isManualData).HasDefaultValue(false);
             productCard.Property(cw => cw.festivalCanUse).HasDefaultValue(true);
+            productCard.Property(cw => cw.stackUse).HasDefaultValue(false);
 
             var productCashCoupon = modelBuilder.Entity<ProductCashCoupon>();
             productCashCoupon.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             productCashCoupon.Property(c => c.IsDeleted).HasDefaultValue(false);
             productCashCoupon.Property(cw => cw.isManualData).HasDefaultValue(false);
             productCashCoupon.Property(cw => cw.festivalCanUse).HasDefaultValue(true);
+            productCashCoupon.Property(cw => cw.stackUse).HasDefaultValue(false);
 
             var discountCoupon = modelBuilder.Entity<DiscountCoupon>();
             discountCoupon.Property(c => c.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP()");

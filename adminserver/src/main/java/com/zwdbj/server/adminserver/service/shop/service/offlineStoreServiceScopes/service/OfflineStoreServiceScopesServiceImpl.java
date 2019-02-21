@@ -90,4 +90,9 @@ public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreService
         }
     }
 
+    @Override
+    public ServiceStatusInfo<List<String>> selectCateNameByofflineStoreId(Long offlineStoreId) {
+        List<String> list = mapper.selectCateNameByofflineStoreId(offlineStoreId);
+        return null;
+    }
 }

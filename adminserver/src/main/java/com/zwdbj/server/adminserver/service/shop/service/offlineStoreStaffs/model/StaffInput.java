@@ -6,22 +6,22 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "创建员工/代言人")
 public class StaffInput {
     @ApiModelProperty(value = "员工姓名")
-    String nickName;
+    String fullName;
     @ApiModelProperty(value = "手机号")
     String phone;
     @ApiModelProperty(value = "是否代言")
     boolean isSuperStar;
     @ApiModelProperty(value = "认证资质")
     String qualification;
-    @ApiModelProperty(value = "备注 是否为店主")
-    boolean isSuper;
+    @ApiModelProperty(value = "备注 ")
+    String notes;
 
-    public String getNickName() {
-        return nickName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhone() {
@@ -48,11 +48,11 @@ public class StaffInput {
         this.qualification = qualification;
     }
 
-    public boolean isSuper() {
-        return isSuper;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setSuper(boolean aSuper) {
-        isSuper = aSuper;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

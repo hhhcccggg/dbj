@@ -6,19 +6,19 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "搜索条件")
 public class SearchInfo {
     @ApiModelProperty("起始页")
-    int pageNo;
+    private   int pageNo;
     @ApiModelProperty("行数")
-    int rows;
+    private   int rows;
     @ApiModelProperty(value = "搜索内容 可以为空")
-    String search;
+    private   String search;
     @ApiModelProperty(value = "过滤 默认为all")
-    String filter;
+    private  String filter;
     @ApiModelProperty(value = "排序方式 distance 按距离排序 grade 按评分排序")
-    String rank;
+    private    String rank;
     @ApiModelProperty(value = "纬度")
-    double lat;
+    private  double lat;
     @ApiModelProperty(value = "经度")
-    double lon;
+    private   double lon;
 
     public int getPageNo() {
         return pageNo;

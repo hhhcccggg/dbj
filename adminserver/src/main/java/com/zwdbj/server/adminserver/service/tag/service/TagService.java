@@ -9,6 +9,7 @@ import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,8 @@ public class TagService {
     ITagMapper tagMapper;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
     private Logger logger = LoggerFactory.getLogger(TagService.class);
 
 
@@ -59,14 +62,50 @@ public class TagService {
 
     }
 
-    public ServiceStatusInfo<Object> addTodayTag(long id){
-        LocalTime midnight = LocalTime.MIDNIGHT;
-        LocalDate today = LocalDate.now(ZoneId.of("Asia/Shanghai"));
-        LocalDateTime todayMidnight = LocalDateTime.of(today, midnight);
-        LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
-        long s = TimeUnit.NANOSECONDS.toSeconds(Duration.between(LocalDateTime.now(ZoneId.of("Asia/Shanghai")), tomorrowMidnight).toNanos());
-        this.stringRedisTemplate.opsForValue().set("66todayDayTag:", String.valueOf(id), s, TimeUnit.SECONDS);
-
+    public ServiceStatusInfo<Object> addTodayTag(long id,String date){
+        String mon = date.substring(0,7)+"monthTags";
+        this.redisTemplate.opsForHash().put(mon, date, String.valueOf(id));
         return new ServiceStatusInfo<>(0,"",true);
+
+    }
+
+    public AdVideoTagDto getTagDetailById(long tagId){
+        return this.tagMapper.getTagDetailById(tagId);
+    }
+
+
+    public ServiceStatusInfo<List<TodayTagsDto>> getTagsByYearAndMonth(String yearAndMonth){
+        if (!yearAndMonth.contains("-"))return new ServiceStatusInfo<>(1,"时间格式不对",null);
+        try {
+            List<TodayTagsDto> tagsDtoList = new ArrayList<>();
+            Map result = this.redisTemplate.opsForHash().entries(yearAndMonth+"monthTags");
+            Set aa = result.entrySet();
+            logger.info("aaaaaaa");
+            Iterator entries = aa.iterator();
+            while (entries.hasNext()) {
+                TodayTagsDto dto = new TodayTagsDto();
+                Map.Entry entry = (Map.Entry) entries.next();
+                String date = (String)entry.getKey();
+                String tagId = (String)entry.getValue();
+                logger.info("date = " + date + ", tagId = " + tagId);
+                dto.setDate(date);
+                if (!tagId.equals("")){
+                    long id = Long.valueOf(tagId);
+                    AdVideoTagDto tagDto = this.getTagDetailById(id);
+                    dto.setDesc(tagDto.getDesc());
+                    dto.setName(tagDto.getName());
+                    dto.setResNumber((long)(tagDto.getResNumber()*0.9));
+                    dto.setResVideoNumber(tagDto.getResNumber());
+                    logger.info(dto.toString());
+                }
+                tagsDtoList.add(dto);
+
+            }
+            return new ServiceStatusInfo<>(0,"",tagsDtoList);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,e.getMessage(),null);
+        }
+
+
     }
 }

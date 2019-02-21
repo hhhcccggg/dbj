@@ -939,6 +939,9 @@ namespace dbdesgin.Migrations
                         .HasColumnName("isDeleted")
                         .HasDefaultValue(false);
 
+                    b.Property<string>("appointment")
+                        .HasMaxLength(128);
+
                     b.Property<bool>("festivalCanUse")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(true);
@@ -952,6 +955,10 @@ namespace dbdesgin.Migrations
                     b.Property<long?>("productSKUId");
 
                     b.Property<int>("specHoursValid");
+
+                    b.Property<bool>("stackUse")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
 
                     b.Property<string>("useInfo")
                         .HasMaxLength(1024);
@@ -1046,6 +1053,9 @@ namespace dbdesgin.Migrations
                         .HasColumnName("isDeleted")
                         .HasDefaultValue(false);
 
+                    b.Property<string>("appointment")
+                        .HasMaxLength(128);
+
                     b.Property<int>("couponValue");
 
                     b.Property<bool>("festivalCanUse")
@@ -1061,6 +1071,10 @@ namespace dbdesgin.Migrations
                     b.Property<long?>("productSKUId");
 
                     b.Property<int>("specHoursValid");
+
+                    b.Property<bool>("stackUse")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
 
                     b.Property<string>("useInfo")
                         .HasMaxLength(1024);
@@ -2902,6 +2916,10 @@ namespace dbdesgin.Migrations
                         .HasColumnName("email")
                         .HasMaxLength(50);
 
+                    b.Property<string>("FullName")
+                        .HasColumnName("fullName")
+                        .HasMaxLength(128);
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("isDeleted")
@@ -3002,6 +3020,9 @@ namespace dbdesgin.Migrations
                     b.Property<string>("nickName")
                         .HasMaxLength(20);
 
+                    b.Property<string>("notes")
+                        .HasMaxLength(128);
+
                     b.Property<int>("occupationId")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
@@ -3028,6 +3049,11 @@ namespace dbdesgin.Migrations
                     b.Property<long>("totalMyFocuses")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0L);
+
+                    b.Property<string>("type")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasDefaultValue("NORMAL");
 
                     b.HasKey("Id");
 

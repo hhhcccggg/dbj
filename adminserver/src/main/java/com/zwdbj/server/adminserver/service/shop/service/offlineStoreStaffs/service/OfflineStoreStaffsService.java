@@ -19,4 +19,8 @@ public interface OfflineStoreStaffsService {
     ServiceStatusInfo<Long> bulkSetSuperStar(IsSuperStar[] isSuperStars, long legalSubjectId);
 
     ServiceStatusInfo<List<OfflineStoreStaffs>> searchStaffs(SearchStaffInfo searchStaffInfo, long legalSubjectId);
+
+    ServiceStatusInfo<List<SuperStarInfo>> getSuperStarDetail(String search, String rank, String sort, long legalSubjectId);
+
+    ServiceStatusInfo<SuperStarDto> videoListStaff(long userId);
 }

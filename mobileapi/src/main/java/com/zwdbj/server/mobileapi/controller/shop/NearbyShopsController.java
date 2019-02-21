@@ -31,7 +31,7 @@ public class NearbyShopsController {
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
 
-    @ApiOperation(value = "附近商家列表")
+    /*@ApiOperation(value = "附近商家列表")
     @RequestMapping(value = "/shopList", method = RequestMethod.GET)
     public ResponsePageInfoData<List<NearbyShop>> shopList(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
                                                            @RequestParam(value = "rows", required = true, defaultValue = "10") int rows) {
@@ -39,7 +39,7 @@ public class NearbyShopsController {
         List<NearbyShop> list = this.nearbyShopServiceImpl.nearbyShopList(pageNo).getData();
         return new ResponsePageInfoData<>(0, "", list, page.getTotal());
 
-    }
+    }*/
 
     @ApiOperation(value = "搜索商家")
     @RequestMapping(value = "/searchShop", method = RequestMethod.POST)
@@ -72,5 +72,15 @@ public class NearbyShopsController {
         Page<DiscountCoupon> pageInfo = PageHelper.startPage(pageNo, rows);
         List<DiscountCoupon> discountCouponDetails = this.nearbyShopServiceImpl.getNearByDiscount(longitude, latitude);
         return new ResponsePageInfoData<>(0, "", discountCouponDetails, pageInfo.getTotal());
+    }
+
+    @ApiOperation(value = "查询商家代言人")
+    @RequestMapping(value = "/getSuperStar/{storeId}", method = RequestMethod.GET)
+    public ResponseData<List<SuperStar>> getSuperStar(@PathVariable("storeId") long storeId) {
+        ServiceStatusInfo<List<SuperStar>> statusInfo = nearbyShopServiceImpl.superStar(storeId);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
 }

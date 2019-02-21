@@ -147,16 +147,7 @@ public interface IVideoMapper {
      * 首页测试sql
      * @return
      */
-    @Select("SELECT " +
-            "core_videos.id, " +
-            "core_videos.title, " +
-            "core_videos.coverImageUrl, " +
-            "core_videos.coverImageWidth, " +
-            "core_videos.coverImageHeight, " +
-            "core_videos.videoUrl, " +
-            "core_videos.tags, " +
-            "core_videos.userId, " +
-            "core_videos.heartCount " +
+    @Select("SELECT *" +
             "FROM " +
             "core_videos " +
             "ORDER BY " +
@@ -165,9 +156,12 @@ public interface IVideoMapper {
     List<VideoMain> mainVideo();
 
     /**
-     * 查询所有
+     * 查询ES所需数据
      * @return
      */
-    @Select("select *,CONCAT(latitude,',',longitude) as `location` from core_videos")
-    List<Map<String,String>> selectAll();
+    @Select("SELECT cv.id,CONCAT(cv.latitude, ',', cv.longitude) AS location,cv.title,cv.coverImageUrl,cv.coverImageWidth,cv.coverImageHeight,cv.firstFrameUrl," +
+            "cv.firstFrameWidth,cv.firstFrameHeight,cv.videoUrl,cv.linkPets,cv.tags,cv.`status`,cv.rejectMsg,cv.playCount,cv.commentCount," +
+            "cv.heartCount,cv.shareCount,cv.userId,cv.musicId,cv.linkProductCount,cv.tipCount,cv.type,cu.nickName as userNickName," +
+            "cu.avatarUrl as userAvatarUrl FROM core_videos AS cv LEFT  JOIN core_users AS cu ON cv.userId = cu.id")
+    List<Map<String,String>> selectES();
 }

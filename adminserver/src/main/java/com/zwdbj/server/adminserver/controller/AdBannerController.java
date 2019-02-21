@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.controller;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerDto;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInfo;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInput;
+import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerSerchInput;
 import com.zwdbj.server.adminserver.service.adBanner.service.AdBannerService;
 import com.zwdbj.server.utility.model.ResponseData;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -33,7 +34,7 @@ public class AdBannerController {
 
     @ApiOperation(value = "搜索adBanners")
     @RequestMapping(value = "/searchAdBanners", method = RequestMethod.POST)
-    public ResponseData<List<AdBannerInfo>> searchAdBanners(@RequestBody AdBannerInput input) {
+    public ResponseData<List<AdBannerInfo>> searchAdBanners(@RequestBody AdBannerSerchInput input) {
         ServiceStatusInfo<List<AdBannerInfo>> statusInfo = this.adBannerServiceImpl.searchAdBanners(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());

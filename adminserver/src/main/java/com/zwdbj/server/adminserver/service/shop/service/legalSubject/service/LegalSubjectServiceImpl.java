@@ -138,4 +138,11 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
         }
 
     }
+
+
+    @Override
+    public int updateStatusById(long id, int state) {
+        int result = this.legalSubjectMapper.updateStatusById(id,state);
+        return result;
+    }
 }

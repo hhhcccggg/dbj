@@ -5,6 +5,10 @@ using db.common;
 
 namespace dbdesgin.Models
 {
+    /// <summary>
+    /// 当前所有平台用户都在此表
+    /// TODO 未来考虑拆分
+    /// </summary>
     [Table("core_users")]
     public class User : BaseModelWithTime<long>
     {
@@ -12,6 +16,13 @@ namespace dbdesgin.Models
         [MaxLength(110)]
         [Column("username")]
         public string UserName { get; set; }
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        /// <value>The full name.</value>
+        [MaxLength(128)]
+        [Column("fullName")]
+        public String FullName { get; set; }
         [MaxLength(20)]
         public string nickName { get; set; } 
         [MaxLength(512)]
@@ -31,6 +42,10 @@ namespace dbdesgin.Models
         /// <value>The birthday.</value>
         [Column("birthday", TypeName = "timestamp")]
         public DateTime? birthday { get; set; }
+        /// <summary>
+        /// 0：未知1：男2：女3：保密
+        /// </summary>
+        /// <value>The sex.</value>
         public int sex { get; set; }
         /// <summary>
         /// 账号是否锁定
@@ -140,8 +155,17 @@ namespace dbdesgin.Models
         [MaxLength(512)]
         public string hxPwd { get; set; }
         /// <summary>
+        /// 用户类型
+        /// NORMAL:普通用户，直接是产品的用户，来自于APP、H5、小程序等渠道
+        /// PLATFORM: 平台用户，主要是自由平台的用户
+        /// BUSINESS: 商家用户
+        /// </summary>
+        /// <value>The type.</value>
+        [MaxLength(50)]
+        public string type { get; set; }
+        /// <summary>
         /// 租户ID
-        /// 如果为空，则是系统账号
+        /// 如果为空，则是平台账号
         /// </summary>
         /// <value>The tenant identifier.</value>
         public long? tenantId { get; set; }
@@ -150,5 +174,11 @@ namespace dbdesgin.Models
         /// </summary>
         /// <value>The recommend user identifier.</value>
 		public long? recommendUserId { get; set; }
+        /// <summary>
+        /// 备注信息
+        /// </summary>
+        /// <value>The notes.</value>
+        [MaxLength(128)]
+        public String notes { get; set; }
     }
 }
