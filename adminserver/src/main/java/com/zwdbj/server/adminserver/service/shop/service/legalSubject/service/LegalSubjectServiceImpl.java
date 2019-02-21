@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.service.shop.service.legalSubject.service;
 
 import com.zwdbj.server.adminserver.service.shop.service.legalSubject.mapper.ILegalSubjectMapper;
 import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.*;
+import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.userTenant.model.ModifyUserTenantInput;
 import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -78,24 +79,17 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
     }
 
     @Override
-    public ServiceStatusInfo<Integer> verityUnReviewedLegalSubject(long id, LegalSubjectVerityInput input) {
+    public ServiceStatusInfo<Integer> verityUnReviewedLegalSubject(long id, ReviewStoreInput input) {
         int result = 0;
         try {
             result = this.legalSubjectMapper.verityUnReviewedLegalSubject(id,input);
             if (result==0)new ServiceStatusInfo<>(1, "审核商家失败", result);
-            // TODO 需不需要这里把店铺也审核了？
-            result = this.verityUnReviewedStore(id,input);
-            if (result==0)new ServiceStatusInfo<>(1, "审核店铺失败", result);
             return new ServiceStatusInfo<>(0, "审核完毕", result);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "审核出现异常：" + e.getMessage(), result);
         }
     }
 
-    //审核店铺
-    public int verityUnReviewedStore(long legalSubjectId, LegalSubjectVerityInput input){
-        return this.legalSubjectMapper.verityUnReviewedStore(legalSubjectId,input);
-    }
 
     @Override
     public List<LegalSubjectReviewModel> getReviewsByLegalSubjectId(long id) {
@@ -121,23 +115,6 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
 
     }
 
-    /**
-     * 审核商家需要审核的资料
-     * @param id
-     * @param input
-     * @return
-     */
-    @Override
-    public ServiceStatusInfo<Integer> verityLegalSubjectReview(long id,LegalSubjectReviewVerityInput input) {
-        try {
-            int result = this.legalSubjectMapper.verityLegalSubjectReview(id,input);
-            if (result==0)return new ServiceStatusInfo<>(1,"审核资料失败",0);
-            return new ServiceStatusInfo<>(0,"审核资料成功",result);
-        }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"审核资料失败,出现异常："+e.getMessage(),0);
-        }
-
-    }
 
 
     @Override

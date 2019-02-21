@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.service;
 
+import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
@@ -17,6 +18,7 @@ public interface StoreService {
      */
     ServiceStatusInfo<Long> selectByLegalSubjectId(long legalSubjectId);
     ServiceStatusInfo<Integer> updateStoreStatus(long storeId,long legalSubjectId,int state);
+    ServiceStatusInfo<Integer> reviewStore(long storeId, long legalSubjectId, ReviewStoreInput input);
 
     ServiceStatusInfo<StoreInfo> selectByStoreId(long storeId);
 

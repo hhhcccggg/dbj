@@ -12,9 +12,11 @@ import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScop
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.DiscountCoupon;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.DiscountCouponDetail;
 import com.zwdbj.server.adminserver.service.shop.service.store.mapper.IStoreMapper;
+import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.service.StoreReviewService;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,8 @@ public class StoreServiceImpl implements StoreService {
     private DiscountCouponServiceImpl discountCouponService;
     @Autowired
     ILegalSubjectService legalSubjectServiceImpl;
+    @Autowired
+    StoreReviewService storeReviewServiceImpl;
 
     @Override
     public ServiceStatusInfo<Long> selectByLegalSubjectId(long legalSubjectId) {
@@ -95,5 +99,24 @@ public class StoreServiceImpl implements StoreService {
         int s = this.legalSubjectServiceImpl.updateStatusById(legalSubjectId,state);
         if (s==0)return new ServiceStatusInfo<>(1,"商家更新失败了",result);
         return new ServiceStatusInfo<>(0,"",s);
+    }
+
+    @Override
+    @Transactional
+    public ServiceStatusInfo<Integer> reviewStore(long storeId, long legalSubjectId, ReviewStoreInput input) {
+        //审核所有的需要审核的资料
+        int a = this.storeReviewServiceImpl.reviewStore(legalSubjectId,input).getData();
+
+        if (a==0)return new ServiceStatusInfo<>(1,"资料审核失败",0);
+        //审核store
+        a=this.iStoreMapper.reviewStore(storeId,input.isReviewOrNot());
+
+        if (a==0)return new ServiceStatusInfo<>(1,"店铺审核失败",0);
+        //审核 legalSubject
+        a=this.legalSubjectServiceImpl.verityUnReviewedLegalSubject(legalSubjectId,input).getData();
+        if (a==0)return new ServiceStatusInfo<>(1,"商家审核失败",0);
+
+
+        return  new ServiceStatusInfo<>(0,"审核成功",a);
     }
 }
