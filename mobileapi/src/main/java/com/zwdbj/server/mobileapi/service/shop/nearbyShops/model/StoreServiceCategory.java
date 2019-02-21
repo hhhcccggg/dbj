@@ -10,9 +10,9 @@ public class StoreServiceCategory implements Serializable {
 
     private static final long serialVersionUID = -732539217741767219L;
     @ApiModelProperty(value = "服务范围id")
-    long id;
+    private long id;
     @ApiModelProperty(value = "name")
-    String name;
+    private String name;
 
     public long getId() {
         return id;

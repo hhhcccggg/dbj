@@ -9,26 +9,26 @@ import java.util.List;
 @ApiModel(description = "搜索商家信息")
 public class SearchShop {
     @ApiModelProperty(value = "店铺id")
-    long id;
+    private long id;
     @ApiModelProperty(value = "name")
-    String name;
+    private String name;
     @ApiModelProperty(value = "店铺商标")
-    String logoUrl;
+    private String logoUrl;
     @ApiModelProperty(value = "综合评分")
-    int grade;
-    @ApiModelProperty(value = "优惠券")
-    List<StoreProduct> discountCoupons;
+    private int grade;
+    @ApiModelProperty(value = "商家商品")
+    private List<StoreProduct> storeProducts;
     @ApiModelProperty(value = "服务范围")
-    List<StoreServiceCategory> serviceScopes;
+    private List<StoreServiceCategory> serviceScopes;
 
     @ApiModelProperty(value = "纬度,经度")
-    String location;
+    private String location;
     @ApiModelProperty(value = "详细地址")
-    String address;
+    private String address;
     @ApiModelProperty(value = "城市")
-    int cityId;
+    private int cityId;
     @ApiModelProperty(value = "cityLevel")
-    String cityLevel;
+    private String cityLevel;
 
     public String getLocation() {
         return location;
@@ -94,12 +94,12 @@ public class SearchShop {
         this.grade = grade;
     }
 
-    public List<StoreProduct> getDiscountCoupons() {
-        return discountCoupons;
+    public List<StoreProduct> getStoreProducts() {
+        return storeProducts;
     }
 
-    public void setDiscountCoupons(List<StoreProduct> discountCoupons) {
-        this.discountCoupons = discountCoupons;
+    public void setStoreProducts(List<StoreProduct> storeProducts) {
+        this.storeProducts = storeProducts;
     }
 
     public List<StoreServiceCategory> getServiceScopes() {

@@ -33,7 +33,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
 
         try {
             long tenantId = storeServiceImpl.selectTenantId(legalSubjectId);
-            userService.greateUserByTenant(staffInput.getNickName(), staffInput.getPhone(), tenantId, staffInput.isSuper());
+            userService.greateUserByTenant(staffInput.getFullName(), staffInput.getPhone(), tenantId, staffInput.isSuperStar());
             if (staffInput.isSuperStar()) {
                 long userId = iUserMapper.findUserIdByPhone(staffInput.getPhone());
                 mapper.setSuperStar(UniqueIDCreater.generateID(), legalSubjectId, userId);
@@ -105,7 +105,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         try {
             result = mapper.getStaffs(legalSubjectId);
             for (OfflineStoreStaffs o : result) {
-                Date createTime = mapper.selectSuperStarCreateTime(legalSubjectId, o.getUserId());
+                Date createTime = mapper.selectSuperStarCreateTime(legalSubjectId, o.getId());
                 if (createTime != null) {
                     o.setCreateTime(createTime);
                     o.setSuperStar(true);
@@ -162,5 +162,25 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         }
     }
 
+    public ServiceStatusInfo<List<SuperStarInfo>> getSuperStarDetail(String search, String rank, String sort, long legalSubjectId) {
+        List<SuperStarInfo> result = null;
+        try {
+            result = mapper.getSuperStarDetail(search, rank, sort, legalSubjectId);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "获取代言人详情失败" + e.getMessage(), null);
+        }
+    }
 
+    public ServiceStatusInfo<SuperStarDto> videoListStaff(long userId) {
+        SuperStarDto superStarDto = null;
+        try {
+            superStarDto = mapper.videoListStaff(userId);
+            //查询员工 评论数
+
+            return new ServiceStatusInfo<>(0, "", superStarDto);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询代言人作品列表个人信息失败" + e.getMessage(), null);
+        }
+    }
 }

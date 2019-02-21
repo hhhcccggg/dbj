@@ -99,6 +99,7 @@ public interface IVideoMapper {
     @SelectProvider(type = VideoSqlProvider.class, method = "findAllVideoNum")
     int findAllVideoNum(@Param("model") SearchVideoAdInput model);
 
-
+    @SelectProvider(type = VideoSqlProvider.class, method = "searchSuperStarVideos")
+    List<SuperStarVideos> searchSuperStarVideos(@Param("userId") long userId, @Param("rank") String rank, @Param("sort") String sort);
 
 }

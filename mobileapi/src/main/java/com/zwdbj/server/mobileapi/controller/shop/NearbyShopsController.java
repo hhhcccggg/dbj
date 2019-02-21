@@ -73,4 +73,14 @@ public class NearbyShopsController {
         List<DiscountCoupon> discountCouponDetails = this.nearbyShopServiceImpl.getNearByDiscount(longitude, latitude);
         return new ResponsePageInfoData<>(0, "", discountCouponDetails, pageInfo.getTotal());
     }
+
+    @ApiOperation(value = "查询商家代言人")
+    @RequestMapping(value = "/getSuperStar/{storeId}", method = RequestMethod.GET)
+    public ResponseData<List<SuperStar>> getSuperStar(@PathVariable("storeId") long storeId) {
+        ServiceStatusInfo<List<SuperStar>> statusInfo = nearbyShopServiceImpl.superStar(storeId);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
+    }
 }
