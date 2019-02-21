@@ -14,9 +14,10 @@ public interface IProductCashCouponMapper {
      */
     @Insert("INSERT INTO `shop_productCashCoupons` (" +
             "`id`,`couponValue`,`festivalCanUse`,`useInfo`,`validType`,`specHoursValid`,`validDays`,`validStartTime`,`validEndTime`," +
-            "`productId`,`productSKUId`)" +
+            "`productId`,`productSKUId`,`appointment`,`stackUse`)" +
             "VALUES" +
-            "(#{id},#{productCashCoupon.couponValue},#{productCashCoupon.festivalCanUse},#{productCashCoupon.useInfo},#{productCashCoupon.validType},#{productCashCoupon.specHoursValid},#{productCashCoupon.validDays},#{productCashCoupon.validStartTime},#{productCashCoupon.validEndTime},#{productCashCoupon.productId},#{productCashCoupon.productSKUId})")
+            "(#{id},#{productCashCoupon.couponValue},#{productCashCoupon.festivalCanUse},#{productCashCoupon.useInfo},#{productCashCoupon.validType},#{productCashCoupon.specHoursValid},#{productCashCoupon.validDays},#{productCashCoupon.validStartTime},#{productCashCoupon.validEndTime}," +
+            "#{productCashCoupon.productId},#{productCashCoupon.productSKUId},#{productCashCoupon.appointment},#{productCashCoupon.stackUse})")
     Long createProductCashCoupon(@Param("id") long id, @Param("productCashCoupon") ProductCashCoupon productCashCoupon);
 
 
@@ -35,6 +36,8 @@ public interface IProductCashCouponMapper {
             " `validDays` =  #{productCashCoupon.validDays}," +
             " `validStartTime` =  #{productCashCoupon.validStartTime}," +
             " `validEndTime` =  #{productCashCoupon.validEndTime}," +
+            "`stackUse` = #{productCashCoupon.stackUse}," +
+            "`appointment` = #{productCashCoupon.appointment}" +
             "WHERE" +
             "(`productId` = #{productCashCoupon.productId});")
     Long updateByProductIdByProductCashCoupon(@Param("productCashCoupon") ProductCashCoupon productCashCoupon);

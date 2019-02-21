@@ -79,15 +79,26 @@ public class UpdateProducts {
     @ApiModelProperty(value = "规则说明")
     String ruleDescription;
 
-    @ApiModelProperty(value = "叠加使用")
-    boolean overlay;
+    @ApiModelProperty(value = "预约信息")
+    private String appointment;
 
-    public boolean isOverlay() {
-        return overlay;
+    @ApiModelProperty(value = "是否与其他优惠券共用")
+    private boolean stackUse;
+
+    public String getAppointment() {
+        return appointment;
     }
 
-    public void setOverlay(boolean overlay) {
-        this.overlay = overlay;
+    public void setAppointment(String appointment) {
+        this.appointment = appointment;
+    }
+
+    public boolean isStackUse() {
+        return stackUse;
+    }
+
+    public void setStackUse(boolean stackUse) {
+        this.stackUse = stackUse;
     }
 
     public String getRuleDescription() {

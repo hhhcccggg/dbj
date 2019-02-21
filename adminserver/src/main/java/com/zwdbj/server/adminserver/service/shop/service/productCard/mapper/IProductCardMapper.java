@@ -22,7 +22,9 @@ public interface IProductCardMapper {
             "`validStartTime`," +
             "`validEndTime`," +
             "`productId`," +
-            "`productSKUId`)" +
+            "`productSKUId`," +
+            "`appointment`," +
+            "`stackUse`)" +
             "VALUES(" +
             "#{id}," +
             "#{productCard.festivalCanUse}," +
@@ -33,7 +35,7 @@ public interface IProductCardMapper {
             "#{productCard.validStartTime}," +
             "#{productCard.validEndTime}," +
             "#{productCard.productId}," +
-            "#{productCard.productSKUId})")
+            "#{productCard.productSKUId},#{productCard.appointment},#{productCard.stackUse})")
     Long createProductCard(@Param("id") long id, @Param("productCard") ProductCard productCard);
 
     /**
@@ -49,7 +51,9 @@ public interface IProductCardMapper {
             " `specHoursValid` = #{productCard.specHoursValid}," +
             " `validDays` = #{productCard.validDays}," +
             " `validStartTime` = #{productCard.validStartTime}," +
-            " `validEndTime` = #{productCard.validEndTime}" +
+            " `validEndTime` = #{productCard.validEndTime}," +
+            "`appointment` = #{productCard.appointment}," +
+            "`stackUse` = #{productCard.stackUse}" +
             "WHERE" +
             "(`productId` = #{productCard.productId})")
     Long updateByProductIdByProductCard(@Param("productCard") ProductCard productCard);
