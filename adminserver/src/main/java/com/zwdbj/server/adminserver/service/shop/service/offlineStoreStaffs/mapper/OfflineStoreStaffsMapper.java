@@ -39,8 +39,8 @@ public interface OfflineStoreStaffsMapper {
     @Insert("insert into o2o_offlineStoreStaffs (id,storeId,userId) values(#{id},#{storeId},#{userId})")
     Long setSuperStar(@Param("id") long id, @Param("storeId") long storeId, @Param("userId") long userId);
 
-    @Update("update o2o_offlineStoreStaffs set isDeleted=1 and deleteTime=now() where userId=#{userId} and storeId=#{legalSubjectId}")
-    Long cancelSuperStar(@Param("userId") long userId, @Param("legalSubjectId") long legalSubjectId);
+    @Update("update o2o_offlineStoreStaffs set isDeleted=1 and deleteTime=now() where userId=#{userId} and storeId=#{storeId}")
+    Long cancelSuperStar(@Param("userId") long userId, @Param("storeId") long storeId);
 
 
     /**

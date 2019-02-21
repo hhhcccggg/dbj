@@ -23,6 +23,7 @@ import java.util.List;
 public class OfflineStoreStaffsController {
     @Autowired
     private OfflineStoreStaffsService offlineStoreStaffsServiceImpl;
+
     @Autowired
     private AuthUserManagerImpl authUserManager;
 
@@ -43,9 +44,7 @@ public class OfflineStoreStaffsController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改门店员工，代言人")
     public ResponseData<Long> update(@RequestBody ModifyStaff modifyStaff) {
-        long userId = JWTUtil.getCurrentId();
-        long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
-        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreStaffsServiceImpl.update(modifyStaff, legalSubjectId);
+        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreStaffsServiceImpl.update(modifyStaff);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -74,7 +73,7 @@ public class OfflineStoreStaffsController {
         PageHelper.startPage(pageNo, rows);
         ServiceStatusInfo<List<OfflineStoreStaffs>> statusInfo = offlineStoreStaffsServiceImpl.getStaffs(legalSubjectId);
         PageInfo<OfflineStoreStaffs> pageInfo = new PageInfo<>(statusInfo.getData());
-        return new ResponsePageInfoData<>(0, "", pageInfo.getList(), pageInfo.getTotal());
+        return new ResponsePageInfoData<>(0, statusInfo.getMsg(), pageInfo.getList(), pageInfo.getTotal());
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)

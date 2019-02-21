@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.shop.comments.model;
 
+import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -14,6 +15,9 @@ public class ShopCommentsExtraDatas extends ShopComments {
     long dataId;
     @ApiModelProperty(value = "媒体资源内容，如果dataId=0,则读取此字段的值")
     String dataContent;
+
+    @ApiModelProperty(value = "视频评论信息")
+    private VideoDetailInfoDto videoDetailInfoDto;
 
     public long getCommentId() {
         return commentId;
@@ -45,5 +49,13 @@ public class ShopCommentsExtraDatas extends ShopComments {
 
     public void setDataContent(String dataContent) {
         this.dataContent = dataContent;
+    }
+
+    public VideoDetailInfoDto getVideoDetailInfoDto() {
+        return videoDetailInfoDto;
+    }
+
+    public void setVideoDetailInfoDto(VideoDetailInfoDto videoDetailInfoDto) {
+        this.videoDetailInfoDto = videoDetailInfoDto;
     }
 }

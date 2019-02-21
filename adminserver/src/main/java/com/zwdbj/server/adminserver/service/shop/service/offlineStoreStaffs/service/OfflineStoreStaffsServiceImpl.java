@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.ser
 
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mapper.OfflineStoreStaffsMapper;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.model.*;
-import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServiceImpl;
+import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -24,9 +24,9 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     @Resource
     UserService userService;
     @Resource
-    StoreServiceImpl storeServiceImpl;
-    @Resource
     private IUserMapper iUserMapper;
+    @Resource
+    private StoreService storeServiceImpl;
 
     @Override
     public ServiceStatusInfo<Long> create(StaffInput staffInput, long legalSubjectId) {
@@ -36,7 +36,8 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
             userService.greateUserByTenant(staffInput.getFullName(), staffInput.getPhone(), tenantId, 2,"店员");
             if (staffInput.isSuperStar()) {
                 long userId = iUserMapper.findUserIdByPhone(staffInput.getPhone());
-                mapper.setSuperStar(UniqueIDCreater.generateID(), legalSubjectId, userId);
+                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+                mapper.setSuperStar(UniqueIDCreater.generateID(), storeId, userId);
             }
 
             return new ServiceStatusInfo<>(0, "", 1L);
@@ -46,7 +47,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     }
 
     @Override
-    public ServiceStatusInfo<Long> update(ModifyStaff modifyStaff, long legalSubjectId) {
+    public ServiceStatusInfo<Long> update(ModifyStaff modifyStaff) {
         Long result = 0L;
         try {
             if (iUserMapper.userIdIsExist(modifyStaff.getUserId()) == 0) {
@@ -79,7 +80,8 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
 
             result = mapper.cancelStaff(userId);
             if (isSuperStar) {
-                result += mapper.cancelSuperStar(userId, legalSubjectId);
+                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+                result += mapper.cancelSuperStar(userId, storeId);
             }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
@@ -95,7 +97,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
             }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "删除门店员工/代言人失败" + e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "批量删除门店员工/代言人失败" + e.getMessage(), result);
         }
     }
 
@@ -103,9 +105,11 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     public ServiceStatusInfo<List<OfflineStoreStaffs>> getStaffs(long legalSubjectId) {
         List<OfflineStoreStaffs> result = null;
         try {
+            ServiceStatusInfo<Long> statusInfo = storeServiceImpl.selectByLegalSubjectId(legalSubjectId);
+            long storeId = statusInfo.getData();
             result = mapper.getStaffs(legalSubjectId);
             for (OfflineStoreStaffs o : result) {
-                Date createTime = mapper.selectSuperStarCreateTime(legalSubjectId, o.getId());
+                Date createTime = mapper.selectSuperStarCreateTime(storeId, o.getId());
                 if (createTime != null) {
                     o.setCreateTime(createTime);
                     o.setSuperStar(true);
@@ -121,8 +125,10 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     public ServiceStatusInfo<List<OfflineStoreStaffs>> searchStaffs(SearchStaffInfo searchStaffInfo, long legalSubjectId) {
         List<OfflineStoreStaffs> result = new ArrayList<>();
         try {
+
             if (searchStaffInfo.isSuperStar()) {
-                result = mapper.searchSuperStar(legalSubjectId, searchStaffInfo.getSearch());
+                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+                result = mapper.searchSuperStar(storeId, searchStaffInfo.getSearch());
 
             }
             result = mapper.searchStaffs(legalSubjectId, searchStaffInfo.getSearch());
@@ -137,12 +143,14 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     public ServiceStatusInfo<Long> setSuperStar(IsSuperStar isSuperStar, long legalSubjectId) {
         Long result = 0L;
         try {
+            long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
             if (isSuperStar.isSuperStar()) {
                 long id = UniqueIDCreater.generateID();
-                result = mapper.setSuperStar(id, legalSubjectId, isSuperStar.getUserId());
+
+                result = mapper.setSuperStar(id, storeId, isSuperStar.getUserId());
                 return new ServiceStatusInfo<>(0, "", result);
             }
-            result = mapper.cancelSuperStar(isSuperStar.getUserId(), legalSubjectId);
+            result = mapper.cancelSuperStar(isSuperStar.getUserId(), storeId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "设置/取消代言人失败" + e.getMessage(), result);
@@ -158,7 +166,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
             }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "设置/取消代言人失败" + e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "批量设置/取消代言人失败" + e.getMessage(), result);
         }
     }
 
