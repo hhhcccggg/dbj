@@ -51,8 +51,6 @@ public class UserTenantService {
         int a =  this.userTenantMapper.modifyUserTenant(id,input.getName());
         if (a==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
         long legalSubjectId = this.userTenantMapper.findLegalSubjectIdById(id);
-        // 修改
-
         int b = this.userService.modifyUserByTenantId(id);
         if (b==0)return new ServiceStatusInfo<>(1,"租户修改失败",null);
         int c = this.userService.greateUserByTenant(input.getUsername(),input.getPhone(),id,1,"店主");
