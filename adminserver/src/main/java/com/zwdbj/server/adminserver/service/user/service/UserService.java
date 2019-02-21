@@ -144,7 +144,7 @@ public class UserService {
                 id = UniqueIDCreater.generateID();
                 String username = UniqueIDCreater.generateUserName();
                 String password = SHAEncrypt.encryptSHA(phone.substring(8)+"123456");
-                a = this.userMapper.greateUserByTenant(id,username,password,fullName,phone,tenantId,notes);
+                a = this.userMapper.greateUserByTenant(id,username,password,fullName,phone,tenantId,notes,"BUSINESS");
             }else {
                 UserModel u = this.userMapper.findUserByPhone(phone);
                 a = this.userMapper.updateUserTanById(u.getId(),tenantId,notes,"BUSINESS");
