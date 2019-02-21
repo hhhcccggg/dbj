@@ -3,10 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.store.mapper;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,4 +28,6 @@ public interface IStoreMapper {
 
     @Select("select id from core_user_tenants where legalSubjectId=#{legalSubjectId} and isDeleted=0")
     long selectTenantId(@Param("legalSubjectId") long legalSubjectId);
+    @Update("update shop_stores set `status`=#{status} where id=#{storeId} and `status`<>#{status}")
+    int updateStoreStatus(@Param("storeId") long storeId,@Param("status")int status);
 }

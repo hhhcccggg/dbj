@@ -181,6 +181,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public long getProductInventoryNum(long productId) {
+        long allInventory = this.iProductMapper.getProductInventory(productId);
+        return allInventory;
+    }
+
+    @Override
     public ServiceStatusInfo<Boolean> getProductInventory(long productId, long productSkuId, int num) {
         try {
             long allInventory = this.iProductMapper.getProductInventory(productId);

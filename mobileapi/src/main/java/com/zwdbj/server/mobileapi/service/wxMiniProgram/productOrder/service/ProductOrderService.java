@@ -54,8 +54,12 @@ public class ProductOrderService {
 
                 }
                 //查看商品的库存是否满足
-                boolean a = this.productServiceImpl.getProductInventory(input.getProductId(), input.getProductskuId(), input.getNum()).getData();
-                if (!a) return new ServiceStatusInfo<>(1, "商品库存不足", null);
+                long inventoryNum = this.productServiceImpl.getProductInventoryNum(input.getProductId());
+                if (inventoryNum!=-10000L){
+                    boolean a = this.productServiceImpl.getProductInventory(input.getProductId(), input.getProductskuId(), input.getNum()).getData();
+                    if (!a) return new ServiceStatusInfo<>(1, "商品库存不足", null);
+                }
+
                 long orderId = UniqueIDCreater.generateID();
 
                 //查看user的账户小饼干是否够支付订单费用
@@ -74,6 +78,7 @@ public class ProductOrderService {
                 int totalFee = price * input.getNum();
                 this.productOrderMapper.createOrderItem(orderItemId, orderId, input, price, totalFee);
                 // 减去商品和sku的库存并更新销量
+                if (inventoryNum!=-10000L)
                 this.productServiceImpl.updateProductNum(input.getProductId(), input.getProductskuId(), input.getNum());
                 //兑换后减去用户所需的小饼干
                 boolean flag = this.userAssetServiceImpl.minusUserCoins(totalFee/10, userId, orderId);

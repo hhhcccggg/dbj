@@ -19,4 +19,5 @@ public interface ILegalSubjectService {
     int addLegalSubject(long id, UserTenantInput input);
     int modifyBasicLegalSubject(long id, ModifyUserTenantInput input);
     ShopTenantModel getDetailTenant(long legalSubjectId);
+    int updateStatusById(long id,int state);
 }
