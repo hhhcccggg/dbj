@@ -26,7 +26,7 @@ public class NearbyShopsController {
     public ResponseData<ShopInfo> shopHomePage(@PathVariable("storeId") long storeId) {
         ServiceStatusInfo<ShopInfo> statusInfo = nearbyShopServiceImpl.shopHomePage(storeId);
         if (statusInfo.isSuccess()) {
-            return new ResponseData<>(0, "", statusInfo.getData());
+            return new ResponseData<>(0, statusInfo.getMsg(), statusInfo.getData());
         }
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }

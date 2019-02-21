@@ -78,42 +78,42 @@ public class ProductServiceImpl implements ProductService {
     public ServiceStatusInfo<ProductlShow> selectByIdByStoreId(long id, long storeId) {
         try {
             ProductlShow productlShow = this.iProductMapper.selectByIdByStoreId(id, storeId);
-            if ( productlShow == null ) {
+            if (productlShow == null) {
                 return new ServiceStatusInfo<>(1, "查询失败,商品不存在", null);
             }
-            List<Map<String,String>> mapList = new ArrayList<>();
-            String time=null;
-            String appointment=null;
-            boolean stackUse=false;
-            if(productlShow.getProductDetailType().equals("CARD") || productlShow.getProductDetailType().equals("CASHCOUPON")){
-                if(productlShow.getProductDetailType().equals("CARD")){
+            List<Map<String, String>> mapList = new ArrayList<>();
+            String time = null;
+            String appointment = null;
+            boolean stackUse = false;
+            if (productlShow.getProductDetailType().equals("CARD") || productlShow.getProductDetailType().equals("CASHCOUPON")) {
+                if (productlShow.getProductDetailType().equals("CARD")) {
                     ProductCard productCard = productCardServiceImpl.selectByProductId(id);
-                    if(productCard.getValidDays() == 0){
-                        time ="长期有效";
-                    }else if(productCard.getValidDays() > 0 ){
-                        time ="有效期"+productCard.getValidDays()+"天";
+                    if (productCard.getValidDays() == 0) {
+                        time = "长期有效";
+                    } else if (productCard.getValidDays() > 0) {
+                        time = "有效期" + productCard.getValidDays() + "天";
                     }
-                    appointment=productCard.getAppointment();
+                    appointment = productCard.getAppointment();
                     stackUse = productCard.isStackUse();
                 }
-                if(productlShow.getProductDetailType().equals("CASHCOUPON")){
+                if (productlShow.getProductDetailType().equals("CASHCOUPON")) {
                     ProductCashCoupon productCashCoupon = productCashCouponServiceImpl.selectByProductId(id);
-                    if(productCashCoupon.getValidDays() == 0){
-                        time ="长期有效";
-                    }else if(productCashCoupon.getValidDays() > 0 ){
-                        time ="有效期"+productCashCoupon.getValidDays()+"天";
+                    if (productCashCoupon.getValidDays() == 0) {
+                        time = "长期有效";
+                    } else if (productCashCoupon.getValidDays() > 0) {
+                        time = "有效期" + productCashCoupon.getValidDays() + "天";
                     }
-                    appointment=productCashCoupon.getAppointment();
+                    appointment = productCashCoupon.getAppointment();
                     stackUse = productCashCoupon.isStackUse();
                 }
-            }else{
-                time ="长期有效";
-                appointment="无需预约，如遇高峰期可能排队";
+            } else {
+                time = "长期有效";
+                appointment = "无需预约，如遇高峰期可能排队";
             }
-            mapList.add(newMap("有效期",time,"text"));
-            mapList.add(newMap("预约信息",appointment,"text"));
-            mapList.add(newMap("规则提醒",stackUse?"":"不"+"可与其他优惠共享","text"));
-            mapList.add(newMap("适用范围","适用范围","text"));
+            mapList.add(newMap("有效期", time, "text"));
+            mapList.add(newMap("预约信息", appointment, "text"));
+            mapList.add(newMap("规则提醒", stackUse ? "" : "不" + "可与其他优惠共享", "text"));
+            mapList.add(newMap("适用范围", "适用范围", "text"));
             productlShow.setSpecification(mapList);
             ServiceStatusInfo<ProductSKUs> serviceStatusInfo = this.productSKUsServiceImpl.selectByProductId(id);
             if (!serviceStatusInfo.isSuccess()) {
@@ -129,8 +129,8 @@ public class ProductServiceImpl implements ProductService {
             if (userIds.size() > 0) {
                 exchangeList = iUserMapper.selectUserAvatarUrl(userIds);
             }
-            StoreModel storeModel =  storeServiceImpl.selectById(storeId).getData();
-            productlShow.setStoreName(storeModel==null?"":storeModel.getName());
+            StoreModel storeModel = storeServiceImpl.selectById(storeId).getData();
+            productlShow.setStoreName(storeModel == null ? "" : storeModel.getName());
             productlShow.setExchangeList(exchangeList);
             productlShow.setStoreId(storeId);
             return new ServiceStatusInfo<>(0, "", productlShow);
@@ -139,11 +139,11 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    public Map<String,String> newMap(String title,String value,String type){
+    public Map<String, String> newMap(String title, String value, String type) {
         Map map = new HashMap<>();
-        map.put("title",title);
-        map.put("value",value);
-        map.put("type",type);
+        map.put("title", title);
+        map.put("value", value);
+        map.put("type", type);
         return map;
     }
 
@@ -240,6 +240,7 @@ public class ProductServiceImpl implements ProductService {
         List<ProductInfo> result = null;
         try {
             result = iProductMapper.selectProductByStoreId(storeId);
+            //查询产品规格
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败", null);

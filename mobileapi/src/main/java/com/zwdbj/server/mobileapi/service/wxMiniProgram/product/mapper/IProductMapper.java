@@ -72,7 +72,9 @@ public interface IProductMapper {
             " order by sales desc limit 3")
     List<ProductMainDto> mainSelectProduct();
 
-    @Select("select id,storeId,productType,productDetailType,name,inventory,sales,originalPrice,promotionPrice,limitPerPerson "+
-            "where productType=1 and productDetailType='CARD' or productDetailType='CASHCOUPON' and storeId=#{storeId}")
+    @Select("select pk.id,p.storeId,p.productType,p.productDetailType,p.name,p.limitPerPerson,pk.originalPrice,pk.promotionPrice, "+
+            "pk.inventory,pk.sales from shop_products as p,shop_productSKUs as pk"+
+            " where productType=1 and productDetailType='CARD' or productDetailType='CASHCOUPON' and p.storeId=#{storeId}"+
+    " and pk.productId=p.id")
     List<ProductInfo> selectProductByStoreId(@Param("storeId") Long storeId);
 }

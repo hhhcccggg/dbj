@@ -8,7 +8,7 @@ import java.util.List;
 public interface OfflineStoreStaffsService {
     ServiceStatusInfo<Long> create(StaffInput staffInput, long legalSubjectId);
 
-    ServiceStatusInfo<Long> update(ModifyStaff modifyStaff, long legalSubjectId);
+    ServiceStatusInfo<Long> update(ModifyStaff modifyStaff);
 
     ServiceStatusInfo<Long> deleteById(long userId, long legalSubjectId, boolean isSuperStar);
 
