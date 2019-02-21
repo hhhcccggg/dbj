@@ -5,6 +5,7 @@ import com.ecwid.consul.v1.ConsulClient;
 import com.github.pagehelper.Page;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.mobileapi.service.comment.model.CommentInfoDto;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
@@ -12,6 +13,8 @@ import com.zwdbj.server.mobileapi.service.store.model.StoreModel;
 import com.zwdbj.server.mobileapi.service.store.service.StoreService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
@@ -105,6 +108,9 @@ public class VideoService {
     protected RedisTemplate redisTemplate;
     @Autowired
     private RestHighLevelClient restHighLevelClient;
+    @Autowired
+    private ProductService productServiceImpl;
+
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -912,7 +918,20 @@ public class VideoService {
     }
 
     public List<Map<String,String>> selectES(){
-        return this.videoMapper.selectES();
+        List<Map<String,String>> mapList = this.videoMapper.selectES();
+        //查询种类ID3
+        for (Map<String,String> map:mapList) {
+            if(  !"SHOPCOMMENT".equals(map.get("type")) ){
+                continue;
+            }
+            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
+            ProductOut productOut = productServiceImpl.selectById(commentInfoDto.getResourceOwnerId()).getData();
+            if(productOut == null){
+                continue;
+            }
+            map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+        }
+        return mapList;
     }
 
 }
