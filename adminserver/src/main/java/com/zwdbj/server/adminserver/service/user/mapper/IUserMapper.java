@@ -55,9 +55,9 @@ public interface IUserMapper {
     @Update("update core_users set isSuper=0 where tenantId=#{tenantId} and isSuper=1")
     int modifyUserByTenantId(@Param("tenantId") long tenantId);
 
-    @Insert("insert into core_users(id,username,nickname,phone,avatarUrl,isSuper,isManager,sex) " +
+    @Insert("insert into core_users(id,username,nickname,phone,avatarUrl,isSuper,isManager,sex,`type`) " +
             "values(#{userId},#{input.userName},#{input.userName},#{input.phone}," +
-            "'http://res.pet.zwdbj.com/default_avatar.png',false,true,#{input.gender})")
+            "'http://res.pet.zwdbj.com/default_avatar.png',false,true,#{input.gender},'PLATFORM')")
     Long newMarketAd(@Param("userId") Long userId, @Param("input") AdNewMarketInput input);
 
     @Insert("insert into core_userRoles(id,userId,roleName,tenantId) values(#{id},#{userId},#{roleName},#{tenantId})")
@@ -90,8 +90,8 @@ public interface IUserMapper {
     @SelectProvider(type = UserSqlProvider.class, method = "manageUserListAd")
     List<AdUserDetailInfoDto> manageUserListAd(@Param("input") AdManageUserInput input);
 
-    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,password,isSuper,isManager) " +
-            "values(#{id},#{input.phone},#{input.userName},#{input.userName},'http://res.pet.zwdbj.com/default_avatar.png',#{password},false,true)")
+    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,password,isSuper,isManager,`type`) " +
+            "values(#{id},#{input.phone},#{input.userName},#{input.userName},'http://res.pet.zwdbj.com/default_avatar.png',#{password},false,true,'PLATFORM')")
     Long addManageUserAd(@Param("id") Long id, @Param("input") AdNewManageUserInput input, @Param("password") String password);
 
     @Insert("insert into core_userRoles(id,userId,roleName) values(#{id},#{userId},#{roleName})")
@@ -138,8 +138,8 @@ public interface IUserMapper {
     long lock(@Param("input") ResourceOpenInput<Long> input);
 
     //创建用户
-    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager) " +
-            "values(#{id},#{input.phone},#{input.userName},#{input.name},'http://res.pet.zwdbj.com/default_avatar.png',false,#{password},true)")
+    @Insert("insert into core_users(id,phone,username,nickName,avatarUrl,isSuper,password,isManager,`type`) " +
+            "values(#{id},#{input.phone},#{input.userName},#{input.name},'http://res.pet.zwdbj.com/default_avatar.png',false,#{password},true,'PLATFORM')")
     long create(@Param("input") CreateUserInput input, @Param("id") long id, @Param("password") String password);
 
     // 关注
