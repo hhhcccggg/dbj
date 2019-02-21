@@ -3,35 +3,58 @@ package com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.map
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.apache.ibatis.jdbc.SQL;
 
-import java.text.MessageFormat;
 import java.util.Map;
 
 public class OfflineStoreStaffsSqlProvide {
 
-    public String cancelRepresent(Map map){
+    public String cancelRepresent(Map map) {
         long[] id = (long[]) map.get("id");
-        long storeId= (long) map.get("storeId");
+        long storeId = (long) map.get("storeId");
         SQL sql = new SQL().UPDATE("o2o_offlineStoreStaffs").SET("isDeleted=1").SET("deleteTime=now()");
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = 0; i < id.length; i++) {
-            stringBuffer.append("userId="+id[i]);
-            if(i+1 != id.length)stringBuffer.append(" or ");
+            stringBuffer.append("userId=" + id[i]);
+            if (i + 1 != id.length) stringBuffer.append(" or ");
         }
-        sql.WHERE(stringBuffer.toString()).WHERE("storeId="+storeId).WHERE("isDeleted=0");
+        sql.WHERE(stringBuffer.toString()).WHERE("storeId=" + storeId).WHERE("isDeleted=0");
         return sql.toString();
     }
 
-    public String setRepresent(Map map){
+    public String setRepresent(Map map) {
         long[] id = (long[]) map.get("id");
-        long storeId= (long) map.get("storeId");
+        long storeId = (long) map.get("storeId");
         StringBuffer sql = new StringBuffer("INSERT INTO o2o_offlineStoreStaffs(id,storeId,userId)VALUES");
 
         for (int i = 0; i < id.length; i++) {
-            sql.append("("+UniqueIDCreater.generateID()+","+storeId+","+id[i]+")");
+            sql.append("(" + UniqueIDCreater.generateID() + "," + storeId + "," + id[i] + ")");
             if (i < id.length - 1) {
                 sql.append(",");
             }
         }
         return sql.toString();
+    }
+
+    public String searchSuperStar(Map map) {
+        String search = (String) map.get("search");
+        String rank = (String) map.get("rank");
+        String sort = (String) map.get("sort");
+        long legalSubjectId = (long) map.get("legalSubjectId");
+        StringBuffer sql = new StringBuffer("select u.id,u.fullName,u.avatarUrl,u.phone,(select count(*) from core_videos where userId=u.id) as videos, " +
+                "u.totalHearts,u.totalFans,u.isLocked,(select count(*) from core_pets where userId=u.id) as pets " +
+                "from core_users as u,core_user_tenants as t where u.tenantId=t.id and t.legalSubjectId=" + legalSubjectId +
+                " and u.isDeleted=0 and t.isDeleted=0");
+        if (!"".equals(search) && search != null) {
+            sql.append(" and u.fullName like %" + search + "% or u.phone like %" + search + "%");
+        }
+        if ("videos".equals(rank) || "totalHearts".equals(rank) || "totalFans".equals(rank)) {
+            sql.append(" order by u." + rank);
+        }
+        if ("asc".equals(sort)) {
+            sql.append(" " + sort);
+        } else {
+            sql.append(" desc");
+        }
+        return sql.toString();
+
     }
 }

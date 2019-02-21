@@ -8,7 +8,7 @@ import java.util.List;
 public interface NearbyShopService {
     ServiceStatusInfo<ShopInfo> shopHomePage(long storeId);
 
-    ServiceStatusInfo<SuperStar> superStar(long storeId);
+    ServiceStatusInfo<List<SuperStar>> superStar(long storeId);
 
     ServiceStatusInfo<DiscountCouponDetail> searchDiscountCouponDetail(long discountCouponId);
 
