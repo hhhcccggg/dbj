@@ -60,12 +60,12 @@ public class MyShiroRealm extends AuthorizingRealm {
         if(checkStatus.getData().getType()==null || checkStatus.getData().getType().trim().equals("") || checkStatus.getData().getType().equals("NORMAL")) {
             throw new AuthenticationException("用户禁止登陆,联系客服！");
         }
-        if (checkStatus.getData().getType().equals("PLATFORM") && checkStatus.getData().getTenantId()>0) {
-            throw new AuthenticationException("用户账号异常，禁止登陆,联系客服！");
-        }
-        if (checkStatus.getData().getType().equals("BUSINESS") && checkStatus.getData().getTenantId()<=0) {
-            throw new AuthenticationException("用户账号异常，禁止登陆,联系客服！");
-        }
+//        if (checkStatus.getData().getType().equals("PLATFORM") && checkStatus.getData().getTenantId()>0) {
+//            throw new AuthenticationException("用户账号异常，禁止登陆,联系客服！");
+//        }
+//        if (checkStatus.getData().getType().equals("BUSINESS") && checkStatus.getData().getTenantId()<=0) {
+//            throw new AuthenticationException("用户账号异常，禁止登陆,联系客服！");
+//        }
 //        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 //        HttpServletRequest request = requestAttributes.getRequest();
 //        String url = request.getRequestURI();
