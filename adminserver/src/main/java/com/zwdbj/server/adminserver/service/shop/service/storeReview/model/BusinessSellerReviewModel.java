@@ -13,18 +13,36 @@ public class BusinessSellerReviewModel {
     long id;
     @ApiModelProperty("创建时间")
     Date createTime;
-    @ApiModelProperty("认证资料标识(如身份证，营业执照等等的标识)")
+    @ApiModelProperty("认证资料标识(ID:身份证，CORP:营业执照)")
     String identifyId;
+    @ApiModelProperty("认证资料编码(如身份证号码,营业执照的号码))")
+    String keyId;
     @ApiModelProperty("认证资料的名字(如身份证，营业执照等等)")
     String title;
-    @ApiModelProperty("认证资料的数据(如身份证的照片，营业执照的照片等等)")
+    @ApiModelProperty("认证资料的数据(如身份证的照片，营业执照的照片的地址等等,多张照片用','隔开)")
     String reviewData;
-    @ApiModelProperty("审核的状态")
+    @ApiModelProperty("状态:0正常1：审核中2：拒接")
     int status;
     @ApiModelProperty("拒绝的原因")
     String rejectMsg;
     @ApiModelProperty("商户(线下门店)ID")
-    long businessSellerId;
+    long legalSubjectId;
+
+    public String getKeyId() {
+        return keyId;
+    }
+
+    public void setKeyId(String keyId) {
+        this.keyId = keyId;
+    }
+
+    public long getLegalSubjectId() {
+        return legalSubjectId;
+    }
+
+    public void setLegalSubjectId(long legalSubjectId) {
+        this.legalSubjectId = legalSubjectId;
+    }
 
     public BusinessSellerReviewModel() {
     }
@@ -85,11 +103,4 @@ public class BusinessSellerReviewModel {
         this.rejectMsg = rejectMsg;
     }
 
-    public long getBusinessSellerId() {
-        return this.businessSellerId;
-    }
-
-    public void setBusinessSellerId(long businessSellerId) {
-        this.businessSellerId = businessSellerId;
-    }
 }

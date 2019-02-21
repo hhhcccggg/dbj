@@ -30,4 +30,6 @@ public interface IStoreMapper {
     long selectTenantId(@Param("legalSubjectId") long legalSubjectId);
     @Update("update shop_stores set `status`=#{status} where id=#{storeId} and `status`<>#{status}")
     int updateStoreStatus(@Param("storeId") long storeId,@Param("status")int status);
+    @Update("update shop_stores set reviewed=#{reviewed} where id=#{storeId}")
+    int reviewStore(@Param("storeId") long storeId,@Param("reviewed")boolean reviewed);
 }

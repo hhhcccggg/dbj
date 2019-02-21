@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.legalSubject.mapper;
 
 import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.*;
+import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.userTenant.model.ModifyUserTenantInput;
 import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantInput;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
@@ -30,7 +31,7 @@ public interface ILegalSubjectMapper {
     @SelectProvider(type = LegalSubjectSQLProvider.class ,method = "searchUnReviewedSql")
     List<LegalSubjectModel> getUnReviewedLegalSubjects(@Param("input") LegalSubjectSearchInput input);
     @Update("update shop_legalSubjects set reviewed=#{input.reviewed},rejectMsg=#{input.rejectMsg} where id=#{id}")
-    int verityUnReviewedLegalSubject(@Param("id") long id, @Param("input") LegalSubjectVerityInput input);
+    int verityUnReviewedLegalSubject(@Param("id") long id, @Param("input") ReviewStoreInput input);
 
     @Select("select * from shop_legalSubjectReviews where legalSubjectId=#{legalSubjectId}")
     List<LegalSubjectReviewModel> getReviewsByLegalSubjectId(@Param("legalSubjectId") long legalSubjectId);
@@ -46,8 +47,6 @@ public interface ILegalSubjectMapper {
     @Update("update shop_stores set isDeleted=1,deleteTime=now() where legalSubjectId=#{legalSubjectId}")
     int delShopStore(@Param("legalSubjectId")long legalSubjectId);
 
-    @Update("update shop_stores set reviewed=#{input.reviewed},rejectMsg=#{input.rejectMsg} where legalSubjectId=#{legalSubjectId}")
-    int verityUnReviewedStore(@Param("legalSubjectId")long legalSubjectId,@Param("input")LegalSubjectVerityInput input);
 
     @Select("select l.leagalRepresentativeName,l.contactName,l.contactPhone,l.leagalRepresentativeID,l.type as legalType,l.cityId,s.type as storeType," +
             "s.categoryId,s.expireTime from shop_legalSubjects l left join shop_stores s on s.legalSubjectId=l.id " +
@@ -58,9 +57,6 @@ public interface ILegalSubjectMapper {
     @Select("select * from shop_legalSubjectReviews where id=#{id}")
     LegalSubjectReviewModel getLegalSubjectReviewById(@Param("id") long id);
 
-    //审核商家需要审核的资料
-    @Update("update shop_legalSubjectReviews set `status`=#{input.status},rejectMsg=#{input.rejectMsg} where id=#[id]")
-    int verityLegalSubjectReview(@Param("id")long id,@Param("input")LegalSubjectReviewVerityInput input);
 
     @Update("update shop_legalSubjects set `status`=#{status} where id=#{id} and `status`<>#{status}")
     int updateStatusById(@Param("id") long legalSubjectId,@Param("status")int status);

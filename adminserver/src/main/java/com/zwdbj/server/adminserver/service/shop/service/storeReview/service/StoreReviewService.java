@@ -1,6 +1,8 @@
 package com.zwdbj.server.adminserver.service.shop.service.storeReview.service;
 
+import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.LegalSubjectReviewInput;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.StoreReviewAddInput;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 
@@ -11,7 +13,23 @@ public interface StoreReviewService {
     ServiceStatusInfo<Integer> modifyStoreReview(long id, StoreReviewAddInput input);
     ServiceStatusInfo<Integer> addStoreReview(StoreReviewAddInput input);
     ServiceStatusInfo<Integer> deleteStoreReview(long id);
+
+    /**
+     * 审核属于legalSubjectId的所有资料
+     * @param legalSubjectId
+     * @param input
+     * @return
+     */
+    ServiceStatusInfo<Integer> reviewStore(long legalSubjectId, ReviewStoreInput input);
+
+    /**
+     * 审核单个资料
+     * @param id 审核资料的id
+     * @param input
+     * @return
+     */
+    ServiceStatusInfo<Integer> reviewLegalSubject(long id, LegalSubjectReviewInput input);
     ServiceStatusInfo<Integer> notRealDeleteStoreReview(long id);
-    ServiceStatusInfo<BusinessSellerReviewModel> getStoreReviewById(long businessSellerId);
+    ServiceStatusInfo<List<BusinessSellerReviewModel>> getStoreReviewById(long legalSubjectId);
 
 }

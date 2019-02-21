@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
@@ -53,6 +54,16 @@ public class StoreController {
         ServiceStatusInfo<Integer> statusInfo = this.storeServiceImpl.updateStoreStatus(storeId,legalSubjectId,state);
         if (statusInfo.isSuccess())return new ResponseData<>(0,"",statusInfo.getData());
         return new ResponseData<>(1,"更新失败",null);
+    }
+    @RequiresAuthentication
+    @RequestMapping(value = "/review/store/{storeId}/{legalSubjectId}", method = RequestMethod.GET)
+    @ApiOperation(value = "店铺的审核")
+    public ResponseData<Integer> reviewStore(@PathVariable long storeId,
+                                             @PathVariable long legalSubjectId,
+                                             @RequestBody ReviewStoreInput input){
+        ServiceStatusInfo<Integer> statusInfo = this.storeServiceImpl.reviewStore(storeId,legalSubjectId,input);
+        if (statusInfo.isSuccess())return new ResponseData<>(0,"",statusInfo.getData());
+        return new ResponseData<>(1,"审核失败",null);
     }
 
 }
