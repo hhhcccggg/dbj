@@ -78,9 +78,10 @@ public class TagService {
         if (!yearAndMonth.contains("-"))return new ServiceStatusInfo<>(1,"时间格式不对",null);
         try {
             List<TodayTagsDto> tagsDtoList = new ArrayList<>();
-            Map result = this.redisTemplate.opsForHash().entries(yearAndMonth);
+            Map result = this.redisTemplate.opsForHash().entries(yearAndMonth+"monthTags");
+            Set aa = result.entrySet();
             logger.info("aaaaaaa");
-            Iterator entries = result.entrySet().iterator();
+            Iterator entries = aa.iterator();
             while (entries.hasNext()) {
                 TodayTagsDto dto = new TodayTagsDto();
                 Map.Entry entry = (Map.Entry) entries.next();

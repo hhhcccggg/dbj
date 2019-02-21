@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "视频标签输出")
 public class AdVideoTagDto {
+    @ApiModelProperty(value = "id")
+    private long id;
     @ApiModelProperty(value = "标签名称")
     String name;
     @ApiModelProperty(value = "标签的状态,0:正常,1:停用")
@@ -13,6 +15,14 @@ public class AdVideoTagDto {
     Long resNumber;
     @ApiModelProperty(value = "标签描述")
     String desc;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getDesc() {
         return desc;
