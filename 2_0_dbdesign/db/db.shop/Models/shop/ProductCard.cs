@@ -16,6 +16,17 @@ namespace db.shop.Models.shop
         /// <value><c>true</c> if festival can use; otherwise, <c>false</c>.</value>
         public bool festivalCanUse { get; set; }
         /// <summary>
+        /// 是否可以与其他优惠叠加使用
+        /// </summary>
+        /// <value><c>true</c> if stack use; otherwise, <c>false</c>.</value>
+        public bool stackUse { get; set; }
+        /// <summary>
+        /// 预约信息
+        /// </summary>
+        /// <value>The appointment.</value>
+        [MaxLength(128)]
+        public String appointment { get; set; }
+        /// <summary>
         /// 使用说明
         /// </summary>
         /// <value>The use info.</value>
