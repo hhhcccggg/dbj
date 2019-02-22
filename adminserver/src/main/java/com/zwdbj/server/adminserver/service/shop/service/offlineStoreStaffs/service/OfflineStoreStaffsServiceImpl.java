@@ -36,7 +36,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
             userService.greateUserByTenant(staffInput.getFullName(), staffInput.getPhone(), tenantId, 2,"店员");
             if (staffInput.isSuperStar()) {
                 long userId = iUserMapper.findUserIdByPhone(staffInput.getPhone());
-                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
                 mapper.setSuperStar(UniqueIDCreater.generateID(), storeId, userId);
             }
 
@@ -80,7 +80,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
 
             result = mapper.cancelStaff(userId);
             if (isSuperStar) {
-                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
                 result += mapper.cancelSuperStar(userId, storeId);
             }
             return new ServiceStatusInfo<>(0, "", result);
@@ -105,8 +105,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     public ServiceStatusInfo<List<OfflineStoreStaffs>> getStaffs(long legalSubjectId) {
         List<OfflineStoreStaffs> result = null;
         try {
-            ServiceStatusInfo<Long> statusInfo = storeServiceImpl.selectByLegalSubjectId(legalSubjectId);
-            long storeId = statusInfo.getData();
+            long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
             result = mapper.getStaffs(legalSubjectId);
             for (OfflineStoreStaffs o : result) {
                 Date createTime = mapper.selectSuperStarCreateTime(storeId, o.getId());
@@ -127,7 +126,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         try {
 
             if (searchStaffInfo.isSuperStar()) {
-                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
                 result = mapper.searchSuperStar(storeId, searchStaffInfo.getSearch());
 
             }
@@ -143,7 +142,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     public ServiceStatusInfo<Long> setSuperStar(IsSuperStar isSuperStar, long legalSubjectId) {
         Long result = 0L;
         try {
-            long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+            long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
             if (isSuperStar.isSuperStar()) {
                 long id = UniqueIDCreater.generateID();
 

@@ -127,23 +127,6 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
 
     }
 
-    /**
-     * 审核商家需要审核的资料
-     * @param id
-     * @param input
-     * @return
-     */
-    @Override
-    public ServiceStatusInfo<Integer> verityLegalSubjectReview(long id,LegalSubjectReviewVerityInput input) {
-        try {
-            int result = this.legalSubjectMapper.verityLegalSubjectReview(id,input);
-            if (result==0)return new ServiceStatusInfo<>(1,"审核资料失败",0);
-            return new ServiceStatusInfo<>(0,"审核资料成功",result);
-        }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"审核资料失败,出现异常："+e.getMessage(),0);
-        }
-
-    }
 
 
     @Override
