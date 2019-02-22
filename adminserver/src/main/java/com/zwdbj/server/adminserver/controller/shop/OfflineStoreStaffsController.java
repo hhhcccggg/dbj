@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.service.OfflineStoreStaffsService;
+import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.usercommonservice.authuser.service.AuthUserManagerImpl;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.model.ResponseData;
@@ -23,7 +24,8 @@ import java.util.List;
 public class OfflineStoreStaffsController {
     @Autowired
     private OfflineStoreStaffsService offlineStoreStaffsServiceImpl;
-
+    @Autowired
+    private StoreService storeServiceImpl;
     @Autowired
     private AuthUserManagerImpl authUserManager;
 
@@ -34,7 +36,7 @@ public class OfflineStoreStaffsController {
         long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
         ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreStaffsServiceImpl.create(staffInput, legalSubjectId);
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
 
@@ -46,7 +48,7 @@ public class OfflineStoreStaffsController {
     public ResponseData<Long> update(@RequestBody ModifyStaff modifyStaff) {
         ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreStaffsServiceImpl.update(modifyStaff);
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
@@ -59,7 +61,7 @@ public class OfflineStoreStaffsController {
 
         ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreStaffsServiceImpl.deleteById(id, legalSubjectId, isSuperStar);
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
@@ -70,8 +72,9 @@ public class OfflineStoreStaffsController {
                                                                     @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         long userId = JWTUtil.getCurrentId();
         long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
+        long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
         PageHelper.startPage(pageNo, rows);
-        ServiceStatusInfo<List<OfflineStoreStaffs>> statusInfo = offlineStoreStaffsServiceImpl.getStaffs(legalSubjectId);
+        ServiceStatusInfo<List<OfflineStoreStaffs>> statusInfo = offlineStoreStaffsServiceImpl.getStaffs(storeId);
         PageInfo<OfflineStoreStaffs> pageInfo = new PageInfo<>(statusInfo.getData());
         return new ResponsePageInfoData<>(0, statusInfo.getMsg(), pageInfo.getList(), pageInfo.getTotal());
     }
@@ -83,50 +86,47 @@ public class OfflineStoreStaffsController {
                                                                  @RequestBody SearchStaffInfo searchStaffInfo) {
         long userId = JWTUtil.getCurrentId();
         long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
+        long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
         PageHelper.startPage(pageNo, rows);
-        List<OfflineStoreStaffs> list = offlineStoreStaffsServiceImpl.searchStaffs(searchStaffInfo, legalSubjectId).getData();
+        List<OfflineStoreStaffs> list = offlineStoreStaffsServiceImpl.searchStaffs(searchStaffInfo, legalSubjectId, storeId).getData();
         PageInfo<OfflineStoreStaffs> pageInfo = new PageInfo<>(list);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", pageInfo.getList(), pageInfo.getTotal());
     }
 
-    @RequestMapping(value = "/bulkDeleteStaffs", method = RequestMethod.GET)
-    @ApiOperation(value = "批量删除员工，代言人")
-    public ResponseData<OfflineStoreStaffs> selectById(@RequestParam("userIds") long[] userIds,
-                                                       @RequestParam("isSuperStar") boolean isSuperStar) {
+    @RequestMapping(value = "/bulkSetStaffs", method = RequestMethod.GET)
+    @ApiOperation(value = "批量设置员工，代言人")
+    public ResponseData<Long> bulkSetStaffs(@RequestParam("userIds") long[] userIds,
+                                            @RequestParam("isSuperStar") boolean isSuperStar) {
         long userId = JWTUtil.getCurrentId();
         long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
-        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreStaffsServiceImpl.bulkDeleteStaffs(userIds, legalSubjectId, isSuperStar);
+        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreStaffsServiceImpl.bulkSetSuperStar(userIds, legalSubjectId, isSuperStar);
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+            return new ResponseData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
         }
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
 
     }
 
-    @RequestMapping(value = "/bulkSetSuperStar", method = RequestMethod.POST)
+    @RequestMapping(value = "/bulkDeleteStaffs", method = RequestMethod.POST)
     @ApiOperation(value = "批量删除员工，代言人")
-    public ResponseData<OfflineStoreStaffs> selectById(@RequestBody() IsSuperStar[] isSuperStars) {
+    public ResponseData<Long> selectById(@RequestBody() IsSuperStar[] isSuperStars) {
         long userId = JWTUtil.getCurrentId();
         long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
-        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreStaffsServiceImpl.bulkSetSuperStar(isSuperStars, legalSubjectId);
+        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreStaffsServiceImpl.bulkDeleteStaffs(isSuperStars, legalSubjectId);
         if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+            return new ResponseData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
         }
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
 
     }
 
-    @RequestMapping(value = "/getSuperStarDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "/getSuperStarDetail", method = RequestMethod.POST)
     @ApiOperation(value = "获取代言人详情")
-    public ResponsePageInfoData<List<SuperStarInfo>> getSuperStarDetail(@RequestParam(value = "search", defaultValue = "", required = true) String search,
-                                                                        @RequestParam(value = "rank", defaultValue = "nickName", required = true) String rank,
-                                                                        @RequestParam(value = "sort", defaultValue = "desc", required = true) String sort,
-                                                                        @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
-                                                                        @RequestParam(value = "rows", defaultValue = "10", required = true) int rows) {
+    public ResponsePageInfoData<List<SuperStarInfo>> getSuperStarDetail(@RequestBody SearchSuperStarInput input) {
         long userId = JWTUtil.getCurrentId();
         long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
-        PageHelper.startPage(pageNo, rows);
-        List<SuperStarInfo> list = offlineStoreStaffsServiceImpl.getSuperStarDetail(search, rank, sort, legalSubjectId).getData();
+        PageHelper.startPage(input.getPageNo(), input.getRows());
+        List<SuperStarInfo> list = offlineStoreStaffsServiceImpl.getSuperStarDetail(input.getSearch(), input.getRank(), input.getSort(), legalSubjectId).getData();
         PageInfo<SuperStarInfo> pageInfo = new PageInfo<>(list);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", pageInfo.getList(), pageInfo.getTotal());
 
@@ -137,7 +137,7 @@ public class OfflineStoreStaffsController {
     public ResponseData<SuperStarDto> videoListStaff(@PathVariable long userId) {
         ServiceStatusInfo<SuperStarDto> statusInfo = offlineStoreStaffsServiceImpl.videoListStaff(userId);
         if (statusInfo.isSuccess()) {
-            return new ResponseData<>(0, "", statusInfo.getData(), null);
+            return new ResponseData<>(0, statusInfo.getMsg(), statusInfo.getData(), null);
         }
         return new ResponseData<>(1, statusInfo.getMsg(), null, null);
     }
