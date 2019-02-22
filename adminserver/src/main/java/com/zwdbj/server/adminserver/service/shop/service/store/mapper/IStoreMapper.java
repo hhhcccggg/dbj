@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.mapper;
 
+import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreDetailDto;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
@@ -17,8 +18,8 @@ public interface IStoreMapper {
      * @param legalSubjectId
      * @return
      */
-    @Select("select id  from shop_stores where legalSubjectId=#{legalSubjectId} and isDeleted=0 limit 1")
-    Long selectByLegalSubjectId(@Param("legalSubjectId") long legalSubjectId);
+    @Select("select * from shop_stores where legalSubjectId=#{legalSubjectId} and isDeleted=0 limit 1")
+    StoreSimpleInfo selectByLegalSubjectId(@Param("legalSubjectId") long legalSubjectId);
 
     @Select("select * from shop_stores  where id=#{storeId}")
     StoreInfo selectByStoreId(@Param("storeId") long storeId);
