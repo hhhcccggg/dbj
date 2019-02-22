@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.storeReview.service;
 
+import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.mapper.IStoreReviewMapper;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.StoreReviewAddInput;
@@ -54,6 +55,22 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             return new ServiceStatusInfo<>(0,"删除认证信息成功",result);
         }catch (Exception e){
             return  new ServiceStatusInfo<>(1,"删除认证信息失败"+e.getMessage(),null);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<Integer> reviewStore(long legalSubjectId, ReviewStoreInput input) {
+        try {
+            int status = 1;
+            if (input.isReviewOrNot()){
+                status=0;
+            }else {
+                status=2;
+            }
+            int a = this.storeReviewMapper.reviewStore(legalSubjectId,input,status);
+            return new ServiceStatusInfo<>(0,"商铺资料审核成功",a);
+        }catch (Exception e){
+            return  new ServiceStatusInfo<>(1,"商铺资料审核失败"+e.getMessage(),null);
         }
     }
 

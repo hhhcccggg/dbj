@@ -95,19 +95,12 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
         try {
             result = this.legalSubjectMapper.verityUnReviewedLegalSubject(id,input);
             if (result==0)new ServiceStatusInfo<>(1, "审核商家失败", result);
-            // TODO 需不需要这里把店铺也审核了？
-            result = this.verityUnReviewedStore(id,input);
-            if (result==0)new ServiceStatusInfo<>(1, "审核店铺失败", result);
             return new ServiceStatusInfo<>(0, "审核完毕", result);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "审核出现异常：" + e.getMessage(), result);
         }
     }
 
-    //审核店铺
-    public int verityUnReviewedStore(long legalSubjectId, LegalSubjectVerityInput input){
-        return this.legalSubjectMapper.verityUnReviewedStore(legalSubjectId,input);
-    }
 
     @Override
     public List<LegalSubjectReviewModel> getReviewsByLegalSubjectId(long id) {
