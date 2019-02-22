@@ -2,7 +2,6 @@ package com.zwdbj.server.adminserver.service.shop.service.storeReview.service;
 
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
-import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.mapper.IStoreReviewMapper;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.StoreReviewAddInput;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -92,7 +90,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
     }
 
     @Override
-    public ServiceStatusInfo<BusinessSellerReviewModel> getStoreReviewById(long businessSellerId) {
+    public ServiceStatusInfo<List<BusinessSellerReviewModel>> getStoreReviewById(long legalSubjectId) {
         try {
             List<BusinessSellerReviewModel> businessSellerReviewModels = this.storeReviewMapper.getStoreReviewById(legalSubjectId);
             return new ServiceStatusInfo<>(0,"获取商铺成功",businessSellerReviewModels);
