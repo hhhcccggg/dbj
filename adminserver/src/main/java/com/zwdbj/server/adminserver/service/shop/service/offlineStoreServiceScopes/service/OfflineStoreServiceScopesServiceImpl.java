@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.service;
 
-import com.zwdbj.server.adminserver.QueueUtil;
+import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.mapper.OfflineStoreServiceScopesMapper;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;

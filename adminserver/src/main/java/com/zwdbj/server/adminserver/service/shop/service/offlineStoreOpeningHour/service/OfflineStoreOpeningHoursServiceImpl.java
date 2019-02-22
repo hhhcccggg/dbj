@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour.service;
 
-import com.zwdbj.server.adminserver.QueueUtil;
+import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour.mapper.OfflineStoreOpeningHoursMapper;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour.model.OfflineStoreOpeningHours;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;

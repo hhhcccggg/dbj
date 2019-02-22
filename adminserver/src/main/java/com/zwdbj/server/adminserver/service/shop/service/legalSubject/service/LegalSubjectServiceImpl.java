@@ -1,12 +1,11 @@
 package com.zwdbj.server.adminserver.service.shop.service.legalSubject.service;
 
-import com.zwdbj.server.adminserver.QueueUtil;
+import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.shop.service.legalSubject.mapper.ILegalSubjectMapper;
 import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
-import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.userTenant.model.ModifyUserTenantInput;
 import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantInput;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
@@ -30,11 +29,19 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
 
     @Override
     public int addLegalSubject(long id,UserTenantInput input){
-        //创建商家
-        int result = this.legalSubjectMapper.addLegalSubject(id,input);
-        //创建店铺
-        this.addShopStore(id,input);
-        return result;
+        try {
+            //创建商家
+            int result = this.legalSubjectMapper.addLegalSubject(id,input);
+            //创建店铺
+            if (result==0)return 0;
+            result = this.addShopStore(id,input);
+            logger.info(""+result);
+            return result;
+        }catch (Exception e){
+            logger.info(e.getMessage());
+        }
+        return 0;
+
     }
     @Override
     public int modifyBasicLegalSubject(long id, ModifyUserTenantInput input){
@@ -61,10 +68,11 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
         return this.legalSubjectMapper.getLegalSubjectById(id);
     }
 
-    public void addShopStore(long legalSubjectId,UserTenantInput input){
+    public int addShopStore(long legalSubjectId,UserTenantInput input){
         long id = UniqueIDCreater.generateID();
-        this.legalSubjectMapper.addShopStore(id,input,legalSubjectId);
+        int a = this.legalSubjectMapper.addShopStore(id,input,legalSubjectId);
         QueueUtil.sendQueue(id, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.CREATE);
+        return a;
     }
     public void modifyShopStore(long legalSubjectId,ModifyUserTenantInput input){
         this.legalSubjectMapper.modifyShopStore(input,legalSubjectId);
