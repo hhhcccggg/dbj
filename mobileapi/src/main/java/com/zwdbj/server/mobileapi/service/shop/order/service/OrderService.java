@@ -157,7 +157,7 @@ public class OrderService {
                         .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_TIME)
                         .setOrderTimeData(orderTimeData)
                         .build();
-                DelayMQWorkSender.shareSender().send(workInfo,3*60);
+                DelayMQWorkSender.shareSender().send(workInfo,15*60);
 
                 return new ServiceStatusInfo<>(0,"下单成功",orderId);
             }
