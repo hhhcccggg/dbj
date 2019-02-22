@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.products.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.zwdbj.server.adminserver.service.shop.service.products.common.ProductDetailType;
 import com.zwdbj.server.adminserver.service.shop.service.products.common.ValidType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,7 +23,7 @@ public class CreateProducts {
 
     @ApiModelProperty(value = "产品详细类型 DELIVERY: 实物产品 NODELIVERY:虚拟商品(不需要物流) CARD:卡券(服务中套餐) CASHCOUPON:代金券")
     @NotNull(message = "产品详细类型不能为空")
-    private String productDetailType;
+    private ProductDetailType productDetailType;
 
     @ApiModelProperty(value = "商品名称")
     @NotNull(message = "商品名称不能为空")
@@ -178,11 +179,11 @@ public class CreateProducts {
         this.productType = productType;
     }
 
-    public String getProductDetailType() {
+    public ProductDetailType getProductDetailType() {
         return productDetailType;
     }
 
-    public void setProductDetailType(String productDetailType) {
+    public void setProductDetailType(ProductDetailType productDetailType) {
         this.productDetailType = productDetailType;
     }
 
