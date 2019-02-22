@@ -1,6 +1,5 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.mapper;
 
-import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreDetailDto;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
