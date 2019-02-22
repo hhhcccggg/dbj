@@ -3,14 +3,16 @@ package com.zwdbj.server.mobileapi.service.shop.comments.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @ApiModel(value = "商品用户评论")
-public class ShopComments {
+public class ShopComments implements Serializable {
     @ApiModelProperty(value = "用户id")
     long userId;
     @ApiModelProperty(value = "用户名")
-    long usernName;
+    String userName;
     @ApiModelProperty(value = "用户头像")
     String avatarUrl;
     @ApiModelProperty(value = "评论内容")
@@ -28,6 +30,26 @@ public class ShopComments {
     @ApiModelProperty(value = "评分")
     float rate;
 
+    @ApiModelProperty(value = "时间格式化")
+    String createTimeForMat;
+
+    public String getCreateTimeForMate() {
+
+        if (this.createTime == null) {
+            return "";
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return simpleDateFormat.format(createTime);
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getResourceName() {
         return resourceName;
     }
@@ -44,13 +66,6 @@ public class ShopComments {
         this.userId = userId;
     }
 
-    public long getUsernName() {
-        return usernName;
-    }
-
-    public void setUsernName(long usernName) {
-        this.usernName = usernName;
-    }
 
     public String getAvatarUrl() {
         return avatarUrl;
