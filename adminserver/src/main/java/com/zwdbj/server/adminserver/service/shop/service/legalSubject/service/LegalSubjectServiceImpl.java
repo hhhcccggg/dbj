@@ -35,7 +35,6 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
             //创建店铺
             if (result==0)return 0;
             result = this.addShopStore(id,input);
-            logger.info(""+result);
             return result;
         }catch (Exception e){
             logger.info(e.getMessage());
