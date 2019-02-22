@@ -10,13 +10,13 @@ import io.swagger.annotations.ApiModelProperty;
 public class ProductsOut {
 
     @ApiModelProperty
-    Products products;
+    private Products products;
     @ApiModelProperty
-    ProductSKUs productSKUs;
+    private ProductSKUs productSKUs;
     @ApiModelProperty
-    ProductCard productCard;
+    private ProductCard productCard;
     @ApiModelProperty
-    ProductCashCoupon productCashCoupon;
+    private ProductCashCoupon productCashCoupon;
 
     public Products getProducts() {
         return products;
