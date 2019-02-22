@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.productCard.model;
 
+import com.zwdbj.server.adminserver.service.shop.service.products.common.ValidType;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.UpdateProducts;
 import io.swagger.annotations.ApiModel;
@@ -22,7 +23,7 @@ public class ProductCard {
     private String useInfo;
 
     @ApiModelProperty(value = "生效类型")
-    private String validType;
+    private ValidType validType;
 
     @ApiModelProperty(value = "PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
     private int specHoursValid;
@@ -129,11 +130,11 @@ public class ProductCard {
         this.useInfo = useInfo;
     }
 
-    public String getValidType() {
+    public ValidType getValidType() {
         return validType;
     }
 
-    public void setValidType(String validType) {
+    public void setValidType(ValidType validType) {
         this.validType = validType;
     }
 

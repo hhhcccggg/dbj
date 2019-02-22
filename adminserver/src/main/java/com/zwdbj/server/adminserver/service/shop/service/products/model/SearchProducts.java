@@ -6,26 +6,26 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "搜索需要的商品信息")
 public class SearchProducts {
     @ApiModelProperty(value = "id")
-    Long id;
+    private Long id;
     @ApiModelProperty(value = "商品类型")
-    Long productType;
+    private Long productType;
     @ApiModelProperty(value = "商品编码")
-    String numberId;
+    private String numberId;
     @ApiModelProperty(value = "商品名称")
-    String name;
+    private String name;
     @ApiModelProperty(value = "销量上限")
-    long salesUp;
+    private long salesUp;
     @ApiModelProperty(value = "销量下限")
-    long salseDown;
+    private long salseDown;
     @ApiModelProperty(value = "商品价格上限")
-    long priceUp;
+    private long priceUp;
     @ApiModelProperty(value = "商品价格下限")
-    long priceDown;
+    private long priceDown;
     @ApiModelProperty(value = "商品分组")
-    long productGroupId;
+    private long productGroupId;
 
     @ApiModelProperty(value = "卖家编号",hidden = true)
-    long storeId;
+    private long storeId;
 
     public long getStoreId() {
         return storeId;
