@@ -37,7 +37,7 @@ public class ShopCommentServiceImpl implements ShopCommentService {
             result = this.shopCommentsMapper.CountComments(storeId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "查询用户评价失败", null);
+            return new ServiceStatusInfo<>(1, "查询用户评价失败"+e.getMessage(), null);
         }
     }
 

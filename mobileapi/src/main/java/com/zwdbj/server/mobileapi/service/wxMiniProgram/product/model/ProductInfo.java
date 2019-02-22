@@ -22,7 +22,7 @@ public class ProductInfo {
     long sales;
     @ApiModelProperty(value = "库存")
     long inventory;
-    @ApiModelProperty(value = "是否限购 0：表示不限购 大于0数字表示没人只能买商品的数量")
+    @ApiModelProperty(value = "是否限购 0：表示不限购 大于0数字表示每人只能买商品的数量")
     int limitPerPerson;
 
     @ApiModelProperty(value = "原价")
