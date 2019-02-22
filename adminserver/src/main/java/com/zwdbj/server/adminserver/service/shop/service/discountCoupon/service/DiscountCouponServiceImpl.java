@@ -45,7 +45,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
             if(authUser == null){
                 return new ServiceStatusInfo(1,"用户不存在",null);
             }
-            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
+            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData().getId();
             if(storeId ==null || storeId<=0 ){
                 return new ServiceStatusInfo(1,"店铺不存在",null);
             }
@@ -70,7 +70,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
             if(authUser == null){
                 return new ServiceStatusInfo(1,"用户不存在",null);
             }
-            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
+            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData().getId();
             if(storeId ==null || storeId<=0 ){
                 return new ServiceStatusInfo(1,"店铺不存在",null);
             }
@@ -93,7 +93,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
             if(authUser == null){
                 return new ServiceStatusInfo(1,"用户不存在",null);
             }
-            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
+            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData().getId();
             if(storeId ==null || storeId<=0 ){
                 return new ServiceStatusInfo(1,"店铺不存在",null);
             }
@@ -114,7 +114,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
             if(authUser == null){
                 return new ServiceStatusInfo(1,"用户不存在",null);
             }
-            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
+            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData().getId();
             if(storeId ==null || storeId<=0 ){
                 return new ServiceStatusInfo(1,"店铺不存在",null);
             }
@@ -132,7 +132,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
             if(authUser == null){
                 return new ServiceStatusInfo(1,"用户不存在",null);
             }
-            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
+            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData().getId();
             if(storeId ==null || storeId<=0 ){
                 return new ServiceStatusInfo(1,"店铺不存在",null);
             }
@@ -154,7 +154,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService{
             if(authUser == null){
                 return new ServiceStatusInfo(1,"用户不存在",null);
             }
-            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
+            Long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData().getId();
             if(storeId ==null || storeId<=0 ){
                 return new ServiceStatusInfo(1,"店铺不存在",null);
             }

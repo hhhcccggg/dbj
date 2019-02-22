@@ -2,9 +2,9 @@ package com.zwdbj.server.adminserver.service.shop.service.storeReview.service;
 
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
+import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.mapper.IStoreReviewMapper;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
-import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.LegalSubjectReviewInput;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.StoreReviewAddInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
@@ -77,28 +77,22 @@ public class StoreReviewServiceImpl implements StoreReviewService {
 
     @Override
     public ServiceStatusInfo<Integer> reviewStore(long legalSubjectId, ReviewStoreInput input) {
-        int status =1;
-        if (input.isReviewOrNot()){
-            status=0;
-        }else {
-            status=2;
+        try {
+            int status = 1;
+            if (input.isReviewOrNot()){
+                status=0;
+            }else {
+                status=2;
+            }
+            int a = this.storeReviewMapper.reviewStore(legalSubjectId,input,status);
+            return new ServiceStatusInfo<>(0,"商铺资料审核成功",a);
+        }catch (Exception e){
+            return  new ServiceStatusInfo<>(1,"商铺资料审核失败"+e.getMessage(),null);
         }
-        int a = this.storeReviewMapper.reviewStore(legalSubjectId,input,status);
-        if (a==0)
-        return new ServiceStatusInfo<>(1,"资料审核失败",0);
-        return new ServiceStatusInfo<>(0,"资料审核成功",a);
     }
 
     @Override
-    public ServiceStatusInfo<Integer> reviewLegalSubject(long id, LegalSubjectReviewInput input) {
-        int a = this.storeReviewMapper.reviewLegalSubject(id,input);
-        if (a==0)
-            return new ServiceStatusInfo<>(1,"资料审核失败",0);
-        return new ServiceStatusInfo<>(0,"资料审核成功",a);
-    }
-
-    @Override
-    public ServiceStatusInfo<List<BusinessSellerReviewModel>> getStoreReviewById(long legalSubjectId) {
+    public ServiceStatusInfo<BusinessSellerReviewModel> getStoreReviewById(long businessSellerId) {
         try {
             List<BusinessSellerReviewModel> businessSellerReviewModels = this.storeReviewMapper.getStoreReviewById(legalSubjectId);
             return new ServiceStatusInfo<>(0,"获取商铺成功",businessSellerReviewModels);

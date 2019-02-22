@@ -264,7 +264,7 @@ public class ProductServiceImpl implements ProductService {
         if(authUser.getLegalSubjectId()==0){
             return new ServiceStatusInfo(1,"用户不是商户",null);
         }
-        long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData();
+        long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData().getId();
         if(storeId <= 0){
             return new ServiceStatusInfo(1,"用户没有店铺",null);
         }

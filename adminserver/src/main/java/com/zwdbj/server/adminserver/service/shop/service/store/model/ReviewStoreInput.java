@@ -1,14 +1,12 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.model;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "审核店铺")
 public class ReviewStoreInput {
-    @ApiModelProperty(value = "是否通过审核,true为通过")
+    @ApiModelProperty(value = "是否通过审核")
     private boolean reviewOrNot;
-    @ApiModelProperty(value = "未通过原因,仅审核未通过时填写")
-    private String rejectMsg;
+    @ApiModelProperty(value = "未通过审核的原因")
+    private String reviewMsg;
 
     public boolean isReviewOrNot() {
         return reviewOrNot;
@@ -18,11 +16,11 @@ public class ReviewStoreInput {
         this.reviewOrNot = reviewOrNot;
     }
 
-    public String getRejectMsg() {
-        return rejectMsg;
+    public String getReviewMsg() {
+        return reviewMsg;
     }
 
-    public void setRejectMsg(String rejectMsg) {
-        this.rejectMsg = rejectMsg;
+    public void setReviewMsg(String reviewMsg) {
+        this.reviewMsg = reviewMsg;
     }
 }

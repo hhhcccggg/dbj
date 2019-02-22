@@ -17,8 +17,8 @@ public interface IStoreMapper {
      * @param legalSubjectId
      * @return
      */
-    @Select("select id  from shop_stores where legalSubjectId=#{legalSubjectId} and isDeleted=0 limit 1")
-    Long selectByLegalSubjectId(@Param("legalSubjectId") long legalSubjectId);
+    @Select("select * from shop_stores where legalSubjectId=#{legalSubjectId} and isDeleted=0 limit 1")
+    StoreSimpleInfo selectByLegalSubjectId(@Param("legalSubjectId") long legalSubjectId);
 
     @Select("select * from shop_stores  where id=#{storeId}")
     StoreInfo selectByStoreId(@Param("storeId") long storeId);
@@ -30,6 +30,6 @@ public interface IStoreMapper {
     long selectTenantId(@Param("legalSubjectId") long legalSubjectId);
     @Update("update shop_stores set `status`=#{status} where id=#{storeId} and `status`<>#{status}")
     int updateStoreStatus(@Param("storeId") long storeId,@Param("status")int status);
-    @Update("update shop_stores set reviewed=#{reviewed} where id=#{storeId}")
+    @Update("update shop_stores set `reviewed`=#{reviewed} where id=#{storeId}")
     int reviewStore(@Param("storeId") long storeId,@Param("reviewed")boolean reviewed);
 }

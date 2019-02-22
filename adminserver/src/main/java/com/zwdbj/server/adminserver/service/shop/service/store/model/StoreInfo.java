@@ -4,6 +4,7 @@ import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.Di
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.model.OfflineStoreExtraServices;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour.model.OfflineStoreOpeningHours;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -43,7 +44,7 @@ public class StoreInfo {
     String mainConverImage;
     @ApiModelProperty(value = "封面图地址")
     String coverImages;
-    @ApiModelProperty(value = "头像")
+    @ApiModelProperty(value = "logo")
     String logoUrl;
 
     @ApiModelProperty(value = "城市")
@@ -54,6 +55,76 @@ public class StoreInfo {
     private boolean stopService;
     @ApiModelProperty(value = "是否通过审核")
     private boolean reviewed;
+    @ApiModelProperty(value = "店铺类型  SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店")
+    private String type;
+    @ApiModelProperty(value = "店铺qq")
+    private String qq;
+    @ApiModelProperty(value = "在平台开店的有效期")
+    private String expireTime;
+    @ApiModelProperty(value = "店铺等级")
+    private int level;
+    @ApiModelProperty(value = "商家主体id")
+    private long legalSubjectId;
+    @ApiModelProperty(value = "主营类目")
+    private long categoryId;
+    @ApiModelProperty(value = "店铺资质的图片")
+    private List<BusinessSellerReviewModel> businessSellerReviewModels;
+
+    public List<BusinessSellerReviewModel> getBusinessSellerReviewModels() {
+        return businessSellerReviewModels;
+    }
+
+    public void setBusinessSellerReviewModels(List<BusinessSellerReviewModel> businessSellerReviewModels) {
+        this.businessSellerReviewModels = businessSellerReviewModels;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
+    public String getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(String expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public long getLegalSubjectId() {
+        return legalSubjectId;
+    }
+
+    public void setLegalSubjectId(long legalSubjectId) {
+        this.legalSubjectId = legalSubjectId;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public long getId() {
         return id;

@@ -43,9 +43,9 @@ public class StoreServiceImpl implements StoreService {
     StoreReviewService storeReviewServiceImpl;
 
     @Override
-    public ServiceStatusInfo<Long> selectByLegalSubjectId(long legalSubjectId) {
+    public ServiceStatusInfo<StoreSimpleInfo> selectByLegalSubjectId(long legalSubjectId) {
         try {
-            Long id = iStoreMapper.selectByLegalSubjectId(legalSubjectId);
+            StoreSimpleInfo id = iStoreMapper.selectByLegalSubjectId(legalSubjectId);
             return new ServiceStatusInfo<>(0, "", id);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);

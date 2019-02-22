@@ -2,7 +2,6 @@ package com.zwdbj.server.adminserver.service.shop.service.storeReview.mapper;
 
 import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
-import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.LegalSubjectReviewInput;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.StoreReviewAddInput;
 import org.apache.ibatis.annotations.*;
 
@@ -22,8 +21,6 @@ public interface IStoreReviewMapper {
     int deleteStoreReview(@Param("id") long id);
     @Update("update shop_legalSubjectReviews set status=#{status},rejectMsg=#{input.rejectMsg} where legalSubjectId=#{legalSubjectId}")
     int reviewStore(@Param("legalSubjectId") long legalSubjectId,@Param("input") ReviewStoreInput input,@Param("status")int status);
-    @Update("update shop_legalSubjectReviews set status=#{input.status},rejectMsg=#{input.rejectMsg} where id=#{id}")
-    int reviewLegalSubject(@Param("id") long id,@Param("input") LegalSubjectReviewInput input);
 
     @Update("update shop_legalSubjectReviews set deleteTime=true,deleteTime=now() where id=#{id}")
     int notRealDeleteStoreReview(@Param("id") long id);
