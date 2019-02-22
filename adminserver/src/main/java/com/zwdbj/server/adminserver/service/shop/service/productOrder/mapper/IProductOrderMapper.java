@@ -30,6 +30,6 @@ public interface IProductOrderMapper {
     ProductOrderDetailModel getOrderByOrderNo(@Param("orderNo")String orderNo);
 
 
-    @Update("update shop_productOrders set`status`=STATE_CLOSED',updateTime=now(),endTime=now(),where id=#{id} and userId=#{userId}")
+    @Update("update shop_productOrders set`status`='STATE_CLOSED',updateTime=now(),endTime=now() where id=#{id} and userId=#{userId}")
     int updateOrderUnPay(@Param("id")long orderId,@Param("userId")long userId);
 }

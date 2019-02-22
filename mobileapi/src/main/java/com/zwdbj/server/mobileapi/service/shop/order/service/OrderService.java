@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.shop.order.service;
 
 import com.ecwid.consul.v1.ConsulClient;
+import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
 import com.zwdbj.server.mobileapi.service.shop.order.mapper.IOrderMapper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
@@ -30,6 +31,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -72,6 +75,13 @@ public class OrderService {
     public ServiceStatusInfo<ProductOrderDetailModel> getOrderById(long orderId){
         try {
             ProductOrderDetailModel model = this.orderMapper.getOrderById(orderId);
+            if (model==null)return new ServiceStatusInfo<>(1, "获得订单失败" , null);
+            Date createTime = model.getCreateTime();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(createTime);
+            calendar.add(Calendar.MINUTE, +15);
+            Date lastPayTime = calendar.getTime();
+            model.setLastPayTime(lastPayTime);
             ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
             model.setNickName(this.userService.getUserDetail(model.getUserId()).getNickName());
             model.setAddressModel(addressModel);
@@ -138,7 +148,7 @@ public class OrderService {
                 if (inventoryNum!=-10000L)
                 this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
                 //设置订单过期机制
-                /*QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData
+                QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData
                         = QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder()
                         .setOrderId(orderId)
                         .setUserId(userId)
@@ -147,7 +157,7 @@ public class OrderService {
                         .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_TIME)
                         .setOrderTimeData(orderTimeData)
                         .build();
-                DelayMQWorkSender.shareSender().send(workInfo,30);*/
+                DelayMQWorkSender.shareSender().send(workInfo,3*60);
 
                 return new ServiceStatusInfo<>(0,"下单成功",orderId);
             }
