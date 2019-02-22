@@ -34,7 +34,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         try {
             if (staffInput.isSuperStar()) {
                 long userId = iUserMapper.findUserIdByPhone(staffInput.getPhone());
-                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
                 mapper.setSuperStar(UniqueIDCreater.generateID(), storeId, userId);
             }
             long tenantId = storeServiceImpl.selectTenantId(legalSubjectId);
@@ -83,7 +83,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
 
             result = mapper.cancelStaff(userId);
             if (isSuperStar) {
-                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
                 result += mapper.cancelSuperStar(userId, storeId);
             }
             return new ServiceStatusInfo<>(0, "", result);
@@ -148,7 +148,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     public ServiceStatusInfo<Long> setSuperStar(long userId, long legalSubjectId, boolean isSuperStar) {
         Long result = 0L;
         try {
-            long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+            long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
             if (isSuperStar) {
                 long id = UniqueIDCreater.generateID();
 

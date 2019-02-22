@@ -73,7 +73,7 @@ public class OfflineStoreStaffsController {
                                                                     @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
         long userId = JWTUtil.getCurrentId();
         long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
-        long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+        long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
         PageHelper.startPage(pageNo, rows);
         ServiceStatusInfo<List<OfflineStoreStaffs>> statusInfo = offlineStoreStaffsServiceImpl.getStaffs(storeId);
         PageInfo<OfflineStoreStaffs> pageInfo = new PageInfo<>(statusInfo.getData());
@@ -87,7 +87,7 @@ public class OfflineStoreStaffsController {
                                                                  @RequestBody SearchStaffInfo searchStaffInfo) {
         long userId = JWTUtil.getCurrentId();
         long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
-        long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
+        long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
         PageHelper.startPage(pageNo, rows);
         List<OfflineStoreStaffs> list = offlineStoreStaffsServiceImpl.searchStaffs(searchStaffInfo, legalSubjectId, storeId).getData();
         PageInfo<OfflineStoreStaffs> pageInfo = new PageInfo<>(list);
