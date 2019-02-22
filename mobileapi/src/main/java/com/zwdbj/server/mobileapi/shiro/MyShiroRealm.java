@@ -68,6 +68,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (checkStatus == null||!checkStatus.isSuccess()||checkStatus.getData().isLocked()) {
             throw new AuthenticationException(checkStatus.getMsg());
         }
+        if(!checkStatus.getData().getType().equals("NORMAL")) {
+            throw new AuthenticationException("用户禁止登陆,联系客服！");
+        }
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         String url = request.getRequestURI();

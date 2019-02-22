@@ -195,10 +195,20 @@ public class ProductServiceImpl implements ProductService {
             products.setPromotionPrice(productSKUs.getPromotionPrice());
             products.setOriginalPrice(productSKUs.getOriginalPrice());
             ProductsOut productsOut = new ProductsOut();
+            if(products.getProductDetailType().equals("CARD")){
+                ProductCard productCard = this.iProductCardMapper.selectByProductId(products.getId());
+                products.setStackUse(productCard.isStackUse());
+                products.setAppointment(productCard.getAppointment());
+                productsOut.setProductCard(productCard);
+            }
+            if(products.getProductDetailType().equals("CASHCOUPON")){
+                ProductCashCoupon productCashCoupon = this.iProductCashCouponMapper.selectByProductId(products.getId());
+                products.setStackUse(productCashCoupon.isStackUse());
+                products.setAppointment(productCashCoupon.getAppointment());
+                productsOut.setProductCashCoupon(productCashCoupon);
+            }
             productsOut.setProducts(products);
-            productsOut.setProductCard(this.iProductCardMapper.selectByProductId(products.getId()));
-            productsOut.setProductCashCoupon(this.iProductCashCouponMapper.selectByProductId(products.getId()));
-            productsOut.setProductSKUs(iProductSKUsMapper.selectByProductId(products.getId()));
+            productsOut.setProductSKUs(productSKUs);
             return new ServiceStatusInfo<>(0, "", productsOut);
         }catch(Exception e){
             return new ServiceStatusInfo<>(0, "查询单个商品失败"+e.getMessage(), null);

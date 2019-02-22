@@ -116,4 +116,30 @@ public class OfflineStoreStaffsController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
 
     }
+
+    @RequestMapping(value = "/getSuperStarDetail", method = RequestMethod.GET)
+    @ApiOperation(value = "获取代言人详情")
+    public ResponsePageInfoData<List<SuperStarInfo>> getSuperStarDetail(@RequestParam(value = "search", defaultValue = "", required = true) String search,
+                                                                        @RequestParam(value = "rank", defaultValue = "nickName", required = true) String rank,
+                                                                        @RequestParam(value = "sort", defaultValue = "desc", required = true) String sort,
+                                                                        @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                        @RequestParam(value = "rows", defaultValue = "10", required = true) int rows) {
+        long userId = JWTUtil.getCurrentId();
+        long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
+        PageHelper.startPage(pageNo, rows);
+        List<SuperStarInfo> list = offlineStoreStaffsServiceImpl.getSuperStarDetail(search, rank, sort, legalSubjectId).getData();
+        PageInfo<SuperStarInfo> pageInfo = new PageInfo<>(list);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", pageInfo.getList(), pageInfo.getTotal());
+
+    }
+
+    @RequestMapping(value = "/videoListStaff/{userId}", method = RequestMethod.GET)
+    @ApiOperation(value = "代言人作品列表个人信息")
+    public ResponseData<SuperStarDto> videoListStaff(@PathVariable long userId) {
+        ServiceStatusInfo<SuperStarDto> statusInfo = offlineStoreStaffsServiceImpl.videoListStaff(userId);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData(), null);
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null, null);
+    }
 }

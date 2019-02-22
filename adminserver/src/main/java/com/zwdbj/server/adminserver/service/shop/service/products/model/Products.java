@@ -13,7 +13,8 @@ public class Products {
     Long id;
     @ApiModelProperty(value = "商品类型")
     Long productType;
-    @ApiModelProperty(value = "产品详细类型")
+    @ApiModelProperty(value = "产品详细类型 DELIVERY: 实物产品  NODELIVERY:虚拟商品(不需要物流)\n" +
+            "        /// CARD:卡券(服务中套餐)，关联[ProductCard]表 CASHCOUPON:代金券，类似70抵100，关联[ProductCashCoupon]表")
     String productDetailType;
     @ApiModelProperty(value = "商品编码")
     String numberId;
@@ -81,15 +82,26 @@ public class Products {
     @ApiModelProperty(value = "规则说明")
     String ruleDescription;
 
-    @ApiModelProperty(value = "叠加使用")
-    boolean overlay;
+    @ApiModelProperty(value = "预约信息")
+    private String appointment;
 
-    public boolean isOverlay() {
-        return overlay;
+    @ApiModelProperty(value = "是否与其他优惠券共用")
+    private boolean stackUse;
+
+    public String getAppointment() {
+        return appointment;
     }
 
-    public void setOverlay(boolean overlay) {
-        this.overlay = overlay;
+    public void setAppointment(String appointment) {
+        this.appointment = appointment;
+    }
+
+    public boolean isStackUse() {
+        return stackUse;
+    }
+
+    public void setStackUse(boolean stackUse) {
+        this.stackUse = stackUse;
     }
 
     public long getOriginalPrice() {

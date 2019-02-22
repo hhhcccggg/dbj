@@ -36,20 +36,18 @@ public interface UserDiscountCouponService {
     /**
      * 根据商铺店铺订单价格,查询可用优惠券
      * @param storeId
-     * @param legalSubjectId
      * @param price
      * @return
      */
-    ServiceStatusInfo<List<Coupon>> getVaildCoupon(long storeId, long legalSubjectId, long price);
+    ServiceStatusInfo<List<UserDiscountCouponOut>> getVaildCoupon(long storeId, long price);
 
     /**
      * 根据商铺店铺订单价格优惠券id是否可用
      * @param storeId
-     * @param legalSubjectId
      * @param price
      * @return
      */
-    ServiceStatusInfo<Coupon> getVaildCouponById(long storeId, long legalSubjectId, long price,long id);
+    ServiceStatusInfo<UserDiscountCouponOut> getVaildCouponById(long storeId, long price,long id);
 
     /**
      * 使用优惠券

@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -50,19 +49,22 @@ public class NearbyShopServiceImpl implements NearbyShopService {
     @Override
     public ServiceStatusInfo<ShopInfo> shopHomePage(long storeId) {
         try {
-            //判断redis缓存中是否有当前列表信息，如果有从redis中获取。若无从数据库查询
-            ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
-            if (valueOperations.get("shopInfo" + storeId) != null) {
-                String str = valueOperations.get("shopInfo" + storeId);
-                ShopInfo shopInfo = JSON.parseObject(str, new TypeReference<ShopInfo>() {
-                });
-                logger.info("有缓存---shopInfo" + storeId);
-                logger.info(str);
-
-                return new ServiceStatusInfo<>(0, "", shopInfo);
-            }
+//            //判断redis缓存中是否有当前列表信息，如果有从redis中获取。若无从数据库查询
+//            ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+//            if (valueOperations.get("shopInfo" + storeId) != null) {
+//                String str = valueOperations.get("shopInfo" + storeId);
+//                ShopInfo shopInfo = JSON.parseObject(str, new TypeReference<ShopInfo>() {
+//                });
+//                logger.info("有缓存---shopInfo" + storeId);
+//                logger.info(str);
+//
+//                return new ServiceStatusInfo<>(0, "", shopInfo);
+//            }
             long userId = JWTUtil.getCurrentId();
             ShopInfo result = nearbyShopsMapper.searchShopsById(storeId);
+            if (result == null) {
+                return new ServiceStatusInfo<>(0, "没有此店铺", null);
+            }
             //判断用户是否收藏该商家
             int isFavorite = favoriteServiceImpl.isFavorite(userId, storeId, "STORE");
             if (isFavorite == 0) {
@@ -73,23 +75,29 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             result.setVerify(true);
             //查询店铺商品
             List<ProductInfo> products = this.productServiceImpl.selectProductByStoreId(storeId).getData();
-            result.setProducts(products);
+            if (products != null) {
+                result.setProducts(products);
+            }
 
             List<StoreServiceCategory> serviceScopes = this.nearbyShopsMapper.searchServiceScopes(storeId);
-            result.setServiceScopes(serviceScopes);
-
-            List<StoreServiceCategory> extraServices = this.nearbyShopsMapper.searchExtraServices(storeId);
-            result.setExtraServices(extraServices);
-
-            List<OpeningHours> openingHours = this.nearbyShopsMapper.searchOpeningHours(storeId);
-            result.setOpeningHours(openingHours);
-            logger.info("无缓存---shopInfo" + storeId);
-            logger.info(valueOperations.get("shopInfo" + storeId));
-//            redisTemplate.expire("shopInfo" + String.valueOf(storeId), 30, TimeUnit.MINUTES);
-            if (result != null) {
-                valueOperations.set("shopInfo" + storeId, JSON.toJSONString(result));
-
+            if (serviceScopes != null) {
+                result.setServiceScopes(serviceScopes);
             }
+            List<StoreServiceCategory> extraServices = this.nearbyShopsMapper.searchExtraServices(storeId);
+            if (extraServices != null) {
+                result.setExtraServices(extraServices);
+            }
+            List<OpeningHours> openingHours = this.nearbyShopsMapper.searchOpeningHours(storeId);
+            if (openingHours != null) {
+                result.setOpeningHours(openingHours);
+            }
+//            logger.info("无缓存---shopInfo" + storeId);
+//            logger.info(valueOperations.get("shopInfo" + storeId));
+////            redisTemplate.expire("shopInfo" + String.valueOf(storeId), 30, TimeUnit.MINUTES);
+//            if (result != null) {
+//                valueOperations.set("shopInfo" + storeId, JSON.toJSONString(result));
+//
+//            }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "获取商家首页信息失败" + e.getMessage(), null);
@@ -98,9 +106,9 @@ public class NearbyShopServiceImpl implements NearbyShopService {
     }
 
     @Override
-    public ServiceStatusInfo<SuperStar> superStar(long storeId) {
+    public ServiceStatusInfo<List<SuperStar>> superStar(long storeId) {
         try {
-            SuperStar result = this.nearbyShopsMapper.searchSuperStar(storeId);
+            List<SuperStar> result = this.nearbyShopsMapper.searchSuperStar(storeId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询代言人失败" + e.getMessage(), null);
@@ -163,7 +171,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                 } else {
                     matchQuery = QueryBuilders.boolQuery().should(new MultiMatchQueryBuilder(info.getSearch(),
                                     "name",
-                                    "discountCoupons.name",
+                                    "storeProducts.name",
                                     "serviceScopes.name",
                                     "address")
 //                            .fuzziness(Fuzziness.AUTO)//模糊匹配
@@ -183,7 +191,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                             .should(new MatchQueryBuilder("name", info.getFilter()))
                             .should(new MultiMatchQueryBuilder(info.getSearch(),
                                     "name",
-                                    "discountCoupons.name",
+                                    "storeProducts.name",
                                     "serviceScopes.name",
                                     "address"))
 //                                    .fuzziness(Fuzziness.AUTO))//多字段查询

@@ -1,11 +1,14 @@
 package com.zwdbj.server.adminserver.service.shop.service.storeReview.service;
 
+import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
+import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.mapper.IStoreReviewMapper;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.StoreReviewAddInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +18,10 @@ import java.util.List;
 @Service
 @Transactional
 public class StoreReviewServiceImpl implements StoreReviewService {
-    @Resource
+    @Autowired
     IStoreReviewMapper storeReviewMapper;
+    @Autowired
+    QiniuService qiniuService;
 
     @Override
     public List<BusinessSellerReviewModel> findAllStoreReviews() {
@@ -38,6 +43,18 @@ public class StoreReviewServiceImpl implements StoreReviewService {
     @Override
     public ServiceStatusInfo<Integer> addStoreReview(StoreReviewAddInput input) {
         try {
+            String reviewData = input.getReviewData();
+            StringBuilder reviewDatas = new StringBuilder();
+            if (reviewData!=null && reviewData.length()>0){
+                String[] reviews = reviewData.split(",");
+                for (String s:reviews){
+                    String ss = this.qiniuService.url(s)+",";
+                    reviewDatas.append(ss);
+                }
+            }
+            reviewData = reviewDatas.toString();
+            reviewData = reviewData.substring(0,(reviewData.length()-1));
+            input.setReviewData(reviewData);
             long id = UniqueIDCreater.generateID();
             int result = this.storeReviewMapper.addStoreReview(id,input);
             if (result==0)return new ServiceStatusInfo<>(1,"添加认证信息失败",result);
@@ -48,9 +65,9 @@ public class StoreReviewServiceImpl implements StoreReviewService {
     }
 
     @Override
-    public ServiceStatusInfo<Integer> deleteStoreReview(long businessSellerId) {
+    public ServiceStatusInfo<Integer> deleteStoreReview(long id) {
         try {
-            int result = this.storeReviewMapper.deleteStoreReview(businessSellerId);
+            int result = this.storeReviewMapper.deleteStoreReview(id);
             if (result==0)return new ServiceStatusInfo<>(1,"删除认证信息失败",result);
             return new ServiceStatusInfo<>(0,"删除认证信息成功",result);
         }catch (Exception e){
@@ -77,8 +94,8 @@ public class StoreReviewServiceImpl implements StoreReviewService {
     @Override
     public ServiceStatusInfo<BusinessSellerReviewModel> getStoreReviewById(long businessSellerId) {
         try {
-            BusinessSellerReviewModel businessSellerReviewModel = this.storeReviewMapper.getStoreReviewById(businessSellerId);
-            return new ServiceStatusInfo<>(0,"获取商铺成功",businessSellerReviewModel);
+            List<BusinessSellerReviewModel> businessSellerReviewModels = this.storeReviewMapper.getStoreReviewById(legalSubjectId);
+            return new ServiceStatusInfo<>(0,"获取商铺成功",businessSellerReviewModels);
         }catch (Exception e){
             return  new ServiceStatusInfo<>(1,"获取商铺失败"+e.getMessage(),null);
         }

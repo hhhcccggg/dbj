@@ -35,7 +35,7 @@ public class ShopInfo extends NearbyShop implements Serializable {
      */
     @ApiModelProperty(value = "当前商家是否资质认证")
     private boolean verify;
-    @ApiModelProperty(value = "0：正常1：关闭")
+    @ApiModelProperty(value = "0：正常1：关闭2:审核中")
     private int status;
     @ApiModelProperty(value = "是否停止服务")
     private boolean stopService;

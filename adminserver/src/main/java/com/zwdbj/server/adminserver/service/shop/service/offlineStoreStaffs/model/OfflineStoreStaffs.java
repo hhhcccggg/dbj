@@ -7,14 +7,14 @@ import java.util.Date;
 
 @ApiModel(description = " 门店员工，或者代言人")
 public class OfflineStoreStaffs {
-    @ApiModelProperty(value = "员工名称")
-    String nickName;
+    @ApiModelProperty(value = "员工姓名")
+    String fullName;
     @ApiModelProperty(value = "租户id")
     long tenantId;
     @ApiModelProperty(value = "联系电话")
     String phone;
     @ApiModelProperty(value = "用户id")
-    long userId;
+    long id;
     /// <summary>
     /// 是否为代言人
     /// </summary>
@@ -29,12 +29,12 @@ public class OfflineStoreStaffs {
     @ApiModelProperty(value = "备注")
     String notes;
 
-    public String getNickName() {
-        return nickName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhone() {
@@ -78,12 +78,12 @@ public class OfflineStoreStaffs {
         this.tenantId = tenantId;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public boolean isSuperStar() {

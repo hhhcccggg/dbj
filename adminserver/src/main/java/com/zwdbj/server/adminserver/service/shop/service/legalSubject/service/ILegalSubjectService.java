@@ -14,7 +14,6 @@ public interface ILegalSubjectService {
     List<LegalSubjectModel> getUnReviewedLegalSubjects(LegalSubjectSearchInput input);
     ServiceStatusInfo<Integer> verityUnReviewedLegalSubject(long id, ReviewStoreInput input);
     ServiceStatusInfo<LegalSubjectReviewModel> getLegalSubjectReviewById(long id);
-    ServiceStatusInfo<Integer> verityLegalSubjectReview(long id,LegalSubjectReviewVerityInput input);
     List<LegalSubjectReviewModel> getReviewsByLegalSubjectId(long id);
     int delLegalSubject(long id);
     int addLegalSubject(long id, UserTenantInput input);

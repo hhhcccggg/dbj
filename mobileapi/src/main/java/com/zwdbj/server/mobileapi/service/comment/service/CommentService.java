@@ -259,4 +259,13 @@ public class CommentService {
         return this.commentMapper.findCommentNumById(resId);
     }
 
+    /**
+     * 根据视频id查询评论数据(ES)
+     * @param videoId
+     * @return
+     */
+    public CommentInfoDto findVideoIdES(long videoId){
+        return this.commentMapper.findVideoIdES(videoId);
+    }
+
 }

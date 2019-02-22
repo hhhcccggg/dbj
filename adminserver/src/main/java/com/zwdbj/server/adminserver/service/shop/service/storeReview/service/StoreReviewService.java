@@ -12,9 +12,16 @@ public interface StoreReviewService {
     ServiceStatusInfo<Integer> modifyStoreReview(long id, StoreReviewAddInput input);
     ServiceStatusInfo<Integer> addStoreReview(StoreReviewAddInput input);
     ServiceStatusInfo<Integer> deleteStoreReview(long id);
-    ServiceStatusInfo<Integer> reviewStore(long legalSubjectId, ReviewStoreInput input);
-    ServiceStatusInfo<Integer> notRealDeleteStoreReview(long id);
-    ServiceStatusInfo<BusinessSellerReviewModel> getStoreReviewById(long businessSellerId);
 
+    /**
+     * 审核属于legalSubjectId的所有资料
+     * @param legalSubjectId
+     * @param input
+     * @return
+     */
+    ServiceStatusInfo<Integer> reviewStore(long legalSubjectId, ReviewStoreInput input);
+
+    ServiceStatusInfo<Integer> notRealDeleteStoreReview(long id);
+    ServiceStatusInfo<List<BusinessSellerReviewModel>> getStoreReviewById(long legalSubjectId);
 
 }

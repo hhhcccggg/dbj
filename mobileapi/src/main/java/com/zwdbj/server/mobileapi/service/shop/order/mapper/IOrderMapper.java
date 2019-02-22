@@ -18,7 +18,7 @@ public interface IOrderMapper {
 
     @Insert("insert into shop_productOrders(id,orderNo,payment,paymentType,actualPayment,useCoin," +
             "deliveryFee,status,updateTime,userId,storeId,buyerComment,buyerRate,receiveAddressId,thirdPaymentTradeNo) " +
-            "values(#{id},#{id},#{payment},'NONE',#{input.actualPayment},#{input.useCoin},#{input.deliveryFee},'STATE_WAIT_BUYER_PAY'," +
+            "values(#{id},#{id},#{payment},'NONE',#{payment},#{input.useCoin},#{input.deliveryFee},'STATE_WAIT_BUYER_PAY'," +
             "now(),#{userId},#{input.storeId},#{input.buyerComment},0,#{input.receiveAddressId},'NONE')")
     int createOrder(@Param("id")long id, @Param("userId")long userId, @Param("input") AddNewOrderInput input, @Param("payment")int payment);
     @Insert("insert into shop_productOrderItems(id,productId,productskuId,orderId,num,title,price,totalFee) " +

@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "修改员工信息")
 public class ModifyStaff {
     @ApiModelProperty(value = "姓名")
-    String nickName;
+    String fullName;
     @ApiModelProperty(value = "手机号")
     String phone;
     @ApiModelProperty(value = "员工id")
@@ -16,12 +16,12 @@ public class ModifyStaff {
     @ApiModelProperty(value = "备注 暂时没有 预留")
     String notes;
 
-    public String getNickName() {
-        return nickName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhone() {
