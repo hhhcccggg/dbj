@@ -165,6 +165,7 @@ public class CommentService {
 
         addCommentModel.setId(UniqueIDCreater.generateID());
         addCommentModel.setUserId(userId);
+        if (addCommentModel.getContent().trim().length()==0)return new ServiceStatusInfo<>(1, "请填写内容", null,null);
         long resultLine = this.commentMapper.add(addCommentModel);
         if (resultLine > 0) {
 

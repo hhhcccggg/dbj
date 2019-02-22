@@ -14,6 +14,9 @@ public class MQConfig {
      * 数据状态交换机
      */
     public static final String exchangeTimeMachine = "exchange_timeMachine";
+    public static final String delayedQueueTimeConsuming = "delayedQueueTimeConsuming";
+    public static final String delayedExchangeTimeMachine = "delayedExchangeTimeMachine";
+    public static final String delayedROUTING_KEY = "delayedROUTING_KEY";
 
     @Value("${spring.rabbitmq.host}")
     protected String host;
