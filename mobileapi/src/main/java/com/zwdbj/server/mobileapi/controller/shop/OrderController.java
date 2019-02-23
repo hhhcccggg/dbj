@@ -36,13 +36,14 @@ public class OrderController {
             "0，（全部）" +
             "1，STATE_WAIT_BUYER_PAY（待付款，等待买家付款）" +
             "2，STATE_UNUSED (待使用，虚拟商品有效) " +
-            "3，STATE_USED (待评价，虚拟商品有效)")
-    @RequestMapping(value = "/getOrders/{status}", method = RequestMethod.GET)
+            "comment:如要获取待评价的请传1,其他情况请传0")
+    @RequestMapping(value = "/getOrders/{status}/{comment}", method = RequestMethod.GET)
     public ResponsePageInfoData<List<ProductOrderModel>> getMyOrders(@PathVariable int status,
+                                                                     @PathVariable int comment,
                                                                      @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                      @RequestParam(value = "rows", required = true, defaultValue = "30") int rows){
         Page<ProductOrderModel> pageInfo = PageHelper.startPage(pageNo,rows);
-        List<ProductOrderModel> orderModels = this.orderService.getMyOrders(status);
+        List<ProductOrderModel> orderModels = this.orderService.getMyOrders(status,comment);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",orderModels,pageInfo.getTotal());
     }
 

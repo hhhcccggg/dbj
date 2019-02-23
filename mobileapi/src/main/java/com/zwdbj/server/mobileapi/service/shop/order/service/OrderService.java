@@ -9,6 +9,7 @@ import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailMod
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
@@ -59,10 +60,10 @@ public class OrderService {
     private NearbyShopService nearbyShopServiceImpl;
     private Logger logger = LoggerFactory.getLogger(OrderService.class);
 
-    public List<ProductOrderModel> getMyOrders(int status){
+    public List<ProductOrderModel> getMyOrders(int status,int comment){
         try {
             long userId = JWTUtil.getCurrentId();
-            List<ProductOrderModel> orderModels = this.orderMapper.getMyOrders(userId,status);
+            List<ProductOrderModel> orderModels = this.orderMapper.getMyOrders(userId,status,comment);
             for (ProductOrderModel model:orderModels){
                 model.setNickName(this.userService.getUserDetail(userId).getNickName());
                 model.setStoreName(this.nearbyShopServiceImpl.shopHomePage(model.getStoreId()).getData().getName());
@@ -183,6 +184,7 @@ public class OrderService {
         long userId = JWTUtil.getCurrentId();
         if (model==null)return;
         if (!model.getStatus().equals("STATE_WAIT_BUYER_PAY"))return;
+        ProductlShow productlShow = this.productServiceImpl.selectByIdByStoreId(model.getProductId(),model.getStoreId()).getData();
         if (model.getUseCoin()!=0){
             //处理金币
             this.userAssetServiceImpl.minusUserCoins(model.getUseCoin(),userId,id);
@@ -197,12 +199,18 @@ public class OrderService {
                 this.userDiscountCouponServiceImpl.updateUserDiscountCouponState(userId,couponId);
             }
         }
-        this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes);
+        if (productlShow.getProductType()==0){
+            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_BUYER_PAYED");
+        }else if (productlShow.getProductType()==1){
+            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_UNUSED");
+        }
+
     }
     @Transactional
     public void updateOrderState(long id,String tradeNo,String status){
         ProductOrderDetailModel model = this.getOrderById(id).getData();
-        if (status.equals("STATE_REFUNDING")){
+
+        if (status.equals("STATE_REFUNDING")  ){
             if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
                     || model.getStatus().equals("STATE_UNUSED")){
                 this.orderMapper.updateOrderState(id,tradeNo,status);
