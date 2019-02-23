@@ -36,6 +36,16 @@ public class ProductOrderModel {
     private String nickName;
     @ApiModelProperty(value = "用户使用的优惠券id,若为空或为0,则表示没用优惠券")
     private String couponids;
+    @ApiModelProperty(value = "买家是否已评价")
+    private boolean buyerRate;
+
+    public boolean isBuyerRate() {
+        return buyerRate;
+    }
+
+    public void setBuyerRate(boolean buyerRate) {
+        this.buyerRate = buyerRate;
+    }
 
     public String getCouponids() {
         return couponids;

@@ -35,6 +35,14 @@ public class CategoryController {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
+    @ApiOperation("商家的服务分类")
+    @GetMapping("/business/category")
+    public ResponseData<List<CategoryRecommendDto>> categoryRecommends(){
+        ServiceStatusInfo<List<CategoryRecommendDto>> serviceStatusInfo = this.categoryService.categoryRecommends();
+        if(serviceStatusInfo.isSuccess())
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
+    }
 
 
 
