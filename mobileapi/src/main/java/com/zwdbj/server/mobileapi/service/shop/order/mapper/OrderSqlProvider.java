@@ -13,12 +13,16 @@ public class OrderSqlProvider {
                 .FROM("shop_productOrders o ")
                 .LEFT_OUTER_JOIN("shop_productOrderItems oi on oi.orderId=o.id")
                 .WHERE("o.userId="+userId);
-        if (status==1){
+        if (status==0){
+            sql.ORDER_BY("createTime desc");
+            return sql.toString();
+        }else if (status==1){
             sql.WHERE("o.status='STATE_WAIT_BUYER_PAY'");
         }else if (status==2){
             sql.WHERE("o.status='STATE_UNUSED'");
         }else if (status==3){
-            sql.WHERE("o.buyerRate=false");
+            sql.WHERE("o.buyerRate=false")
+            .AND().WHERE("o.status in ('STATE_BUYER_DELIVERIED','STATE_USED','STATE_SUCCESS')");
         }
         sql.ORDER_BY("createTime desc");
         return sql.toString();

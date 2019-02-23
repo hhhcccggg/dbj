@@ -57,7 +57,7 @@ public class StoreController {
         return new ResponseData<>(1,"更新失败",null);
     }
     @RequiresAuthentication
-    @RequestMapping(value = "/review/store/{storeId}/{legalSubjectId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/review/store/{storeId}/{legalSubjectId}", method = RequestMethod.POST)
     @ApiOperation(value = "店铺的审核")
     public ResponseData<Integer> reviewStore(@PathVariable long storeId,
                                              @PathVariable long legalSubjectId,
