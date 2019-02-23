@@ -60,10 +60,10 @@ public class OrderService {
     private NearbyShopService nearbyShopServiceImpl;
     private Logger logger = LoggerFactory.getLogger(OrderService.class);
 
-    public List<ProductOrderModel> getMyOrders(int status,int comment){
+    public List<ProductOrderModel> getMyOrders(int status){
         try {
             long userId = JWTUtil.getCurrentId();
-            List<ProductOrderModel> orderModels = this.orderMapper.getMyOrders(userId,status,comment);
+            List<ProductOrderModel> orderModels = this.orderMapper.getMyOrders(userId,status);
             for (ProductOrderModel model:orderModels){
                 model.setNickName(this.userService.getUserDetail(userId).getNickName());
                 model.setStoreName(this.nearbyShopServiceImpl.shopHomePage(model.getStoreId()).getData().getName());

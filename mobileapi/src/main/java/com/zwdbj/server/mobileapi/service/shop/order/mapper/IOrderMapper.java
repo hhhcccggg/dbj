@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface IOrderMapper {
     @SelectProvider(type = OrderSqlProvider.class,method = "getMyOrders")
-    List<ProductOrderModel> getMyOrders(@Param("userId")long userId,@Param("status")int status,@Param("comment")int comment);
+    List<ProductOrderModel> getMyOrders(@Param("userId")long userId,@Param("status")int status);
 
     @Select("select o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price from shop_productOrders o " +
             "left join shop_productOrderItems oi on oi.orderId=o.id where o.id=#{id}")
