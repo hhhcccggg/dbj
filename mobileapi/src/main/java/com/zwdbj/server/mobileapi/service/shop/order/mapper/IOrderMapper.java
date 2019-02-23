@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface IOrderMapper {
     @SelectProvider(type = OrderSqlProvider.class,method = "getMyOrders")
-    List<ProductOrderModel> getMyOrders(@Param("userId")long userId,@Param("status")int status);
+    List<ProductOrderModel> getMyOrders(@Param("userId")long userId,@Param("status")int status,@Param("comment")int comment);
 
     @Select("select o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price from shop_productOrders o " +
             "left join shop_productOrderItems oi on oi.orderId=o.id where o.id=#{id}")
@@ -29,10 +29,10 @@ public interface IOrderMapper {
             "where o.userId=#{userId} and oi.productId=#{productId} ")
     int userBuyProductAccounts(@Param("userId")long userId,@Param("productId")long productId);
     @Update("update shop_productOrders set paymentType=#{paymentType},thirdPaymentTradeNo=#{thirdPaymentTradeNo}," +
-            "thirdPaymentTradeNotes=#{thirdPaymentTradeNotes},`status`='STATE_BUYER_PAYED',updateTime=now(),paymentTime=now() " +
+            "thirdPaymentTradeNotes=#{thirdPaymentTradeNotes},`status`=#{status},updateTime=now(),paymentTime=now() " +
             "where id=#{id}")
     int updateOrderPay(@Param("id")long id,@Param("paymentType")String paymentType,@Param("thirdPaymentTradeNo")String thirdPaymentTradeNo,
-                       @Param("thirdPaymentTradeNotes")String thirdPaymentTradeNotes);
+                       @Param("thirdPaymentTradeNotes")String thirdPaymentTradeNotes,@Param("status")String status);
 
     @Update("update shop_productOrders set `status`=#{status} where id=#{id} and thirdPaymentTradeNo=#{thirdPaymentTradeNo}")
     int updateOrderState(@Param("id")long id,@Param("thirdPaymentTradeNo")String thirdPaymentTradeNo,@Param("status")String status);

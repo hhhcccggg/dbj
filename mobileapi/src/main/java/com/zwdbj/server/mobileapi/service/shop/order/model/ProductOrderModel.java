@@ -32,6 +32,10 @@ public class ProductOrderModel {
     private int payment;
     @ApiModelProperty(value = "用户id")
     private long userId;
+    @ApiModelProperty(value = "用户id")
+    private long productId;
+    @ApiModelProperty(value = "用户id")
+    private long productskuId;
     @ApiModelProperty(value = "用户的昵称")
     private String nickName;
     @ApiModelProperty(value = "用户使用的优惠券id,若为空或为0,则表示没用优惠券")
@@ -42,6 +46,22 @@ public class ProductOrderModel {
     private long storeId;
     @ApiModelProperty(value = "店铺的名字")
     private String storeName;
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public long getProductskuId() {
+        return productskuId;
+    }
+
+    public void setProductskuId(long productskuId) {
+        this.productskuId = productskuId;
+    }
 
     public long getStoreId() {
         return storeId;
