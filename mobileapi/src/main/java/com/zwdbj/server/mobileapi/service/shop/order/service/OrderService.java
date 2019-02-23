@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.service.shop.order.service;
 
 import com.ecwid.consul.v1.ConsulClient;
 import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
+import com.zwdbj.server.mobileapi.service.shop.nearbyShops.service.NearbyShopService;
 import com.zwdbj.server.mobileapi.service.shop.order.mapper.IOrderMapper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
@@ -54,6 +55,8 @@ public class OrderService {
     private UserDiscountCouponService userDiscountCouponServiceImpl;
     @Autowired
     private ProductSKUsService productSKUsServiceImpl;
+    @Autowired
+    private NearbyShopService nearbyShopServiceImpl;
     private Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     public List<ProductOrderModel> getMyOrders(int status){
@@ -62,6 +65,7 @@ public class OrderService {
             List<ProductOrderModel> orderModels = this.orderMapper.getMyOrders(userId,status);
             for (ProductOrderModel model:orderModels){
                 model.setNickName(this.userService.getUserDetail(userId).getNickName());
+                model.setStoreName(this.nearbyShopServiceImpl.shopHomePage(model.getStoreId()).getData().getName());
                 ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
                 if (addressModel!=null)
                     model.setAddressModel(addressModel);
@@ -82,6 +86,7 @@ public class OrderService {
             calendar.add(Calendar.MINUTE, +15);
             Date lastPayTime = calendar.getTime();
             model.setLastPayTime(lastPayTime);
+            model.setStoreName(this.nearbyShopServiceImpl.shopHomePage(model.getStoreId()).getData().getName());
             ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
             model.setNickName(this.userService.getUserDetail(model.getUserId()).getNickName());
             model.setAddressModel(addressModel);

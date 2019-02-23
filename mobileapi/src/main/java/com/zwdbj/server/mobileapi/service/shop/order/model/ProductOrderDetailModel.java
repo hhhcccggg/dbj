@@ -34,10 +34,7 @@ public class ProductOrderDetailModel extends ProductOrderModel {
     @ApiModelProperty(value = "订单的最后支付时间")
     private Date lastPayTime;
 
-    @ApiModelProperty(value = "店铺的id")
-    private long storeId;
-    @ApiModelProperty(value = "店铺的名字")
-    private String name;
+
 
     public Date getLastPayTime() {
         return lastPayTime;
@@ -143,19 +140,4 @@ public class ProductOrderDetailModel extends ProductOrderModel {
         this.buyerRate = buyerRate;
     }
 
-    public long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(long storeId) {
-        this.storeId = storeId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
