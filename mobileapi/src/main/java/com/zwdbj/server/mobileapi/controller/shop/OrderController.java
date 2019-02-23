@@ -37,7 +37,7 @@ public class OrderController {
             "1，STATE_WAIT_BUYER_PAY（待付款，等待买家付款）" +
             "2，STATE_UNUSED (待使用，虚拟商品有效) " +
             "3，STATE_USED (待评价，虚拟商品有效)")
-    @RequestMapping(value = "/getOrders/{status}/{comment}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getOrders/{status}", method = RequestMethod.GET)
     public ResponsePageInfoData<List<ProductOrderModel>> getMyOrders(@PathVariable int status,
                                                                      @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                      @RequestParam(value = "rows", required = true, defaultValue = "30") int rows){
