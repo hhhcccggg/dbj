@@ -66,7 +66,9 @@ public class OrderService {
             List<ProductOrderModel> orderModels = this.orderMapper.getMyOrders(userId,status);
             for (ProductOrderModel model:orderModels){
                 model.setNickName(this.userService.getUserDetail(userId).getNickName());
-                model.setStoreName(this.nearbyShopServiceImpl.shopHomePage(model.getStoreId()).getData().getName());
+                String name = this.nearbyShopServiceImpl.shopHomePage(model.getStoreId()).getData().getName();
+                if (name!=null && !("").equals(name))
+                model.setStoreName(name);
                 ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
                 if (addressModel!=null)
                     model.setAddressModel(addressModel);
