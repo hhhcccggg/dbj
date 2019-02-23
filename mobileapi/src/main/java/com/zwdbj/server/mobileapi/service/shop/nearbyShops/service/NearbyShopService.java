@@ -11,6 +11,7 @@ public interface NearbyShopService {
     ServiceStatusInfo<List<SuperStar>> superStar(long storeId);
 
     ServiceStatusInfo<DiscountCouponDetail> searchDiscountCouponDetail(long discountCouponId);
+    ServiceStatusInfo<StoreAuthenticationInfo> authenticationStore(long storeId);
 
 //    ServiceStatusInfo<List<NearbyShop>> nearbyShopList(int pageNo);
 

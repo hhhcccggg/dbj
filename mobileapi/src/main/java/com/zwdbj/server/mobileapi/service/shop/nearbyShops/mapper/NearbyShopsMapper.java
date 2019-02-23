@@ -34,6 +34,9 @@ public interface NearbyShopsMapper {
             "o.storeId=#{storeId} and o.userId=u.id and o.userId=v.userId GROUP BY v.userId")
     List<SuperStar> searchSuperStar(@Param("storeId") long storeId);
 
+    @Select("select * from shop_stores where id=#{storeId} and reviewed=true and isDeleted=false")
+    StoreAuthenticationInfo authenticationStore(@Param("storeId")long storeId);
+
     @Select("select id,name,storeId,couponCount,userInfo,validStartTime,validEndTime,order,rule" +
             "onlySupportOriginProduct,range where id=#{discountCouponId}")
     DiscountCouponDetail seachDiscountCouponDetail(@Param("discountCouponId") long discountCouponId);

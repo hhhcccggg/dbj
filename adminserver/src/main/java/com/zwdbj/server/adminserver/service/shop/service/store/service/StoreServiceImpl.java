@@ -16,6 +16,7 @@ import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStore
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.service.StoreReviewService;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,14 +73,22 @@ public class StoreServiceImpl implements StoreService {
         StoreInfo storeInfo = null;
         try {
             storeInfo = iStoreMapper.selectByStoreId(storeId);
-            ServiceStatusInfo<List<OfflineStoreExtraServices>> extraServices = extraServicesService.selectByofflineStoreId(storeId);
-            ServiceStatusInfo<List<OfflineStoreOpeningHours>> openingHours = openingHoursService.select(storeId);
-            ServiceStatusInfo<List<OfflineStoreServiceScopes>> serviceScopes = serviceScopesService.selectByofflineStoreId(storeId);
-            ServiceStatusInfo<List<DiscountCouponModel>> disCountCoupon = discountCouponService.selectByStoreId(storeId);
-            storeInfo.setOpeningHours(openingHours.getData());
-            storeInfo.setDiscountCoupons(disCountCoupon.getData());
-            storeInfo.setExtraServices(extraServices.getData());
-            storeInfo.setServiceScopes(serviceScopes.getData());
+            if (storeInfo==null)return new ServiceStatusInfo<>(1, "查询失败" , null);
+            List<OfflineStoreExtraServices> extraServices = extraServicesService.selectByofflineStoreId(storeId).getData();
+            List<OfflineStoreOpeningHours> openingHours = openingHoursService.select(storeId).getData();
+            List<OfflineStoreServiceScopes> serviceScopes = serviceScopesService.selectByofflineStoreId(storeId).getData();
+            List<DiscountCouponModel> disCountCoupon = discountCouponService.selectByStoreId(storeId).getData();
+            List<BusinessSellerReviewModel> businessSellerReviewModels = this.storeReviewServiceImpl.getStoreReviewById(storeInfo.getLegalSubjectId()).getData();
+            if (openingHours!=null && openingHours.size()!=0 )
+                storeInfo.setOpeningHours(openingHours);
+            if (disCountCoupon!=null && disCountCoupon.size()!=0 )
+                storeInfo.setDiscountCoupons(disCountCoupon);
+            if (extraServices!=null && extraServices.size()!=0 )
+                storeInfo.setExtraServices(extraServices);
+            if (serviceScopes!=null && serviceScopes.size()!=0 )
+                storeInfo.setServiceScopes(serviceScopes);
+            if (businessSellerReviewModels!=null && businessSellerReviewModels.size()!=0)
+                storeInfo.setBusinessSellerReviewModels(businessSellerReviewModels);
             return new ServiceStatusInfo<>(0, "", storeInfo);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), storeInfo);

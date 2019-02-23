@@ -83,4 +83,15 @@ public class NearbyShopsController {
         }
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
+    @ApiOperation(value = "商家的认证资料")
+    @RequestMapping(value = "/authentication/{storeId}", method = RequestMethod.GET)
+    public ResponseData<StoreAuthenticationInfo> authenticationStore(@PathVariable("storeId") long storeId) {
+        ServiceStatusInfo<StoreAuthenticationInfo> statusInfo = nearbyShopServiceImpl.authenticationStore(storeId);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
+    }
+
+
 }
