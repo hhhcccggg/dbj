@@ -37,7 +37,7 @@ public class ProductOrderDetailModel extends ProductOrderModel {
     @ApiModelProperty(value = "店铺的id")
     private long storeId;
     @ApiModelProperty(value = "店铺的名字")
-    private String storeName;
+    private String name;
 
     public Date getLastPayTime() {
         return lastPayTime;
@@ -151,11 +151,11 @@ public class ProductOrderDetailModel extends ProductOrderModel {
         this.storeId = storeId;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public String getName() {
+        return name;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setName(String name) {
+        this.name = name;
     }
 }
