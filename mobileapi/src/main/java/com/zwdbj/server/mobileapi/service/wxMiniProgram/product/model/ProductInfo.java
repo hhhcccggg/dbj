@@ -5,8 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "商家主页商品，优惠券信息")
 public class ProductInfo {
+    @ApiModelProperty(value = "产品id")
+    Long productId;
     @ApiModelProperty(value = "产品规格id")
-    Long id;
+    Long skuId;
     @ApiModelProperty(value = "商家id")
     Long storeId;
     @ApiModelProperty(value = "商品类型O:实物产品1:虚拟商品")
@@ -31,6 +33,21 @@ public class ProductInfo {
     @ApiModelProperty(value = "促销价")
     Long promotionPrice;
 
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Long getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(Long skuId) {
+        this.skuId = skuId;
+    }
 
     public long getInventory() {
         return inventory;
@@ -80,13 +97,6 @@ public class ProductInfo {
         this.storeId = storeId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getProductType() {
         return productType;
