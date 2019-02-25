@@ -62,7 +62,6 @@ public class UpdateProducts {
     private Date validEndTime;
 
     @ApiModelProperty(value = "生效类型 PAY_VALIDED:付款后立即生效 PAY_NEXTDAY_VALIDED:付款后次日生效 PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
-    @NotNull(message = "生效类型不能为空")
     private ValidType validType;
 
     @ApiModelProperty(value = "支持金币兑换购买")
