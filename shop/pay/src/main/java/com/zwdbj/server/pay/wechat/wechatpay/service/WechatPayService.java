@@ -11,17 +11,11 @@ import com.zwdbj.server.utility.common.IP;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
-import sun.security.provider.MD5;
 
-import javax.annotation.Resource;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.HashMap;
@@ -277,7 +271,7 @@ public class WechatPayService {
      * @param input
      * @return 统一申请退款
      */
-    public ServiceStatusInfo<RefundOrderDto> refundOrder(RefundOrderInput input) {
+    public ServiceStatusInfo<RefundOrderDto> refundOrder(WXRefundOrderInput input) {
         try {
             WeChatPayConfig config = chatConfig();
             WXPay pay = new WXPay(config,WXPayConstants.SignType.MD5,isSandbox);

@@ -1,9 +1,9 @@
 package com.zwdbj.server.mobileapi.service.pay.wechat.service;
 
 import com.alibaba.fastjson.JSON;
+import com.zwdbj.server.mobileapi.service.pay.Refund.model.PayRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
-import com.zwdbj.server.mobileapi.service.pay.wechat.model.WXRefundInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
@@ -144,13 +144,10 @@ public class WXPayService {
     }
     /**
      * @param input 退款信息
-     * @param userId 谁退款
      * @return 返回退款信息
      */
     @Transactional
-    public ServiceStatusInfo<RefundOrderDto> refundOrder(WXRefundInput input, long userId) {
-        ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
-        if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
+    public ServiceStatusInfo<RefundOrderDto> refundOrder(PayRefundInput input,int refundAmount,  String tradeNo) {
         int rmbs = 0;
         if(this.wxPayAppCfg.isSandBox()) {
             rmbs = 201;
@@ -158,19 +155,19 @@ public class WXPayService {
             if (this.wxPayAppCfg.getIsTest()) {
                 rmbs = 1;
             } else {
-                rmbs = productOrderDetailModel.getActualPayment();
+                rmbs = refundAmount;
             }
         }
         // 生成预付单
-        RefundOrderInput refundOrderInput = new RefundOrderInput();
-        refundOrderInput.setRefundDesc(input.getRefundDesc());
-        refundOrderInput.setTotalFee(rmbs);
-        refundOrderInput.setRefundFee(rmbs);
-        refundOrderInput.setTransactionId(input.getTransactionId());
-        refundOrderInput.setType("WECHAT");
-        refundOrderInput.setNotifyUrl(this.wxPayAppCfg.getOrderRefundResultCallbackUrl());
+        WXRefundOrderInput wXRefundOrderInput = new WXRefundOrderInput();
+        wXRefundOrderInput.setRefundDesc(input.getRefundReason());
+        wXRefundOrderInput.setTotalFee(rmbs);
+        wXRefundOrderInput.setRefundFee(rmbs);
+        wXRefundOrderInput.setTransactionId(tradeNo);
+        wXRefundOrderInput.setType("WECHAT");
+        wXRefundOrderInput.setNotifyUrl(this.wxPayAppCfg.getOrderRefundResultCallbackUrl());
         ServiceStatusInfo<RefundOrderDto> refundOrderDtoServiceStatusInfo =
-                this.wechatPayService.refundOrder(refundOrderInput);
+                this.wechatPayService.refundOrder(wXRefundOrderInput);
         if (!refundOrderDtoServiceStatusInfo.isSuccess()) {
             return new ServiceStatusInfo<>(1,refundOrderDtoServiceStatusInfo.getMsg(),null);
         }

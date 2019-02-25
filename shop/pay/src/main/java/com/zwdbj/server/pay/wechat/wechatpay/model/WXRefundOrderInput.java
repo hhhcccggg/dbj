@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("微信支付申请退款")
-public class RefundOrderInput {
+public class WXRefundOrderInput {
 
     /**
      * 订单号
