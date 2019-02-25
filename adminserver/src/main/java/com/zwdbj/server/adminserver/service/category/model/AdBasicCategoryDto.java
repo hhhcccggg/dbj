@@ -23,6 +23,16 @@ public class AdBasicCategoryDto {
     Long sonCount;
     @ApiModelProperty(value = "父类id,默认传0")
     Long parentId;
+    @ApiModelProperty("状态 0:正常 1：下线")
+    int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getIconUrl() {
         return iconUrl;
