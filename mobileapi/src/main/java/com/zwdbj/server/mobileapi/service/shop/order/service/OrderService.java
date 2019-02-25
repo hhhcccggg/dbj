@@ -65,10 +65,7 @@ public class OrderService {
             long userId = JWTUtil.getCurrentId();
             List<ProductOrderModel> orderModels = this.orderMapper.getMyOrders(userId,status);
             for (ProductOrderModel model:orderModels){
-                model.setNickName(this.userService.getUserDetail(userId).getNickName());
-                String name = this.nearbyShopServiceImpl.shopHomePage(model.getStoreId()).getData().getName();
-                if (name!=null && !("").equals(name))
-                model.setStoreName(name);
+                model.setNickName(this.userService.getUserName(userId));
                 ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
                 if (addressModel!=null)
                     model.setAddressModel(addressModel);

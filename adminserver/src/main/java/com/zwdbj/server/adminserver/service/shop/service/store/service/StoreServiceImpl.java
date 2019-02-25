@@ -113,10 +113,10 @@ public class StoreServiceImpl implements StoreService {
     @Override
     @Transactional
     public ServiceStatusInfo<Integer> reviewStore(long storeId, long legalSubjectId, ReviewStoreInput input) {
+        int a=0;
         //审核所有的需要审核的资料
-        int a = this.storeReviewServiceImpl.reviewStore(legalSubjectId,input).getData();
+        a = this.storeReviewServiceImpl.reviewStore(legalSubjectId,input).getData();
 
-        if (a==0)return new ServiceStatusInfo<>(1,"资料审核失败",0);
         //审核store
         a=this.iStoreMapper.reviewStore(storeId,input.isReviewOrNot());
 

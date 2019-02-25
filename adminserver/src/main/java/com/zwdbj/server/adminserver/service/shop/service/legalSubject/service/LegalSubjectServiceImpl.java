@@ -102,7 +102,6 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
         int result = 0;
         try {
             result = this.legalSubjectMapper.verityUnReviewedLegalSubject(id,input);
-            if (result==0)new ServiceStatusInfo<>(1, "审核商家失败", result);
             return new ServiceStatusInfo<>(0, "审核完毕", result);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "审核出现异常：" + e.getMessage(), result);
