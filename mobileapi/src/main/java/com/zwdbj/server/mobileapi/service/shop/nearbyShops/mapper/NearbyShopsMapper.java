@@ -34,7 +34,7 @@ public interface NearbyShopsMapper {
             "o.storeId=#{storeId} and o.userId=u.id and o.userId=v.userId GROUP BY v.userId")
     List<SuperStar> searchSuperStar(@Param("storeId") long storeId);
 
-    @Select("select * from shop_stores where id=#{storeId} and reviewed=true and isDeleted=false")
+    @Select("select * from shop_stores where id=#{storeId} and reviewed=true and isDeleted=false and `status`=0")
     StoreAuthenticationInfo authenticationStore(@Param("storeId")long storeId);
 
     @Select("select id,name,storeId,couponCount,userInfo,validStartTime,validEndTime,order,rule" +

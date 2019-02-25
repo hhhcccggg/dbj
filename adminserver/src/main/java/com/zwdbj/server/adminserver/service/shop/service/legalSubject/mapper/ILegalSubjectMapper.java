@@ -30,7 +30,7 @@ public interface ILegalSubjectMapper {
     List<LegalSubjectModel> getLegalSubjects(@Param("input") LegalSubjectSearchInput input);
     @SelectProvider(type = LegalSubjectSQLProvider.class ,method = "searchUnReviewedSql")
     List<LegalSubjectModel> getUnReviewedLegalSubjects(@Param("input") LegalSubjectSearchInput input);
-    @Update("update shop_legalSubjects set reviewed=#{input.reviewed},rejectMsg=#{input.rejectMsg} where id=#{id}")
+    @Update("update shop_legalSubjects set reviewed=#{input.reviewOrNot},reviewMsg=#{input.reviewMsg} where id=#{id}")
     int verityUnReviewedLegalSubject(@Param("id") long id, @Param("input") ReviewStoreInput input);
 
     @Select("select * from shop_legalSubjectReviews where legalSubjectId=#{legalSubjectId}")

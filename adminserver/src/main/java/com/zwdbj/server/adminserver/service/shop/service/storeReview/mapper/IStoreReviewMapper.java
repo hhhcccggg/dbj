@@ -19,7 +19,7 @@ public interface IStoreReviewMapper {
     int addStoreReview(@Param("id") long id, @Param("input") StoreReviewAddInput input);
     @Delete("delete from shop_legalSubjectReviews where id=#{id}")
     int deleteStoreReview(@Param("id") long id);
-    @Update("update shop_legalSubjectReviews set status=#{status},rejectMsg=#{input.rejectMsg} where legalSubjectId=#{legalSubjectId}")
+    @Update("update shop_legalSubjectReviews set `status`=#{status},rejectMsg=#{input.reviewMsg} where legalSubjectId=#{legalSubjectId}")
     int reviewStore(@Param("legalSubjectId") long legalSubjectId,@Param("input") ReviewStoreInput input,@Param("status")int status);
 
     @Update("update shop_legalSubjectReviews set deleteTime=true,deleteTime=now() where id=#{id}")

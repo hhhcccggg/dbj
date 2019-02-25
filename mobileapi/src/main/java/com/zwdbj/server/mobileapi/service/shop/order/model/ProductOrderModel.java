@@ -32,9 +32,9 @@ public class ProductOrderModel {
     private int payment;
     @ApiModelProperty(value = "用户id")
     private long userId;
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "商品id")
     private long productId;
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "商品skuid")
     private long productskuId;
     @ApiModelProperty(value = "用户的昵称")
     private String nickName;

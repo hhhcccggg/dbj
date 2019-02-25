@@ -76,6 +76,8 @@ public class StoreReviewServiceImpl implements StoreReviewService {
     @Override
     public ServiceStatusInfo<Integer> reviewStore(long legalSubjectId, ReviewStoreInput input) {
         try {
+            /*List<BusinessSellerReviewModel> businessSellerReviewModels = this.getStoreReviewById(legalSubjectId).getData();
+            if (businessSellerReviewModels==null)return  new ServiceStatusInfo<>(0,"商铺资料审核成功",0);*/
             int status = 1;
             if (input.isReviewOrNot()){
                 status=0;
