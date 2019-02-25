@@ -71,17 +71,20 @@ public class ProductServiceImpl implements ProductService {
                 return new ServiceStatusInfo<>(1, "新增失败：影响行数"+result, null);
             }
             ProductSKUs productSKUs = new ProductSKUs();
+            long skuid = UniqueIDCreater.generateID();
             productSKUs.setProductId(id);
             productSKUs.setInventory(createProducts.getInventory());
             productSKUs.setOriginalPrice(createProducts.getOriginalPrice());
             productSKUs.setPromotionPrice(createProducts.getPromotionPrice());
-            iProductSKUsMapper.createProductSKUs(UniqueIDCreater.generateID(),productSKUs);
+            iProductSKUsMapper.createProductSKUs(skuid,productSKUs);
             if(ProductDetailType.CARD == createProducts.getProductDetailType()){
                 ProductCard productCard = new ProductCard(createProducts,id);
+                productCard.setProductSKUId(skuid);
                 this.iProductCardMapper.createProductCard(UniqueIDCreater.generateID(),productCard);
             }
             if(ProductDetailType.CASHCOUPON == createProducts.getProductDetailType()){
                 ProductCashCoupon productCashCoupon = new ProductCashCoupon(createProducts,id);
+                productCashCoupon.setProductSKUId(skuid);
                 this.iProductCashCouponMapper.createProductCashCoupon(UniqueIDCreater.generateID(),productCashCoupon);
             }
             redisTemplate.delete(MainKeyType.MAINPRODUCT);
