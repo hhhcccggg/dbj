@@ -9,6 +9,8 @@ public class AdBasicCategoryDto {
     long id;
     @ApiModelProperty("分类名")
     String name;
+    @ApiModelProperty("分类头像")
+    String iconUrl;
     @ApiModelProperty("是否还有子分类。isHaveNextNode==true?'该分类下有子分类':'该分类下没有子分类'")
     boolean isHaveNextNode;
     @ApiModelProperty(value = "分类创建者ID，如果是系统内置分类，此字段保持为null")
@@ -21,6 +23,14 @@ public class AdBasicCategoryDto {
     Long sonCount;
     @ApiModelProperty(value = "父类id,默认传0")
     Long parentId;
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
 
     public Long getParentId() {
         return parentId;
