@@ -30,7 +30,7 @@ public class StoreSqlProvider {
             sql.WHERE("s.`status`=#{input.status}");
         }
         if (input.getKeyWords()!=null && input.getKeyWords().length()>0){
-            sql.WHERE(String.format("s.title like '%s'",("%"+input.getKeyWords()+"%")));
+            sql.WHERE(String.format("s.name like '%s'",("%"+input.getKeyWords()+"%")));
         }
         sql.ORDER_BY("s.createTime desc");
         return sql.toString();
