@@ -67,5 +67,5 @@ public interface IFavoriteMapper {
             " `isDeleted` = 1," +
             " `deleteTime` = now()" +
             " WHERE userId=#{favoriteDto.userId} and targetType = #{favoriteDto.targetType} and targetId = #{favoriteDto.targetId} ")
-    int cancelFavorite(@Param("favoriteDto")FavoriteDto favoriteDto);
+    long cancelFavorite(@Param("favoriteDto")FavoriteDto favoriteDto);
 }

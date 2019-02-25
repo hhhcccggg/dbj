@@ -128,17 +128,17 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public ServiceStatusInfo<Boolean> cancelFavorite(FavoriteDto favoriteDto) {
+    public ServiceStatusInfo<Long> cancelFavorite(FavoriteDto favoriteDto) {
         try{
             long userId = JWTUtil.getCurrentId();
             if (userId == 0) {
                 return new ServiceStatusInfo<>(1, "用户未登录", null);
             }
             favoriteDto.setUserId(userId);
-            int result = this.iFavoriteMapper.cancelFavorite(favoriteDto);
+            long result = this.iFavoriteMapper.cancelFavorite(favoriteDto);
             if(result > 0)
-                return new ServiceStatusInfo<>(0, "", Boolean.TRUE);
-            return new ServiceStatusInfo<>(0, "取消失败" , Boolean.FALSE);
+                return new ServiceStatusInfo<>(0, "", result);
+            return new ServiceStatusInfo<>(0, "取消失败,数据不存在" , result);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "取消失败" + e.getMessage(), null);
         }

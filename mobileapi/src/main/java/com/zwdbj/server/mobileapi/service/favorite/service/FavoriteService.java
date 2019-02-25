@@ -46,5 +46,5 @@ public interface FavoriteService {
      * @param favoriteDto
      * @return
      */
-    ServiceStatusInfo<Boolean> cancelFavorite(FavoriteDto favoriteDto);
+    ServiceStatusInfo<Long> cancelFavorite(FavoriteDto favoriteDto);
 }
