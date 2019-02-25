@@ -8,7 +8,7 @@ public class AdNewCategoryInput {
     @ApiModelProperty(value = "分类的名称")
     String name;
     //0:宠物分类
-    @ApiModelProperty(value = "分类类型 分类,-1:全部,0:宠物,1:其他")
+    @ApiModelProperty(value = "分类类型 分类,-1:全部,0:宠物分类，1：线下商家服务分类2：商城产品分类")
     int type;
     @ApiModelProperty("iconUrl")
     String iconUrl;
