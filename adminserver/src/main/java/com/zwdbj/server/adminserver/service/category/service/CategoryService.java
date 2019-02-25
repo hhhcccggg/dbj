@@ -61,6 +61,7 @@ public class CategoryService {
         //TODO 检查title是否在系统存在
         Long result = 0L;
         try {
+            input.setIconUrl(qiniuService.url(input.getIconUrl()));
             result = this.categoryMapper.editCategoryAd(id, input);
             redisTemplate.delete(MainKeyType.MAINCATEGORY);
             return new ServiceStatusInfo<>(0, "", result);
