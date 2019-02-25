@@ -87,9 +87,8 @@ public class OrderService {
             calendar.add(Calendar.MINUTE, +15);
             Date lastPayTime = calendar.getTime();
             model.setLastPayTime(lastPayTime);
-            model.setStoreName(this.nearbyShopServiceImpl.shopHomePage(model.getStoreId()).getData().getName());
             ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
-            model.setNickName(this.userService.getUserDetail(model.getUserId()).getNickName());
+            model.setNickName(this.userService.getUserName(model.getUserId()));
             model.setAddressModel(addressModel);
             return new ServiceStatusInfo<>(0,"",model);
         }catch (Exception e){

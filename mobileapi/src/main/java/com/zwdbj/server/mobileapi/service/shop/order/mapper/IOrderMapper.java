@@ -12,8 +12,8 @@ public interface IOrderMapper {
     @SelectProvider(type = OrderSqlProvider.class,method = "getMyOrders")
     List<ProductOrderModel> getMyOrders(@Param("userId")long userId,@Param("status")int status);
 
-    @Select("select o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price from shop_productOrders o " +
-            "left join shop_productOrderItems oi on oi.orderId=o.id where o.id=#{id}")
+    @Select("select o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price ,s.name as storeName from shop_productOrders o " +
+            "left join shop_productOrderItems oi on oi.orderId=o.id left join shop_stores s on s.id=o.storeId where o.id=#{id}")
     ProductOrderDetailModel getOrderById(@Param("id")long id);
 
     @Insert("insert into shop_productOrders(id,orderNo,payment,paymentType,actualPayment,useCoin," +
