@@ -8,6 +8,7 @@ import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
@@ -207,20 +208,47 @@ public class OrderService {
     }
     @Transactional
     public void updateOrderState(long id,String tradeNo,String status){
-        ProductOrderDetailModel model = this.getOrderById(id).getData();
+        ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
+        Lock lock = new Lock(consulClient, "mobileapi", "reFundOrder:" + id);
+        try {
+            if (lock.lock(true, 500L, 3)){
+                ProductOrderDetailModel model = this.getOrderById(id).getData();
 
-        if (status.equals("STATE_REFUNDING")  ){
-            if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
-                    || model.getStatus().equals("STATE_UNUSED")){
-                this.orderMapper.updateOrderState(id,tradeNo,status);
+                if (status.equals("STATE_REFUNDING")  ){
+                    if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
+                            || model.getStatus().equals("STATE_UNUSED")){
+                        this.orderMapper.updateOrderState(id,tradeNo,status);
+                    }
+                }else if (status.equals("STATE_REFUND_SUCCESS")){
+                    if ( model.getStatus().equals("STATE_REFUNDING") ){
+                        this.orderMapper.updateOrderState(id,tradeNo,status);
+                        //更新商品的库存  是否有使用金币抵扣
+                        int coins = model.getUseCoin();
+                        long userId = model.getUserId();
+                        if (coins!=0){
+                            this.userAssetServiceImpl.updateUserAsset(userId,coins);
+                            this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",coins);
+                            UserCoinDetailAddInput input = new UserCoinDetailAddInput();
+                            input.setType("TASK");
+                            input.setTitle("取消订单"+model.getId()+"返还:"+coins+"小饼干");
+                            input.setNum(coins);
+                            input.setStatus("SUCCESS");
+                            this.userAssetServiceImpl.addUserCoinDetail(userId,input);
+                        }
+                        //更新商品的库存
+                        long num = this.productServiceImpl.getProductInventoryNum(model.getProductId());
+                        if (num!=(-10000)){
+                            this.productServiceImpl.updateProductNum(model.getProductId(),model.getProductskuId(),-model.getNum());
+                        }
+                    }
+                }
             }
-        }else if (status.equals("STATE_REFUND_SUCCESS")){
-            if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
-                    || model.getStatus().equals("STATE_REFUNDING") || model.getStatus().equals("STATE_UNUSED")){
-                this.orderMapper.updateOrderState(id,tradeNo,status);
-                //更新商品的库存  是否有使用金币抵扣
-            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
         }
+
 
     }
 

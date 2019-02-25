@@ -37,7 +37,6 @@ public class ProductOrderService {
         Lock lock = new Lock(consulClient, "mobileapi", "productOrder:" + key);
         try {
             if (lock.lock(true, 500L, 2)) {
-                // TODO 考虑加锁
                 long userId = JWTUtil.getCurrentId();
                 //查看此商品的sku信息
                 ProductSKUs productSKUs =  this.productSKUsServiceImpl.selectById(input.getProductskuId()).getData();
