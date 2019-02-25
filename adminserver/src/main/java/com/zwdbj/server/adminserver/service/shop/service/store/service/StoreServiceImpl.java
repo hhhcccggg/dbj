@@ -59,7 +59,7 @@ public class StoreServiceImpl implements StoreService {
             List<StoreSimpleInfo> storeSimpleInfos = this.iStoreMapper.searchStore(input);
             for (StoreSimpleInfo info:storeSimpleInfos){
                 ServiceStatusInfo<List<String>> serviceScopes = serviceScopesService.selectCateNameByofflineStoreId(info.getId());
-                if (serviceScopes.getData()!=null || serviceScopes.getData().size()!=0)
+                if (serviceScopes.getData()!=null && serviceScopes.getData().size()!=0)
                 info.setServiceScopes(serviceScopes.getData().toString());
             }
             return new ServiceStatusInfo<>(0, "", storeSimpleInfos);
