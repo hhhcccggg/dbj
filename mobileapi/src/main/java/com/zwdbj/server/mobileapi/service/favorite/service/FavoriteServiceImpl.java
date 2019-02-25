@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.service.favorite.service;
 
 import com.zwdbj.server.mobileapi.service.favorite.common.TargetType;
 import com.zwdbj.server.mobileapi.service.favorite.mapper.IFavoriteMapper;
+import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteDto;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteInput;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteModel;
 import com.zwdbj.server.mobileapi.service.favorite.model.SearchFavorite;
@@ -124,5 +125,22 @@ public class FavoriteServiceImpl implements FavoriteService {
         int result = 0;
         result = this.iFavoriteMapper.isFavorite(userId, targetId, targetType);
         return result;
+    }
+
+    @Override
+    public ServiceStatusInfo<Boolean> cancelFavorite(FavoriteDto favoriteDto) {
+        try{
+            long userId = JWTUtil.getCurrentId();
+            if (userId == 0) {
+                return new ServiceStatusInfo<>(1, "用户未登录", null);
+            }
+            favoriteDto.setUserId(userId);
+            int result = this.iFavoriteMapper.cancelFavorite(favoriteDto);
+            if(result > 0)
+                return new ServiceStatusInfo<>(0, "", Boolean.TRUE);
+            return new ServiceStatusInfo<>(0, "取消失败" , Boolean.FALSE);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "取消失败" + e.getMessage(), null);
+        }
     }
 }

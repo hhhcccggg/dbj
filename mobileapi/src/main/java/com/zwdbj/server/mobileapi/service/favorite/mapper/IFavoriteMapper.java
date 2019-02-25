@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.favorite.mapper;
 
+import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteDto;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteInput;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteModel;
 import com.zwdbj.server.mobileapi.service.favorite.model.SearchFavorite;
@@ -55,4 +56,16 @@ public interface IFavoriteMapper {
      */
     @Select("select count(*) from shop_Favorites where userId=#{userId} and targetId=#{targetId} and targetType=#{targetType}")
     int isFavorite(@Param("userId")long userId,@Param("targetId")long targetId,@Param("targetType")String targetType );
+
+    /**
+     * 取消收藏
+     * @param favoriteDto
+     * @return
+     */
+    @Update("UPDATE `shop_Favorites` " +
+            "SET " +
+            " `isDeleted` = 1," +
+            " `deleteTime` = now()" +
+            " WHERE userId=#{favoriteDto.userId} and targetType = #{favoriteDto.targetType} and targetId = #{favoriteDto.targetId} ")
+    int cancelFavorite(@Param("favoriteDto")FavoriteDto favoriteDto);
 }
