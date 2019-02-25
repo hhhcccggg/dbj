@@ -2,7 +2,6 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
-import com.zwdbj.server.mobileapi.service.pay.wechat.model.WXRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.wechat.service.WXPayService;
 import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
@@ -55,17 +54,6 @@ public class PayWeChatController {
         }
     }
     @RequiresAuthentication
-    @RequestMapping(value = "/order/refund",method = RequestMethod.POST)
-    @ApiOperation("订单退款")
-    public ResponseData<RefundOrderDto> refundOrder(@RequestBody WXRefundInput input) {
-        ServiceStatusInfo<RefundOrderDto> serviceStatusInfo = this.weChatService.refundOrder(input,JWTUtil.getCurrentId());
-        if(serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
-        } else {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
-        }
-    }
-    @RequiresAuthentication
     @RequestMapping(value = "/orderQuery",method = RequestMethod.POST)
     @ApiOperation("查询小饼干订单")
     public ResponseData<OrderPayResultDto> orderQuery(@RequestBody OrderQueryInput input) {
@@ -87,17 +75,7 @@ public class PayWeChatController {
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
         }
     }
-    @RequiresAuthentication
-    @RequestMapping(value = "/refundOrder/orderQuery",method = RequestMethod.POST)
-    @ApiOperation("查询退款订单")
-    public ResponseData<RefundQueryResultDto> refundOrderQuery(@RequestBody RefundQueryInput input) {
-        ServiceStatusInfo<RefundQueryResultDto> serviceStatusInfo = this.weChatService.refundOrderQuery(input);
-        if(serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "OK", serviceStatusInfo.getData());
-        } else {
-            return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
-        }
-    }
+
     @RequestMapping(value = "/payNotify",method = RequestMethod.POST)
     public void payNotify(HttpServletResponse response, HttpServletRequest request) throws IOException {
         BufferedReader reader = request.getReader();
