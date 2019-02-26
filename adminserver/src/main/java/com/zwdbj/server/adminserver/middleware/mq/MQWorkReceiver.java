@@ -149,7 +149,8 @@ public class MQWorkReceiver extends MQConnection {
 
             channel.basicAck(envelope.getDeliveryTag(), false);
         }else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.VIDEO_INFO) {
-            info.getVideoInfo().getVideoId();
+            VideoService videoService = SpringContextUtil.getBean(VideoService.class);
+            videoService.operationByIdES(info.getVideoInfo().getVideoId(),info.getVideoInfo().getOperation());
             //确认消费
             channel.basicAck(envelope.getDeliveryTag(),false);
         }
