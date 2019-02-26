@@ -118,13 +118,14 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
     /**
      * 查询店铺的认证资料
+     *
      * @param storeId
      * @return
      */
     @Override
     public ServiceStatusInfo<StoreAuthenticationInfo> authenticationStore(long storeId) {
         StoreAuthenticationInfo info = this.nearbyShopsMapper.authenticationStore(storeId);
-        if (info==null)return new ServiceStatusInfo<>(1, "查询失败", null);
+        if (info == null) return new ServiceStatusInfo<>(1, "查询失败", null);
         return new ServiceStatusInfo<>(0, "", info);
     }
 
@@ -259,5 +260,11 @@ public class NearbyShopServiceImpl implements NearbyShopService {
         List<DiscountCoupon> discountCouponDetails = this.nearbyShopsMapper.getNearByDiscount(longitude, latitude);
 
         return discountCouponDetails;
+    }
+
+    @Override
+    public StoreLocation searchStoreLocation(long storeId) {
+        StoreLocation result = nearbyShopsMapper.searchStoreLocation(storeId);
+        return result;
     }
 }

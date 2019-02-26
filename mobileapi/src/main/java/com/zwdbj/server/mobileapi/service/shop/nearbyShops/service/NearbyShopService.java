@@ -11,6 +11,7 @@ public interface NearbyShopService {
     ServiceStatusInfo<List<SuperStar>> superStar(long storeId);
 
     ServiceStatusInfo<DiscountCouponDetail> searchDiscountCouponDetail(long discountCouponId);
+
     ServiceStatusInfo<StoreAuthenticationInfo> authenticationStore(long storeId);
 
 //    ServiceStatusInfo<List<NearbyShop>> nearbyShopList(int pageNo);
@@ -18,4 +19,6 @@ public interface NearbyShopService {
     ServiceStatusInfo<List<SearchShop>> searchShop(SearchInfo info);
 
     List<DiscountCoupon> getNearByDiscount(double longitude, double latitude);
+
+    StoreLocation searchStoreLocation(long storeId);
 }

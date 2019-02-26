@@ -16,4 +16,5 @@ public interface IStoreMapper {
      */
     @Select("select *  from shop_stores where id=#{id} and isDeleted=0 limit 1")
     StoreModel selectById(@Param("id") long id);
+
 }
