@@ -43,7 +43,7 @@ namespace dbdesgin.Models
         /// <value><c>true</c> if is allowed en cash; otherwise, <c>false</c>.</value>
         public bool isAllowedEnCash { get; set; }
         /// <summary>
-        /// 提现状态REVIEWING：审核中;SUCCESS：成功；PROCESSING：处理中；FAILED：失败
+        /// 提现状态REVIEWING：审核中;SUCCESS：成功；PROCESSING：处理中；FAILED：失败 REVIEWED：审核成功
         /// </summary>
         /// <value>The status.</value>
         [Required]

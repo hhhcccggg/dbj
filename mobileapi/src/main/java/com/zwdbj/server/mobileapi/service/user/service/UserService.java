@@ -368,10 +368,15 @@ public class UserService {
         UserModel userModel = null;
         try {
             String regEx = "^0?(13|14|15|18|17|19)[0-9]{9}$";
+            String regEx2 = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
             Pattern r = Pattern.compile(regEx);
+            Pattern r2 = Pattern.compile(regEx2);
             Matcher m1 = r.matcher(phone);
+            Matcher m2 = r2.matcher(password);
             boolean rs1 = m1.matches();
-            if (!rs1  ) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
+            boolean rs2 = m2.matches();
+            if (!rs1  ) return new ServiceStatusInfo<>(1, "请填写正确格式的手机号", null);
+            if (!rs2  ) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
             String encodePassword = SHAEncrypt.encryptSHA(password);
             userModel = this.userMapper.findUserByPwd(phone, encodePassword);
             isLogined = userModel != null;
