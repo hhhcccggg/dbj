@@ -37,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class OrderService {
@@ -58,7 +59,7 @@ public class OrderService {
     @Autowired
     private ProductSKUsService productSKUsServiceImpl;
     @Autowired
-    private NearbyShopService nearbyShopServiceImpl;
+    private StringRedisTemplate stringRedisTemplate;
     private Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     public List<ProductOrderModel> getMyOrders(int status){
@@ -143,7 +144,11 @@ public class OrderService {
 
                 //创建order
                 int payment = (int)productSKUs.getPromotionPrice()*input.getNum()+input.getDeliveryFee();
-                this.orderMapper.createOrder(orderId,userId,input,payment);
+                Random random = new Random();
+                int code = random.nextInt(900000)  + 100000;
+                String verifyCode = String.valueOf(code);
+                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode);
+                this.stringRedisTemplate.opsForValue().set("orderIdVerifyCode:"+orderId,verifyCode);
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();
                 int price = (int)productSKUs.getPromotionPrice();
@@ -175,6 +180,16 @@ public class OrderService {
         }
 
         return new ServiceStatusInfo<>(1,"下单失败",null);
+    }
+    public ServiceStatusInfo<String> getVerifyCode(long orderId){
+        String verifyCode;
+        if (this.stringRedisTemplate.hasKey("orderIdVerifyCode:"+orderId)){
+            verifyCode = this.stringRedisTemplate.opsForValue().get("orderIdVerifyCode:"+orderId);
+        }else {
+            verifyCode = this.orderMapper.getVerifyCode(orderId);
+        }
+        if (verifyCode==null || "".equals(verifyCode))return new ServiceStatusInfo<>(1,"获取验证码失败",null);
+        return new ServiceStatusInfo<>(0,"",verifyCode);
     }
 
     @Transactional

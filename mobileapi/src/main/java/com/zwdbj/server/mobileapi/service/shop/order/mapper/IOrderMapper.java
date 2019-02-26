@@ -17,11 +17,14 @@ public interface IOrderMapper {
             "left join shop_productOrderItems oi on oi.orderId=o.id left join shop_stores s on s.id=o.storeId where o.id=#{id}")
     ProductOrderDetailModel getOrderById(@Param("id")long id);
 
-    @Insert("insert into shop_productOrders(id,orderNo,payment,paymentType,actualPayment,useCoin," +
+    @Insert("insert into shop_productOrders(id,orderNo,payment,paymentType,actualPayment,useCoin,verifyCode," +
             "deliveryFee,status,updateTime,userId,storeId,buyerComment,buyerRate,receiveAddressId,thirdPaymentTradeNo) " +
-            "values(#{id},#{id},#{payment},'NONE',#{payment},#{input.useCoin},#{input.deliveryFee},'STATE_WAIT_BUYER_PAY'," +
+            "values(#{id},#{id},#{payment},'NONE',#{payment},#{input.useCoin},#{verifyCode},#{input.deliveryFee},'STATE_WAIT_BUYER_PAY'," +
             "now(),#{userId},#{input.storeId},#{input.buyerComment},0,#{input.receiveAddressId},'NONE')")
-    int createOrder(@Param("id")long id, @Param("userId")long userId, @Param("input") AddNewOrderInput input, @Param("payment")int payment);
+    int createOrder(@Param("id")long id, @Param("userId")long userId, @Param("input") AddNewOrderInput input,
+                    @Param("payment")int payment,@Param("verifyCode")String verifyCode);
+    @Select("select verifyCode from shop_productOrders where id=#{id}")
+    String getVerifyCode(@Param("id")long orderId);
     @Insert("insert into shop_productOrderItems(id,productId,productskuId,orderId,num,title,price,totalFee) " +
             "values(#{id},#{input.productId},#{input.productskuId},#{orderId},#{input.num},#{input.title},#{price},#{totalFee})")
     int createOrderItem(@Param("id")long id,@Param("orderId")long orderId,@Param("input")AddNewOrderInput input,

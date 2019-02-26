@@ -66,8 +66,19 @@ public class OrderController {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-
     }
+    @RequestMapping(value = "/get/verifyCode/{orderId}",method = RequestMethod.POST)
+    @ApiOperation(value = "获取订单的验证码")
+    @RequiresAuthentication
+    public ResponseData<String> getVerifyCode(@PathVariable long orderId){
+        ServiceStatusInfo<String> statusInfo = this.orderService.getVerifyCode(orderId);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
+
     @RequestMapping(value = "/takeOver/goods",method = RequestMethod.GET)
     @ApiOperation(value = "确认收货,id为订单id")
     @RequiresAuthentication

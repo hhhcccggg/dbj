@@ -12,6 +12,7 @@ import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,8 @@ public class ProductOrderService {
     ReceiveAddressService receiveAddressServiceImpl;
     @Autowired
     TokenCenterManager tokenCenterManager;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     private Logger logger = LoggerFactory.getLogger(ProductOrderService.class);
 
@@ -106,7 +109,13 @@ public class ProductOrderService {
     public  ServiceStatusInfo<Integer> identifyingCode(long orderId, IdentifyCodeInput input){
         try {
             String code = input.getIdentifyCode();
-            // TODO 从哪里去验证此码
+            String verifyCode;
+            if (this.stringRedisTemplate.hasKey("orderIdVerifyCode:"+orderId)){
+                verifyCode = this.stringRedisTemplate.opsForValue().get("orderIdVerifyCode:"+orderId);
+            }else {
+                verifyCode = this.productOrderMapper.getVerifyCode(orderId);
+            }
+            if (!code.equals(verifyCode))return new ServiceStatusInfo<>(1,"验证消费码不正确",0);
             //验证成功后更新订单
             int result = this.productOrderMapper.updateOrderSuccess(orderId);
             if (result==0)return new ServiceStatusInfo<>(1,"验证消费码失败",0);
