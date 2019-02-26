@@ -46,6 +46,16 @@ public class ProductOrderModel {
     private long storeId;
     @ApiModelProperty(value = "店铺的名字")
     private String storeName;
+    @ApiModelProperty(value = "店铺的第一张封面图")
+    private String mainConverImage;
+
+    public String getMainConverImage() {
+        return mainConverImage;
+    }
+
+    public void setMainConverImage(String mainConverImage) {
+        this.mainConverImage = mainConverImage;
+    }
 
     public long getProductId() {
         return productId;
