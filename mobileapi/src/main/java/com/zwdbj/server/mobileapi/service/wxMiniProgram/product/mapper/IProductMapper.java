@@ -23,7 +23,8 @@ public interface IProductMapper {
      * @return
      */
     @Select("SELECT  * from shop_products " +
-            "where publish=1 and isDeleted=0 and storeId=#{storeId} and id=#{id}")
+            "where (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime < REPLACE(unix_timestamp(current_timestamp(3)),'.','')))" +
+            " and isDeleted=0 and storeId=#{storeId} and id=#{id}")
     ProductlShow selectByIdByStoreId(@Param("id") long id, @Param("storeId") long storeId);
 
     /**
@@ -33,7 +34,8 @@ public interface IProductMapper {
      * @return
      */
     @Select("SELECT  * from shop_products " +
-            "where publish=1 and isDeleted=0 and storeId=#{storeId}")
+            "where (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime < REPLACE(unix_timestamp(current_timestamp(3)),'.','')))" +
+            " and isDeleted=0 and storeId=#{storeId}")
     List<ProductlShow> selectByStoreId(@Param("storeId") long storeId);
 
     /**
@@ -53,7 +55,8 @@ public interface IProductMapper {
             "imageUrls," +
             "limitPerPerson " +
             "from shop_products " +
-            "where publish=1 and isDeleted=0  and id=#{id}")
+            "where (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime < REPLACE(unix_timestamp(current_timestamp(3)),'.','')))" +
+            " and isDeleted=0  and id=#{id}")
     ProductOut selectById(long id);
 
     @Update("update shop_productSKUs set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
@@ -68,13 +71,13 @@ public interface IProductMapper {
     @Select("select inventory from shop_products where id=#{id}")
     long getProductInventory(@Param("id") long productId);
 
-    @Select("select id,`productType`,`productDetailType`,`name`,`imageUrls`,storeId from shop_products  where publish=1 and isDeleted=0" +
-            " order by sales desc limit 3")
+    @Select("select id,`productType`,`productDetailType`,`name`,`imageUrls`,storeId from shop_products  where (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime < REPLACE(unix_timestamp(current_timestamp(3)),'.','')))" +
+            " and isDeleted=0  order by sales desc limit 3")
     List<ProductMainDto> mainSelectProduct();
 
     @Select("select p.id as productId,pk.id as skuId,p.storeId,p.productType,p.productDetailType,p.name,p.limitPerPerson,pk.originalPrice,pk.promotionPrice, "+
             "pk.inventory,pk.sales from shop_products as p,shop_productSKUs as pk"+
             " where productType=1 and (productDetailType='CARD' or productDetailType='CASHCOUPON') and p.storeId=#{storeId}"+
-    " and pk.productId=p.id and publish=1")
+    " and pk.productId=p.id and (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime < REPLACE(unix_timestamp(current_timestamp(3)),'.','')))")
     List<ProductInfo> selectProductByStoreId(@Param("storeId") Long storeId);
 }
