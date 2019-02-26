@@ -919,7 +919,7 @@ public class VideoService {
 
     public List<Map<String,String>> selectES(){
         List<Map<String,String>> mapList = this.videoMapper.selectES();
-        //查询种类ID3
+        //查询种类ID
         for (Map<String,String> map:mapList) {
             if(  !"SHOPCOMMENT".equals(map.get("type")) ){
                 continue;
@@ -932,6 +932,19 @@ public class VideoService {
             map.put("categoryId",String.valueOf(productOut.getCategoryId()));
         }
         return mapList;
+    }
+
+    public Map<String,String> selectByIdES(long id){
+        Map<String,String> map = this.videoMapper.selectByIdES(id);
+        //查询种类ID
+        if(  "SHOPCOMMENT".equals(map.get("type")) ){
+            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
+            ProductOut productOut = productServiceImpl.selectById(commentInfoDto.getResourceOwnerId()).getData();
+            if(productOut != null){
+                map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+            }
+        }
+        return map;
     }
 
 }
