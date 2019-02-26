@@ -53,12 +53,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ServiceStatusInfo<Long> createProducts(CreateProducts createProducts) {
-//        ServiceStatusInfo serviceStatusInfo = judgeStoreId();
-//        if(!serviceStatusInfo.isSuccess()){
-//            return serviceStatusInfo;
-//        }
-//        createProducts.setStoreId((long)serviceStatusInfo.getData());
-        ServiceStatusInfo serviceStatusInfo = judgeProducts(createProducts);
+        ServiceStatusInfo serviceStatusInfo = judgeStoreId();
+        if(!serviceStatusInfo.isSuccess()){
+            return serviceStatusInfo;
+        }
+        createProducts.setStoreId((long)serviceStatusInfo.getData());
+        serviceStatusInfo = judgeProducts(createProducts);
         if(serviceStatusInfo != null){
             return serviceStatusInfo;
         }
