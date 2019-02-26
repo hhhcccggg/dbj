@@ -92,5 +92,4 @@ public class EnCashPayAccountController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
 
     }
-
 }

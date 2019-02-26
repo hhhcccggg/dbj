@@ -14,7 +14,8 @@ import java.util.List;
 
 @Mapper
 public interface UserAssetsMapper {
-    @Select("select *  from core_userAssets where userId=#{userId} ")
+    @Select("select ua.*,u.nickName as nickName ,u.fullName as fullName from core_userAssets ua " +
+            "left join core_users u on u.id=ua.userId where ua.userId=#{userId} ")
     UserAssets searchUserAssetsByUserId(@Param("userId") Long userId);
 
     @Select("select a.*,b.nickName from core_userAssets as a,core_users as b where a.userId=b.id ")
