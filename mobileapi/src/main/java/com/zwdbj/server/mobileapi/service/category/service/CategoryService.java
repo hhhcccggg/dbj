@@ -60,5 +60,18 @@ public class CategoryService {
         }
     }
 
+    /**
+     * 查询服务范围
+     * @param storeId
+     * @return
+     */
+    public ServiceStatusInfo<List<String>> getScopeServices(long storeId){
+        try {
+            return new ServiceStatusInfo<>(0, "", categoryMapper.getScopeServices(storeId));
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询服务范围失败" + e.getMessage(), null);
+        }
+    }
+
 
 }
