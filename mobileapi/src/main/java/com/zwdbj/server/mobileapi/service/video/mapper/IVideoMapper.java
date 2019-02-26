@@ -41,6 +41,7 @@ public interface IVideoMapper {
             "#{dataInput.videoUrl}," +
             "#{dataInput.longitude}," +
             "#{dataInput.latitude}," +
+            "#{dataInput.linkPets}," +
             "#{userId}," +
             "#{dataInput.coverImageWidth}," +
             "#{dataInput.coverImageHeight}," +
@@ -133,18 +134,20 @@ public interface IVideoMapper {
      * 用户是否为每天的首次发布视频
      */
     @Select("select count(id) from core_videos where userId=#{userId} and to_days(createTime)=to_days(now())")
-    int isFirstPublicVideo(@Param("userId")long userId);
+    int isFirstPublicVideo(@Param("userId") long userId);
 
     @Select("select * from core_videos where find_in_set(#{petId},`linkPets`) and isDeleted=0 and status=0 order by createTime desc")
     List<VideoInfoDto> getPetsVideo(@Param("petId") long petId);
 
     @Select("select ifnull(sum(heartCount),0) from core_videos where userId=#{userId} and isDeleted=0 and status=0")
     Long getUserVideosHeartCount(@Param("userId") long userId);
+
     @Select("select count(id) from core_videos where userId=#{userId} and status=0")
-    int userVideosNum(@Param("userId")long userId);
+    int userVideosNum(@Param("userId") long userId);
 
     /**
      * 首页测试sql
+     *
      * @return
      */
     @Select("SELECT *" +
@@ -157,11 +160,12 @@ public interface IVideoMapper {
 
     /**
      * 查询ES所需数据
+     *
      * @return
      */
     @Select("SELECT cv.id,CONCAT(cv.latitude, ',', cv.longitude) AS location,cv.title,cv.coverImageUrl,cv.coverImageWidth,cv.coverImageHeight,cv.firstFrameUrl," +
             "cv.firstFrameWidth,cv.firstFrameHeight,cv.videoUrl,cv.linkPets,cv.tags,cv.`status`,cv.rejectMsg,cv.playCount,cv.commentCount," +
             "cv.heartCount,cv.shareCount,cv.userId,cv.musicId,cv.linkProductCount,cv.tipCount,cv.type,cu.nickName as userNickName," +
             "cu.avatarUrl as userAvatarUrl FROM core_videos AS cv LEFT  JOIN core_users AS cu ON cv.userId = cu.id")
-    List<Map<String,String>> selectES();
+    List<Map<String, String>> selectES();
 }

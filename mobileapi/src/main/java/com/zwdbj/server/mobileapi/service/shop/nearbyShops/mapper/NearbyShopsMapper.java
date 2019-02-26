@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface NearbyShopsMapper {
-    @Select("select id,name,logoUrl,grade,longitude,latitude,cityId,cityLevel,subName,address,contactPhone,contactName,"+
+    @Select("select id,name,logoUrl,grade,longitude,latitude,cityId,cityLevel,subName,address,contactPhone,contactName," +
             "status,mainConverImage,coverImages,legalSubjectId,stopService from shop_stores where id=#{storeId}")
     ShopInfo searchShopsById(@Param("storeId") long storeId);
 
@@ -35,7 +35,7 @@ public interface NearbyShopsMapper {
     List<SuperStar> searchSuperStar(@Param("storeId") long storeId);
 
     @Select("select * from shop_stores where id=#{storeId} and reviewed=true and isDeleted=false and `status`=0")
-    StoreAuthenticationInfo authenticationStore(@Param("storeId")long storeId);
+    StoreAuthenticationInfo authenticationStore(@Param("storeId") long storeId);
 
     @Select("select id,name,storeId,couponCount,userInfo,validStartTime,validEndTime,order,rule" +
             "onlySupportOriginProduct,range where id=#{discountCouponId}")
@@ -44,8 +44,10 @@ public interface NearbyShopsMapper {
     @Select("select id,name,logoUrl,grade,longitude,latitude,address,cityId,cityLevel from shop_stores where status=0 and stopService =0")
     List<NearbyShop> nearbyShopList();
 
-    @SelectProvider(type = NearbyShopsSqlProvider.class,method = "getNearByDiscount")
+    @SelectProvider(type = NearbyShopsSqlProvider.class, method = "getNearByDiscount")
     List<DiscountCoupon> getNearByDiscount(@Param("longitude") double longitude, @Param("latitude") double latitude);
 
+    @Select("select s.longitude,s.latitude,s.address from shop_stores as s, where s.id=#{storeId} ")
+    StoreLocation searchStoreLocation(@Param("storeId") long storeId);
 
 }
