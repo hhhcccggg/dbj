@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.mapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
 import org.apache.ibatis.jdbc.SQL;
 
+import java.util.Date;
 import java.util.Map;
 
 public class ProductSqlProvider {
@@ -18,10 +19,11 @@ public class ProductSqlProvider {
         if(productInput.getStoreId() != 0){
             storeId="and storeId="+productInput.getStoreId();
         }
+        long specifyPublishTime = new Date().getTime();
         SQL sql = new SQL().SELECT("id","productType","productDetailType","name","storeId","categoryId", "sales",
                 "brandId","inventory","imageUrls","limitPerPerson","detailDescription","supportCoin","ruleDescription","createTime");
         sql.FROM("shop_products");
-        sql.WHERE("publish=1 and isDeleted=0 "+storeId+" and specifyPublishTime<now()");
+        sql.WHERE("(publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0 "+storeId);
 
         if(productInput.getType() == 1){
             sql.ORDER_BY("sales desc");
@@ -46,7 +48,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() and inventory>0 "+storeId+" and specifyPublishTime<now()) " +
+                    "(publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+"))  and isDeleted=0 and inventory>0 "+storeId+") " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
@@ -66,7 +68,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() "+storeId+" and  specifyPublishTime>now()) " +
+                    "(publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0  "+storeId+") " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
@@ -86,7 +88,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    "publish=1 and isDeleted=0  and specifyPublishTime<now() "+storeId+" and  inventory=0) ";
+                    "(publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0  "+storeId+" and  inventory=0) ";
         }
         return sql.toString();
     }
