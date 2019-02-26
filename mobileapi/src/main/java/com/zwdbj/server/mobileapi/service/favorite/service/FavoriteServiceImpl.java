@@ -115,7 +115,7 @@ public class FavoriteServiceImpl implements FavoriteService {
                 for (FavoriteModel favoriteModel : favoriteModels){
                     List<String> list = categoryService.getScopeServices(favoriteModel.getTargetId()).getData();
                     if(list != null && list.size()>0)
-                        favoriteModel.setScopeServices(String.join(",",list));
+                        favoriteModel.setScopeServices(String.join("、",list));
                 }
             }
             return new ServiceStatusInfo<>(0, "", favoriteModels);

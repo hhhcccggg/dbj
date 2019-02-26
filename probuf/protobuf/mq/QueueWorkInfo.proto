@@ -18,6 +18,7 @@ message QueueWorkInfo {
         USER_TASK_COIN=8; //用户做任务获取金币
         USER_ORDER_TIME=9; //用户订单的超时
         MODIFY_SHOP_INFO=10;
+        VIDEO_INFO=11;//视频es
     }
 
     WorkTypeEnum workType = 1; //任务标识
@@ -30,7 +31,7 @@ message QueueWorkInfo {
     QueueWorkShopLegalSubjectData shopLegalSubjectData = 8; //数据
     QueueWorkOrderTimeData orderTimeData = 9; //数据
     QueueWorkModifyShopInfo modifyShopInfo=10;//
-
+    QueueWorkVideoInfo videoInfo=11;//视频修改ES
 }
 message QueueWorkModifyShopInfo{
       enum OperationEnum {
@@ -41,6 +42,16 @@ message QueueWorkModifyShopInfo{
       }
       OperationEnum operation=1;
       int64 storeId=2;//商家id
+
+}
+message QueueWorkVideoInfo{
+      enum OperationEnum {
+      CREATE=0;
+      DELETE=1;
+      UPDATE=2;
+      }
+      OperationEnum operation=1;
+      int64 videoId=2;//视频id
 
 }
 
