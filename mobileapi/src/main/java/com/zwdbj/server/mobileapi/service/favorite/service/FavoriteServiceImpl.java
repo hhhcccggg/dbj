@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.favorite.service;
 
+import com.zwdbj.server.mobileapi.service.category.service.CategoryService;
 import com.zwdbj.server.mobileapi.service.favorite.common.TargetType;
 import com.zwdbj.server.mobileapi.service.favorite.mapper.IFavoriteMapper;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteDto;
@@ -38,6 +39,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Autowired
     private StoreService storeServiceImpl;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private ProductSKUsService productSKUsServiceImpl;
@@ -107,6 +111,13 @@ public class FavoriteServiceImpl implements FavoriteService {
             }
             searchFavorite.setUserId(userId);
             List<FavoriteModel> favoriteModels = iFavoriteMapper.searchFavorite(searchFavorite);
+            if(searchFavorite.getTargetType() == TargetType.STORE){
+                for (FavoriteModel favoriteModel : favoriteModels){
+                    List<String> list = categoryService.getScopeServices(favoriteModel.getTargetId()).getData();
+                    if(list != null && list.size()>0)
+                        favoriteModel.setScopeServices(String.join(",",list));
+                }
+            }
             return new ServiceStatusInfo<>(0, "", favoriteModels);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
