@@ -77,6 +77,26 @@ public interface IProductsMapper {
     @Select("select * from shop_products where id=#{id} and isDeleted=0")
     Products selectById(@Param("id") long id);
 
+    /**
+     * 根据id查询数据(未删除数据)
+     *
+     * @param id
+     * @return
+     */
+    @Select("SELECT " +
+            "id," +
+            "productType," +
+            "productDetailType," +
+            "`name`," +
+            "categoryId," +
+            "brandId," +
+            "inventory," +
+            "imageUrls," +
+            "limitPerPerson " +
+            "from shop_products " +
+            "where isDeleted=0  and id=#{id}")
+    ProductOut selectByIdNoDelete(long id);
+
     @DeleteProvider(type = ProductsSqlProvider.class , method = "deleteByProducts")
     Long deleteByProducts(@Param("id") Long[] id,@Param("storeId")long storeId);
 }

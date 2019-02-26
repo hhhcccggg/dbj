@@ -103,5 +103,12 @@ public class CommentService {
         return this.commentMapper.greatComment(id,userId,contentTxt,resourceOwnerId);
     }
 
-
+    /**
+     * 根据视频id查询评论数据(ES)
+     * @param videoId
+     * @return
+     */
+    public CommentInfoDto findVideoIdES(long videoId){
+        return this.commentMapper.findVideoIdES(videoId);
+    }
 }

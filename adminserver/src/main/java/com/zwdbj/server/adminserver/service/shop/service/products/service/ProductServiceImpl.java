@@ -221,6 +221,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ServiceStatusInfo<ProductOut> selectByIdPartial(long id) {
+        try {
+            return new ServiceStatusInfo<>(0, "", iProductMapper.selectByIdNoDelete(id));
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "批量失败" + e.getMessage(), null);
+        }
+    }
+
+    @Override
     public ServiceStatusInfo<Long> deleteByProducts(Long[] id) {
         try {
             ServiceStatusInfo serviceStatusInfo = judgeStoreId();

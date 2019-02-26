@@ -925,7 +925,7 @@ public class VideoService {
                 continue;
             }
             CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
-            ProductOut productOut = productServiceImpl.selectById(commentInfoDto.getResourceOwnerId()).getData();
+            ProductOut productOut = productServiceImpl.selectByIdNoDelete(commentInfoDto.getResourceOwnerId()).getData();
             if(productOut == null){
                 continue;
             }
@@ -939,7 +939,7 @@ public class VideoService {
         //查询种类ID
         if(  "SHOPCOMMENT".equals(map.get("type")) ){
             CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
-            ProductOut productOut = productServiceImpl.selectById(commentInfoDto.getResourceOwnerId()).getData();
+            ProductOut productOut = productServiceImpl.selectByIdNoDelete(commentInfoDto.getResourceOwnerId()).getData();
             if(productOut != null){
                 map.put("categoryId",String.valueOf(productOut.getCategoryId()));
             }

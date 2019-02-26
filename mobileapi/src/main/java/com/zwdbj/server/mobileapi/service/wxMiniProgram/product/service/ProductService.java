@@ -49,6 +49,14 @@ public interface ProductService {
     ServiceStatusInfo<ProductOut>  selectById(long id);
 
     /**
+     * 查询单个商品(未删除数据)
+     *
+     * @param id
+     * @return
+     */
+    ServiceStatusInfo<ProductOut>  selectByIdNoDelete(long id);
+
+    /**
      * 根据productId和productSkuId更新相对应的库存
      */
     ServiceStatusInfo<Integer> updateProductNum(long productId, long productSkuId, int num);

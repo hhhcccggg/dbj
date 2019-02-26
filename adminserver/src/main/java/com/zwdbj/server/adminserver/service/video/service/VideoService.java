@@ -2,6 +2,10 @@ package com.zwdbj.server.adminserver.service.video.service;
 
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
+import com.zwdbj.server.adminserver.service.comment.model.CommentInfoDto;
+import com.zwdbj.server.adminserver.service.comment.service.CommentService;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.ProductOut;
+import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
@@ -25,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -45,6 +50,10 @@ public class VideoService {
     protected ResRefGoodsService resRefGoodsService;
     @Autowired
     protected TagService tagService;
+    @Autowired
+    private ProductService productServiceImpl;
+    @Autowired
+    private CommentService commentService;
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
     private Logger logger = LoggerFactory.getLogger(VideoService.class);
@@ -299,6 +308,19 @@ public class VideoService {
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询代言人视频失败" + e.getMessage(), null);
         }
+    }
+
+    public Map<String,String> selectByIdES(long id){
+        Map<String,String> map = this.videoMapper.selectByIdES(id);
+        //查询种类ID
+        if(  "SHOPCOMMENT".equals(map.get("type")) ){
+            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
+            ProductOut productOut = productServiceImpl.selectByIdPartial(commentInfoDto.getResourceOwnerId()).getData();
+            if(productOut != null){
+                map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+            }
+        }
+        return map;
     }
 
 }

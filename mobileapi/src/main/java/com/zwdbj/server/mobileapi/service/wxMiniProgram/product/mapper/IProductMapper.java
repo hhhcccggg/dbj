@@ -59,6 +59,26 @@ public interface IProductMapper {
             " and isDeleted=0  and id=#{id}")
     ProductOut selectById(long id);
 
+    /**
+     * 根据id查询数据(未删除数据)
+     *
+     * @param id
+     * @return
+     */
+    @Select("SELECT " +
+            "id," +
+            "productType," +
+            "productDetailType," +
+            "`name`," +
+            "categoryId," +
+            "brandId," +
+            "inventory," +
+            "imageUrls," +
+            "limitPerPerson " +
+            "from shop_products " +
+            "where isDeleted=0  and id=#{id}")
+    ProductOut selectByIdNoDelete(long id);
+
     @Update("update shop_productSKUs set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
     int updateProductSkuNum(@Param("id") long productSkuId, @Param("num") int num);
 
