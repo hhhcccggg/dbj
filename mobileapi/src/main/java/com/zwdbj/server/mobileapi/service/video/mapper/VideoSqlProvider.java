@@ -19,7 +19,7 @@ public class VideoSqlProvider {
         if (conditionValue!=null&&!conditionValue.equals("")) {
             sql = sql.WHERE(conditionValue);
         }
-        sql = sql.WHERE("status=0");
+        sql = sql.WHERE("status=0").AND().WHERE("`type`='USER'");
         sql = sql.ORDER_BY("createTime desc");
         return sql.toString();
     }
@@ -50,6 +50,8 @@ public class VideoSqlProvider {
                 .WHERE(String.format("latitude  BETWEEN %f AND %f",results[0],results[2]))
                 .AND()
                 .WHERE("status=0")
+                .AND()
+                .WHERE("`type`='USER'")
                 .ORDER_BY("createTime desc");
         return sql.toString();
     }

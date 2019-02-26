@@ -59,16 +59,16 @@ public interface IVideoMapper {
     @SelectProvider(type = VideoSqlProvider.class, method = "hotVideo")
     List<VideoInfoDto> listHot(@Param("conditionValue") String conditionValue);
 
-    @Select("select * from core_videos where status=0 order by createTime desc")
+    @Select("select * from core_videos where status=0 and `type`='USER' order by createTime desc")
     List<VideoInfoDto> listLatest();
 
-    @Select("select * from core_videos where tags like concat('%',#{tags},'%') order by heartCount desc")
+    @Select("select * from core_videos where tags like concat('%',#{tags},'%') and `type`='USER' order by heartCount desc")
     List<VideoInfoDto> listByTag(@Param("tags") String tag);
 
-    @Select("select * from core_videos where status=0 and (tags like concat('%',#{tags},'%')) order by heartCount desc")
+    @Select("select * from core_videos where status=0 and (tags like concat('%',#{tags},'%')) and `type`='USER' order by heartCount desc")
     List<VideoInfoDto> listByTagName1(@Param("tags") String tagName);
 
-    @Select("select * from core_videos where status=0 and (tags like concat('%',#{tags},'%')) order by createTime desc")
+    @Select("select * from core_videos where status=0 and (tags like concat('%',#{tags},'%')) and `type`='USER' order by createTime desc")
     List<VideoInfoDto> listByTagName2(@Param("tags") String tagName);
 
     @Select("select * from core_videos where id=#{id}")
@@ -96,16 +96,17 @@ public interface IVideoMapper {
 
     @Select("select videoTbl.*,t3.nickName as userNickName,t3.avatarUrl as userAvatarUrl,(select count(*) from core_followers as t2 where t2.followerUserId = t1.userId and t2.userId=#{userId}) as " +
             "isFollowedMe from core_followers as t1 inner join core_users as t3 on t3.id = t1.userId inner join core_videos as " +
-            "videoTbl on videoTbl.userId =t1.userId where t1.followerUserId=#{userId} and videoTbl.status=0 order by videoTbl.createTime desc")
+            "videoTbl on videoTbl.userId =t1.userId where t1.followerUserId=#{userId} and videoTbl.status=0 and videoTbl.`type`='USER' order by videoTbl.createTime desc")
     List<VideoDetailInfoDto> myFollowedVideos(@Param("userId") long userId);
 
-    @Select("select * from core_videos where userId=#{userId} order by createTime desc")
+    @Select("select * from core_videos where userId=#{userId} and `type`='USER' order by createTime desc")
     List<VideoInfoDto> videosByUser(@Param("userId") long userId);
 
-    @Select("select * from core_videos where userId=#{userId} and status=0 order by createTime desc")
+    @Select("select * from core_videos where userId=#{userId} and status=0 and `type`='USER' order by createTime desc")
     List<VideoInfoDto> videosByUser1(@Param("userId") long userId);
 
-    @Select("select video.* from core_videos as video inner join core_hearts as heart on video.id = heart.resourceOwnerId where heart.userId=#{userId}")
+    @Select("select video.* from core_videos as video inner join core_hearts as heart on video.id = heart.resourceOwnerId " +
+            "where heart.userId=#{userId} and video.`type`='USER'")
     List<VideoInfoDto> videosByHearted(@Param("userId") long userId);
 
     @UpdateProvider(type = VideoSqlProvider.class, method = "updateVideoField")
