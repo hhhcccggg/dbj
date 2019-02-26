@@ -13,7 +13,8 @@ public class OrderSqlProvider {
                 .FROM("shop_productOrders o ")
                 .LEFT_OUTER_JOIN("shop_productOrderItems oi on oi.orderId=o.id")
                 .LEFT_OUTER_JOIN("shop_stores s on s.id=o.storeId")
-                .WHERE("o.userId="+userId);
+                .WHERE("o.userId="+userId)
+                .WHERE("o.actualPayment<>0");
         if (status==0){
             sql.ORDER_BY("createTime desc");
             return sql.toString();
