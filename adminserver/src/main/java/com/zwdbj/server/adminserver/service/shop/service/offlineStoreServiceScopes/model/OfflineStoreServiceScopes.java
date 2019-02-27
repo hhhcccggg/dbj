@@ -27,7 +27,7 @@ public class OfflineStoreServiceScopes {
     /// </summary>
     /// <value>The status.</value>
     @ApiModelProperty(value = "营业状态")
-    int status;
+    int  status;
 
     public String getCategoryName() {
         return categoryName;
