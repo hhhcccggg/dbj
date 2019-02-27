@@ -191,7 +191,7 @@ public class QuartzService {
             int size = redisComments.length;
             for (int j = 0; j < count; j++) {
                 VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0, videosSize));
-                int dianzhan = this.operateService.getRandom(16, 30);
+                int dianzhan = this.operateService.getRandom(16, 31);
                 int pinlun = this.operateService.getRandom(3, 6);
                 int fenxiang = this.operateService.getRandom(1, 3);
                 int addPlayCount = this.operateService.getRandom(10, 41);
@@ -199,9 +199,17 @@ public class QuartzService {
                 this.videoService.updateField("heartCount=heartCount+" + Math.round(addPlayCount * dianzhan / 100.0), dto.getId());
                 long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
-                int s1 = this.operateService.getRandom(0, 2);
-                this.videoService.updateField("shareCount=shareCount+" + Math.round(addHeartCount * fenxiang / 100.0)+s1, dto.getId());
-                int comment = ((int) Math.round(addHeartCount * pinlun / 100.0))+s1;
+                int s1 = this.operateService.getRandom(0, 5);
+                int s2= 0;
+                if (s1==2)s2=1;
+                this.videoService.updateField("shareCount=shareCount+" + Math.round(addHeartCount * fenxiang / 100.0)+s2, dto.getId());
+                int s = this.operateService.getRandom(0, 3);
+                int comment;
+                if (s==1){
+                    comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
+                }else {
+                    comment = (int) Math.round(addHeartCount * pinlun / 100.0);
+                }
                 if (comment == 0) continue;
                 int tem = 0;
                 if (dto.getCommentCount() >= (size + 99)) continue;
