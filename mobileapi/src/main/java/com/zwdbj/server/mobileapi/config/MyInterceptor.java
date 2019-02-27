@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.config;
 
-import com.zwdbj.server.adminserver.middleware.mq.VideoUtil;
+import com.zwdbj.server.mobileapi.middleware.mq.VideoUtil;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
