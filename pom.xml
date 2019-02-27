@@ -22,6 +22,8 @@
         <module>user/user-api-service</module>
         <module>user/user-common-service</module>
         <module>discover/discover-api-service</module>
+        <module>microservice/basearc</module>
+        <module>microservice/cfgserver</module>
     </modules>
 
     <parent>
