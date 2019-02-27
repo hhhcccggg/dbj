@@ -67,7 +67,7 @@ public class OrderController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
-    @RequestMapping(value = "/get/verifyCode/{orderId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/get/verifyCode/{orderId}",method = RequestMethod.GET)
     @ApiOperation(value = "获取订单的验证码")
     @RequiresAuthentication
     public ResponseData<String> getVerifyCode(@PathVariable long orderId){
