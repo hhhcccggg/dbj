@@ -177,10 +177,10 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             SearchRequest searchRequest = new SearchRequest("shop");//可以设置检索的索引，类型
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             QueryBuilder matchQuery = null;
-            if ("all".equals(info.getFilter())) {
+            if ("全部".equals(info.getFilter())) {
                 if (info.getSearch() == null || "".equals(info.getSearch())) {
                     matchQuery = QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                            .distance(50, DistanceUnit.KILOMETERS);
+                            .distance(100, DistanceUnit.KILOMETERS);
 
                 } else {
                     matchQuery = QueryBuilders.boolQuery().should(new MultiMatchQueryBuilder(info.getSearch(),
@@ -190,27 +190,26 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                                     "address")
 //                            .fuzziness(Fuzziness.AUTO)//模糊匹配
                     ).filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                            .distance(50, DistanceUnit.KILOMETERS)
+                            .distance(100, DistanceUnit.KILOMETERS)
                     );
                 }
             } else {
                 if (info.getSearch() == null || "".equals(info.getSearch())) {
                     matchQuery = QueryBuilders.boolQuery()
-                            .should(new MatchQueryBuilder("name", info.getFilter()))
+                            .should(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
                             .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                                    .distance(50, DistanceUnit.KILOMETERS)
+                                    .distance(100, DistanceUnit.KILOMETERS)
                             );
                 } else {
                     matchQuery = QueryBuilders.boolQuery()
-                            .should(new MatchQueryBuilder("name", info.getFilter()))
+                            .should(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
                             .should(new MultiMatchQueryBuilder(info.getSearch(),
                                     "name",
                                     "storeProducts.name",
-                                    "serviceScopes.categoryName",
                                     "address"))
 //                                    .fuzziness(Fuzziness.AUTO))//多字段查询
                             .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                                    .distance(50, DistanceUnit.KILOMETERS)
+                                    .distance(100, DistanceUnit.KILOMETERS)
                             );
                 }
             }

@@ -2,40 +2,29 @@ package com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mod
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.NotBlank;
 
 @ApiModel(description = "修改员工信息")
 public class ModifyStaff {
-    @NotBlank(message = "姓名不能为空")
-    @ApiModelProperty(value = "姓名")
-    String fullName;
-    @Length(min = 11, max = 11)
-    @ApiModelProperty(value = "手机号")
-    String phone;
+
     @ApiModelProperty(value = "员工id")
     long userId;
     @ApiModelProperty(value = "认证资质 暂时没有 预留")
     String qualification;
+    @ApiModelProperty(value = "资质url 可以上传多个资质，需要截取")
+    String url;
+
     @ApiModelProperty(value = "备注 ")
     String notes;
 
-    public String getFullName() {
-        return fullName;
+    public String getUrl() {
+        return url;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getPhone() {
-        return phone;
-    }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public long getUserId() {
         return userId;
