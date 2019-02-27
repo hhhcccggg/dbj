@@ -106,11 +106,11 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     }
 
     @Override
-    public ServiceStatusInfo<List<OfflineStoreStaffs>> getStaffs(long storeId) {
+    public ServiceStatusInfo<List<OfflineStoreStaffs>> getStaffs(long storeId,long legalSubjectId) {
         List<OfflineStoreStaffs> result = null;
         try {
 
-            result = mapper.getStaffs(storeId);
+            result = mapper.getStaffs(legalSubjectId);
             for (OfflineStoreStaffs o : result) {
                 Date createTime = mapper.selectSuperStarCreateTime(storeId, o.getId());
                 if (createTime != null) {

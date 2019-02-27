@@ -32,6 +32,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
         try {
             int result = this.storeReviewMapper.modifyStoreReview(id,input);
             if (result==0)return new ServiceStatusInfo<>(1,"修改认证信息失败",result);
+
             return new ServiceStatusInfo<>(0,"修改认证信息成功",result);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"修改认证信息失败"+e.getMessage(),null);
