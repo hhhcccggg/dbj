@@ -34,7 +34,7 @@ public interface IVideoMapper {
     long publicVideo(@Param("id") long id, @Param("userId") long userId, @Param("dataInput") VideoPublishInput dataInput);
 
     @Insert("insert into core_videos(id,title,coverImageUrl,videoUrl," +
-            "longitude,latitude,userId," +
+            "longitude,latitude,linkPets,userId," +
             "coverImageWidth,coverImageHeight,address," +
             "firstFrameUrl,firstFrameWidth,firstFrameHeight,type) values(#{id},'店铺服务评价'," +
             "#{dataInput.coverImageUrl}," +
