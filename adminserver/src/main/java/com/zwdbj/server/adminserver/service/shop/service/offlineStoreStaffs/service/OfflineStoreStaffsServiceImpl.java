@@ -32,11 +32,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     public ServiceStatusInfo<Long> create(StaffInput staffInput, long legalSubjectId) {
 
         try {
-            if (staffInput.isSuperStar()) {
-                long userId = iUserMapper.findUserIdByPhone(staffInput.getPhone());
-                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
-                mapper.setSuperStar(UniqueIDCreater.generateID(), storeId, userId);
-            }
+
             long tenantId = storeServiceImpl.selectTenantId(legalSubjectId);
             userService.greateUserByTenant(staffInput.getFullName(), staffInput.getPhone(), tenantId, 2, "店员");
             //创建员工成功后发送短信到员工手机号
@@ -50,18 +46,10 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     public ServiceStatusInfo<Long> update(ModifyStaff modifyStaff) {
         Long result = 0L;
         try {
-            if (iUserMapper.userIdIsExist(modifyStaff.getUserId()) == 0) {
-                return new ServiceStatusInfo<>(1, "该用户不存在", 0L);
-            }
-            long userId = iUserMapper.findUserIdByPhone(modifyStaff.getPhone());
-            if (userId == modifyStaff.getUserId()) {
-                return new ServiceStatusInfo<>(1, "新手机号不能与旧手机号相同", null);
-            } else if (userId != 0) {
-                return new ServiceStatusInfo<>(1, "该手机号已经存在", 0L);
-            } else {
+
                 result = iUserMapper.updateStaffInfo(modifyStaff);
                 return new ServiceStatusInfo<>(0, "修改员工信息成功", result);
-            }
+
 
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改门店代言人失败" + e.getMessage(), result);

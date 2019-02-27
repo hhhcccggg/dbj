@@ -14,10 +14,10 @@ public class StaffInput {
     @Length(min = 11, max = 11)
     @ApiModelProperty(value = "手机号")
     String phone;
-    @ApiModelProperty(value = "是否代言")
-    boolean isSuperStar;
-    @ApiModelProperty(value = "认证资质")
+    @ApiModelProperty(value = "资质类型")
     String qualification;
+    @ApiModelProperty(value = "资质url 可能有多个url 需要截取")
+    String url;
     @ApiModelProperty(value = "备注 ")
     String notes;
 
@@ -37,13 +37,7 @@ public class StaffInput {
         this.phone = phone;
     }
 
-    public boolean isSuperStar() {
-        return isSuperStar;
-    }
 
-    public void setSuperStar(boolean superStar) {
-        isSuperStar = superStar;
-    }
 
     public String getQualification() {
         return qualification;
@@ -59,5 +53,13 @@ public class StaffInput {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

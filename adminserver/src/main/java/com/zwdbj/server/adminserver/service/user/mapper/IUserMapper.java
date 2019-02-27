@@ -74,8 +74,8 @@ public interface IUserMapper {
     @UpdateProvider(type = UserSqlProvider.class, method = "updateField")
     long updateField(@Param("fields") String fields, @Param("id") long id);
 
-    @Update("update core_users set fullName=#{modifyStaff.fullName},phone=#{modifyStaff.phone},notes=#{modifyStaff.notes} where id=#{modifyStaff.userId}")
-    long updateStaffInfo(@Param("modify") ModifyStaff modifyStaff);
+    @Update("update core_users set notes=#{modifyStaff.notes} where id=#{modifyStaff.userId}")
+    long updateStaffInfo(@Param("modifyStaff") ModifyStaff modifyStaff);
 
     //举报用户
     @SelectProvider(type = UserSqlProvider.class, method = "searchComplainUserListAd")
