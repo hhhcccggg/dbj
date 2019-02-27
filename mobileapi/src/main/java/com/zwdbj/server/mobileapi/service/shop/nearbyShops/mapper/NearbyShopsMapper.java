@@ -14,7 +14,7 @@ public interface NearbyShopsMapper {
             "status,mainConverImage,coverImages,legalSubjectId,stopService from shop_stores where id=#{storeId}")
     ShopInfo searchShopsById(@Param("storeId") long storeId);
 
-    @Select("select c.id,c.name from core_categories as c,o2o_offlineStoreServiceScopes as o where " +
+    @Select("select c.id,c.name as categoryName from core_categories as c,o2o_offlineStoreServiceScopes as o where " +
             " o.storeId=#{storeId} and c.id=o.serviceScopeId and o.isDeleted=0 and  o.status=0")
     List<StoreServiceCategory> searchServiceScopes(@Param("storeId") long storeId);
 
@@ -22,7 +22,7 @@ public interface NearbyShopsMapper {
     List<DiscountCoupon> searchDiscountCoupon(@Param("storeId") long storeId);
 
 
-    @Select("select c.id,c.name from core_categories as c,o2o_offlineStoreExtraServices as o where " +
+    @Select("select c.id,c.name as categoryName from core_categories as c,o2o_offlineStoreExtraServices as o where " +
             " o.storeId=#{storeId} and c.id=o.extraServiceId and o.isDeleted=0 and  o.status=0")
     List<StoreServiceCategory> searchExtraServices(@Param("storeId") long storeId);
 

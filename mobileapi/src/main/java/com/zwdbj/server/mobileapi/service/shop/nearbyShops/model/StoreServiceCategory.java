@@ -12,7 +12,7 @@ public class StoreServiceCategory implements Serializable {
     @ApiModelProperty(value = "服务范围id")
     private long id;
     @ApiModelProperty(value = "服务名称")
-    private String name;
+    private String categoryName;
     @ApiModelProperty(value = "营业状态 0正常 1下线")
     int status;
 
@@ -24,12 +24,12 @@ public class StoreServiceCategory implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public int getStatus() {
