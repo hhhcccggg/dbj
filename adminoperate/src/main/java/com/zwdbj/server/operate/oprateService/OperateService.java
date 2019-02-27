@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -313,8 +314,9 @@ public class OperateService {
     }
 
     public int getRandom(int startIndex,int length){
-        int random = (int)(Math.random()*(length-startIndex))+startIndex;
-        return random;
+        Random random = new Random();
+        int s = random.nextInt(length-startIndex)  + startIndex;
+        return s;
     }
 
     public String getRedisComment(){
