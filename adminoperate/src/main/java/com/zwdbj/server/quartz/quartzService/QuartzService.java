@@ -192,22 +192,22 @@ public class QuartzService {
             int size = redisComments.length;
             /*for (int j = 0; j < count; j++)*/for (VideoHeartAndPlayCountDto dto:videoHeartAndPlayCountDtos){
                 //VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0, videosSize));
-                int dianzhan = this.operateService.getRandom(16, 31);
+                int dianzhan = this.operateService.getRandom(16, 30);
                 int pinlun = this.operateService.getRandom(3, 6);
                 int fenxiang = this.operateService.getRandom(1, 3);
-                int addPlayCount = this.operateService.getRandom(10, 41);
+                int addPlayCount = this.operateService.getRandom(1, 11);
                 this.videoService.updateField("playCount=playCount+" + addPlayCount, dto.getId());
-                this.videoService.updateField("heartCount=heartCount+" + Math.round(addPlayCount * dianzhan / 100.0), dto.getId());
+                this.videoService.updateField("heartCount=heartCount+" + Math.ceil(addPlayCount * dianzhan / 100.0), dto.getId());
                 long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
-                int s1 = this.operateService.getRandom(0, 4);
+                int s1 = this.operateService.getRandom(0, 5);
                 int s2= 0;
                 if (s1==2)s2=1;
                 this.videoService.updateField("shareCount=shareCount+" + Math.round(addHeartCount * fenxiang / 100.0)+s2, dto.getId());
                 int s = this.operateService.getRandom(0, 2);
                 int comment;
-                if (s==1){
-                    comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
+                if (s1==1 || s1==2){
+                    comment = (int) Math.ceil(addHeartCount * pinlun / 100.0)+s;
                 }else {
                     comment = (int) Math.round(addHeartCount * pinlun / 100.0);
                 }
