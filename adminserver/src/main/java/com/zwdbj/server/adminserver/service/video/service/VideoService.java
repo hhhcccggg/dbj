@@ -1,8 +1,14 @@
 package com.zwdbj.server.adminserver.service.video.service;
 
+import com.alibaba.fastjson.JSON;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
+import com.zwdbj.server.adminserver.service.comment.model.CommentInfoDto;
+import com.zwdbj.server.adminserver.service.comment.service.CommentService;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.ProductOut;
+import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
@@ -15,6 +21,13 @@ import com.zwdbj.server.adminserver.service.heart.model.HeartModel;
 import com.zwdbj.server.adminserver.service.video.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +37,9 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -45,6 +60,12 @@ public class VideoService {
     protected ResRefGoodsService resRefGoodsService;
     @Autowired
     protected TagService tagService;
+    @Autowired
+    private ProductService productServiceImpl;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
     private Logger logger = LoggerFactory.getLogger(VideoService.class);
@@ -299,6 +320,45 @@ public class VideoService {
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询代言人视频失败" + e.getMessage(), null);
         }
+    }
+
+    /**
+     * 操作ES數據
+     * @param id
+     * @param operationEnum
+     */
+    public void operationByIdES(long id, QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum) throws IOException {
+        switch (operationEnum){
+            case CREATE:
+                Map<String,String> map = selectById(id);
+                IndexRequest indexRequest = new IndexRequest("video","doc");
+                indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
+                restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+                break;
+            case UPDATE:
+                map = selectById(id);
+                indexRequest = new IndexRequest("video","doc");
+                indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
+                restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+                break;
+            case DELETE:
+                DeleteRequest deleteRequest = new DeleteRequest("video","doc",String.valueOf(id));
+                restHighLevelClient.delete(deleteRequest,RequestOptions.DEFAULT);
+                break;
+        }
+    }
+
+    private Map<String,String> selectById(long id){
+        Map<String,String> map = this.videoMapper.selectByIdES(id);
+        //查询种类ID
+        if(  "SHOPCOMMENT".equals(map.get("type")) ){
+            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
+            ProductOut productOut = productServiceImpl.selectByIdPartial(commentInfoDto.getResourceOwnerId()).getData();
+            if(productOut != null){
+                map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+            }
+        }
+        return map;
     }
 
 }

@@ -176,7 +176,16 @@ public class ProductServiceImpl implements ProductService {
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
         }
+    }
 
+    @Override
+    public ServiceStatusInfo<ProductOut> selectByIdNoDelete(long id) {
+        try {
+            ProductOut productOut = iProductMapper.selectByIdNoDelete(id);
+            return new ServiceStatusInfo<>(0, "", productOut);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
+        }
     }
 
     @Override

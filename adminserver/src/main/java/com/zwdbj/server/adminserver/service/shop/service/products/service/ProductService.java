@@ -40,6 +40,12 @@ public interface ProductService {
     ServiceStatusInfo<ProductsOut> selectById(long id);
 
     /**
+     * 查询单个商品
+     * @param id
+     * @return
+     */
+    ServiceStatusInfo<ProductOut> selectByIdPartial(long id);
+    /**
      * 批量删除商品
      *
      * @param id
