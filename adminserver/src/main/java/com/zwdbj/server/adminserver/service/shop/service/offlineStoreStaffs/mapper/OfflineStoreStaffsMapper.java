@@ -12,10 +12,6 @@ import java.util.List;
 public interface OfflineStoreStaffsMapper {
 
 
-    @Update("update o2o_offlineStoreStaffs set storeId=#{offlineStoreStaffs.storeId}," +
-            "userId=#{offlineStoreStaffs.userId},isSuperStar=#{offlineStoreStaffs.isSuperStar} where id=#{offlineStoreStaffs.id}")
-    Long update(@Param("offlineStoreStaffs") OfflineStoreStaffs offlineStoreStaffs);
-
     @Update("update core_users set isDeleted=1,deleteTime=now() where id=#{userId} ")
     Long cancelStaff(@Param("userId") long userId);
 

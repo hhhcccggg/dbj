@@ -1,17 +1,19 @@
 package com.zwdbj.server.adminserver.service.shop.service.shopdetail.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
 import com.zwdbj.server.adminserver.service.category.service.CategoryService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.mapper.ShopDetailMapper;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     private QiniuService qiniuService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    private Logger logger = LoggerFactory.getLogger(ShopDetailServiceImpl.class);
 
     @Override
     public ServiceStatusInfo<ShopInfo> storeDetailInfo(long legalSubjectId) {
@@ -77,16 +80,19 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
             if (valueOperations.get("shopInfo" + storeId) != null) {
                 List<OpeningHours> openingHours = this.shopDetailMapper.findOpeningHours(legalSubjectId);
-                System.out.println(valueOperations.get("shopInfo" + storeId));
+                logger.info(valueOperations.get("shopInfo" + storeId));
                 String str = valueOperations.get("shopInfo" + storeId);
                 ShopInfo shopInfo = JSON.parseObject(str, new TypeReference<ShopInfo>() {
                 });
                 shopInfo.setOpeningHours(openingHours);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
             }
-            System.out.println("更新缓存成功");
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+
+            logger.info("更新商家营业时间缓存成功");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
+            logger.info("更新商家营业时间缓存失败");
             return new ServiceStatusInfo<>(1, "修改营业时间失败" + e.getMessage(), result);
         }
     }
@@ -111,10 +117,12 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 openingHours.addAll(list);
                 shopInfo.setOpeningHours(openingHours);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
-                System.out.println("更新缓存成功");
+                logger.info("更新商家营业时间缓存成功");
             }
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
+            logger.info("更新商家营业时间缓存失败");
             return new ServiceStatusInfo<>(1, "增加营业时间失败" + e.getMessage(), null);
         }
 
@@ -188,9 +196,11 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 shopInfo.setLocationInfo(info);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
             }
-            System.out.println("更新缓存成功");
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            logger.info("更新商家缓存成功");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
+            logger.error("更新商家缓存失败");
             return new ServiceStatusInfo<>(1, "修改位置信息失败" + e.getMessage(), null);
         }
     }
@@ -220,10 +230,12 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 shopInfo.setServiceScopes(list);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
             }
-            System.out.println("更新缓存成功");
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            logger.info("更新商家缓存成功");
             return new ServiceStatusInfo<>(0, "", result);
 
         } catch (Exception e) {
+            logger.error("更新商家缓存失败");
             return new ServiceStatusInfo<>(1, "修改店铺额外服务失败" + e.getMessage(), null);
         }
 
@@ -249,10 +261,12 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 shopInfo.setServiceScopes(list);
                 valueOperations.set("shopInfo" + storeId, JSON.toJSONString(shopInfo));
             }
-            System.out.println("更新缓存成功");
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            logger.info("更新商家缓存成功");
             return new ServiceStatusInfo<>(0, "", result);
 
         } catch (Exception e) {
+            logger.error("更新商家缓存失败");
             return new ServiceStatusInfo<>(1, "修改店铺服务范围失败" + e.getMessage(), null);
         }
     }
