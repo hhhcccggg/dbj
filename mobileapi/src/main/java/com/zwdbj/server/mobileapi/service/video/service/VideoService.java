@@ -874,7 +874,7 @@ public class VideoService {
                 searchResponse = restHighLevelClient.scroll(searchScrollRequest,RequestOptions.DEFAULT);
             }else{
                 BoolQueryBuilder boolQueryBuilder =  QueryBuilders.boolQuery();
-                boolQueryBuilder.filter(QueryBuilders.termQuery("type",videoMainInput.getType()));
+                //boolQueryBuilder.filter(QueryBuilders.termQuery("type",videoMainInput.getType()));
                 if(videoMainInput.getCategory() != null){
                     boolQueryBuilder.filter(QueryBuilders.termQuery("categoryId",videoMainInput.getCategory()));
                 }
