@@ -200,14 +200,17 @@ public class QuartzService {
                 this.videoService.updateField("heartCount=heartCount+" + Math.ceil(addPlayCount * dianzhan / 100.0), dto.getId());
                 long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
-                int s1 = this.operateService.getRandom(0, 5);
+                int s1 = this.operateService.getRandom(0, 20);
                 int s2= 0;
                 if (s1==2)s2=1;
                 this.videoService.updateField("shareCount=shareCount+" + Math.round(addHeartCount * fenxiang / 100.0)+s2, dto.getId());
-                int s = this.operateService.getRandom(0, 2);
+                int s = this.operateService.getRandom(0, 11);
                 int comment;
-                if (s1==1 || s1==2){
-                    comment = (int) Math.ceil(addHeartCount * pinlun / 100.0)+s;
+                if (s==1 ){
+                    comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
+                }else if (s==3){
+                    int s3 = this.operateService.getRandom(0, 1);
+                    comment = (int) Math.round(addHeartCount * pinlun / 100.0)+s3;
                 }else {
                     comment = (int) Math.round(addHeartCount * pinlun / 100.0);
                 }
