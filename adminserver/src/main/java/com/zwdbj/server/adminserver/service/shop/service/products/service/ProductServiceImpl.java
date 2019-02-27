@@ -146,6 +146,20 @@ public class ProductServiceImpl implements ProductService {
             return new ServiceStatusInfo<>(1, "修改失败" + e.getMessage(), result);
         }
     }
+    @Override
+    public ServiceStatusInfo<Integer> updateProductNum(long productId, long productSkuId, int num) {
+        try {
+            int result = this.iProductMapper.updateProductSkuNum(productSkuId, num);
+            if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
+            result = this.iProductMapper.updateProductNum(productId, num);
+            if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
+            return new ServiceStatusInfo<>(0, "", result);
+
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "商品数量更新失败:" + e.getMessage(), 0);
+        }
+
+    }
 
 
     @Override
@@ -233,6 +247,11 @@ public class ProductServiceImpl implements ProductService {
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "批量失败" + e.getMessage(), 0L);
         }
+    }
+    @Override
+    public long getProductInventoryNum(long productId) {
+        long allInventory = this.iProductMapper.getProductInventory(productId);
+        return allInventory;
     }
 
     @Override

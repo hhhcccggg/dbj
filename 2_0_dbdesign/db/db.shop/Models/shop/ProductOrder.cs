@@ -155,5 +155,8 @@ namespace db.shop.Models.shop
         /// <value>The verify code.</value>
         [MaxLength(20)]
         public String verifyCode { get; set; }
+        // 订单取消的原因
+        [MaxLength(512)]
+        public String cancelReason { get; set; }
     }
 }

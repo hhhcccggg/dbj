@@ -12,6 +12,11 @@ public interface ProductService {
     ServiceStatusInfo<Long> createProducts(CreateProducts createProducts);
 
     ServiceStatusInfo<Long> deleteProductsById(Long id);
+    long getProductInventoryNum(long productId);
+    /**
+     * 根据productId和productSkuId更新相对应的库存
+     */
+    ServiceStatusInfo<Integer> updateProductNum(long productId, long productSkuId, int num);
 
     ServiceStatusInfo<Long> updateProducts(UpdateProducts updateProducts);
 

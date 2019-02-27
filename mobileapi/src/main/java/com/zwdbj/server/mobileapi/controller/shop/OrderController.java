@@ -4,6 +4,7 @@ package com.zwdbj.server.mobileapi.controller.shop;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
+import com.zwdbj.server.mobileapi.service.shop.order.model.CancelOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
 import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
@@ -67,6 +68,18 @@ public class OrderController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
+
+    @RequestMapping(value = "/cancelOrder",method = RequestMethod.POST)
+    @ApiOperation(value = "取消订单")
+    @RequiresAuthentication
+    public ResponseData<Integer> cancelOrder(@RequestBody CancelOrderInput input){
+        ServiceStatusInfo<Integer> statusInfo = this.orderService.cancelOrder(input);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
     @RequestMapping(value = "/get/verifyCode/{orderId}",method = RequestMethod.GET)
     @ApiOperation(value = "获取订单的验证码")
     @RequiresAuthentication
@@ -103,5 +116,7 @@ public class OrderController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
 
     }
+
+
 
 }

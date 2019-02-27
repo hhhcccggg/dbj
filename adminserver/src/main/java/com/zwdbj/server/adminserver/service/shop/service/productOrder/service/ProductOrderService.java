@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.service.shop.service.productOrder.service;
 
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.*;
+import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.service.ReceiveAddressService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
@@ -32,6 +33,8 @@ public class ProductOrderService {
     TokenCenterManager tokenCenterManager;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private ProductService productServiceImpl;
 
     private Logger logger = LoggerFactory.getLogger(ProductOrderService.class);
 
@@ -134,6 +137,9 @@ public class ProductOrderService {
                 //增加商品的库存
                 if (result==0)return false;
                 logger.info("未支付订单:"+orderId+"更新成功");
+                long inventoryNum = this.productServiceImpl.getProductInventoryNum(model.getProductId());
+                if (inventoryNum!=-10000L)
+                    this.productServiceImpl.updateProductNum(model.getProductId(),model.getProductskuId(),-model.getNum());
                 return true;
             }else {
                 return true;

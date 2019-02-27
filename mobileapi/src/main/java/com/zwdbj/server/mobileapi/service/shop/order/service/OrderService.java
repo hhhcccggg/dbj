@@ -5,6 +5,7 @@ import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.service.NearbyShopService;
 import com.zwdbj.server.mobileapi.service.shop.order.mapper.IOrderMapper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
+import com.zwdbj.server.mobileapi.service.shop.order.model.CancelOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
@@ -181,6 +182,19 @@ public class OrderService {
 
         return new ServiceStatusInfo<>(1,"下单失败",null);
     }
+
+    public ServiceStatusInfo<Integer> cancelOrder(CancelOrderInput input){
+        if (input.getCancelReason()==null || input.getCancelReason().length()==0)
+            return new ServiceStatusInfo<>(1,"取消订单失败:请填写取消原因",null);
+        int result = this.orderMapper.cancelOrder(input);
+        if (result==0) return new ServiceStatusInfo<>(1,"取消订单失败",null);
+        ProductOrderDetailModel model = this.getOrderById(input.getOrderId()).getData();
+        long inventoryNum = this.productServiceImpl.getProductInventoryNum(model.getProductId());
+        if (inventoryNum!=(-10000L))
+            this.productServiceImpl.updateProductNum(model.getProductId(),model.getProductskuId(),model.getNum());
+        return new ServiceStatusInfo<>(0,"",result);
+    }
+
     public ServiceStatusInfo<String> getVerifyCode(long orderId){
         String verifyCode;
         if (this.stringRedisTemplate.hasKey("orderIdVerifyCode:"+orderId)){
