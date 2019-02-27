@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.discountCoupon.service
 import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.DiscountCouponInput;
 import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.DiscountCouponModel;
 import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.SearchDiscountCoupon;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

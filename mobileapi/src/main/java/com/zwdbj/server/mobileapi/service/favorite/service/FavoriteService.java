@@ -4,7 +4,7 @@ import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteDto;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteInput;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteModel;
 import com.zwdbj.server.mobileapi.service.favorite.model.SearchFavorite;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

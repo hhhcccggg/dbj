@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.cities.service;
 
 import com.zwdbj.server.adminserver.service.cities.model.Cities;
 import com.zwdbj.server.adminserver.service.cities.model.LevelType;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.zwdbj.server.mobileapi.service.store.service;
 
 import com.zwdbj.server.mobileapi.service.store.mapper.IStoreMapper;
 import com.zwdbj.server.mobileapi.service.store.model.StoreModel;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

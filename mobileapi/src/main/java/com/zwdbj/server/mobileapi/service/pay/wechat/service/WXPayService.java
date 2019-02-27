@@ -13,7 +13,7 @@ import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.pay.wechat.wechatpay.WXPayAppCfg;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
 import com.zwdbj.server.pay.wechat.wechatpay.service.WechatPayService;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

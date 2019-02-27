@@ -1,6 +1,4 @@
-package com.zwdbj.server.utility.model;
-
-import io.swagger.annotations.ApiModelProperty;
+package com.zwdbj.server.basemodel.model;
 
 public class ServiceStatusCode {
     public static final int STATUS_NORMAL = 0;

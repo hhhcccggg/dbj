@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.setting.service;
 
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

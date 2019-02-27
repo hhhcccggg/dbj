@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.productAttriLinks.serv
 import com.zwdbj.server.adminserver.service.shop.service.productAttriLinks.mapper.IProductAttriLinksMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productAttriLinks.model.ProductAttriLinks;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

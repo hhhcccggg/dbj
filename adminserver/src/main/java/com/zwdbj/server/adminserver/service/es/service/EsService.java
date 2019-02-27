@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.service.es.service;
 
 import com.alibaba.fastjson.JSON;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.elasticsearch.action.DocWriteRequest;
 import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.delete.DeleteRequest;

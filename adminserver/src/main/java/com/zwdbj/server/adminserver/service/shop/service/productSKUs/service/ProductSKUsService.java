@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.productSKUs.service;
 
 import com.zwdbj.server.adminserver.service.shop.service.productSKUs.model.ProductSKUs;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

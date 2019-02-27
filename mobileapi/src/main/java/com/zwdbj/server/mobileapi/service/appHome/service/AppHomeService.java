@@ -2,8 +2,6 @@ package com.zwdbj.server.mobileapi.service.appHome.service;
 
 import com.zwdbj.server.mobileapi.service.adBanner.moder.AdBannerDto;
 import com.zwdbj.server.mobileapi.service.adBanner.moder.AdBannerInput;
-import com.zwdbj.server.mobileapi.service.adBanner.moder.Platform;
-import com.zwdbj.server.mobileapi.service.adBanner.moder.Type;
 import com.zwdbj.server.mobileapi.service.adBanner.service.AdBannerService;
 import com.zwdbj.server.mobileapi.service.appHome.model.AppHomeInput;
 import com.zwdbj.server.mobileapi.service.appHome.model.AppHomeResDto;
@@ -12,7 +10,7 @@ import com.zwdbj.server.mobileapi.service.category.model.CategoryRecommendDto;
 import com.zwdbj.server.mobileapi.service.category.service.CategoryService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

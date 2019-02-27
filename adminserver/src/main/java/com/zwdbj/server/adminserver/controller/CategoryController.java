@@ -3,10 +3,10 @@ package com.zwdbj.server.adminserver.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.adminserver.identity.RoleIdentity;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.category.model.*;
 import com.zwdbj.server.adminserver.service.category.service.CategoryService;
 import io.swagger.annotations.Api;
@@ -16,7 +16,6 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController

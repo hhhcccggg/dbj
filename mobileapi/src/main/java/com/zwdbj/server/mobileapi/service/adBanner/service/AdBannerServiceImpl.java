@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.service.adBanner.service;
 import com.zwdbj.server.mobileapi.service.adBanner.mapper.AdBannerMapper;
 import com.zwdbj.server.mobileapi.service.adBanner.moder.AdBannerDto;
 import com.zwdbj.server.mobileapi.service.adBanner.moder.AdBannerInput;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.legalSubject.service;
 
 import com.zwdbj.server.mobileapi.service.legalSubject.model.LegalSubjectModel;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 public interface ILegalSubjectService {
 

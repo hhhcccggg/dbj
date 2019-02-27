@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.controller;
 
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;

@@ -2,7 +2,7 @@ package com.zwdbj.server.mobileapi.service.rankingList.service;
 
 import com.zwdbj.server.mobileapi.service.rankingList.model.RankingListInfo;
 import com.zwdbj.server.mobileapi.service.rankingList.model.Recommend;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

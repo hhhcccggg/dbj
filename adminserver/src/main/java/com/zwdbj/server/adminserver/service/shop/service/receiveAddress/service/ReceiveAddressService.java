@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.receiveAddress.service
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressAddInput;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModifyInput;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

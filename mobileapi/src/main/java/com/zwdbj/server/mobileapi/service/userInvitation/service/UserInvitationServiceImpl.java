@@ -8,7 +8,7 @@ import com.zwdbj.server.mobileapi.service.userInvitation.model.SearchUserInvitat
 import com.zwdbj.server.mobileapi.service.userInvitation.model.UserInvitationModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

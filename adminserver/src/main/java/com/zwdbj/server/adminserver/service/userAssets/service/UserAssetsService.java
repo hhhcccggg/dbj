@@ -4,7 +4,7 @@ import com.zwdbj.server.adminserver.service.userAssets.model.EnCashMentDetailMod
 import com.zwdbj.server.adminserver.service.userAssets.model.UserAssets;
 import com.zwdbj.server.adminserver.service.userAssets.model.UserCoinDetail;
 import com.zwdbj.server.adminserver.service.userAssets.model.UserCoinType;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

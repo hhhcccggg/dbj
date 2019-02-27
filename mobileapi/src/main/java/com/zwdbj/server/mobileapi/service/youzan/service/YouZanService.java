@@ -19,9 +19,9 @@ import com.zwdbj.server.mobileapi.service.youzan.model.AyouzanTradeCartAddParams
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZSearchItemInput;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZUserLoginToken;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import okhttp3.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,8 +9,8 @@ import com.zwdbj.server.adminserver.service.shop.service.shopdetail.service.Shop
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

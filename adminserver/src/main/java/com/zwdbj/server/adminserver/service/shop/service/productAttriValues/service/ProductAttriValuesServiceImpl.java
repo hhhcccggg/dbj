@@ -4,7 +4,7 @@ package com.zwdbj.server.adminserver.service.shop.service.productAttriValues.ser
 import com.zwdbj.server.adminserver.service.shop.service.productAttriValues.mapper.IProductAttriValuesMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productAttriValues.model.ProductAttriValues;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

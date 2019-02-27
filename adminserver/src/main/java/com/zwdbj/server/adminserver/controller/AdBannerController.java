@@ -2,11 +2,10 @@ package com.zwdbj.server.adminserver.controller;
 
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerDto;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInfo;
-import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInput;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerSerchInput;
 import com.zwdbj.server.adminserver.service.adBanner.service.AdBannerService;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
