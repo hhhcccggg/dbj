@@ -24,6 +24,7 @@
         <module>discover/discover-api-service</module>
         <module>microservice/basearc</module>
         <module>microservice/cfgserver</module>
+        <module>microservice/config</module>
     </modules>
 
     <parent>
