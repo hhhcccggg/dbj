@@ -45,6 +45,11 @@ public interface IProductsMapper {
             "specifyPublishTime=#{products.specifyPublishTime},detailDescription=#{products.detailDescription},limitPerPerson=#{products.limitPerPerson},ruleDescription=#{products.ruleDescription}" +
             " where id=#{products.id} and storeId=#{products.storeId} and isDeleted=0")
     Long update(@Param("products") UpdateProducts products);
+    @Update("update shop_productSKUs set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
+    int updateProductSkuNum(@Param("id") long productSkuId, @Param("num") int num);
+
+    @Update("update shop_products set inventory=inventory-#{num},sales=sales+#{num} where id=#{id}")
+    int updateProductNum(@Param("id") long productId, @Param("num") int num);
 
     @Select("select * from shop_products where isDeleted=0 order by createTime")
     List<Products> selectAll();
@@ -79,6 +84,8 @@ public interface IProductsMapper {
 
     @DeleteProvider(type = ProductsSqlProvider.class , method = "deleteByProducts")
     Long deleteByProducts(@Param("id") Long[] id,@Param("storeId")long storeId);
+    @Select("select inventory from shop_products where id=#{id}")
+    long getProductInventory(@Param("id") long productId);
 }
 
 
