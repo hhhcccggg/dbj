@@ -47,7 +47,7 @@ public interface NearbyShopsMapper {
     @SelectProvider(type = NearbyShopsSqlProvider.class, method = "getNearByDiscount")
     List<DiscountCoupon> getNearByDiscount(@Param("longitude") double longitude, @Param("latitude") double latitude);
 
-    @Select("select s.longitude,s.latitude,s.address from shop_stores as s, where s.id=#{storeId} ")
+    @Select("select s.longitude,s.latitude,s.address from shop_stores as s where s.id=#{storeId} ")
     StoreLocation searchStoreLocation(@Param("storeId") long storeId);
 
 }
