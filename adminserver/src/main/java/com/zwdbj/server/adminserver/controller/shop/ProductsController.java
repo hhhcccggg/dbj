@@ -66,6 +66,20 @@ public class ProductsController {
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), productsList, pageInfo.getTotal());
     }
 
+    @GetMapping(value = "/onAll")
+    @ApiOperation(value = "查询所有商品 type=0全部 1销售中 2已售完 3待上架")
+    public ResponsePageInfoData<List<Products>> findOnAll(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
+                                                             @RequestParam(value = "rows", required = true, defaultValue = "30") int rows,
+                                                             SearchProducts searchProduct,int type){
+        ServiceStatusInfo<List<Products>> serviceStatusInfo = this.productServiceImpl.searchCondition(searchProduct,type,pageNo,rows);
+        if(!serviceStatusInfo.isSuccess()){
+            return new ResponsePageInfoData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null, 0L);
+        }
+        List<Products> productsList = serviceStatusInfo.getData();
+        PageInfo<Products> pageInfo = new PageInfo(productsList);
+        return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), productsList, pageInfo.getTotal());
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建商品")
     public ResponseData<Long> createProducts(@RequestBody @Valid CreateProducts createProducts) {

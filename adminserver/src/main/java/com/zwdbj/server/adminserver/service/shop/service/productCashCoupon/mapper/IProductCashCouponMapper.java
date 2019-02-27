@@ -38,7 +38,7 @@ public interface IProductCashCouponMapper {
             " `validEndTime` =  #{productCashCoupon.validEndTime}," +
             "`stackUse` = #{productCashCoupon.stackUse}," +
             "`appointment` = #{productCashCoupon.appointment}" +
-            "WHERE" +
+            " WHERE " +
             "(`productId` = #{productCashCoupon.productId});")
     Long updateByProductIdByProductCashCoupon(@Param("productCashCoupon") ProductCashCoupon productCashCoupon);
 

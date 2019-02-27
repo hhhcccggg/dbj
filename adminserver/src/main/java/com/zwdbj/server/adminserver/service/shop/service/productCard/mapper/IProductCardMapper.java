@@ -54,7 +54,7 @@ public interface IProductCardMapper {
             " `validEndTime` = #{productCard.validEndTime}," +
             "`appointment` = #{productCard.appointment}," +
             "`stackUse` = #{productCard.stackUse}" +
-            "WHERE" +
+            " WHERE " +
             "(`productId` = #{productCard.productId})")
     Long updateByProductIdByProductCard(@Param("productCard") ProductCard productCard);
 
