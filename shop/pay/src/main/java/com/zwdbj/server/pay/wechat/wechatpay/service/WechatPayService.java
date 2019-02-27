@@ -8,7 +8,7 @@ import com.zwdbj.server.pay.wechat.wechatpay.WXPayAppCfg;
 import com.zwdbj.server.pay.wechat.wechatpay.WeChatPayConfig;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
 import com.zwdbj.server.utility.common.IP;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
 import org.slf4j.Logger;

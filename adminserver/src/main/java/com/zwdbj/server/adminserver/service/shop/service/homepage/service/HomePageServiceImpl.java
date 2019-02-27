@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.homepage.service;
 import com.zwdbj.server.adminserver.service.shop.service.homepage.mapper.HomePageMapper;
 import com.zwdbj.server.adminserver.service.shop.service.homepage.model.OrderTrend;
 import com.zwdbj.server.adminserver.service.shop.service.homepage.model.TodayOverview;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

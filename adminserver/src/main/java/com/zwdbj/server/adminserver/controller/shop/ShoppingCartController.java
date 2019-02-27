@@ -6,10 +6,10 @@ import com.zwdbj.server.adminserver.service.shop.service.shoppingCart.model.Prod
 import com.zwdbj.server.adminserver.service.shop.service.shoppingCart.model.ProductCartModel;
 import com.zwdbj.server.adminserver.service.shop.service.shoppingCart.model.ProductCartModifyInput;
 import com.zwdbj.server.adminserver.service.shop.service.shoppingCart.service.ShoppingCartService;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

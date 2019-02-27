@@ -1,11 +1,9 @@
 package com.zwdbj.server.adminserver.service.userDeviceTokens.service;
 
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.mapper.IUserDeviceTokensMapper;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdDeviceTokenDto;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdUserDeviceTokenDto;
-import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdUserDeviceTokensInput;
-import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

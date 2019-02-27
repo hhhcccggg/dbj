@@ -12,7 +12,7 @@ import com.zwdbj.server.pay.wechat.wechatpay.model.RefundOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.RefundQueryInput;
 import com.zwdbj.server.pay.wechat.wechatpay.model.RefundQueryResultDto;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

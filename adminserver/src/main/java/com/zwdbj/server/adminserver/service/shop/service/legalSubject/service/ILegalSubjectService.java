@@ -4,8 +4,7 @@ import com.zwdbj.server.adminserver.service.shop.service.legalSubject.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.userTenant.model.ModifyUserTenantInput;
 import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantInput;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.productAttriLinks.service;
 
 import com.zwdbj.server.adminserver.service.shop.service.productAttriLinks.model.ProductAttriLinks;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

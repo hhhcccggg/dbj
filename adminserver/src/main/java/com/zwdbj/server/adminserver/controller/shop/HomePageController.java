@@ -4,8 +4,8 @@ import com.zwdbj.server.adminserver.service.shop.service.homepage.model.OrderTre
 import com.zwdbj.server.adminserver.service.shop.service.homepage.model.TodayOverview;
 import com.zwdbj.server.adminserver.service.shop.service.homepage.service.HomePageService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

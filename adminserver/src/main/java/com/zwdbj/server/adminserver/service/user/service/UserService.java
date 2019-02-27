@@ -15,7 +15,7 @@ import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedDto;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedInput;
 import com.zwdbj.server.adminserver.service.user.model.*;

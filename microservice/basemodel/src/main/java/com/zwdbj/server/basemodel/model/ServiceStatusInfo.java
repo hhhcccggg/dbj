@@ -1,4 +1,4 @@
-package com.zwdbj.server.utility.model;
+package com.zwdbj.server.basemodel.model;
 
 import io.swagger.annotations.ApiModelProperty;
 

@@ -5,7 +5,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.InviteesModel
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.TaskModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.UserTaskModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

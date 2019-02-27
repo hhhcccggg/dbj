@@ -6,6 +6,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.config.settings.AliyunConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class SendSmsService implements ISendSmsService {
      * @return 返回发送状态
      */
     @Override
-    public boolean sendCode(String phone, String code, String smsSignName, String templateCode) {
+    public ServiceStatusInfo<Object> sendCode(String phone, String code, String smsSignName, String templateCode) {
         //超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -34,7 +35,7 @@ public class SendSmsService implements ISendSmsService {
         try {
             DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Dysmsapi", "dysmsapi.aliyuncs.com");
         } catch (Exception e) {
-            return false;
+            return new ServiceStatusInfo<>(500,e.getMessage(),null);
         }
         IAcsClient acsClient = new DefaultAcsClient(profile);
         SendSmsRequest request = new SendSmsRequest();
@@ -45,11 +46,11 @@ public class SendSmsService implements ISendSmsService {
         try {
             SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
             if (sendSmsResponse.getCode().equals("OK")) {
-                return true;
+                return new ServiceStatusInfo<>(0,"OK",null);
             }
-            return false;
+            return new ServiceStatusInfo<>(500,"ERROR",null);
         } catch (Exception e) {
-            return false;
+            return new ServiceStatusInfo<>(500,e.getMessage(),null);
         }
     }
 }

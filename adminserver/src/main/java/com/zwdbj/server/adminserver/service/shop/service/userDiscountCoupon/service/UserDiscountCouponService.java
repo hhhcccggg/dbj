@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.userDiscountCoupon.service;
 
 import com.zwdbj.server.adminserver.service.shop.service.userDiscountCoupon.model.UserDiscountCouponModel;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 public interface UserDiscountCouponService {
 

@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.comment.service;
 
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.comment.mapper.ICommentMapper;
 import com.zwdbj.server.adminserver.service.comment.model.*;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;

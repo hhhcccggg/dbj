@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.service.tag.service;
 
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindHotTagsDto;
 import com.zwdbj.server.adminserver.service.tag.mapper.ITagMapper;
 import com.zwdbj.server.adminserver.service.tag.model.*;
@@ -13,9 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.*;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class TagService {

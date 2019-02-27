@@ -6,7 +6,7 @@ import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServ
 import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

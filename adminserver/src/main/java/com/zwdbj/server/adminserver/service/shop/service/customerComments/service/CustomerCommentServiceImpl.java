@@ -6,7 +6,7 @@ import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.
 import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.ReplyComment;
 import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.UserComments;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

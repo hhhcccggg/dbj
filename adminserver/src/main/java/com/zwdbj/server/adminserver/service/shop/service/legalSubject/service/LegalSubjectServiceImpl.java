@@ -10,7 +10,7 @@ import com.zwdbj.server.adminserver.service.userTenant.model.ModifyUserTenantInp
 import com.zwdbj.server.adminserver.service.userTenant.model.UserTenantInput;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

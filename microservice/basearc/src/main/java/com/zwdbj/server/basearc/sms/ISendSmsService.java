@@ -1,6 +1,7 @@
 package com.zwdbj.server.basearc.sms;
 
 
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 /**
  * 发送短信服务
@@ -14,5 +15,5 @@ public interface ISendSmsService {
      * @param templateCode 短信模板
      * @return 返回发送状态
      */
-    boolean sendCode(String phone,String code,String smsSignName,String templateCode);
+    ServiceStatusInfo<Object> sendCode(String phone, String code, String smsSignName, String templateCode);
 }
