@@ -17,9 +17,18 @@ public class OfflineStoreExtraServices {
     /// <value>The status.</value>
     @ApiModelProperty(value = "服务状态")
     int status;
-
+    @ApiModelProperty(value = "服务名称")
+    private String categoryName;
     @ApiModelProperty(value = "")
     String notes;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public long getId() {
         return id;

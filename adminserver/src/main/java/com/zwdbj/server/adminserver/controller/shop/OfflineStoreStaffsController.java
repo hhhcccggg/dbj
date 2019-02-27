@@ -41,7 +41,6 @@ public class OfflineStoreStaffsController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
 
 
-        
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -75,7 +74,7 @@ public class OfflineStoreStaffsController {
         long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
         long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
         PageHelper.startPage(pageNo, rows);
-        ServiceStatusInfo<List<OfflineStoreStaffs>> statusInfo = offlineStoreStaffsServiceImpl.getStaffs(storeId);
+        ServiceStatusInfo<List<OfflineStoreStaffs>> statusInfo = offlineStoreStaffsServiceImpl.getStaffs(storeId, legalSubjectId);
         PageInfo<OfflineStoreStaffs> pageInfo = new PageInfo<>(statusInfo.getData());
         return new ResponsePageInfoData<>(0, statusInfo.getMsg(), pageInfo.getList(), pageInfo.getTotal());
     }

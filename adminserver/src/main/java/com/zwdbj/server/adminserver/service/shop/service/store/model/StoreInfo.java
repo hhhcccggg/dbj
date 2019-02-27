@@ -1,9 +1,9 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.model;
 
-import com.zwdbj.server.adminserver.service.shop.service.discountCoupon.model.DiscountCouponModel;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.model.OfflineStoreExtraServices;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour.model.OfflineStoreOpeningHours;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
+import com.zwdbj.server.adminserver.service.shop.service.products.model.StoreProduct;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,44 +13,35 @@ import java.util.List;
 @ApiModel(description = "店铺详细信息")
 public class StoreInfo {
     @ApiModelProperty(value = "店铺id")
-    long id;
+    private long id;
     @ApiModelProperty(value = "店铺名称")
-    String name;
+    private String name;
     @ApiModelProperty(value = "店主姓名")
-    String contactName;
+    private String contactName;
     @ApiModelProperty(value = "店主手机号 同联系人电话")
-    String contactPhone;
-    @ApiModelProperty(value = "优惠券")
-    List<DiscountCouponModel> discountCoupons;
-    @ApiModelProperty(value = "营业时间")
-    List<OfflineStoreOpeningHours> openingHours;
-    @ApiModelProperty(value = "服务范围")
-    List<OfflineStoreServiceScopes> serviceScopes;
-    @ApiModelProperty(value = "附近服务")
-    List<OfflineStoreExtraServices> extraServices;
+    private String contactPhone;
     @ApiModelProperty(value = "纬度")
-    double latitude;
+    private double latitude;
     @ApiModelProperty(value = "经度")
-    double longitude;
+    private double longitude;
     @ApiModelProperty(value = "纬度，经度")
-    String location;
+    private String location;
     @ApiModelProperty(value = "详细地址")
-    String address;
+    private String address;
     @ApiModelProperty(value = "综合评分")
-    int grade;
+    private int grade;
     @ApiModelProperty(value = "店铺状态 0：正常1：关闭2:审核中")
-    int status;
+    private int status;
     @ApiModelProperty(value = "封面图")
-    String mainConverImage;
+    private String mainConverImage;
     @ApiModelProperty(value = "封面图地址")
-    String coverImages;
+    private String coverImages;
     @ApiModelProperty(value = "logo")
-    String logoUrl;
-
+    private String logoUrl;
     @ApiModelProperty(value = "城市")
-    int cityId;
+    private int cityId;
     @ApiModelProperty(value = "cityLevel")
-    String cityLevel;
+    private String cityLevel;
     @ApiModelProperty(value = "店铺营业状态,是否停止服务")
     private boolean stopService;
     @ApiModelProperty(value = "是否通过审核")
@@ -67,6 +58,19 @@ public class StoreInfo {
     private long legalSubjectId;
     @ApiModelProperty(value = "主营类目")
     private long categoryId;
+
+    @ApiModelProperty(value = "店铺产品")
+    private List<StoreProduct> storeProducts;
+
+    @ApiModelProperty(value = "营业时间")
+    private List<OfflineStoreOpeningHours> openingHours;
+
+    @ApiModelProperty(value = "服务范围")
+    private List<OfflineStoreServiceScopes> serviceScopes;
+
+    @ApiModelProperty(value = "附近服务")
+    private List<OfflineStoreExtraServices> extraServices;
+
     @ApiModelProperty(value = "店铺资质的图片")
     private List<BusinessSellerReviewModel> businessSellerReviewModels;
 
@@ -76,6 +80,14 @@ public class StoreInfo {
 
     public void setBusinessSellerReviewModels(List<BusinessSellerReviewModel> businessSellerReviewModels) {
         this.businessSellerReviewModels = businessSellerReviewModels;
+    }
+
+    public List<StoreProduct> getStoreProducts() {
+        return storeProducts;
+    }
+
+    public void setStoreProducts(List<StoreProduct> storeProducts) {
+        this.storeProducts = storeProducts;
     }
 
     public String getType() {
@@ -150,13 +162,6 @@ public class StoreInfo {
         this.reviewed = reviewed;
     }
 
-    public List<DiscountCouponModel> getDiscountCoupons() {
-        return discountCoupons;
-    }
-
-    public void setDiscountCoupons(List<DiscountCouponModel> discountCoupons) {
-        this.discountCoupons = discountCoupons;
-    }
 
     public int getCityId() {
         return cityId;
@@ -293,4 +298,5 @@ public class StoreInfo {
     public void setName(String name) {
         this.name = name;
     }
+
 }

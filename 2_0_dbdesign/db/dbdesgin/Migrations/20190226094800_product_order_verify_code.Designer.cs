@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dbdesgin.Data;
 
 namespace dbdesgin.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190226094800_product_order_verify_code")]
+    partial class product_order_verify_code
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1125,9 +1127,6 @@ namespace dbdesgin.Migrations
                         .HasMaxLength(512);
 
                     b.Property<bool>("buyerRate");
-
-                    b.Property<string>("cancelReason")
-                        .HasMaxLength(512);
 
                     b.Property<DateTime?>("closeTime")
                         .HasColumnName("closeTime")

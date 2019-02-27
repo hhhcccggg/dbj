@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.accountInfo.service;
 
 import com.zwdbj.server.adminserver.service.user.model.AdModifyManagerPasswordInput;
+import com.zwdbj.server.adminserver.service.user.model.AdNewlyPwdInput;
 import com.zwdbj.server.utility.model.ServiceStatusInfo;
 
 public interface AccountInfoService {
@@ -9,4 +10,5 @@ public interface AccountInfoService {
     ServiceStatusInfo<String> sendPhoneCode(String phone);
 
     ServiceStatusInfo<Long> modifyPwdAd(Long id, AdModifyManagerPasswordInput input);
+    ServiceStatusInfo<Long> newlyPwdAd(AdNewlyPwdInput input);
 }

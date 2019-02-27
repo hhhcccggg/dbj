@@ -17,11 +17,14 @@ public interface StoreService {
      * @return
      */
     ServiceStatusInfo<StoreSimpleInfo> selectByLegalSubjectId(long legalSubjectId);
-    ServiceStatusInfo<Integer> updateStoreStatus(long storeId,long legalSubjectId,int state);
+
+    ServiceStatusInfo<Integer> updateStoreStatus(long storeId, long legalSubjectId, int state);
+
     ServiceStatusInfo<Integer> reviewStore(long storeId, long legalSubjectId, ReviewStoreInput input);
 
     ServiceStatusInfo<StoreInfo> selectByStoreId(long storeId);
 
     long selectTenantId(long legalSubjectId);
+
     ServiceStatusInfo<List<StoreSimpleInfo>> searchStore(StoreSearchInput input);
 }

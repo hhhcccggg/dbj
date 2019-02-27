@@ -148,5 +148,15 @@ namespace db.shop.Models.shop
         /// </summary>
         /// <value>The receive address identifier.</value>
         public long receiveAddressId { get; set; }
+        /// <summary>
+        /// 校验码
+        /// 虚拟商品兑换码|验证码
+        /// </summary>
+        /// <value>The verify code.</value>
+        [MaxLength(20)]
+        public String verifyCode { get; set; }
+        // 订单取消的原因
+        [MaxLength(512)]
+        public String cancelReason { get; set; }
     }
 }

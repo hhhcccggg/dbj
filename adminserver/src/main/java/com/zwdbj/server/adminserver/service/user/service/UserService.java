@@ -33,6 +33,8 @@ import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -301,6 +303,30 @@ public class UserService {
         }
     }
 
+
+
+    public ServiceStatusInfo<Long> newlyPwdAd(AdNewlyPwdInput input){
+        Long result = 0L;
+        try {
+            if (!input.getmNewPassword().equals(input.getNewPassword()))return new ServiceStatusInfo<>(1, "新密码和确认密码不一致", null);
+            String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
+            Pattern r = Pattern.compile(regEx);
+            Matcher m1 = r.matcher(input.getmNewPassword());
+            Matcher m2 = r.matcher(input.getNewPassword());
+            boolean rs1 = m1.matches();
+            boolean rs2 = m2.matches();
+            if (!rs1  || !rs2 ) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
+            input.setmNewPassword(SHAEncrypt.encryptSHA(input.getNewPassword()));
+            result = this.userMapper.newlyPwdAd(input);
+            if (result==0)new ServiceStatusInfo<>(1, "找回失败", result);
+            long id = this.userMapper.findUserIdByPhone(input.getPhone());
+            this.tokenCenterManager.refreshUserInfo(String.valueOf(id), iAuthUserManagerImpl);
+            return new ServiceStatusInfo<>(0, "", result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "找回密码失败" + e.getMessage(), result);
+        }
+    }
+
     /**
      * 修改用户密码
      *
@@ -312,14 +338,29 @@ public class UserService {
 
         Long result = 0L;
         try {
+            if (!input.getmNewPassword().equals(input.getNewPassword()))return new ServiceStatusInfo<>(1, "新密码和确认密码不一致", result);
+            String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
+            Pattern r = Pattern.compile(regEx);
+            Matcher m1 = r.matcher(input.getmNewPassword());
+            Matcher m2 = r.matcher(input.getNewPassword());
+            Matcher m3 = r.matcher(input.getOldPassword());
+            boolean rs1 = m1.matches();
+            boolean rs2 = m2.matches();
+            boolean rs3 = m3.matches();
+            if (!rs1  || !rs2 || !rs3) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
             input.setOldPassword(SHAEncrypt.encryptSHA(input.getOldPassword()));
             input.setmNewPassword(SHAEncrypt.encryptSHA(input.getmNewPassword()));
             result = this.userMapper.modifyPwdAd(id, input);
+            if (result==0)new ServiceStatusInfo<>(1, "修改失败", result);
             this.tokenCenterManager.refreshUserInfo(String.valueOf(id), iAuthUserManagerImpl);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改密码失败" + e.getMessage(), result);
         }
+    }
+
+    public boolean phoneIsExit(String phone){
+        return this.userMapper.phoneIsExist(phone)>0;
     }
 
     /**
