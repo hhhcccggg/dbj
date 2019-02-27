@@ -25,7 +25,8 @@ public interface OfflineStoreExtraServicesMapper {
     @Select("select * from o2o_offlineStoreExtraServices where isDeleted=0 order by createTime")
     List<OfflineStoreExtraServices> select();
 
-    @Select("select id,storeId,extraServiceId,status,notes from o2o_offlineStoreExtraServices where storeId=#{storeId} and isDeleted=0")
+    @Select("select os.id,os.storeId,os.extraServiceId,os.status,os.notes,c.name as categoryName from o2o_offlineStoreExtraServices as os ," +
+            "core_categories as c where os.storeId=#{storeId} and os.extraServiceId=c.id and isDeleted=0")
     List<OfflineStoreExtraServices> selectByofflineStoreId(@Param("storeId") Long storeId);
 
 

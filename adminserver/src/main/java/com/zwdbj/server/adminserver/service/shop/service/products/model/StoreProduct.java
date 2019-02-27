@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model;
+package com.zwdbj.server.adminserver.service.shop.service.products.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
