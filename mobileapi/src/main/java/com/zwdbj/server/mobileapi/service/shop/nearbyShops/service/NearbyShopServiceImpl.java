@@ -186,7 +186,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                     matchQuery = QueryBuilders.boolQuery().should(new MultiMatchQueryBuilder(info.getSearch(),
                                     "name",
                                     "storeProducts.name",
-                                    "serviceScopes.name",
+                                    "serviceScopes.categoryName",
                                     "address")
 //                            .fuzziness(Fuzziness.AUTO)//模糊匹配
                     ).filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
@@ -206,7 +206,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                             .should(new MultiMatchQueryBuilder(info.getSearch(),
                                     "name",
                                     "storeProducts.name",
-                                    "serviceScopes.name",
+                                    "serviceScopes.categoryName",
                                     "address"))
 //                                    .fuzziness(Fuzziness.AUTO))//多字段查询
                             .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
