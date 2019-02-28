@@ -261,7 +261,7 @@ public class VideoController {
     @GetMapping("/mainVideo")
     @ApiOperation(value = "主页视频")
     public ResponseData<VideoMainDto> mainVideo(VideoMainInput videoMainInput){
-        ServiceStatusInfo<VideoMainDto> serviceStatusInfo = videoService.mainESVideo(videoMainInput);
+        ServiceStatusInfo<VideoMainDto> serviceStatusInfo = videoService.mainVideo(videoMainInput);
         return new ResponseData<>(serviceStatusInfo.isSuccess()?ResponseDataCode.STATUS_NORMAL:ResponseDataCode.STATUS_ERROR,
                 serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
     }

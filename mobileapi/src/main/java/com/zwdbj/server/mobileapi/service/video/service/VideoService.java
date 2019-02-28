@@ -39,7 +39,7 @@ import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.action.search.SearchRequest;
+/*import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchScrollRequest;
 import org.elasticsearch.client.RequestOptions;
@@ -53,7 +53,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
+import org.elasticsearch.search.sort.SortOrder;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,8 +98,8 @@ public class VideoService {
     protected StoreService storeServiceImpl;
     @Autowired
     protected RedisTemplate redisTemplate;
-    @Autowired
-    private RestHighLevelClient restHighLevelClient;
+/*    @Autowired
+    private RestHighLevelClient restHighLevelClient;*/
     @Autowired
     private ProductService productServiceImpl;
 
@@ -859,11 +859,11 @@ public class VideoService {
         }
     }
 
-    /**
+/*    *//**
      * 主页ES视频查询
      * @param videoMainInput
      * @return
-     */
+     *//*
     public ServiceStatusInfo<VideoMainDto> mainESVideo(VideoMainInput videoMainInput){
         try{
             VideoMainDto videoMainDto = new VideoMainDto();
@@ -907,7 +907,7 @@ public class VideoService {
             e.printStackTrace();
             return new ServiceStatusInfo<>(1,e.getMessage(),null);
         }
-    }
+    }*/
 
     public int userVideosNum(long userId){
         return this.videoMapper.userVideosNum(userId);
