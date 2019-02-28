@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @ApiModel(description = "支付宝申请退款的请求参数")
 public class AliAppRefundInput implements Serializable {
+    private static final long serialVersionUID = 5181281787350543757L;
     @ApiModelProperty(value = "订单支付时传入的商户订单号,不能和 trade_no同时为空。")
     @JSONField(name = "out_trade_no")
     private String outTradeNo;

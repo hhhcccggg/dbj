@@ -3,9 +3,12 @@ package com.zwdbj.server.pay.wechat.wechatpay.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "微信退款查询退款的输入")
-public class RefundQueryInput {
+import java.io.Serializable;
 
+@ApiModel(description = "微信退款查询退款的输入")
+public class RefundQueryInput implements Serializable {
+
+    private static final long serialVersionUID = 6976532922723646795L;
     /**
      * 订单号
      */

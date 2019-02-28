@@ -9,6 +9,7 @@ import java.io.Serializable;
 @ApiModel("阿里支付查询退款的请求参数")
 public class AliAppRefundQueryInput implements Serializable {
 
+    private static final long serialVersionUID = 8957016375684062824L;
     @ApiModelProperty(value = "订单支付时传入的商户订单号,不能和 trade_no同时为空。rade_no,out_trade_no如果同时存在优先取trade_no")
     @JSONField(name = "out_trade_no")
     private String outTradeNo;
