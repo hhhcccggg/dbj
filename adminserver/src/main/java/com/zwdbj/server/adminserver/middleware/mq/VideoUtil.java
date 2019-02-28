@@ -15,7 +15,7 @@ public class VideoUtil {
      */
     public static void QueueWorkVideoInfoSend(QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum,long videoId){
 
-        /*try {
+        try {
             QueueWorkInfoModel.QueueWorkVideoInfo queueWorkVideoInfo = QueueWorkInfoModel.QueueWorkVideoInfo.newBuilder()
                     .setOperation(operationEnum).setVideoId(videoId).build();
             QueueWorkInfoModel.QueueWorkInfo queueWorkInfo = QueueWorkInfoModel.QueueWorkInfo.newBuilder()
@@ -26,6 +26,6 @@ public class VideoUtil {
             logger.info("[MQ]视频" + videoId + "发送信息成功");
         } catch (Exception e) {
             logger.error("[MQ]视频" + videoId + "发送信息失败");
-        }*/
+        }
     }
 }
