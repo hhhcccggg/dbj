@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.config;
 
-import com.alibaba.fastjson.JSON;
+/*import com.alibaba.fastjson.JSON;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
@@ -20,9 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
+*//**
  * es初始化
- */
+ *//*
 @Component
 public class ElasticsearchInit implements ApplicationRunner {
 
@@ -41,10 +41,10 @@ public class ElasticsearchInit implements ApplicationRunner {
         createVideo();
     }
 
-    /**
+    *//**
      * 创建视频索引和数据
      * @throws IOException
-     */
+     *//*
     private void createVideo() throws IOException {
         GetIndexRequest getIndexRequest = new GetIndexRequest();
         getIndexRequest.indices("video");
@@ -120,13 +120,13 @@ public class ElasticsearchInit implements ApplicationRunner {
         restHighLevelClient.bulk(bulkRequest,RequestOptions.DEFAULT);
     }
 
-    /**
+    *//**
      * 创建数据
      * @param index
      * @param type
      * @param maps
      * @return
-     */
+     *//*
     public BulkRequest createIndexRequest(String index,String type,List<Map<String,String>> maps,BulkRequest bulkRequest){
         for (Map map:maps) {
             IndexRequest indexRequest = new IndexRequest(index, type);
@@ -135,4 +135,4 @@ public class ElasticsearchInit implements ApplicationRunner {
         }
         return bulkRequest;
     }
-}
+}*/
