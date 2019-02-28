@@ -207,6 +207,8 @@ public class VideoService {
         }
 
         videoMapper.publicVideo(videoId, userId, input);
+        int a = this.videoMapper.findVideoNumByUserId(userId);
+        if (a==1)this.stringRedisTemplate.opsForValue().set("trueUserId:"+userId,String.valueOf(8),500,TimeUnit.MINUTES);
         //每日任务小饼干
         boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicVideo:"+userId);
         ResponseCoin coin =null;

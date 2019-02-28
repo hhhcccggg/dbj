@@ -34,6 +34,10 @@ public class UserService {
             e.printStackTrace();
         }
     }
+    public List<Long> getTrueUserIds() {
+        List<Long> userIds = this.userMapper.getTrueUserIds();
+        return userIds;
+    }
 
     public void newThirdUsers(String phone, String avatarUrl, String nickName, String thirdOpenId, int device, int type, String accessToken) {
         try {

@@ -25,6 +25,8 @@ public interface IUserMapper {
 
     @Select("select id  from core_users where isManualData=true")
     List<Long> getVestUserIds1();
+    @Select("select id from core_users where isManualData=false and totalHearts<>0 and totalFans<100 ")
+    List<Long> getTrueUserIds();
 
     @Select("select id  from core_users where phone like '56%' and username='爪子用户'")
     List<Long> getVestUserIds2();

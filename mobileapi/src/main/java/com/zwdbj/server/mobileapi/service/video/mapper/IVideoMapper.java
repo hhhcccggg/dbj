@@ -33,6 +33,9 @@ public interface IVideoMapper {
             "#{dataInput.firstFrameHeight})")
     long publicVideo(@Param("id") long id, @Param("userId") long userId, @Param("dataInput") VideoPublishInput dataInput);
 
+    @Select("select count(id) from core_videos where userId=#{userId}")
+    int findVideoNumByUserId(@Param("userId")long userId);
+
     @Insert("insert into core_videos(id,title,coverImageUrl,videoUrl," +
             "longitude,latitude,linkPets,userId," +
             "coverImageWidth,coverImageHeight,address," +

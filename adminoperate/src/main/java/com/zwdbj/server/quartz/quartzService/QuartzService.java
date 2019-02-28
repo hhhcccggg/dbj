@@ -240,6 +240,28 @@ public class QuartzService {
             logger.error("increaseHeartAndPlayCount异常" + e.getMessage());
         }
     }
+    public void addFollowersForTrueUser(){
+        try {
+
+            //真实用户的id
+            List<Long> userIds = this.userService.getTrueUserIds();
+            //马甲用户的id
+            List<Long> followerIds = this.userService.getVestUserIds1();
+            for (Long userId:userIds){
+                if (!this.stringRedisTemplate.hasKey("trueUserId:"+userId))continue;
+                int a = this.operateService.getRandom(3, 14);
+                for (int i=0;i<a;i++){
+                    int c = this.operateService.getRandom(0, followerIds.size());
+                    long follower = followerIds.get(c);
+                    int d = this.followerService.followIsExit(follower, userId);
+                    if (d != 0) continue;
+                    this.followerService.newMyFollower(follower, userId);
+                    }
+             }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public void newMyFollowers() {
         try {
