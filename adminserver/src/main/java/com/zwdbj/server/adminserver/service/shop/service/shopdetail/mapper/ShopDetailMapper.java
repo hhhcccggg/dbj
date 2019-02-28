@@ -13,7 +13,9 @@ import java.util.List;
 
 @Mapper
 public interface ShopDetailMapper {
-    @Select("select a.id,a.name,a.contactName,a.contactPhone from shop_stores as a where a.legalSubjectId=#{legalSubjectId}")
+    @Select("select a.id,a.name,a.contactName,a.contactPhone,l.reviewed,l.status,l.rejectMsg,a.logoUrl,a.mainConverImage,a.coverImages " +
+            "from shop_stores as a,shop_legalSubjects as l" +
+            "where a.legalSubjectId=#{legalSubjectId} and l.id=#{legalSubjectId}")
     StoreDto findStoreDetail(@Param("legalSubjectId") long legalSubjectId);
 
 
@@ -76,4 +78,7 @@ public interface ShopDetailMapper {
 
     @Select("select * from shop_stores as s where s.legalSubjectId=#{legalSubjectId}")
     ShopInfo storeDeatilInfo(@Param("legalSubjectId") long legalSubjectId);
+
+    @UpdateProvider(method = "modifyStoreImage", type = ShopDetailSql.class)
+    Long modifyStoreImage(@Param("imageType") String imageType, @Param("imageUrl") String url, @Param("legalSubjectId") long legalSubjectId);
 }

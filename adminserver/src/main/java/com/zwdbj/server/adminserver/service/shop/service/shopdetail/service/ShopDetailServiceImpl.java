@@ -270,4 +270,22 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             return new ServiceStatusInfo<>(1, "修改店铺服务范围失败" + e.getMessage(), null);
         }
     }
+
+    @Override
+    public ServiceStatusInfo<Long> modifyStoreImage(StoreImage storeImage, long legalSubjectId) {
+        try {
+            if ("coverImages".equals(storeImage.getType())) {
+                String[] urls = storeImage.getImageUrl().split(",");
+                for (String url : urls) {
+                    shopDetailMapper.modifyStoreImage(storeImage.getType(), qiniuService.url(url), legalSubjectId);
+                }
+                return new ServiceStatusInfo<>(0, "", 1L);
+            }
+            shopDetailMapper.modifyStoreImage(storeImage.getType(), qiniuService.url(storeImage.getImageUrl()), legalSubjectId);
+            return new ServiceStatusInfo<>(0, "", 1L);
+        } catch (Exception e) {
+            throw new RuntimeException("修改失败" + e.getMessage());
+        }
+
+    }
 }
