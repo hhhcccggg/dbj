@@ -1,5 +1,7 @@
 package com.zwdbj.server.adminserver.controller.shop;
 
+import com.zwdbj.server.adminserver.identity.RoleIdentity;
+import com.zwdbj.server.adminserver.identity.business.BusinessRoleIdentity;
 import com.zwdbj.server.adminserver.service.shop.service.accountInfo.service.AccountInfoService;
 import com.zwdbj.server.adminserver.service.user.model.AdModifyManagerPasswordInput;
 import com.zwdbj.server.adminserver.service.user.model.AdNewlyPwdInput;
@@ -8,7 +10,9 @@ import com.zwdbj.server.basemodel.model.ResponseDataCode;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +24,11 @@ public class AccountInController {
     @Autowired
     private AccountInfoService accountInfoServiceImpl;
 
+
     @RequestMapping(value = "/sendPhoneCode/{phone}", method = RequestMethod.GET)
     @ApiOperation("/发送手机验证码")
+    @RequiresAuthentication
+    @RequiresRoles(value = BusinessRoleIdentity.ADMIN_ROLE)
     public ResponseData<String> sendPhoneCode(@PathVariable("phone") String phone) {
         ServiceStatusInfo<String> statusInfo = accountInfoServiceImpl.sendPhoneCode(phone);
         if (statusInfo.isSuccess()) {
@@ -32,6 +39,8 @@ public class AccountInController {
 
     @RequestMapping(value = "/checkPhoneCode", method = RequestMethod.GET)
     @ApiOperation("验证手机验证码")
+    @RequiresAuthentication
+    @RequiresRoles(value = BusinessRoleIdentity.ADMIN_ROLE)
     public ResponseData<Object> checkPhoneCode(@RequestParam("phone") String phone, @RequestParam("code") String code) {
 
         ServiceStatusInfo<Object> statusInfo = accountInfoServiceImpl.checkPhoneCode(phone, code);

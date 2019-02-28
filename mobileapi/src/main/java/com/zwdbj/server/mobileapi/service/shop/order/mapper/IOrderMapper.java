@@ -54,6 +54,6 @@ public interface IOrderMapper {
             "where id=#{id} and userId=#{userId} and `status`='STATE_SELLER_DELIVERIED'")
     int takeOverGoods(@Param("id") long orderId, @Param("userId") long userId);
 
-    @Update("update shop_productOrders set `status`='STATE_SUCCESS' and buyerRate=1 where id=#{orderId} and `status`='STATE_USED'")
+    @Update("update shop_productOrders set `status`='STATE_SUCCESS',buyerRate=1 where id=#{orderId} and `status`='STATE_USED'")
     int updateGoodsStatus(@Param("orderId") long orderId);
 }
