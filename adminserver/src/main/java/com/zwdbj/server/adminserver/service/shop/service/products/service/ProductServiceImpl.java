@@ -62,20 +62,11 @@ public class ProductServiceImpl implements ProductService {
         if (serviceStatusInfo != null) {
             return serviceStatusInfo;
         }
-        try{
-            return new ServiceStatusInfo<>(0, "", createProduct(createProducts));
-        }catch (Exception e){
-            return new ServiceStatusInfo<>(1, "新增失败"+e.getMessage(), null);
-        }
-    }
-
-    @Transactional
-    public long createProduct(CreateProducts createProducts){
         //生成唯一id
         long id = UniqueIDCreater.generateID();
         long result = this.iProductMapper.createProducts(id, createProducts);
         if (result == 0) {
-            return result;
+            return new ServiceStatusInfo<>(1, "新增失败", result);
         }
         ProductSKUs productSKUs = new ProductSKUs();
         long skuid = UniqueIDCreater.generateID();
@@ -101,8 +92,9 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("CARD或CASHCOUPON新增失败"+id);
         }
         redisTemplate.delete(MainKeyType.MAINPRODUCT);
-        return result;
+        return new ServiceStatusInfo<>(0, "", result);
     }
+
 
     @Override
     public ServiceStatusInfo<Long> deleteProductsById(Long id) {
@@ -129,45 +121,41 @@ public class ProductServiceImpl implements ProductService {
         }
         updateProducts.setStoreId((long) serviceStatusInfo.getData());
         Long result = 0L;
-        try {
-            result = this.iProductMapper.update(updateProducts);
-            if (result == 0) {
-                return new ServiceStatusInfo<>(1, "修改失败：影响行数" + result, null);
-            }
-            ProductSKUs productSKUs = new ProductSKUs();
-            productSKUs.setProductId(updateProducts.getId());
-            productSKUs.setInventory(updateProducts.getInventory());
-            productSKUs.setOriginalPrice(updateProducts.getOriginalPrice());
-            productSKUs.setPromotionPrice(updateProducts.getPromotionPrice());
-            iProductSKUsMapper.updateProductSKUs(productSKUs);
-            Products createProducts = iProductMapper.selectById(updateProducts.getId());
-            if (ProductDetailType.CARD == createProducts.getProductDetailType()) {
-                ProductCard productCard = new ProductCard(updateProducts, updateProducts.getId());
-                this.iProductCardMapper.updateByProductIdByProductCard(productCard);
-            }
-            if (ProductDetailType.CASHCOUPON == createProducts.getProductDetailType()) {
-                ProductCashCoupon productCashCoupon = new ProductCashCoupon(updateProducts, updateProducts.getId());
-                this.iProductCashCouponMapper.updateByProductIdByProductCashCoupon(productCashCoupon);
-            }
-            redisTemplate.delete(MainKeyType.MAINPRODUCT);
-            return new ServiceStatusInfo<>(0, "", result);
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "修改失败" + e.getMessage(), result);
+        result = this.iProductMapper.update(updateProducts);
+        if (result == 0) {
+            return new ServiceStatusInfo<>(1, "修改失败：影响行数" + result, null);
         }
+        ProductSKUs productSKUs = new ProductSKUs();
+        productSKUs.setProductId(updateProducts.getId());
+        productSKUs.setInventory(updateProducts.getInventory());
+        productSKUs.setOriginalPrice(updateProducts.getOriginalPrice());
+        productSKUs.setPromotionPrice(updateProducts.getPromotionPrice());
+        result = iProductSKUsMapper.updateProductSKUs(productSKUs);
+        if(result == 0){
+            throw new RuntimeException("SKU修改失败"+updateProducts.getId());
+        }
+        Products createProducts = iProductMapper.selectById(updateProducts.getId());
+        if (ProductDetailType.CARD == createProducts.getProductDetailType()) {
+            ProductCard productCard = new ProductCard(updateProducts, updateProducts.getId());
+            result = this.iProductCardMapper.updateByProductIdByProductCard(productCard);
+        }
+        if (ProductDetailType.CASHCOUPON == createProducts.getProductDetailType()) {
+            ProductCashCoupon productCashCoupon = new ProductCashCoupon(updateProducts, updateProducts.getId());
+            result = this.iProductCashCouponMapper.updateByProductIdByProductCashCoupon(productCashCoupon);
+        }
+        if(result == 0){
+            throw new RuntimeException("CARD或CASHCOUPON新增失败"+updateProducts.getId());
+        }
+        redisTemplate.delete(MainKeyType.MAINPRODUCT);
+        return new ServiceStatusInfo<>(0, "", result);
     }
     @Override
     public ServiceStatusInfo<Integer> updateProductNum(long productId, long productSkuId, int num) {
-        try {
-            int result = this.iProductMapper.updateProductSkuNum(productSkuId, num);
-            if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
-            result = this.iProductMapper.updateProductNum(productId, num);
-            if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
-            return new ServiceStatusInfo<>(0, "", result);
-
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "商品数量更新失败:" + e.getMessage(), 0);
-        }
-
+        int result = this.iProductMapper.updateProductSkuNum(productSkuId, num);
+        if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
+        result = this.iProductMapper.updateProductNum(productId, num);
+        if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
+        return new ServiceStatusInfo<>(0, "", result);
     }
 
 
