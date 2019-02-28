@@ -304,4 +304,8 @@ public class OrderService {
         return new ServiceStatusInfo<>(0,"",settlementResult);
 
     }
+    public int updateGoodsStatus(long orderId) {
+        int result = this.orderMapper.updateGoodsStatus(orderId);
+        return result;
+    }
 }
