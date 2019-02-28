@@ -71,17 +71,7 @@ public class StoreDto implements Serializable {
         this.serviceScopes = serviceScopes;
     }
 
-    public void setOpeningHoursDisplay(String openingHoursDisplay) {
-        this.openingHoursDisplay = openingHoursDisplay;
-    }
-
-    public void setExtraServicesDisplay(String extraServicesDisplay) {
-        this.extraServicesDisplay = extraServicesDisplay;
-    }
-
-    public void setServiceScopesDisplay(String serviceScopesDisplay) {
-        this.serviceScopesDisplay = serviceScopesDisplay;
-    }
+    
 
     public String getOpeningHoursDisplay() {
         openingHoursDisplay = "周一至周日 09:00-21:00";
