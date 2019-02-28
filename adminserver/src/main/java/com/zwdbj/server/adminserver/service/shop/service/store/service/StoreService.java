@@ -4,7 +4,7 @@ import com.zwdbj.server.adminserver.service.shop.service.store.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

@@ -2,8 +2,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.serv
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.SearchUserDiscountCoupon;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponOut;
-import com.zwdbj.server.pay.settlement.protocol.Coupon;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

@@ -2,9 +2,9 @@ package com.zwdbj.server.mobileapi.controller.wxMini;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service.ProductOrderService;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;

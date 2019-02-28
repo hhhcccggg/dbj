@@ -17,7 +17,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.Produc
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;

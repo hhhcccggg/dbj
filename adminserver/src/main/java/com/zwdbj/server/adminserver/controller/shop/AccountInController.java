@@ -1,17 +1,14 @@
 package com.zwdbj.server.adminserver.controller.shop;
 
-import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.adminserver.service.shop.service.accountInfo.service.AccountInfoService;
 import com.zwdbj.server.adminserver.service.user.model.AdModifyManagerPasswordInput;
 import com.zwdbj.server.adminserver.service.user.model.AdNewlyPwdInput;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.productCard.service;
 
 import com.zwdbj.server.adminserver.service.shop.service.productCard.model.ProductCard;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 public interface ProductCardService {
 

@@ -6,11 +6,10 @@ import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStore
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
-import com.zwdbj.server.adminserver.service.shop.service.store.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;

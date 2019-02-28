@@ -5,7 +5,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.zwdbj.server.mobileapi.service.shop.shoppingcart.model.ProductInfo;
 import com.zwdbj.server.mobileapi.service.shop.shoppingcart.model.ProductSKU;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;

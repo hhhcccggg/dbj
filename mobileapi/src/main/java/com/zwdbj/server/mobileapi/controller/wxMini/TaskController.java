@@ -6,10 +6,10 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.InviteesModel
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.model.UserTaskModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.task.service.TaskService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;

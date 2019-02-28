@@ -5,7 +5,7 @@ import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScop
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

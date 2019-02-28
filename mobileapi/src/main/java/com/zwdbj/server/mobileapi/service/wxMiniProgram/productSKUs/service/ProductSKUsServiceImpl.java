@@ -2,7 +2,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.mapper.IProductSKUsMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -9,9 +9,9 @@ import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.
 import com.zwdbj.server.adminserver.service.shop.service.customerComments.service.CustomerCommentService;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

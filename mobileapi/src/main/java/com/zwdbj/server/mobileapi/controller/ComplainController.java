@@ -2,10 +2,10 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.complain.model.*;
 import com.zwdbj.server.mobileapi.service.complain.service.ComplainService;
 import io.swagger.annotations.Api;

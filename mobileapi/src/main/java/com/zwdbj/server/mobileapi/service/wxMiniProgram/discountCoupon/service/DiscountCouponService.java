@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.discountCoupon.service;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.discountCoupon.model.DiscountCouponModel;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 
 public interface DiscountCouponService {

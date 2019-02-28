@@ -4,7 +4,7 @@ import com.zwdbj.server.adminserver.service.enCashPayAccount.mapper.EnCashPayAcc
 import com.zwdbj.server.adminserver.service.enCashPayAccount.model.EnCashPayAccount;
 import com.zwdbj.server.adminserver.service.enCashPayAccount.model.ModifyEnCashPayAccount;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,11 +2,9 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.zwdbj.server.mobileapi.service.pay.Refund.model.PayRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.Refund.service.PayRefundService;
-import com.zwdbj.server.pay.alipay.model.AliAppRefundDto;
-import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;

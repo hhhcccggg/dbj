@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.controller;
 
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
 import com.zwdbj.server.utility.common.UnauthorizedException;
 import org.apache.shiro.ShiroException;
 import org.slf4j.Logger;

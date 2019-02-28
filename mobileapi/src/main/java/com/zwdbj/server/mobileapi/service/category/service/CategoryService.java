@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.service.category.service;
 import com.zwdbj.server.mobileapi.config.MainKeyType;
 import com.zwdbj.server.mobileapi.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.mobileapi.service.category.model.*;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
