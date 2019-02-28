@@ -1,10 +1,7 @@
 package com.zwdbj.server.adminserver.controller.shop;
 
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.LocationInfo;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.OpeningHours;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.QualificationInput;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.StoreDto;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.service.ShopDetailService;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
@@ -188,6 +185,19 @@ public class ShopDetailController {
         long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
         ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.uploadCheck(input, legalSubjectId);
 
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
+    }
+
+    @RequestMapping(value = "/modifyStoreImage", method = RequestMethod.POST)
+    @ApiOperation(value = "修改店铺照片")
+    public ResponseData<Long> modifyStoreImage(@RequestBody StoreImage storeImage) {
+//        long userId = JWTUtil.getCurrentId();
+//
+//        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyStoreImage(storeImage, 1);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
