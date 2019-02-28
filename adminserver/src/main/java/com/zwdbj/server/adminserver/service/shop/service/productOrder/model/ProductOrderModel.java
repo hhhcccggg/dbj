@@ -43,6 +43,16 @@ public class ProductOrderModel {
     private long productId;
     @ApiModelProperty(value = "商品的skuid")
     private long productskuId;
+    @ApiModelProperty(value = "商品的图片地址")
+    private String imageUrls;
+
+    public String getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(String imageUrls) {
+        this.imageUrls = imageUrls;
+    }
 
     public long getProductId() {
         return productId;

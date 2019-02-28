@@ -48,6 +48,16 @@ public class ProductOrderModel {
     private String storeName;
     @ApiModelProperty(value = "店铺的第一张封面图")
     private String mainConverImage;
+    @ApiModelProperty(value = "商品的图片地址")
+    private String imageUrls;
+
+    public String getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(String imageUrls) {
+        this.imageUrls = imageUrls;
+    }
 
     public String getMainConverImage() {
         return mainConverImage;
