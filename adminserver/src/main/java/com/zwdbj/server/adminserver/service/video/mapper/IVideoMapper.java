@@ -12,6 +12,9 @@ public interface IVideoMapper {
     @SelectProvider(type = VideoSqlProvider.class, method = "searchComplainVideosSql")
     List<VideoInfoDto> complainVideosAd(@Param("model") AdVideoSearchComplainInput input);
 
+    @Update("update core_videos set tags=#{tags} where id=#{id}")
+    int addTagForVideo(@Param("id")long videoId,@Param("tags")String tags);
+
     @Update("update core_videos set status=#{model.status},rejectMsg=#{model.rejectMsg} where id=#{id}")
     Long verityAd(@Param("id") Long id, @Param("model") AdVideoVerityInput input);
 

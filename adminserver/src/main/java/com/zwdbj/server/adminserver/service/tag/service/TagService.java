@@ -30,6 +30,16 @@ public class TagService {
         List<AdVideoTagDto>  videoTagDtos = this.tagMapper.getVideoTagAd(input);
         return videoTagDtos;
     }
+    public ServiceStatusInfo<Integer> changeTagStatus(long id,UpdateTagStatusInput input){
+        int tag=0;
+        try {
+            tag = this.tagMapper.changeTagStatus(id,input);
+            if (tag==0)return new ServiceStatusInfo<>(1,"更新失败",tag);
+            return new ServiceStatusInfo<>(0,"",tag);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"更新失败"+e.getMessage(),tag);
+        }
+    }
 
     public ServiceStatusInfo<Long> addVideoTagAd(AdNewVideoTagInput input){
         int tag = this.tagMapper.findTagByName(input.getName());
@@ -69,6 +79,10 @@ public class TagService {
 
     public AdVideoTagDto getTagDetailById(long tagId){
         return this.tagMapper.getTagDetailById(tagId);
+    }
+
+    public int updateTagResNum(long tagId,int num){
+        return this.tagMapper.updateTagResNum(tagId,num);
     }
 
 

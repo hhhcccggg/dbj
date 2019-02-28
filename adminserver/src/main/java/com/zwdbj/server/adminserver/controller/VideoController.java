@@ -113,6 +113,17 @@ public class VideoController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, "保存失败", null);
     }
+    @RequiresAuthentication
+    @RequestMapping(value = "/dbj/addTag/{videoId}", method = RequestMethod.POST)
+    @ApiOperation("为短视频关联主题")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
+    public ResponseData<Object> addTagForVideo(@PathVariable long videoId, @RequestBody VideoAddTagInput input) {
+        ServiceStatusInfo<Object> statusInfo = this.videoService.addTagForVideo(videoId, input);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", null);
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, "保存失败", null);
+    }
 
 
     @RequiresAuthentication

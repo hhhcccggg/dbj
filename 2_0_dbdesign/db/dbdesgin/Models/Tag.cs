@@ -16,6 +16,8 @@ namespace dbdesgin.Models
         // 相关联的资源数
         public long resNumber { get; set; }
         public bool isHot { get; set; }
+        //状态:0:正常,1,停用
+        public int status { get; set; }
         /// <summary>
         /// 描述
         /// </summary>

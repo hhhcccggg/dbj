@@ -41,6 +41,19 @@ public class TagController {
     }
 
     @RequiresAuthentication
+    @RequestMapping(value = "/dbj/videoTag/change/{id}",method = RequestMethod.POST)
+    @ApiOperation("基础信息-视频标签")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    public  ResponseData<Integer> changeTagStatus(@PathVariable long id,
+                                                          @RequestBody UpdateTagStatusInput input){
+        ServiceStatusInfo<Integer> statusInfo = this.tagService.changeTagStatus(id,input);
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
+    @RequiresAuthentication
     @RequestMapping(value = "/dbj/videoTag/add",method = RequestMethod.POST)
     @ApiOperation("基础信息-新建视频标签")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
@@ -88,4 +101,5 @@ public class TagController {
         }
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR,"",null,0);
     }
+
 }

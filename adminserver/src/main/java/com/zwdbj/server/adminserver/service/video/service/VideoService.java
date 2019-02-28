@@ -85,6 +85,16 @@ public class VideoService {
         return new ServiceStatusInfo<>(0, "", goods);
     }
 
+    @Transactional
+    public ServiceStatusInfo<Object> addTagForVideo(long videoId,VideoAddTagInput input){
+            int a = this.videoMapper.addTagForVideo(videoId,input.getName());
+            int b=0;
+            if (a!=0)
+                 b= this.tagService.updateTagResNum(input.getTagId(),1);
+            if (b==0)return new ServiceStatusInfo<>(1, "添加主题失败", null);
+            return new ServiceStatusInfo<>(0, "", b);
+    }
+
     public ServiceStatusInfo<EntityKeyModel<String>> getGoodsAd(long videoId) {
         String goods = this.resRefGoodsService.getGoods(videoId);
         if (goods == null) return new ServiceStatusInfo<>(1, "未找到关联的商品", null);
