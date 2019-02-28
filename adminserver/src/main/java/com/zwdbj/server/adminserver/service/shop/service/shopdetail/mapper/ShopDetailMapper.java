@@ -13,8 +13,8 @@ import java.util.List;
 
 @Mapper
 public interface ShopDetailMapper {
-    @Select("select a.id,a.name,a.contactName,a.contactPhone,l.reviewed,l.status,l.rejectMsg,a.logoUrl,a.mainConverImage,a.coverImages " +
-            "from shop_stores as a,shop_legalSubjects as l" +
+    @Select("select a.id,a.name,a.contactName,a.contactPhone,l.reviewed,l.status,l.reviewMsg,a.logoUrl,a.mainConverImage,a.coverImages " +
+            "from shop_stores as a,shop_legalSubjects as l " +
             "where a.legalSubjectId=#{legalSubjectId} and l.id=#{legalSubjectId}")
     StoreDto findStoreDetail(@Param("legalSubjectId") long legalSubjectId);
 

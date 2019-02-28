@@ -2,7 +2,6 @@ package com.zwdbj.server.adminserver.service.category.mapper;
 
 import com.zwdbj.server.adminserver.service.category.model.*;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ public interface ICategoryMapper {
     @Delete("delete from core_categories where id=#{id}")
     Long delCategoryAd(@Param("id") Long id);
 
-    @Select("select name,id from core_categories where id=#{id} and status=0")
+    @Select("select name as categoryName,id from core_categories where id=#{id} and status=0 and isDeleted=0")
     StoreServiceCategory searchCategory(@Param("id") long id);
 }
 

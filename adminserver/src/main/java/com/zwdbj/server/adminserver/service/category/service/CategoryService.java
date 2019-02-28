@@ -41,8 +41,8 @@ public class CategoryService {
 
         Long result = 0L;
         try {
-            if (input.getIconUrl()!=null && input.getIconUrl().length()!=0)
-            input.setIconUrl(qiniuService.url(input.getIconUrl()));
+            if (input.getIconUrl() != null && input.getIconUrl().length() != 0)
+                input.setIconUrl(qiniuService.url(input.getIconUrl()));
             if (parentId == null) {
                 result = this.categoryMapper.addCategoryAd(id, input);
             } else if (parentId != null) {
@@ -62,8 +62,8 @@ public class CategoryService {
         //TODO 检查title是否在系统存在
         Long result = 0L;
         try {
-            if (input.getIconUrl()!=null && input.getIconUrl().length()!=0)
-            input.setIconUrl(qiniuService.url(input.getIconUrl()));
+            if (input.getIconUrl() != null && input.getIconUrl().length() != 0)
+                input.setIconUrl(qiniuService.url(input.getIconUrl()));
             result = this.categoryMapper.editCategoryAd(id, input);
             redisTemplate.delete(MainKeyType.MAINCATEGORY);
             return new ServiceStatusInfo<>(0, "", result);
@@ -95,7 +95,10 @@ public class CategoryService {
         try {
             for (Long id : list) {
                 StoreServiceCategory storeServiceCategory = categoryMapper.searchCategory(id);
-                result.add(storeServiceCategory);
+                if (storeServiceCategory != null) {
+                    result.add(storeServiceCategory);
+                }
+
             }
             return new ServiceStatusInfo<>(0, "", result);
 

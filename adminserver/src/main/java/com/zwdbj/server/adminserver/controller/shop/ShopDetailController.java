@@ -3,11 +3,11 @@ package com.zwdbj.server.adminserver.controller.shop;
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.service.ShopDetailService;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.basemodel.model.ResponseData;
-import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +31,9 @@ public class ShopDetailController {
 
         ServiceStatusInfo<AuthUser> statusInfo1 = tokenCenterManager.fetchUser(String.valueOf(userId));
         AuthUser authUser = statusInfo1.getData();
-        long legalSubjectId = authUser.getLegalSubjectId();
+//        long legalSubjectId = authUser.getLegalSubjectId();
         // long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<StoreDto> statusInfo = shopDetailServiceImpl.findStoreDetail(legalSubjectId);
+        ServiceStatusInfo<StoreDto> statusInfo = shopDetailServiceImpl.findStoreDetail(authUser.getLegalSubjectId());
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
 
@@ -43,21 +43,6 @@ public class ShopDetailController {
 
     }
 
-    @RequestMapping(value = "/openingHours", method = RequestMethod.GET)
-    @ApiOperation(value = "展示营业时间")
-    public ResponseData<List<OpeningHours>> openingHours() {
-        long userId = JWTUtil.getCurrentId();
-
-        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<List<OpeningHours>> statusInfo = shopDetailServiceImpl.findOpeningHours(legalSubjectId);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(0, "", statusInfo.getData());
-
-        }
-        return new ResponseData<>(1, statusInfo.getMsg(), null);
-
-
-    }
 
     @RequestMapping(value = "/modifyOpeningHours/{storeId}", method = RequestMethod.POST)
     @ApiOperation(value = "修改营业时间")
@@ -114,20 +99,6 @@ public class ShopDetailController {
     }
 
 
-    @RequestMapping(value = "/extraService", method = RequestMethod.GET)
-    @ApiOperation(value = "展示店铺额外服务范围")
-    public ResponseData<List<StoreServiceCategory>> showExtraServices() {
-
-        long userId = JWTUtil.getCurrentId();
-
-        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.shopDetailServiceImpl.findExtraService(legalSubjectId);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(0, "", statusInfo.getData());
-        }
-        return new ResponseData<>(1, statusInfo.getMsg(), null);
-    }
-
     @RequestMapping(value = "/modifyExtraService/{storeId}", method = RequestMethod.POST)
     @ApiOperation(value = "修改店铺额外服务范围")
     public ResponseData<Long> modifyExtraService(@RequestBody List<StoreServiceCategory> storeServiceCategory, @PathVariable("storeId") long storeId) {
@@ -141,31 +112,9 @@ public class ShopDetailController {
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/searchAllExtraService", method = RequestMethod.GET)
-    @ApiOperation(value = "查询所有额外服务范围")
-    public ResponseData<List<StoreServiceCategory>> searchAllExtraService() {
-        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.shopDetailServiceImpl.findExtraService(1L);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(0, "", statusInfo.getData());
-        }
-        return new ResponseData<>(1, statusInfo.getMsg(), null);
-    }
-
-    @RequestMapping(value = "/serviceScopes", method = RequestMethod.GET)
-    @ApiOperation(value = "展示店铺服务范围")
-    public ResponseData<List<StoreServiceCategory>> showServiceScopes() {
-        long userId = JWTUtil.getCurrentId();
-
-        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.shopDetailServiceImpl.findServiceScope(legalSubjectId);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(0, "", statusInfo.getData());
-        }
-        return new ResponseData<>(1, statusInfo.getMsg(), null);
-    }
 
     @RequestMapping(value = "/modifyServiceScopes/{storeId}", method = RequestMethod.POST)
-    @ApiOperation(value = "修改店铺额外服务范围")
+    @ApiOperation(value = "修改店铺服务范围")
     public ResponseData<Long> modifyServiceScopes(@RequestBody List<StoreServiceCategory> storeServiceCategory, @PathVariable("storeId") long storeId) {
         long userId = JWTUtil.getCurrentId();
 
@@ -194,10 +143,10 @@ public class ShopDetailController {
     @RequestMapping(value = "/modifyStoreImage", method = RequestMethod.POST)
     @ApiOperation(value = "修改店铺照片")
     public ResponseData<Long> modifyStoreImage(@RequestBody StoreImage storeImage) {
-//        long userId = JWTUtil.getCurrentId();
-//
-//        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyStoreImage(storeImage, 1);
+        long userId = JWTUtil.getCurrentId();
+
+        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyStoreImage(storeImage, legalSubjectId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }

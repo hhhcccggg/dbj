@@ -9,7 +9,6 @@ import java.util.List;
 public interface ShopDetailService {
     ServiceStatusInfo<StoreDto> findStoreDetail(long legalSubjectId);
 
-    ServiceStatusInfo<List<OpeningHours>> findOpeningHours(long legalSubjectId);
 
     ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list, long storeId, long legalSubjectId);
 
@@ -17,13 +16,9 @@ public interface ShopDetailService {
 
     ServiceStatusInfo<LocationInfo> showLocation(long legalSubjectId);
 
-    ServiceStatusInfo<List<StoreServiceCategory>> findExtraService(long legalSubjectId);
-
-    ServiceStatusInfo<List<StoreServiceCategory>> findAllExtraService(long legalSubjectId);
 
     ServiceStatusInfo<Long> modifyExtraService(long storeId, long legalSubjectId, List<StoreServiceCategory> list);
 
-    ServiceStatusInfo<List<StoreServiceCategory>> findServiceScope(long legalSubjectId);
 
     ServiceStatusInfo<Long> modifyServiceScopes(long storeId, long legalSubjectId, List<StoreServiceCategory> list);
 
