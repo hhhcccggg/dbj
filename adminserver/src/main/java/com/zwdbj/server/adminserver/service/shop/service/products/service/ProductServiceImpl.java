@@ -62,37 +62,46 @@ public class ProductServiceImpl implements ProductService {
         if (serviceStatusInfo != null) {
             return serviceStatusInfo;
         }
+        try{
+            return new ServiceStatusInfo<>(0, "", createProduct(createProducts));
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "新增失败"+e.getMessage(), null);
+        }
+    }
+
+    @Transactional
+    public long createProduct(CreateProducts createProducts){
         //生成唯一id
         long id = UniqueIDCreater.generateID();
-        Long result = 0L;
-        try {
-            result = this.iProductMapper.createProducts(id, createProducts);
-            if (result == 0) {
-                return new ServiceStatusInfo<>(1, "新增失败：影响行数" + result, null);
-            }
-            ProductSKUs productSKUs = new ProductSKUs();
-            long skuid = UniqueIDCreater.generateID();
-            productSKUs.setProductId(id);
-            productSKUs.setInventory(createProducts.getInventory());
-            productSKUs.setOriginalPrice(createProducts.getOriginalPrice());
-            productSKUs.setPromotionPrice(createProducts.getPromotionPrice());
-            iProductSKUsMapper.createProductSKUs(skuid, productSKUs);
-            if (ProductDetailType.CARD == createProducts.getProductDetailType()) {
-                ProductCard productCard = new ProductCard(createProducts, id);
-                productCard.setProductSKUId(skuid);
-                this.iProductCardMapper.createProductCard(UniqueIDCreater.generateID(), productCard);
-            }
-            if (ProductDetailType.CASHCOUPON == createProducts.getProductDetailType()) {
-                ProductCashCoupon productCashCoupon = new ProductCashCoupon(createProducts, id);
-                productCashCoupon.setProductSKUId(skuid);
-                this.iProductCashCouponMapper.createProductCashCoupon(UniqueIDCreater.generateID(), productCashCoupon);
-            }
-            redisTemplate.delete(MainKeyType.MAINPRODUCT);
-            return new ServiceStatusInfo<>(0, "", result);
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "创建失败：" + e.getMessage(), result);
+        long result = this.iProductMapper.createProducts(id, createProducts);
+        if (result == 0) {
+            return result;
         }
-
+        ProductSKUs productSKUs = new ProductSKUs();
+        long skuid = UniqueIDCreater.generateID();
+        productSKUs.setProductId(id);
+        productSKUs.setInventory(createProducts.getInventory());
+        productSKUs.setOriginalPrice(createProducts.getOriginalPrice());
+        productSKUs.setPromotionPrice(createProducts.getPromotionPrice());
+        result = iProductSKUsMapper.createProductSKUs(skuid, productSKUs);
+        if(result == 0){
+            throw new RuntimeException("SKU新增失败"+id);
+        }
+        if (ProductDetailType.CARD == createProducts.getProductDetailType()) {
+            ProductCard productCard = new ProductCard(createProducts, id);
+            productCard.setProductSKUId(skuid);
+            result = this.iProductCardMapper.createProductCard(UniqueIDCreater.generateID(), productCard);
+        }
+        if (ProductDetailType.CASHCOUPON == createProducts.getProductDetailType()) {
+            ProductCashCoupon productCashCoupon = new ProductCashCoupon(createProducts, id);
+            productCashCoupon.setProductSKUId(skuid);
+            result = this.iProductCashCouponMapper.createProductCashCoupon(UniqueIDCreater.generateID(), productCashCoupon);
+        }
+        if(result == 0){
+            throw new RuntimeException("CARD或CASHCOUPON新增失败"+id);
+        }
+        redisTemplate.delete(MainKeyType.MAINPRODUCT);
+        return result;
     }
 
     @Override
