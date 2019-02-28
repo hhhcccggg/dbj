@@ -11,6 +11,7 @@ import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.adminserver.service.youzan.model.YZItemDto;
 import com.zwdbj.server.adminserver.service.youzan.model.YZSearchItemInput;
 import com.zwdbj.server.adminserver.service.youzan.service.YouZanService;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.basemodel.model.ResponseData;
@@ -282,5 +283,25 @@ public class VideoController {
         return new ResponsePageInfoData<>(0, "", pageInfo.getList(), pageInfo.getTotal());
 
 
+    }
+
+    @GetMapping("updateVideoEs")
+    @ApiOperation(value = "",hidden = true)
+    public String updateVideoEs(long id,int type){
+        QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum = null;
+        if(type == 1){
+            operationEnum = QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.CREATE;
+        }else if(type == 2){
+            operationEnum = QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.UPDATE;
+        }else if(type == 3){
+            operationEnum = QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.DELETE;
+        }
+        if(operationEnum != null)
+            try{
+                videoService.operationByIdES(id,operationEnum);
+            }catch (Exception e){
+               return e.toString();
+            }
+        return "11";
     }
 }
