@@ -6,6 +6,7 @@ import com.zwdbj.server.adminserver.service.shop.service.shopdetail.service.Shop
 import com.zwdbj.server.basemodel.model.ResponseData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
+import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,13 +27,13 @@ public class ShopDetailController {
     @RequestMapping(value = "/basicInfo", method = RequestMethod.GET)
     @ApiOperation(value = "展示店铺基本信息")
     public ResponseData<StoreDto> basicInfo() {
-//        long userId = JWTUtil.getCurrentId();
-//
-//        ServiceStatusInfo<AuthUser> statusInfo1 = tokenCenterManager.fetchUser(String.valueOf(userId));
-//        AuthUser authUser = statusInfo1.getData();
+        long userId = JWTUtil.getCurrentId();
+
+        ServiceStatusInfo<AuthUser> statusInfo1 = tokenCenterManager.fetchUser(String.valueOf(userId));
+        AuthUser authUser = statusInfo1.getData();
 //        long legalSubjectId = authUser.getLegalSubjectId();
         // long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<StoreDto> statusInfo = shopDetailServiceImpl.findStoreDetail(1);
+        ServiceStatusInfo<StoreDto> statusInfo = shopDetailServiceImpl.findStoreDetail(authUser.getLegalSubjectId());
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
 
@@ -142,10 +143,10 @@ public class ShopDetailController {
     @RequestMapping(value = "/modifyStoreImage", method = RequestMethod.POST)
     @ApiOperation(value = "修改店铺照片")
     public ResponseData<Long> modifyStoreImage(@RequestBody StoreImage storeImage) {
-//        long userId = JWTUtil.getCurrentId();
-//
-//        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyStoreImage(storeImage, 1);
+        long userId = JWTUtil.getCurrentId();
+
+        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyStoreImage(storeImage, legalSubjectId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
