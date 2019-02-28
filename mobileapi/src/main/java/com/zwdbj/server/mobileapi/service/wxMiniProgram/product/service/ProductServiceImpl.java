@@ -22,11 +22,13 @@ import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
@@ -190,17 +192,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ServiceStatusInfo<Integer> updateProductNum(long productId, long productSkuId, int num) {
-        try {
-            int result = this.iProductMapper.updateProductSkuNum(productSkuId, num);
-            if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
-            result = this.iProductMapper.updateProductNum(productId, num);
-            if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
-            return new ServiceStatusInfo<>(0, "", result);
-
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "商品数量更新失败:" + e.getMessage(), 0);
-        }
-
+        int result = this.iProductMapper.updateProductSkuNum(productSkuId, num);
+        if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
+        result = this.iProductMapper.updateProductNum(productId, num);
+        if (result == 0) return new ServiceStatusInfo<>(1, "商品数量更新失败", 0);
+        return new ServiceStatusInfo<>(0, "", result);
     }
 
     @Override
