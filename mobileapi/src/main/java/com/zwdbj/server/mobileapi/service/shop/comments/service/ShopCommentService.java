@@ -13,7 +13,7 @@ public interface ShopCommentService {
 
     ServiceStatusInfo<List<ShopCommentsExtraDatas>> commentList(long storeId);
 
-    ServiceStatusInfo<Long> publishServiceComment(CommentVideoInfo videoInput);
+    ServiceStatusInfo<Long> publishServiceComment(CommentVideoInfo videoInput, long productOrderId);
 
     ServiceStatusInfo<Long> publishProductComment(CommentInput commentInput,long productOrderId);
 }

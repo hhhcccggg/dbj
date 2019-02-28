@@ -47,10 +47,10 @@ public class ShopCommentController {
 
     }
 
-    @RequestMapping(value = "/publishServiceComment", method = RequestMethod.POST)
+    @RequestMapping(value = "/publishServiceComment/#{orderId}", method = RequestMethod.POST)
     @ApiOperation(value = "用户发表服务评价")
-    public ResponseData<Long> publishServiceComment(@RequestBody CommentVideoInfo commentInput) {
-        ServiceStatusInfo<Long> statusInfo = shopCommentServiceImpl.publishServiceComment(commentInput);
+    public ResponseData<Long> publishServiceComment(@RequestBody CommentVideoInfo commentInput,@PathVariable long orderId) {
+        ServiceStatusInfo<Long> statusInfo = shopCommentServiceImpl.publishServiceComment(commentInput,orderId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }

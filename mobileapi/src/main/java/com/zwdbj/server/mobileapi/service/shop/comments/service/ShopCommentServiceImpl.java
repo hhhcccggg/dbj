@@ -69,7 +69,7 @@ public class ShopCommentServiceImpl implements ShopCommentService {
     //发布商家服务评论
     @Override
     @Transactional
-    public ServiceStatusInfo<Long> publishServiceComment(CommentVideoInfo videoInput) {
+    public ServiceStatusInfo<Long> publishServiceComment(CommentVideoInfo videoInput, long productOrderId) {
         try {
             long result = 0L;
             long userId = JWTUtil.getCurrentId();
@@ -86,6 +86,8 @@ public class ShopCommentServiceImpl implements ShopCommentService {
             long videoId = videoService.publicCommentVideo(videoInput);
             result++;
             result += this.shopCommentsMapper.commentExtraDatas(UniqueIDCreater.generateID(), commentId, videoId, videoInput);
+            //更新订单状态
+            orderService.updateGoodsStatus(productOrderId);
 
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
