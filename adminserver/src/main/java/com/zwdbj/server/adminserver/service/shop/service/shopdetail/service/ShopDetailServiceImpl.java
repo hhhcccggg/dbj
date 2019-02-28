@@ -51,22 +51,20 @@ public class ShopDetailServiceImpl implements ShopDetailService {
         StoreDto result = null;
         try {
             result = this.shopDetailMapper.findStoreDetail(legalSubjectId);
+
+            List<Long> extraServiceIds = this.shopDetailMapper.selectExtraServiceId(legalSubjectId);
+            result.setExtraServices(this.categoryService.searchCategory(extraServiceIds).getData());
+
+            result.setOpeningHours(this.shopDetailMapper.findOpeningHours(legalSubjectId));
+            //查询店铺服务范围id
+            List<Long> serviceScopeIds = this.shopDetailMapper.selectServiceScopeId(legalSubjectId);
+            result.setServiceScopes(this.categoryService.searchCategory(serviceScopeIds).getData());
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询店铺基本信息失败" + e.getMessage(), null);
         }
     }
 
-    @Override
-    public ServiceStatusInfo<List<OpeningHours>> findOpeningHours(long legalSubjectId) {
-        List<OpeningHours> result = null;
-        try {
-            result = this.shopDetailMapper.findOpeningHours(legalSubjectId);
-            return new ServiceStatusInfo<>(0, "", result);
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "查询营业时间失败" + e.getMessage(), null);
-        }
-    }
 
     @Override
     public ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list, long storeId, long legalSubjectId) {
@@ -139,33 +137,9 @@ public class ShopDetailServiceImpl implements ShopDetailService {
         }
     }
 
-    @Override
-    public ServiceStatusInfo<List<StoreServiceCategory>> findExtraService(long legalSubjectId) {
-        try {
-            //查询店铺额外服务id
-            List<Long> extraServiceIds = this.shopDetailMapper.selectExtraServiceId(legalSubjectId);
-            ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.searchCategory(extraServiceIds);
 
-            return statusInfo;
 
-        } catch (Exception e) {
-            return new ServiceStatusInfo(1, "显示店铺对应额外服务失败" + e.getMessage(), null);
-        }
-    }
 
-    @Override
-    public ServiceStatusInfo findServiceScope(long legalSubjectId) {
-        try {
-            //查询店铺服务范围id
-            List<Long> serviceScopeIds = this.shopDetailMapper.selectServiceScopeId(legalSubjectId);
-            ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.searchCategory(serviceScopeIds);
-
-            return statusInfo;
-
-        } catch (Exception e) {
-            return new ServiceStatusInfo(1, "显示店铺对应服务范围失败" + e.getMessage(), null);
-        }
-    }
 //店铺资质,照片上传
 
     @Override
@@ -205,10 +179,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
         }
     }
 
-    @Override
-    public ServiceStatusInfo<List<StoreServiceCategory>> findAllExtraService(long stordId) {
-        return null;
-    }
+
 
     @Override
     public ServiceStatusInfo<Long> modifyExtraService(long storeId, long legalSubjectId, List<StoreServiceCategory> list) {
@@ -269,5 +240,23 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             logger.error("更新商家缓存失败");
             return new ServiceStatusInfo<>(1, "修改店铺服务范围失败" + e.getMessage(), null);
         }
+    }
+
+    @Override
+    public ServiceStatusInfo<Long> modifyStoreImage(StoreImage storeImage, long legalSubjectId) {
+        try {
+            if ("coverImages".equals(storeImage.getType())) {
+                String[] urls = storeImage.getImageUrl().split(",");
+                for (String url : urls) {
+                    shopDetailMapper.modifyStoreImage(storeImage.getType(), qiniuService.url(url), legalSubjectId);
+                }
+                return new ServiceStatusInfo<>(0, "", 1L);
+            }
+            shopDetailMapper.modifyStoreImage(storeImage.getType(), qiniuService.url(storeImage.getImageUrl()), legalSubjectId);
+            return new ServiceStatusInfo<>(0, "", 1L);
+        } catch (Exception e) {
+            throw new RuntimeException("修改失败" + e.getMessage());
+        }
+
     }
 }

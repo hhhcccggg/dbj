@@ -15,5 +15,5 @@ public interface ShopCommentService {
 
     ServiceStatusInfo<Long> publishServiceComment(CommentVideoInfo videoInput);
 
-    ServiceStatusInfo<Long> publishProductComment(CommentInput commentInput);
+    ServiceStatusInfo<Long> publishProductComment(CommentInput commentInput,long productOrderId);
 }

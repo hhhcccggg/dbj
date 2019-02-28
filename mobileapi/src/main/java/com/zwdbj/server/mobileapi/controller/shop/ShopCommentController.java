@@ -59,9 +59,9 @@ public class ShopCommentController {
     }
 
     @ApiOperation(value = "用户发布商品评价")
-    @RequestMapping(value = "/publishProductComment", method = RequestMethod.POST)
-    public ResponseData<Long> publishProductComment(@RequestBody CommentInput commentInput) {
-        ServiceStatusInfo<Long> statusInfo = shopCommentServiceImpl.publishProductComment(commentInput);
+    @RequestMapping(value = "/publishProductComment/{productOrderId}", method = RequestMethod.POST)
+    public ResponseData<Long> publishProductComment(@RequestBody CommentInput commentInput,@PathVariable("productOrderId")long productOrderId) {
+        ServiceStatusInfo<Long> statusInfo = shopCommentServiceImpl.publishProductComment(commentInput,productOrderId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
