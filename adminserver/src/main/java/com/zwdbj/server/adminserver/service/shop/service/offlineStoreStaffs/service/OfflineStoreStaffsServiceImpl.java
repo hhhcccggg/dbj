@@ -67,7 +67,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     @Override
     public ServiceStatusInfo<Long> deleteById(long userId, long legalSubjectId, boolean isSuperStar) {
         Long result = 0L;
-        try {
+
 
             result = mapper.cancelStaff(userId);
             if (isSuperStar) {
@@ -75,9 +75,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
                 result += mapper.cancelSuperStar(userId, storeId);
             }
             return new ServiceStatusInfo<>(0, "", result);
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "删除门店员工/代言人失败" + e.getMessage(), result);
-        }
+
     }
 
     @Override
