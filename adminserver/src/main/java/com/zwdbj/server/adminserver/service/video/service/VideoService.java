@@ -21,11 +21,11 @@ import com.zwdbj.server.adminserver.service.heart.model.HeartModel;
 import com.zwdbj.server.adminserver.service.video.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import org.elasticsearch.action.delete.DeleteRequest;
+/*import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.common.xcontent.XContentType;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +62,8 @@ public class VideoService {
     private ProductService productServiceImpl;
     @Autowired
     private CommentService commentService;
-    @Autowired
-    private RestHighLevelClient restHighLevelClient;
+/*    @Autowired
+    private RestHighLevelClient restHighLevelClient;*/
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
     private Logger logger = LoggerFactory.getLogger(VideoService.class);
@@ -336,7 +336,7 @@ public class VideoService {
      * @param operationEnum
      */
     public void operationByIdES(long id, QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum) throws IOException {
-        switch (operationEnum){
+        /*switch (operationEnum){
             case CREATE:
                 Map<String,String> map = selectById(id);
                 IndexRequest indexRequest = new IndexRequest("video","doc");
@@ -353,7 +353,7 @@ public class VideoService {
                 DeleteRequest deleteRequest = new DeleteRequest("video","doc",String.valueOf(id));
                 restHighLevelClient.delete(deleteRequest,RequestOptions.DEFAULT);
                 break;
-        }
+        }*/
     }
 
     private Map<String,String> selectById(long id){
