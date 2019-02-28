@@ -42,6 +42,7 @@ public class ShopCommentServiceImpl implements ShopCommentService {
     public ServiceStatusInfo<UserComments> userComments(long storeId) {
         UserComments result = null;
         try {
+            
             result = this.shopCommentsMapper.CountComments(storeId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
