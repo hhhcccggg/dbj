@@ -1,6 +1,5 @@
 package com.zwdbj.server.mobileapi.config;
 
-/*
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -22,26 +21,22 @@ public class ElasticsearchConfiguration implements FactoryBean<RestHighLevelClie
 
     private RestHighLevelClient restHighLevelClient;
 
-    */
-/**
+    /**
      * 控制Bean的实例化过程
      *
      * @return
      * @throws Exception
-     *//*
-
+     */
     @Override
     public RestHighLevelClient getObject() throws Exception {
         return restHighLevelClient;
     }
 
-    */
-/**
+    /**
      * 获取接口返回的实例的class
      *
      * @return
-     *//*
-
+     */
     @Override
     public Class<?> getObjectType() {
         return RestHighLevelClient.class;
@@ -82,4 +77,3 @@ public class ElasticsearchConfiguration implements FactoryBean<RestHighLevelClie
         return restHighLevelClient;
     }
 }
-*/
