@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.complain.service;
 
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.complain.mapper.IComplainMapper;
 import com.zwdbj.server.adminserver.service.complain.model.*;
 import com.zwdbj.server.adminserver.service.living.service.LivingService;

@@ -15,7 +15,7 @@ import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedDto;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindIncreasedInput;
 import com.zwdbj.server.adminserver.service.user.model.*;
@@ -33,6 +33,8 @@ import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -128,49 +130,36 @@ public class UserService {
 
     /**
      *
-     * @param nickName
+     * @param fullName
      * @param phone
      * @param tenantId
-     * @param isSuper 是否为店主
+     * @param businessType 1:店主,2:普通员工
      * @return
      */
-    public int greateUserByTenant (String nickName,String phone,long tenantId,boolean isSuper){
+    public int greateUserByTenant (String fullName,String phone,long tenantId,int businessType,String notes){
         try {
             long result = this.userMapper.phoneIsExist(phone);
             long rId =  UniqueIDCreater.generateID();
+            long id;
+            int a=0;
             if (result==0){
-                long id = UniqueIDCreater.generateID();
+                id = UniqueIDCreater.generateID();
                 String username = UniqueIDCreater.generateUserName();
                 String password = SHAEncrypt.encryptSHA(phone.substring(8)+"123456");
-                int a = this.userMapper.greateUserByTenant(id,username,password,nickName,phone,tenantId,isSuper);
-                if (isSuper){
-                    this.userMapper.insertUserRole(rId, id,"shopUser",tenantId);
-                }else {
-                    this.userMapper.insertUserRole(rId, id,"shopUserCommon",tenantId);
-                }
-
-                return a;
+                a = this.userMapper.greateUserByTenant(id,username,password,fullName,phone,tenantId,notes,"BUSINESS");
             }else {
                 UserModel u = this.userMapper.findUserByPhone(phone);
-                int b = this.userMapper.updateUserTanById(u.getId(),tenantId,isSuper);
-                int c = this.userMapper.findUserRole(u.getId(),"shopUser");
-                if (c==0){
-                    if (isSuper){
-                        this.userMapper.insertUserRole(rId, u.getId(),"shopUser",tenantId);
-                    }else {
-                        this.userMapper.insertUserRole(rId, u.getId(),"shopUserCommon",tenantId);
-                    }
-                }else {
-                    if (isSuper){
-                        this.userMapper.updateUserRole(u.getId(),"shopUser",tenantId);
-                    }else {
-                        this.userMapper.updateUserRole(u.getId(),"shopUserCommon",tenantId);
-                    }
-
-                }
-
-                return b;
+                a = this.userMapper.updateUserTanById(u.getId(),tenantId,notes,"BUSINESS");
+                this.userMapper.deleteBusinessRole(u.getId(),tenantId);
+                id=u.getId();
             }
+            if (businessType==1){
+                this.userMapper.insertUserRole(rId, id,"business_admin",tenantId);
+            }else if (businessType==2){
+                this.userMapper.insertUserRole(rId, id,"business_user",tenantId);
+            }
+
+            return a;
 
         }catch (Exception e){
             throw new RuntimeException("异常");
@@ -178,16 +167,16 @@ public class UserService {
 
 
     }
-    public int modifyUserByTenantId(String phone,long tenantId){
-        int a = this.userMapper.modifyUserByTenantId(tenantId);
-        UserModel userModel= this.userMapper.findUserByPhone(phone);
-        this.userMapper.updateUserRole(userModel.getId(),"shopUser",tenantId);
+    public int modifyUserByTenantId(long tenantId){
+        long userId = this.userMapper.findUserByTenId(tenantId,"business_admin");
+        this.userMapper.deleteBusinessRole(userId,tenantId);
+        int a = this.userMapper.updateUserTanById(userId,tenantId,"","NORMAL");
         return a;
     }
-    public int delUserByTenantId(String phone,long tenantId){
-        int a = this.userMapper.modifyUserByTenantId(tenantId);
-        UserModel userModel= this.userMapper.findUserByPhone(phone);
-        this.userMapper.deleteUserRole(userModel.getId(),"shopUser",tenantId);
+    public int delUserByTenantId(long tenantId){
+        long userId = this.userMapper.findUserByTenId(tenantId,"business_admin");
+        this.userMapper.deleteAllBusinessRole(tenantId);
+        int a = this.userMapper.updateUserTanById(userId,tenantId,"","NORMAL");
         return a;
     }
 
@@ -314,6 +303,30 @@ public class UserService {
         }
     }
 
+
+
+    public ServiceStatusInfo<Long> newlyPwdAd(AdNewlyPwdInput input){
+        Long result = 0L;
+        try {
+            if (!input.getmNewPassword().equals(input.getNewPassword()))return new ServiceStatusInfo<>(1, "新密码和确认密码不一致", null);
+            String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
+            Pattern r = Pattern.compile(regEx);
+            Matcher m1 = r.matcher(input.getmNewPassword());
+            Matcher m2 = r.matcher(input.getNewPassword());
+            boolean rs1 = m1.matches();
+            boolean rs2 = m2.matches();
+            if (!rs1  || !rs2 ) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
+            input.setmNewPassword(SHAEncrypt.encryptSHA(input.getNewPassword()));
+            result = this.userMapper.newlyPwdAd(input);
+            if (result==0)new ServiceStatusInfo<>(1, "找回失败", result);
+            long id = this.userMapper.findUserIdByPhone(input.getPhone());
+            this.tokenCenterManager.refreshUserInfo(String.valueOf(id), iAuthUserManagerImpl);
+            return new ServiceStatusInfo<>(0, "", result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "找回密码失败" + e.getMessage(), result);
+        }
+    }
+
     /**
      * 修改用户密码
      *
@@ -325,14 +338,29 @@ public class UserService {
 
         Long result = 0L;
         try {
+            if (!input.getmNewPassword().equals(input.getNewPassword()))return new ServiceStatusInfo<>(1, "新密码和确认密码不一致", result);
+            String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
+            Pattern r = Pattern.compile(regEx);
+            Matcher m1 = r.matcher(input.getmNewPassword());
+            Matcher m2 = r.matcher(input.getNewPassword());
+            Matcher m3 = r.matcher(input.getOldPassword());
+            boolean rs1 = m1.matches();
+            boolean rs2 = m2.matches();
+            boolean rs3 = m3.matches();
+            if (!rs1  || !rs2 || !rs3) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
             input.setOldPassword(SHAEncrypt.encryptSHA(input.getOldPassword()));
             input.setmNewPassword(SHAEncrypt.encryptSHA(input.getmNewPassword()));
             result = this.userMapper.modifyPwdAd(id, input);
+            if (result==0)new ServiceStatusInfo<>(1, "修改失败", result);
             this.tokenCenterManager.refreshUserInfo(String.valueOf(id), iAuthUserManagerImpl);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改密码失败" + e.getMessage(), result);
         }
+    }
+
+    public boolean phoneIsExit(String phone){
+        return this.userMapper.phoneIsExist(phone)>0;
     }
 
     /**

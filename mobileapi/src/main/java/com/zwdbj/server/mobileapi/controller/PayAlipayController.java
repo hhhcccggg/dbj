@@ -1,15 +1,14 @@
 package com.zwdbj.server.mobileapi.controller;
 
-import com.zwdbj.server.mobileapi.service.pay.alipay.model.AliRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.alipay.model.ChargeCoinAlipayResult;
 import com.zwdbj.server.mobileapi.service.pay.alipay.service.AlipayBizService;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
 import com.zwdbj.server.pay.alipay.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -54,16 +53,6 @@ public class PayAlipayController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
     }
-    @RequiresAuthentication
-    @ApiOperation("申请退款")
-    @RequestMapping(value = "/order/refund",method = RequestMethod.POST)
-    public ResponseData<AliAppRefundDto> refundOrder(@RequestBody AliRefundInput input) {
-        ServiceStatusInfo<AliAppRefundDto> serviceStatusInfo = this.alipayBizService.refundOrder(input,JWTUtil.getCurrentId());
-        if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",serviceStatusInfo.getData());
-        }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
-    }
 
     @RequiresAuthentication
     @ApiOperation("订单查询")
@@ -80,16 +69,6 @@ public class PayAlipayController {
     @RequestMapping(value = "/payOrder/orderQuery",method = RequestMethod.POST)
     public ResponseData<AliOrderQueryResult> payOrderQuery(@RequestBody AliOrderQueryInput input) {
         ServiceStatusInfo<AliOrderQueryResult> serviceStatusInfo = this.alipayBizService.orderQuery(input,2);
-        if (serviceStatusInfo.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",serviceStatusInfo.getData());
-        }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
-    }
-    @RequiresAuthentication
-    @ApiOperation("阿里退款查询")
-    @RequestMapping(value = "/refund/orderQuery",method = RequestMethod.POST)
-    public ResponseData<AliAppRefundQueryDto> refundOrderQuery(@RequestBody AliAppRefundQueryInput input) {
-        ServiceStatusInfo<AliAppRefundQueryDto> serviceStatusInfo = this.alipayBizService.orderRefundQuery(input);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",serviceStatusInfo.getData());
         }

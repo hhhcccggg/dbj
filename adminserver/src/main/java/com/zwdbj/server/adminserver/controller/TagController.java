@@ -4,10 +4,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.tag.model.*;
 import com.zwdbj.server.adminserver.service.tag.service.TagService;
 import io.swagger.annotations.Api;
@@ -38,6 +38,19 @@ public class TagController {
         Page<AdVideoTagDto> pageInfo = PageHelper.startPage(pageNo,rows);
         List<AdVideoTagDto> videoTagDtos = this.tagService.getVideoTagAd(input);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",videoTagDtos,pageInfo.getTotal());
+    }
+
+    @RequiresAuthentication
+    @RequestMapping(value = "/dbj/videoTag/change/{id}",method = RequestMethod.POST)
+    @ApiOperation("基础信息-视频标签")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    public  ResponseData<Integer> changeTagStatus(@PathVariable long id,
+                                                          @RequestBody UpdateTagStatusInput input){
+        ServiceStatusInfo<Integer> statusInfo = this.tagService.changeTagStatus(id,input);
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
 
     @RequiresAuthentication
@@ -88,4 +101,5 @@ public class TagController {
         }
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR,"",null,0);
     }
+
 }

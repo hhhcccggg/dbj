@@ -2,30 +2,16 @@ package com.zwdbj.server.mobileapi.service.purchase.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.zwdbj.server.mobileapi.service.purchase.model.Receipt;
-import com.zwdbj.server.mobileapi.service.purchase.model.RequestMsg;
 import com.zwdbj.server.mobileapi.service.purchase.model.ResponseMsg;
 import com.zwdbj.server.mobileapi.service.purchase.util.IosVerifyUtil;
 import com.zwdbj.server.mobileapi.service.userAssets.model.BuyCoinConfigModel;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
-import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import org.apache.http.util.TextUtils;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.net.ssl.*;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 @Service
 public class PurchaseService {

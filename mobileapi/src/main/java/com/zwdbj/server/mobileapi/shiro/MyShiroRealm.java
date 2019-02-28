@@ -1,14 +1,11 @@
 package com.zwdbj.server.mobileapi.shiro;
 
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
-import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import com.zwdbj.server.mobileapi.service.user.model.UserAuthInfoModel;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.utility.common.shiro.JWTToken;
-import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -23,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -67,6 +63,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         if (checkStatus == null||!checkStatus.isSuccess()||checkStatus.getData().isLocked()) {
             throw new AuthenticationException(checkStatus.getMsg());
+        }
+        if(!checkStatus.getData().getType().equals("NORMAL")) {
+            throw new AuthenticationException("用户禁止登陆,联系客服！");
         }
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();

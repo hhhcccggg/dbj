@@ -10,7 +10,13 @@ public class AuthUser implements Serializable {
     private boolean isLocked;
     private String[] roles;
     private String[] permissions;
-
+    /**
+     * 用户类型
+     * NORMAL:普通用户，直接是产品的用户，来自于APP、H5、小程序等渠道
+     * PLATFORM: 平台用户，主要是自由平台的用户
+     * BUSINESS: 商家用户
+     */
+    private String type;
     /**
      * 当前租户ID
      */
@@ -23,6 +29,14 @@ public class AuthUser implements Serializable {
      * 当前商户id
      */
     private long legalSubjectId;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getId() {
         return id;

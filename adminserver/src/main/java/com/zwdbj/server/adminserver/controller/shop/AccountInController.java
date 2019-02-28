@@ -1,16 +1,14 @@
 package com.zwdbj.server.adminserver.controller.shop;
 
-import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.adminserver.service.shop.service.accountInfo.service.AccountInfoService;
 import com.zwdbj.server.adminserver.service.user.model.AdModifyManagerPasswordInput;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.adminserver.service.user.model.AdNewlyPwdInput;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,9 +41,19 @@ public class AccountInController {
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
     @RequiresAuthentication
+    @RequestMapping(value = "/newlyPwd", method = RequestMethod.POST)
+    @ApiOperation("账号管理-账号密码修改")
+    public ResponseData<Long> newlyPwdAd(@RequestBody AdNewlyPwdInput input) {
+        ServiceStatusInfo<Long> statusInfo = this.accountInfoServiceImpl.newlyPwdAd(input);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
+    }
+
+    @RequiresAuthentication
     @RequestMapping(value = "/modifyPwd/{id}", method = RequestMethod.POST)
     @ApiOperation("账号管理-账号密码修改")
-    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE, RoleIdentity.FINANCE_ROLE}, logical = Logical.OR)
     public ResponseData<Long> modifyPwdAd(@PathVariable Long id,
                                           @RequestBody AdModifyManagerPasswordInput input) {
         ServiceStatusInfo<Long> statusInfo = this.accountInfoServiceImpl.modifyPwdAd(id, input);

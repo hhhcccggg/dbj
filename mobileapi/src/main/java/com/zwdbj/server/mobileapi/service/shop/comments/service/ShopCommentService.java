@@ -4,7 +4,7 @@ import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentInput;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.ShopCommentsExtraDatas;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.UserComments;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

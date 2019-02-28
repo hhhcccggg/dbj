@@ -1,10 +1,9 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.*;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ProductService {
 
@@ -47,6 +46,14 @@ public interface ProductService {
      * @return
      */
     ServiceStatusInfo<ProductOut>  selectById(long id);
+
+    /**
+     * 查询单个商品(未删除数据)
+     *
+     * @param id
+     * @return
+     */
+    ServiceStatusInfo<ProductOut>  selectByIdNoDelete(long id);
 
     /**
      * 根据productId和productSkuId更新相对应的库存

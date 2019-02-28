@@ -2,9 +2,8 @@ package com.zwdbj.server.adminserver.service.adBanner.service;
 
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerDto;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInfo;
-import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInput;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerSerchInput;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

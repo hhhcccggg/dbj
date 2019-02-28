@@ -1,16 +1,17 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.service;
 
 import com.ecwid.consul.v1.ConsulClient;
+import com.zwdbj.server.mobileapi.service.store.model.StoreModel;
+import com.zwdbj.server.mobileapi.service.store.service.StoreService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.common.UserDiscountCouponState;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.mapper.UserDiscountCouponMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.SearchUserDiscountCoupon;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponModel;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.userDiscountCoupon.model.UserDiscountCouponOut;
-import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +24,9 @@ public class UserDiscountCouponServiceImpl implements UserDiscountCouponService{
 
     @Autowired
     private UserDiscountCouponMapper userDiscountCouponMapper;
+
+    @Autowired
+    private StoreService storeServiceImpl;
 
     @Override
     public ServiceStatusInfo<Long> selectUserIdPossessCouponCount(long userId, long couponId) {
@@ -79,13 +83,14 @@ public class UserDiscountCouponServiceImpl implements UserDiscountCouponService{
     }
 
     @Override
-    public ServiceStatusInfo<List<Coupon>> getVaildCoupon(long storeId, long legalSubjectId, long price) {
+    public ServiceStatusInfo<List<UserDiscountCouponOut>> getVaildCoupon(long storeId, long price) {
         try {
             long userId = JWTUtil.getCurrentId();
             if(userId == 0){
                 return new ServiceStatusInfo<>(1,"用户未登录",null);
             }
-            List<Coupon> list = userDiscountCouponMapper.getVaildCoupon(storeId,legalSubjectId,price,userId);
+            StoreModel storeModel = storeServiceImpl.selectById(storeId).getData();
+            List<UserDiscountCouponOut> list = userDiscountCouponMapper.getVaildCoupon(storeId,storeModel.getLegalSubjectId(),price,userId);
             return new ServiceStatusInfo<>(0,"",list);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
@@ -93,13 +98,14 @@ public class UserDiscountCouponServiceImpl implements UserDiscountCouponService{
     }
 
     @Override
-    public ServiceStatusInfo<Coupon> getVaildCouponById(long storeId, long legalSubjectId, long price, long id) {
+    public ServiceStatusInfo<UserDiscountCouponOut> getVaildCouponById(long storeId, long price, long id) {
         try {
             long userId = JWTUtil.getCurrentId();
             if(userId == 0){
                 return new ServiceStatusInfo<>(1,"用户未登录",null);
             }
-            Coupon coupon = userDiscountCouponMapper.getVaildCouponById(storeId,legalSubjectId,price,userId,id);
+            StoreModel storeModel = storeServiceImpl.selectById(storeId).getData();
+            UserDiscountCouponOut coupon = userDiscountCouponMapper.getVaildCouponById(storeId,storeModel.getLegalSubjectId(),price,userId,id);
             return new ServiceStatusInfo<>(0,"",coupon);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);

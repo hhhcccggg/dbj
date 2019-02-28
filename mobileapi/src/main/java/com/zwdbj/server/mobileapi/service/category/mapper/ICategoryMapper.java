@@ -21,4 +21,8 @@ public interface ICategoryMapper {
 
     @Select("select id,name from core_categories where isDeleted=0 and status=0 and `type`=1 and parentId=0")
     List<CategoryRecommendDto> categoryRecommends();
+
+    @Select("select `name` from core_categories where status=0 and isDeleted=0 and id in " +
+            "(select serviceScopeId from o2o_offlineStoreServiceScopes where storeId=#{storeId} and isDeleted=0)")
+    List<String> getScopeServices(@Param("storeId") long storeId);
 }

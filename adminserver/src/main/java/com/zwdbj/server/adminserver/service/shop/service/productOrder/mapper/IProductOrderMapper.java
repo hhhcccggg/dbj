@@ -23,13 +23,15 @@ public interface IProductOrderMapper {
             " where id=#{id} and userId=#{userId} and `status`='STATE_SELLER_DELIVERIED'")
     int deliverOrderByUser(@Param("id") long orderId, @Param("userId") long userId);
 
-    @Update("update shop_productOrders set`status`='STATE_SUCCESS',updateTime=now(),endTime=now(),where id=#{id}")
+    @Update("update shop_productOrders set`status`='STATE_SUCCESS',updateTime=now(),closeTime=now(),where id=#{id}")
     int updateOrderSuccess(@Param("id")long orderId);
+    @Select("select verifyCode from shop_productOrders where id=#{id}")
+    String getVerifyCode(@Param("id")long orderId);
     @Select("select o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price from shop_productOrders o " +
             "left join shop_productOrderItems oi on oi.orderId=o.id where o.orderNo=#{orderNo}")
     ProductOrderDetailModel getOrderByOrderNo(@Param("orderNo")String orderNo);
 
 
-    @Update("update shop_productOrders set`status`=STATE_CLOSED',updateTime=now(),endTime=now(),where id=#{id} and userId=#{userId}")
+    @Update("update shop_productOrders set`status`='STATE_CLOSED',updateTime=now(),endTime=now() where id=#{id} and userId=#{userId}")
     int updateOrderUnPay(@Param("id")long orderId,@Param("userId")long userId);
 }

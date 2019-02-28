@@ -5,11 +5,15 @@ import com.zwdbj.server.adminserver.service.video.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface IVideoMapper {
     @SelectProvider(type = VideoSqlProvider.class, method = "searchComplainVideosSql")
     List<VideoInfoDto> complainVideosAd(@Param("model") AdVideoSearchComplainInput input);
+
+    @Update("update core_videos set tags=#{tags} where id=#{id}")
+    int addTagForVideo(@Param("id")long videoId,@Param("tags")String tags);
 
     @Update("update core_videos set status=#{model.status},rejectMsg=#{model.rejectMsg} where id=#{id}")
     Long verityAd(@Param("id") Long id, @Param("model") AdVideoVerityInput input);
@@ -102,4 +106,13 @@ public interface IVideoMapper {
     @SelectProvider(type = VideoSqlProvider.class, method = "searchSuperStarVideos")
     List<SuperStarVideos> searchSuperStarVideos(@Param("userId") long userId, @Param("rank") String rank, @Param("sort") String sort);
 
+    /**
+     * 查询ES
+     * @return
+     */
+    @Select("SELECT cv.id,CONCAT(cv.latitude, ',', cv.longitude) AS location,cv.title,cv.coverImageUrl,cv.coverImageWidth,cv.coverImageHeight,cv.firstFrameUrl," +
+            "cv.firstFrameWidth,cv.firstFrameHeight,cv.videoUrl,cv.linkPets,cv.tags,cv.`status`,cv.rejectMsg,cv.playCount,cv.commentCount," +
+            "cv.heartCount,cv.shareCount,cv.userId,cv.musicId,cv.linkProductCount,cv.tipCount,cv.type,cu.nickName as userNickName," +
+            "cu.avatarUrl as userAvatarUrl FROM core_videos AS cv LEFT  JOIN core_users AS cu ON cv.userId = cu.id where cv.id=#{id}")
+    Map<String, String> selectByIdES(@Param("id") long id);
 }

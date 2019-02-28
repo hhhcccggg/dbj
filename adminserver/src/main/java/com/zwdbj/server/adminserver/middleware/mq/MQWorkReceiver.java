@@ -13,7 +13,7 @@ import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.SpringContextUtil;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.io.IOException;
 
@@ -148,6 +148,11 @@ public class MQWorkReceiver extends MQConnection {
             }
 
             channel.basicAck(envelope.getDeliveryTag(), false);
+        }else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.VIDEO_INFO) {
+            VideoService videoService = SpringContextUtil.getBean(VideoService.class);
+            videoService.operationByIdES(info.getVideoInfo().getVideoId(),info.getVideoInfo().getOperation());
+            //确认消费
+            channel.basicAck(envelope.getDeliveryTag(),false);
         }
 
 

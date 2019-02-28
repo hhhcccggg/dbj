@@ -11,12 +11,13 @@ import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.adminserver.service.youzan.model.YZItemDto;
 import com.zwdbj.server.adminserver.service.youzan.model.YZSearchItemInput;
 import com.zwdbj.server.adminserver.service.youzan.service.YouZanService;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
@@ -107,6 +108,17 @@ public class VideoController {
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponseData<Object> saveGoodsAd(@PathVariable long videoId, @RequestBody String goods) {
         ServiceStatusInfo<Object> statusInfo = this.videoService.saveGoodsAd(videoId, goods);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", null);
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, "保存失败", null);
+    }
+    @RequiresAuthentication
+    @RequestMapping(value = "/dbj/addTag/{videoId}", method = RequestMethod.POST)
+    @ApiOperation("为短视频关联主题")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
+    public ResponseData<Object> addTagForVideo(@PathVariable long videoId, @RequestBody VideoAddTagInput input) {
+        ServiceStatusInfo<Object> statusInfo = this.videoService.addTagForVideo(videoId, input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", null);
         }
@@ -282,5 +294,25 @@ public class VideoController {
         return new ResponsePageInfoData<>(0, "", pageInfo.getList(), pageInfo.getTotal());
 
 
+    }
+
+    @GetMapping("updateVideoEs")
+    @ApiOperation(value = "",hidden = true)
+    public String updateVideoEs(long id,int type){
+        QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum = null;
+        if(type == 1){
+            operationEnum = QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.CREATE;
+        }else if(type == 2){
+            operationEnum = QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.UPDATE;
+        }else if(type == 3){
+            operationEnum = QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.DELETE;
+        }
+        if(operationEnum != null)
+            try{
+                videoService.operationByIdES(id,operationEnum);
+            }catch (Exception e){
+               return e.toString();
+            }
+        return "11";
     }
 }

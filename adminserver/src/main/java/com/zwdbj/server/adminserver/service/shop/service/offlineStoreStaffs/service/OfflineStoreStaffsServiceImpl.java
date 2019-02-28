@@ -2,11 +2,11 @@ package com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.ser
 
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mapper.OfflineStoreStaffsMapper;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.model.*;
-import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServiceImpl;
+import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,21 +24,18 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     @Resource
     UserService userService;
     @Resource
-    StoreServiceImpl storeServiceImpl;
-    @Resource
     private IUserMapper iUserMapper;
+    @Resource
+    private StoreService storeServiceImpl;
 
     @Override
     public ServiceStatusInfo<Long> create(StaffInput staffInput, long legalSubjectId) {
 
         try {
-            long tenantId = storeServiceImpl.selectTenantId(legalSubjectId);
-            userService.greateUserByTenant(staffInput.getFullName(), staffInput.getPhone(), tenantId, staffInput.isSuperStar());
-            if (staffInput.isSuperStar()) {
-                long userId = iUserMapper.findUserIdByPhone(staffInput.getPhone());
-                mapper.setSuperStar(UniqueIDCreater.generateID(), legalSubjectId, userId);
-            }
 
+            long tenantId = storeServiceImpl.selectTenantId(legalSubjectId);
+            userService.greateUserByTenant(staffInput.getFullName(), staffInput.getPhone(), tenantId, 2, "店员");
+            //创建员工成功后发送短信到员工手机号
             return new ServiceStatusInfo<>(0, "", 1L);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "创建门店员工/代言人失败" + e.getMessage(), 0L);
@@ -46,19 +43,14 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     }
 
     @Override
-    public ServiceStatusInfo<Long> update(ModifyStaff modifyStaff, long legalSubjectId) {
+    public ServiceStatusInfo<Long> update(ModifyStaff modifyStaff) {
         Long result = 0L;
         try {
-            if (iUserMapper.userIdIsExist(modifyStaff.getUserId()) == 0) {
-                return new ServiceStatusInfo<>(1, "该用户不存在", 0L);
-            }
-            if (iUserMapper.findUserIdByPhone(modifyStaff.getPhone()) != 0) {
-                return new ServiceStatusInfo<>(1, "该手机号已经存在", 0L);
-            }
 
-            result = iUserMapper.updateStaffInfo(modifyStaff);
+                result = iUserMapper.updateStaffInfo(modifyStaff);
+                return new ServiceStatusInfo<>(0, "修改员工信息成功", result);
 
-            return new ServiceStatusInfo<>(0, "", result);
+
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改门店代言人失败" + e.getMessage(), result);
         }
@@ -75,37 +67,38 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     @Override
     public ServiceStatusInfo<Long> deleteById(long userId, long legalSubjectId, boolean isSuperStar) {
         Long result = 0L;
-        try {
+
 
             result = mapper.cancelStaff(userId);
             if (isSuperStar) {
-                result += mapper.cancelSuperStar(userId, legalSubjectId);
+                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
+                result += mapper.cancelSuperStar(userId, storeId);
             }
             return new ServiceStatusInfo<>(0, "", result);
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "删除门店员工/代言人失败" + e.getMessage(), result);
-        }
+
     }
 
-    public ServiceStatusInfo<Long> bulkDeleteStaffs(long[] userIds, long legalSubjectId, boolean isSuperStar) {
+    @Override
+    public ServiceStatusInfo<Long> bulkDeleteStaffs(IsSuperStar[] isSuperStar, long legalSubjectId) {
         Long result = 0L;
         try {
-            for (long userId : userIds) {
-                result += deleteById(userId, legalSubjectId, isSuperStar).getData();
+            for (IsSuperStar is : isSuperStar) {
+                result += deleteById(is.getUserId(), legalSubjectId, is.isSuperStar()).getData();
             }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "删除门店员工/代言人失败" + e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "批量删除门店员工/代言人失败" + e.getMessage(), result);
         }
     }
 
     @Override
-    public ServiceStatusInfo<List<OfflineStoreStaffs>> getStaffs(long legalSubjectId) {
+    public ServiceStatusInfo<List<OfflineStoreStaffs>> getStaffs(long storeId,long legalSubjectId) {
         List<OfflineStoreStaffs> result = null;
         try {
+
             result = mapper.getStaffs(legalSubjectId);
             for (OfflineStoreStaffs o : result) {
-                Date createTime = mapper.selectSuperStarCreateTime(legalSubjectId, o.getId());
+                Date createTime = mapper.selectSuperStarCreateTime(storeId, o.getId());
                 if (createTime != null) {
                     o.setCreateTime(createTime);
                     o.setSuperStar(true);
@@ -117,15 +110,18 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         }
     }
 
-
-    public ServiceStatusInfo<List<OfflineStoreStaffs>> searchStaffs(SearchStaffInfo searchStaffInfo, long legalSubjectId) {
+    @Override
+    public ServiceStatusInfo<List<OfflineStoreStaffs>> searchStaffs(SearchStaffInfo searchStaffInfo, long legalSubjectId, long storeId) {
         List<OfflineStoreStaffs> result = new ArrayList<>();
         try {
-            if (searchStaffInfo.isSuperStar()) {
-                result = mapper.searchSuperStar(legalSubjectId, searchStaffInfo.getSearch());
 
+            if (searchStaffInfo.isSuperStar()) {
+
+                result = mapper.searchSuperStar(storeId, searchStaffInfo.getSearch());
+
+            } else {
+                result = mapper.searchStaffs(legalSubjectId, searchStaffInfo.getSearch());
             }
-            result = mapper.searchStaffs(legalSubjectId, searchStaffInfo.getSearch());
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "搜索失败" + e.getMessage(), null);
@@ -134,15 +130,18 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
 
     }
 
-    public ServiceStatusInfo<Long> setSuperStar(IsSuperStar isSuperStar, long legalSubjectId) {
+    @Override
+    public ServiceStatusInfo<Long> setSuperStar(long userId, long legalSubjectId, boolean isSuperStar) {
         Long result = 0L;
         try {
-            if (isSuperStar.isSuperStar()) {
+            long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
+            if (isSuperStar) {
                 long id = UniqueIDCreater.generateID();
-                result = mapper.setSuperStar(id, legalSubjectId, isSuperStar.getUserId());
+
+                result = mapper.setSuperStar(id, storeId, userId);
                 return new ServiceStatusInfo<>(0, "", result);
             }
-            result = mapper.cancelSuperStar(isSuperStar.getUserId(), legalSubjectId);
+            result = mapper.cancelSuperStar(userId, storeId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "设置/取消代言人失败" + e.getMessage(), result);
@@ -150,18 +149,20 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
 
     }
 
-    public ServiceStatusInfo<Long> bulkSetSuperStar(IsSuperStar[] isSuperStars, long legalSubjectId) {
+    @Override
+    public ServiceStatusInfo<Long> bulkSetSuperStar(long[] userIds, long legalSubjectId, boolean isSuperStar) {
         Long result = 0L;
         try {
-            for (IsSuperStar isSuperStar : isSuperStars) {
-                result += setSuperStar(isSuperStar, legalSubjectId).getData();
+            for (long userId : userIds) {
+                result += setSuperStar(userId, legalSubjectId, isSuperStar).getData();
             }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "设置/取消代言人失败" + e.getMessage(), result);
+            return new ServiceStatusInfo<>(1, "批量设置/取消代言人失败" + e.getMessage(), result);
         }
     }
 
+    @Override
     public ServiceStatusInfo<List<SuperStarInfo>> getSuperStarDetail(String search, String rank, String sort, long legalSubjectId) {
         List<SuperStarInfo> result = null;
         try {
@@ -172,6 +173,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         }
     }
 
+    @Override
     public ServiceStatusInfo<SuperStarDto> videoListStaff(long userId) {
         SuperStarDto superStarDto = null;
         try {

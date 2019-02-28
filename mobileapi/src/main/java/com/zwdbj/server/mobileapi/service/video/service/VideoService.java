@@ -5,6 +5,7 @@ import com.ecwid.consul.v1.ConsulClient;
 import com.github.pagehelper.Page;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.mobileapi.service.comment.model.CommentInfoDto;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
@@ -12,12 +13,14 @@ import com.zwdbj.server.mobileapi.service.store.model.StoreModel;
 import com.zwdbj.server.mobileapi.service.store.service.StoreService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
-import com.zwdbj.server.utility.model.ResponseCoin;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseCoin;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.comment.service.CommentService;
 import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
@@ -36,16 +39,10 @@ import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpHost;
-import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
-import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
-import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchScrollRequest;
 import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
@@ -55,7 +52,6 @@ import org.elasticsearch.index.query.GeoDistanceQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
-import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
@@ -66,7 +62,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.time.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -105,6 +100,9 @@ public class VideoService {
     protected RedisTemplate redisTemplate;
     @Autowired
     private RestHighLevelClient restHighLevelClient;
+    @Autowired
+    private ProductService productServiceImpl;
+
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public ServiceStatusInfo<EntityKeyModel<String>> getGoods(long videoId) {
@@ -176,6 +174,8 @@ public class VideoService {
 
     public ServiceStatusInfo<Long> publicVideo(VideoPublishInput input) {
 
+        String title = input.getTitle().trim();
+        if ("".equals(title))return new ServiceStatusInfo<>(1,"标题不能为空",null,null);
         String videoKey = input.getVideoKey();
         String coverImageKey = input.getCoverImageKey();
         String firstFrameImageKey = input.getFirstFrameUrl();
@@ -207,6 +207,8 @@ public class VideoService {
         }
 
         videoMapper.publicVideo(videoId, userId, input);
+        int a = this.videoMapper.findVideoNumByUserId(userId);
+        if (a==1)this.stringRedisTemplate.opsForValue().set("trueUserId:"+userId,String.valueOf(8),500,TimeUnit.MINUTES);
         //每日任务小饼干
         boolean keyExist = this.redisTemplate.hasKey("user_everydayTask_isFirstPublicVideo:"+userId);
         ResponseCoin coin =null;
@@ -874,7 +876,7 @@ public class VideoService {
                 searchResponse = restHighLevelClient.scroll(searchScrollRequest,RequestOptions.DEFAULT);
             }else{
                 BoolQueryBuilder boolQueryBuilder =  QueryBuilders.boolQuery();
-                boolQueryBuilder.filter(QueryBuilders.termQuery("type",videoMainInput.getType()));
+                //boolQueryBuilder.filter(QueryBuilders.termQuery("type",videoMainInput.getType()));
                 if(videoMainInput.getCategory() != null){
                     boolQueryBuilder.filter(QueryBuilders.termQuery("categoryId",videoMainInput.getCategory()));
                 }
@@ -912,7 +914,33 @@ public class VideoService {
     }
 
     public List<Map<String,String>> selectES(){
-        return this.videoMapper.selectES();
+        List<Map<String,String>> mapList = this.videoMapper.selectES();
+        //查询种类ID
+        for (Map<String,String> map:mapList) {
+            if(  !"SHOPCOMMENT".equals(map.get("type")) ){
+                continue;
+            }
+            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
+            ProductOut productOut = productServiceImpl.selectByIdNoDelete(commentInfoDto.getResourceOwnerId()).getData();
+            if(productOut == null){
+                continue;
+            }
+            map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+        }
+        return mapList;
+    }
+
+    public Map<String,String> selectByIdES(long id){
+        Map<String,String> map = this.videoMapper.selectByIdES(id);
+        //查询种类ID
+        if(  "SHOPCOMMENT".equals(map.get("type")) ){
+            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
+            ProductOut productOut = productServiceImpl.selectByIdNoDelete(commentInfoDto.getResourceOwnerId()).getData();
+            if(productOut != null){
+                map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+            }
+        }
+        return map;
     }
 
 }

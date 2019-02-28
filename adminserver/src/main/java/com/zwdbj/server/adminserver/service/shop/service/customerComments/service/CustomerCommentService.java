@@ -4,7 +4,7 @@ import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.
 import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.CommentRank;
 import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.ReplyComment;
 import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.UserComments;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

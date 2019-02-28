@@ -4,17 +4,17 @@ package com.zwdbj.server.mobileapi.controller.shop;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
+import com.zwdbj.server.mobileapi.service.shop.order.model.CancelOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
 import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.pay.settlement.protocol.Coupon;
 import com.zwdbj.server.pay.settlement.protocol.SettlementResult;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -60,14 +60,37 @@ public class OrderController {
     @RequestMapping(value = "/createOrder",method = RequestMethod.POST)
     @ApiOperation(value = "创建订单")
     @RequiresAuthentication
-    public ResponseData<Integer> createOrder(@RequestBody @Valid AddNewOrderInput input){
-        ServiceStatusInfo<Integer> statusInfo = this.orderService.createOrder(input);
+    public ResponseData<Long> createOrder(@RequestBody @Valid AddNewOrderInput input){
+        ServiceStatusInfo<Long> statusInfo = this.orderService.createOrder(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-
     }
+
+    @RequestMapping(value = "/cancelOrder",method = RequestMethod.POST)
+    @ApiOperation(value = "取消订单")
+    @RequiresAuthentication
+    public ResponseData<Integer> cancelOrder(@RequestBody CancelOrderInput input){
+        ServiceStatusInfo<Integer> statusInfo = this.orderService.cancelOrder(input);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
+    @RequestMapping(value = "/get/verifyCode/{orderId}",method = RequestMethod.GET)
+    @ApiOperation(value = "获取订单的验证码")
+    @RequiresAuthentication
+    public ResponseData<String> getVerifyCode(@PathVariable long orderId){
+        ServiceStatusInfo<String> statusInfo = this.orderService.getVerifyCode(orderId);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,statusInfo.getMsg(),statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
+
     @RequestMapping(value = "/takeOver/goods",method = RequestMethod.GET)
     @ApiOperation(value = "确认收货,id为订单id")
     @RequiresAuthentication
@@ -92,5 +115,7 @@ public class OrderController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
 
     }
+
+
 
 }

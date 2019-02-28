@@ -1126,6 +1126,9 @@ namespace dbdesgin.Migrations
 
                     b.Property<bool>("buyerRate");
 
+                    b.Property<string>("cancelReason")
+                        .HasMaxLength(512);
+
                     b.Property<DateTime?>("closeTime")
                         .HasColumnName("closeTime")
                         .HasColumnType("timestamp");
@@ -1193,6 +1196,9 @@ namespace dbdesgin.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<long>("userId");
+
+                    b.Property<string>("verifyCode")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -2886,10 +2892,15 @@ namespace dbdesgin.Migrations
                     b.Property<int>("recommendIndex")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0);
+                    b.Property<int>("recommendIndex")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0);
 
                     b.Property<long>("resNumber")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0L);
+
+                    b.Property<int>("status");
 
                     b.HasKey("Id");
 

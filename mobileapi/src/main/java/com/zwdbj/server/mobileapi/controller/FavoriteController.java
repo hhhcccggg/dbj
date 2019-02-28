@@ -2,14 +2,15 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteDto;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteInput;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteModel;
 import com.zwdbj.server.mobileapi.service.favorite.model.SearchFavorite;
 import com.zwdbj.server.mobileapi.service.favorite.service.FavoriteService;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class FavoriteController {
 
     @ApiOperation(value = "添加收藏")
     @PostMapping("/addFavorite")
-    public ResponseData<Long> addFavorite(@RequestBody FavoriteInput favoriteInput){
+    public ResponseData<Long> addFavorite(@RequestBody @Valid FavoriteInput favoriteInput){
         ServiceStatusInfo<Long> serviceStatusInfo = favoriteServiceImpl.addFavorite(favoriteInput);
         if(!serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
@@ -56,5 +57,13 @@ public class FavoriteController {
         if(!serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
+    }
+
+    @ApiOperation(value = "取消收藏")
+    @PostMapping("/cancelFavorite")
+    public ResponseData<Long> cancelFavorite(@RequestBody @Valid FavoriteDto favoriteDto){
+        ServiceStatusInfo<Long> serviceStatusInfo = favoriteServiceImpl.cancelFavorite(favoriteDto);
+        return new ResponseData<>(serviceStatusInfo.isSuccess()?ResponseDataCode.STATUS_NORMAL:ResponseDataCode.STATUS_ERROR,
+                serviceStatusInfo.getMsg(),serviceStatusInfo.getData());
     }
 }

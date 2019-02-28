@@ -23,8 +23,8 @@ import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
-import com.zwdbj.server.utility.model.ResponseCoin;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseCoin;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
@@ -165,6 +165,7 @@ public class CommentService {
 
         addCommentModel.setId(UniqueIDCreater.generateID());
         addCommentModel.setUserId(userId);
+        if (addCommentModel.getContent().trim().length()==0)return new ServiceStatusInfo<>(1, "请填写内容", null,null);
         long resultLine = this.commentMapper.add(addCommentModel);
         if (resultLine > 0) {
 
@@ -257,6 +258,15 @@ public class CommentService {
 
     public long findCommentNumById(long resId){
         return this.commentMapper.findCommentNumById(resId);
+    }
+
+    /**
+     * 根据视频id查询评论数据(ES)
+     * @param videoId
+     * @return
+     */
+    public CommentInfoDto findVideoIdES(long videoId){
+        return this.commentMapper.findVideoIdES(videoId);
     }
 
 }

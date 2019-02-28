@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.service.shop.service.shopdetail.service;
 
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 

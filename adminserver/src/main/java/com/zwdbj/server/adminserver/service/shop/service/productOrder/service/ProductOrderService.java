@@ -2,20 +2,21 @@ package com.zwdbj.server.adminserver.service.shop.service.productOrder.service;
 
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.*;
+import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.service.ReceiveAddressService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +30,10 @@ public class ProductOrderService {
     ReceiveAddressService receiveAddressServiceImpl;
     @Autowired
     TokenCenterManager tokenCenterManager;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private ProductService productServiceImpl;
 
     private Logger logger = LoggerFactory.getLogger(ProductOrderService.class);
 
@@ -106,7 +111,13 @@ public class ProductOrderService {
     public  ServiceStatusInfo<Integer> identifyingCode(long orderId, IdentifyCodeInput input){
         try {
             String code = input.getIdentifyCode();
-            // TODO 从哪里去验证此码
+            String verifyCode;
+            if (this.stringRedisTemplate.hasKey("orderIdVerifyCode:"+orderId)){
+                verifyCode = this.stringRedisTemplate.opsForValue().get("orderIdVerifyCode:"+orderId);
+            }else {
+                verifyCode = this.productOrderMapper.getVerifyCode(orderId);
+            }
+            if (!code.equals(verifyCode))return new ServiceStatusInfo<>(1,"验证消费码不正确",0);
             //验证成功后更新订单
             int result = this.productOrderMapper.updateOrderSuccess(orderId);
             if (result==0)return new ServiceStatusInfo<>(1,"验证消费码失败",0);
@@ -125,6 +136,9 @@ public class ProductOrderService {
                 //增加商品的库存
                 if (result==0)return false;
                 logger.info("未支付订单:"+orderId+"更新成功");
+                long inventoryNum = this.productServiceImpl.getProductInventoryNum(model.getProductId());
+                if (inventoryNum!=-10000L)
+                    this.productServiceImpl.updateProductNum(model.getProductId(),model.getProductskuId(),-model.getNum());
                 return true;
             }else {
                 return true;

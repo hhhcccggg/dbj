@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.service.tag.service;
 
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindHotTagsDto;
 import com.zwdbj.server.adminserver.service.tag.mapper.ITagMapper;
 import com.zwdbj.server.adminserver.service.tag.model.*;
@@ -13,9 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.*;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class TagService {
@@ -31,6 +29,16 @@ public class TagService {
     public List<AdVideoTagDto> getVideoTagAd(AdVideoTagInput input){
         List<AdVideoTagDto>  videoTagDtos = this.tagMapper.getVideoTagAd(input);
         return videoTagDtos;
+    }
+    public ServiceStatusInfo<Integer> changeTagStatus(long id,UpdateTagStatusInput input){
+        int tag=0;
+        try {
+            tag = this.tagMapper.changeTagStatus(id,input);
+            if (tag==0)return new ServiceStatusInfo<>(1,"更新失败",tag);
+            return new ServiceStatusInfo<>(0,"",tag);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1,"更新失败"+e.getMessage(),tag);
+        }
     }
 
     public ServiceStatusInfo<Long> addVideoTagAd(AdNewVideoTagInput input){
@@ -71,6 +79,10 @@ public class TagService {
 
     public AdVideoTagDto getTagDetailById(long tagId){
         return this.tagMapper.getTagDetailById(tagId);
+    }
+
+    public int updateTagResNum(long tagId,int num){
+        return this.tagMapper.updateTagResNum(tagId,num);
     }
 
 

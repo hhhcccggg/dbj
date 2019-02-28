@@ -1,10 +1,8 @@
 package com.zwdbj.server.adminserver.shiro;
 
-import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
-import com.zwdbj.server.adminserver.service.user.model.UserAuthInfoModel;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.utility.common.shiro.JWTToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -19,12 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import com.zwdbj.server.adminserver.service.user.service.UserService;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import com.zwdbj.server.utility.common.shiro.JWTUtil;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Service
@@ -57,16 +50,21 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (checkStatus == null||!checkStatus.isSuccess()||checkStatus.getData().isLocked()) {
             throw new AuthenticationException(checkStatus.getMsg());
         }
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
-        String url = request.getRequestURI();
-        List<String> roles = new ArrayList<>(Arrays.asList(checkStatus.getData().getRoles()));
-        logger.info("用户{"+userId+"}的角色是{"+roles.toString()+"},请求url{"+url+"}");
-            if (roles.size()==0) {
-                throw new AuthenticationException("未被授权访问");
-            } else if (roles.size()==1) {
-                if (roles.contains(RoleIdentity.NORMAL_ROLE)) throw new AuthenticationException("未被授权访问");
-            }
+        if(checkStatus.getData().getType()==null || checkStatus.getData().getType().trim().equals("") || checkStatus.getData().getType().equals("NORMAL")) {
+            throw new AuthenticationException("用户禁止登陆,联系客服！");
+        }
+//        if (checkStatus.getData().getType().equals("PLATFORM") && checkStatus.getData().getTenantId()>0) {
+//            throw new AuthenticationException("用户账号异常，禁止登陆,联系客服！");
+//        }
+//        if (checkStatus.getData().getType().equals("BUSINESS") && checkStatus.getData().getTenantId()<=0) {
+//            throw new AuthenticationException("用户账号异常，禁止登陆,联系客服！");
+//        }
+//        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        HttpServletRequest request = requestAttributes.getRequest();
+//        String url = request.getRequestURI();
+        if (checkStatus.getData().getRoles().length==0) {
+            throw new AuthenticationException("未被授权访问");
+        }
         return new SimpleAuthenticationInfo(token, token, "my_realm");
     }
 

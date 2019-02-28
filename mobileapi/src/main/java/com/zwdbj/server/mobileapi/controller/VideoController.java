@@ -4,16 +4,16 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.mobileapi.model.*;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZSearchItemInput;
 import com.zwdbj.server.mobileapi.service.youzan.service.YouZanService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -261,7 +261,7 @@ public class VideoController {
     @GetMapping("/mainVideo")
     @ApiOperation(value = "主页视频")
     public ResponseData<VideoMainDto> mainVideo(VideoMainInput videoMainInput){
-        ServiceStatusInfo<VideoMainDto> serviceStatusInfo = videoService.mainVideo(videoMainInput);
+        ServiceStatusInfo<VideoMainDto> serviceStatusInfo = videoService.mainESVideo(videoMainInput);
         return new ResponseData<>(serviceStatusInfo.isSuccess()?ResponseDataCode.STATUS_NORMAL:ResponseDataCode.STATUS_ERROR,
                 serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
     }

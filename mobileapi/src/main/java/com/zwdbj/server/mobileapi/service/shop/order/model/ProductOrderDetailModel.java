@@ -31,11 +31,18 @@ public class ProductOrderDetailModel extends ProductOrderModel {
     private String buyerComment;
     @ApiModelProperty(value = "买家是否已评价")
     private boolean buyerRate;
+    @ApiModelProperty(value = "订单的最后支付时间")
+    private Date lastPayTime;
 
-    @ApiModelProperty(value = "店铺的id")
-    private long storeId;
-    @ApiModelProperty(value = "店铺的名字")
-    private String storeName;
+
+
+    public Date getLastPayTime() {
+        return lastPayTime;
+    }
+
+    public void setLastPayTime(Date lastPayTime) {
+        this.lastPayTime = lastPayTime;
+    }
 
     public String getPaymentType() {
         return paymentType;
@@ -133,19 +140,4 @@ public class ProductOrderDetailModel extends ProductOrderModel {
         this.buyerRate = buyerRate;
     }
 
-    public long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(long storeId) {
-        this.storeId = storeId;
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
 }

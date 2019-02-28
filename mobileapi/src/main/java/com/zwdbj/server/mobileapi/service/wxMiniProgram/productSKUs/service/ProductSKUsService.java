@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service;
 
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 
 public interface ProductSKUsService {

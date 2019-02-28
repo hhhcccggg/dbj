@@ -77,4 +77,12 @@ public interface ICommentMapper {
             "values(#{id},#{userId},#{contentTxt},#{resourceOwnerId},'pass',#{contentTxt})")
     int greatComment(@Param("id") Long id,@Param("userId") Long userId,@Param("contentTxt") String contentTxt,@Param("resourceOwnerId") Long resourceOwnerId);
 
+    /**
+     * 根据视频ID查询,查询发表评论的数据(ES)
+     * @param dataId
+     * @return
+     */
+    @Select("SELECT cc.* FROM  core_comments AS cc, core_comment_extraDatas AS cce " +
+            "WHERE  cce.commentId = cc.id AND cce.dataId = #{dataId} AND cce.type = 'VIDEO' and cc.resourceTypeId=2 and isOwner=1")
+    CommentInfoDto findVideoIdES(@Param("dataId") long dataId);
 }

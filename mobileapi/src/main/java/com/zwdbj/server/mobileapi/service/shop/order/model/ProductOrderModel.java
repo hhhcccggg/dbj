@@ -32,10 +32,70 @@ public class ProductOrderModel {
     private int payment;
     @ApiModelProperty(value = "用户id")
     private long userId;
+    @ApiModelProperty(value = "商品id")
+    private long productId;
+    @ApiModelProperty(value = "商品skuid")
+    private long productskuId;
     @ApiModelProperty(value = "用户的昵称")
     private String nickName;
     @ApiModelProperty(value = "用户使用的优惠券id,若为空或为0,则表示没用优惠券")
     private String couponids;
+    @ApiModelProperty(value = "买家是否已评价")
+    private boolean buyerRate;
+    @ApiModelProperty(value = "店铺的id")
+    private long storeId;
+    @ApiModelProperty(value = "店铺的名字")
+    private String storeName;
+    @ApiModelProperty(value = "店铺的第一张封面图")
+    private String mainConverImage;
+
+    public String getMainConverImage() {
+        return mainConverImage;
+    }
+
+    public void setMainConverImage(String mainConverImage) {
+        this.mainConverImage = mainConverImage;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public long getProductskuId() {
+        return productskuId;
+    }
+
+    public void setProductskuId(long productskuId) {
+        this.productskuId = productskuId;
+    }
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public boolean isBuyerRate() {
+        return buyerRate;
+    }
+
+    public void setBuyerRate(boolean buyerRate) {
+        this.buyerRate = buyerRate;
+    }
 
     public String getCouponids() {
         return couponids;

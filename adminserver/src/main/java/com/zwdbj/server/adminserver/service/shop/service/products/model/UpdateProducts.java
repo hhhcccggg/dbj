@@ -1,5 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.products.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.zwdbj.server.adminserver.service.shop.service.products.common.ValidType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,83 +13,95 @@ import java.util.Date;
 @ApiModel(description = "修改商品")
 public class UpdateProducts {
     @ApiModelProperty(value = "id")
-    Long id;
+    private Long id;
 
     @ApiModelProperty(value = "商品名称")
     @NotNull(message = "商品名称不能为空")
-    String name;
+    private String name;
 
     @ApiModelProperty(value = "卖家编号")
-    long storeId;
+    private long storeId;
 
     @ApiModelProperty(value = "库存")
-    long inventory;
+    private long inventory;
 
     @ApiModelProperty(value = "是否上架")
-    boolean publish;
+    private boolean publish;
 
     @ApiModelProperty(value = "上架时间")
-    long specifyPublishTime;
+    private long specifyPublishTime;
 
     @ApiModelProperty(value = "商品详情")
-    String detailDescription;
+    private String detailDescription;
 
     @ApiModelProperty(value = "是否限购 0：表示不限购 大于0数字表示没人只能买商品的数量")
-    int limitPerPerson;
+    private int limitPerPerson;
 
     @ApiModelProperty(value = "原价")
-    long originalPrice;
+    private long originalPrice;
 
     @NotNull
     @Min(value = 1,message = "促销价最少为0.01")
     @ApiModelProperty(value = "促销价")
-    Long promotionPrice;
+    private Long promotionPrice;
 
     @ApiModelProperty(value = "节假日是否可用")
-    boolean festivalCanUse;
+    private boolean festivalCanUse;
 
     @ApiModelProperty(value = "PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
-    int specHoursValid;
+    private int specHoursValid;
 
     @ApiModelProperty(value = "生效后多少天内有效")
-    int validDays;
+    private int validDays;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date validStartTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date validStartTime;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date validEndTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date validEndTime;
 
     @ApiModelProperty(value = "生效类型 PAY_VALIDED:付款后立即生效 PAY_NEXTDAY_VALIDED:付款后次日生效 PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
-    @NotNull(message = "生效类型不能为空")
-    String validType;
+    private ValidType validType;
 
     @ApiModelProperty(value = "支持金币兑换购买")
-    boolean supportCoin;
+    private boolean supportCoin;
 
     @ApiModelProperty(value = "品牌ID")
-    Long brandId;
+    private Long brandId;
 
     @ApiModelProperty(value = "种类ID")
-    Long categoryId;
+    private Long categoryId;
 
     @ApiModelProperty(value = "商品图片地址")
-    String imageUrls;
+    private String imageUrls;
 
     @ApiModelProperty(value = "规则说明")
-    String ruleDescription;
+    private String ruleDescription;
 
-    @ApiModelProperty(value = "叠加使用")
-    boolean overlay;
+    @ApiModelProperty(value = "预约信息")
+    private String appointment;
 
-    public boolean isOverlay() {
-        return overlay;
+    @ApiModelProperty(value = "是否与其他优惠券共用")
+    private boolean stackUse;
+
+    public String getAppointment() {
+        return appointment;
     }
 
-    public void setOverlay(boolean overlay) {
-        this.overlay = overlay;
+    public void setAppointment(String appointment) {
+        this.appointment = appointment;
+    }
+
+    public boolean isStackUse() {
+        return stackUse;
+    }
+
+    public void setStackUse(boolean stackUse) {
+        this.stackUse = stackUse;
     }
 
     public String getRuleDescription() {
@@ -218,11 +232,11 @@ public class UpdateProducts {
         this.validEndTime = validEndTime;
     }
 
-    public String getValidType() {
+    public ValidType getValidType() {
         return validType;
     }
 
-    public void setValidType(String validType) {
+    public void setValidType(ValidType validType) {
         this.validType = validType;
     }
 

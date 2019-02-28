@@ -10,7 +10,7 @@ import com.zwdbj.server.mobileapi.service.rankingList.model.RankingListInfo;
 import com.zwdbj.server.mobileapi.service.rankingList.model.Recommend;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

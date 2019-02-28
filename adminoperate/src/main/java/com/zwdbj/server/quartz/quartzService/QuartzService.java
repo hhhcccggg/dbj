@@ -182,25 +182,38 @@ public class QuartzService {
             List<VideoHeartAndPlayCountDto> videoHeartAndPlayCountDtos = this.videoService.findHeartAndPlayCount();
             if (videoHeartAndPlayCountDtos == null || videoHeartAndPlayCountDtos.size() == 0) return;
             int videosSize = videoHeartAndPlayCountDtos.size();
-            int count = (int) Math.round(videosSize * 0.8);
+            //int count = (int) Math.round(videosSize * 0.8);
+            int count = videosSize;
             logger.info("次数为：" + count);
             String redisComment = this.stringRedisTemplate.opsForValue().get("REDIS_COMMENTS");
             String[] redisComments = {};
             if (redisComment != null)
                 redisComments = redisComment.split(">");
             int size = redisComments.length;
-            for (int j = 0; j < count; j++) {
-                VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0, videosSize));
-                int dianzhan = this.operateService.getRandom(18, 34);
+            /*for (int j = 0; j < count; j++)*/for (VideoHeartAndPlayCountDto dto:videoHeartAndPlayCountDtos){
+                //VideoHeartAndPlayCountDto dto = videoHeartAndPlayCountDtos.get(this.operateService.getRandom(0, videosSize));
+                int dianzhan = this.operateService.getRandom(16, 30);
                 int pinlun = this.operateService.getRandom(3, 6);
                 int fenxiang = this.operateService.getRandom(1, 3);
-                int addPlayCount = this.operateService.getRandom(60, 231);
+                int addPlayCount = this.operateService.getRandom(1, 11);
                 this.videoService.updateField("playCount=playCount+" + addPlayCount, dto.getId());
-                this.videoService.updateField("heartCount=heartCount+" + Math.round(addPlayCount * dianzhan / 100.0), dto.getId());
+                this.videoService.updateField("heartCount=heartCount+" + Math.ceil(addPlayCount * dianzhan / 100.0), dto.getId());
                 long addHeartCount = this.videoService.findVideoHeartCount(dto.getId()) - dto.getHeartCount();
                 this.userService.updateField("totalHearts=totalHearts+" + addHeartCount, dto.getUserId());
-                this.videoService.updateField("shareCount=shareCount+" + Math.round(addHeartCount * fenxiang / 100.0), dto.getId());
-                int comment = (int) Math.round(addHeartCount * pinlun / 100.0);
+                int s1 = this.operateService.getRandom(0, 20);
+                int s2= 0;
+                if (s1==2)s2=1;
+                this.videoService.updateField("shareCount=shareCount+" + Math.round(addHeartCount * fenxiang / 100.0)+s2, dto.getId());
+                int s = this.operateService.getRandom(0, 11);
+                int comment;
+                if (s==1 ){
+                    comment = (int) Math.ceil(addHeartCount * pinlun / 100.0);
+                }else if (s==3){
+                    int s3 = this.operateService.getRandom(0, 1);
+                    comment = (int) Math.round(addHeartCount * pinlun / 100.0)+s3;
+                }else {
+                    comment = (int) Math.round(addHeartCount * pinlun / 100.0);
+                }
                 if (comment == 0) continue;
                 int tem = 0;
                 if (dto.getCommentCount() >= (size + 99)) continue;
@@ -221,10 +234,32 @@ public class QuartzService {
                 this.videoService.updateField("commentCount=commentCount+" + comment, dto.getId());
 
                 if (dto.getCommentCount() >= 10) this.commentService.addCommentHeart(dto.getId());
-                logger.info("播放量不超过8000总视频数量：" + videoHeartAndPlayCountDtos.size() + "++++实际数量，第" + j + "个+++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                logger.info("播放量不超过8000总视频数量：" + videoHeartAndPlayCountDtos.size() + "++++实际数量，第个+++++" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             }
         } catch (Exception e) {
             logger.error("increaseHeartAndPlayCount异常" + e.getMessage());
+        }
+    }
+    public void addFollowersForTrueUser(){
+        try {
+
+            //真实用户的id
+            List<Long> userIds = this.userService.getTrueUserIds();
+            //马甲用户的id
+            List<Long> followerIds = this.userService.getVestUserIds1();
+            for (Long userId:userIds){
+                if (!this.stringRedisTemplate.hasKey("trueUserId:"+userId))continue;
+                int a = this.operateService.getRandom(3, 14);
+                for (int i=0;i<a;i++){
+                    int c = this.operateService.getRandom(0, followerIds.size());
+                    long follower = followerIds.get(c);
+                    int d = this.followerService.followIsExit(follower, userId);
+                    if (d != 0) continue;
+                    this.followerService.newMyFollower(follower, userId);
+                    }
+             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

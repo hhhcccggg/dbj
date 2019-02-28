@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.userBind.service;
 
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.user.model.BindThirdPartyAccountInput;
 import com.zwdbj.server.adminserver.service.userBind.mapper.IUserBindMapper;
 import com.zwdbj.server.adminserver.service.userBind.model.UserThirdAccountBindDto;

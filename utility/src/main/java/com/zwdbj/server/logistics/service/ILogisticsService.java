@@ -1,7 +1,7 @@
 package com.zwdbj.server.logistics.service;
 
 import com.zwdbj.server.logistics.model.Logistics;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 public interface ILogisticsService {
     //查询快递

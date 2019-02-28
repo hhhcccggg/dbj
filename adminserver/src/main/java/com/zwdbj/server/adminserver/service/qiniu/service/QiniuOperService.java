@@ -1,6 +1,5 @@
 package com.zwdbj.server.adminserver.service.qiniu.service;
 
-import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
@@ -9,7 +8,7 @@ import com.qiniu.util.Auth;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.category.model.AdNewCategoryInput;
 import com.zwdbj.server.adminserver.service.category.service.CategoryService;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

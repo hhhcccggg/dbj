@@ -18,6 +18,26 @@ public class FavoriteModel {
     private String imageUrl;
     @ApiModelProperty("价格 店铺、商家忽略")
     private long price;
+    @ApiModelProperty("收藏数量")
+    private long amount;
+    @ApiModelProperty("服务范围")
+    private String scopeServices;
+
+    public String getScopeServices() {
+        return scopeServices;
+    }
+
+    public void setScopeServices(String scopeServices) {
+        this.scopeServices = scopeServices;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
 
     public long getId() {
         return id;

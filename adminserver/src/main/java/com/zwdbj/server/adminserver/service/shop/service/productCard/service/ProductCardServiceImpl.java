@@ -3,7 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.productCard.service;
 import com.zwdbj.server.adminserver.service.shop.service.productCard.mapper.IProductCardMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productCard.model.ProductCard;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -111,7 +111,7 @@ public class ShopInfo extends NearbyShop implements Serializable {
         }
         List<String> names = new ArrayList<>();
         for (StoreServiceCategory a:this.getExtraServices()) {
-            names.add(a.getName());
+            names.add(a.getCategoryName());
         }
         extraServicesDisplay = String.join(",",names);
         return extraServicesDisplay;
@@ -124,7 +124,7 @@ public class ShopInfo extends NearbyShop implements Serializable {
         }
         List<String> names = new ArrayList<>();
         for (StoreServiceCategory a : this.getServiceScopes()) {
-            names.add(a.getName());
+            names.add(a.getCategoryName());
         }
         serviceScopesDisplay = String.join(",",names);
         return serviceScopesDisplay;

@@ -10,10 +10,10 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlSh
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.OrderOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service.ProductOrderService;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/shop/product")

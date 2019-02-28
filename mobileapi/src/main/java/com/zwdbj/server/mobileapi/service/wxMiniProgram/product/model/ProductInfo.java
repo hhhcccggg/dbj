@@ -5,8 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "商家主页商品，优惠券信息")
 public class ProductInfo {
-    @ApiModelProperty(value = "id")
-    Long id;
+    @ApiModelProperty(value = "产品id")
+    Long productId;
+    @ApiModelProperty(value = "产品规格id")
+    Long skuId;
     @ApiModelProperty(value = "商家id")
     Long storeId;
     @ApiModelProperty(value = "商品类型O:实物产品1:虚拟商品")
@@ -18,18 +20,34 @@ public class ProductInfo {
 
     @ApiModelProperty(value = "商品名称")
     String name;
-    @ApiModelProperty(value = "库存")
-    long inventory;
-
     @ApiModelProperty(value = "销量")
     long sales;
+    @ApiModelProperty(value = "库存")
+    long inventory;
+    @ApiModelProperty(value = "是否限购 0：表示不限购 大于0数字表示每人只能买商品的数量")
+    int limitPerPerson;
+
     @ApiModelProperty(value = "原价")
     long originalPrice;
 
     @ApiModelProperty(value = "促销价")
     Long promotionPrice;
-    @ApiModelProperty(value = "是否限购 0：表示不限购 大于0数字表示没人只能买商品的数量")
-    int limitPerPerson;
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Long getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(Long skuId) {
+        this.skuId = skuId;
+    }
 
     public long getInventory() {
         return inventory;
@@ -79,13 +97,6 @@ public class ProductInfo {
         this.storeId = storeId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getProductType() {
         return productType;

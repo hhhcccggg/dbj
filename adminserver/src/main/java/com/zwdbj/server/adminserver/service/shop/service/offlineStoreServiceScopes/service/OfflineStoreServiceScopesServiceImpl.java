@@ -1,11 +1,11 @@
 package com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.service;
 
-import com.zwdbj.server.adminserver.QueueUtil;
+import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.mapper.OfflineStoreServiceScopesMapper;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,6 +93,6 @@ public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreService
     @Override
     public ServiceStatusInfo<List<String>> selectCateNameByofflineStoreId(Long offlineStoreId) {
         List<String> list = mapper.selectCateNameByofflineStoreId(offlineStoreId);
-        return null;
+        return new ServiceStatusInfo<>(0, "", list);
     }
 }

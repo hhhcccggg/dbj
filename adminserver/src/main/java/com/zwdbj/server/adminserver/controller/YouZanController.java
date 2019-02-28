@@ -1,10 +1,10 @@
 package com.zwdbj.server.adminserver.controller;
 
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.tokencenter.model.UserToken;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.youzan.model.AyouzanTradeCartAddParams;
 import com.zwdbj.server.adminserver.service.youzan.model.YZItemDto;
 import com.zwdbj.server.adminserver.service.youzan.model.YZSearchItemInput;

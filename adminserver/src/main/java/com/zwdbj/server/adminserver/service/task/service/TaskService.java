@@ -5,7 +5,7 @@ import com.zwdbj.server.adminserver.service.task.model.TaskAddInput;
 import com.zwdbj.server.adminserver.service.task.model.TaskModel;
 import com.zwdbj.server.adminserver.service.task.model.TaskModifyInput;
 import com.zwdbj.server.adminserver.service.task.model.TaskSearchInput;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

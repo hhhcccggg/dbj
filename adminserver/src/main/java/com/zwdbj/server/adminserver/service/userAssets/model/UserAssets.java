@@ -18,6 +18,16 @@ public class UserAssets {
     Long userId;
     @ApiModelProperty(value = "用户昵称")
     String nickName;
+    @ApiModelProperty(value = "用户全名")
+    String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public String getNickName() {
         return nickName;

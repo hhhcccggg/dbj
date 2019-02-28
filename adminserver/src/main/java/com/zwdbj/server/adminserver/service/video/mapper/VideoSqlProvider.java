@@ -126,6 +126,7 @@ public class VideoSqlProvider {
                 sql.WHERE("(v.tags is NULL or tags='')");
             } else {
                 sql.WHERE("v.tags is not NULL")
+                        .OR()
                         .WHERE("v.tags<>''");
             }
         }

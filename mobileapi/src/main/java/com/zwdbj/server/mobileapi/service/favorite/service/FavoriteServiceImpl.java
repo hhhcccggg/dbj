@@ -1,7 +1,9 @@
 package com.zwdbj.server.mobileapi.service.favorite.service;
 
+import com.zwdbj.server.mobileapi.service.category.service.CategoryService;
 import com.zwdbj.server.mobileapi.service.favorite.common.TargetType;
 import com.zwdbj.server.mobileapi.service.favorite.mapper.IFavoriteMapper;
+import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteDto;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteInput;
 import com.zwdbj.server.mobileapi.service.favorite.model.FavoriteModel;
 import com.zwdbj.server.mobileapi.service.favorite.model.SearchFavorite;
@@ -15,7 +17,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.Produc
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Autowired
     private StoreService storeServiceImpl;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private ProductSKUsService productSKUsServiceImpl;
@@ -106,6 +111,13 @@ public class FavoriteServiceImpl implements FavoriteService {
             }
             searchFavorite.setUserId(userId);
             List<FavoriteModel> favoriteModels = iFavoriteMapper.searchFavorite(searchFavorite);
+            if(searchFavorite.getTargetType() == TargetType.STORE){
+                for (FavoriteModel favoriteModel : favoriteModels){
+                    List<String> list = categoryService.getScopeServices(favoriteModel.getTargetId()).getData();
+                    if(list != null && list.size()>0)
+                        favoriteModel.setScopeServices(String.join("、",list));
+                }
+            }
             return new ServiceStatusInfo<>(0, "", favoriteModels);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
@@ -124,5 +136,22 @@ public class FavoriteServiceImpl implements FavoriteService {
         int result = 0;
         result = this.iFavoriteMapper.isFavorite(userId, targetId, targetType);
         return result;
+    }
+
+    @Override
+    public ServiceStatusInfo<Long> cancelFavorite(FavoriteDto favoriteDto) {
+        try{
+            long userId = JWTUtil.getCurrentId();
+            if (userId == 0) {
+                return new ServiceStatusInfo<>(1, "用户未登录", null);
+            }
+            favoriteDto.setUserId(userId);
+            long result = this.iFavoriteMapper.cancelFavorite(favoriteDto);
+            if(result > 0)
+                return new ServiceStatusInfo<>(0, "", result);
+            return new ServiceStatusInfo<>(0, "取消失败,数据不存在" , result);
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "取消失败" + e.getMessage(), null);
+        }
     }
 }

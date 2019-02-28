@@ -39,6 +39,26 @@ public class ProductOrderModel {
     private String receiverName;
     @ApiModelProperty(value = "此订单的联系人的手机号")
     private String receiverMobile;
+    @ApiModelProperty(value = "商品的id")
+    private long productId;
+    @ApiModelProperty(value = "商品的skuid")
+    private long productskuId;
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public long getProductskuId() {
+        return productskuId;
+    }
+
+    public void setProductskuId(long productskuId) {
+        this.productskuId = productskuId;
+    }
 
     public String getReceiverName() {
         return receiverName;

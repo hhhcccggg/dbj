@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.products.mapper;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.SearchProducts;
 import org.apache.ibatis.jdbc.SQL;
 
+import java.util.Date;
 import java.util.Map;
 
 public class ProductsSqlProvider {
@@ -41,18 +42,19 @@ public class ProductsSqlProvider {
     public String searchCondition(Map paras) {
         SearchProducts searchProduct = (SearchProducts) paras.get("searchProducts");
         int type= (int) paras.get("type");
+        Date date = new Date();
         SQL sql = new SQL()
                 .SELECT("*")
                 .FROM("shop_products");
         if(type==1){
             //销售中
-            sql.WHERE("publish = 1 and inventory != 0");
+            sql.WHERE("(publish = 1 or (publish = 0 and specifyPublishTime!=0 and specifyPublishTime < "+date.getTime()+")) and inventory != 0");
         }else if(type==2){
             //已售完
-            sql.WHERE("publish = 1 and inventory = 0");
+            sql.WHERE("(publish = 1 or (publish = 0 and specifyPublishTime!=0 and specifyPublishTime < "+date.getTime()+")) and inventory = 0");
         }else if(type==3){
             //待上架
-            sql.WHERE("publish = 0");
+            sql.WHERE("publish = 0 and specifyPublishTime!=0 and specifyPublishTime > "+date.getTime());
         }
         if (searchProduct.getName() != null) {
             sql.WHERE("name like '%" + searchProduct.getName()+"%'");
@@ -96,8 +98,8 @@ public class ProductsSqlProvider {
         SQL sql = new SQL()
                 .UPDATE("shop_products")
                 .SET("publish = "+publish);
-        if(publish){
-            sql.SET("specifyPublishTime = now()");
+        if(!publish){
+            sql.SET("specifyPublishTime = 0");
         }
         sql.WHERE(stringSqlUtil(id));
         sql.AND();

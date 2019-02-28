@@ -3,7 +3,7 @@ package com.zwdbj.server.mobileapi.service.category.service;
 import com.zwdbj.server.mobileapi.config.MainKeyType;
 import com.zwdbj.server.mobileapi.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.mobileapi.service.category.model.*;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -57,6 +57,19 @@ public class CategoryService {
             return new ServiceStatusInfo<>(0,"",categoryRecommendDtos);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,e.getMessage(),null);
+        }
+    }
+
+    /**
+     * 查询服务范围
+     * @param storeId
+     * @return
+     */
+    public ServiceStatusInfo<List<String>> getScopeServices(long storeId){
+        try {
+            return new ServiceStatusInfo<>(0, "", categoryMapper.getScopeServices(storeId));
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询服务范围失败" + e.getMessage(), null);
         }
     }
 

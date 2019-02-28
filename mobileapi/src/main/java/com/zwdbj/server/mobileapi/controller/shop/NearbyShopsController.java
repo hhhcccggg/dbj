@@ -4,9 +4,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.*;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.service.NearbyShopService;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class NearbyShopsController {
     public ResponseData<ShopInfo> shopHomePage(@PathVariable("storeId") long storeId) {
         ServiceStatusInfo<ShopInfo> statusInfo = nearbyShopServiceImpl.shopHomePage(storeId);
         if (statusInfo.isSuccess()) {
-            return new ResponseData<>(0, "", statusInfo.getData());
+            return new ResponseData<>(0, statusInfo.getMsg(), statusInfo.getData());
         }
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
@@ -83,4 +83,15 @@ public class NearbyShopsController {
         }
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
+    @ApiOperation(value = "商家的认证资料")
+    @RequestMapping(value = "/authentication/{storeId}", method = RequestMethod.GET)
+    public ResponseData<StoreAuthenticationInfo> authenticationStore(@PathVariable("storeId") long storeId) {
+        ServiceStatusInfo<StoreAuthenticationInfo> statusInfo = nearbyShopServiceImpl.authenticationStore(storeId);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
+    }
+
+
 }

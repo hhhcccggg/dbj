@@ -1,14 +1,17 @@
 package com.zwdbj.server.mobileapi.service.shop.order.service;
 
 import com.ecwid.consul.v1.ConsulClient;
+import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
 import com.zwdbj.server.mobileapi.service.shop.order.mapper.IOrderMapper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
+import com.zwdbj.server.mobileapi.service.shop.order.model.CancelOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
+import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
@@ -21,16 +24,18 @@ import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class OrderService {
@@ -51,6 +56,8 @@ public class OrderService {
     private UserDiscountCouponService userDiscountCouponServiceImpl;
     @Autowired
     private ProductSKUsService productSKUsServiceImpl;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
     private Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     public List<ProductOrderModel> getMyOrders(int status){
@@ -58,7 +65,7 @@ public class OrderService {
             long userId = JWTUtil.getCurrentId();
             List<ProductOrderModel> orderModels = this.orderMapper.getMyOrders(userId,status);
             for (ProductOrderModel model:orderModels){
-                model.setNickName(this.userService.getUserDetail(userId).getNickName());
+                model.setNickName(this.userService.getUserName(userId));
                 ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
                 if (addressModel!=null)
                     model.setAddressModel(addressModel);
@@ -72,8 +79,15 @@ public class OrderService {
     public ServiceStatusInfo<ProductOrderDetailModel> getOrderById(long orderId){
         try {
             ProductOrderDetailModel model = this.orderMapper.getOrderById(orderId);
+            if (model==null)return new ServiceStatusInfo<>(1, "获得订单失败" , null);
+            Date createTime = model.getCreateTime();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(createTime);
+            calendar.add(Calendar.MINUTE, +15);
+            Date lastPayTime = calendar.getTime();
+            model.setLastPayTime(lastPayTime);
             ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
-            model.setNickName(this.userService.getUserDetail(model.getUserId()).getNickName());
+            model.setNickName(this.userService.getUserName(model.getUserId()));
             model.setAddressModel(addressModel);
             return new ServiceStatusInfo<>(0,"",model);
         }catch (Exception e){
@@ -86,7 +100,7 @@ public class OrderService {
     }*/
 
     @Transactional
-    public ServiceStatusInfo<Integer> createOrder(AddNewOrderInput input){
+    public ServiceStatusInfo<Long> createOrder(AddNewOrderInput input){
         String key = String.valueOf(input.getProductskuId());
         ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
         Lock lock = new Lock(consulClient, "mobileapi", "productOrder:" + key);
@@ -97,13 +111,13 @@ public class OrderService {
                 //如果有限购，则要查看订单表，看兑换次数是否已经用完
                 //查看此商品的sku信息
                 ProductSKUs productSKUs =  this.productSKUsServiceImpl.selectById(input.getProductskuId()).getData();
-                if (productSKUs==null)return new ServiceStatusInfo<>(1, "购买失败", 0);
+                if (productSKUs==null)return new ServiceStatusInfo<>(1, "购买失败", null);
                 if (input.getLimitPerPerson()!=0){
                     int account = this.orderMapper.userBuyProductAccounts(userId,input.getProductId());
                     if (account>=input.getLimitPerPerson()){
-                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", 0);
+                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", null);
                     }else if ((account+input.getNum())>input.getLimitPerPerson()){
-                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", 0);
+                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", null);
                     }
 
                 }
@@ -111,7 +125,7 @@ public class OrderService {
                 long inventoryNum = this.productServiceImpl.getProductInventoryNum(input.getProductId());
                 if (inventoryNum!=-10000L){
                     boolean a = this.productServiceImpl.getProductInventory(input.getProductId(),input.getProductskuId(),input.getNum()).getData();
-                    if (!a)return new ServiceStatusInfo<>(1, "商品库存不足", 0);
+                    if (!a)return new ServiceStatusInfo<>(1, "商品库存不足", null);
                 }
 
                 long orderId = UniqueIDCreater.generateID();
@@ -121,14 +135,18 @@ public class OrderService {
                     //用户小饼干总数
                     long counts = userAssetServiceImpl.getCoinsByUserId().getData();
                     if (counts<0 || counts<input.getUseCoin()){
-                        return new ServiceStatusInfo<>(1, "您的小饼干不足，请获取足够的小饼干", 0);
+                        return new ServiceStatusInfo<>(1, "您的小饼干不足，请获取足够的小饼干", null);
                     }
                 }
 
 
                 //创建order
                 int payment = (int)productSKUs.getPromotionPrice()*input.getNum()+input.getDeliveryFee();
-                this.orderMapper.createOrder(orderId,userId,input,payment);
+                Random random = new Random();
+                int code = random.nextInt(900000)  + 100000;
+                String verifyCode = String.valueOf(code);
+                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode);
+                this.stringRedisTemplate.opsForValue().set("orderIdVerifyCode:"+orderId,verifyCode);
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();
                 int price = (int)productSKUs.getPromotionPrice();
@@ -138,7 +156,7 @@ public class OrderService {
                 if (inventoryNum!=-10000L)
                 this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
                 //设置订单过期机制
-                /*QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData
+                QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData
                         = QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder()
                         .setOrderId(orderId)
                         .setUserId(userId)
@@ -147,19 +165,42 @@ public class OrderService {
                         .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_TIME)
                         .setOrderTimeData(orderTimeData)
                         .build();
-                DelayMQWorkSender.shareSender().send(workInfo,30);*/
+                DelayMQWorkSender.shareSender().send(workInfo,15*60);
 
-                return new ServiceStatusInfo<>(0,"下单成功",1);
+                return new ServiceStatusInfo<>(0,"下单成功",orderId);
             }
 
 
         }catch (Exception e){
-            return new ServiceStatusInfo<>(1,"下单失败"+e.getMessage(),0);
+            return new ServiceStatusInfo<>(1,"下单失败"+e.getMessage(),null);
         }finally {
             lock.unlock();
         }
 
-        return new ServiceStatusInfo<>(1,"下单失败",0);
+        return new ServiceStatusInfo<>(1,"下单失败",null);
+    }
+
+    public ServiceStatusInfo<Integer> cancelOrder(CancelOrderInput input){
+        if (input.getCancelReason()==null || input.getCancelReason().length()==0)
+            return new ServiceStatusInfo<>(1,"取消订单失败:请填写取消原因",null);
+        int result = this.orderMapper.cancelOrder(input);
+        if (result==0) return new ServiceStatusInfo<>(1,"取消订单失败",null);
+        ProductOrderDetailModel model = this.getOrderById(input.getOrderId()).getData();
+        long inventoryNum = this.productServiceImpl.getProductInventoryNum(model.getProductId());
+        if (inventoryNum!=(-10000L))
+            this.productServiceImpl.updateProductNum(model.getProductId(),model.getProductskuId(),model.getNum());
+        return new ServiceStatusInfo<>(0,"",result);
+    }
+
+    public ServiceStatusInfo<String> getVerifyCode(long orderId){
+        String verifyCode;
+        if (this.stringRedisTemplate.hasKey("orderIdVerifyCode:"+orderId)){
+            verifyCode = this.stringRedisTemplate.opsForValue().get("orderIdVerifyCode:"+orderId);
+        }else {
+            verifyCode = this.orderMapper.getVerifyCode(orderId);
+        }
+        if (verifyCode==null || "".equals(verifyCode))return new ServiceStatusInfo<>(1,"获取验证码失败",null);
+        return new ServiceStatusInfo<>(0,"",verifyCode);
     }
 
     @Transactional
@@ -168,6 +209,7 @@ public class OrderService {
         long userId = JWTUtil.getCurrentId();
         if (model==null)return;
         if (!model.getStatus().equals("STATE_WAIT_BUYER_PAY"))return;
+        ProductlShow productlShow = this.productServiceImpl.selectByIdByStoreId(model.getProductId(),model.getStoreId()).getData();
         if (model.getUseCoin()!=0){
             //处理金币
             this.userAssetServiceImpl.minusUserCoins(model.getUseCoin(),userId,id);
@@ -182,23 +224,56 @@ public class OrderService {
                 this.userDiscountCouponServiceImpl.updateUserDiscountCouponState(userId,couponId);
             }
         }
-        this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes);
+        if (productlShow.getProductType()==0){
+            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_BUYER_PAYED");
+        }else if (productlShow.getProductType()==1){
+            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_UNUSED");
+        }
+
     }
     @Transactional
     public void updateOrderState(long id,String tradeNo,String status){
-        ProductOrderDetailModel model = this.getOrderById(id).getData();
-        if (status.equals("STATE_REFUNDING")){
-            if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
-                    || model.getStatus().equals("STATE_UNUSED")){
-                this.orderMapper.updateOrderState(id,tradeNo,status);
+        ConsulClient consulClient = new ConsulClient("localhost", 8500);    // 创建与Consul的连接
+        Lock lock = new Lock(consulClient, "mobileapi", "reFundOrder:" + id);
+        try {
+            if (lock.lock(true, 500L, 3)){
+                ProductOrderDetailModel model = this.getOrderById(id).getData();
+
+                if (status.equals("STATE_REFUNDING")  ){
+                    if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
+                            || model.getStatus().equals("STATE_UNUSED")){
+                        this.orderMapper.updateOrderState(id,tradeNo,status);
+                    }
+                }else if (status.equals("STATE_REFUND_SUCCESS")){
+                    if ( model.getStatus().equals("STATE_REFUNDING") ){
+                        this.orderMapper.updateOrderState(id,tradeNo,status);
+                        //更新商品的库存  是否有使用金币抵扣
+                        int coins = model.getUseCoin();
+                        long userId = model.getUserId();
+                        if (coins!=0){
+                            this.userAssetServiceImpl.updateUserAsset(userId,coins);
+                            this.userAssetServiceImpl.updateUserCoinType(userId,"TASK",coins);
+                            UserCoinDetailAddInput input = new UserCoinDetailAddInput();
+                            input.setType("TASK");
+                            input.setTitle("取消订单"+model.getId()+"返还:"+coins+"小饼干");
+                            input.setNum(coins);
+                            input.setStatus("SUCCESS");
+                            this.userAssetServiceImpl.addUserCoinDetail(userId,input);
+                        }
+                        //更新商品的库存
+                        long num = this.productServiceImpl.getProductInventoryNum(model.getProductId());
+                        if (num!=(-10000)){
+                            this.productServiceImpl.updateProductNum(model.getProductId(),model.getProductskuId(),-model.getNum());
+                        }
+                    }
+                }
             }
-        }else if (status.equals("STATE_REFUND_SUCCESS")){
-            if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
-                    || model.getStatus().equals("STATE_REFUNDING") || model.getStatus().equals("STATE_UNUSED")){
-                this.orderMapper.updateOrderState(id,tradeNo,status);
-                //更新商品的库存  是否有使用金币抵扣
-            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
         }
+
 
     }
 

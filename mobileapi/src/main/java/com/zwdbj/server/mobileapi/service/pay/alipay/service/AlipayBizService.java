@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.pay.alipay.service;
 
-import com.zwdbj.server.mobileapi.service.pay.alipay.model.AliRefundInput;
+import com.zwdbj.server.mobileapi.service.pay.Refund.model.PayRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.alipay.model.ChargeCoinAlipayResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.PayOrderInput;
@@ -11,8 +11,7 @@ import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyI
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
 import com.zwdbj.server.pay.alipay.AlipayService;
 import com.zwdbj.server.pay.alipay.model.*;
-import com.zwdbj.server.pay.wechat.wechatpay.model.RefundQueryResultDto;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,19 +129,17 @@ public class AlipayBizService {
     }
     /**
      * @param input 退款信息
-     * @param userId 谁退款
      * @return 返回退款信息
      */
     @Transactional
-    public ServiceStatusInfo<AliAppRefundDto> refundOrder(AliRefundInput input, long userId){
-        ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
-        if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
-        int rmbs = productOrderDetailModel.getActualPayment();
+    public ServiceStatusInfo<AliAppRefundDto> refundOrder(PayRefundInput input,int refundAmount, String tradeNo){
+        int rmbs = refundAmount;
         rmbs=1;//测试数据
         AliAppRefundInput aliAppRefundInput = new AliAppRefundInput();
-        aliAppRefundInput.setOutRequestNo(String.valueOf(input.getOrderItemId()));
+        aliAppRefundInput.setOutRequestNo(String.valueOf(input.getOrderId()));
         aliAppRefundInput.setOutTradeNo(String.valueOf(input.getOrderId()));
         aliAppRefundInput.setRefundReason(input.getRefundReason());
+        aliAppRefundInput.setTradeNo(tradeNo);
 
         float amount = rmbs/100f;
         BigDecimal b = new BigDecimal(amount);
@@ -153,7 +150,7 @@ public class AlipayBizService {
         if (!serviceStatusInfo.isSuccess()) {
             return new ServiceStatusInfo<>(1,serviceStatusInfo.getMsg(),null);
         }
-        this.orderService.updateOrderState(input.getOrderId(),input.getTradeNo(),"STATE_REFUNDING");
+        this.orderService.updateOrderState(input.getOrderId(),tradeNo,"STATE_REFUNDING");
 
         return new ServiceStatusInfo<>(0,"OK",serviceStatusInfo.getData());
     }

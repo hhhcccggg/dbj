@@ -2,94 +2,120 @@ package com.zwdbj.server.adminserver.service.shop.service.products.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.zwdbj.server.adminserver.service.shop.service.products.common.ProductDetailType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
 
 @ApiModel(description = "商品信息")
 public class Products {
 
     @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "id")
-    Long id;
+    private Long id;
     @ApiModelProperty(value = "商品类型")
-    Long productType;
-    @ApiModelProperty(value = "产品详细类型")
-    String productDetailType;
+    private Long productType;
+    @ApiModelProperty(value = "产品详细类型 DELIVERY: 实物产品  NODELIVERY:虚拟商品(不需要物流)\n" +
+            "        /// CARD:卡券(服务中套餐)，关联[ProductCard]表 CASHCOUPON:代金券，类似70抵100，关联[ProductCashCoupon]表")
+    private ProductDetailType productDetailType;
     @ApiModelProperty(value = "商品编码")
-    String numberId;
+    private String numberId;
     @ApiModelProperty(value = "商品名称")
-    String name;
-    String subName;
-    String searchName;
-    String marketName;
-    String sellerPoint;
-    Long categoryId;
-    String categoryLevel;
-    boolean isDeleted;
+    private String name;
+    private String subName;
+    private String searchName;
+    private String marketName;
+    private String sellerPoint;
+    private Long categoryId;
+    private String categoryLevel;
+    private boolean isDeleted;
     @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "品牌ID")
-    Long brandId;
+    private Long brandId;
     @ApiModelProperty(value = "分享描述")
-    String shareDesc;
+    private String shareDesc;
     @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "卖家编号")
-    long storeId;
+    private long storeId;
     @ApiModelProperty(value = "评论数")
-    long commentCount;
+    private long commentCount;
     @ApiModelProperty(value = "评分")
-    long grade;
+    private long grade;
     @ApiModelProperty(value = "销量")
-    long sales;
+    private long sales;
     @ApiModelProperty(value = "库存 -10000不限库存")
-    long inventory;
+    private long inventory;
     @ApiModelProperty(value = "原价")
-    long originalPrice;
+    private long originalPrice;
     @ApiModelProperty(value = "促销价")
-    long promotionPrice;
+    private long promotionPrice;
     @ApiModelProperty(value = "商品价格上限")
-    long priceUp;
+    private long priceUp;
     @ApiModelProperty(value = "商品价格下限")
-    long priceDown;
+    private long priceDown;
     @ApiModelProperty(value = "商品图片地址")
-    String imageUrls;
+    private String imageUrls;
     @ApiModelProperty(value = "商品视频URL")
-    String videoUrl;
+    private String videoUrl;
     @ApiModelProperty(value = "商品分组")
-    long productGroupId;
+    private long productGroupId;
     @ApiModelProperty(value = "是否参与会员打折")
-    boolean isJoinMemberDiscount;
+    private boolean isJoinMemberDiscount;
     @ApiModelProperty(value = "是否需要物流")
-    boolean isNeedDelivery;
+    private boolean isNeedDelivery;
     @ApiModelProperty("通用物流价格")
-    long universalDeliveryPrice;
+    private long universalDeliveryPrice;
     @ApiModelProperty(value = "物流模板")
-    long deliverytemplateId;
+    private long deliverytemplateId;
     @ApiModelProperty(value = "是否上架")
-    boolean publish;
+    private boolean publish;
     @ApiModelProperty(value = "上架时间")
-    long specifyPublishTime;
+    private long specifyPublishTime;
     @ApiModelProperty(value = "商品详情")
-    String detailDescription;
+    private String detailDescription;
     @ApiModelProperty(value = "重量Kg")
-    long weight;
+    private long weight;
     @ApiModelProperty(value = "备注")
-    String notes;
+    private String notes;
     @ApiModelProperty(value = "是否限购")
-    int limitPerPerson;
+    private int limitPerPerson;
     @ApiModelProperty(value = "支持金币兑换购买")
-    boolean supportCoin;
+    private boolean supportCoin;
     @ApiModelProperty(value = "规则说明")
-    String ruleDescription;
+    private String ruleDescription;
 
-    @ApiModelProperty(value = "叠加使用")
-    boolean overlay;
+    @ApiModelProperty(value = "预约信息")
+    private String appointment;
 
-    public boolean isOverlay() {
-        return overlay;
+    @ApiModelProperty(value = "是否与其他优惠券共用")
+    private boolean stackUse;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
+
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setOverlay(boolean overlay) {
-        this.overlay = overlay;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(String appointment) {
+        this.appointment = appointment;
+    }
+
+    public boolean isStackUse() {
+        return stackUse;
+    }
+
+    public void setStackUse(boolean stackUse) {
+        this.stackUse = stackUse;
     }
 
     public long getOriginalPrice() {
@@ -124,11 +150,11 @@ public class Products {
         this.supportCoin = supportCoin;
     }
 
-    public String getProductDetailType() {
+    public ProductDetailType getProductDetailType() {
         return productDetailType;
     }
 
-    public void setProductDetailType(String productDetailType) {
+    public void setProductDetailType(ProductDetailType productDetailType) {
         this.productDetailType = productDetailType;
     }
 

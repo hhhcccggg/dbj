@@ -17,13 +17,22 @@ public class CommentVideoInfo extends CommentInput {
     float firstFrameHeight;
     @ApiModelProperty(value = "视频url,设置为七牛上传文件后的key")
     String videoUrl;
-
+    @ApiModelProperty(value = "视频关联的宠物id,关联多个宠物时，宠物id拼接为字符串")
+    String linkPets;
     @ApiModelProperty(value = "经度")
-    float longitude;
+    double longitude;
     @ApiModelProperty(value = "纬度")
-    float latitude;
+    double latitude;
     @ApiModelProperty(value = "地址")
     String address;
+
+    public String getLinkPets() {
+        return linkPets;
+    }
+
+    public void setLinkPets(String linkPets) {
+        this.linkPets = linkPets;
+    }
 
     public String getCoverImageUrl() {
         return coverImageUrl;
@@ -81,19 +90,19 @@ public class CommentVideoInfo extends CommentInput {
         this.videoUrl = videoUrl;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 

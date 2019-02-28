@@ -34,7 +34,7 @@ public class OfflineStoreStaffsSqlProvide {
         return sql.toString();
     }
 
-    public String searchSuperStar(Map map) {
+    public String getSuperStarDetail(Map map) {
         String search = (String) map.get("search");
         String rank = (String) map.get("rank");
         String sort = (String) map.get("sort");
@@ -44,10 +44,12 @@ public class OfflineStoreStaffsSqlProvide {
                 "from core_users as u,core_user_tenants as t where u.tenantId=t.id and t.legalSubjectId=" + legalSubjectId +
                 " and u.isDeleted=0 and t.isDeleted=0");
         if (!"".equals(search) && search != null) {
-            sql.append(" and u.fullName like %" + search + "% or u.phone like %" + search + "%");
+            sql.append(" and u.nickName like '%" + search + "%' or u.phone like '%" + search + "%'");
         }
         if ("videos".equals(rank) || "totalHearts".equals(rank) || "totalFans".equals(rank)) {
             sql.append(" order by u." + rank);
+        } else {
+            sql.append(" order by u.fullName");
         }
         if ("asc".equals(sort)) {
             sql.append(" " + sort);
@@ -56,5 +58,36 @@ public class OfflineStoreStaffsSqlProvide {
         }
         return sql.toString();
 
+    }
+
+    public String searchStaffs(Map map) {
+        String search = (String) map.get("search");
+        long legalSubjectId = (long) map.get("legalSubjectId");
+        StringBuffer stringBuffer = new StringBuffer("SELECT u.fullName,u.phone,u.id,u.createTime,u.tenantId,u.notes FROM core_users as u, " +
+                "( SELECT id from core_user_tenants  where isDeleted=0 and legalSubjectId=" + legalSubjectId + " ) as t " +
+                "WHERE u.tenantId=t.id and u.isDeleted=0");
+        if ("".equals(search) || search == null) {
+            stringBuffer.append(" order by u.fullName");
+
+        } else {
+            stringBuffer.append(" and u.fullName like '%" + search + "%' or u.phone like '%" + search + "%' order by u.fullName");
+        }
+
+        return stringBuffer.toString();
+    }
+
+    public String searchSuperStars(Map map) {
+        String search = (String) map.get("search");
+        long storeId = (long) map.get("storeId");
+        StringBuffer stringBuffer = new StringBuffer("SELECT u.fullName,u.phone,u.id,u.createTime,u.tenantId,u.notes from core_users as u,(select userId from o2o_offlineStoreStaffs where storeId=" + storeId + " and isDeleted=0 ) as s " +
+                " where u.id=s.userId  and u.isDeleted=0");
+        if ("".equals(search) || search == null) {
+            stringBuffer.append(" order by u.fullName");
+
+        } else {
+            stringBuffer.append(" and u.fullName like '%" + search + "%' or u.phone like '%" + search + "%' order by u.fullName");
+        }
+
+        return stringBuffer.toString();
     }
 }

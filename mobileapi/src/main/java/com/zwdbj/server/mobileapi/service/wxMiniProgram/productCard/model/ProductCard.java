@@ -9,35 +9,57 @@ import java.util.Date;
 public class ProductCard {
 
     @ApiModelProperty(value = "id")
-    Long id;
+    private Long id;
 
     @ApiModelProperty(value = "节假日是否可用")
-    boolean festivalCanUse;
+    private boolean festivalCanUse;
 
-    boolean isDeleted;
+    private boolean isDeleted;
 
     @ApiModelProperty(value = "使用说明")
-    String useInfo;
+    private String useInfo;
 
     @ApiModelProperty(value = "生效类型 PAY_VALIDED:付款后立即生效 PAY_NEXTDAY_VALIDED:付款后次日生效 PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
-    String validType;
+    private String validType;
 
     @ApiModelProperty(value = "PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
-    int specHoursValid;
+    private int specHoursValid;
 
     @ApiModelProperty(value = "生效后多少天内有效")
-    int validDays;
+    private int validDays;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    Date validStartTime;
+    private Date validStartTime;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    Date validEndTime;
+    private Date validEndTime;
 
-    Long productId;
+    private Long productId;
 
     @ApiModelProperty(value = "存在规格有特殊定制?")
-    long productSKUId;
+    private long productSKUId;
+
+    @ApiModelProperty(value = "预约信息")
+    private String appointment;
+
+    @ApiModelProperty(value = "是否与其他优惠券共用")
+    private boolean stackUse;
+
+    public String getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(String appointment) {
+        this.appointment = appointment;
+    }
+
+    public boolean isStackUse() {
+        return stackUse;
+    }
+
+    public void setStackUse(boolean stackUse) {
+        this.stackUse = stackUse;
+    }
 
     public ProductCard() {
     }

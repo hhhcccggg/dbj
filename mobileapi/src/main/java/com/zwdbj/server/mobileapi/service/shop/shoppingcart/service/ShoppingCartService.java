@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.shop.shoppingcart.service;
 
 import com.zwdbj.server.mobileapi.service.shop.shoppingcart.model.ProductInfo;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

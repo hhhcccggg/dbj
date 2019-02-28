@@ -6,10 +6,10 @@ import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.adminserver.service.enCashPayAccount.model.EnCashPayAccount;
 import com.zwdbj.server.adminserver.service.enCashPayAccount.model.ModifyEnCashPayAccount;
 import com.zwdbj.server.adminserver.service.enCashPayAccount.service.EnCashPayAccountService;
-import com.zwdbj.server.utility.model.ResponseData;
-import com.zwdbj.server.utility.model.ResponseDataCode;
-import com.zwdbj.server.utility.model.ResponsePageInfoData;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ResponseData;
+import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
@@ -92,5 +92,4 @@ public class EnCashPayAccountController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
 
     }
-
 }

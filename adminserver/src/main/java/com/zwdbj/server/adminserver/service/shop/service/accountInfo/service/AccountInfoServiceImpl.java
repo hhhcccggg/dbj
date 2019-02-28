@@ -4,10 +4,11 @@ import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.middleware.mq.MQWorkSender;
 import com.zwdbj.server.adminserver.service.shop.service.accountInfo.model.SmsSendCfg;
 import com.zwdbj.server.adminserver.service.user.model.AdModifyManagerPasswordInput;
+import com.zwdbj.server.adminserver.service.user.model.AdNewlyPwdInput;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class AccountInfoServiceImpl implements AccountInfoService {
@@ -41,7 +44,6 @@ public class AccountInfoServiceImpl implements AccountInfoService {
     public ServiceStatusInfo<Object> checkPhoneCode(String phone, String code) {
 
         //TODO 审核以后删除
-        if (phone.equals("18161279360") && code.equals("1234")) return new ServiceStatusInfo<>(0, "验证成功", null);
         // 验证手机验证码是否正确
         String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(phone);
         boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
@@ -63,7 +65,13 @@ public class AccountInfoServiceImpl implements AccountInfoService {
      */
     @Override
     public ServiceStatusInfo<String> sendPhoneCode(String phone) {
-        //TODO 是否要判断手机是否在我们的系统中
+        String regEx = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$";
+        Pattern r = Pattern.compile(regEx);
+        Matcher m1 = r.matcher(phone);
+        boolean rs1 = m1.matches();
+        if (!rs1  ) return new ServiceStatusInfo<>(1, "请填写正确格式的手机号", null);
+        boolean a = this.userService.phoneIsExit(phone);
+        if (!a)return new ServiceStatusInfo<String>(1, "此手机号还没有注册", "");
         //判断是否可以发送验证码
         ValueOperations<String, SmsSendCfg> operations = redisTemplate.opsForValue();
         SmsSendCfg cfg = null;
@@ -104,9 +112,6 @@ public class AccountInfoServiceImpl implements AccountInfoService {
         //生成验证码
         String code = UniqueIDCreater.generatePhoneCode();
 
-        if (phone.equals("18161279360")) {
-            code = "1234";
-        }
         if (AppConfigConstant.APP_SMS_SEND_OPEN) {
             try {
                 // 发送验证码加入消息队列
@@ -135,6 +140,16 @@ public class AccountInfoServiceImpl implements AccountInfoService {
             return new ServiceStatusInfo<>(0, "发送成功", "");
         } else {
             return new ServiceStatusInfo<>(0, "", code);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<Long> newlyPwdAd(AdNewlyPwdInput input) {
+        try {
+            ServiceStatusInfo<Long> result = this.userService.newlyPwdAd(input);
+            return result;
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "找回密码失败" + e.getMessage(), null);
         }
     }
 

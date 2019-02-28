@@ -8,7 +8,7 @@ import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.*;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInfo;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductServiceImpl;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -62,6 +62,9 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 //            }
             long userId = JWTUtil.getCurrentId();
             ShopInfo result = nearbyShopsMapper.searchShopsById(storeId);
+            if (result == null) {
+                return new ServiceStatusInfo<>(0, "没有此店铺" + storeId, null);
+            }
             //判断用户是否收藏该商家
             int isFavorite = favoriteServiceImpl.isFavorite(userId, storeId, "STORE");
             if (isFavorite == 0) {
@@ -95,6 +98,7 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 //                valueOperations.set("shopInfo" + storeId, JSON.toJSONString(result));
 //
 //            }
+
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "获取商家首页信息失败" + e.getMessage(), null);
@@ -110,6 +114,19 @@ public class NearbyShopServiceImpl implements NearbyShopService {
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询代言人失败" + e.getMessage(), null);
         }
+    }
+
+    /**
+     * 查询店铺的认证资料
+     *
+     * @param storeId
+     * @return
+     */
+    @Override
+    public ServiceStatusInfo<StoreAuthenticationInfo> authenticationStore(long storeId) {
+        StoreAuthenticationInfo info = this.nearbyShopsMapper.authenticationStore(storeId);
+        if (info == null) return new ServiceStatusInfo<>(1, "查询失败", null);
+        return new ServiceStatusInfo<>(0, "", info);
     }
 
     @Override
@@ -160,40 +177,39 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             SearchRequest searchRequest = new SearchRequest("shop");//可以设置检索的索引，类型
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             QueryBuilder matchQuery = null;
-            if ("all".equals(info.getFilter())) {
+            if ("全部".equals(info.getFilter())) {
                 if (info.getSearch() == null || "".equals(info.getSearch())) {
                     matchQuery = QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                            .distance(50, DistanceUnit.KILOMETERS);
+                            .distance(100, DistanceUnit.KILOMETERS);
 
                 } else {
                     matchQuery = QueryBuilders.boolQuery().should(new MultiMatchQueryBuilder(info.getSearch(),
                                     "name",
                                     "storeProducts.name",
-                                    "serviceScopes.name",
+                                    "serviceScopes.categoryName",
                                     "address")
 //                            .fuzziness(Fuzziness.AUTO)//模糊匹配
                     ).filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                            .distance(50, DistanceUnit.KILOMETERS)
+                            .distance(100, DistanceUnit.KILOMETERS)
                     );
                 }
             } else {
                 if (info.getSearch() == null || "".equals(info.getSearch())) {
                     matchQuery = QueryBuilders.boolQuery()
-                            .should(new MatchQueryBuilder("name", info.getFilter()))
+                            .should(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
                             .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                                    .distance(50, DistanceUnit.KILOMETERS)
+                                    .distance(100, DistanceUnit.KILOMETERS)
                             );
                 } else {
                     matchQuery = QueryBuilders.boolQuery()
-                            .should(new MatchQueryBuilder("name", info.getFilter()))
+                            .should(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
                             .should(new MultiMatchQueryBuilder(info.getSearch(),
                                     "name",
                                     "storeProducts.name",
-                                    "serviceScopes.name",
                                     "address"))
 //                                    .fuzziness(Fuzziness.AUTO))//多字段查询
                             .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                                    .distance(50, DistanceUnit.KILOMETERS)
+                                    .distance(100, DistanceUnit.KILOMETERS)
                             );
                 }
             }
@@ -243,5 +259,11 @@ public class NearbyShopServiceImpl implements NearbyShopService {
         List<DiscountCoupon> discountCouponDetails = this.nearbyShopsMapper.getNearByDiscount(longitude, latitude);
 
         return discountCouponDetails;
+    }
+
+    @Override
+    public StoreLocation searchStoreLocation(long storeId) {
+        StoreLocation result = nearbyShopsMapper.searchStoreLocation(storeId);
+        return result;
     }
 }

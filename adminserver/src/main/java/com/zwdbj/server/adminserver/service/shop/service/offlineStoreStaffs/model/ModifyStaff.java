@@ -5,32 +5,26 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "修改员工信息")
 public class ModifyStaff {
-    @ApiModelProperty(value = "姓名")
-    String fullName;
-    @ApiModelProperty(value = "手机号")
-    String phone;
+
     @ApiModelProperty(value = "员工id")
     long userId;
     @ApiModelProperty(value = "认证资质 暂时没有 预留")
     String qualification;
-    @ApiModelProperty(value = "备注 暂时没有 预留")
+    @ApiModelProperty(value = "资质url 可以上传多个资质，需要截取")
+    String url;
+
+    @ApiModelProperty(value = "备注 ")
     String notes;
 
-    public String getFullName() {
-        return fullName;
+    public String getUrl() {
+        return url;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getPhone() {
-        return phone;
-    }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public long getUserId() {
         return userId;

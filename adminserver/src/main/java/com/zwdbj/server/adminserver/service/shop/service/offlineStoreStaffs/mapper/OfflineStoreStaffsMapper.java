@@ -12,10 +12,6 @@ import java.util.List;
 public interface OfflineStoreStaffsMapper {
 
 
-    @Update("update o2o_offlineStoreStaffs set storeId=#{offlineStoreStaffs.storeId}," +
-            "userId=#{offlineStoreStaffs.userId},isSuperStar=#{offlineStoreStaffs.isSuperStar} where id=#{offlineStoreStaffs.id}")
-    Long update(@Param("offlineStoreStaffs") OfflineStoreStaffs offlineStoreStaffs);
-
     @Update("update core_users set isDeleted=1,deleteTime=now() where id=#{userId} ")
     Long cancelStaff(@Param("userId") long userId);
 
@@ -27,20 +23,17 @@ public interface OfflineStoreStaffsMapper {
     @Select("select createTime from o2o_offlineStoreStaffs where storeId=#{storeId} and userId=#{userId} and isDeleted=0 ")
     Date selectSuperStarCreateTime(@Param("storeId") long storeId, @Param("userId") long userId);
 
-    @Select("SELECT u.fullName,u.phone,u.id,u.createTime,u.tenantId,u.notes FROM core_users as u, " +
-            "( SELECT id from core_user_tenants  where isDeleted=0 and legalSubjectId=#{legalSubjectId} ) as t " +
-            "WHERE u.tenantId=t.id and u.isDeleted=0 and u.fullName like %#{search}% or u.phone like %#{search}% ORDER BY u.fullName")
+    @SelectProvider(type = OfflineStoreStaffsSqlProvide.class, method = "searchStaffs")
     List<OfflineStoreStaffs> searchStaffs(@Param("legalSubjectId") long legalSubjectId, @Param("search") String search);
 
-    @Select("SELECT u.fullName,u.phone,u.id,s.createTime,u.tenantId,u.notes from core_users as u,(select userId from o2o_offlineStoreStaffs where storeId=#{storeId} and isDeleted=0 ) as s " +
-            "where u.id=s.userId and u.fullName like %#{search}% or u.phone like %#{search}% and u.isDeleted=0")
+    @SelectProvider(type = OfflineStoreStaffsSqlProvide.class, method = "searchSuperStars")
     List<OfflineStoreStaffs> searchSuperStar(@Param("storeId") long storeId, @Param("search") String search);
 
     @Insert("insert into o2o_offlineStoreStaffs (id,storeId,userId) values(#{id},#{storeId},#{userId})")
     Long setSuperStar(@Param("id") long id, @Param("storeId") long storeId, @Param("userId") long userId);
 
-    @Update("update o2o_offlineStoreStaffs set isDeleted=1 and deleteTime=now() where userId=#{userId} and storeId=#{legalSubjectId}")
-    Long cancelSuperStar(@Param("userId") long userId, @Param("legalSubjectId") long legalSubjectId);
+    @Update("update o2o_offlineStoreStaffs set isDeleted=1,deleteTime=now() where userId=#{userId} and storeId=#{storeId}")
+    Long cancelSuperStar(@Param("userId") long userId, @Param("storeId") long storeId);
 
 
     /**
@@ -53,7 +46,7 @@ public interface OfflineStoreStaffsMapper {
      * @return
      */
 
-    @SelectProvider(type = OfflineStoreStaffsSqlProvide.class, method = "searchSuperStar")
+    @SelectProvider(type = OfflineStoreStaffsSqlProvide.class, method = "getSuperStarDetail")
     List<SuperStarInfo> getSuperStarDetail(@Param("search") String search, @Param("rank") String rank, @Param("sort") String sort, @Param("legalSubjectId") long legalSubjectId);
 
     /**
@@ -80,8 +73,10 @@ public interface OfflineStoreStaffsMapper {
      * @param userId
      * @return
      */
-    @Select("select u.userId,u.fullName,u.nickName,u.totalHearts,v.totalFans,v.pets " +
-            "(select count(*) from core_videos where userId=#{userId} and isDeleted=0 ) as commentConunts " +
-            "from core_users as u where u.id=#{userId} and isDeleted=0")
+    @Select("select u.id,u.fullName,u.nickName,u.totalHearts,u.totalFans," +
+            "(select count(*) from core_pets where userId=u.id and isDeleted=0) as pets ," +
+            "(select count(*) from core_videos where userId=#{userId} and isDeleted=0 ) as videos, " +
+            "(SELECT count(*) from core_comments WHERE userId=#{userId} and isDeleted=0) as commentCounts" +
+            " from core_users as u where u.id=#{userId} and isDeleted=0")
     SuperStarDto videoListStaff(@Param("userId") long userId);
 }

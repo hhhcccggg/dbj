@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.service.category.service;
 
 import com.zwdbj.server.adminserver.config.MainKeyType;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
-import com.zwdbj.server.utility.model.ServiceStatusInfo;
+import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.adminserver.service.category.model.*;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -41,6 +41,7 @@ public class CategoryService {
 
         Long result = 0L;
         try {
+            if (input.getIconUrl()!=null && input.getIconUrl().length()!=0)
             input.setIconUrl(qiniuService.url(input.getIconUrl()));
             if (parentId == null) {
                 result = this.categoryMapper.addCategoryAd(id, input);
@@ -61,6 +62,8 @@ public class CategoryService {
         //TODO 检查title是否在系统存在
         Long result = 0L;
         try {
+            if (input.getIconUrl()!=null && input.getIconUrl().length()!=0)
+            input.setIconUrl(qiniuService.url(input.getIconUrl()));
             result = this.categoryMapper.editCategoryAd(id, input);
             redisTemplate.delete(MainKeyType.MAINCATEGORY);
             return new ServiceStatusInfo<>(0, "", result);

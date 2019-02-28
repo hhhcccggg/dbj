@@ -34,6 +34,6 @@ public interface ICategoryMapper {
     Long delCategoryAd(@Param("id") Long id);
 
     @Select("select name,id from core_categories where id=#{id} and status=0")
-    StoreServiceCategory searchCategory(@PathVariable("id") long id);
+    StoreServiceCategory searchCategory(@Param("id") long id);
 }
 

@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.productCashCoupon.model;
 
+import com.zwdbj.server.adminserver.service.shop.service.products.common.ValidType;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.CreateProducts;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.UpdateProducts;
 import io.swagger.annotations.ApiModel;
@@ -11,38 +12,60 @@ import java.util.Date;
 public class ProductCashCoupon {
 
     @ApiModelProperty(value = "id")
-    Long id;
+    private Long id;
 
-    boolean isDeleted;
+    private boolean isDeleted;
 
     @ApiModelProperty(value = "代金券面值,用于抵扣金额的值")
-    int couponValue;
+    private int couponValue;
 
     @ApiModelProperty(value = "节假日是否可用")
-    boolean festivalCanUse;
+    private boolean festivalCanUse;
 
     @ApiModelProperty(value = "使用说明")
-    String useInfo;
+    private String useInfo;
 
     @ApiModelProperty(value = "生效类型")
-    String validType;
+    private ValidType validType;
 
     @ApiModelProperty(value = "PAY_SPEC_HOUR_VALIDED:付款后指定小时生效")
-    int specHoursValid;
+    private int specHoursValid;
 
     @ApiModelProperty(value = "生效后多少天内有效")
-    int validDays;
+    private int validDays;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    Date validStartTime;
+    private Date validStartTime;
 
     @ApiModelProperty(value = "生效后指定时间范围内生效")
-    Date validEndTime;
+    private Date validEndTime;
 
-    Long productId;
+    private Long productId;
 
     @ApiModelProperty(value = "存在规格有特殊定制?")
-    long productSKUId;
+    private long productSKUId;
+
+    @ApiModelProperty(value = "预约信息")
+    private String appointment;
+
+    @ApiModelProperty(value = "是否与其他优惠券共用")
+    private boolean stackUse;
+
+    public String getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(String appointment) {
+        this.appointment = appointment;
+    }
+
+    public boolean isStackUse() {
+        return stackUse;
+    }
+
+    public void setStackUse(boolean stackUse) {
+        this.stackUse = stackUse;
+    }
 
     public ProductCashCoupon() {
     }
@@ -54,6 +77,8 @@ public class ProductCashCoupon {
         this.validDays = createProducts.getValidDays();
         this.validStartTime = createProducts.getValidStartTime();
         this.validEndTime = createProducts.getValidEndTime();
+        this.appointment = createProducts.getAppointment();
+        this.stackUse = createProducts.isStackUse();
         this.productId = productId;
     }
     public ProductCashCoupon(UpdateProducts updateProducts, Long productId) {
@@ -63,6 +88,8 @@ public class ProductCashCoupon {
         this.validDays = updateProducts.getValidDays();
         this.validStartTime = updateProducts.getValidStartTime();
         this.validEndTime = updateProducts.getValidEndTime();
+        this.appointment = updateProducts.getAppointment();
+        this.stackUse = updateProducts.isStackUse();
         this.productId = productId;
     }
 
@@ -106,11 +133,11 @@ public class ProductCashCoupon {
         this.useInfo = useInfo;
     }
 
-    public String getValidType() {
+    public ValidType getValidType() {
         return validType;
     }
 
-    public void setValidType(String validType) {
+    public void setValidType(ValidType validType) {
         this.validType = validType;
     }
 
