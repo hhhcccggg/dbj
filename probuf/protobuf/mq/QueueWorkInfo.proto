@@ -19,6 +19,7 @@ message QueueWorkInfo {
         USER_ORDER_TIME=9; //用户订单的超时
         MODIFY_SHOP_INFO=10;
         VIDEO_INFO=11;//视频es
+        USER_ORDER_COMMENT_TIME=12; //用户订单评价的超时
     }
 
     WorkTypeEnum workType = 1; //任务标识
@@ -32,6 +33,7 @@ message QueueWorkInfo {
     QueueWorkOrderTimeData orderTimeData = 9; //数据
     QueueWorkModifyShopInfo modifyShopInfo=10;//
     QueueWorkVideoInfo videoInfo=11;//视频修改ES
+    QueueWorkOrderCommentTimeData orderCommentTimeData = 12; //数据
 }
 message QueueWorkModifyShopInfo{
       enum OperationEnum {
@@ -74,6 +76,9 @@ message QueueWorkShopLegalSubjectData{
 message QueueWorkOrderTimeData{
     int64 orderId=1;//订单id
     int64 userId = 2;//用户的id
+}
+message QueueWorkOrderCommentTimeData{
+    int64 orderId=1;//订单id
 }
 
 message QueueWorkHeart {
