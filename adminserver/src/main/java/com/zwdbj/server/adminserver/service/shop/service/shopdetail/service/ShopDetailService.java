@@ -10,9 +10,8 @@ public interface ShopDetailService {
     ServiceStatusInfo<StoreDto> findStoreDetail(long legalSubjectId);
 
 
-    ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list, long storeId, long legalSubjectId);
+    ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list, long legalSubjectId);
 
-    ServiceStatusInfo<Long> addOpeningHours(List<OpeningHours> list, long storeId);
 
     ServiceStatusInfo<LocationInfo> showLocation(long legalSubjectId);
 

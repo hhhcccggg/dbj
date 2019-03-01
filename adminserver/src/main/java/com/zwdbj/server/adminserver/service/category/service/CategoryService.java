@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.service.category.service;
 
 import com.zwdbj.server.adminserver.config.MainKeyType;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
+import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.adminserver.service.category.model.*;
@@ -108,6 +109,20 @@ public class CategoryService {
     }
 
     public ServiceStatusInfo<List<StoreServiceCategory>> allExtraService() {
-        return null;
+        try {
+            List<StoreServiceCategory> result = categoryMapper.allExtraService();
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询所有商家额外服务分类失败" + e.getMessage(), null);
+        }
+    }
+
+    public ServiceStatusInfo<List<StoreServiceCategory>> allServiceScopes() {
+        try {
+            List<StoreServiceCategory> result = categoryMapper.allServiceScopes();
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询所有商家服务分类失败" + e.getMessage(), null);
+        }
     }
 }
