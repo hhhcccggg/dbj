@@ -9,6 +9,8 @@ import com.zwdbj.server.basemodel.model.ResponseData;
 import com.zwdbj.server.basemodel.model.ResponseDataCode;
 import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.tokencenter.TokenCenterManager;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,15 @@ public class OfflineStoreServiceScopesController {
 
     @Autowired
     private OfflineStoreServiceScopesService offlineStoreServiceScopesServiceImpl;
+    @Autowired
+    private TokenCenterManager tokenCenterManager;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "添加线下门店服务范围")
     public ResponseData<Long> create(@RequestBody OfflineStoreServiceScopes offlineStoreServiceScopes) {
-        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreServiceScopesServiceImpl.create(offlineStoreServiceScopes);
+        long userId = JWTUtil.getCurrentId();
+        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
+        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreServiceScopesServiceImpl.create(offlineStoreServiceScopes, legalSubjectId);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -37,17 +43,22 @@ public class OfflineStoreServiceScopesController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改线下门店服务范围")
     public ResponseData<Long> update(@RequestBody OfflineStoreServiceScopes offlineStoreServiceScopes) {
-        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreServiceScopesServiceImpl.update(offlineStoreServiceScopes);
+        long userId = JWTUtil.getCurrentId();
+        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
+        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreServiceScopesServiceImpl.update(offlineStoreServiceScopes,legalSubjectId);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{serviceScopeId}", method = RequestMethod.GET)
     @ApiOperation(value = "删除线下门店服务范围")
-    public ResponseData<Long> deleteById(@PathVariable("id") Long id) {
-        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreServiceScopesServiceImpl.deleteById(id);
+    public ResponseData<Long> deleteById(@PathVariable("serviceScopeId") Long serviceScopeId) {
+        long userId = JWTUtil.getCurrentId();
+        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
+
+        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreServiceScopesServiceImpl.deleteById(serviceScopeId, legalSubjectId);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

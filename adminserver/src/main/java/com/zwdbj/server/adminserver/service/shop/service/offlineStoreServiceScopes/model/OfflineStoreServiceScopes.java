@@ -5,13 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "线下门店服务范围")
 public class OfflineStoreServiceScopes {
-    @ApiModelProperty(value = "id")
-    Long id;
-    /// 就是商户ID
-    /// </summary>
-    /// <value>The offline store identifier.</value>
-    @ApiModelProperty(value = "商户id")
-    long storeId;
+
     /// <summary>
     /// 分类ID
     /// </summary>
@@ -27,7 +21,7 @@ public class OfflineStoreServiceScopes {
     /// </summary>
     /// <value>The status.</value>
     @ApiModelProperty(value = "营业状态")
-    int  status;
+    int status;
 
     public String getCategoryName() {
         return categoryName;
@@ -35,22 +29,6 @@ public class OfflineStoreServiceScopes {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(long storeId) {
-        this.storeId = storeId;
     }
 
     public long getServiceScopeId() {

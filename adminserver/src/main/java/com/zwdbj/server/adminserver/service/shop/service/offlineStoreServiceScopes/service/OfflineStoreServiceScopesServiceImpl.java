@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceSco
 import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.mapper.OfflineStoreServiceScopesMapper;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScopes.model.OfflineStoreServiceScopes;
+import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -17,15 +18,18 @@ import java.util.List;
 public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreServiceScopesService {
     @Resource
     private OfflineStoreServiceScopesMapper mapper;
+    @Resource
+    private StoreService storeService;
 
     @Transactional
     @Override
-    public ServiceStatusInfo<Long> create(OfflineStoreServiceScopes offlineStoreServiceScopes) {
+    public ServiceStatusInfo<Long> create(OfflineStoreServiceScopes offlineStoreServiceScopes, long legalSubjectId) {
         Long result = 0L;
         Long id = UniqueIDCreater.generateID();
+        long storeId = storeService.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
-            result = mapper.create(id, offlineStoreServiceScopes);
-            QueueUtil.sendQueue(offlineStoreServiceScopes.getStoreId(), QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            result = mapper.create(id, storeId, offlineStoreServiceScopes);
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "创建线下门店服务范围失败" + e.getMessage(), result);
@@ -35,13 +39,13 @@ public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreService
 
     @Transactional
     @Override
-    public ServiceStatusInfo<Long> update(OfflineStoreServiceScopes offlineStoreServiceScopes) {
+    public ServiceStatusInfo<Long> update(OfflineStoreServiceScopes offlineStoreServiceScopes, long legalSubjectId) {
 
         Long result = 0L;
-
+        long storeId = storeService.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
-            result = mapper.update(offlineStoreServiceScopes);
-            QueueUtil.sendQueue(offlineStoreServiceScopes.getStoreId(), QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            result = mapper.update(offlineStoreServiceScopes,storeId);
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改线下门店服务范围失败" + e.getMessage(), result);
@@ -52,13 +56,13 @@ public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreService
 
     @Transactional
     @Override
-    public ServiceStatusInfo<Long> deleteById(Long id) {
+    public ServiceStatusInfo<Long> deleteById(long serviceScopeId, long legalSubjectId) {
 
         Long result = 0L;
-
+        long storeId = storeService.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
-            result = mapper.deleteById(id);
-            QueueUtil.sendQueue(id, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            result = mapper.deleteById(serviceScopeId, storeId);
+            QueueUtil.sendQueue(serviceScopeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "删除线下门店服务范围失败" + e.getMessage(), result);
