@@ -12,6 +12,16 @@ public class UserOnNearbyInput {
 
     @ApiModelProperty(value = "距离 单位:米")
     private int distance;
+    @ApiModelProperty(value = "性别: -1:全部,0：未知,1：男 ,2：女 ,3：保密")
+    private int sex;
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
 
     public float getLongitude() {
         return longitude;

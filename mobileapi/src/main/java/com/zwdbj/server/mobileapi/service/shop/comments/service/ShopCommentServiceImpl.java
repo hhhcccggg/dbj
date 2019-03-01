@@ -8,8 +8,10 @@ import com.zwdbj.server.mobileapi.service.shop.comments.model.ShopCommentsExtraD
 import com.zwdbj.server.mobileapi.service.shop.comments.model.UserComments;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.model.StoreLocation;
 import com.zwdbj.server.mobileapi.service.shop.nearbyShops.service.NearbyShopService;
+import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service.ProductOrderService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -33,11 +35,14 @@ public class ShopCommentServiceImpl implements ShopCommentService {
     private VideoService videoService;
     @Autowired
     private NearbyShopService nearbyShopServiceImpl;
+    @Autowired
+    private OrderService orderService;
 
     @Override
     public ServiceStatusInfo<UserComments> userComments(long storeId) {
         UserComments result = null;
         try {
+            
             result = this.shopCommentsMapper.CountComments(storeId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
@@ -64,7 +69,7 @@ public class ShopCommentServiceImpl implements ShopCommentService {
     //发布商家服务评论
     @Override
     @Transactional
-    public ServiceStatusInfo<Long> publishServiceComment(CommentVideoInfo videoInput) {
+    public ServiceStatusInfo<Long> publishServiceComment(CommentVideoInfo videoInput, long productOrderId) {
         try {
             long result = 0L;
             long userId = JWTUtil.getCurrentId();
@@ -81,6 +86,8 @@ public class ShopCommentServiceImpl implements ShopCommentService {
             long videoId = videoService.publicCommentVideo(videoInput);
             result++;
             result += this.shopCommentsMapper.commentExtraDatas(UniqueIDCreater.generateID(), commentId, videoId, videoInput);
+            //更新订单状态
+            orderService.updateGoodsStatus(productOrderId);
 
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
@@ -90,8 +97,9 @@ public class ShopCommentServiceImpl implements ShopCommentService {
     }
 
     //发布商家产品评论
+    @Override
     @Transactional
-    public ServiceStatusInfo<Long> publishProductComment(CommentInput commentInput) {
+    public ServiceStatusInfo<Long> publishProductComment(CommentInput commentInput, long productOrderId) {
         try {
             long result = 0L;
             long userId = JWTUtil.getCurrentId();
@@ -99,9 +107,11 @@ public class ShopCommentServiceImpl implements ShopCommentService {
             commentInput.setDataContent(qiniuService.url(commentInput.getDataContent()));
             result += this.shopCommentsMapper.publishComment(commentId, userId, commentInput);
             result += this.shopCommentsMapper.commentExtraDatas(UniqueIDCreater.generateID(), commentId, 0, commentInput);
+            //更新订单状态
+            orderService.updateGoodsStatus(productOrderId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "发布商家产品评价失败" + e.getMessage(), null);
+            throw new RuntimeException("发布商家产品评价失败" + e.getMessage());
         }
     }
 }

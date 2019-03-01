@@ -10,6 +10,7 @@ import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
@@ -65,6 +66,11 @@ public class OrderService {
             long userId = JWTUtil.getCurrentId();
             List<ProductOrderModel> orderModels = this.orderMapper.getMyOrders(userId,status);
             for (ProductOrderModel model:orderModels){
+                ProductOut product = this.productServiceImpl.selectById(model.getProductId()).getData();
+                if (product.getImageUrls()!=null && product.getImageUrls().length()!=0){
+                    String ima = product.getImageUrls().split(",")[0];
+                    model.setImageUrls(ima);
+                }
                 model.setNickName(this.userService.getUserName(userId));
                 ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
                 if (addressModel!=null)
@@ -86,9 +92,15 @@ public class OrderService {
             calendar.add(Calendar.MINUTE, +15);
             Date lastPayTime = calendar.getTime();
             model.setLastPayTime(lastPayTime);
+            ProductOut product = this.productServiceImpl.selectById(model.getProductId()).getData();
+            if (product.getImageUrls()!=null && product.getImageUrls().length()!=0){
+                String ima = product.getImageUrls().split(",")[0];
+                model.setImageUrls(ima);
+            }
             ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
             model.setNickName(this.userService.getUserName(model.getUserId()));
-            model.setAddressModel(addressModel);
+            if (addressModel!=null) 
+                model.setAddressModel(addressModel);
             return new ServiceStatusInfo<>(0,"",model);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "获得订单失败：" + e.getMessage(), null);
@@ -291,5 +303,9 @@ public class OrderService {
         SettlementResult settlementResult = this.settlement.settlement(amount,0L,userCoins,coupon);
         return new ServiceStatusInfo<>(0,"",settlementResult);
 
+    }
+    public int updateGoodsStatus(long orderId) {
+        int result = this.orderMapper.updateGoodsStatus(orderId);
+        return result;
     }
 }

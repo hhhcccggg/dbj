@@ -23,8 +23,7 @@ public class OrderSqlProvider {
         }else if (status==2){
             sql.WHERE("o.status='STATE_UNUSED'");
         }else if (status==3){
-            sql.WHERE("o.buyerRate=false")
-            .AND().WHERE("o.status in ('STATE_BUYER_DELIVERIED','STATE_USED','STATE_SUCCESS')");
+            sql.WHERE("o.status='STATE_USED'");
         }
         sql.ORDER_BY("createTime desc");
         return sql.toString();

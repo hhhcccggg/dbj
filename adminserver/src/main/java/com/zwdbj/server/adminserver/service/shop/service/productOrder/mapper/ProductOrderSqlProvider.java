@@ -11,11 +11,13 @@ public class ProductOrderSqlProvider {
         Long storeId = (Long)params.get("storeId");
         SQL sql = new SQL()
                 .SELECT("o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price,a.receiverName as receiverName," +
+                        "p.imageUrls as imageUrls " +
                         "a.receiverMobile as receiverMobile,u.nickName as nickName")
                 .FROM("shop_productOrders o ")
                 .LEFT_OUTER_JOIN("shop_productOrderItems oi on oi.orderId=o.id")
                 .LEFT_OUTER_JOIN("shop_receiveAddresses a on a.id=o.receiveAddressId")
                 .LEFT_OUTER_JOIN("core_users u on u.id=o.userId")
+                .LEFT_OUTER_JOIN("shop_products p on p.id=oi.productId")
                 .WHERE("o.storeId="+storeId);
         if (input.getStartTime() !=null  && input.getStartTime().length()!=0 && input.getEndTime() !=null && input.getEndTime().length()!=0){
             sql.WHERE(String.format("o.createTime between '%s' and '%s'",input.getStartTime(),input.getEndTime()));

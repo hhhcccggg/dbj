@@ -789,6 +789,18 @@ public class UserService {
     public  ServiceStatusInfo<Integer> getMyNewPWD(NewMyPasswordInput input){
 
         try {
+            // 验证手机验证码是否正确
+            String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(input.getPhone());
+            boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
+            if (!hasPhoneCode) {
+                return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);
+            }
+            String cachePhoneCode = this.stringRedisTemplate.opsForValue().get(cacheKey);
+            if (!input.getCode().equals(cachePhoneCode)) {
+                return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
+            }
+            //移除验证码
+            stringRedisTemplate.delete(cacheKey);
             String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
             Pattern r = Pattern.compile(regEx);
             Matcher m1 = r.matcher(input.getPassword());

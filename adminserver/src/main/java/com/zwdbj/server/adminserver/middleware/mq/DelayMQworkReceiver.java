@@ -91,6 +91,11 @@ public class DelayMQworkReceiver extends MQConnection{
             orderService.orderUnPay(info.getOrderTimeData().getOrderId(),info.getOrderTimeData().getUserId());
             logger.info("[DMQ]处理订单" + info.getOrderTimeData().getOrderId() + ",用户" + info.getOrderTimeData().getUserId() );
             channel.basicAck(envelope.getDeliveryTag(), false);
+        }else if (info.getWorkType()==QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_COMMENT_TIME){
+            ProductOrderService orderService = SpringContextUtil.getBean(ProductOrderService.class);
+            orderService.orderUnComment(info.getOrderCommentTimeData().getOrderId());
+            logger.info("[DMQ]处理订单评价" + info.getOrderTimeData().getOrderId() );
+            channel.basicAck(envelope.getDeliveryTag(), false);
         }else {
             logger.info("[DMQ]收到数据类型:"+info.getWorkType()+"后端暂时没有合适的服务处理");
             channel.basicAck(envelope.getDeliveryTag(),false);

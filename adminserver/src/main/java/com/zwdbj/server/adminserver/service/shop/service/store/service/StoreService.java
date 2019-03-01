@@ -26,5 +26,7 @@ public interface StoreService {
 
     long selectTenantId(long legalSubjectId);
 
+    long selectStoreIdByLegalSubjectId(long legalSubjectId);
+
     ServiceStatusInfo<List<StoreSimpleInfo>> searchStore(StoreSearchInput input);
 }

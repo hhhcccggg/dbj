@@ -1,8 +1,16 @@
 package com.zwdbj.server.adminserver.service.category.model;
 
-public class StoreServiceCategory {
+import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+
+public class StoreServiceCategory implements Serializable {
+
+    private static final long serialVersionUID = -1203405384178286150L;
+    @ApiModelProperty(value = "服务范围id")
     long id;
-    String name;
+    @ApiModelProperty(value = "服务名称")
+    private String categoryName;
 
     public long getId() {
         return id;
@@ -12,13 +20,11 @@ public class StoreServiceCategory {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
-
-
 }

@@ -284,6 +284,17 @@ public class UserController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
+    @RequiresAuthentication
+    @RequestMapping(value = "/dbj/get/marketUser", method = RequestMethod.GET)
+    @ApiOperation(value = "得到一个马甲用户的id")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
+    public ResponseData<Long> getManualUser() {
+        ServiceStatusInfo<Long> statusInfo = this.userService.getManualUser();
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
+    }
 
 
 }
