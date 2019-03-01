@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -196,6 +197,24 @@ public class VideoService {
             dto.setShareUrl(AppConfigConstant.getShareUrl(id, "video"));
         }
         return dto;
+    }
+
+    public ServiceStatusInfo<List<VideoInfoDto>> getHomeVideos(String ids){
+        List<VideoInfoDto> videoInfoDtos= new ArrayList<>();
+        try {
+            if (ids==null || ids.length()==0)return new ServiceStatusInfo<>(1,"请传入视频id",null);
+            String[] videoIds = ids.split(",");
+            for (String id:videoIds){
+                VideoInfoDto dto = this.videoMapper.video2(Long.valueOf(id));
+                if (dto!=null)
+                    videoInfoDtos.add(dto);
+            }
+            return new ServiceStatusInfo<>(0,"",videoInfoDtos);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ServiceStatusInfo<>(1,"失败",null);
+
     }
 
     public void updatePlayCount(long id) {
