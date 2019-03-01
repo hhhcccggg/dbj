@@ -69,6 +69,7 @@ public class UserSqlProvider {
     public String nearby(Map params) {
         Double longitude = (Double) params.get("longitude");
         Double latitude = (Double) params.get("latitude");
+        Integer sex = (Integer)params.get("sex");
         float distance = (float) params.get("distance");
 
         double[] results = UserSqlProvider.getAround(latitude,longitude,distance);
@@ -76,13 +77,17 @@ public class UserSqlProvider {
         SQL sql = new SQL()
                 .SELECT("u.id as userId,u.nickName,u.sex," +
                         "(st_distance(POINT (u.longitude, u.latitude),POINT(#{longitude},#{latitude}))*95000) AS distance " )
-                .FROM("core_users u")
-                .HAVING("distance<#{distance}")
+                .FROM("core_users u");
+        if (sex!=-1){
+            sql.WHERE("sex=#{sex}");
+        }
+        sql.HAVING("distance<#{distance}");
                 /*.WHERE(String.format("longitude BETWEEN %f AND %f",results[1],results[3]))
                 .AND()
                 .WHERE(String.format("latitude  BETWEEN %f AND %f",results[0],results[2]))
                 .AND()*/
-                .ORDER_BY("distance");
+
+        sql.ORDER_BY("distance");
         return sql.toString();
     }
 

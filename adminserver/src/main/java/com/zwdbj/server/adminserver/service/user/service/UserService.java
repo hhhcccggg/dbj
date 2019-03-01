@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -672,6 +673,13 @@ public class UserService {
         }catch(Exception e){
             return new ServiceStatusInfo<>(1, "批量取消失败"+e.getMessage(), 0L);
         }
+    }
+    public ServiceStatusInfo<Long> getManualUser(){
+        List<Long> manualUserIds = this.userMapper.getManualUser();
+        Random random = new Random();
+        int a = random.nextInt(manualUserIds.size());
+        Long userId = manualUserIds.get(a);
+        return new ServiceStatusInfo<>(0,"",userId);
     }
 
 }

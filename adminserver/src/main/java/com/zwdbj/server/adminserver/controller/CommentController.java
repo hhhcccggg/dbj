@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.adminserver.identity.RoleIdentity;
+import com.zwdbj.server.adminserver.service.comment.model.AdAddCommentToVideoInput;
 import com.zwdbj.server.basemodel.model.*;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.comment.model.CommentInfoDto;
@@ -59,6 +60,18 @@ public class CommentController {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"屏蔽评论成功",statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"屏蔽评论失败"+statusInfo.getMsg(),null);
+
+    }
+    @RequiresAuthentication
+    @RequestMapping(value = "/dbj/add/comment",method = RequestMethod.GET)
+    @ApiOperation("增加评论")
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
+    public ResponseData<Long> addCommentForVideo(@RequestBody AdAddCommentToVideoInput input){
+        ServiceStatusInfo<Long> statusInfo = this.commentService.addCommentForVideo(input);
+        if (statusInfo.isSuccess()){
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"增加评论成功",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,"增加评论失败"+statusInfo.getMsg(),null);
 
     }
 

@@ -1,11 +1,15 @@
 package com.zwdbj.server.adminserver.service.comment.service;
 
+import com.zwdbj.server.adminserver.service.messageCenter.model.MessageInput;
+import com.zwdbj.server.adminserver.service.messageCenter.service.MessageCenterService;
+import com.zwdbj.server.adminserver.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.comment.mapper.ICommentMapper;
 import com.zwdbj.server.adminserver.service.comment.model.*;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,8 @@ public class CommentService {
     protected HeartService heartService;
     @Autowired
     protected VideoService videoService;
+    @Autowired
+    protected MessageCenterService messageCenterService;
 
     public List<CommentInfoDto> list(long resId) {
         List<CommentInfoDto> commentList = this.commentMapper.list(resId,JWTUtil.getCurrentId());
@@ -69,6 +75,29 @@ public class CommentService {
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"屏蔽评论失败"+e.getMessage(),result);
         }
+    }
+
+    /**
+     * 增加评论
+     * @param input
+     * @return
+     */
+    @Transactional
+    public ServiceStatusInfo<Long> addCommentForVideo(AdAddCommentToVideoInput input){
+        long id = UniqueIDCreater.generateID();
+        long userId = this.userService.getManualUser().getData();
+        long result = this.commentMapper.addCommentForVideo(id,userId,input);
+        if (result==0)return new ServiceStatusInfo<>(1,"增加评论失败",result);
+        this.videoService.updateField("commentCount=commentCount+1", input.getVideoId());
+        VideoDetailInfoDto detailInfoDto = this.videoService.video(input.getVideoId());
+        if (detailInfoDto != null) {
+            MessageInput msgInput = new MessageInput();
+            msgInput.setCreatorUserId(userId);
+            msgInput.setMessageType(3);
+            msgInput.setDataContent("{\"resId\":\"" + input.getVideoId() + "\",\"type\":\"0\"}");
+            this.messageCenterService.push(msgInput, detailInfoDto.getUserId());
+        }
+        return new ServiceStatusInfo<>(0,"增加评论成功",result);
     }
 
     public List<Map<String, Object>> findComments(){
