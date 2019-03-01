@@ -129,7 +129,7 @@ public class ElasticsearchInit implements ApplicationRunner {
      */
     public BulkRequest createIndexRequest(String index,String type,List<Map<String,String>> maps,BulkRequest bulkRequest){
         for (Map map:maps) {
-            IndexRequest indexRequest = new IndexRequest(index, type);
+            IndexRequest indexRequest = new IndexRequest(index, type, String.valueOf(map.get("id")));
             indexRequest.source(JSON.toJSONString(map),XContentType.JSON);
             bulkRequest.add(indexRequest);
         }

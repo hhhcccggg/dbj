@@ -358,13 +358,13 @@ public class VideoService {
         switch (operationEnum){
             case CREATE:
                 Map<String,String> map = selectById(id);
-                IndexRequest indexRequest = new IndexRequest("video","doc");
+                IndexRequest indexRequest = new IndexRequest("video","doc",String.valueOf(id));
                 indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
                 restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
                 break;
             case UPDATE:
                 map = selectById(id);
-                indexRequest = new IndexRequest("video","doc");
+                indexRequest = new IndexRequest("video","doc",String.valueOf(id));
                 indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
                 restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
                 break;
