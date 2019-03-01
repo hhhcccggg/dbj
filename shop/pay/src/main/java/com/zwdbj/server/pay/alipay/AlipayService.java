@@ -119,7 +119,15 @@ public class AlipayService {
         try {
             AlipayTradeRefundRequest request = new AlipayTradeRefundRequest ();
             String bizJson = JSON.toJSONString(input);
-            request.setBizContent(bizJson);
+            logger.info(bizJson);
+            request.setBizContent("{" +
+                    "\"out_trade_no\":\""+input.getOutTradeNo()+"\"," +
+                    "\"trade_no\":\""+input.getTradeNo()+"\"," +
+                    "\"refund_amount\":"+input.getRefundAmount()+"," +
+                    "\"refund_currency\":\"CYN\"," +
+                    "\"refund_reason\":\""+input.getRefundReason()+"\"," +
+                    "\"out_request_no\":\""+input.getOutRequestNo()+"\"" +
+                    "  }");
             //  异步回调
             // TODO 订单退款的回调地址
             request.setNotifyUrl(this.aliPayConfig.getOrderRefundResultCallbackUrl());
@@ -136,7 +144,7 @@ public class AlipayService {
                 result.setBuyerUserId(response.getBuyerUserId());
                 return new ServiceStatusInfo<>(0,"OK",result);
             } else {
-                logger.info(response.getCode()+","+response.getMsg());
+                logger.info(response.getCode()+","+response.getMsg()+","+response.getSubMsg());
                 return new ServiceStatusInfo<>(1,"退款失败("+response.getCode()+")",null);
             }
         } catch ( AlipayApiException ex ) {
