@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.comment.mapper;
 
+import com.zwdbj.server.adminserver.service.comment.model.AdAddCommentToVideoInput;
 import com.zwdbj.server.adminserver.service.comment.model.AddCommentModel;
 import com.zwdbj.server.adminserver.service.comment.model.CommentInfoDto;
 import com.zwdbj.server.adminserver.service.comment.model.CommentReviewDto;
@@ -64,6 +65,9 @@ public interface ICommentMapper {
 
     @Update("update core_comments set reviewStatus='block',contentTxt='******',reviewedResult='评论涉嫌违规' where id=#{id}")
     Long screeningComment(@Param("id")Long id);
+    @Insert("insert into core_comments(id,userId,contentTxt,resourceOwnerId,reviewStatus,originContentTxt) " +
+            "values(#{id},#{userId},#{input.contentTxt},#{input.videoId},'pass',#{input.contentTxt})")
+    Long addCommentForVideo(@Param("id")long id,@Param("userId")long userId,@Param("input")AdAddCommentToVideoInput input);
 
     @Select("select id,contentTxt from core_comments where reviewStatus='reviewing'")
     List<CommentReviewDto> findCommentReviewing();

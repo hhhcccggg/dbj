@@ -20,7 +20,7 @@ public interface ShopCommentsMapper {
     @Select("SELECT u.id as userId ,u.userName,u.avatarUrl,c.contentTxt,c.heartCount,c.createTime,p.name as resourceName,c.resourceOwnerId,c.resourceTypeId,c.rate,ce.commentId,ce.type,ce.dataId,ce.dataContent" +
             "     FROM  (select * from core_comments WHERE resourceTypeId=1  or resourceTypeId=2 and isOwner=1) as c," +
             "core_comment_extraDatas as ce,core_users as u,shop_products as p" +
-            "            WHERE   p.storeId=#{storeId} and c.resourceOwnerId =p.id and c.userId=u.id and ce.commentId=c.id  order by c.createTime")
+            "            WHERE   p.storeId=#{storeId} and c.resourceOwnerId =p.id and c.userId=u.id and ce.commentId=c.id  order by c.createTime desc")
     List<ShopCommentsExtraDatas> commentList(@Param("storeId") long storeId);
 
     //用户发布评论

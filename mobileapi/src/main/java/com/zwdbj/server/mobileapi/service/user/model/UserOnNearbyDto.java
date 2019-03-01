@@ -11,6 +11,8 @@ public class UserOnNearbyDto {
     private long userId;
     @ApiModelProperty(value = "用户的昵称")
     private String nickName;
+    @ApiModelProperty(value = "用户的头像")
+    private String avatarUrl;
     @ApiModelProperty(value = "用户的性别 0:未知,1男,2女,3保密")
     private int sex;
     @ApiModelProperty(value = "用户是否为认证医师")
@@ -21,6 +23,14 @@ public class UserOnNearbyDto {
     private int userVideoNums;
     @ApiModelProperty(value = "距离的距离长度 单位为米")
     private int distance;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     public long getUserId() {
         return userId;

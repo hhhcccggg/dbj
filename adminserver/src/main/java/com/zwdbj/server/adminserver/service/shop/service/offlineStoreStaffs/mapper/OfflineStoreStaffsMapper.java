@@ -15,11 +15,6 @@ public interface OfflineStoreStaffsMapper {
     @Update("update core_users set isDeleted=1,deleteTime=now() where id=#{userId} ")
     Long cancelStaff(@Param("userId") long userId);
 
-    @Select("SELECT u.fullName,u.phone,u.id,u.createTime,u.tenantId,u.notes FROM core_users as u, " +
-            "( SELECT id from core_user_tenants  where isDeleted=0 and legalSubjectId=#{legalSubjectId} ) as t " +
-            "WHERE u.tenantId=t.id and u.isDeleted=0 ORDER BY u.fullName")
-    List<OfflineStoreStaffs> getStaffs(@Param("legalSubjectId") long legalSubjectId);
-
     @Select("select createTime from o2o_offlineStoreStaffs where storeId=#{storeId} and userId=#{userId} and isDeleted=0 ")
     Date selectSuperStarCreateTime(@Param("storeId") long storeId, @Param("userId") long userId);
 

@@ -66,18 +66,7 @@ public class OfflineStoreStaffsController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/getStaffs", method = RequestMethod.GET)
-    @ApiOperation(value = "获取员工，代言人")
-    public ResponsePageInfoData<List<OfflineStoreStaffs>> getStaffs(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
-                                                                    @RequestParam(value = "rows", required = true, defaultValue = "30") int rows) {
-        long userId = JWTUtil.getCurrentId();
-        long legalSubjectId = authUserManager.get(String.valueOf(userId)).getLegalSubjectId();
-        long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
-        PageHelper.startPage(pageNo, rows);
-        ServiceStatusInfo<List<OfflineStoreStaffs>> statusInfo = offlineStoreStaffsServiceImpl.getStaffs(storeId, legalSubjectId);
-        PageInfo<OfflineStoreStaffs> pageInfo = new PageInfo<>(statusInfo.getData());
-        return new ResponsePageInfoData<>(0, statusInfo.getMsg(), pageInfo.getList(), pageInfo.getTotal());
-    }
+
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ApiOperation(value = "查询所有门店员工，代言人")

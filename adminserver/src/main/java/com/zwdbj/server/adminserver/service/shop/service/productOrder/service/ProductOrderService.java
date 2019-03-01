@@ -1,11 +1,13 @@
 package com.zwdbj.server.adminserver.service.shop.service.productOrder.service;
 
+import com.zwdbj.server.adminserver.middleware.mq.DelayMQWorkSender;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.service.ReceiveAddressService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -121,6 +123,16 @@ public class ProductOrderService {
             //验证成功后更新订单
             int result = this.productOrderMapper.updateOrderSuccess(orderId);
             if (result==0)return new ServiceStatusInfo<>(1,"验证消费码失败",0);
+            //设置订单评价过期机制
+            QueueWorkInfoModel.QueueWorkOrderCommentTimeData orderCommentTimeData
+                    = QueueWorkInfoModel.QueueWorkOrderCommentTimeData.newBuilder()
+                    .setOrderId(orderId)
+                    .build();
+            QueueWorkInfoModel.QueueWorkInfo workInfo = QueueWorkInfoModel.QueueWorkInfo.newBuilder()
+                    .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_COMMENT_TIME)
+                    .setOrderCommentTimeData(orderCommentTimeData)
+                    .build();
+            DelayMQWorkSender.shareSender().send(workInfo,60*60*24*30);
             return  new ServiceStatusInfo<>(0,"验证消费码成功",result);
 
         }catch (Exception e){
@@ -147,6 +159,26 @@ public class ProductOrderService {
         }catch (Exception e){
             e.printStackTrace();
             logger.error("更改未支付订单:"+orderId+"异常:"+e.getMessage());
+        }
+
+        return false;
+
+
+    }
+    public boolean orderUnComment(long orderId){
+        try {
+            ProductOrderDetailModel model = this.getOrderById(orderId).getData();
+            if (model.getStatus().equals("STATE_USED")){
+                this.productOrderMapper.updateOrderUnComment(orderId);
+                logger.info("未评价订单:"+orderId+"更新成功");
+                return true;
+            }else {
+                return true;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("更改未评价订单:"+orderId+"异常:"+e.getMessage());
         }
 
         return false;

@@ -67,22 +67,28 @@ public class UserSqlProvider {
 
 
     public String nearby(Map params) {
-        Double longitude = (Double) params.get("longitude");
-        Double latitude = (Double) params.get("latitude");
-        float distance = (float) params.get("distance");
+        float longitude = (float) params.get("longitude");
+        float latitude = (float) params.get("latitude");
+        int sex = (int)params.get("sex");
+        int distance1 = (int) params.get("distance");
 
-        double[] results = UserSqlProvider.getAround(latitude,longitude,distance);
+        //double[] results = UserSqlProvider.getAround(latitude,longitude,distance1/1.0F);
 
         SQL sql = new SQL()
-                .SELECT("u.id as userId,u.nickName,u.sex," +
+                .SELECT("u.id as userId,u.nickName as nickName,u.sex as sex,u.avatarUrl as avatarUrl," +
                         "(st_distance(POINT (u.longitude, u.latitude),POINT(#{longitude},#{latitude}))*95000) AS distance " )
-                .FROM("core_users u")
-                .HAVING("distance<#{distance}")
+                .FROM("core_users u");
+        if (sex!=-1){
+            sql.WHERE("u.sex=#{sex}");
+        }
+        if (distance1>0)
+            sql.HAVING("distance<#{distance1}");
                 /*.WHERE(String.format("longitude BETWEEN %f AND %f",results[1],results[3]))
                 .AND()
                 .WHERE(String.format("latitude  BETWEEN %f AND %f",results[0],results[2]))
                 .AND()*/
-                .ORDER_BY("distance");
+
+        sql.ORDER_BY("distance");
         return sql.toString();
     }
 

@@ -131,4 +131,9 @@ public class StoreServiceImpl implements StoreService {
 
         return new ServiceStatusInfo<>(0, "审核成功", a);
     }
+
+    @Override
+    public long selectStoreIdByLegalSubjectId(long legalSubjectId) {
+        return iStoreMapper.selectStoreIdByLegalSubjectId(legalSubjectId);
+    }
 }

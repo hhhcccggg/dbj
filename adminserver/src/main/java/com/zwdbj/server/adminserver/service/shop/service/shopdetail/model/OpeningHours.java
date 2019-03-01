@@ -18,6 +18,21 @@ public class OpeningHours implements Serializable {
     @ApiModelProperty(value = "店铺id")
     long storeId;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof OpeningHours) {
+            if (((OpeningHours) obj).getOpenTime() == this.getOpenTime() && ((OpeningHours) obj).closeTime == this.getCloseTime()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getOpenTime() + this.getCloseTime() * 17;
+    }
+
     public int getOpenTime() {
         return openTime;
     }

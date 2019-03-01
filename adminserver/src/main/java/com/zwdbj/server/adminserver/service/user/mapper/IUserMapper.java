@@ -216,6 +216,8 @@ public interface IUserMapper {
 
     @Select("select id  from core_users where phone like '56%' and username='爪子用户'")
     List<Long> getVestUserIds2();
+    @Select("select id  from core_users where isManualData=true and isDeleted=0")
+    List<Long> getManualUser();
 
     /**
      * 商家查询员工

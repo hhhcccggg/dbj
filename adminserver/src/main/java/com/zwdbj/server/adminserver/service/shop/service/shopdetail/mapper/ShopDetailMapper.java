@@ -19,17 +19,17 @@ public interface ShopDetailMapper {
     StoreDto findStoreDetail(@Param("legalSubjectId") long legalSubjectId);
 
 
-    @Select("select o.day,o.storeId,o.openTime,o.closeTime from o2o_offlineStoreOpeningHours as o, shop_stores as s where o.storeId=s.id and s.legalSubjectId=#{legalSubjectId}")
+    @Select("select o.day,o.storeId,o.openTime,o.closeTime from o2o_offlineStoreOpeningHours as o, shop_stores as s " +
+            "where o.storeId=s.id and s.legalSubjectId=#{legalSubjectId} and o.isDeleted=0 order by day asc")
     List<OpeningHours> findOpeningHours(@Param("legalSubjectId") long legalSubjectId);
 
-    @Update("update o2o_offlineStoreOpeningHours set day=#{openingHours.day}," +
+    @Update("update o2o_offlineStoreOpeningHours set id=#{id},day=#{openingHours.day}," +
             "openTime=#{openingHours.openTime},closeTime=#{openingHours.closeTime} " +
             "where storeId =#{openingHours.storeId}")
-    Long modifyOpeningHours(@Param("openingHours") OpeningHours openingHours);
+    Long modifyOpeningHours(@Param("id") long id, @Param("openingHours") OpeningHours openingHours);
 
-    @Insert("insert into o2o_offlineStoreOpeningHours (id,storeId,day,openTime,closeTime) " +
-            "values(#{id},#{openingHours.storeId},#{openingHours.day},#{openingHours.openTime},#{openingHours.closeTime})")
-    Long createOpeningHours(@Param("id") long id, @Param("openingHours") OpeningHours openingHours);
+    @Update("update o2o_offlineStoreOpeningHours set isDeleted=1 ,deleteTime=now() where storeId=#{storeId}")
+    Long deletedOpeningHours(@Param("storeId") long storeId);
 
 
     @Select("select id,longitude,latitude,address,cityId,cityLevel from shop_stores where legalSubjectId=#{legalSubjectId}")
