@@ -44,13 +44,13 @@ public class ShopDetailController {
     }
 
 
-    @RequestMapping(value = "/modifyOpeningHours/{storeId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/modifyOpeningHours", method = RequestMethod.POST)
     @ApiOperation(value = "修改营业时间")
-    public ResponseData<Long> modifyOpeningHours(@RequestBody List<OpeningHours> list, @PathVariable("storeId") long storeId) {
+    public ResponseData<Long> modifyOpeningHours(@RequestBody List<OpeningHours> list) {
         long userId = JWTUtil.getCurrentId();
 
         long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyOpeningHours(list, storeId, legalSubjectId);
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyOpeningHours(list,legalSubjectId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }
@@ -58,18 +58,6 @@ public class ShopDetailController {
 
     }
 
-    @RequestMapping(value = "/addOpeningHours/{storeId}", method = RequestMethod.POST)
-    @ApiOperation(value = "增加营业时间段")
-    public ResponseData<Long> addOpeningHours(@RequestBody List<OpeningHours> list, @PathVariable("storeId") long storeId) {
-
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.addOpeningHours(list, storeId);
-        if (statusInfo.isSuccess()) {
-            return new ResponseData<>(0, "", statusInfo.getData());
-        }
-        return new ResponseData<>(1, statusInfo.getMsg(), null);
-
-
-    }
 
     @RequestMapping(value = "/location", method = RequestMethod.GET)
     @ApiOperation(value = "显示位置信息")

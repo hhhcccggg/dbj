@@ -107,11 +107,20 @@ public class CategoryController {
     }
 
 
-
     @RequestMapping(value = "/dbj/allExtraService", method = RequestMethod.GET)
-    @ApiOperation("查找所有额外服务名称")
+    @ApiOperation("查找所有商家额外服务名称")
     public ResponseData<List<StoreServiceCategory>> allExtraService() {
         ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.allExtraService();
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
+    }
+
+    @RequestMapping(value = "/dbj/allExtraService", method = RequestMethod.GET)
+    @ApiOperation("查找所有商家服务范围名称")
+    public ResponseData<List<StoreServiceCategory>> allServiceScopes() {
+        ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.allServiceScopes();
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
         }
