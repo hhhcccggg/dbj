@@ -69,6 +69,12 @@ public class VideoController {
         this.videoService.updatePlayCount(id);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", videoInfoDto);
     }
+    @RequestMapping(value = "/findVideos/ids", method = RequestMethod.GET)
+    @ApiOperation(value = "获取视频指定id的视频")
+    public ResponsePageInfoData<List<VideoInfoDto>> getHomeVideos(@RequestParam String videoIds) {
+        ServiceStatusInfo<List<VideoInfoDto>> videoInfoDtos = this.videoService.getHomeVideos(videoIds);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", videoInfoDtos.getData(),videoInfoDtos.getData().size());
+    }
 
     @RequestMapping(value = "/videoTipDetails/{videoId}", method = RequestMethod.GET)
     @ApiModelProperty(value = "获取视频打赏金币详情")
