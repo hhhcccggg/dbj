@@ -837,7 +837,7 @@ public class UserService {
     }
 
     public List<UserOnNearbyDto> nearUsers(UserOnNearbyInput input){
-        List<UserOnNearbyDto> userOnNearbyDtos = this.userMapper.nearUsers(input.getLongitude(),input.getLatitude(),input.getDistance());
+        List<UserOnNearbyDto> userOnNearbyDtos = this.userMapper.nearUsers(input.getLongitude(),input.getLatitude(),input.getDistance(),input.getSex());
         for (UserOnNearbyDto dto: userOnNearbyDtos){
             List<PetModelDto> pets = this.petService.list2(dto.getUserId());
             if (pets!=null)
