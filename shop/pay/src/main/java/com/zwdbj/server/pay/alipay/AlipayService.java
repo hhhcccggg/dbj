@@ -125,7 +125,7 @@ public class AlipayService {
             request.setNotifyUrl(this.aliPayConfig.getOrderRefundResultCallbackUrl());
 
             AlipayTradeRefundResponse response = alipayClient.execute(request);
-            if (response.isSuccess()) {
+            if ("10000".equals(response.getCode())) {
                 AliAppRefundDto result = new AliAppRefundDto();
                 result.setOutTradeNo(response.getOutTradeNo());
                 result.setTradeNo(response.getTradeNo());
@@ -142,6 +142,7 @@ public class AlipayService {
         } catch ( AlipayApiException ex ) {
             logger.info(ex.getErrMsg());
             logger.info(ex.getErrCode());
+            logger.info("支付宝退款失败异常:"+ ex.getMessage());
             return new ServiceStatusInfo<>(1,ex.getErrMsg(),null);
         }
     }
