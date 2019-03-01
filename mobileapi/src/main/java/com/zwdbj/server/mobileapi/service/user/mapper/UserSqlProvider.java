@@ -75,7 +75,7 @@ public class UserSqlProvider {
         double[] results = UserSqlProvider.getAround(latitude,longitude,distance1/1.0F);
 
         SQL sql = new SQL()
-                .SELECT("u.id as userId,u.nickName,u.sex," +
+                .SELECT("u.id as userId,u.nickName,u.sex,u.avatarUrl as avatarUrl," +
                         "(st_distance(POINT (u.longitude, u.latitude),POINT(#{longitude},#{latitude}))*95000) AS distance " )
                 .FROM("core_users u");
         if (sex!=-1){
