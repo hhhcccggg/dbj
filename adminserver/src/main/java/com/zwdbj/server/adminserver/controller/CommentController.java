@@ -63,7 +63,7 @@ public class CommentController {
 
     }
     @RequiresAuthentication
-    @RequestMapping(value = "/dbj/add/comment",method = RequestMethod.GET)
+    @RequestMapping(value = "/dbj/add/comment",method = RequestMethod.POST)
     @ApiOperation("增加评论")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
     public ResponseData<Long> addCommentForVideo(@RequestBody AdAddCommentToVideoInput input){
