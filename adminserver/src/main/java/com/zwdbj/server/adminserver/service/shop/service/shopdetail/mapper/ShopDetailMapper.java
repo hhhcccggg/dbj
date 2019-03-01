@@ -20,7 +20,7 @@ public interface ShopDetailMapper {
 
 
     @Select("select o.day,o.storeId,o.openTime,o.closeTime from o2o_offlineStoreOpeningHours as o, shop_stores as s " +
-            "where o.storeId=s.id and s.legalSubjectId=#{legalSubjectId} and o.isDeleted=0")
+            "where o.storeId=s.id and s.legalSubjectId=#{legalSubjectId} and o.isDeleted=0 order by day asc")
     List<OpeningHours> findOpeningHours(@Param("legalSubjectId") long legalSubjectId);
 
     @Update("update o2o_offlineStoreOpeningHours set id=#{id},day=#{openingHours.day}," +

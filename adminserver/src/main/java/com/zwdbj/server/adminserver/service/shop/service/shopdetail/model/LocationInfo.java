@@ -21,7 +21,17 @@ public class LocationInfo implements Serializable {
     String cityLevel;
     @ApiModelProperty(value = "storeId")
     long id;
+    @ApiModelProperty(value = "店铺区域")
+    String area;
 
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
 
     public long getId() {
         return id;
