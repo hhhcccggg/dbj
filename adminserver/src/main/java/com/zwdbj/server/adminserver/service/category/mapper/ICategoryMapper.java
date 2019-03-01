@@ -34,5 +34,11 @@ public interface ICategoryMapper {
 
     @Select("select name as categoryName,id from core_categories where id=#{id} and status=0 and isDeleted=0")
     StoreServiceCategory searchCategory(@Param("id") long id);
+
+    @Select("select id,name as categoryName where type=1 and status=0 and isDeleted=0")
+    List<StoreServiceCategory> allExtraService();
+
+    @Select("select id,name as categoryName where type=1 and status=0 and isDeleted=0")
+    List<StoreServiceCategory> allServiceScopes();
 }
 
