@@ -136,7 +136,7 @@ public class AlipayBizService {
         int rmbs = refundAmount;
         rmbs=1;//测试数据
         AliAppRefundInput aliAppRefundInput = new AliAppRefundInput();
-        aliAppRefundInput.setOutRequestNo(String.valueOf(input.getOrderId()));
+        //aliAppRefundInput.setOutRequestNo(String.valueOf(input.getOrderId()));
         aliAppRefundInput.setOutTradeNo(String.valueOf(input.getOrderId()));
         aliAppRefundInput.setRefundReason(input.getRefundReason());
         aliAppRefundInput.setTradeNo(tradeNo);
