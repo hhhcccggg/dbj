@@ -3,6 +3,7 @@ package com.zwdbj.server.adminserver.service.shop.service.shopdetail.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
+import com.zwdbj.server.adminserver.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
 import com.zwdbj.server.adminserver.service.category.service.CategoryService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
@@ -25,7 +26,8 @@ import java.util.List;
 @Service
 @Transactional
 public class ShopDetailServiceImpl implements ShopDetailService {
-
+    @Autowired
+    private ICategoryMapper categoryMapper;
     @Autowired
     private ShopDetailMapper shopDetailMapper;
     @Autowired
@@ -92,6 +94,14 @@ public class ShopDetailServiceImpl implements ShopDetailService {
         LocationInfo result = null;
         try {
             result = this.shopDetailMapper.showLocation(legalSubjectId);
+            String cityLevel = result.getCityLevel();
+            String[] ids = cityLevel.split(",");
+            String area = "";
+            for (String id : ids) {
+                area = area + categoryMapper.searchCategory(Long.parseLong(id)).getCategoryName() + ",";
+            }
+            area = area.substring(0,area.length()-1);
+            result.setArea(area);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "显示位置信息失败" + e.getMessage(), result);
