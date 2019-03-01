@@ -70,9 +70,9 @@ public class UserSqlProvider {
         Double longitude = (Double) params.get("longitude");
         Double latitude = (Double) params.get("latitude");
         Integer sex = (Integer)params.get("sex");
-        float distance = (float) params.get("distance");
+        int distance1 = (int) params.get("distance");
 
-        double[] results = UserSqlProvider.getAround(latitude,longitude,distance);
+        double[] results = UserSqlProvider.getAround(latitude,longitude,distance1/1.0F);
 
         SQL sql = new SQL()
                 .SELECT("u.id as userId,u.nickName,u.sex," +
@@ -81,7 +81,8 @@ public class UserSqlProvider {
         if (sex!=-1){
             sql.WHERE("sex=#{sex}");
         }
-        sql.HAVING("distance<#{distance}");
+        if (distance1>0)
+            sql.HAVING("distance<#{distance1}");
                 /*.WHERE(String.format("longitude BETWEEN %f AND %f",results[1],results[3]))
                 .AND()
                 .WHERE(String.format("latitude  BETWEEN %f AND %f",results[0],results[2]))
