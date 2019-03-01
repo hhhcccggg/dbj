@@ -5,8 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @ApiModel(value = "店铺基本信息")
 public class StoreDto implements Serializable {
@@ -40,10 +39,10 @@ public class StoreDto implements Serializable {
     private List<OpeningHours> openingHours;
     @ApiModelProperty(value = "服务范围")
     private List<StoreServiceCategory> serviceScopes;
-    @ApiModelProperty(value = "开店时间，终端可用于直接显示")
-    private String openingHoursDisplay;
+//    @ApiModelProperty(value = "开店时间，终端可用于直接显示")
+//    private String openingHoursDisplay;
     @ApiModelProperty(value = "其他服务，终端可用于直接显示")
-    private String extraServicesDisplay="";
+    private String extraServicesDisplay = "";
     @ApiModelProperty(value = "服务范围，终端可用于直接显示")
     private String serviceScopesDisplay;
 
@@ -72,11 +71,50 @@ public class StoreDto implements Serializable {
     }
 
 
-
-    public String getOpeningHoursDisplay() {
-        openingHoursDisplay = "周一至周日 09:00-21:00";
-        return openingHoursDisplay;
-    }
+//    public String getOpeningHoursDisplay() {
+//        openingHoursDisplay = "";
+//        if (this.getOpeningHours() == null || this.getOpeningHours().size() == 0) {
+//            return openingHoursDisplay;
+//        }
+//        HashMap<OpeningHours, String> map = new HashMap<>();
+//        for (OpeningHours openingHours : this.openingHours) {
+//            if (map.get(openingHours) == null) {
+//                map.put(openingHours, openingHours.getDay() + ",");
+//                continue;
+//            }
+//            map.put(openingHours, map.get(openingHours) + openingHours.getDay() + ",");
+//
+//        }
+//        Set<OpeningHours> set = map.keySet();
+//        Iterator<OpeningHours> iterator = set.iterator();
+//        while (iterator.hasNext()) {
+//            OpeningHours openingHours = iterator.next();
+//            String s = map.get(openingHours);
+//            String[] strs = s.split(",");
+//            if (strs.length == 1) {
+//                int openHour = openingHours.getOpenTime() / 3600;
+//                int openMinute = (openingHours.getOpenTime() - openHour * 3600) / 60;
+//                openingHoursDisplay = openingHoursDisplay + " 周" + strs[0] + " " + openHour + ":" + openMinute + "-";
+//                int closeHour = openingHours.getCloseTime() / 3600;
+//                int closeMinute = (openingHours.getCloseTime() - closeHour * 3600) / 60;
+//                openingHoursDisplay = openingHoursDisplay + openHour + ":" + openMinute + "  ";
+//                continue;
+//            }
+//            String week = "周";
+//            for (String day : strs) {
+//                week =week+ day + ",";
+//            }
+//            int openHour = openingHours.getOpenTime() / 3600;
+//            int openMinute = (openingHours.getOpenTime() - openHour * 3600) / 60;
+//
+//            openingHoursDisplay = openingHoursDisplay + week + " " + openHour + ":" + openMinute + "-";
+//            int closeHour = openingHours.getCloseTime() / 3600;
+//            int closeMinute = (openingHours.getCloseTime() - closeHour * 3600) / 60;
+//            openingHoursDisplay = openingHoursDisplay + openHour + ":" + openMinute + "  ";
+//
+//        }
+//        return openingHoursDisplay;
+//    }
 
     public String getExtraServicesDisplay() {
         if (this.getExtraServices() == null || this.getExtraServices().size() == 0) {

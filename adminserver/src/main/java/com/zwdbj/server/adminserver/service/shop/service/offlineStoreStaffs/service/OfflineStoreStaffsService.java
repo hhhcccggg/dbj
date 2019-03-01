@@ -12,7 +12,6 @@ public interface OfflineStoreStaffsService {
 
     ServiceStatusInfo<Long> deleteById(long userId, long legalSubjectId, boolean isSuperStar);
 
-    ServiceStatusInfo<List<OfflineStoreStaffs>> getStaffs(long storeId,long legalSubjectId);
 
     ServiceStatusInfo<Long> bulkDeleteStaffs(IsSuperStar[] isSuperStar, long legalSubjectId);
 
