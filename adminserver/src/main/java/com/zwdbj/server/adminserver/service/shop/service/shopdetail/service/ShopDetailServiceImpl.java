@@ -100,7 +100,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             for (String id : ids) {
                 area = area + categoryMapper.searchCategory(Long.parseLong(id)).getCategoryName() + ",";
             }
-            area = area.substring(0,area.length()-1);
+            area = area.substring(0, area.length() - 1);
             result.setArea(area);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
@@ -126,10 +126,11 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     }
 
     @Override
-    public ServiceStatusInfo<Long> modifylocation(LocationInfo info, long storeId) {
+    public ServiceStatusInfo<Long> modifylocation(LocationInfo info, long legalSubjectId) {
         Long result = 0L;
+        long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
-            result = this.shopDetailMapper.modifyLocation(info);
+            result = this.shopDetailMapper.modifyLocation(info, storeId);
 
             QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
 
@@ -141,12 +142,12 @@ public class ShopDetailServiceImpl implements ShopDetailService {
 
 
     @Override
-    public ServiceStatusInfo<Long> modifyExtraService(long storeId, long legalSubjectId, List<StoreServiceCategory> list) {
+    public ServiceStatusInfo<Long> modifyExtraService(long legalSubjectId, List<StoreServiceCategory> list) {
         Long result = 0L;
-
+        long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
             //先删除原来数据
-            result += this.shopDetailMapper.deleteStoreExtraService(legalSubjectId);
+            result += this.shopDetailMapper.deleteStoreExtraService(storeId);
             //再插入新数据
             for (StoreServiceCategory e : list) {
                 Long id = UniqueIDCreater.generateID();
@@ -165,12 +166,12 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     }
 
     @Override
-    public ServiceStatusInfo<Long> modifyServiceScopes(long storeId, long legalSubjectId, List<StoreServiceCategory> list) {
+    public ServiceStatusInfo<Long> modifyServiceScopes(long legalSubjectId, List<StoreServiceCategory> list) {
         Long result = 0L;
-
+        long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
             //先删除原来数据
-            result += this.shopDetailMapper.deleteStoreServiceScopes(legalSubjectId);
+            result += this.shopDetailMapper.deleteStoreServiceScopes(storeId);
             //再插入新数据
             for (StoreServiceCategory e : list) {
                 Long id = UniqueIDCreater.generateID();

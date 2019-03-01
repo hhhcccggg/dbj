@@ -1,13 +1,8 @@
 package com.zwdbj.server.adminserver.service.shop.service.shopdetail.mapper;
 
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.mapstruct.Mapper;
-
 import org.apache.ibatis.annotations.*;
+import org.mapstruct.Mapper;
 
 import java.util.List;
 
@@ -32,12 +27,12 @@ public interface ShopDetailMapper {
     Long deletedOpeningHours(@Param("storeId") long storeId);
 
 
-    @Select("select id,longitude,latitude,address,cityId,cityLevel from shop_stores where legalSubjectId=#{legalSubjectId}")
+    @Select("select longitude,latitude,address,cityId,cityLevel from shop_stores where legalSubjectId=#{legalSubjectId}")
     LocationInfo showLocation(@Param("legalSubjectId") long legalSubjectId);
 
     @Update("update shop_stores set longitude=#{info.longitude},latitude=#{info.latitude}," +
-            "address=#{info.address},cityId=#{info.cityId},cityLevel=#{info.cityLevel} where id=#{info.id}")
-    Long modifyLocation(@Param("info") LocationInfo info);
+            "address=#{info.address},cityId=#{info.cityId},cityLevel=#{info.cityLevel} where id=#{storeId}")
+    Long modifyLocation(@Param("info") LocationInfo info, @Param("storeId") long storeId);
 
 
     //查询店铺服务范围id
@@ -45,8 +40,8 @@ public interface ShopDetailMapper {
             "o2o.storeId=s.id and s.legalSubjectId=#{legalSubjectId}")
     List<Long> selectServiceScopeId(@Param("legalSubjectId") long legalSubjectId);
 
-    @Delete("delete from o2o_offlineStoreServiceScopes  where storeId=(select id from shop_stores where legalSubjectId=#{legalSubjectId}) ")
-    Long deleteStoreServiceScopes(@Param("legalSubjectId") long legalSubjectId);
+    @Update("update o2o_offlineStoreServiceScopes set isDeleted=1,deleteTime=now() where storeId=#{storeId}) ")
+    Long deleteStoreServiceScopes(@Param("storeId") long storeId);
 
     @Insert("insert into o2o_offlineStoreServiceScopes (id,storeId,serviceScopeId) " +
             "values(#{id},(select id from shop_stores where legalSubjectId=#{legalSubjectId}),#{serviceScopeId})")
@@ -59,8 +54,8 @@ public interface ShopDetailMapper {
     List<Long> selectExtraServiceId(@Param("legalSubjectId") long legalSubjectId);
 
 
-    @Delete("delete from o2o_offlineStoreExtraServices  where storeId=(select id from shop_stores where legalSubjectId=#{legalSubjectId}) ")
-    Long deleteStoreExtraService(@Param("legalSubjectId") long legalSubjectId);
+    @Update("update o2o_offlineStoreExtraServices set isDeleted=1,deleteTime=now() where storeId=#{storeId}) ")
+    Long deleteStoreExtraService(@Param("storeId") long storeId);
 
     @Insert("insert into o2o_offlineStoreExtraServices (id,storeId,extraServiceId) " +
             "values(#{id},(select id from shop_stores where legalSubjectId=#{legalSubjectId}),#{extraServiceId})")
