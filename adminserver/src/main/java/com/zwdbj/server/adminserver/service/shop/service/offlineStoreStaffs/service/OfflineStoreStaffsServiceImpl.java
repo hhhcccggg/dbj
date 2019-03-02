@@ -5,14 +5,13 @@ import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mode
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
-import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -91,24 +90,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         }
     }
 
-    @Override
-    public ServiceStatusInfo<List<OfflineStoreStaffs>> getStaffs(long storeId,long legalSubjectId) {
-        List<OfflineStoreStaffs> result = null;
-        try {
 
-            result = mapper.getStaffs(legalSubjectId);
-            for (OfflineStoreStaffs o : result) {
-                Date createTime = mapper.selectSuperStarCreateTime(storeId, o.getId());
-                if (createTime != null) {
-                    o.setCreateTime(createTime);
-                    o.setSuperStar(true);
-                }
-            }
-            return new ServiceStatusInfo<>(0, "", result);
-        } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "通过店铺id查询门店员工或代言人失败" + e.getMessage(), result);
-        }
-    }
 
     @Override
     public ServiceStatusInfo<List<OfflineStoreStaffs>> searchStaffs(SearchStaffInfo searchStaffInfo, long legalSubjectId, long storeId) {

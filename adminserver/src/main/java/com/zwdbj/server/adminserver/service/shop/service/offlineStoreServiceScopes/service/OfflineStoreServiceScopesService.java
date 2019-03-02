@@ -7,16 +7,17 @@ import java.util.List;
 
 public interface OfflineStoreServiceScopesService {
 
-    ServiceStatusInfo<Long> create(OfflineStoreServiceScopes offlineStoreServiceScopes);
+    ServiceStatusInfo<Long> create(OfflineStoreServiceScopes offlineStoreServiceScopes, long legalSubjectId);
 
-    ServiceStatusInfo<Long> update(OfflineStoreServiceScopes offlineStoreServiceScopes);
+    ServiceStatusInfo<Long> update(OfflineStoreServiceScopes offlineStoreServiceScopes, long legalSubjectId);
 
-    ServiceStatusInfo<Long> deleteById(Long id);
+    ServiceStatusInfo<Long> deleteById(long serviceScopeId, long legalSubjectId);
 
     ServiceStatusInfo<List<OfflineStoreServiceScopes>> select();
 
-    ServiceStatusInfo< List<OfflineStoreServiceScopes>> selectByofflineStoreId(Long offlineStoreId);
-    ServiceStatusInfo< List<String>> selectCateNameByofflineStoreId(Long offlineStoreId);
+    ServiceStatusInfo<List<OfflineStoreServiceScopes>> selectByofflineStoreId(Long offlineStoreId);
+
+    ServiceStatusInfo<List<String>> selectCateNameByofflineStoreId(Long offlineStoreId);
 
 
 }

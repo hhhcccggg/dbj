@@ -354,7 +354,7 @@ public class UserController {
 
     @ApiOperation(value = "查询同城用户")
     @RequiresAuthentication
-    @RequestMapping(value = "/city/users",method = RequestMethod.GET)
+    @RequestMapping(value = "/city/users",method = RequestMethod.POST)
     public ResponsePageInfoData<List<UserOnNearbyDto>> getUsersByLocation(@RequestBody UserOnNearbyInput input,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
                                                                           @RequestParam(value = "rows", defaultValue = "13", required = true) int rows){

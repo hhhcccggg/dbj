@@ -16,14 +16,14 @@ public interface ShopDetailService {
     ServiceStatusInfo<LocationInfo> showLocation(long legalSubjectId);
 
 
-    ServiceStatusInfo<Long> modifyExtraService(long storeId, long legalSubjectId, List<StoreServiceCategory> list);
+    ServiceStatusInfo<Long> modifyExtraService(long legalSubjectId, List<StoreServiceCategory> list);
 
 
-    ServiceStatusInfo<Long> modifyServiceScopes(long storeId, long legalSubjectId, List<StoreServiceCategory> list);
+    ServiceStatusInfo<Long> modifyServiceScopes(long legalSubjectId, List<StoreServiceCategory> list);
 
     ServiceStatusInfo<Long> uploadCheck(QualificationInput qualificationInput, long legalSubjectId);
 
-    ServiceStatusInfo<Long> modifylocation(LocationInfo info, long storeId);
+    ServiceStatusInfo<Long> modifylocation(LocationInfo info, long legalSubjectId);
 
     ServiceStatusInfo<ShopInfo> storeDetailInfo(long legalSubjectId);
 

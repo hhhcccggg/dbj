@@ -9,7 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface IPetMapper {
-    @Select("select pet.*,cate.name as categoryName from core_pets as pet left join core_categories as cate on pet.categoryId=cate.id where pet.userId=#{userId} and pet.isDeleted=0")
+    @Select("select pet.*,cate.name as categoryName from core_pets as pet " +
+            "left join core_categories as cate on pet.categoryId=cate.id where pet.userId=#{userId} and pet.isDeleted=0")
     List<PetModelDto> list(@Param("userId") long userId);
     @Select("select count(id) from core_pets where userId=#{userId}")
     int findAllMyPets(@Param("userId")long userId);

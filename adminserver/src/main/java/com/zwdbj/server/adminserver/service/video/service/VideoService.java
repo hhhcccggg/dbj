@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -198,6 +199,24 @@ public class VideoService {
         return dto;
     }
 
+    public ServiceStatusInfo<List<VideoInfoDto>> getHomeVideos(String ids){
+        List<VideoInfoDto> videoInfoDtos= new ArrayList<>();
+        try {
+            if (ids==null || ids.length()==0)return new ServiceStatusInfo<>(1,"请传入视频id",null);
+            String[] videoIds = ids.split(",");
+            for (String id:videoIds){
+                VideoInfoDto dto = this.videoMapper.video2(Long.valueOf(id));
+                if (dto!=null)
+                    videoInfoDtos.add(dto);
+            }
+            return new ServiceStatusInfo<>(0,"",videoInfoDtos);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ServiceStatusInfo<>(1,"失败",null);
+
+    }
+
     public void updatePlayCount(long id) {
         this.videoMapper.updateVideoField("playCount=playCount+1", id);
     }
@@ -339,13 +358,13 @@ public class VideoService {
         switch (operationEnum){
             case CREATE:
                 Map<String,String> map = selectById(id);
-                IndexRequest indexRequest = new IndexRequest("video","doc");
+                IndexRequest indexRequest = new IndexRequest("video","doc",String.valueOf(id));
                 indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
                 restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
                 break;
             case UPDATE:
                 map = selectById(id);
-                indexRequest = new IndexRequest("video","doc");
+                indexRequest = new IndexRequest("video","doc",String.valueOf(id));
                 indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
                 restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
                 break;
@@ -360,10 +379,12 @@ public class VideoService {
         Map<String,String> map = this.videoMapper.selectByIdES(id);
         //查询种类ID
         if(  "SHOPCOMMENT".equals(map.get("type")) ){
-            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
-            ProductOut productOut = productServiceImpl.selectByIdPartial(commentInfoDto.getResourceOwnerId()).getData();
-            if(productOut != null){
-                map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(String.valueOf(map.get("id"))));
+            if(commentInfoDto != null) {
+                ProductOut productOut = productServiceImpl.selectByIdPartial(commentInfoDto.getResourceOwnerId()).getData();
+                if(productOut != null){
+                    map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+                }
             }
         }
         return map;

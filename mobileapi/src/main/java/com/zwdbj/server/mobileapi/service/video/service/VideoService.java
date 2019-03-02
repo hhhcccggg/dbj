@@ -920,7 +920,9 @@ public class VideoService {
             if(  !"SHOPCOMMENT".equals(map.get("type")) ){
                 continue;
             }
-            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
+            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(String.valueOf(map.get("id"))));
+            if(commentInfoDto == null)
+                continue;
             ProductOut productOut = productServiceImpl.selectByIdNoDelete(commentInfoDto.getResourceOwnerId()).getData();
             if(productOut == null){
                 continue;
@@ -934,10 +936,12 @@ public class VideoService {
         Map<String,String> map = this.videoMapper.selectByIdES(id);
         //查询种类ID
         if(  "SHOPCOMMENT".equals(map.get("type")) ){
-            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(map.get("id")));
-            ProductOut productOut = productServiceImpl.selectByIdNoDelete(commentInfoDto.getResourceOwnerId()).getData();
-            if(productOut != null){
-                map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+            CommentInfoDto commentInfoDto = commentService.findVideoIdES(Long.parseLong(String.valueOf(map.get("id"))));
+            if(commentInfoDto != null) {
+                ProductOut productOut = productServiceImpl.selectByIdNoDelete(commentInfoDto.getResourceOwnerId()).getData();
+                if(productOut != null){
+                    map.put("categoryId",String.valueOf(productOut.getCategoryId()));
+                }
             }
         }
         return map;

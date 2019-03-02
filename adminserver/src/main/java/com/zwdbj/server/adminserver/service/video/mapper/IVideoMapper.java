@@ -59,6 +59,9 @@ public interface IVideoMapper {
     @Select("select *,(select sum(tipCoin) from core_video_videoTipDetails where videoId=#{id}) " +
             "as tipCoins from core_videos where id=#{id}")
     VideoDetailInfoDto video(@Param("id") long id);
+    @Select("select * from core_videos where id=#{id}")
+    VideoInfoDto video2(@Param("id")long id);
+
 
     @UpdateProvider(type = VideoSqlProvider.class, method = "updateVideoField")
     long updateVideoField(@Param("fields") String fields, @Param("id") long id);
