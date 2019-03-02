@@ -48,7 +48,7 @@ public class SendSmsService implements ISendSmsService {
             if (sendSmsResponse.getCode().equals("OK")) {
                 return new ServiceStatusInfo<>(0,"OK",null);
             }
-            return new ServiceStatusInfo<>(500,"ERROR",null);
+            return new ServiceStatusInfo<>(500,sendSmsResponse.getMessage(),null);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(500,e.getMessage(),null);
         }
