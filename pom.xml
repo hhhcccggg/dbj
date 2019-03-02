@@ -26,6 +26,7 @@
         <module>microservice/cfgserver</module>
         <module>microservice/config</module>
         <module>microservice/basemodel</module>
+        <module>microservice/serviceinterface</module>
     </modules>
 
     <parent>
