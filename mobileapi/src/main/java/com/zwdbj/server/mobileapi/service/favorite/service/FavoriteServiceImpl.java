@@ -49,40 +49,38 @@ public class FavoriteServiceImpl implements FavoriteService {
     private StringRedisTemplate stringRedisTemplate;
 
     @Override
-    public ServiceStatusInfo<Long> addFavorite(FavoriteInput favoriteInput) {
+    public ServiceStatusInfo<FavoriteDto> favorite(FavoriteInput input) {
         try {
             long userId = JWTUtil.getCurrentId();
             if (userId == 0) {
                 return new ServiceStatusInfo<>(1, "用户未登录", null);
             }
-            if (favoriteInput.getTargetType() == TargetType.LAGALSUBJECT) {
-                LegalSubjectModel legalSubjectModel = legalSubjectServiceImpl.getLegalSubjectById(favoriteInput.getTargetId()).getData();
-                if (legalSubjectModel == null) return new ServiceStatusInfo<>(1, "商家不存在", null);
-                favoriteInput.setImageUrl(legalSubjectModel.getLogoUrl());
-                favoriteInput.setTitle(legalSubjectModel.getName());
+            StoreModel storeModel = storeServiceImpl.selectById(input.getTargetId()).getData();
+            if (storeModel == null) return new ServiceStatusInfo<>(1, "店铺不存在", null);
+            FavoriteDto dto = new FavoriteDto();
+            dto.setTargetId(input.getTargetId());
+            int count = this.iFavoriteMapper.isFavorite(userId,input.getTargetId(),"STORE");
+            if (count!=0 && input.isFavorite()){
+                dto.setFavorite(true);
+                return new ServiceStatusInfo<>(1, "已经收藏此商家"  , dto);
             }
-            if (favoriteInput.getTargetType() == TargetType.PRODUCTSKU) {
-                ProductSKUs productSKUs = productSKUsServiceImpl.selectById(favoriteInput.getTargetId()).getData();
-                if (productSKUs == null) return new ServiceStatusInfo<>(1, "商品不存在", null);
-                ProductOut productOut = productServiceImpl.selectById(productSKUs.getProductId()).getData();
-                if (productOut == null) return new ServiceStatusInfo<>(1, "商品不存在", null);
-                favoriteInput.setImageUrl(productOut.getImageUrls());
-                favoriteInput.setTitle(productOut.getName());
-                favoriteInput.setPrice(productSKUs.getPromotionPrice());
+            if (count!=0 && !input.isFavorite()){
+                this.iFavoriteMapper.deleteFavoriteByUserIdByTargetId(input.getTargetId(),userId,"STORE");
+                dto.setFavorite(false);
+                return new ServiceStatusInfo<>(0, "取消收藏此商家成功"  , dto);
             }
-            if (favoriteInput.getTargetType() == TargetType.STORE) {
-                StoreModel storeModel = storeServiceImpl.selectById(favoriteInput.getTargetId()).getData();
-                if (storeModel == null) return new ServiceStatusInfo<>(1, "店铺不存在", null);
-                favoriteInput.setImageUrl(storeModel.getMainConverImage());
-                favoriteInput.setTitle(storeModel.getName());
+            if (input.isFavorite()){
+                long id= UniqueIDCreater.generateID();
+                iFavoriteMapper.addFavorite(id, input.getTargetId(),userId,storeModel.getName(),storeModel.getMainConverImage());
+                dto.setFavorite(true);
+                return new ServiceStatusInfo<>(0, "收藏此商家成功"  , dto);
+            }else {
+                return new ServiceStatusInfo<>(1, "取消收藏此商家失败"  , null);
             }
-            favoriteInput.setUserId(userId);
-            long result = iFavoriteMapper.addFavorite(UniqueIDCreater.generateID(), favoriteInput);
-            if (result > 0)
-                return new ServiceStatusInfo<>(0, "", result);
-            return new ServiceStatusInfo<>(1, "新增失败，影响行数" + result, null);
+
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "新增失败" + e.getMessage(), null);
+            e.printStackTrace();
+            return new ServiceStatusInfo<>(1, "收藏出现异常:" + e.getMessage(), null);
         }
     }
 
@@ -138,20 +136,4 @@ public class FavoriteServiceImpl implements FavoriteService {
         return result;
     }
 
-    @Override
-    public ServiceStatusInfo<Long> cancelFavorite(FavoriteDto favoriteDto) {
-        try{
-            long userId = JWTUtil.getCurrentId();
-            if (userId == 0) {
-                return new ServiceStatusInfo<>(1, "用户未登录", null);
-            }
-            favoriteDto.setUserId(userId);
-            long result = this.iFavoriteMapper.cancelFavorite(favoriteDto);
-            if(result > 0)
-                return new ServiceStatusInfo<>(0, "", result);
-            return new ServiceStatusInfo<>(0, "取消失败,数据不存在" , result);
-        }catch (Exception e){
-            return new ServiceStatusInfo<>(1, "取消失败" + e.getMessage(), null);
-        }
-    }
 }

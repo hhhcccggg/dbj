@@ -13,15 +13,15 @@ public interface IFavoriteMapper {
 
     /**
      * 新增
-     * @param favoriteInput
      * @return
      */
     @Insert("INSERT INTO `shop_Favorites` (" +
             "`id`,`targetId`,`targetType`,`userId`,`title`,`imageUrl`,`price`)" +
-            "VALUES" +
-            "(" +
-            "#{id},#{favoriteInput.targetId},#{favoriteInput.targetType},#{favoriteInput.userId},#{favoriteInput.title},#{favoriteInput.imageUrl},#{favoriteInput.price});")
-    long addFavorite(@Param("id") long id,@Param("favoriteInput") FavoriteInput favoriteInput);
+            "VALUES(#{id},#{targetId},'STORE',#{userId},#{title},#{imageUrl},0)")
+    long addFavorite(@Param("id") long id,@Param("targetId") long  targetId,@Param("userId")long userId,@Param("title")String name,@Param("imageUrl")String imageUrl);
+
+    @Select("select * from shop_Favorites where userId=#{userId} and targetId=#{targetId} and isDeleted=0")
+    FavoriteModel findFavoriteByUserIdByStoreId(@Param("targetId")long targetId,@Param("userId")long userId);
 
     /**
      * 删除
@@ -29,10 +29,7 @@ public interface IFavoriteMapper {
      * @param userId
      * @return
      */
-    @Update("UPDATE `shop_Favorites` " +
-            "SET " +
-            " `isDeleted` = 1," +
-            " `deleteTime` = now()" +
+    @Delete("delete from  `shop_Favorites` " +
             " WHERE (`id` = #{id} and userId=#{userId})")
     long deleteFavoriteById(@Param("id")long id,@Param("userId") long userId);
 
@@ -59,13 +56,9 @@ public interface IFavoriteMapper {
 
     /**
      * 取消收藏
-     * @param favoriteDto
      * @return
      */
-    @Update("UPDATE `shop_Favorites` " +
-            "SET " +
-            " `isDeleted` = 1," +
-            " `deleteTime` = now()" +
-            " WHERE userId=#{favoriteDto.userId} and targetType = #{favoriteDto.targetType} and targetId = #{favoriteDto.targetId} ")
-    long cancelFavorite(@Param("favoriteDto")FavoriteDto favoriteDto);
+    @Delete("delete  from `shop_Favorites` " +
+            " WHERE userId=#{userId} and targetType = #{targetType} and targetId = #{targetId} ")
+    long deleteFavoriteByUserIdByTargetId(@Param("targetId")long  targetId,@Param("userId")long usrId,@Param("targetType")String targetType);
 }

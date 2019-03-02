@@ -16,7 +16,7 @@ public interface FavoriteService {
      * @param favoriteInput
      * @return
      */
-    ServiceStatusInfo<Long> addFavorite(FavoriteInput favoriteInput);
+    ServiceStatusInfo<FavoriteDto> favorite(FavoriteInput favoriteInput);
 
     /**
      * 删除收藏
@@ -41,10 +41,4 @@ public interface FavoriteService {
 
     int isFavorite(long userId, long targetId, String targetType);
 
-    /**
-     * 取消收藏
-     * @param favoriteDto
-     * @return
-     */
-    ServiceStatusInfo<Long> cancelFavorite(FavoriteDto favoriteDto);
 }

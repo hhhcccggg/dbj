@@ -12,10 +12,16 @@ public class FavoriteDto {
     @ApiModelProperty("商家 店铺 商品的ID")
     @Min(1)
     private long targetId;
-    @ApiModelProperty("LAGALSUBJECT:商家 STORE:店铺 PRODUCTSKU:商品")
-    private TargetType targetType;
-    @ApiModelProperty(value = "用户id",hidden = true)
-    private long userId;
+    @ApiModelProperty(value = "该用户是否收藏,true为已经收藏，false为没收藏")
+    boolean isFavorite;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 
     public long getTargetId() {
         return targetId;
@@ -25,19 +31,5 @@ public class FavoriteDto {
         this.targetId = targetId;
     }
 
-    public TargetType getTargetType() {
-        return targetType;
-    }
 
-    public void setTargetType(TargetType targetType) {
-        this.targetType = targetType;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
 }

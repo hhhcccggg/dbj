@@ -41,10 +41,10 @@ public class FavoriteController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL , "",pageInfo.getList(),pageInfo.getTotal());
     }
 
-    @ApiOperation(value = "添加收藏")
-    @PostMapping("/addFavorite")
-    public ResponseData<Long> addFavorite(@RequestBody @Valid FavoriteInput favoriteInput){
-        ServiceStatusInfo<Long> serviceStatusInfo = favoriteServiceImpl.addFavorite(favoriteInput);
+    @ApiOperation(value = "添加收藏/取消收藏")
+    @PostMapping("/FavoriteOrNot")
+    public ResponseData<FavoriteDto> favorite(@RequestBody @Valid FavoriteInput favoriteInput){
+        ServiceStatusInfo<FavoriteDto> serviceStatusInfo = favoriteServiceImpl.favorite(favoriteInput);
         if(!serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
@@ -59,11 +59,4 @@ public class FavoriteController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
-    @ApiOperation(value = "取消收藏")
-    @PostMapping("/cancelFavorite")
-    public ResponseData<Long> cancelFavorite(@RequestBody @Valid FavoriteDto favoriteDto){
-        ServiceStatusInfo<Long> serviceStatusInfo = favoriteServiceImpl.cancelFavorite(favoriteDto);
-        return new ResponseData<>(serviceStatusInfo.isSuccess()?ResponseDataCode.STATUS_NORMAL:ResponseDataCode.STATUS_ERROR,
-                serviceStatusInfo.getMsg(),serviceStatusInfo.getData());
-    }
 }
