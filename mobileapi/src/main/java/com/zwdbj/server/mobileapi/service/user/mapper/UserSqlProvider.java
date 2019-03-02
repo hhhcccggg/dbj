@@ -70,7 +70,7 @@ public class UserSqlProvider {
         float longitude = (float) params.get("longitude");
         float latitude = (float) params.get("latitude");
         int sex = (int)params.get("sex");
-        int distance1 = (int) params.get("distance");
+        int distance1 = (int) params.get("distance1");
 
         //double[] results = UserSqlProvider.getAround(latitude,longitude,distance1/1.0F);
 

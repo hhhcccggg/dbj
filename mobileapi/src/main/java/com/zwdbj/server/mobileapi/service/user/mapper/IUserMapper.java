@@ -130,7 +130,7 @@ public interface IUserMapper {
     //附近的用户
     @SelectProvider(type = UserSqlProvider.class, method = "nearby")
     List<UserOnNearbyDto> nearUsers(@Param("longitude") float longitude, @Param("latitude") float latitude,
-                                    @Param("distance") float distance,@Param("sex")int sex);
+                                    @Param("distance1") int distance,@Param("sex")int sex);
 
     @Select("select * from core_users")
     List<Map<String,String>> pageSelectAll();
