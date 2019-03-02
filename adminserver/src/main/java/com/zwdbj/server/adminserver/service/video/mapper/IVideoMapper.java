@@ -59,7 +59,8 @@ public interface IVideoMapper {
     @Select("select *,(select sum(tipCoin) from core_video_videoTipDetails where videoId=#{id}) " +
             "as tipCoins from core_videos where id=#{id}")
     VideoDetailInfoDto video(@Param("id") long id);
-    @Select("select * from core_videos where id=#{id}")
+    @Select("select v.* ,u.nickName as userNickName,u.avatarUrl as userAvatarUrl  from core_videos as v  " +
+            "left join core_users u on u.id=v.userId where v.id=#{id}")
     VideoInfoDto video2(@Param("id")long id);
 
 
