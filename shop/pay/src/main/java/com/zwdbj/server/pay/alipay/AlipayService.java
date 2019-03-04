@@ -118,8 +118,9 @@ public class AlipayService {
     public ServiceStatusInfo<AliAppRefundDto> appPayRefund(AliAppRefundInput input) {
         try {
             AlipayTradeRefundRequest request = new AlipayTradeRefundRequest ();
-            String bizJson = JSON.toJSONString(input);
-            logger.info(bizJson);
+            //String bizJson = JSON.toJSONString(input);
+            //logger.info(bizJson);
+            //request.setBizContent(bizJson);
             request.setBizContent("{" +
                     "\"out_trade_no\":\""+input.getOutTradeNo()+"\"," +
                     "\"trade_no\":\""+input.getTradeNo()+"\"," +
