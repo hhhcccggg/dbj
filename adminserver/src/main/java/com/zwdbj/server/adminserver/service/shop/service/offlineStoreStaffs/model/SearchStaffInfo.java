@@ -7,8 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class SearchStaffInfo {
     @ApiModelProperty(value = "搜索条件")
     private String search;
-    @ApiModelProperty(value = "是否代言")
-    private boolean isSuperStar;
+    @ApiModelProperty(value = "0 所有 1员工 2代言人")
+    private int range;
 
     public String getSearch() {
         return search;
@@ -18,11 +18,11 @@ public class SearchStaffInfo {
         this.search = search;
     }
 
-    public boolean isSuperStar() {
-        return isSuperStar;
+    public int getRange() {
+        return range;
     }
 
-    public void setSuperStar(boolean superStar) {
-        isSuperStar = superStar;
+    public void setRange(int range) {
+        this.range = range;
     }
 }
