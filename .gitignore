@@ -56,3 +56,4 @@ shop-common-service-1.0-SNAPSHOT.jar
 LogisticsTest.class
 target
 /shop/shop-admin-service/target
+dump.rdb
