@@ -4,6 +4,7 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.service.ProductOrderService;
+import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.SpringContextUtil;
 
@@ -96,6 +97,11 @@ public class DelayMQworkReceiver extends MQConnection{
             orderService.orderUnComment(info.getOrderCommentTimeData().getOrderId());
             logger.info("[DMQ]处理订单评价" + info.getOrderTimeData().getOrderId() );
             channel.basicAck(envelope.getDeliveryTag(), false);
+        }else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.VIDEO_INFO) {
+            VideoService videoService = SpringContextUtil.getBean(VideoService.class);
+            videoService.operationByIdES(info.getVideoInfo().getVideoId(),info.getVideoInfo().getOperation());
+            //确认消费
+            channel.basicAck(envelope.getDeliveryTag(),false);
         }else {
             logger.info("[DMQ]收到数据类型:"+info.getWorkType()+"后端暂时没有合适的服务处理");
             channel.basicAck(envelope.getDeliveryTag(),false);
