@@ -287,7 +287,7 @@ public class VideoController {
         }
     }
 
-    @RequestMapping(value = "/dbj/getSuperStarViodes/{userId}", method = RequestMethod.GET)
+    @PostMapping(value = "/dbj/getSuperStarViodes/{userId}")
     @ApiOperation(value = "获取代言人视频详情")
     public ResponsePageInfoData<List<SuperStarVideos>> getSuperStarViodes(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
                                                                           @RequestParam(value = "rows", defaultValue = "10", required = true) int rows,
