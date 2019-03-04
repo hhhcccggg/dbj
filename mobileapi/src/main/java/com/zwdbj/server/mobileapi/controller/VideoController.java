@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.mobileapi.model.*;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.mobileapi.service.es.service.ESService;
 import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;
@@ -32,6 +33,8 @@ public class VideoController {
     private VideoService videoService;
     @Autowired
     private YouZanService youZanService;
+    @Autowired
+    private ESService esService;
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ApiOperation(value = "发布短视频")
@@ -262,8 +265,17 @@ public class VideoController {
     @ApiOperation(value = "主页视频")
     public ResponseData<VideoMainDto> mainVideo(VideoMainInput videoMainInput){
         ServiceStatusInfo<VideoMainDto> serviceStatusInfo = videoService.mainESVideo(videoMainInput);
+        if(serviceStatusInfo.getCode() == 2){
+            return new ResponseData<>(5001, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
+        }
         return new ResponseData<>(serviceStatusInfo.isSuccess()?ResponseDataCode.STATUS_NORMAL:ResponseDataCode.STATUS_ERROR,
                 serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
+    }
+
+    @PostMapping("/closeScroll")
+    @ApiOperation(value = "清除scroll_id")
+    public void closeScroll(String scroll_id){
+        esService.closeScroll(scroll_id);
     }
 
 }
