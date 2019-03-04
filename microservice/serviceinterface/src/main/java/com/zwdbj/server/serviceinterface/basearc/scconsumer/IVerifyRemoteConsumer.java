@@ -1,6 +1,6 @@
-package com.zwdbj.server.serviceinterface.basearc.consumer;
+package com.zwdbj.server.serviceinterface.basearc.scconsumer;
 
-import com.zwdbj.server.serviceinterface.basearc.provider.IVerifyRemoteService;
+import com.zwdbj.server.serviceinterface.basearc.scprovider.IVerifyRemoteService;
 import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient(value = "basearc")

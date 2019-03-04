@@ -1,7 +1,5 @@
 package com.zwdbj.server.mobileapi.controller.shop;
 
-import com.zwdbj.server.logistics.model.Logistics;
-import com.zwdbj.server.logistics.service.ILogisticsService;
 import com.zwdbj.server.basemodel.model.ResponseData;
 import com.zwdbj.server.basemodel.model.ResponseDataCode;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -17,21 +15,6 @@ public class HomeController {
     @RequestMapping("/hello")
     public String hello() {
         return "Hello";
-    }
-
-    @Autowired
-    ILogisticsService logisticsServiceImpl;
-
-    @Autowired
-    RedisTemplate redisTemplate;
-
-    @RequestMapping(value = "logistics",method = RequestMethod.GET)
-    public ResponseData<Logistics> getLogistics(){
-        ServiceStatusInfo<Logistics> logistics = logisticsServiceImpl.selectLogistics("73106644852000","zto");
-        if (logistics.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", logistics.getData());
-        }
-        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, logistics.getMsg(), null);
     }
 
 }
