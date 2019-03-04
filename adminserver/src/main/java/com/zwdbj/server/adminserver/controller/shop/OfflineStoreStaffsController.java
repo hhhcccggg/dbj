@@ -132,6 +132,7 @@ public class OfflineStoreStaffsController {
     }
 
     @GetMapping("/getOfflineStoreStaffsById/{id}")
+    @ApiOperation(value = "根据员工ID获取数据")
     public ResponseData<OfflineStoreStaffs> getOfflineStoreStaffsById(@PathVariable long id){
         ServiceStatusInfo<OfflineStoreStaffs> serviceStatusInfo = offlineStoreStaffsServiceImpl.getOfflineStoreStaffsById(id);
         return new ResponseData<>(serviceStatusInfo.isSuccess()?0:1, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
