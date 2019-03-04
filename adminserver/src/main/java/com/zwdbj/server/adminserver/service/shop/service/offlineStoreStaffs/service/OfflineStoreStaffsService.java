@@ -24,4 +24,6 @@ public interface OfflineStoreStaffsService {
     ServiceStatusInfo<SuperStarDto> videoListStaff(long userId);
 
     ServiceStatusInfo<Long> setSuperStar(long userId, long legalSubjectId, boolean isSuperStar);
+
+    ServiceStatusInfo<OfflineStoreStaffs> getOfflineStoreStaffsById(long id);
 }

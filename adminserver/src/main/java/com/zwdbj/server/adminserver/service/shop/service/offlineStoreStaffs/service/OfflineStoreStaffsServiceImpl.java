@@ -6,7 +6,11 @@ import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServ
 import com.zwdbj.server.adminserver.service.user.mapper.IUserMapper;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.tokencenter.model.AuthUser;
+import com.zwdbj.server.usercommonservice.authuser.service.AuthUserManagerImpl;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +30,8 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     private IUserMapper iUserMapper;
     @Resource
     private StoreService storeServiceImpl;
+    @Autowired
+    private AuthUserManagerImpl authUserManager;
 
     @Override
     public ServiceStatusInfo<Long> create(StaffInput staffInput, long legalSubjectId) {
@@ -184,5 +190,18 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询代言人作品列表个人信息失败" + e.getMessage(), null);
         }
+    }
+
+    @Override
+    public ServiceStatusInfo<OfflineStoreStaffs> getOfflineStoreStaffsById(long id) {
+        try{
+            long userId = JWTUtil.getCurrentId();
+            AuthUser authUser = authUserManager.get(String.valueOf(userId));
+            long storeId = storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData().getId();
+            return new ServiceStatusInfo<>(0, "", mapper.selectStaffById(id, authUser.getTenantId(), storeId));
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "查询员工信息失败" + e.getMessage(), null);
+        }
+
     }
 }

@@ -76,4 +76,9 @@ public interface OfflineStoreStaffsMapper {
             "(SELECT count(*) from core_comments WHERE userId=#{userId} and isDeleted=0) as commentCounts" +
             " from core_users as u where u.id=#{userId} and isDeleted=0")
     SuperStarDto videoListStaff(@Param("userId") long userId);
+
+    @Select("SELECT u.fullName,u.phone,u.id,u.createTime,u.tenantId,u.notes " +
+            "from core_users as u,(select userId from o2o_offlineStoreStaffs where storeId=#{storeId} and isDeleted=0 ) as s" +
+            " where u.id=s.userId and u.tenantId=#{tenantId} and u.isDeleted=0 and u.id=#{id}")
+    OfflineStoreStaffs selectStaffById(@Param("id")long id, @Param("tenantId") long tenantId, @Param("storeId") long storeId);
 }
