@@ -41,10 +41,10 @@ public class OfflineStoreStaffsSqlProvide {
         long legalSubjectId = (long) map.get("legalSubjectId");
         StringBuffer sql = new StringBuffer("select u.id,u.fullName,u.avatarUrl,u.phone,(select count(*) from core_videos where userId=u.id) as videos, " +
                 "u.totalHearts,u.totalFans,u.isLocked,(select count(*) from core_pets where userId=u.id) as pets " +
-                "from core_users as u,core_user_tenants as t where u.tenantId=t.id and t.legalSubjectId=" + legalSubjectId +
-                " and u.isDeleted=0 and t.isDeleted=0");
-        if (!"".equals(search) && search != null) {
-            sql.append(" and u.nickName like '%" + search + "%' or u.phone like '%" + search + "%'");
+                "from core_users as u,core_user_tenants as t,o2o_offlineStoreStaffs as oss  where u.tenantId=t.id and u.id=oss.userId  and t.legalSubjectId=" + legalSubjectId +
+                " and u.isDeleted=0 and t.isDeleted=0 and oss.isDeleted=0 ");
+        if (!"".equals(search.trim()) && search != null) {
+            sql.append(" and (u.nickName like '%" + search + "%' or u.phone like '%" + search + "%')");
         }
         if ("videos".equals(rank) || "totalHearts".equals(rank) || "totalFans".equals(rank)) {
             sql.append(" order by u." + rank);
