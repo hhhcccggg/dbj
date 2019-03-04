@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -37,7 +38,11 @@ public class VerifyController implements IVerifyRemoteService {
                 this.aliyunConfigs.getSmsCodeSignName(),
                 this.aliyunConfigs.getSmsTemplateCode());
         if (result.isSuccess()) {
-            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",null);
+            Map<String,String> resParams = new HashMap<>();
+            if (result.getData()!=null) {
+                resParams.put("code",(String)result.getData());
+            }
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"OK",resParams);
         } else {
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,result.getMsg(),null);
         }
