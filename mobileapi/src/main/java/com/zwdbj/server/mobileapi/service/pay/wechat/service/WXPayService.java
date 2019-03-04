@@ -166,6 +166,7 @@ public class WXPayService {
         wXRefundOrderInput.setTransactionId(tradeNo);
         wXRefundOrderInput.setType("WECHAT");
         wXRefundOrderInput.setNotifyUrl(this.wxPayAppCfg.getOrderRefundResultCallbackUrl());
+        wXRefundOrderInput.setOutRefundNo(String.valueOf(input.getOrderId()));
         ServiceStatusInfo<RefundOrderDto> refundOrderDtoServiceStatusInfo =
                 this.wechatPayService.refundOrder(wXRefundOrderInput);
         if (!refundOrderDtoServiceStatusInfo.isSuccess()) {
