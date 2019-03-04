@@ -46,8 +46,8 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         Long result = 0L;
         try {
 
-                result = iUserMapper.updateStaffInfo(modifyStaff);
-                return new ServiceStatusInfo<>(0, "修改员工信息成功", result);
+            result = iUserMapper.updateStaffInfo(modifyStaff);
+            return new ServiceStatusInfo<>(0, "修改员工信息成功", result);
 
 
         } catch (Exception e) {
@@ -68,12 +68,12 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         Long result = 0L;
 
 
-            result = mapper.cancelStaff(userId);
-            if (isSuperStar) {
-                long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
-                result += mapper.cancelSuperStar(userId, storeId);
-            }
-            return new ServiceStatusInfo<>(0, "", result);
+        result = mapper.cancelStaff(userId);
+        if (isSuperStar) {
+            long storeId = storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData().getId();
+            result += mapper.cancelSuperStar(userId, storeId);
+        }
+        return new ServiceStatusInfo<>(0, "", result);
 
     }
 
@@ -91,21 +91,39 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
     }
 
 
-
     @Override
     public ServiceStatusInfo<List<OfflineStoreStaffs>> searchStaffs(SearchStaffInfo searchStaffInfo, long legalSubjectId, long storeId) {
         List<OfflineStoreStaffs> result = new ArrayList<>();
         try {
 
-            if (searchStaffInfo.isSuperStar()) {
-
-                result = mapper.searchSuperStar(storeId, searchStaffInfo.getSearch());
-
-            } else {
+            if (searchStaffInfo.getRange() == 0) {
                 result = mapper.searchStaffs(legalSubjectId, searchStaffInfo.getSearch());
+                for (OfflineStoreStaffs offlineStoreStaffs : result) {
+                    if (mapper.isSuperStar(offlineStoreStaffs.getId(), storeId) == 1) {
+                        offlineStoreStaffs.setSuperStar(true);
+                    }
+                }
+                return new ServiceStatusInfo<>(0, "", result);
+            } else if (searchStaffInfo.getRange() == 1) {
+                result = mapper.searchStaffs(legalSubjectId, searchStaffInfo.getSearch());
+                for (OfflineStoreStaffs offlineStoreStaffs : result) {
+                    if (mapper.isSuperStar(offlineStoreStaffs.getId(), storeId) == 1) {
+                        result.remove(offlineStoreStaffs);
+                    }
+                }
+                return new ServiceStatusInfo<>(0, "", result);
+            } else if (searchStaffInfo.getRange() == 2) {
+                result = mapper.searchSuperStar(storeId, searchStaffInfo.getSearch());
+                for (OfflineStoreStaffs offlineStoreStaffs : result) {
+                    offlineStoreStaffs.setSuperStar(true);
+                }
+                return new ServiceStatusInfo<>(0, "", result);
+            } else {
+                return new ServiceStatusInfo<>(1, "参数错误", null);
             }
-            return new ServiceStatusInfo<>(0, "", result);
-        } catch (Exception e) {
+
+        } catch (
+                Exception e) {
             return new ServiceStatusInfo<>(1, "搜索失败" + e.getMessage(), null);
         }
 

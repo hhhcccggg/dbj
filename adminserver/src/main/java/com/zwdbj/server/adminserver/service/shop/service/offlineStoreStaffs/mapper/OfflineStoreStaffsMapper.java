@@ -30,6 +30,8 @@ public interface OfflineStoreStaffsMapper {
     @Update("update o2o_offlineStoreStaffs set isDeleted=1,deleteTime=now() where userId=#{userId} and storeId=#{storeId}")
     Long cancelSuperStar(@Param("userId") long userId, @Param("storeId") long storeId);
 
+    @Select("select count(*) from o2o_offlineStoreStaffs where isDeleted=0 and userId=#{userId} and storeId=#{storeId}")
+    int isSuperStar(@Param("userId") long userId, @Param("storeId") long storeId);
 
     /**
      * 获取代言人详情
