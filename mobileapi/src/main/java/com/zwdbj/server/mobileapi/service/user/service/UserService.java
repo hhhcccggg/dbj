@@ -7,8 +7,6 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.basemodel.model.ResponseData;
-import com.zwdbj.server.basemodel.model.VerifyPhoneInput;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobUser;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.favorite.service.FavoriteService;
@@ -16,7 +14,6 @@ import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInpu
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
-import com.zwdbj.server.serviceinterface.basearc.scconsumer.IVerifyRemoteConsumer;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.UserToken;
@@ -87,9 +84,6 @@ public class UserService {
     private IAuthUserManager iAuthUserManagerImpl;
     @Autowired
     private VideoService videoService;
-    //TODO 2.0上线删除
-    @Autowired
-    private IVerifyRemoteConsumer remoteConsumer;
 
     @Autowired
     private FavoriteService favoriteServiceImpl;
@@ -563,14 +557,37 @@ public class UserService {
      * @return
      */
     public ServiceStatusInfo<Object> checkPhoneCode(String phone, String code) {
-        VerifyPhoneInput phoneInput = new VerifyPhoneInput();
-        phoneInput.setCode(code);
-        phoneInput.setPhone(phone);
-        ResponseData<Object> result = this.remoteConsumer.verifyPhone(phoneInput);
-        if (result.isSuccess()) {
-            return new ServiceStatusInfo<>(0,result.getMsg(),null);
+        try {
+            int result = this.phoneIsTrue(phone);
+            if (result == 1) {
+                if (code.equals((phone.substring(7) + "18"))) {
+                    return new ServiceStatusInfo<>(0, "验证成功", null);
+                } else {
+                    return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
+                }
+
+            } else {
+                //TODO 审核以后删除
+                if (phone.equals("18161279360") && code.equals("1234")) return new ServiceStatusInfo<>(0, "验证成功", null);
+                // 验证手机验证码是否正确
+                String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(phone);
+                boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
+                if (!hasPhoneCode) {
+                    return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);
+                }
+                String cachePhoneCode = this.stringRedisTemplate.opsForValue().get(cacheKey);
+                if (!code.equals(cachePhoneCode)) {
+                    return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
+                }
+                //移除验证码
+                stringRedisTemplate.delete(cacheKey);
+                return new ServiceStatusInfo<>(0, "验证成功", null);
+            }
+        }catch (Exception e){
+            return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码"+e.getMessage(), null);
         }
-        return new ServiceStatusInfo<>(500,result.getMsg(),null);
+
+
     }
 
     /**
@@ -579,6 +596,123 @@ public class UserService {
     public int phoneIsTrue(String phone) {
         int result = this.userMapper.phoneIsTrue(phone);
         return result;
+    }
+
+    /**
+     * @param phone
+     * @return 发送给手机验证码并返回验证码
+     */
+    public ServiceStatusInfo<String> sendPhoneCode(String phone) {
+        //TODO 是否要判断手机是否在我们的系统中
+        //判断是否可以发送验证码
+        ValueOperations<String, SmsSendCfg> operations = redisTemplate.opsForValue();
+        SmsSendCfg cfg = null;
+        long currentTimeStamp = System.currentTimeMillis() / 1000;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String todayStr = simpleDateFormat.format(new Date().getTime());
+
+        if (redisTemplate.hasKey(AppConfigConstant.getRedisPhoneCodeCfgKey(phone))) {
+            try {
+                cfg = operations.get(AppConfigConstant.getRedisPhoneCodeCfgKey(phone));
+                if (currentTimeStamp - cfg.getLastSendSmsTimeStamp() < AppConfigConstant.APP_SMS_SEND_INTERVAL) {
+                    return new ServiceStatusInfo<String>(1, "发送验证码太频繁，请稍后再试.", "");
+                }
+                String[] cfgDayArr = cfg.getDaySendCount().split(":");
+                int currentSendCount = Integer.parseInt(cfgDayArr[1]);
+                if (todayStr.equals(cfgDayArr[0])) {
+                    if (currentSendCount > AppConfigConstant.APP_SMS_SEND_MAX_COUNT_DAY) {
+                        return new ServiceStatusInfo<String>(1, "超过当日最大验证码发送次数", "");
+                    }
+                    cfg.setLastSendSmsTimeStamp(currentTimeStamp);
+                    cfg.setDaySendCount(todayStr + ":" + (currentSendCount + 1));
+                } else {
+                    // 不是当天
+                    cfg.setLastSendSmsTimeStamp(currentTimeStamp);
+                    cfg.setDaySendCount(todayStr + ":" + 1);
+                }
+            } catch (Exception ex) {
+                logger.warn(ex.getMessage());
+                logger.warn(ex.getStackTrace().toString());
+                //重新处理缓存
+                cfg = new SmsSendCfg(currentTimeStamp, todayStr + ":1");
+                operations.set(AppConfigConstant.getRedisPhoneCodeCfgKey(phone), cfg);
+                return new ServiceStatusInfo<String>(1, "发送验证码失败，请稍后再试.", "");
+            }
+        }
+
+
+        //生成验证码
+        String code = UniqueIDCreater.generatePhoneCode();
+        int result = this.phoneIsTrue(phone);
+        if (result == 1) {
+            code = phone.substring(7) + "18";
+        }
+        if (phone.equals("18161279360")) {
+            code = "1234";
+        }
+        if (AppConfigConstant.APP_SMS_SEND_OPEN) {
+            try {
+                // 发送验证码加入消息队列
+                QueueWorkInfoModel.QueueWorkPhoneCode phoneCode = QueueWorkInfoModel.QueueWorkPhoneCode.newBuilder()
+                        .setPhone(phone)
+                        .setCode(code)
+                        .build();
+                QueueWorkInfoModel.QueueWorkInfo queueWorkInfo = QueueWorkInfoModel.QueueWorkInfo.newBuilder()
+                        .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE)
+                        .setPhoneCode(phoneCode)
+                        .build();
+                MQWorkSender.shareSender().send(queueWorkInfo);
+            } catch (Exception ex) {
+                logger.error(ex.getMessage());
+                return new ServiceStatusInfo<>(1, "发送验证码失败，请稍后重试.", "");
+            }
+        }
+        //刷新缓存
+        if (cfg == null) {
+            cfg = new SmsSendCfg(currentTimeStamp, todayStr + ":1");
+        }
+        operations.set(AppConfigConstant.getRedisPhoneCodeCfgKey(phone), cfg);
+        // 存到缓存
+        stringRedisTemplate.opsForValue().set(AppConfigConstant.getRedisPhoneCodeKey(phone), code, AppConfigConstant.APP_SMS_CODE_EXPIRE_TIME, TimeUnit.SECONDS);
+        if (AppConfigConstant.APP_SMS_SEND_OPEN) {
+            return new ServiceStatusInfo<>(0, "发送成功", "");
+        } else {
+            return new ServiceStatusInfo<>(0, "", code);
+        }
+    }
+
+    public boolean sendSms(String phone, String code) {
+        //超时时间
+        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+
+        //初始化acsClient,暂不支持region化
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", AppConfigConstant.ALIYUN_ACCESS_KEY, AppConfigConstant.ALIYUN_ACCESS_SECRECT);
+        try {
+            DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Dysmsapi", "dysmsapi.aliyuncs.com");
+        } catch (Exception e) {
+            return false;
+        }
+        IAcsClient acsClient = new DefaultAcsClient(profile);
+
+        //组装请求对象-具体描述见控制台-文档部分内容
+        SendSmsRequest request = new SendSmsRequest();
+        //必填:待发送手机号
+        request.setPhoneNumbers(phone);
+        //必填:短信签名-可在短信控制台中找到
+        request.setSignName("爪子APP");
+        //必填:短信模板-可在短信控制台中找到
+        request.setTemplateCode("SMS_140020345");
+        request.setTemplateParam("{\"code\":\"" + code + "\"}");
+        try {
+            SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+            if (sendSmsResponse.getCode().equals("OK")) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public ServiceStatusInfo<Integer> phoneIsRegOrNot(PhoneCodeInput input){

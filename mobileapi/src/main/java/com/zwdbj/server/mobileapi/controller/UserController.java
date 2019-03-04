@@ -6,7 +6,6 @@ import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.mobileapi.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.mobileapi.service.setting.service.SettingService;
 import com.zwdbj.server.mobileapi.service.user.model.*;
-import com.zwdbj.server.serviceinterface.basearc.scconsumer.IVerifyRemoteConsumer;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import com.zwdbj.server.usercommonservice.authuser.service.AuthUserManagerImpl;
@@ -47,9 +46,6 @@ public class UserController {
     private AuthUserManagerImpl iAuthUserManager;
     @Autowired
     private TokenCenterManager tokenCenterManager;
-    //TODO 2.0上线删除
-    @Autowired
-    private IVerifyRemoteConsumer verifyRemoteConsumer;
 
     @RequiresAuthentication
     @RequestMapping(value = "/pushSetting", method = RequestMethod.POST)
@@ -165,8 +161,17 @@ public class UserController {
     @RequestMapping(value = "/sendPhoneCode", method = RequestMethod.GET)
     @ApiOperation(value = "获取手机验证码")
     public ResponseData<Map<String, String>> sendPhoneCode(@RequestParam("phone") String phone) {
-        ResponseData<Map<String, String>> result = this.verifyRemoteConsumer.fetchPhoneCode(phone,"+86");
-        return result;
+        ServiceStatusInfo<String> info = userService.sendPhoneCode(phone);
+        if (info.isSuccess()) {
+            if (AppConfigConstant.APP_SMS_SEND_OPEN) {
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "发送验证码成功!", null);
+            } else {
+                Map<String, String> map = new HashMap<>();
+                map.put("code", info.getData());
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "发送验证码成功!{" + info.getData() + "}", map);
+            }
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, info.getMsg(), null);
     }
 
     // 关注
