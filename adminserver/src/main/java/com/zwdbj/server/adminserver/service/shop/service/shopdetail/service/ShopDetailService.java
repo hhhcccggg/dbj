@@ -9,8 +9,9 @@ import java.util.List;
 public interface ShopDetailService {
     ServiceStatusInfo<StoreDto> findStoreDetail(long legalSubjectId);
 
+    ServiceStatusInfo<Long> createOpeningHours(int openTime, int closeTime, String days, long legalSubjectId);
 
-    ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list, long legalSubjectId);
+    ServiceStatusInfo<Long> modifyOpeningHours(int openTime, int closeTime, String days, long legalSubjectId);
 
 
     ServiceStatusInfo<LocationInfo> showLocation(long legalSubjectId);

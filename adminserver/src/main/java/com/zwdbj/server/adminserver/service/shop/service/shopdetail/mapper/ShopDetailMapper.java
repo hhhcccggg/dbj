@@ -18,10 +18,14 @@ public interface ShopDetailMapper {
             "where o.storeId=s.id and s.legalSubjectId=#{legalSubjectId} and o.isDeleted=0 order by day asc")
     List<OpeningHours> findOpeningHours(@Param("legalSubjectId") long legalSubjectId);
 
-    @Update("update o2o_offlineStoreOpeningHours set id=#{id},day=#{openingHours.day}," +
-            "openTime=#{openingHours.openTime},closeTime=#{openingHours.closeTime} " +
-            "where storeId =#{openingHours.storeId}")
-    Long modifyOpeningHours(@Param("id") long id, @Param("openingHours") OpeningHours openingHours);
+    @Insert("insert into o2o_offlineStoreOpeningHours (id,day,storeId,openTime,closeTime) values(#{id},#{day},#{storeId},#{openTime},#{closeTime})")
+    long createOpeningHours(@Param("id") long id, @Param("day") int day, @Param("openTime") int openTime, @Param("closeTime") int closeTime, @Param("storeId") long storeId);
+
+    @Update("update o2o_offlineStoreOpeningHours set id=#{id},day=#{day}," +
+            "openTime=#{openTime},closeTime=#{closeTime} " +
+            "where storeId =#{storeId}")
+    Long modifyOpeningHours(@Param("id") long id, @Param("openTime") int openTime, @Param("closeTime") int closeTime,
+                            @Param("day") int day, @Param("storeId") long storeId);
 
     @Update("update o2o_offlineStoreOpeningHours set isDeleted=1 ,deleteTime=now() where storeId=#{storeId}")
     Long deletedOpeningHours(@Param("storeId") long storeId);
@@ -40,11 +44,11 @@ public interface ShopDetailMapper {
             "o2o.storeId=s.id and s.legalSubjectId=#{legalSubjectId}")
     List<Long> selectServiceScopeId(@Param("legalSubjectId") long legalSubjectId);
 
-    @Update("update o2o_offlineStoreServiceScopes set isDeleted=1,deleteTime=now() where storeId=#{storeId}) ")
+    @Update("update o2o_offlineStoreServiceScopes set isDeleted=1,deleteTime=now() where storeId=#{storeId}")
     Long deleteStoreServiceScopes(@Param("storeId") long storeId);
 
     @Insert("insert into o2o_offlineStoreServiceScopes (id,storeId,serviceScopeId) " +
-            "values(#{id},(select id from shop_stores where legalSubjectId=#{legalSubjectId}),#{serviceScopeId})")
+            "values(#{id},#{legalSubjectId},#{serviceScopeId})")
     Long createStoreServiceScopes(@Param("id") long id, @Param("legalSubjectId") long legalSubjectId,
                                   @Param("serviceScopeId") long serviceScopeId);
 
@@ -54,7 +58,7 @@ public interface ShopDetailMapper {
     List<Long> selectExtraServiceId(@Param("legalSubjectId") long legalSubjectId);
 
 
-    @Update("update o2o_offlineStoreExtraServices set isDeleted=1,deleteTime=now() where storeId=#{storeId}) ")
+    @Update("update o2o_offlineStoreExtraServices set isDeleted=1,deleteTime=now() where storeId=#{storeId} ")
     Long deleteStoreExtraService(@Param("storeId") long storeId);
 
     @Insert("insert into o2o_offlineStoreExtraServices (id,storeId,extraServiceId) " +

@@ -10,6 +10,8 @@ import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.mapper.ShopDetailMapper;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.service.StoreReviewService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -36,6 +38,8 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     private QiniuService qiniuService;
     @Autowired
     private StoreService storeServiceImpl;
+    @Autowired
+    private StoreReviewService storeReviewServiceImpl;
     private Logger logger = LoggerFactory.getLogger(ShopDetailServiceImpl.class);
 
     @Override
@@ -62,29 +66,47 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             //查询店铺服务范围id
             List<Long> serviceScopeIds = this.shopDetailMapper.selectServiceScopeId(legalSubjectId);
             result.setServiceScopes(this.categoryService.searchCategory(serviceScopeIds).getData());
+            //查询店铺审核信息
+            result.setBusinessSellerReviewModels(this.storeReviewServiceImpl.getStoreReviewById(legalSubjectId).getData());
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询店铺基本信息失败" + e.getMessage(), null);
         }
     }
 
+    @Override
+    public ServiceStatusInfo<Long> createOpeningHours(int openTime, int closeTime, String days, long legalSubjectId) {
+        Long result = 0L;
+        long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
+        try {
+            String[] s = days.split(",");
+            for (String day : s) {
+                result += this.shopDetailMapper.createOpeningHours(UniqueIDCreater.generateID(), Integer.parseInt(day), openTime, closeTime, storeId);
+            }
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            throw new RuntimeException("创建营业时间失败" + e.getMessage());
+        }
+    }
 
     @Override
-    public ServiceStatusInfo<Long> modifyOpeningHours(List<OpeningHours> list, long legalSubjectId) {
+    public ServiceStatusInfo<Long> modifyOpeningHours(int openTime, int closeTime, String days, long legalSubjectId) {
         Long result = 0L;
         //先删除原有营业时间在修改
         long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
             result = shopDetailMapper.deletedOpeningHours(storeId);
-            for (OpeningHours openingHours : list) {
-                long id = UniqueIDCreater.generateID();
-                result += this.shopDetailMapper.modifyOpeningHours(id, openingHours);
+            String[] s = days.split(",");
+            long id = 0L;
+            for (String day : s) {
+                id = UniqueIDCreater.generateID();
+                result += this.shopDetailMapper.modifyOpeningHours(id, openTime, closeTime, Integer.parseInt(day), storeId);
 
             }
             QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1, "修改营业时间失败" + e.getMessage(), result);
+            throw new RuntimeException("修改营业时间失败" + e.getMessage());
         }
     }
 
