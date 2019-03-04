@@ -65,6 +65,10 @@ public interface IUserAssetMapper {
             "(select id,nickName from core_users) as u where v.videoId=#{videoId} and v.userId=u.id")
     List<VideoTipDetails> findVideoTipDetails(@Param("videoId") Long videoId);
 
+    @Select("select vt.* ,v.title as title,u.nickName as nickName from core_video_videoTipDetails as vt left join core_users u on u.id=vt.userId " +
+            "left join core_videos v on v.id=vt.videoId where vt.userId=#{userId}")
+    List<VideoTipDetails> getMyAllVideoTips(@Param("userId") Long userId);
+
     @Insert("insert into core_video_videoTipDetails(id,videoId,userId,tipCoin) values(#{id},#{videoId},#{userId},#{tipCoin})")
     int addVideoTipDetail(@Param("id") long id,@Param("videoId") long videoId,@Param("userId") long userId,@Param("tipCoin") int tipCoin);
 

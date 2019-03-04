@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mapper;
 
+import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.model.SearchStaffInfo;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -39,7 +40,7 @@ public class OfflineStoreStaffsSqlProvide {
         String rank = (String) map.get("rank");
         String sort = (String) map.get("sort");
         long legalSubjectId = (long) map.get("legalSubjectId");
-        StringBuffer sql = new StringBuffer("select u.id as usedId,u.fullName,u.avatarUrl,u.phone,(select count(*) from core_videos where userId=u.id) as videos, " +
+        StringBuffer sql = new StringBuffer("select u.id as userId,u.fullName,u.avatarUrl,u.phone,(select count(*) from core_videos where userId=u.id) as videos, " +
                 "u.totalHearts,u.totalFans,u.isLocked,(select count(*) from core_pets where userId=u.id) as pets " +
                 "from core_users as u,core_user_tenants as t,o2o_offlineStoreStaffs as oss  where u.tenantId=t.id and u.id=oss.userId  and t.legalSubjectId=" + legalSubjectId +
                 " and u.isDeleted=0 and t.isDeleted=0 and oss.isDeleted=0 ");
@@ -61,19 +62,22 @@ public class OfflineStoreStaffsSqlProvide {
     }
 
     public String searchStaffs(Map map) {
-        String search = (String) map.get("search");
+        SearchStaffInfo searchStaffInfo = (SearchStaffInfo) map.get("searchStaffInfo");
+        long storeId = (long)map.get("storeId");
+        String search = searchStaffInfo.getSearch();
         long legalSubjectId = (long) map.get("legalSubjectId");
         StringBuffer stringBuffer = new StringBuffer("SELECT u.fullName,u.phone,u.id,u.createTime,u.tenantId,u.notes FROM core_users as u, " +
                 "( SELECT id from core_user_tenants  where isDeleted=0 and legalSubjectId=" + legalSubjectId + " ) as t " +
                 "WHERE u.tenantId=t.id and u.isDeleted=0");
-        if ("".equals(search) || search == null) {
-            stringBuffer.append(" order by u.fullName");
-
-        } else {
-            stringBuffer.append(" and u.fullName like '%" + search + "%' or u.phone like '%" + search + "%' order by u.fullName");
+        if (search != null && !"".equals(search.trim())){
+            stringBuffer.append(" and u.fullName like '%" + search + "%' or u.phone like '%" + search + "%'");
         }
 
-        return stringBuffer.toString();
+        if(searchStaffInfo.getRange() == 1){
+            stringBuffer.append(" HAVING (select count(1) from o2o_offlineStoreStaffs where isDeleted=0 and userId=u.id and storeId="+storeId+") = 0");
+        }
+        stringBuffer.append(" order by u.fullName");
+        return new StringBuffer("select * from ("+stringBuffer.toString()+") as cst").toString();
     }
 
     public String searchSuperStars(Map map) {

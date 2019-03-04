@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mapper;
 
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.model.OfflineStoreStaffs;
+import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.model.SearchStaffInfo;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.model.SuperStarDto;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.model.SuperStarInfo;
 import org.apache.ibatis.annotations.*;
@@ -19,7 +20,7 @@ public interface OfflineStoreStaffsMapper {
     Date selectSuperStarCreateTime(@Param("storeId") long storeId, @Param("userId") long userId);
 
     @SelectProvider(type = OfflineStoreStaffsSqlProvide.class, method = "searchStaffs")
-    List<OfflineStoreStaffs> searchStaffs(@Param("legalSubjectId") long legalSubjectId, @Param("search") String search);
+    List<OfflineStoreStaffs> searchStaffs(@Param("legalSubjectId") long legalSubjectId, @Param("searchStaffInfo") SearchStaffInfo searchStaffInfo, @Param("storeId") long storeId);
 
     @SelectProvider(type = OfflineStoreStaffsSqlProvide.class, method = "searchSuperStars")
     List<OfflineStoreStaffs> searchSuperStar(@Param("storeId") long storeId, @Param("search") String search);
