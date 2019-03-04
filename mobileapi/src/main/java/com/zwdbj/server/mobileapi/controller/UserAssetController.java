@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.mobileapi.service.user.model.FollowerUserInfoDto;
 import com.zwdbj.server.mobileapi.service.userAssets.model.*;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -126,6 +127,23 @@ public class UserAssetController {
         }
 
     }
+
+    @RequestMapping(value = "/getMyAllVideoTips/{userId}", method = RequestMethod.GET)
+    @ApiOperation(value = "获取我所有的打赏")
+    public ResponsePageInfoData<List<VideoTipDetails>> getMyAllVideoTips(@PathVariable long userId,
+                                                                         @RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
+                                                                         @RequestParam(value = "rows", defaultValue = "30", required = true) int rows){
+        Page<VideoTipDetails> pageInfo = PageHelper.startPage(pageNo,rows);
+        ServiceStatusInfo<List<VideoTipDetails>> info = this.userAssetServiceImpl.getMyAllVideoTips(userId);
+        if (info.isSuccess()){
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",info.getData(),pageInfo.getTotal());
+        }else {
+            return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR,"提现失败",null,0);
+        }
+
+    }
+
+
 
 
 

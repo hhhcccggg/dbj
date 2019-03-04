@@ -89,7 +89,7 @@ public class TagService {
         String s = date.substring(0,7).trim()+"monthTags";
 
         if (this.redisTemplate.hasKey(s)){
-            long id = (Long)this.redisTemplate.opsForHash().get(s,date);
+            long id = Long.valueOf((String)this.redisTemplate.opsForHash().get(s,date));
             TagDetailDto tagDetailDto = this.tagDetailById(id);
             if (tagDetailDto==null)return null;
             return tagDetailDto;
