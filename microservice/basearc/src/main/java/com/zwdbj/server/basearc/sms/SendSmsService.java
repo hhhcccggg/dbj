@@ -96,7 +96,7 @@ public class SendSmsService implements ISendSmsService {
         if (this.smsSendConfigs.isSendOpen()) {
             return new ServiceStatusInfo<>(0, "发送成功", null);
         } else {
-            return new ServiceStatusInfo<>(0, "", code);
+            return new ServiceStatusInfo<>(0, "发送成功", code);
         }
     }
 
