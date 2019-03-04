@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -112,9 +113,11 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
                 return new ServiceStatusInfo<>(0, "", result);
             } else if (searchStaffInfo.getRange() == 1) {
                 result = mapper.searchStaffs(legalSubjectId, searchStaffInfo.getSearch());
-                for (OfflineStoreStaffs offlineStoreStaffs : result) {
+                Iterator<OfflineStoreStaffs> iterator = result.iterator();
+                while(iterator.hasNext()){
+                    OfflineStoreStaffs offlineStoreStaffs =  iterator.next();
                     if (mapper.isSuperStar(offlineStoreStaffs.getId(), storeId) == 1) {
-                        result.remove(offlineStoreStaffs);
+                        iterator.remove();
                     }
                 }
                 return new ServiceStatusInfo<>(0, "", result);
