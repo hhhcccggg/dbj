@@ -130,4 +130,10 @@ public class OfflineStoreStaffsController {
         }
         return new ResponseData<>(1, statusInfo.getMsg(), null, null);
     }
+
+    @GetMapping("/getOfflineStoreStaffsById/{id}")
+    public ResponseData<OfflineStoreStaffs> getOfflineStoreStaffsById(@PathVariable long id){
+        ServiceStatusInfo<OfflineStoreStaffs> serviceStatusInfo = offlineStoreStaffsServiceImpl.getOfflineStoreStaffsById(id);
+        return new ResponseData<>(serviceStatusInfo.isSuccess()?0:1, serviceStatusInfo.getMsg(), serviceStatusInfo.getData());
+    }
 }
