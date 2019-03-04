@@ -72,7 +72,7 @@ public class AppPushService {
         }
 
         PushResDataContent pushResDataContent = null;
-        if (pushData.getMessageType() == 1 || pushData.getMessageType() == 3) {
+        if (pushData.getMessageType() == 1 || pushData.getMessageType() == 3 || pushData.getMessageType()==6) {
             pushResDataContent = parseResDataContent(pushData);
             if (pushResDataContent == null) return true;
         }
@@ -88,6 +88,10 @@ public class AppPushService {
             type = 2;
             pushTitle = "新粉丝通知";
             pushDescription = "又有人悄悄关注了你，快去看看！";
+        }else if (pushData.getMessageType() == 6) {
+            type = 6;
+            pushTitle = "获得新打赏通知";
+            pushDescription = String.format("你的作品《%s》收到新打赏", pushResDataContent.getTitle());
         }
 
         //TODO 关注的人发布视频和直播提醒

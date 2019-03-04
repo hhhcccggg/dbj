@@ -317,6 +317,20 @@ public class UserAssetServiceImpl implements IUserAssetService {
             return new ServiceStatusInfo<>(1, "查询视频打赏详情失败" + e.getMessage(), null);
         }
     }
+    /**
+     * 我获得的打赏详情
+     */
+    public ServiceStatusInfo<List<VideoTipDetails>> getMyAllVideoTips(Long userId) {
+        List<VideoTipDetails> result = null;
+        try {
+            result = this.userAssetMapper.getMyAllVideoTips(userId);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询视频打赏详情失败" + e.getMessage(), null);
+        }
+    }
+
+
 
     @Transactional
     public int addVideoTipDetail(long videoId, long userId, int tipCoins) {
