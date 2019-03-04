@@ -83,10 +83,12 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             for (String day : s) {
                 result += this.shopDetailMapper.createOpeningHours(UniqueIDCreater.generateID(), Integer.parseInt(day), openTime, closeTime, storeId);
             }
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             throw new RuntimeException("创建营业时间失败" + e.getMessage());
         }
+
     }
 
     @Override
@@ -136,11 +138,12 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     @Override
     public ServiceStatusInfo<Long> uploadCheck(QualificationInput qualificationInput, long legalSubjectId) {
         Long result = 0L;
-
+        long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
             qualificationInput.setReviewData(qiniuService.url(qualificationInput.getReviewData()));
             long id = UniqueIDCreater.generateID();
             result = this.shopDetailMapper.uploadCheck(id, qualificationInput, legalSubjectId);
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "上传失败" + e.getMessage(), null);
@@ -211,6 +214,8 @@ public class ShopDetailServiceImpl implements ShopDetailService {
 
     @Override
     public ServiceStatusInfo<Long> modifyStoreImage(StoreImage storeImage, long legalSubjectId) {
+        long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
+
         try {
             if ("coverImages".equals(storeImage.getType())) {
                 String[] urls = storeImage.getImageUrl().split(",");
@@ -220,6 +225,8 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 return new ServiceStatusInfo<>(0, "", 1L);
             }
             shopDetailMapper.modifyStoreImage(storeImage.getType(), qiniuService.url(storeImage.getImageUrl()), legalSubjectId);
+            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+
             return new ServiceStatusInfo<>(0, "", 1L);
         } catch (Exception e) {
             throw new RuntimeException("修改失败" + e.getMessage());
