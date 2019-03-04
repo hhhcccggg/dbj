@@ -869,10 +869,10 @@ public class VideoService {
             VideoMainDto videoMainDto = new VideoMainDto();
             SearchResponse searchResponse ;
             SearchRequest searchRequest = new SearchRequest("video");
-            searchRequest.scroll(TimeValue.timeValueMinutes(5L));
+            searchRequest.scroll(TimeValue.timeValueMinutes(15L));
             if(videoMainInput.getScroll_id() != null && videoMainInput.getScroll_id().length()>0){
                 SearchScrollRequest searchScrollRequest = new SearchScrollRequest(videoMainInput.getScroll_id());
-                searchScrollRequest.scroll(TimeValue.timeValueMinutes(5L));
+                searchScrollRequest.scroll(TimeValue.timeValueMinutes(15L));
                 searchResponse = restHighLevelClient.scroll(searchScrollRequest,RequestOptions.DEFAULT);
             }else{
                 BoolQueryBuilder boolQueryBuilder =  QueryBuilders.boolQuery();
@@ -904,8 +904,9 @@ public class VideoService {
             videoMainDto.setVideoMains(list);
             return new ServiceStatusInfo<>(0,"",videoMainDto);
         }catch(Exception e){
-            e.printStackTrace();
-            return new ServiceStatusInfo<>(1,e.getMessage(),null);
+            if(e.getCause().getMessage().indexOf("No search context found for id")>-1)
+                return new ServiceStatusInfo<>(2,e.getCause().getMessage(),null);
+            return new ServiceStatusInfo<>(1,e.getCause().getMessage(),null);
         }
     }
 
