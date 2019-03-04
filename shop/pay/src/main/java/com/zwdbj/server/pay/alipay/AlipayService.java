@@ -124,7 +124,7 @@ public class AlipayService {
                     "\"out_trade_no\":\""+input.getOutTradeNo()+"\"," +
                     "\"trade_no\":\""+input.getTradeNo()+"\"," +
                     "\"refund_amount\":"+input.getRefundAmount()+"," +
-                    "\"refund_currency\":\"CYN\"," +
+                    "\"refund_currency\":\"CNY\"," +
                     "\"refund_reason\":\""+input.getRefundReason()+"\"," +
                     "\"out_request_no\":\""+input.getOutRequestNo()+"\"" +
                     "  }");

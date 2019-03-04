@@ -34,14 +34,13 @@ public class PayRefundService {
         if (tradeNo==null || tradeNo.length()==0)new ServiceStatusInfo<>(1,"此订单没有支付",null);
         if (model.getPaymentType().equals("WECHAT")){
             RefundOrderDto dto = this.weChatService.refundOrder(input,refundAmount,tradeNo).getData();
-            new ServiceStatusInfo<>(0,"微信退款成功", dto);
+            return new ServiceStatusInfo<>(0,"微信退款成功", dto);
         }else if (model.getPaymentType().equals("ALIPAY")){
             AliAppRefundDto dto = this.alipayBizService.refundOrder(input,refundAmount,tradeNo).getData();
-            new ServiceStatusInfo<>(0,"支付宝退款成功", dto);
+            return new ServiceStatusInfo<>(0,"支付宝退款成功", dto);
         }else {
             return new ServiceStatusInfo<>(1,"此订单没有支付",null);
         }
-        return null;
 
     }
 
