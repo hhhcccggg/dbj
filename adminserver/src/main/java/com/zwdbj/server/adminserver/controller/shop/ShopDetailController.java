@@ -1,7 +1,10 @@
 package com.zwdbj.server.adminserver.controller.shop;
 
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
-import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.LocationInfo;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.QualificationInput;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.StoreDto;
+import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.StoreImage;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.service.ShopDetailService;
 import com.zwdbj.server.basemodel.model.ResponseData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -43,14 +46,31 @@ public class ShopDetailController {
 
     }
 
-
-    @RequestMapping(value = "/modifyOpeningHours", method = RequestMethod.POST)
-    @ApiOperation(value = "修改营业时间")
-    public ResponseData<Long> modifyOpeningHours(@RequestBody List<OpeningHours> list) {
+    @RequestMapping(value = "/createOpeningHours/{openTime}/{closeTime}/{days}", method = RequestMethod.GET)
+    @ApiOperation(value = "新增时间段")
+    public ResponseData<Long> createOpeningHours(@PathVariable("openTime") int openTime,
+                                                 @PathVariable("closeTime") int closeTime,
+                                                 @PathVariable("days") String days) {
         long userId = JWTUtil.getCurrentId();
 
         long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
-        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyOpeningHours(list, legalSubjectId);
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.createOpeningHours(openTime, closeTime, days, legalSubjectId);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(0, "", statusInfo.getData());
+        }
+        return new ResponseData<>(1, statusInfo.getMsg(), null);
+
+    }
+
+    @RequestMapping(value = "/modifyOpeningHours/{openTime}/{closeTime}/{days}", method = RequestMethod.GET)
+    @ApiOperation(value = "修改营业时间")
+    public ResponseData<Long> modifyOpeningHours(@PathVariable("openTime") int openTime,
+                                                 @PathVariable("closeTime") int closeTime,
+                                                 @PathVariable("days") String days) {
+        long userId = JWTUtil.getCurrentId();
+
+        long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
+        ServiceStatusInfo<Long> statusInfo = this.shopDetailServiceImpl.modifyOpeningHours(openTime, closeTime, days, legalSubjectId);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(0, "", statusInfo.getData());
         }

@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.shopdetail.model;
 
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
+import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -33,14 +34,16 @@ public class StoreDto implements Serializable {
     String mainConverImage;
     @ApiModelProperty(value = "封面图地址")
     String coverImages;
+    @ApiModelProperty(value = "店铺认证资料&审核情况")
+    List<BusinessSellerReviewModel> businessSellerReviewModels;
     @ApiModelProperty(value = "额外服务范围")
     private List<StoreServiceCategory> extraServices;
     @ApiModelProperty(value = "营业时间")
     private List<OpeningHours> openingHours;
     @ApiModelProperty(value = "服务范围")
     private List<StoreServiceCategory> serviceScopes;
-//    @ApiModelProperty(value = "开店时间，终端可用于直接显示")
-//    private String openingHoursDisplay;
+    @ApiModelProperty(value = "开店时间，终端可用于直接显示")
+    private String openingHoursDisplay;
     @ApiModelProperty(value = "其他服务，终端可用于直接显示")
     private String extraServicesDisplay = "";
     @ApiModelProperty(value = "服务范围，终端可用于直接显示")
@@ -70,51 +73,59 @@ public class StoreDto implements Serializable {
         this.serviceScopes = serviceScopes;
     }
 
+    public List<BusinessSellerReviewModel> getBusinessSellerReviewModels() {
+        return businessSellerReviewModels;
+    }
 
-//    public String getOpeningHoursDisplay() {
-//        openingHoursDisplay = "";
-//        if (this.getOpeningHours() == null || this.getOpeningHours().size() == 0) {
-//            return openingHoursDisplay;
-//        }
-//        HashMap<OpeningHours, String> map = new HashMap<>();
-//        for (OpeningHours openingHours : this.openingHours) {
-//            if (map.get(openingHours) == null) {
-//                map.put(openingHours, openingHours.getDay() + ",");
-//                continue;
-//            }
-//            map.put(openingHours, map.get(openingHours) + openingHours.getDay() + ",");
-//
-//        }
-//        Set<OpeningHours> set = map.keySet();
-//        Iterator<OpeningHours> iterator = set.iterator();
-//        while (iterator.hasNext()) {
-//            OpeningHours openingHours = iterator.next();
-//            String s = map.get(openingHours);
-//            String[] strs = s.split(",");
-//            if (strs.length == 1) {
-//                int openHour = openingHours.getOpenTime() / 3600;
-//                int openMinute = (openingHours.getOpenTime() - openHour * 3600) / 60;
-//                openingHoursDisplay = openingHoursDisplay + " 周" + strs[0] + " " + openHour + ":" + openMinute + "-";
-//                int closeHour = openingHours.getCloseTime() / 3600;
-//                int closeMinute = (openingHours.getCloseTime() - closeHour * 3600) / 60;
-//                openingHoursDisplay = openingHoursDisplay + openHour + ":" + openMinute + "  ";
-//                continue;
-//            }
-//            String week = "周";
-//            for (String day : strs) {
-//                week =week+ day + ",";
-//            }
-//            int openHour = openingHours.getOpenTime() / 3600;
-//            int openMinute = (openingHours.getOpenTime() - openHour * 3600) / 60;
-//
-//            openingHoursDisplay = openingHoursDisplay + week + " " + openHour + ":" + openMinute + "-";
-//            int closeHour = openingHours.getCloseTime() / 3600;
-//            int closeMinute = (openingHours.getCloseTime() - closeHour * 3600) / 60;
-//            openingHoursDisplay = openingHoursDisplay + openHour + ":" + openMinute + "  ";
-//
-//        }
-//        return openingHoursDisplay;
-//    }
+    public void setBusinessSellerReviewModels(List<BusinessSellerReviewModel> businessSellerReviewModels) {
+        this.businessSellerReviewModels = businessSellerReviewModels;
+    }
+
+    public String getOpeningHoursDisplay() {
+        openingHoursDisplay = "";
+        if (this.getOpeningHours() == null || this.getOpeningHours().size() == 0) {
+            return openingHoursDisplay;
+        }
+        HashMap<OpeningHours, String> map = new HashMap<>();
+        for (OpeningHours openingHours : this.openingHours) {
+            if (map.get(openingHours) == null) {
+                map.put(openingHours, openingHours.getDay() + ",");
+                continue;
+            }
+            map.put(openingHours, map.get(openingHours) + openingHours.getDay() + ",");
+
+        }
+        Set<OpeningHours> set = map.keySet();
+        Iterator<OpeningHours> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            OpeningHours openingHours = iterator.next();
+            String s = map.get(openingHours);
+            String[] strs = s.split(",");
+            if (strs.length == 1) {
+                int openHour = openingHours.getOpenTime() / 3600;
+                int openMinute = (openingHours.getOpenTime() - openHour * 3600) / 60;
+                openingHoursDisplay = openingHoursDisplay + "周" + strs[0] + " " + openHour + ":" + openMinute + "-";
+                int closeHour = openingHours.getCloseTime() / 3600;
+                int closeMinute = (openingHours.getCloseTime() - closeHour * 3600) / 60;
+                openingHoursDisplay = openingHoursDisplay + closeHour + ":" + closeMinute + " ";
+                continue;
+            }
+            String week = "周";
+            for (String day : strs) {
+                week = week + day + ",";
+            }
+            week = week.substring(0, week.length()-1);
+            int openHour = openingHours.getOpenTime() / 3600;
+            int openMinute = (openingHours.getOpenTime() - openHour * 3600) / 60;
+
+            openingHoursDisplay = openingHoursDisplay + week + " " + openHour + ":" + openMinute + "-";
+            int closeHour = openingHours.getCloseTime() / 3600;
+            int closeMinute = (openingHours.getCloseTime() - closeHour * 3600) / 60;
+            openingHoursDisplay = openingHoursDisplay + closeHour + ":" + closeMinute + "  ";
+
+        }
+        return openingHoursDisplay;
+    }
 
     public String getExtraServicesDisplay() {
         if (this.getExtraServices() == null || this.getExtraServices().size() == 0) {
