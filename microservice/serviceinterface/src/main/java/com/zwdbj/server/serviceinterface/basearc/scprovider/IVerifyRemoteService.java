@@ -1,10 +1,8 @@
-package com.zwdbj.server.serviceinterface.basearc.provider;
+package com.zwdbj.server.serviceinterface.basearc.scprovider;
 
 import com.zwdbj.server.basemodel.model.ResponseData;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.zwdbj.server.basemodel.model.VerifyPhoneInput;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -18,4 +16,6 @@ public interface IVerifyRemoteService {
     @GetMapping("/api/verify/fetchPhoneCode")
     ResponseData<Map<String,String>> fetchPhoneCode(@RequestParam("phone") String phone,
                                                     @RequestParam("area") String area);
+    @PostMapping("/api/verify/verifyPhone")
+    ResponseData<Object> verifyPhone(@RequestBody VerifyPhoneInput phoneInput);
 }
