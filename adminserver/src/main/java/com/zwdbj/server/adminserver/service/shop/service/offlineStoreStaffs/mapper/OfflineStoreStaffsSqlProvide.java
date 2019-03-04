@@ -40,7 +40,7 @@ public class OfflineStoreStaffsSqlProvide {
         String rank = (String) map.get("rank");
         String sort = (String) map.get("sort");
         long legalSubjectId = (long) map.get("legalSubjectId");
-        StringBuffer sql = new StringBuffer("select u.id as userId,u.fullName,u.avatarUrl,u.phone,(select count(*) from core_videos where userId=u.id) as videos, " +
+        StringBuffer sql = new StringBuffer("select u.id as usedId,u.fullName,u.avatarUrl,u.phone,(select count(*) from core_videos where userId=u.id) as videos, " +
                 "u.totalHearts,u.totalFans,u.isLocked,(select count(*) from core_pets where userId=u.id) as pets " +
                 "from core_users as u,core_user_tenants as t,o2o_offlineStoreStaffs as oss  where u.tenantId=t.id and u.id=oss.userId  and t.legalSubjectId=" + legalSubjectId +
                 " and u.isDeleted=0 and t.isDeleted=0 and oss.isDeleted=0 ");
