@@ -22,7 +22,7 @@ public class VideoUtil {
                     .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.VIDEO_INFO)
                     .setVideoInfo(queueWorkVideoInfo)
                     .build();
-            MQWorkSender.shareSender().send(queueWorkInfo);
+            DelayMQWorkSender.shareSender().send(queueWorkInfo,5);
             logger.info("[MQ]视频" + videoId + "发送信息成功");
         } catch (Exception e) {
             logger.error("[MQ]视频" + videoId + "发送信息失败");
