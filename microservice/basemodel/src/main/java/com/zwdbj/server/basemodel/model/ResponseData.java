@@ -30,6 +30,9 @@ public class ResponseData<T> implements Serializable {
     @ApiModelProperty(value = "可以通过此接口判断，接口是否相应成功")
     protected boolean success;
 
+    public ResponseData() {
+    }
+
     public ResponseData(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
