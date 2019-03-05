@@ -25,7 +25,7 @@ public class MyScheduler {
         JobKey jobKey8 = new JobKey("job8", "group02");
         JobKey jobKey9 = new JobKey("job9", "group02");
         JobKey jobKey11 = new JobKey("job11", "group02");
-        //JobKey jobKey10 = new JobKey("job10", "group02");
+        JobKey jobKey10 = new JobKey("job10", "group02");
         if (!myScheduler.checkExists(jobKey1)) startJob1(myScheduler);
         if (!myScheduler.checkExists(jobKey2)) startJob2(myScheduler);
         if (!myScheduler.checkExists(jobKey3)) startJob3(myScheduler);
@@ -36,7 +36,7 @@ public class MyScheduler {
         if (!myScheduler.checkExists(jobKey8)) startJob8(myScheduler);
         if (!myScheduler.checkExists(jobKey9)) startJob9(myScheduler);
         if (!myScheduler.checkExists(jobKey11)) startJob11(myScheduler);
-        //if (!myScheduler.checkExists(jobKey10)) startJob10(myScheduler);
+        if (!myScheduler.checkExists(jobKey10)) startJob10(myScheduler);
         myScheduler.start();
 
     }
@@ -162,16 +162,16 @@ public class MyScheduler {
                 .build();
         scheduler.scheduleJob(jobDetail, cronTrigger);
     }
-    /*private void startJob10(Scheduler scheduler) throws SchedulerException {
+    private void startJob10(Scheduler scheduler) throws SchedulerException {
         JobDetail jobDetail = JobBuilder.newJob(MonInsertTagJob.class)
                 .withIdentity("job10", "group02")
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 55 17 20 2 ? 2019");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 51 10 5 3 ? 2019");
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger10", "group2")
                 .withSchedule(scheduleBuilder)
                 .build();
         scheduler.scheduleJob(jobDetail, cronTrigger);
-    }*/
+    }
 
 }
