@@ -3,8 +3,11 @@ package com.zwdbj.server.mobileapi.service.messageCenter.service;
 import com.alibaba.fastjson.JSON;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.*;
+import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
+import com.zwdbj.server.mobileapi.service.user.model.UserModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
+import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -130,23 +133,33 @@ public class MessageCenterService {
         if (type==1 || type==6 || type==3){
             List<MessageInfoDetailDto> dtos = this.messageCenterMapper.getMyAllMessageByType(userId,type);
             for (MessageInfoDetailDto dto:dtos){
-                dto.setCreatorUserName(this.userService.getUserName(dto.getCreatorUserId()));
+                UserModel userModel = this.userService.findUserById(dto.getCreatorUserId());
+                dto.setCreatorUserName(userModel.getNickName());
+                dto.setCreatorUserUrl(userModel.getAvatarUrl());
                 String data = dto.getDataContent();
                 if (data!=null && data.length()!=0){
                     Map ss = JSON.parseObject(data, Map.class);
                     long resId = Long.valueOf(ss.get("resId").toString());
-
-                    if (type==1 ){
-                        String title = "";
-                        int a = Integer.valueOf(ss.get("type").toString());
-                        dto.setVideoOrPet(a);
-                        if (a==1){
-                            title = this.videoService.getTitleById(resId);
-                        }else if (a==2){
-                            title=this.petService.getPetNameById(resId);
-                        }
-                        dto.setTitle(title);
+                    int a = Integer.valueOf(ss.get("type").toString());
+                    dto.setVideoOrPet(a);
+                    String refUrl = "";
+                    String title = "";
+                    VideoDetailInfoDto videoDetailInfoDto;
+                    if ((type==1  && a==1) || type==3 || type==6){
+                        videoDetailInfoDto = this.videoService.video(resId);
+                        title = videoDetailInfoDto.getTitle();
+                        refUrl = videoDetailInfoDto.getVideoUrl();
+                    }else if (type==1 && a==2){
+                        PetModelDto petModelDto =this.petService.get(resId);
+                        title = petModelDto.getNickName();
+                        refUrl= petModelDto.getAvatar();
                     }
+                    if (type==6){
+                        int coins = Integer.valueOf(ss.get("coins").toString());
+                        dto.setCoins(coins);
+                    }
+                    dto.setRefUrl(refUrl);
+                    dto.setTitle(title);
                     dto.setRefId(resId);
 
                 }

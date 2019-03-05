@@ -70,14 +70,17 @@ public class QuartzService {
      */
     public void everydayTagInsert() {
         Date d = new Date();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        Calendar calendars = Calendar.getInstance();
+        calendars.setTime(d);
+        calendars.add(Calendar.MONTH,1);
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(calendars.getTime());
         int year = Integer.valueOf(date.substring(0,4));
         int mon = Integer.valueOf(date.substring(5,7));
         int days = this.operateService.getDays(year,mon);
         String s = date.substring(0,7).trim()+"monthTags";
         for (int i=0;i<days;i++){
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(d);
+            calendar.setTime(calendars.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, i);
             String ss = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()).trim();
             this.redisTemplate.opsForHash().put(s,ss,"");
