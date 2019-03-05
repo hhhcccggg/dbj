@@ -95,14 +95,13 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     public ServiceStatusInfo<Long> modifyOpeningHours(int openTime, int closeTime, String days, long legalSubjectId) {
         Long result = 0L;
         //先删除原有营业时间在修改
-        long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
+
         try {
+            long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
             result = shopDetailMapper.deletedOpeningHours(storeId);
             String[] s = days.split(",");
-            long id = 0L;
             for (String day : s) {
-                id = UniqueIDCreater.generateID();
-                result += this.shopDetailMapper.modifyOpeningHours(id, openTime, closeTime, Integer.parseInt(day), storeId);
+                result += this.shopDetailMapper.modifyOpeningHours(UniqueIDCreater.generateID(), openTime, closeTime, Integer.parseInt(day), storeId);
 
             }
             QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
