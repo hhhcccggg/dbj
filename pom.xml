@@ -27,6 +27,7 @@
         <module>microservice/config</module>
         <module>microservice/basemodel</module>
         <module>microservice/serviceinterface</module>
+        <module>esService</module>
     </modules>
 
     <parent>

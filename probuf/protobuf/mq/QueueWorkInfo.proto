@@ -20,6 +20,7 @@ message QueueWorkInfo {
         MODIFY_SHOP_INFO=10;
         VIDEO_INFO=11;//视频es
         USER_ORDER_COMMENT_TIME=12; //用户订单评价的超时
+        ES_ADMIN_INFO=13; //ES后台处理数据
     }
 
     WorkTypeEnum workType = 1; //任务标识
@@ -34,6 +35,7 @@ message QueueWorkInfo {
     QueueWorkModifyShopInfo modifyShopInfo=10;//
     QueueWorkVideoInfo videoInfo=11;//视频修改ES
     QueueWorkOrderCommentTimeData orderCommentTimeData = 12; //数据
+    QueueWorkESAdminInfo esAdminInfo = 13; //ES后台处理数据
 }
 message QueueWorkModifyShopInfo{
       enum OperationEnum {
@@ -72,6 +74,11 @@ message QueueWorkShopLegalSubjectData{
     string storeType = 12; //店铺类型>>SELF:自营THIRD:第三方入驻商家OFFLINE:线下门店
 
 
+}
+message QueueWorkESAdminInfo{
+    int64 id=1;//主键id
+    string type = 2;//user:用户,video:视频,store:商家,product:商品
+    string action = 3;//c:增加,r:读取,u:更新,d:删除
 }
 message QueueWorkOrderTimeData{
     int64 orderId=1;//订单id
