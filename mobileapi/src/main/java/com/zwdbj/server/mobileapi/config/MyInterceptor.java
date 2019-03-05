@@ -1,7 +1,6 @@
 package com.zwdbj.server.mobileapi.config;
 
-import com.zwdbj.server.mobileapi.middleware.mq.VideoUtil;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.mobileapi.middleware.mq.ESUtil;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -50,22 +49,25 @@ public class MyInterceptor implements Interceptor {
         String sql = showSql(configuration,boundSql);
         String commandName = ms.getSqlCommandType().name();
         //如果修改了视频就发送消息队列发送给ES
-        if(sql.indexOf("core_videos")>-1 &&
+        if(sql.indexOf(" core_videos ")>-1 &&
                 (commandName.startsWith("INSERT") || commandName.startsWith("UPDATE") || commandName.startsWith("DELETE")) ){
            try{
-               QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum = null;
-               if(commandName.startsWith("INSERT"))
-                   operationEnum =QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.CREATE;
-               else if(commandName.startsWith("UPDATE"))
-                   operationEnum =QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.UPDATE;
-               else if(commandName.startsWith("DELETE"))
-                   operationEnum =QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.DELETE;
+               String action = null;
+               String type=null;
+               if(sql.indexOf(" core_videos ")>-1)
+                   type = ESUtil.VIDEO;
 
-               long id = sliptSqlGetId(operationEnum,sql);
-               if(operationEnum != null){
+               if(commandName.startsWith("INSERT"))
+                   action =ESUtil.CREATE;
+               else if(commandName.startsWith("UPDATE"))
+                   action =ESUtil.UPDATE;
+               else if(commandName.startsWith("DELETE"))
+                   action =ESUtil.DELETE;
+               if(action != null){
+                   long id = sliptSqlGetId(action,sql);
                    if( !redisTemplate.hasKey(id)){
                        redisTemplate.opsForValue().set(id, id,60, TimeUnit.SECONDS);
-                       VideoUtil.QueueWorkVideoInfoSend(operationEnum,id);
+                       ESUtil.QueueWorkInfoModelSend(id, type, action);
                    }
                }
            }catch (Exception e){
@@ -89,13 +91,13 @@ public class MyInterceptor implements Interceptor {
 
     /**
      * 切割sql获取sql中id的值
-     * @param operationEnum
+     * @param action
      * @param sql
      * @return
      */
-    public static long sliptSqlGetId(QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum,String sql){
+    public static long sliptSqlGetId(String action,String sql){
         String sqlnew = sql.toLowerCase();
-        if(operationEnum == QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.CREATE){
+        if(action .equals(ESUtil.CREATE)){
             List<String> stringList = extractMessageByRegular(sqlnew);
             String insert = stringList.get(0);
             String value = stringList.get(1);
@@ -104,7 +106,7 @@ public class MyInterceptor implements Interceptor {
             if(index>-1){
                 return Long.parseLong(values[index].trim());
             }
-        }else if(operationEnum == QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.UPDATE || operationEnum == QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.DELETE){
+        }else if(action .equals(ESUtil.UPDATE) || action .equals(ESUtil.DELETE)){
             String[] sqlnumber = sqlnew.split("where");
             if(sqlnumber.length != 2)
                 return 0;

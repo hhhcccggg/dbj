@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zwdbj.server.es.service.ESUtilService;
 import com.zwdbj.server.mobileapi.model.*;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.es.service.ESService;
@@ -21,6 +22,7 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +36,7 @@ public class VideoController {
     @Autowired
     private YouZanService youZanService;
     @Autowired
-    private ESService esService;
+    private ESUtilService esUtilService;
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ApiOperation(value = "发布短视频")
@@ -274,8 +276,8 @@ public class VideoController {
 
     @PostMapping("/closeScroll")
     @ApiOperation(value = "清除scroll_id")
-    public void closeScroll(String scroll_id){
-        esService.closeScroll(scroll_id);
+    public void closeScroll(String scroll_id) throws IOException {
+        esUtilService.closeScroll(scroll_id);
     }
 
 }

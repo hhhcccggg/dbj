@@ -11,5 +11,11 @@ public class ElasticsearchConfigs {
     @Value("${spring.data.elasticsearch.cluster-nodes}")
     private String clusterNodes;
 
+    public String getClusterNodes() {
+        return clusterNodes;
+    }
 
+    public void setClusterNodes(String clusterNodes) {
+        this.clusterNodes = clusterNodes;
+    }
 }

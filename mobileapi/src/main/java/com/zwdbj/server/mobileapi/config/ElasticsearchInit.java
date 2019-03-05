@@ -1,15 +1,8 @@
 package com.zwdbj.server.mobileapi.config;
 
-import com.alibaba.fastjson.JSON;
-import com.zwdbj.server.mobileapi.service.user.service.UserService;
+import com.zwdbj.server.es.common.ESType;
+import com.zwdbj.server.es.service.ESUtilService;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
-import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
-import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
-import org.elasticsearch.action.bulk.BulkRequest;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -27,13 +20,10 @@ import java.util.Map;
 public class ElasticsearchInit implements ApplicationRunner {
 
     @Autowired
-    private RestHighLevelClient restHighLevelClient;
+    private ESUtilService esUtilService;
 
     @Autowired
     private VideoService videoService;
-
-    @Autowired
-    private UserService userService;
 
 
     @Override
@@ -46,93 +36,46 @@ public class ElasticsearchInit implements ApplicationRunner {
      * @throws IOException
      */
     private void createVideo() throws IOException {
-        GetIndexRequest getIndexRequest = new GetIndexRequest();
-        getIndexRequest.indices("video");
-        getIndexRequest.local(false);
-        getIndexRequest.humanReadable(true);
-        if(restHighLevelClient.indices().exists(getIndexRequest, RequestOptions.DEFAULT)){
+        String index = "video";
+        String type = "doc";
+        if( !esUtilService.isIndex(index) ){
             return ;
         }
-        CreateIndexRequest createIndexRequest = new CreateIndexRequest();
-        createIndexRequest.index("video");
         Map<String,Object> mapping = new HashMap<>();
         Map<String,Object> properties = new HashMap<>();
-
-        Map<String,Object> longt = new HashMap<>();
-        longt.put("type","long");
-
-        Map<String,Object> booleant = new HashMap<>();
-        booleant.put("type","boolean");
-
-        Map<String,Object> text = new HashMap<>();
-        text.put("type","text");
-
-        Map<String,Object> date = new HashMap<>();
-        date.put("type","date");
-        date.put("format","yyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis");
-
-        Map<String,Object> geo_point = new HashMap<>();
-        geo_point.put("type","geo_point");
-
-        Map<String,Object> ik_max_word = new HashMap<>();
-        ik_max_word.put("type","text");
-        ik_max_word.put("analyzer","ik_max_word");
-
-        properties.put("id",longt);
-        properties.put("createTime",date);
-        properties.put("title",ik_max_word);
-        properties.put("coverImageUrl",text);
-        properties.put("coverImageWidth",text);
-        properties.put("coverImageHeight",text);
-        properties.put("firstFrameUrl",text);
-        properties.put("firstFrameWidth",text);
-        properties.put("firstFrameHeight",text);
-        properties.put("videoUrl",text);
-        properties.put("linkPets",text);
-        properties.put("tags",ik_max_word);
-        properties.put("longitude",text);
-        properties.put("latitude",text);
-        properties.put("location",geo_point);
-        properties.put("address",text);
-        properties.put("recommendIndex",longt);
-        properties.put("playCount",longt);
-        properties.put("commentCount",longt);
-        properties.put("heartCount",longt);
-        properties.put("shareCount",longt);
-        properties.put("musicId",longt);
-        properties.put("status",longt);
-        properties.put("categoryId",longt);
-        properties.put("linkProductCount",longt);
-        properties.put("rejectMsg",text);
-
-        properties.put("userId",longt);
-        properties.put("userNickName",ik_max_word);
-        properties.put("userAvatarUrl",text);
-
-        properties.put("type",text);
+        properties.put("id", ESType.getLongt());
+        properties.put("createTime",ESType.getDate());
+        properties.put("title",ESType.getIk_max_word());
+        properties.put("coverImageUrl",ESType.getText());
+        properties.put("coverImageWidth",ESType.getText());
+        properties.put("coverImageHeight",ESType.getText());
+        properties.put("firstFrameUrl",ESType.getText());
+        properties.put("firstFrameWidth",ESType.getText());
+        properties.put("firstFrameHeight",ESType.getText());
+        properties.put("videoUrl",ESType.getText());
+        properties.put("linkPets",ESType.getText());
+        properties.put("tags",ESType.getIk_max_word());
+        properties.put("longitude",ESType.getText());
+        properties.put("latitude",ESType.getText());
+        properties.put("location",ESType.getGeo_point());
+        properties.put("address",ESType.getText());
+        properties.put("recommendIndex",ESType.getLongt());
+        properties.put("playCount",ESType.getLongt());
+        properties.put("commentCount",ESType.getLongt());
+        properties.put("heartCount",ESType.getLongt());
+        properties.put("shareCount",ESType.getLongt());
+        properties.put("musicId",ESType.getLongt());
+        properties.put("status",ESType.getLongt());
+        properties.put("categoryId",ESType.getLongt());
+        properties.put("linkProductCount",ESType.getLongt());
+        properties.put("rejectMsg",ESType.getText());
+        properties.put("userId",ESType.getLongt());
+        properties.put("userNickName",ESType.getIk_max_word());
+        properties.put("userAvatarUrl",ESType.getText());
+        properties.put("type",ESType.getText());
         mapping.put("properties",properties);
-        createIndexRequest.mapping("doc",mapping);
-        restHighLevelClient.indices().create(createIndexRequest,RequestOptions.DEFAULT);
-        BulkRequest bulkRequest = new BulkRequest();
         List<Map<String,String>> maps = videoService.selectES();
-
-        createIndexRequest("video","doc",maps,bulkRequest);
-        restHighLevelClient.bulk(bulkRequest,RequestOptions.DEFAULT);
+        esUtilService.createIndexImportData(mapping , maps , index , type , "id");
     }
 
-    /**
-     * 创建数据
-     * @param index
-     * @param type
-     * @param maps
-     * @return
-     */
-    public BulkRequest createIndexRequest(String index,String type,List<Map<String,String>> maps,BulkRequest bulkRequest){
-        for (Map map:maps) {
-            IndexRequest indexRequest = new IndexRequest(index, type, String.valueOf(map.get("id")));
-            indexRequest.source(JSON.toJSONString(map),XContentType.JSON);
-            bulkRequest.add(indexRequest);
-        }
-        return bulkRequest;
-    }
 }

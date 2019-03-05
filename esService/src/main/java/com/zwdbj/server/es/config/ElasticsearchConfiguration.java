@@ -1,5 +1,6 @@
 package com.zwdbj.server.es.config;
 
+import com.zwdbj.server.config.settings.ElasticsearchConfigs;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 public class ElasticsearchConfiguration implements FactoryBean<RestHighLevelClient>, InitializingBean, DisposableBean {
     private static final Logger LOG = LoggerFactory.getLogger(ElasticsearchConfiguration.class);
 
-    @Value("${spring.data.elasticsearch.cluster-nodes}")
-    private String clusterNodes;
+    @Autowired
+    private ElasticsearchConfigs elasticsearchConfigs;
 
     private RestHighLevelClient restHighLevelClient;
 
@@ -65,6 +67,7 @@ public class ElasticsearchConfiguration implements FactoryBean<RestHighLevelClie
 
     private RestHighLevelClient buildClient() {
         try {
+            String clusterNodes = elasticsearchConfigs.getClusterNodes();
             restHighLevelClient = new RestHighLevelClient(
                     RestClient.builder(
                             new HttpHost(
