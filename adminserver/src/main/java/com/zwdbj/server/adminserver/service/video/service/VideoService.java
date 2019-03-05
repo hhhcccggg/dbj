@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.video.service;
 
 import com.alibaba.fastjson.JSON;
+import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.comment.model.CommentInfoDto;
@@ -8,6 +9,7 @@ import com.zwdbj.server.adminserver.service.comment.service.CommentService;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.ProductOut;
 import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
+import com.zwdbj.server.es.common.ESIndex;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
@@ -352,27 +354,21 @@ public class VideoService {
     /**
      * 操作ES數據
      * @param id
-     * @param operationEnum
+     * @param action
      */
-    public void operationByIdES(long id, QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum) throws IOException {
-        switch (operationEnum){
-            case CREATE:
-                Map<String,String> map = selectById(id);
-                IndexRequest indexRequest = new IndexRequest("video","doc",String.valueOf(id));
-                indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
-                restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
-                break;
-            case UPDATE:
-                map = selectById(id);
-                indexRequest = new IndexRequest("video","doc",String.valueOf(id));
-                indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
-                restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
-                break;
-            case DELETE:
-                DeleteRequest deleteRequest = new DeleteRequest("video","doc",String.valueOf(id));
-                restHighLevelClient.delete(deleteRequest,RequestOptions.DEFAULT);
-                break;
+    public boolean operationByIdES(long id, String action) throws IOException {
+        if(action.equals(ESIndex.CREATE) || action.equals(ESIndex.UPDATE)){
+            Map<String,String> map = selectById(id);
+            IndexRequest indexRequest = new IndexRequest(ESIndex.VIDEO,ESIndex.VIDEO_TYPE,String.valueOf(id));
+            indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
+            restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+            return true;
+        }else if(action.equals(ESIndex.DELETE)){
+            DeleteRequest deleteRequest = new DeleteRequest(ESIndex.VIDEO,ESIndex.VIDEO_TYPE,String.valueOf(id));
+            restHighLevelClient.delete(deleteRequest,RequestOptions.DEFAULT);
+            return true;
         }
+        return false;
     }
 
     private Map<String,String> selectById(long id){

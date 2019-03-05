@@ -298,27 +298,6 @@ public class VideoController {
         List<SuperStarVideos> result = videoService.searchSuperStarVideos(userId, rank, sort).getData();
         PageInfo<SuperStarVideos> pageInfo = new PageInfo<>(result);
         return new ResponsePageInfoData<>(0, "", pageInfo.getList(), pageInfo.getTotal());
-
-
     }
 
-    @GetMapping("updateVideoEs")
-    @ApiOperation(value = "",hidden = true)
-    public String updateVideoEs(long id,int type){
-        QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum = null;
-        if(type == 1){
-            operationEnum = QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.CREATE;
-        }else if(type == 2){
-            operationEnum = QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.UPDATE;
-        }else if(type == 3){
-            operationEnum = QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.DELETE;
-        }
-        if(operationEnum != null)
-            try{
-                videoService.operationByIdES(id,operationEnum);
-            }catch (Exception e){
-               return e.toString();
-            }
-        return "11";
-    }
 }

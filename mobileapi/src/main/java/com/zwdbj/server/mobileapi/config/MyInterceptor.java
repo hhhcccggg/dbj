@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.config;
 
+import com.zwdbj.server.es.common.ESIndex;
 import com.zwdbj.server.mobileapi.middleware.mq.ESUtil;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -55,14 +56,14 @@ public class MyInterceptor implements Interceptor {
                String action = null;
                String type=null;
                if(sql.indexOf(" core_videos ")>-1)
-                   type = ESUtil.VIDEO;
+                   type = ESIndex.VIDEO;
 
                if(commandName.startsWith("INSERT"))
-                   action =ESUtil.CREATE;
+                   action =ESIndex.CREATE;
                else if(commandName.startsWith("UPDATE"))
-                   action =ESUtil.UPDATE;
+                   action =ESIndex.UPDATE;
                else if(commandName.startsWith("DELETE"))
-                   action =ESUtil.DELETE;
+                   action =ESIndex.DELETE;
                if(action != null){
                    long id = sliptSqlGetId(action,sql);
                    if( !redisTemplate.hasKey(id)){
@@ -97,7 +98,7 @@ public class MyInterceptor implements Interceptor {
      */
     public static long sliptSqlGetId(String action,String sql){
         String sqlnew = sql.toLowerCase();
-        if(action .equals(ESUtil.CREATE)){
+        if(action .equals(ESIndex.CREATE)){
             List<String> stringList = extractMessageByRegular(sqlnew);
             String insert = stringList.get(0);
             String value = stringList.get(1);
@@ -106,7 +107,7 @@ public class MyInterceptor implements Interceptor {
             if(index>-1){
                 return Long.parseLong(values[index].trim());
             }
-        }else if(action .equals(ESUtil.UPDATE) || action .equals(ESUtil.DELETE)){
+        }else if(action .equals(ESIndex.UPDATE) || action .equals(ESIndex.DELETE)){
             String[] sqlnumber = sqlnew.split("where");
             if(sqlnumber.length != 2)
                 return 0;

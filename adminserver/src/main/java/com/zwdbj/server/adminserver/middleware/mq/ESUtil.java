@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.middleware.mq;
+package com.zwdbj.server.adminserver.middleware.mq;
 
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import org.slf4j.Logger;

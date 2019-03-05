@@ -1,7 +1,9 @@
 package com.zwdbj.server.mobileapi.config;
 
+import com.zwdbj.server.es.common.ESIndex;
 import com.zwdbj.server.es.common.ESType;
 import com.zwdbj.server.es.service.ESUtilService;
+import com.zwdbj.server.mobileapi.middleware.mq.ESUtil;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -36,8 +38,8 @@ public class ElasticsearchInit implements ApplicationRunner {
      * @throws IOException
      */
     private void createVideo() throws IOException {
-        String index = "video";
-        String type = "doc";
+        String index = ESIndex.VIDEO;
+        String type = ESIndex.VIDEO_TYPE;
         if( !esUtilService.isIndex(index) ){
             return ;
         }
