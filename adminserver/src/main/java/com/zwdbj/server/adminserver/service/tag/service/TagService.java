@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.tag.service;
 
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
+import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindHotTagsDto;
 import com.zwdbj.server.adminserver.service.tag.mapper.ITagMapper;
@@ -23,6 +24,8 @@ public class TagService {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    private QiniuService qiniuService;
     private Logger logger = LoggerFactory.getLogger(TagService.class);
 
 
@@ -49,7 +52,9 @@ public class TagService {
             try {
                 String desc = input.getDesc();
                 if (desc==null)desc="";
-                result = this.tagMapper.addVideoTagAd(id,input.getName(),desc);
+                String key = input.getBackgroundUrl();
+                key = qiniuService.url(key);
+                result = this.tagMapper.addVideoTagAd(id,input.getName(),desc,key);
                 return new ServiceStatusInfo<>(0,"",result);
             }catch (Exception e){
                 return new ServiceStatusInfo<>(1,"创建失败"+e.getMessage(),result);

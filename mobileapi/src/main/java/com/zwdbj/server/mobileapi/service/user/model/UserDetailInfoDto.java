@@ -18,6 +18,8 @@ public class UserDetailInfoDto implements Serializable {
   private String avatarUrl;
   private String phone;
   private String email;
+  @ApiModelProperty(value = "用户的签名")
+  private String signature;
   @ApiModelProperty(value = "环信账号")
   private String hxUserName;
   @ApiModelProperty(value = "环信密码")
@@ -76,6 +78,14 @@ public class UserDetailInfoDto implements Serializable {
   UserShopInfoDto shopInfoDto;
   @ApiModelProperty(value = "用户的收藏数")
   private int favoriteNums;
+
+  public String getSignature() {
+    return signature;
+  }
+
+  public void setSignature(String signature) {
+    this.signature = signature;
+  }
 
   public boolean isPhoneVerification() {
     return isPhoneVerification;

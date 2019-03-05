@@ -24,5 +24,11 @@ namespace dbdesgin.Models
         /// <value>The desc.</value>
         [MaxLength(1024)]
         public string desc { get; set; }
+        /// <summary>
+        /// 背景图片的地址
+        /// </summary>
+        /// <value>The backgroundUrl.</value>
+        [MaxLength(1024)]
+        public string backgroundUrl { get; set; }
     }
 }

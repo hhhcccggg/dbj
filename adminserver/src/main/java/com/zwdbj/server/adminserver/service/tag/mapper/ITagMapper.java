@@ -18,8 +18,8 @@ public interface ITagMapper {
     @Update("update core_tags set resNumber=resNumber+#{num} where id=#{id}")
     int updateTagResNum(@Param("id")long id,@Param("num")int num);
 
-    @Insert("insert into core_tags (id,name,`desc`) values(#{id},#{name},#{desc})")
-    Long addVideoTagAd(@Param("id") Long id,@Param("name")String name,@Param("desc")String desc);
+    @Insert("insert into core_tags (id,name,`desc`,backgroundUrl) values(#{id},#{name},#{desc},#{backgroundUrl})")
+    Long addVideoTagAd(@Param("id") Long id,@Param("name")String name,@Param("desc")String desc,@Param("backgroundUrl")String backgroundUrl);
 
 
     @Select("select count(*) from core_tags where name=#{name}")
