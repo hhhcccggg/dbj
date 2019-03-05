@@ -642,7 +642,7 @@ public class VideoService {
         //加入消息中心
         MessageInput msgInput = new MessageInput();
         msgInput.setCreatorUserId(userId);
-        msgInput.setDataContent("{\"resId\":\"" + videoId + "\",\"type\":\"6\"}");
+        msgInput.setDataContent("{\"resId\":\"" + videoId + "\",\"type\":\"0\",\"coins\":\""+income+"\"}");
         msgInput.setMessageType(6);
         this.messageCenterService.push(msgInput, authorId);
     }

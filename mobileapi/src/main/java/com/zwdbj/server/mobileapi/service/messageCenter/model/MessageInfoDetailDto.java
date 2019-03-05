@@ -7,6 +7,8 @@ public class MessageInfoDetailDto {
     protected long creatorUserId;
     @ApiModelProperty(value = "消息的创造者昵称")
     protected String creatorUserName;
+    @ApiModelProperty(value = "消息的创造者头像")
+    protected String creatorUserUrl;
     @ApiModelProperty(value = "视频的id 或者宠物的id")
     protected long refId;
     @ApiModelProperty(value = "视频的title 或者宠物的昵称")
@@ -19,11 +21,29 @@ public class MessageInfoDetailDto {
     protected int messageType;
     @ApiModelProperty(value = "1:点赞视频2:点赞宠物")
     protected int videoOrPet;
+    @ApiModelProperty(value = "打赏的小饼干数")
+    protected int coins;
 
     @ApiModelProperty(value = "消息关联的链接地址")
     protected String refUrl;
     @ApiModelProperty(value = "消息数据内容")
     protected String dataContent;
+
+    public String getCreatorUserUrl() {
+        return creatorUserUrl;
+    }
+
+    public void setCreatorUserUrl(String creatorUserUrl) {
+        this.creatorUserUrl = creatorUserUrl;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
 
     public int getVideoOrPet() {
         return videoOrPet;
