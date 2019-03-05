@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.pay.wechat.service;
 
 import com.alibaba.fastjson.JSON;
+import com.zwdbj.server.config.settings.PayConfigs;
 import com.zwdbj.server.mobileapi.service.pay.Refund.model.PayRefundInput;
 import com.zwdbj.server.mobileapi.service.pay.wechat.model.ChargeCoinWXResult;
 import com.zwdbj.server.mobileapi.service.pay.model.ChargeCoinInput;
@@ -10,7 +11,6 @@ import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailModifyInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.IUserAssetService;
-import com.zwdbj.server.pay.wechat.wechatpay.WXPayAppCfg;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
 import com.zwdbj.server.pay.wechat.wechatpay.service.WechatPayService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -31,10 +31,8 @@ public class WXPayService {
     private WechatPayService wechatPayService;
     @Autowired
     private OrderService orderService;
-    private WXPayAppCfg wxPayAppCfg;
-    public WXPayService(WXPayAppCfg cfg) {
-        this.wxPayAppCfg = cfg;
-    }
+    @Autowired
+    private PayConfigs payConfigs;
     /**
      * @param input 充值信息
      * @param userId 谁充值
@@ -46,10 +44,10 @@ public class WXPayService {
         // 生成充值明细订单
         // 1:10比例充值小饼干，单位分
         int rmbs = 0;
-        if(this.wxPayAppCfg.isSandBox()) {
+        if(this.payConfigs.isWechatIsSandbox()) {
             rmbs = 201;
         } else {
-            if (this.wxPayAppCfg.getIsTest()) {
+            if (this.payConfigs.isWechatTest()) {
                 rmbs = 1;
             } else {
                 rmbs = (input.getCoins() / 10) * 100;
@@ -68,7 +66,7 @@ public class WXPayService {
         UnifiedOrderInput unifiedOrderInput = new UnifiedOrderInput();
         unifiedOrderInput.setBody("爪子 充值"+input.getCoins()+"小饼干");
         unifiedOrderInput.setFeeType("CNY");
-        unifiedOrderInput.setNotifyUrl(this.wxPayAppCfg.getPayResultCallbackUrl());
+        unifiedOrderInput.setNotifyUrl(this.payConfigs.getWechatPayResultCallbackUrl());
         unifiedOrderInput.setTradeType("APP");
         unifiedOrderInput.setTotalFee(rmbs);
         unifiedOrderInput.setOutTradeNo(String.valueOf(id));
@@ -105,10 +103,10 @@ public class WXPayService {
         ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
         if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
         int rmbs = 0;
-        if(this.wxPayAppCfg.isSandBox()) {
+        if(this.payConfigs.isWechatIsSandbox()) {
             rmbs = 201;
         } else {
-            if (this.wxPayAppCfg.getIsTest()) {
+            if (this.payConfigs.isWechatTest()) {
                 rmbs = productOrderDetailModel.getNum();
             } else {
                 rmbs = productOrderDetailModel.getActualPayment();
@@ -118,7 +116,7 @@ public class WXPayService {
         UnifiedOrderInput unifiedOrderInput = new UnifiedOrderInput();
         unifiedOrderInput.setBody("爪子 订单付款"+rmbs/100f+"元");
         unifiedOrderInput.setFeeType("CNY");
-        unifiedOrderInput.setNotifyUrl(this.wxPayAppCfg.getOrderPayResultCallbackUrl());
+        unifiedOrderInput.setNotifyUrl(this.payConfigs.getWechatOrderPayResultCallbackUrl());
         unifiedOrderInput.setTradeType("APP");
         unifiedOrderInput.setTotalFee(rmbs);
         unifiedOrderInput.setOutTradeNo(String.valueOf(input.getOrderId()));
@@ -149,10 +147,10 @@ public class WXPayService {
     @Transactional
     public ServiceStatusInfo<RefundOrderDto> refundOrder(PayRefundInput input,int refundAmount,  String tradeNo) {
         int rmbs = 0;
-        if(this.wxPayAppCfg.isSandBox()) {
+        if(this.payConfigs.isWechatIsSandbox()) {
             rmbs = 201;
         } else {
-            if (this.wxPayAppCfg.getIsTest()) {
+            if (this.payConfigs.isWechatTest()) {
                 rmbs = 1;
             } else {
                 rmbs = refundAmount;
@@ -165,7 +163,7 @@ public class WXPayService {
         wXRefundOrderInput.setRefundFee(rmbs);
         wXRefundOrderInput.setTransactionId(tradeNo);
         wXRefundOrderInput.setType("WECHAT");
-        wXRefundOrderInput.setNotifyUrl(this.wxPayAppCfg.getOrderRefundResultCallbackUrl());
+        wXRefundOrderInput.setNotifyUrl(this.payConfigs.getWechatOrderRefundResultCallbackUrl());
         wXRefundOrderInput.setOutRefundNo(String.valueOf(input.getOrderId()));
         ServiceStatusInfo<RefundOrderDto> refundOrderDtoServiceStatusInfo =
                 this.wechatPayService.refundOrder(wXRefundOrderInput);
