@@ -2,7 +2,6 @@ package com.zwdbj.server.adminserver.service.living.service;
 
 import com.zwdbj.server.adminserver.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.living.mapper.ILivingMapper;
 import com.zwdbj.server.adminserver.service.living.model.*;
@@ -10,6 +9,7 @@ import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.resourceRefGoods.service.ResRefGoodsService;
 import com.zwdbj.server.adminserver.service.user.model.UserModel;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.modelmapper.ModelMapper;
@@ -33,6 +33,8 @@ public class LivingService {
     protected ResRefGoodsService resRefGoodsService;
     @Autowired
     protected EaseMobChatRoom easeMobChatRoom;
+    @Autowired
+    protected AppSettingConfigs appSettingConfigs;
 
     @Transactional
     public ServiceStatusInfo<LivingInfoDto> create(CreateLivingInput input) {
@@ -85,15 +87,15 @@ public class LivingService {
         if (infoDto==null) return null;
         setLivingInfo(infoDto);
         //TODO 增加真实的URL
-        infoDto.setLinkProductUrl(AppConfigConstant.getShopListUrl(id,"live"));
+        infoDto.setLinkProductUrl(this.appSettingConfigs.getH5Configs().getShopListUrl(id,"live"));
         infoDto.setShareTitle(infoDto.getTitle());
-        infoDto.setShareUrl(AppConfigConstant.getShareUrl(id,"live"));
+        infoDto.setShareUrl(this.appSettingConfigs.getH5Configs().getShareUrl(id,"live"));
         infoDto.setShareContent(infoDto.getTitle());
         if (infoDto.getUserId()!=JWTUtil.getCurrentId()) {
             infoDto.setPushUrl(null);
             infoDto.setAddProductUrl("");
         } else {
-            infoDto.setAddProductUrl(AppConfigConstant.getLiveAddShopUrl(id));
+            infoDto.setAddProductUrl(this.appSettingConfigs.getH5Configs().getLiveAddShopUrl(id));
         }
         //TODO 判断聊天室是否已经生成
         //TODO 优化性能

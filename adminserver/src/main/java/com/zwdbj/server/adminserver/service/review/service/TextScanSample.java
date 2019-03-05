@@ -12,8 +12,8 @@ import com.aliyuncs.http.FormatType;
 import com.aliyuncs.http.HttpResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.comment.service.CommentService;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,16 @@ import java.util.*;
 public class TextScanSample {
     @Autowired
     CommentService commentService;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
     private Logger logger = LoggerFactory.getLogger(TextScanSample.class);
 
     public  void textScan() throws Exception {
         //请替换成您自己的accessKeyId、accessKeySecret
         List<Map<String, Object>> tasks = this.commentService.findComments();
         if (tasks==null || tasks.size()==0) return;
-        IClientProfile profile = DefaultProfile.getProfile("cn-shanghai", AppConfigConstant.ALIYUN_ACCESS_KEY, AppConfigConstant.ALIYUN_ACCESS_SECRECT);
+        IClientProfile profile = DefaultProfile.getProfile("cn-shanghai", this.appSettingConfigs.getAliyunConfigs().getAccessKey()
+                , this.appSettingConfigs.getAliyunConfigs().getAccessSecrect());
         DefaultProfile.addEndpoint("cn-shanghai", "cn-shanghai", "Green", "green.cn-shanghai.aliyuncs.com");
         IAcsClient client = new DefaultAcsClient(profile);
         TextScanRequest textScanRequest = new TextScanRequest();

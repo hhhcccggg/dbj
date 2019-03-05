@@ -5,10 +5,10 @@ import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.model.FetchRet;
 import com.qiniu.util.Auth;
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.category.model.AdNewCategoryInput;
 import com.zwdbj.server.adminserver.service.category.service.CategoryService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,8 @@ public class QiniuOperService{
     private CategoryService categoryService;
     @Autowired
     private QiniuService qiniuService;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
 
     public ServiceStatusInfo<Integer> catOpe(){
         Configuration cfg = new Configuration(Zone.zone0());
@@ -64,12 +66,13 @@ public class QiniuOperService{
         String[] catNames = catTypes.split(",");
         System.out.println(catUrls.length);
         System.out.println(catNames.length);
-        Auth auth = Auth.create(AppConfigConstant.QINIU_ACCESS_KEY, AppConfigConstant.QINIU_ACCESS_SECRECT);
+        Auth auth = Auth.create(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
+                this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
         BucketManager bucketManager = new BucketManager(auth, cfg);
         //抓取网络资源到空间
         try {
             for (int i = 0;i<67;i++){
-                FetchRet fetchRet = bucketManager.fetch(catUrls[i], AppConfigConstant.QINIU_BUCKET_NAME);
+                FetchRet fetchRet = bucketManager.fetch(catUrls[i], this.appSettingConfigs.getQiniuConfigs().getBucketName());
                 System.out.println(fetchRet.hash);
                 System.out.println(fetchRet.key);
                 System.out.println(fetchRet.mimeType);
@@ -307,14 +310,15 @@ public class QiniuOperService{
                 "西藏梗,罗得西亚脊背犬,爱尔兰水猎犬,冰岛牧羊犬,爱尔兰红白雪达犬,红骨猎浣熊犬,玩具曼彻斯特犬,玩具猎狐梗,澳大利亚梗,田野小猎犬,卷毛寻回犬,布列塔尼犬,西班牙小猎犬,凯利蓝梗," +
                 "湖畔梗,罗威士梗,切萨皮克海湾寻回犬,布雷猎犬,美国水猎犬,刚毛指示格里芬犬,波兰低地牧羊犬,爱尔兰软毛梗,史毕诺犬,芬兰拉普猎犬,美国猎狐犬,爱尔兰梗,德国硬毛波音达,葡萄牙波登可犬";
         String[] dogNames = dogTypes.split(",");
-        Auth auth = Auth.create(AppConfigConstant.QINIU_ACCESS_KEY, AppConfigConstant.QINIU_ACCESS_SECRECT);
+        Auth auth = Auth.create(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
+                this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
         BucketManager bucketManager = new BucketManager(auth, cfg);
         System.out.println(dogUrls.length);
         System.out.println(dogNames.length);
         //抓取网络资源到空间
         try {
             for (int i = 0;i<198;i++){
-                FetchRet fetchRet = bucketManager.fetch(dogUrls[i], AppConfigConstant.QINIU_BUCKET_NAME);
+                FetchRet fetchRet = bucketManager.fetch(dogUrls[i], this.appSettingConfigs.getQiniuConfigs().getBucketName());
                 System.out.println(fetchRet.hash);
                 System.out.println(fetchRet.key);
                 System.out.println(fetchRet.mimeType);

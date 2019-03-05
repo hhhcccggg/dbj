@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.easemob.api;
 
 import com.zwdbj.server.adminserver.easemob.common.EaseMobToken;
 import com.zwdbj.server.adminserver.easemob.common.EaseMobTokenManager;
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +14,8 @@ public class EaseMobUser {
     @Autowired
     private EaseMobTokenManager easeMobTokenManager;
     private Logger logger = LoggerFactory.getLogger(EaseMobUser.class);
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
     protected final OkHttpClient client = new OkHttpClient();
 
     public boolean register(String username,String password) {
@@ -23,9 +25,9 @@ public class EaseMobUser {
             return false;
         }
         String url = String.format("%s/%s/%s/users",
-                AppConfigConstant.EASEMOB_HTTP_BASE,
-                AppConfigConstant.EASEMOB_ORG_NAME,
-                AppConfigConstant.EASEMOB_APP_NAME);
+                this.appSettingConfigs.getEasemobConfigs().getHttpbase(),
+                this.appSettingConfigs.getEasemobConfigs().getOrgName(),
+                this.appSettingConfigs.getEasemobConfigs().getAppName());
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Authorization","Bearer "+token.getAccess_token())
