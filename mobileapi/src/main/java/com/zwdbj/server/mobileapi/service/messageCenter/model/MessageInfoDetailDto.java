@@ -27,7 +27,7 @@ public class MessageInfoDetailDto {
     @ApiModelProperty(value = "打赏的小饼干数")
     protected int coins;
     @ApiModelProperty(value = "时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone="GMT+8")
     protected Date createTime;
 
     @ApiModelProperty(value = "消息关联的链接地址")
