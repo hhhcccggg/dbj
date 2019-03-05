@@ -130,29 +130,39 @@ public class MQWorkReceiver extends MQConnection {
                 StoreInfo storeInfo = null;
                 switch (info.getModifyShopInfo().getOperation()) {
                     case CREATE:
-                        statusInfo = storeService.selectByStoreId(storeId);
-                        storeInfo = statusInfo.getData();
-                        esService.index(storeInfo, "shop", "shopinfo", String.valueOf(storeId));
+                        ServiceStatusInfo<Long> statusInfo1 = esService.index(storeService.selectByStoreId(storeId).getData(), "shop", "shopinfo", String.valueOf(storeId));
+                        if (statusInfo1.isSuccess()) {
+                            channel.basicAck(envelope.getDeliveryTag(), false);
+                            break;
+                        }
+                        channel.basicRecover(true);
                         break;
                     case UPDATE:
-                        statusInfo = storeService.selectByStoreId(storeId);
-                        storeInfo = statusInfo.getData();
-                        //更新店铺信息到es
-                        esService.update(storeInfo, "shop", "shopinfo", String.valueOf(storeId));
+                        ServiceStatusInfo<Long> statusInfo2 = esService.update(storeService.selectByStoreId(storeId).getData(), "shop", "shopinfo", String.valueOf(storeId));
+                        if (statusInfo2.isSuccess()) {
+                            channel.basicAck(envelope.getDeliveryTag(), false);
+                            break;
+                        }
+                        channel.basicRecover(true);
                         break;
                     case DELETE:
-                        esService.delete("shop", "shopinfo", String.valueOf(storeId));
+                        ServiceStatusInfo<Long> statusInfo3 = esService.delete("shop", "shopinfo", String.valueOf(storeId));
+                        if (statusInfo3.isSuccess()) {
+                            channel.basicAck(envelope.getDeliveryTag(), false);
+                            break;
+                        }
+                        channel.basicRecover(true);
                         break;
                 }
                 logger.info("[MQ]商家" + info.getModifyShopInfo().getStoreId() + "信息更新成功");
             }
 
-            channel.basicAck(envelope.getDeliveryTag(), false);
-        }else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.VIDEO_INFO) {
+
+        } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.VIDEO_INFO) {
             VideoService videoService = SpringContextUtil.getBean(VideoService.class);
-            videoService.operationByIdES(info.getVideoInfo().getVideoId(),info.getVideoInfo().getOperation());
+            videoService.operationByIdES(info.getVideoInfo().getVideoId(), info.getVideoInfo().getOperation());
             //确认消费
-            channel.basicAck(envelope.getDeliveryTag(),false);
+            channel.basicAck(envelope.getDeliveryTag(), false);
         }
 
 
