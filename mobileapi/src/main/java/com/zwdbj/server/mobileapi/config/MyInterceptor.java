@@ -12,9 +12,12 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.text.DateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +29,9 @@ import java.util.regex.Pattern;
                 method = "update",
                 args = {MappedStatement.class, Object.class}) })
 public class MyInterceptor implements Interceptor {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     private static Logger logger = LoggerFactory.getLogger(MyInterceptor.class);
 
@@ -56,8 +62,12 @@ public class MyInterceptor implements Interceptor {
                    operationEnum =QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum.DELETE;
 
                long id = sliptSqlGetId(operationEnum,sql);
-               if(operationEnum != null)
-                   VideoUtil.QueueWorkVideoInfoSend(operationEnum,id);
+               if(operationEnum != null){
+                   if( !redisTemplate.hasKey(id)){
+                       redisTemplate.opsForValue().set(id, id,60, TimeUnit.SECONDS);
+                       VideoUtil.QueueWorkVideoInfoSend(operationEnum,id);
+                   }
+               }
            }catch (Exception e){
                logger.error("[MyInterceptor]sql:" + sql);
                logger.error("[MyInterceptor]commandName" + commandName);
