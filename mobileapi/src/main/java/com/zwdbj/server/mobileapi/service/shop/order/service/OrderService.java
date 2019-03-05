@@ -205,6 +205,9 @@ public class OrderService {
     }
 
     public ServiceStatusInfo<String> getVerifyCode(long orderId){
+        long ouserId = this.getOrderById(orderId).getData().getUserId();
+        long userId = JWTUtil.getCurrentId();
+        if (ouserId!=userId)return new ServiceStatusInfo<>(1,"获取验证码失败",null);
         String verifyCode;
         if (this.stringRedisTemplate.hasKey("orderIdVerifyCode:"+orderId)){
             verifyCode = this.stringRedisTemplate.opsForValue().get("orderIdVerifyCode:"+orderId);
