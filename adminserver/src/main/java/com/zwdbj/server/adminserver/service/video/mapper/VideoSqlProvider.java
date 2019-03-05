@@ -217,9 +217,9 @@ public class VideoSqlProvider {
     public String searchSuperStarVideos(Map parmas) {
         long userId = (long) parmas.get("userId");
         String rank = (String) parmas.get("rank");
-        String sort = (String) parmas.get("srot");
-        StringBuffer stringBuffer = new StringBuffer("select v.id,v.title,v.coverImageUrl,v.heartCount" +
-                "v.commentCount,v.tipCount,v.playCount,v.shareCount,v.createTime,v.status,v.tags from core_videos ");
+        String sort = (String) parmas.get("sort");
+        StringBuffer stringBuffer = new StringBuffer("select v.id,v.title,v.coverImageUrl,v.heartCount," +
+                "v.commentCount,v.tipCount,v.playCount,v.shareCount,v.createTime,v.status,v.tags from core_videos as v ");
 
         stringBuffer.append("where v.userId=" + userId+" and v.isDeleted=0");
         if ("heartCount".equals(rank) || "commentCount".equals(rank) || "tipCount".equals(rank) || "playCount".equals(rank) || "shareCount".equals(rank)) {

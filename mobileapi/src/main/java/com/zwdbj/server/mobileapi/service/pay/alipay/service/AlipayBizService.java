@@ -86,7 +86,7 @@ public class AlipayBizService {
         ProductOrderDetailModel productOrderDetailModel = this.orderService.getOrderById(input.getOrderId()).getData();
         if (productOrderDetailModel==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
         int rmbs = productOrderDetailModel.getActualPayment();
-        rmbs=1;//测试数据
+        rmbs=productOrderDetailModel.getNum();//测试数据
         AliAppPayInput aliAppPayInput = new AliAppPayInput();
         aliAppPayInput.setBody("付款"+(productOrderDetailModel.getActualPayment()/100f)+"元");
         aliAppPayInput.setSubject("爪子订单付款");
@@ -240,9 +240,12 @@ public class AlipayBizService {
     }
     @Transactional
     protected void orderRefundResult(String outTradeNo, String tradeNo,boolean isSuccess) {
-        if (!isSuccess) return;
         long id = Long.parseLong(outTradeNo);
-        //处理内部业务
-        this.orderService.updateOrderState(id,tradeNo,"STATE_REFUND_SUCCESS");
+        if (!isSuccess) {
+            this.orderService.updateOrderState(id,tradeNo,"STATE_REFUND_FAILED");
+        }else {
+            //处理内部业务
+            this.orderService.updateOrderState(id,tradeNo,"STATE_REFUND_SUCCESS");
+        }
     }
 }

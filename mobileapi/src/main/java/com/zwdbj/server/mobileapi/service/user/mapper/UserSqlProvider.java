@@ -41,6 +41,9 @@ public class UserSqlProvider {
         if (input.getCity()!=null){
             sql.SET("address=#{input.city}");
         }
+        if (input.getSignature()!=null){
+            sql.SET("signature=#{input.signature}");
+        }
         sql.SET("longitude=#{input.longitude}")
         .SET("latitude=#{input.latitude}")
         .SET("occupationId=#{input.occupationId}")

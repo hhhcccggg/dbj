@@ -1,6 +1,7 @@
 package com.zwdbj.server.mobileapi.service.messageCenter.mapper;
 
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageDispatchInput;
+import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInfoDetailDto;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInfoDto;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
 import org.apache.ibatis.annotations.*;
@@ -50,4 +51,8 @@ public interface IMessageCenterMapper {
     long readAllPersonal(@Param("userId") long userId,@Param("type") int type);
     @Update("update core_messageBroadcasts set lastMessageId=#{messageId} where receivedUserId=#{userId}")
     long readAllBroadcast(@Param("userId") long userId,@Param("messageId") long messageId);
+    @Select("select m.*,md.status as status from core_messages m left join core_messageDispatchs md on md.refMessageId=m.id  " +
+            "where md.receivedUserId=#{userId} and m.messageType=#{type} order by m.createTime desc")
+    List<MessageInfoDetailDto> getMyAllMessageByType(@Param("userId") long userId,@Param("type") int type);
+
 }

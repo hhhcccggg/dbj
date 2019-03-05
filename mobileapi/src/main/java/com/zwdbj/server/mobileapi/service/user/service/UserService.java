@@ -227,6 +227,9 @@ public class UserService {
         //TODO 增加缓存数据
         UserDetailInfoDto userDetailInfoDto = this.userMapper.getUserDetail(userId);
         if (userDetailInfoDto == null) return null;
+        userDetailInfoDto.setSetPWD(false);
+        String pwd = this.userMapper.findPWDById(userId);
+        if (pwd!=null && !pwd.equals(""))userDetailInfoDto.setSetPWD(true);
         int favoriteNum;
         if (this.stringRedisTemplate.hasKey("userFavorite"+userId)){
             favoriteNum = Integer.valueOf(this.stringRedisTemplate.opsForValue().get("userFavorite"+userId));

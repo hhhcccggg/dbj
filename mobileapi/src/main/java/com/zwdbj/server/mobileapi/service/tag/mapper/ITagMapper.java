@@ -21,8 +21,8 @@ public interface ITagMapper {
 
     @Update("update core_tags set resNumber=resNumber+1 where name=#{name}")
     int updateTagResNumber(@Param("name")String name);
-    @Select("select id,name,resNumber,`desc` from core_tags where name=#{name}")
+    @Select("select id,name,resNumber,`desc` ,backgroundUrl from core_tags where name=#{name}")
     TagDetailDto tagDetail(@Param("name")String name);
-    @Select("select id,name,resNumber,`desc` from core_tags where id=#{id}")
+    @Select("select id,name,resNumber,`desc` ,backgroundUrl from core_tags where id=#{id}")
     TagDetailDto tagDetailById(@Param("id")long id);
 }

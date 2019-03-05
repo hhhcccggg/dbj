@@ -9,6 +9,16 @@ public class AdNewVideoTagInput {
     String name;
     @ApiModelProperty(value = "标签描述")
     String desc;
+    @ApiModelProperty(value = "标签描述")
+    String backgroundUrl;
+
+    public String getBackgroundUrl() {
+        return backgroundUrl;
+    }
+
+    public void setBackgroundUrl(String backgroundUrl) {
+        this.backgroundUrl = backgroundUrl;
+    }
 
     public String getDesc() {
         return desc;

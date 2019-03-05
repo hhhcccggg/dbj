@@ -180,5 +180,11 @@ namespace dbdesgin.Models
         /// <value>The notes.</value>
         [MaxLength(128)]
         public String notes { get; set; }
+        /// <summary>
+        /// 个性签名
+        /// </summary>
+        /// <value>The signature.</value>
+        [MaxLength(128)]
+        public String signature { get; set; }
     }
 }

@@ -463,6 +463,9 @@ public class VideoService {
         }
         return dto;
     }
+    public String getTitleById(long id){
+        return this.videoMapper.getTitleById(id);
+    }
 
     public void updatePlayCount(long id) {
         this.videoMapper.updateVideoField("playCount=playCount+1", id);
@@ -536,7 +539,7 @@ public class VideoService {
             if (detailInfoDto != null) {
                 MessageInput msgInput = new MessageInput();
                 msgInput.setCreatorUserId(userId);
-                msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"0\"}");
+                msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"1\"}");
                 msgInput.setMessageType(1);
                 this.messageCenterService.push(msgInput, detailInfoDto.getUserId());
             }
@@ -642,7 +645,7 @@ public class VideoService {
         //加入消息中心
         MessageInput msgInput = new MessageInput();
         msgInput.setCreatorUserId(userId);
-        msgInput.setDataContent("{\"resId\":\"" + videoId + "\",\"type\":\"6\"}");
+        msgInput.setDataContent("{\"resId\":\"" + videoId + "\",\"type\":\"0\",\"coins\":\""+income+"\"}");
         msgInput.setMessageType(6);
         this.messageCenterService.push(msgInput, authorId);
     }

@@ -104,7 +104,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
         try {
 
             if (searchStaffInfo.getRange() == 0) {
-                result = mapper.searchStaffs(legalSubjectId, searchStaffInfo.getSearch());
+                result = mapper.searchStaffs(legalSubjectId, searchStaffInfo, storeId);
                 for (OfflineStoreStaffs offlineStoreStaffs : result) {
                     if (mapper.isSuperStar(offlineStoreStaffs.getId(), storeId) == 1) {
                         offlineStoreStaffs.setSuperStar(true);
@@ -112,14 +112,7 @@ public class OfflineStoreStaffsServiceImpl implements OfflineStoreStaffsService 
                 }
                 return new ServiceStatusInfo<>(0, "", result);
             } else if (searchStaffInfo.getRange() == 1) {
-                result = mapper.searchStaffs(legalSubjectId, searchStaffInfo.getSearch());
-                Iterator<OfflineStoreStaffs> iterator = result.iterator();
-                while(iterator.hasNext()){
-                    OfflineStoreStaffs offlineStoreStaffs =  iterator.next();
-                    if (mapper.isSuperStar(offlineStoreStaffs.getId(), storeId) == 1) {
-                        iterator.remove();
-                    }
-                }
+                result = mapper.searchStaffs(legalSubjectId, searchStaffInfo, storeId);
                 return new ServiceStatusInfo<>(0, "", result);
             } else if (searchStaffInfo.getRange() == 2) {
                 result = mapper.searchSuperStar(storeId, searchStaffInfo.getSearch());

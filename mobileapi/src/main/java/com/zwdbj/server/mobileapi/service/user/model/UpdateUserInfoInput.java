@@ -19,6 +19,8 @@ public class UpdateUserInfoInput {
     Date birthday;
     @ApiModelProperty(value = "所在城市名")
     String city;
+    @ApiModelProperty(value = "个性签名")
+    String signature;
     @ApiModelProperty(value = "所在城市经度")
     float longitude;
     @ApiModelProperty(value = "所在城市维度")
@@ -27,6 +29,14 @@ public class UpdateUserInfoInput {
     int occupationId;
     @ApiModelProperty("情感状态ID，当前忽略此字段，传0即可")
     int loveStatusId;
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
 
     public String getUserName() {
         return userName;

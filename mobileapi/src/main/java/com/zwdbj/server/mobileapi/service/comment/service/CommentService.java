@@ -180,6 +180,7 @@ public class CommentService {
             if (detailInfoDto != null) {
                 MessageInput msgInput = new MessageInput();
                 msgInput.setCreatorUserId(userId);
+                msgInput.setMsgContent(input.getContent());
                 msgInput.setMessageType(3);
                 msgInput.setDataContent("{\"resId\":\"" + input.getResId() + "\",\"type\":\"0\"}");
                 this.messageCenterService.push(msgInput, detailInfoDto.getUserId());

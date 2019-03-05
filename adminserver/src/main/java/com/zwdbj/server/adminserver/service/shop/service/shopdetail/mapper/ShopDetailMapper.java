@@ -21,9 +21,8 @@ public interface ShopDetailMapper {
     @Insert("insert into o2o_offlineStoreOpeningHours (id,day,storeId,openTime,closeTime) values(#{id},#{day},#{storeId},#{openTime},#{closeTime})")
     long createOpeningHours(@Param("id") long id, @Param("day") int day, @Param("openTime") int openTime, @Param("closeTime") int closeTime, @Param("storeId") long storeId);
 
-    @Update("update o2o_offlineStoreOpeningHours set id=#{id},day=#{day}," +
-            "openTime=#{openTime},closeTime=#{closeTime} " +
-            "where storeId =#{storeId}")
+    @Insert("insert  into o2o_offlineStoreOpeningHours (id,day,openTime,closeTime,storeId) values(#{id},#{day}," +
+            "#{openTime},#{closeTime},#{storeId})")
     Long modifyOpeningHours(@Param("id") long id, @Param("openTime") int openTime, @Param("closeTime") int closeTime,
                             @Param("day") int day, @Param("storeId") long storeId);
 
