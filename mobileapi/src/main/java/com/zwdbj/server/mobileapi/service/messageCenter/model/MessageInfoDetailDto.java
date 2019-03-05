@@ -1,5 +1,6 @@
 package com.zwdbj.server.mobileapi.service.messageCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
@@ -26,6 +27,7 @@ public class MessageInfoDetailDto {
     @ApiModelProperty(value = "打赏的小饼干数")
     protected int coins;
     @ApiModelProperty(value = "时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date createTime;
 
     @ApiModelProperty(value = "消息关联的链接地址")
