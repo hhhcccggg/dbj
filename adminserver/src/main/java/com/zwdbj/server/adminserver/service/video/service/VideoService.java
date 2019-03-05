@@ -1,6 +1,5 @@
 package com.zwdbj.server.adminserver.service.video.service;
 
-import com.alibaba.fastjson.JSON;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
@@ -21,13 +20,10 @@ import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.mapper.IVideoMapper;
 import com.zwdbj.server.adminserver.service.heart.model.HeartModel;
 import com.zwdbj.server.adminserver.service.video.model.*;
+import com.zwdbj.server.es.service.ESUtilService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import org.elasticsearch.action.delete.DeleteRequest;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +63,8 @@ public class VideoService {
     private CommentService commentService;
     @Autowired
     private RestHighLevelClient restHighLevelClient;
+    @Autowired
+    private ESUtilService esUtilService;
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
     private Logger logger = LoggerFactory.getLogger(VideoService.class);
@@ -360,12 +358,9 @@ public class VideoService {
         try{
             if(action.equals(ESIndex.CREATE) || action.equals(ESIndex.UPDATE)){
                 Map<String,String> map = selectById(id);
-                IndexRequest indexRequest = new IndexRequest(ESIndex.VIDEO,ESIndex.VIDEO_TYPE,String.valueOf(id));
-                indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
-                restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+                esUtilService.updateIndexData(ESIndex.VIDEO, ESIndex.VIDEO_TYPE, String.valueOf(id),map);
             }else if(action.equals(ESIndex.DELETE)){
-                DeleteRequest deleteRequest = new DeleteRequest(ESIndex.VIDEO,ESIndex.VIDEO_TYPE,String.valueOf(id));
-                restHighLevelClient.delete(deleteRequest,RequestOptions.DEFAULT);
+                esUtilService.deleteIndexData(ESIndex.VIDEO, ESIndex.VIDEO_TYPE, String.valueOf(id));
             }else
                 return;
             //确认消费
