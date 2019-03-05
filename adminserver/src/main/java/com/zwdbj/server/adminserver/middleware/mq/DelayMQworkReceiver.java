@@ -101,11 +101,8 @@ public class DelayMQworkReceiver extends MQConnection{
         }else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.ES_ADMIN_INFO) {
             if( info.getEsAdminInfo().getType().equals(ESIndex.VIDEO) ){
                 VideoService videoService = SpringContextUtil.getBean(VideoService.class);
-                if( !videoService.operationByIdES(info.getEsAdminInfo().getId(),info.getEsAdminInfo().getAction()))
-                    return;
+                videoService.operationByIdES(info.getEsAdminInfo().getId(),info.getEsAdminInfo().getAction(),channel,envelope);
             }
-            //确认消费
-            channel.basicAck(envelope.getDeliveryTag(),false);
         }else {
             logger.info("[DMQ]收到数据类型:"+info.getWorkType()+"后端暂时没有合适的服务处理");
             channel.basicAck(envelope.getDeliveryTag(),false);

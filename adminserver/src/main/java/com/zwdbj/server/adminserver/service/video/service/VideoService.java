@@ -1,7 +1,8 @@
 package com.zwdbj.server.adminserver.service.video.service;
 
 import com.alibaba.fastjson.JSON;
-import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.comment.model.CommentInfoDto;
@@ -10,7 +11,6 @@ import com.zwdbj.server.adminserver.service.shop.service.products.model.ProductO
 import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.es.common.ESIndex;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
@@ -356,19 +356,24 @@ public class VideoService {
      * @param id
      * @param action
      */
-    public boolean operationByIdES(long id, String action) throws IOException {
-        if(action.equals(ESIndex.CREATE) || action.equals(ESIndex.UPDATE)){
-            Map<String,String> map = selectById(id);
-            IndexRequest indexRequest = new IndexRequest(ESIndex.VIDEO,ESIndex.VIDEO_TYPE,String.valueOf(id));
-            indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
-            restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
-            return true;
-        }else if(action.equals(ESIndex.DELETE)){
-            DeleteRequest deleteRequest = new DeleteRequest(ESIndex.VIDEO,ESIndex.VIDEO_TYPE,String.valueOf(id));
-            restHighLevelClient.delete(deleteRequest,RequestOptions.DEFAULT);
-            return true;
+    public void operationByIdES(long id, String action, Channel channel, Envelope envelope){
+        try{
+            if(action.equals(ESIndex.CREATE) || action.equals(ESIndex.UPDATE)){
+                Map<String,String> map = selectById(id);
+                IndexRequest indexRequest = new IndexRequest(ESIndex.VIDEO,ESIndex.VIDEO_TYPE,String.valueOf(id));
+                indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
+                restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+            }else if(action.equals(ESIndex.DELETE)){
+                DeleteRequest deleteRequest = new DeleteRequest(ESIndex.VIDEO,ESIndex.VIDEO_TYPE,String.valueOf(id));
+                restHighLevelClient.delete(deleteRequest,RequestOptions.DEFAULT);
+            }else
+                return;
+            //确认消费
+            channel.basicAck(envelope.getDeliveryTag(),false);
+        }catch (IOException e){
+            e.printStackTrace();
         }
-        return false;
+
     }
 
     private Map<String,String> selectById(long id){

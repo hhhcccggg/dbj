@@ -25,7 +25,7 @@ public class ESUtil {
                     .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.ES_ADMIN_INFO)
                     .setEsAdminInfo(queueWorkInfoModel)
                     .build();
-            DelayMQWorkSender.shareSender().send(queueWorkInfo,5);
+            DelayMQWorkSender.shareSender().send(queueWorkInfo,60);
             logger.info("[MQ]ES " + id + " " +type+ " " + action + "发送信息成功");
         } catch (Exception e) {
             logger.error("[MQ]ES" + id + " " +type+ " " + action + "发送信息失败");
