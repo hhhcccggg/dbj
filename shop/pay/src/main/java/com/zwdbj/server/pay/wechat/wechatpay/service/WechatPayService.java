@@ -3,8 +3,8 @@ package com.zwdbj.server.pay.wechat.wechatpay.service;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
+import com.zwdbj.server.config.settings.PayConfigs;
 import com.zwdbj.server.pay.wechat.wechatpay.MD5Util;
-import com.zwdbj.server.pay.wechat.wechatpay.WXPayAppCfg;
 import com.zwdbj.server.pay.wechat.wechatpay.WeChatPayConfig;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
 import com.zwdbj.server.utility.common.IP;
@@ -13,6 +13,7 @@ import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
@@ -57,17 +58,17 @@ public class WechatPayService {
 
     private WeChatPayConfig chatConfig() throws Exception {
         WeChatPayConfig config = null;
-        this.isSandbox = this.wxPayAppCfg.isSandBox();
+        this.isSandbox = this.payConfigs.isWechatIsSandbox();
         if (isSandbox) {
             Map<String,String> resData = sandboxSignKey();
             if (resData.get("return_code").equals("SUCCESS")) {
-                config = WeChatPayConfig.sandBoxPayConfig(resData.get("sandbox_signkey"),this.wxPayAppCfg.getCertPath());
+                config = WeChatPayConfig.sandBoxPayConfig(resData.get("sandbox_signkey"),this.payConfigs.getWechatCertPath());
             } else {
                 logger.info("微信支付获取沙箱KEY失败>>"+resData.get("return_msg"));
                 return null;
             }
         } else {
-            config = WeChatPayConfig.payConfig(this.wxPayAppCfg.getCertPath());
+            config = WeChatPayConfig.payConfig(this.payConfigs.getWechatCertPath());
         }
         return config;
     }
@@ -94,11 +95,11 @@ public class WechatPayService {
      */
     public Map<String,String> sandboxSignKey() {
         String url = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
-        WXPay pay = new WXPay(WeChatPayConfig.payConfig(this.wxPayAppCfg.getCertPath()),WXPayConstants.SignType.MD5,false);
+        WXPay pay = new WXPay(WeChatPayConfig.payConfig(this.payConfigs.getWechatCertPath()),WXPayConstants.SignType.MD5,false);
         try {
             Map<String, String> reqData = pay.fillRequestData(new HashMap<>());
-            String responseData = pay.requestWithoutCert(url,reqData,WeChatPayConfig.payConfig(this.wxPayAppCfg.getCertPath()).getHttpConnectTimeoutMs()
-                    ,WeChatPayConfig.payConfig(this.wxPayAppCfg.getCertPath()).getHttpReadTimeoutMs());
+            String responseData = pay.requestWithoutCert(url,reqData,WeChatPayConfig.payConfig(this.payConfigs.getWechatCertPath()).getHttpConnectTimeoutMs()
+                    ,WeChatPayConfig.payConfig(this.payConfigs.getWechatCertPath()).getHttpReadTimeoutMs());
             Map<String,String> resData = WXPayUtil.xmlToMap(responseData);
             return resData;
         }catch ( Exception ex ) {
@@ -106,11 +107,8 @@ public class WechatPayService {
         }
         return null;
     }
-
-    private WXPayAppCfg wxPayAppCfg = null;
-    public WechatPayService(WXPayAppCfg cfg) {
-        this.wxPayAppCfg = cfg;
-    }
+    @Autowired
+    private PayConfigs payConfigs;
 
     /**
      * @param prepayId 预付单ID

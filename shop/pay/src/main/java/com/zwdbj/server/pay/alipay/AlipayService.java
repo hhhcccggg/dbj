@@ -6,6 +6,7 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.*;
 import com.alipay.api.response.*;
+import com.zwdbj.server.config.settings.PayConfigs;
 import com.zwdbj.server.pay.alipay.model.*;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ import java.util.UUID;
 public class AlipayService {
     private AlipayClient alipayClient = AlipaySDKClient.getInstance().getAlipayClient();
     @Autowired
-    private AliPayConfig aliPayConfig;
+    private PayConfigs payConfigs;
     private Logger logger = LoggerFactory.getLogger(AlipayService.class);
     /**
      * @param input
@@ -35,10 +36,10 @@ public class AlipayService {
             request.setBizContent(bizJson);
             //  异步回调
             if (type==1){
-                request.setNotifyUrl(this.aliPayConfig.getPayResultCallbackUrl());
+                request.setNotifyUrl(this.payConfigs.getAliPayResultCallbackUrl());
             }else if (type==2){
                 // TODO 订单付款的回调地址
-                request.setNotifyUrl(this.aliPayConfig.getOrderPayResultCallbackUrl());
+                request.setNotifyUrl(this.payConfigs.getAliOrderPayResultCallbackUrl());
             }
 
             AlipayTradeAppPayResponse response = alipayClient.sdkExecute(request);
@@ -131,7 +132,7 @@ public class AlipayService {
                     "  }");
             //  异步回调
             // TODO 订单退款的回调地址
-            request.setNotifyUrl(this.aliPayConfig.getOrderRefundResultCallbackUrl());
+            request.setNotifyUrl(this.payConfigs.getAliOrderRefundResultCallbackUrl());
 
             AlipayTradeRefundResponse response = alipayClient.execute(request);
             if ("10000".equals(response.getCode())) {
