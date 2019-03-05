@@ -25,6 +25,16 @@ public class AppSettingConfigs {
     private XgConfigs xgConfigs;
     @Autowired
     private YouZanConfigs youZanConfigs;
+    @Autowired
+    private ElasticsearchConfigs elasticsearchConfigs;
+
+    public ElasticsearchConfigs getElasticsearchConfigs() {
+        return elasticsearchConfigs;
+    }
+
+    public void setElasticsearchConfigs(ElasticsearchConfigs elasticsearchConfigs) {
+        this.elasticsearchConfigs = elasticsearchConfigs;
+    }
 
     public AliyunConfigs getAliyunConfigs() {
         return aliyunConfigs;

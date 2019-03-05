@@ -11,6 +11,7 @@ import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.MatchQueryBuilder;
@@ -228,7 +229,8 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
             List<SearchShop> result = new ArrayList<>();
 
-            SearchResponse searchResponse = restHighLevelClient.search(searchRequest);
+            SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+
             if (searchResponse.status().getStatus() == 200) {
 
                 SearchHit[] hits = searchResponse.getHits().getHits();
