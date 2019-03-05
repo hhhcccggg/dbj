@@ -7,6 +7,8 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
+import com.zwdbj.server.config.settings.AppSettingsConstant;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobUser;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.favorite.service.FavoriteService;
@@ -17,7 +19,6 @@ import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.UserToken;
-import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
 import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
@@ -84,6 +85,8 @@ public class UserService {
     private IAuthUserManager iAuthUserManagerImpl;
     @Autowired
     private VideoService videoService;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
 
     @Autowired
     private FavoriteService favoriteServiceImpl;
@@ -240,9 +243,9 @@ public class UserService {
         userDetailInfoDto.setTotalPetsHearts(petsHearts);
         userDetailInfoDto.setFavoriteNums(favoriteNum);
         userDetailInfoDto.getShopInfoDto().setLotteryTicketCount(this.youZanService.lotteryTicketCount(userId).getData());
-        userDetailInfoDto.getShopInfoDto().setCartUrl("https://h5.youzan.com/wsctrade/cart?kdt_id="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
-        userDetailInfoDto.getShopInfoDto().setLotteryUrl("https://h5.youzan.com/wscump/coupon/list?kdtId="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
-        userDetailInfoDto.getShopInfoDto().setOrderUrl("https://h5.youzan.com/wsctrade/order/list?kdt_id="+AppConfigConstant.YOUZAN_BIND_SHOP_ID);
+        userDetailInfoDto.getShopInfoDto().setCartUrl("https://h5.youzan.com/wsctrade/cart?kdt_id="+this.appSettingConfigs.getYouZanConfigs().getBindShopId());
+        userDetailInfoDto.getShopInfoDto().setLotteryUrl("https://h5.youzan.com/wscump/coupon/list?kdtId="+this.appSettingConfigs.getYouZanConfigs().getBindShopId());
+        userDetailInfoDto.getShopInfoDto().setOrderUrl("https://h5.youzan.com/wsctrade/order/list?kdt_id="+this.appSettingConfigs.getYouZanConfigs().getBindShopId());
         //购物车
         ServiceStatusInfo<Integer> cartStatusInfo = this.youZanService.cartNum(userId);
         if (cartStatusInfo.isSuccess()) {
@@ -274,9 +277,9 @@ public class UserService {
             }
         }
 
-        if (this.stringRedisTemplate.hasKey(AppConfigConstant.getRedisUserFanKey(userId)) && this.stringRedisTemplate.hasKey(AppConfigConstant.getRedisUserFocusesKey(userId))) {
-            Long totalFans = Long.parseLong(this.stringRedisTemplate.opsForValue().get(AppConfigConstant.getRedisUserFanKey(userId)));
-            Long totalMyFocuses = Long.parseLong(this.stringRedisTemplate.opsForValue().get(AppConfigConstant.getRedisUserFocusesKey(userId)));
+        if (this.stringRedisTemplate.hasKey(AppSettingsConstant.getRedisUserFanKey(userId)) && this.stringRedisTemplate.hasKey(AppSettingsConstant.getRedisUserFocusesKey(userId))) {
+            Long totalFans = Long.parseLong(this.stringRedisTemplate.opsForValue().get(AppSettingsConstant.getRedisUserFanKey(userId)));
+            Long totalMyFocuses = Long.parseLong(this.stringRedisTemplate.opsForValue().get(AppSettingsConstant.getRedisUserFocusesKey(userId)));
             userDetailInfoDto.setTotalFans(totalFans);
             userDetailInfoDto.setTotalMyFocuses(totalMyFocuses);
             logger.info("我是缓存中的粉丝和关注总量----用户:" + userDetailInfoDto.getNickName() + ",totalFans:" + totalFans + ",totalMyFocuses:" + totalMyFocuses + "," + new SimpleDateFormat("HH:mm:ss").format(new Date()));
@@ -293,8 +296,8 @@ public class UserService {
         String field = "totalFans=" + totalFans + ",totalMyFocuses=" + totalMyFocuses;
         this.updateField(field, userId);
         // 存到缓存
-        stringRedisTemplate.opsForValue().set(AppConfigConstant.getRedisUserFanKey(userId), String.valueOf(totalFans), 120, TimeUnit.SECONDS);
-        stringRedisTemplate.opsForValue().set(AppConfigConstant.getRedisUserFocusesKey(userId), String.valueOf(totalMyFocuses), 120, TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(AppSettingsConstant.getRedisUserFanKey(userId), String.valueOf(totalFans), 120, TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(AppSettingsConstant.getRedisUserFocusesKey(userId), String.valueOf(totalMyFocuses), 120, TimeUnit.SECONDS);
         logger.info("我是用户" + userId + "详情中的粉丝和关注总量加入缓存" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
     }
 
@@ -573,7 +576,7 @@ public class UserService {
                 //TODO 审核以后删除
                 if (phone.equals("18161279360") && code.equals("1234")) return new ServiceStatusInfo<>(0, "验证成功", null);
                 // 验证手机验证码是否正确
-                String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(phone);
+                String cacheKey = AppSettingsConstant.getRedisPhoneCodeKey(phone);
                 boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
                 if (!hasPhoneCode) {
                     return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);
@@ -614,16 +617,16 @@ public class UserService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String todayStr = simpleDateFormat.format(new Date().getTime());
 
-        if (redisTemplate.hasKey(AppConfigConstant.getRedisPhoneCodeCfgKey(phone))) {
+        if (redisTemplate.hasKey(AppSettingsConstant.getRedisPhoneCodeCfgKey(phone))) {
             try {
-                cfg = operations.get(AppConfigConstant.getRedisPhoneCodeCfgKey(phone));
-                if (currentTimeStamp - cfg.getLastSendSmsTimeStamp() < AppConfigConstant.APP_SMS_SEND_INTERVAL) {
+                cfg = operations.get(AppSettingsConstant.getRedisPhoneCodeCfgKey(phone));
+                if (currentTimeStamp - cfg.getLastSendSmsTimeStamp() < this.appSettingConfigs.getSmsSendConfigs().getSendInterval()) {
                     return new ServiceStatusInfo<String>(1, "发送验证码太频繁，请稍后再试.", "");
                 }
                 String[] cfgDayArr = cfg.getDaySendCount().split(":");
                 int currentSendCount = Integer.parseInt(cfgDayArr[1]);
                 if (todayStr.equals(cfgDayArr[0])) {
-                    if (currentSendCount > AppConfigConstant.APP_SMS_SEND_MAX_COUNT_DAY) {
+                    if (currentSendCount > this.appSettingConfigs.getSmsSendConfigs().getSendMaxCountDay()) {
                         return new ServiceStatusInfo<String>(1, "超过当日最大验证码发送次数", "");
                     }
                     cfg.setLastSendSmsTimeStamp(currentTimeStamp);
@@ -638,7 +641,7 @@ public class UserService {
                 logger.warn(ex.getStackTrace().toString());
                 //重新处理缓存
                 cfg = new SmsSendCfg(currentTimeStamp, todayStr + ":1");
-                operations.set(AppConfigConstant.getRedisPhoneCodeCfgKey(phone), cfg);
+                operations.set(AppSettingsConstant.getRedisPhoneCodeCfgKey(phone), cfg);
                 return new ServiceStatusInfo<String>(1, "发送验证码失败，请稍后再试.", "");
             }
         }
@@ -653,7 +656,7 @@ public class UserService {
         if (phone.equals("18161279360")) {
             code = "1234";
         }
-        if (AppConfigConstant.APP_SMS_SEND_OPEN) {
+        if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
             try {
                 // 发送验证码加入消息队列
                 QueueWorkInfoModel.QueueWorkPhoneCode phoneCode = QueueWorkInfoModel.QueueWorkPhoneCode.newBuilder()
@@ -674,10 +677,13 @@ public class UserService {
         if (cfg == null) {
             cfg = new SmsSendCfg(currentTimeStamp, todayStr + ":1");
         }
-        operations.set(AppConfigConstant.getRedisPhoneCodeCfgKey(phone), cfg);
+        operations.set(AppSettingsConstant.getRedisPhoneCodeCfgKey(phone), cfg);
         // 存到缓存
-        stringRedisTemplate.opsForValue().set(AppConfigConstant.getRedisPhoneCodeKey(phone), code, AppConfigConstant.APP_SMS_CODE_EXPIRE_TIME, TimeUnit.SECONDS);
-        if (AppConfigConstant.APP_SMS_SEND_OPEN) {
+        stringRedisTemplate.opsForValue().set(AppSettingsConstant.getRedisPhoneCodeKey(phone)
+                , code
+                , this.appSettingConfigs.getSmsSendConfigs().getCodeExpireTime()
+                , TimeUnit.SECONDS);
+        if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
             return new ServiceStatusInfo<>(0, "发送成功", "");
         } else {
             return new ServiceStatusInfo<>(0, "", code);
@@ -690,7 +696,9 @@ public class UserService {
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 
         //初始化acsClient,暂不支持region化
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", AppConfigConstant.ALIYUN_ACCESS_KEY, AppConfigConstant.ALIYUN_ACCESS_SECRECT);
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou"
+                , this.appSettingConfigs.getAliyunConfigs().getAccessKey()
+                , this.appSettingConfigs.getAliyunConfigs().getAccessSecrect());
         try {
             DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Dysmsapi", "dysmsapi.aliyuncs.com");
         } catch (Exception e) {
@@ -703,9 +711,9 @@ public class UserService {
         //必填:待发送手机号
         request.setPhoneNumbers(phone);
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("爪子APP");
+        request.setSignName(this.appSettingConfigs.getAliyunConfigs().getSmsCodeSignName());
         //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode("SMS_140020345");
+        request.setTemplateCode(this.appSettingConfigs.getAliyunConfigs().getSmsTemplateCode());
         request.setTemplateParam("{\"code\":\"" + code + "\"}");
         try {
             SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
@@ -746,7 +754,7 @@ public class UserService {
     public ServiceStatusInfo<Integer> regUser(RegUserInput input){
         try {
             // 验证手机验证码是否正确
-            String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(input.getPhone());
+            String cacheKey = AppSettingsConstant.getRedisPhoneCodeKey(input.getPhone());
             boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
             if (!hasPhoneCode) {
                 return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);
@@ -805,7 +813,7 @@ public class UserService {
 
         try {
             // 验证手机验证码是否正确
-            String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(input.getPhone());
+            String cacheKey = AppSettingsConstant.getRedisPhoneCodeKey(input.getPhone());
             boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
             if (!hasPhoneCode) {
                 return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);

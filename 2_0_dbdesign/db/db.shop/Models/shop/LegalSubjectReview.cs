@@ -14,6 +14,7 @@ namespace db.shop.Models.shop
         /// 需要审核的主体对象
         /// ID:身份证
         /// CORP:营业执照
+        /// BusinessID:经营许可证
         /// 更多扩展..
         /// </summary>
         /// <value>The identify identifier.</value>

@@ -3,6 +3,8 @@ package com.zwdbj.server.mobileapi.service.video.service;
 import com.alibaba.fastjson.JSONArray;
 import com.ecwid.consul.v1.ConsulClient;
 import com.github.pagehelper.Page;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
+import com.zwdbj.server.config.settings.AppSettingsConstant;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.comment.model.CommentInfoDto;
@@ -17,7 +19,6 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
-import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
 import com.zwdbj.server.basemodel.model.ResponseCoin;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -102,6 +103,8 @@ public class VideoService {
     private RestHighLevelClient restHighLevelClient;
     @Autowired
     private ProductService productServiceImpl;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
 
     protected Logger logger = LoggerFactory.getLogger(VideoService.class);
 
@@ -293,9 +296,9 @@ public class VideoService {
         //
         boolean isNeedGetCommend = pageInfo.getPageNum() < 4;
         String recommendIds = null;
-        if (this.stringRedisTemplate.hasKey(AppConfigConstant.REDIS_VIDEO_RECOMMEND_KEY) && isNeedGetCommend) {
+        if (this.stringRedisTemplate.hasKey(AppSettingsConstant.REDIS_VIDEO_RECOMMEND_KEY) && isNeedGetCommend) {
             try {
-                recommendIds = (String) this.stringRedisTemplate.opsForValue().get(AppConfigConstant.REDIS_VIDEO_RECOMMEND_KEY);
+                recommendIds = (String) this.stringRedisTemplate.opsForValue().get(AppSettingsConstant.REDIS_VIDEO_RECOMMEND_KEY);
             } catch (Exception ex) {
                 logger.error(ex.getMessage());
                 logger.error(ex.getStackTrace().toString());
@@ -396,14 +399,14 @@ public class VideoService {
         List<VideoDetailInfoDto> dtos = this.videoMapper.myFollowedVideos(userId);
         if (dtos == null) return null;
         for (VideoDetailInfoDto dto : dtos) {
-            dto.setLinkProductUrl(AppConfigConstant.getShopListUrl(dto.getId(), "video"));
+            dto.setLinkProductUrl(this.appSettingConfigs.getH5Configs().getShopListUrl(dto.getId(), "video"));
             dto.setShareTitle(dto.getTitle());
             String videoUserNickName = this.userService.getUserName(dto.getUserId());
             if (videoUserNickName == null) {
                 videoUserNickName = "爪子用户";
             }
             dto.setShareContent(videoUserNickName + "拍摄的宠物短视频");
-            dto.setShareUrl(AppConfigConstant.getShareUrl(dto.getId(), "video"));
+            dto.setShareUrl(this.appSettingConfigs.getH5Configs().getShareUrl(dto.getId(), "video"));
             String pets = dto.getLinkPets();
             if (pets != null && pets.length() != 0) {
                 List<PetModelDto> petModelDtos = new ArrayList<>();
@@ -449,14 +452,14 @@ public class VideoService {
         VideoDetailInfoDto dto = this.videoMapper.video(id);
         loadVideoInfoDto(dto);
         if (dto != null) {
-            dto.setLinkProductUrl(AppConfigConstant.getShopListUrl(id, "video"));
+            dto.setLinkProductUrl(this.appSettingConfigs.getH5Configs().getShopListUrl(id, "video"));
             dto.setShareTitle(dto.getTitle());
             String videoUserNickName = this.userService.getUserName(dto.getUserId());
             if (videoUserNickName == null) {
                 videoUserNickName = "爪子用户";
             }
             dto.setShareContent(videoUserNickName + "拍摄的宠物短视频");
-            dto.setShareUrl(AppConfigConstant.getShareUrl(id, "video"));
+            dto.setShareUrl(this.appSettingConfigs.getH5Configs().getShareUrl(id, "video"));
         }
         return dto;
     }
@@ -597,7 +600,7 @@ public class VideoService {
      * @param id
      */
     public void videoWegiht(long id) {
-        String cacheKey = AppConfigConstant.getRedisVideoWeightTaskKey(id);
+        String cacheKey = AppSettingsConstant.getRedisVideoWeightTaskKey(id);
         if (this.stringRedisTemplate.hasKey(cacheKey)) return;
         //添加到消息队列
         try {
@@ -608,7 +611,7 @@ public class VideoService {
                     .setVideoWeightData(workVideoWeightData)
                     .build();
             MQWorkSender.shareSender().send(workInfo);
-            this.stringRedisTemplate.opsForValue().set(cacheKey, "OK", AppConfigConstant.VIDEO_WEIGHT_CALCULATE_INTERVAL, TimeUnit.SECONDS);
+            this.stringRedisTemplate.opsForValue().set(cacheKey, "OK", AppSettingsConstant.VIDEO_WEIGHT_CALCULATE_INTERVAL, TimeUnit.SECONDS);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }

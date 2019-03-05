@@ -1,5 +1,7 @@
 package com.zwdbj.server.mobileapi.config;
 
+import com.zwdbj.server.config.settings.AppSettingConfigs;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -17,12 +19,15 @@ import static com.google.common.collect.Lists.newArrayList;
 @Configuration
 @EnableSwagger2
 public class Swagger2 {
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
+
     @Bean
     public Docket createRestApi() {
         String swaggerBasePackageName = "com.zwdbj.server.mobileapi.controller";
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .enable(AppConfigConstant.SWAGGER_ENABLED)
+                .enable(this.appSettingConfigs.getSwaggerConfigs().isEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerBasePackageName))
                 .paths(PathSelectors.any())

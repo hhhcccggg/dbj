@@ -39,10 +39,13 @@ public class MessageCenterController {
     @RequestMapping(value = "/myMessages/{type}",method = RequestMethod.GET)
     @ApiOperation("全部消息")
     @ApiImplicitParam(name = "type",value = "0:系统消息,1:点赞类2:粉丝类3:评论6:打赏")
-    public ResponsePageInfoData<List<MessageInfoDetailDto>> getMyAllMessageByType(@PathVariable int type) {
+    public ResponsePageInfoData<List<MessageInfoDetailDto>> getMyAllMessageByType(@PathVariable int type,
+                                                                                  @RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
+                                                                                  @RequestParam(value = "rows",required = true,defaultValue = "30") int rows) {
+        Page<MessageInfoDetailDto> pageainfo = PageHelper.startPage(pageNo,rows);
         long userId = JWTUtil.getCurrentId();
         List<MessageInfoDetailDto> dtos = this.messageCenterService.getMyAllMessageByType(userId,type);
-        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,dtos.size());
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,pageainfo.getTotal());
     }
     @RequiresAuthentication
     @RequestMapping(value = "/readAll/{type}",method = RequestMethod.GET)
