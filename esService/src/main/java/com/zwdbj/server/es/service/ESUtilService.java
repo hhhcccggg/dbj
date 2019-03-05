@@ -12,6 +12,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,8 +21,8 @@ import java.util.Map;
 /**
  * ES操作
  */
-@Component
-public class ESService {
+@Service
+public class ESUtilService {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;
@@ -54,13 +55,7 @@ public class ESService {
      * @throws IOException
      */
     public void createIndexImportData(Map<String,Object> mapping , List<Map<String,String>> data , String index ,String type, String idKey) throws IOException {
-        if( !isIndex(index)){
-            return;
-        }
-        CreateIndexRequest createIndexRequest = new CreateIndexRequest();
-        createIndexRequest.index(index);
-        createIndexRequest.mapping(type, mapping);
-        restHighLevelClient.indices().create(createIndexRequest, RequestOptions.DEFAULT);
+        createIndex(mapping,index,type);
         BulkRequest bulkRequest = new BulkRequest();
         createIndexRequest(index, type, idKey, data, bulkRequest);
         restHighLevelClient.bulk(bulkRequest,RequestOptions.DEFAULT);
