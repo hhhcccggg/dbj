@@ -2,7 +2,7 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.mobileapi.config.AppConfigConstant;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.mobileapi.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.mobileapi.service.setting.service.SettingService;
 import com.zwdbj.server.mobileapi.service.user.model.*;
@@ -46,6 +46,8 @@ public class UserController {
     private AuthUserManagerImpl iAuthUserManager;
     @Autowired
     private TokenCenterManager tokenCenterManager;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
 
     @RequiresAuthentication
     @RequestMapping(value = "/pushSetting", method = RequestMethod.POST)
@@ -163,7 +165,7 @@ public class UserController {
     public ResponseData<Map<String, String>> sendPhoneCode(@RequestParam("phone") String phone) {
         ServiceStatusInfo<String> info = userService.sendPhoneCode(phone);
         if (info.isSuccess()) {
-            if (AppConfigConstant.APP_SMS_SEND_OPEN) {
+            if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
                 return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "发送验证码成功!", null);
             } else {
                 Map<String, String> map = new HashMap<>();

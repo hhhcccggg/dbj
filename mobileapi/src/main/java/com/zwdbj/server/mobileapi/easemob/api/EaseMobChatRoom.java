@@ -2,9 +2,9 @@ package com.zwdbj.server.mobileapi.easemob.api;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.mobileapi.easemob.common.EaseMobToken;
 import com.zwdbj.server.mobileapi.easemob.common.EaseMobTokenManager;
-import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +17,9 @@ public class EaseMobChatRoom {
     protected Logger logger = LoggerFactory.getLogger(EaseMobChatRoom.class);
     @Autowired
     protected EaseMobTokenManager easeMobTokenManager;
+    @Autowired
+    protected AppSettingConfigs appSettingConfigs;
+
     public String registerChatRoom(String title,String owner) {
         EaseMobToken token = this.easeMobTokenManager.token();
         if (token ==null) {
@@ -24,9 +27,9 @@ public class EaseMobChatRoom {
             return null;
         }
         String url = String.format("%s/%s/%s/chatrooms",
-                AppConfigConstant.EASEMOB_HTTP_BASE,
-                AppConfigConstant.EASEMOB_ORG_NAME,
-                AppConfigConstant.EASEMOB_APP_NAME);
+                this.appSettingConfigs.getEasemobConfigs().getHttpbase(),
+                this.appSettingConfigs.getEasemobConfigs().getOrgName(),
+                this.appSettingConfigs.getEasemobConfigs().getAppName());
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Authorization","Bearer "+token.getAccess_token())
@@ -55,9 +58,9 @@ public class EaseMobChatRoom {
             return null;
         }
         String url = String.format("%s/%s/%s/chatrooms/%s",
-                AppConfigConstant.EASEMOB_HTTP_BASE,
-                AppConfigConstant.EASEMOB_ORG_NAME,
-                AppConfigConstant.EASEMOB_APP_NAME,
+                this.appSettingConfigs.getEasemobConfigs().getHttpbase(),
+                this.appSettingConfigs.getEasemobConfigs().getOrgName(),
+                this.appSettingConfigs.getEasemobConfigs().getAppName(),
                 chatRoomId);
         Request request = new Request.Builder()
                 .url(url)
@@ -88,9 +91,9 @@ public class EaseMobChatRoom {
             return null;
         }
         String url = String.format("%s/%s/%s/chatrooms/%s",
-                AppConfigConstant.EASEMOB_HTTP_BASE,
-                AppConfigConstant.EASEMOB_ORG_NAME,
-                AppConfigConstant.EASEMOB_APP_NAME,
+                this.appSettingConfigs.getEasemobConfigs().getHttpbase(),
+                this.appSettingConfigs.getEasemobConfigs().getOrgName(),
+                this.appSettingConfigs.getEasemobConfigs().getAppName(),
                 chatRoomId);
         Request request = new Request.Builder()
                 .url(url)
@@ -122,9 +125,9 @@ public class EaseMobChatRoom {
             return null;
         }
         String url = String.format("%s/%s/%s/messages",
-                AppConfigConstant.EASEMOB_HTTP_BASE,
-                AppConfigConstant.EASEMOB_ORG_NAME,
-                AppConfigConstant.EASEMOB_APP_NAME);
+                this.appSettingConfigs.getEasemobConfigs().getHttpbase(),
+                this.appSettingConfigs.getEasemobConfigs().getOrgName(),
+                this.appSettingConfigs.getEasemobConfigs().getAppName());
         logger.info(url);
         logger.info(chatRoomId+">>>>"+linkedNum);
         Request request = new Request.Builder()

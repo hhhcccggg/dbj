@@ -12,7 +12,7 @@ import com.youzan.open.sdk.client.oauth.OAuthFactory;
 import com.youzan.open.sdk.client.oauth.OAuthType;
 import com.youzan.open.sdk.gen.v3_0_0.api.*;
 import com.youzan.open.sdk.gen.v3_0_0.model.*;
-import com.zwdbj.server.mobileapi.config.AppConfigConstant;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.mobileapi.service.user.model.UserModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.youzan.model.AyouzanTradeCartAddParams;
@@ -37,17 +37,17 @@ import java.util.List;
 public class YouZanService {
     @Autowired
     UserService userService;
-    //    @Autowired
-//    StringRedisTemplate stringRedisTemplate;
-//    @Autowired
-//    RedisTemplate redisTemplate;
+    @Autowired
+    AppSettingConfigs appSettingConfigs;
+
     static org.slf4j.Logger logger = LoggerFactory.getLogger(YouZanService.class);
 
     protected final OkHttpClient client = new OkHttpClient();
 
     public ServiceStatusInfo<String> getToken() {
         String url = String.format("https://uic.youzan.com/sso/open/initToken?client_id=%s&client_secret=%s",
-                AppConfigConstant.YOUZAN_CLIENT_ID, AppConfigConstant.YOUZAN_SECRECT);
+                this.appSettingConfigs.getYouZanConfigs().getClientid()
+                ,this.appSettingConfigs.getYouZanConfigs().getSecrect());
         Request request = new Request.Builder()
                 .url(url)
                 .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), ""))
@@ -73,15 +73,6 @@ public class YouZanService {
     }
 
     public ServiceStatusInfo<YZUserLoginToken> getUserToken(long userId) {
-
-//        String cacheKey = AppConfigConstant.getRedisYouzanUserTokenKey(userId);
-//        if (this.redisTemplate.hasKey(cacheKey)) {
-//            YZUserLoginToken token= (YZUserLoginToken)this.redisTemplate.opsForValue().get(cacheKey);
-//            if (token != null) {
-//                return new ServiceStatusInfo<>(0,"",token);
-//            }
-//        }
-
         UserModel userModel = this.userService.findUserById(userId);
         if (userModel == null) {
             return new ServiceStatusInfo<>(1, "未找到用户", null);
@@ -101,9 +92,9 @@ public class YouZanService {
 
         String url = String.format("https://uic.youzan.com/sso/open/login?kdt_id=%s&client_id=%s&" +
                         "client_secret=%s&open_user_id=%s&nick_name=%s&gender=%d&telephone=%s&avatar=%s",
-                AppConfigConstant.YOUZAN_BIND_SHOP_ID,
-                AppConfigConstant.YOUZAN_CLIENT_ID,
-                AppConfigConstant.YOUZAN_SECRECT,
+                this.appSettingConfigs.getYouZanConfigs().getBindShopId(),
+                this.appSettingConfigs.getYouZanConfigs().getClientid(),
+                this.appSettingConfigs.getYouZanConfigs().getSecrect(),
                 openUserId,
                 userModel.getNickName(),
                 sexType,
@@ -132,8 +123,6 @@ public class YouZanService {
                 token.setCookieKey(jsonObject.getJSONObject("data").getString("cookie_key"));
                 token.setCookieValue(jsonObject.getJSONObject("data").getString("cookie_value"));
                 token.setAccessToken(jsonObject.getJSONObject("data").getString("access_token"));
-                //写入缓存
-//                this.redisTemplate.opsForValue().set(cacheKey,token,7*23*3600-600,TimeUnit.SECONDS);
                 return new ServiceStatusInfo<>(0, msg, token);
 
             } else {
@@ -147,8 +136,8 @@ public class YouZanService {
     public ServiceStatusInfo<Integer> logOut(long userId) {
         String url = String.format("https://uic.youzan.com/sso/open/logout?client_id=%s&" +
                         "client_secret=%s&open_user_id=%s",
-                AppConfigConstant.YOUZAN_CLIENT_ID,
-                AppConfigConstant.YOUZAN_SECRECT,
+                this.appSettingConfigs.getYouZanConfigs().getClientid(),
+                this.appSettingConfigs.getYouZanConfigs().getSecrect(),
                 String.valueOf(userId));
         Request request = new Request.Builder()
                 .url(url)
@@ -157,7 +146,6 @@ public class YouZanService {
         try {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-//                this.redisTemplate.delete(AppConfigConstant.getRedisYouzanUserTokenKey(userId));
                 String jsonStr = response.body().string();
                 JSONObject jsonObject = JSONObject.parseObject(jsonStr);
                 int code = jsonObject.getInteger("code");
@@ -177,14 +165,11 @@ public class YouZanService {
 
     public ServiceStatusInfo<String> getServerToken() {
         String token = null;
-//        if (this.stringRedisTemplate.hasKey(AppConfigConstant.REDIS_YOUZAN_SERVER_TOKEN_KEY)) {
-//            token = this.stringRedisTemplate.opsForValue().get(AppConfigConstant.REDIS_YOUZAN_SERVER_TOKEN_KEY);
-//        }
         if (token == null) {
-            OAuth oAuth = OAuthFactory.create(OAuthType.SELF, new OAuthContext(AppConfigConstant.YOUZAN_CLIENT_ID, AppConfigConstant.YOUZAN_SECRECT,
-                    Long.parseLong(AppConfigConstant.YOUZAN_BIND_SHOP_ID)));
+            OAuth oAuth = OAuthFactory.create(OAuthType.SELF, new OAuthContext(this.appSettingConfigs.getYouZanConfigs().getClientid()
+                    , this.appSettingConfigs.getYouZanConfigs().getSecrect()
+                    ,Long.parseLong(this.appSettingConfigs.getYouZanConfigs().getBindShopId())));
             token = oAuth.getToken().getAccessToken();
-//            this.stringRedisTemplate.opsForValue().set(AppConfigConstant.REDIS_YOUZAN_SERVER_TOKEN_KEY,token,oAuth.getToken().getExpiresIn()-60,TimeUnit.SECONDS);
             logger.info("获取有赞SERVER TOKEN:" + token);
         }
         return new ServiceStatusInfo<>(0, "", token);
@@ -272,7 +257,7 @@ public class YouZanService {
         }
         YZClient client = new DefaultYZClient(new Token(tokenServiceStatusInfo.getData().getAccessToken()));
         YouzanTradeCartCountParams youzanTradeCartCountParams = new YouzanTradeCartCountParams();
-        youzanTradeCartCountParams.setKdtId(Long.parseLong(AppConfigConstant.YOUZAN_BIND_SHOP_ID));
+        youzanTradeCartCountParams.setKdtId(Long.parseLong(this.appSettingConfigs.getYouZanConfigs().getBindShopId()));
         YouzanTradeCartCount youzanTradeCartCount = new YouzanTradeCartCount();
         youzanTradeCartCount.setAPIParams(youzanTradeCartCountParams);
         YouzanTradeCartCountResult result = client.invoke(youzanTradeCartCount);
@@ -324,9 +309,4 @@ public class YouZanService {
         }
         return new ServiceStatusInfo<Integer>(1, "添加失败", null);
     }
-
-    /**
-     * 获取网点商品SKU
-     */
-    //public YouzanMultistoreGoodsSkuGetResult.GoodsDetail
 }

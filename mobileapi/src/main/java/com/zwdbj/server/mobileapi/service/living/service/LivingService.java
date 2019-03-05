@@ -1,8 +1,8 @@
 package com.zwdbj.server.mobileapi.service.living.service;
 
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.mobileapi.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
-import com.zwdbj.server.mobileapi.config.AppConfigConstant;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.living.mapper.ILivingMapper;
 import com.zwdbj.server.mobileapi.service.living.model.*;
@@ -34,6 +34,9 @@ public class LivingService {
     protected ResRefGoodsService resRefGoodsService;
     @Autowired
     protected EaseMobChatRoom easeMobChatRoom;
+    @Autowired
+    protected AppSettingConfigs appSettingConfigs;
+
     protected Logger logger = LoggerFactory.getLogger(LivingService.class);
 
     @Transactional
@@ -94,15 +97,15 @@ public class LivingService {
         if (infoDto==null) return null;
         setLivingInfo(infoDto);
         //TODO 增加真实的URL
-        infoDto.setLinkProductUrl(AppConfigConstant.getShopListUrl(id,"live"));
+        infoDto.setLinkProductUrl(this.appSettingConfigs.getH5Configs().getShopListUrl(id,"live"));
         infoDto.setShareTitle(infoDto.getTitle());
-        infoDto.setShareUrl(AppConfigConstant.getShareUrl(id,"live"));
+        infoDto.setShareUrl(this.appSettingConfigs.getH5Configs().getShareUrl(id,"live"));
         infoDto.setShareContent(infoDto.getTitle());
         if (infoDto.getUserId()!=JWTUtil.getCurrentId()) {
             infoDto.setPushUrl(null);
             infoDto.setAddProductUrl("");
         } else {
-            infoDto.setAddProductUrl(AppConfigConstant.getLiveAddShopUrl(id));
+            infoDto.setAddProductUrl(this.appSettingConfigs.getH5Configs().getLiveAddShopUrl(id));
         }
         //TODO 判断聊天室是否已经生成
         //TODO 优化性能
