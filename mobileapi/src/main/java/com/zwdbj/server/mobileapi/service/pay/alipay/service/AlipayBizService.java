@@ -240,9 +240,12 @@ public class AlipayBizService {
     }
     @Transactional
     protected void orderRefundResult(String outTradeNo, String tradeNo,boolean isSuccess) {
-        if (!isSuccess) return;
         long id = Long.parseLong(outTradeNo);
-        //处理内部业务
-        this.orderService.updateOrderState(id,tradeNo,"STATE_REFUND_SUCCESS");
+        if (!isSuccess) {
+            this.orderService.updateOrderState(id,tradeNo,"STATE_REFUND_FAILED");
+        }else {
+            //处理内部业务
+            this.orderService.updateOrderState(id,tradeNo,"STATE_REFUND_SUCCESS");
+        }
     }
 }
