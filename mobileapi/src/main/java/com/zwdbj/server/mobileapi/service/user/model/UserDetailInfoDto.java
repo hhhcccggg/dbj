@@ -28,6 +28,8 @@ public class UserDetailInfoDto implements Serializable {
   private boolean isEmailVerification;
   @ApiModelProperty(value = "手机号码是否认证")
   private boolean isPhoneVerification;
+  @ApiModelProperty(value = "是否设置密码")
+  private boolean isSetPWD;
   @ApiModelProperty(value = "小饼干总数")
   private long coins;
   @ApiModelProperty(value = "是否可以开启直播功能")
@@ -74,6 +76,30 @@ public class UserDetailInfoDto implements Serializable {
   UserShopInfoDto shopInfoDto;
   @ApiModelProperty(value = "用户的收藏数")
   private int favoriteNums;
+
+  public boolean isPhoneVerification() {
+    return isPhoneVerification;
+  }
+
+  public void setPhoneVerification(boolean phoneVerification) {
+    isPhoneVerification = phoneVerification;
+  }
+
+  public boolean isSetPWD() {
+    return isSetPWD;
+  }
+
+  public void setSetPWD(boolean setPWD) {
+    isSetPWD = setPWD;
+  }
+
+  public boolean isReviewed() {
+    return isReviewed;
+  }
+
+  public void setReviewed(boolean reviewed) {
+    isReviewed = reviewed;
+  }
 
   public long getTotalVideosHearts() {
     return totalVideosHearts;

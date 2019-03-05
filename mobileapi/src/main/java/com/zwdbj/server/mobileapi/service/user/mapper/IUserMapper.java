@@ -35,6 +35,8 @@ public interface IUserMapper {
             "(select count(*) from core_livings as li where li.userId = u.id) as liveCount FROM " +
             "dbj_server_db.core_users as u where u.id=#{userId}")
     UserDetailInfoDto getUserDetail(@Param("userId") long userId);
+    @Select("select password from core_users where id=#{id}")
+    String findPWDById(@Param("id")long userId);
     @UpdateProvider(type = UserSqlProvider.class,method = "updateInfo")
     long updateInfo(@Param("userId") long userId, @Param("input") UpdateUserInfoInput input);
 
