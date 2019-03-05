@@ -278,6 +278,10 @@ public class OrderService {
                             this.productServiceImpl.updateProductNum(model.getProductId(),model.getProductskuId(),-model.getNum());
                         }
                     }
+                }else if (status.equals("STATE_REFUND_FAILED")){
+                    if ( model.getStatus().equals("STATE_REFUNDING") ){
+                        this.orderMapper.updateOrderState(id,tradeNo,status);
+                    }
                 }
             }
         }catch (Exception e){

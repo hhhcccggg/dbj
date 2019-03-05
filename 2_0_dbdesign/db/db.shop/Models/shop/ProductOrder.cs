@@ -69,6 +69,7 @@ namespace db.shop.Models.shop
         /// STATE_BUYER_DELIVERIED（买家已确认收货)
         /// STATE_REFUNDING（退款中)
         /// STATE_REFUND_SUCCESS（退款成功)
+        /// STATE_REFUND_FAILED（退款失败)
         /// STATE_UNUSED (未使用，虚拟商品有效)
         /// STATE_USED (已使用，虚拟商品有效)
         /// STATE_SUCCESS（交易成功)
