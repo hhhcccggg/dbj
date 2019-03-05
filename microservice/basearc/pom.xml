@@ -22,6 +22,7 @@
         <spring-cloud.version>Greenwich.M3</spring-cloud.version>
     </properties>
 
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

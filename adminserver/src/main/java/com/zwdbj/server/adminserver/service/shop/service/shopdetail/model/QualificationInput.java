@@ -6,16 +6,16 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "店铺资质审核上传信息")
 public class QualificationInput {
 
-    @ApiModelProperty(value = "需要审核的主体对象")//ID身份证,CORP营业执照
-            String identifyId;
+    @ApiModelProperty(value = "需要审核的主体对象,ID身份证,CORP营业执照,BusinessID:经营许可证")
+    private String identifyId;
     @ApiModelProperty(value = "标题")
-    String title;
+    private String title;
     @ApiModelProperty(value = "主体对象的编码")
-    String keyId;
-    @ApiModelProperty(value = "数据内容")//多个内容用,隔开
-            String reviewData;
-    @ApiModelProperty(value = "审核状态")//前端上传默认为1
-            int status;
+    private String keyId;
+    @ApiModelProperty(value = "数据内容(多个内容用,隔开)")
+    private String reviewData;
+    @ApiModelProperty(value = "审核状态,前端上传默认为1")
+    private int status;
 
     public int getStatus() {
         return status;

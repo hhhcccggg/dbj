@@ -2,13 +2,13 @@ package com.zwdbj.server.adminserver.service.push.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.push.model.*;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdUserDeviceTokenDto;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.service.UserDeviceTokensService;
 import com.zwdbj.server.adminserver.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import okhttp3.*;
 import org.slf4j.Logger;
@@ -30,6 +30,8 @@ public class AppPushService {
     protected final OkHttpClient client = new OkHttpClient();
     @Autowired
     private UserDeviceTokensService userDeviceTokensService;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
 
     public boolean push(QueueWorkInfoModel.QueueWorkPush pushData) {
         //消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
@@ -172,7 +174,7 @@ public class AppPushService {
     //推送请求参数到信鸽后台
     protected void pushMessage(PushMessage message, long toUserId, String type, boolean isAll) {
         Request.Builder builder = new Request.Builder();
-        builder.url(AppConfigConstant.XG_SERVICE_URL);
+        builder.url(this.appSettingConfigs.getXgConfigs().getServiceUrl());
         //设置请求头
         settingRequestHeader(builder, type);
         String jsonBody = "";
@@ -203,7 +205,7 @@ public class AppPushService {
             xgiosMessage.setAps(aps);
             xgiosMessage.setCustom(JSON.toJSONString(message.getExtraData()));
             xgMessage.setPlatform("ios");
-            if ("dev".equals(AppConfigConstant.PUSH_ENV)){
+            if ("dev".equals(this.appSettingConfigs.getPushConfigs().getPushEnvironment())){
                 xgMessage.setEnvironment(Environment.dev);
             }
             mag.setIos(xgiosMessage);
@@ -247,9 +249,9 @@ public class AppPushService {
         String type = deviceType.toLowerCase();
         String waitingAuthString = null;
         if (type.equals("ios")) {
-            waitingAuthString = String.format("%s:%s", AppConfigConstant.XG_IOS_APPID, AppConfigConstant.XG_IOS_SECRECT);
+            waitingAuthString = String.format("%s:%s", this.appSettingConfigs.getXgConfigs().getIosAppid(), this.appSettingConfigs.getXgConfigs().getIosSecrect());
         } else {
-            waitingAuthString = String.format("%s:%s", AppConfigConstant.XG_ANDROID_APPID, AppConfigConstant.XG_ANDROID_SECRECT);
+            waitingAuthString = String.format("%s:%s", this.appSettingConfigs.getXgConfigs().getAndroidAppid(), this.appSettingConfigs.getXgConfigs().getAndroidSecrect());
         }
         //加密设备和对应密钥
         byte[] bytes = Base64.getEncoder().encode(waitingAuthString.getBytes());

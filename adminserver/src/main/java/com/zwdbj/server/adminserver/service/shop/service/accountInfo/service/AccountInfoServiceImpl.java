@@ -1,11 +1,12 @@
 package com.zwdbj.server.adminserver.service.shop.service.accountInfo.service;
 
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.middleware.mq.MQWorkSender;
 import com.zwdbj.server.adminserver.service.shop.service.accountInfo.model.SmsSendCfg;
 import com.zwdbj.server.adminserver.service.user.model.AdModifyManagerPasswordInput;
 import com.zwdbj.server.adminserver.service.user.model.AdNewlyPwdInput;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
+import com.zwdbj.server.config.settings.AppSettingsConstant;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -32,6 +33,8 @@ public class AccountInfoServiceImpl implements AccountInfoService {
     private RedisTemplate redisTemplate;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
 
     /**
      * 校验手机和验证码合法性
@@ -45,7 +48,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 
         //TODO 审核以后删除
         // 验证手机验证码是否正确
-        String cacheKey = AppConfigConstant.getRedisPhoneCodeKey(phone);
+        String cacheKey = AppSettingsConstant.getRedisPhoneCodeKey(phone);
         boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
         if (!hasPhoneCode) {
             return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);
@@ -79,16 +82,16 @@ public class AccountInfoServiceImpl implements AccountInfoService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String todayStr = simpleDateFormat.format(new Date().getTime());
 
-        if (redisTemplate.hasKey(AppConfigConstant.getRedisPhoneCodeCfgKey(phone))) {
+        if (redisTemplate.hasKey(AppSettingsConstant.getRedisPhoneCodeCfgKey(phone))) {
             try {
-                cfg = operations.get(AppConfigConstant.getRedisPhoneCodeCfgKey(phone));
-                if (currentTimeStamp - cfg.getLastSendSmsTimeStamp() < AppConfigConstant.APP_SMS_SEND_INTERVAL) {
+                cfg = operations.get(AppSettingsConstant.getRedisPhoneCodeCfgKey(phone));
+                if (currentTimeStamp - cfg.getLastSendSmsTimeStamp() < this.appSettingConfigs.getSmsSendConfigs().getSendInterval()) {
                     return new ServiceStatusInfo<String>(1, "发送验证码太频繁，请稍后再试.", "");
                 }
                 String[] cfgDayArr = cfg.getDaySendCount().split(":");
                 int currentSendCount = Integer.parseInt(cfgDayArr[1]);
                 if (todayStr.equals(cfgDayArr[0])) {
-                    if (currentSendCount > AppConfigConstant.APP_SMS_SEND_MAX_COUNT_DAY) {
+                    if (currentSendCount > this.appSettingConfigs.getSmsSendConfigs().getSendMaxCountDay()) {
                         return new ServiceStatusInfo<String>(1, "超过当日最大验证码发送次数", "");
                     }
                     cfg.setLastSendSmsTimeStamp(currentTimeStamp);
@@ -103,7 +106,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
                 logger.warn(ex.getStackTrace().toString());
                 //重新处理缓存
                 cfg = new SmsSendCfg(currentTimeStamp, todayStr + ":1");
-                operations.set(AppConfigConstant.getRedisPhoneCodeCfgKey(phone), cfg);
+                operations.set(AppSettingsConstant.getRedisPhoneCodeCfgKey(phone), cfg);
                 return new ServiceStatusInfo<String>(1, "发送验证码失败，请稍后再试.", "");
             }
         }
@@ -112,7 +115,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
         //生成验证码
         String code = UniqueIDCreater.generatePhoneCode();
 
-        if (AppConfigConstant.APP_SMS_SEND_OPEN) {
+        if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
             try {
                 // 发送验证码加入消息队列
                 QueueWorkInfoModel.QueueWorkPhoneCode phoneCode = QueueWorkInfoModel.QueueWorkPhoneCode.newBuilder()
@@ -133,10 +136,10 @@ public class AccountInfoServiceImpl implements AccountInfoService {
         if (cfg == null) {
             cfg = new SmsSendCfg(currentTimeStamp, todayStr + ":1");
         }
-        operations.set(AppConfigConstant.getRedisPhoneCodeCfgKey(phone), cfg);
+        operations.set(AppSettingsConstant.getRedisPhoneCodeCfgKey(phone), cfg);
         // 存到缓存
-        stringRedisTemplate.opsForValue().set(AppConfigConstant.getRedisPhoneCodeKey(phone), code, AppConfigConstant.APP_SMS_CODE_EXPIRE_TIME, TimeUnit.SECONDS);
-        if (AppConfigConstant.APP_SMS_SEND_OPEN) {
+        stringRedisTemplate.opsForValue().set(AppSettingsConstant.getRedisPhoneCodeKey(phone), code, this.appSettingConfigs.getSmsSendConfigs().getCodeExpireTime(), TimeUnit.SECONDS);
+        if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
             return new ServiceStatusInfo<>(0, "发送成功", "");
         } else {
             return new ServiceStatusInfo<>(0, "", code);
