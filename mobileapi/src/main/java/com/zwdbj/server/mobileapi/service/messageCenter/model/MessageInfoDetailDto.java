@@ -2,6 +2,8 @@ package com.zwdbj.server.mobileapi.service.messageCenter.model;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 public class MessageInfoDetailDto {
     @ApiModelProperty(value = "消息的创造者id")
     protected long creatorUserId;
@@ -23,11 +25,21 @@ public class MessageInfoDetailDto {
     protected int videoOrPet;
     @ApiModelProperty(value = "打赏的小饼干数")
     protected int coins;
+    @ApiModelProperty(value = "时间")
+    protected Date createTime;
 
     @ApiModelProperty(value = "消息关联的链接地址")
     protected String refUrl;
     @ApiModelProperty(value = "消息数据内容")
     protected String dataContent;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public String getCreatorUserUrl() {
         return creatorUserUrl;
