@@ -3,6 +3,7 @@ package com.zwdbj.server.mobileapi.service.pet.service;
 import com.zwdbj.server.mobileapi.model.HeartInput;
 import com.zwdbj.server.mobileapi.service.heart.model.HeartModel;
 import com.zwdbj.server.mobileapi.service.heart.service.HeartService;
+import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInput;
 import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
 import com.zwdbj.server.mobileapi.service.pet.model.PetHeartDto;
 import com.zwdbj.server.mobileapi.service.user.model.UserModel;
@@ -238,6 +239,11 @@ public class PetService {
             petHeartDto.setHeart(true);
             if (isFirst.getCoins()!=null)
                 return new ServiceStatusInfo<>(0, "点赞成功", petHeartDto,isFirst.getCoins());
+            MessageInput msgInput = new MessageInput();
+            msgInput.setCreatorUserId(userId);
+            msgInput.setMessageType(1);
+            msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"2\"}");
+            this.messageCenterService.push(msgInput, pUserId);
             return new ServiceStatusInfo<>(0, "点赞成功", petHeartDto);
         } else {
             return new ServiceStatusInfo<>(1, "取消失败", null,null);
@@ -258,6 +264,10 @@ public class PetService {
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "查询失败" + e.getMessage(), null);
         }
+    }
+
+    public String getPetNameById(long id){
+        return this.petMapper.getPetNameById(id);
     }
 
 }

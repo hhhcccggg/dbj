@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.basemodel.model.ResponseData;
 import com.zwdbj.server.basemodel.model.ResponseDataCode;
 import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
+import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInfoDetailDto;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageInfoDto;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.MessageUnReadDto;
 import com.zwdbj.server.mobileapi.service.messageCenter.service.MessageCenterService;
@@ -34,6 +35,15 @@ public class MessageCenterController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",readDto);
     }
 
+    @RequiresAuthentication
+    @RequestMapping(value = "/myMessages/{type}",method = RequestMethod.GET)
+    @ApiOperation("全部消息")
+    @ApiImplicitParam(name = "type",value = "0:系统消息,1:点赞类2:粉丝类3:评论6:打赏")
+    public ResponsePageInfoData<List<MessageInfoDetailDto>> getMyAllMessageByType(@PathVariable int type) {
+        long userId = JWTUtil.getCurrentId();
+        List<MessageInfoDetailDto> dtos = this.messageCenterService.getMyAllMessageByType(userId,type);
+        return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",dtos,dtos.size());
+    }
     @RequiresAuthentication
     @RequestMapping(value = "/readAll/{type}",method = RequestMethod.GET)
     @ApiOperation("消息已读")

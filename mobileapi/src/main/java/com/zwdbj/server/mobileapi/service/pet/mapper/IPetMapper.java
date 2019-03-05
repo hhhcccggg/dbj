@@ -37,6 +37,8 @@ public interface IPetMapper {
 
     @Select("select userId from core_pets where id=#{id}")
     long findUserIdByPetId(@Param("id")long petId);
+    @Select("select nickName from core_pets where id=#{id}")
+    String getPetNameById(@Param("id")long petId);
 
 
 
