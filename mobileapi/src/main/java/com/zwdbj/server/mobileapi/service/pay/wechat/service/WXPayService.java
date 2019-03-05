@@ -109,7 +109,7 @@ public class WXPayService {
             rmbs = 201;
         } else {
             if (this.wxPayAppCfg.getIsTest()) {
-                rmbs = 1;
+                rmbs = productOrderDetailModel.getNum();
             } else {
                 rmbs = productOrderDetailModel.getActualPayment();
             }
