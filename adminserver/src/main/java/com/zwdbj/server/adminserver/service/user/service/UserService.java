@@ -10,9 +10,9 @@ import com.zwdbj.server.adminserver.easemob.api.EaseMobUser;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mapper.OfflineStoreStaffsMapper;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.tokencenter.model.UserToken;
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -55,6 +55,8 @@ public class UserService {
     IAuthUserManager iAuthUserManagerImpl;
     @Autowired
     OfflineStoreStaffsMapper offlineStoreStaffsMapper;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -391,7 +393,7 @@ public class UserService {
         UserDetailInfoDto userDetailInfoDto = this.userMapper.getUserDetail(userId);
         if (userDetailInfoDto == null) return null;
         userDetailInfoDto.getShopInfoDto().setLotteryTicketCount(this.youZanService.lotteryTicketCount(userId).getData());
-        userDetailInfoDto.getShopInfoDto().setCartUrl("https://h5.youzan.com/v2/trade/cart?kdt_id=" + AppConfigConstant.YOUZAN_BIND_SHOP_ID);
+        userDetailInfoDto.getShopInfoDto().setCartUrl("https://h5.youzan.com/v2/trade/cart?kdt_id=" + this.appSettingConfigs.getYouZanConfigs().getBindShopId());
         userDetailInfoDto.getShopInfoDto().setLotteryUrl("https://h5.youzan.com/v2/coupons");
         userDetailInfoDto.getShopInfoDto().setOrderUrl("https://h5.youzan.com/v2/orders/all");
         //购物车
@@ -499,7 +501,8 @@ public class UserService {
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 
         //初始化acsClient,暂不支持region化
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", AppConfigConstant.ALIYUN_ACCESS_KEY, AppConfigConstant.ALIYUN_ACCESS_SECRECT);
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", this.appSettingConfigs.getAliyunConfigs().getAccessKey()
+                ,this.appSettingConfigs.getAliyunConfigs().getAccessSecrect());
         try {
             DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Dysmsapi", "dysmsapi.aliyuncs.com");
         } catch (Exception e) {
@@ -512,9 +515,9 @@ public class UserService {
         //必填:待发送手机号
         request.setPhoneNumbers(phone);
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("爪子APP");
+        request.setSignName(this.appSettingConfigs.getAliyunConfigs().getSmsCodeSignName());
         //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode("SMS_140020345");
+        request.setTemplateCode(this.appSettingConfigs.getAliyunConfigs().getSmsTemplateCode());
         request.setTemplateParam("{\"code\":\"" + code + "\"}");
         try {
             SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);

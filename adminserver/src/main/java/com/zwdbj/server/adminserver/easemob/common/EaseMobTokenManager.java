@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.easemob.common;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class EaseMobTokenManager {
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
     private String easeMobTokenCacheKey = "easemob_token";
     protected final OkHttpClient client = new OkHttpClient();
     static Logger logger = LoggerFactory.getLogger(EaseMobTokenManager.class);
@@ -41,15 +43,15 @@ public class EaseMobTokenManager {
 
     public EaseMobToken tokenByHttp() {
         String url = String.format("%s/%s/%s/token",
-                AppConfigConstant.EASEMOB_HTTP_BASE,
-                AppConfigConstant.EASEMOB_ORG_NAME,
-                AppConfigConstant.EASEMOB_APP_NAME);
+                this.appSettingConfigs.getEasemobConfigs().getHttpbase(),
+                this.appSettingConfigs.getEasemobConfigs().getOrgName(),
+                this.appSettingConfigs.getEasemobConfigs().getAppName());
         Request request = new Request.Builder()
                 .url(url)
                 .post(RequestBody.create(MediaType.parse("application/json"),
                         "{\"grant_type\": \"client_credentials\"," +
-                                "\"client_id\": \""+AppConfigConstant.EASEMOB_CLIENTID+"\"," +
-                                "\"client_secret\": \""+AppConfigConstant.EASEMOB_CLIENTSECRECT+"\"}"))
+                                "\"client_id\": \""+this.appSettingConfigs.getEasemobConfigs().getClientid()+"\"," +
+                                "\"client_secret\": \""+this.appSettingConfigs.getEasemobConfigs().getClientSecrect()+"\"}"))
                 .build();
         try {
             Response response = client.newCall(request).execute();

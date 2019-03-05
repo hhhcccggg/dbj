@@ -2,8 +2,8 @@ package com.zwdbj.server.adminserver.controller;
 
 import com.zwdbj.server.basemodel.model.ResponseData;
 import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.tokencenter.model.UserToken;
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,12 +21,14 @@ public class QiniuController {
 
     @Autowired
     QiniuService qiniuService;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
 
     @RequestMapping(value = "/uptoken",method = RequestMethod.GET)
     @ApiOperation(value = "获取七牛上传文件token",notes = "")
     @RequiresAuthentication
     public ResponseData<UserToken> UploadToken() {
-        UserToken userToken = new UserToken(qiniuService.uploadToken(),AppConfigConstant.QINIU_UPTOKEN_EXPIRETIME);
+        UserToken userToken = new UserToken(qiniuService.uploadToken(),this.appSettingConfigs.getQiniuConfigs().getUptokenExpiretime());
         return new ResponseData<UserToken>(ResponseDataCode.STATUS_NORMAL,"",userToken);
     }
 
