@@ -2,11 +2,12 @@ package com.zwdbj.server.adminserver.service.video.service;
 
 import com.alibaba.fastjson.JSON;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
-import com.zwdbj.server.adminserver.config.AppConfigConstant;
 import com.zwdbj.server.adminserver.service.comment.model.CommentInfoDto;
 import com.zwdbj.server.adminserver.service.comment.service.CommentService;
 import com.zwdbj.server.adminserver.service.shop.service.products.model.ProductOut;
 import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
+import com.zwdbj.server.config.settings.AppSettingsConstant;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -67,6 +68,9 @@ public class VideoService {
     private RestHighLevelClient restHighLevelClient;
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
+
     private Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     //短视频关联商品
@@ -191,10 +195,10 @@ public class VideoService {
         VideoDetailInfoDto dto = this.videoMapper.video(id);
         loadVideoInfoDto(dto);
         if (dto != null) {
-            dto.setLinkProductUrl(AppConfigConstant.getShopListUrl(id, "video"));
+            dto.setLinkProductUrl(this.appSettingConfigs.getH5Configs().getShopListUrl(id, "video"));
             dto.setShareTitle(dto.getTitle());
             dto.setShareContent(dto.getTitle());
-            dto.setShareUrl(AppConfigConstant.getShareUrl(id, "video"));
+            dto.setShareUrl(this.appSettingConfigs.getH5Configs().getShareUrl(id, "video"));
         }
         return dto;
     }
@@ -285,34 +289,34 @@ public class VideoService {
      */
     public void recVideosEveryday(String videoIds) {
         if (videoIds == null) return;
-        stringRedisTemplate.opsForValue().set(AppConfigConstant.REDIS_VIDEO_RECOMMEND_KEY, videoIds, 24, TimeUnit.HOURS);
+        stringRedisTemplate.opsForValue().set(AppSettingsConstant.REDIS_VIDEO_RECOMMEND_KEY, videoIds, 24, TimeUnit.HOURS);
     }
 
     public void weightVideos(AdVideoWeightInput input) {
         if (input == null) return;
         ValueOperations<String, AdVideoWeightInput> operations = redisTemplate.opsForValue();
-        operations.set(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY, input);
+        operations.set(AppSettingsConstant.REDIS_VIDEO_WEIGHT_KEY, input);
     }
 
     public void calculateVideoWeight(long id) {
         ValueOperations<String, AdVideoWeightInput> operations = redisTemplate.opsForValue();
-        if (!redisTemplate.hasKey(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY)) {
+        if (!redisTemplate.hasKey(AppSettingsConstant.REDIS_VIDEO_WEIGHT_KEY)) {
             logger.info("没有设置权重");
             return;
         }
-        AdVideoWeightInput input = (AdVideoWeightInput) operations.get(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY);
+        AdVideoWeightInput input = (AdVideoWeightInput) operations.get(AppSettingsConstant.REDIS_VIDEO_WEIGHT_KEY);
         if (input == null) {
             logger.info("没有设置权重");
             return;
         }
         this.videoMapper.updateVideoField("recommendIndex = (heartCount * " + input.getHeartCount() / 100.0f + " + " +
                 "commentCount*" + input.getCommentCount() / 100.0f + "+shareCount*" + input.getShareCount() / 100.0f + "+playCount*" + input.getPlayCount() / 100.0f + ")", id);
-        operations.set(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY, input);
+        operations.set(AppSettingsConstant.REDIS_VIDEO_WEIGHT_KEY, input);
     }
 
     public ServiceStatusInfo<AdVideoWeightInput> getVideosWeight() {
         ValueOperations<String, AdVideoWeightInput> operations = redisTemplate.opsForValue();
-        AdVideoWeightInput dto = operations.get(AppConfigConstant.REDIS_VIDEO_WEIGHT_KEY);
+        AdVideoWeightInput dto = operations.get(AppSettingsConstant.REDIS_VIDEO_WEIGHT_KEY);
         if (dto != null) {
             return new ServiceStatusInfo<>(0, "", dto);
         } else {
