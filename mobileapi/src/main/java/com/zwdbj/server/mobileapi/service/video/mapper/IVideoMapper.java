@@ -76,6 +76,8 @@ public interface IVideoMapper {
 
     @Select("select * from core_videos where id=#{id}")
     VideoDetailInfoDto video(@Param("id") long id);
+    @Select("select title from core_videos where id=#{id}")
+    String getTitleById(@Param("id") long id);
 
     //    @Select("SELECT *  FROM core_videos AS t1 " +
 //            "JOIN (SELECT ROUND(RAND() * ((SELECT MAX(id) FROM core_videos where status=0 order by id)-(SELECT MIN(id) FROM core_videos where status=0 order by id))+" +
