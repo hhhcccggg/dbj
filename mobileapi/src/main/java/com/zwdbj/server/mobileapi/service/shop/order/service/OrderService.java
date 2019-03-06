@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.service.shop.order.service;
 
 import com.ecwid.consul.v1.ConsulClient;
 import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
+import com.zwdbj.server.mobileapi.middleware.mq.ESUtil;
 import com.zwdbj.server.mobileapi.service.shop.order.mapper.IOrderMapper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.CancelOrderInput;
@@ -165,8 +166,12 @@ public class OrderService {
                 int totalFee = price*input.getNum();
                 this.orderMapper.createOrderItem(orderItemId,orderId,input,price,totalFee);
                 // 减去商品和sku的库存并更新销量
-                if (inventoryNum!=-10000L)
-                this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
+                if (inventoryNum!=-10000L){
+                    this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
+                    ESUtil.QueueWorkInfoModelSend(input.getProductId(), "product", "u");
+
+                }
+
                 //设置订单过期机制
                 QueueWorkInfoModel.QueueWorkOrderTimeData orderTimeData
                         = QueueWorkInfoModel.QueueWorkOrderTimeData.newBuilder()
