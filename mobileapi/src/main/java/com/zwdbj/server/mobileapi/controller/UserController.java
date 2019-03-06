@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.common.sms.ISendSmsService;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.mobileapi.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.mobileapi.service.setting.service.SettingService;
@@ -48,6 +49,9 @@ public class UserController {
     private TokenCenterManager tokenCenterManager;
     @Autowired
     private AppSettingConfigs appSettingConfigs;
+    @Autowired
+    private ISendSmsService sendSmsService;
+
 
     @RequiresAuthentication
     @RequestMapping(value = "/pushSetting", method = RequestMethod.POST)
@@ -81,7 +85,7 @@ public class UserController {
     @RequestMapping(value = "/verifyPhone", method = RequestMethod.POST)
     @ApiOperation(value = "校验手机号和验证码")
     public ResponseData<Object> verifyPhone(@RequestBody PhoneCodeInput input) {
-        ServiceStatusInfo<Object> statusInfo = this.userService.checkPhoneCode(input.getPhone(), input.getCode());
+        ServiceStatusInfo<Object> statusInfo = this.sendSmsService.checkPhoneCode(input.getPhone(), input.getCode());
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "验证成功", null);
         }
@@ -163,13 +167,13 @@ public class UserController {
     @RequestMapping(value = "/sendPhoneCode", method = RequestMethod.GET)
     @ApiOperation(value = "获取手机验证码")
     public ResponseData<Map<String, String>> sendPhoneCode(@RequestParam("phone") String phone) {
-        ServiceStatusInfo<String> info = userService.sendPhoneCode(phone);
+        ServiceStatusInfo<Object> info = this.sendSmsService.sendCode(phone);
         if (info.isSuccess()) {
             if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
                 return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "发送验证码成功!", null);
             } else {
                 Map<String, String> map = new HashMap<>();
-                map.put("code", info.getData());
+                map.put("code", (String) info.getData());
                 return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "发送验证码成功!{" + info.getData() + "}", map);
             }
         }

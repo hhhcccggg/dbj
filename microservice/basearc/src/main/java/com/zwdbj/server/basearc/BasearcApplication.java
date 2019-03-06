@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScans;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan(basePackages = {"com.zwdbj.server.basearc.*","com.zwdbj.server.config.*"})
+@ComponentScan(basePackages = {"com.zwdbj.server.basearc.*","com.zwdbj.server.config.*","com.zwdbj.server.common.*"})
 public class BasearcApplication {
 
     public static void main(String[] args) {
