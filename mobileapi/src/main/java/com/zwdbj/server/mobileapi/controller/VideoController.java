@@ -6,7 +6,6 @@ import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.es.service.ESUtilService;
 import com.zwdbj.server.mobileapi.model.*;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
-import com.zwdbj.server.mobileapi.service.es.service.ESService;
 import com.zwdbj.server.mobileapi.service.video.model.*;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.mobileapi.service.youzan.model.YZItemDto;
