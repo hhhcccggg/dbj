@@ -10,7 +10,7 @@ public class ESUtil {
 
     /**
      *      * int64 id=1;//主键id
-     *      * string type = 2;//user:用户,video:视频,store:商家,product:商品
+     *      * string type = 2;//user:用户,video:视频,shop:商家,product:商品
      *      * string action = 3;//c:增加,r:读取,u:更新,d:删除
      * @param id
      * @param type
@@ -25,7 +25,7 @@ public class ESUtil {
                     .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.ES_ADMIN_INFO)
                     .setEsAdminInfo(queueWorkInfoModel)
                     .build();
-            DelayMQWorkSender.shareSender().send(queueWorkInfo,60);
+            DelayMQWorkSender.shareSender().send(queueWorkInfo,1);
             logger.info("[MQ]ES " + id + " " +type+ " " + action + "发送信息成功");
         } catch (Exception e) {
             logger.error("[MQ]ES" + id + " " +type+ " " + action + "发送信息失败");

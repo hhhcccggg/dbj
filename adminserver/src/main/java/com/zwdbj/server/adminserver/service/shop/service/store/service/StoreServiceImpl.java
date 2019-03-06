@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.service;
 
+import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
 import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.shop.service.legalSubject.service.ILegalSubjectService;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.model.OfflineStoreExtraServices;
@@ -17,8 +18,8 @@ import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearch
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimpleInfo;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.service.StoreReviewService;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,8 +108,7 @@ public class StoreServiceImpl implements StoreService {
         if (result == 0) return new ServiceStatusInfo<>(1, "店铺更新失败了", result);
         int s = this.legalSubjectServiceImpl.updateStatusById(legalSubjectId, state);
         if (s == 0) return new ServiceStatusInfo<>(1, "商家更新失败了", result);
-        QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
-
+        ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
         return new ServiceStatusInfo<>(0, "", s);
     }
 
@@ -127,7 +127,7 @@ public class StoreServiceImpl implements StoreService {
         a = this.legalSubjectServiceImpl.verityUnReviewedLegalSubject(legalSubjectId, input).getData();
         if (a == 0) return new ServiceStatusInfo<>(1, "商家审核失败", 0);
 
-        QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+        ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
         return new ServiceStatusInfo<>(0, "审核成功", a);
     }
