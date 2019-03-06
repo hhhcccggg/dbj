@@ -81,7 +81,7 @@ public class MQWorkReceiver extends MQConnection {
         logger.info("[MQ]收到数据类型:" + info.getWorkType());
         if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE) {
             UserService userService = SpringContextUtil.getBean(UserService.class);
-            userService.sendSms(info.getPhoneCode().getPhone(), info.getPhoneCode().getCode());
+            //userService.sendSms(info.getPhoneCode().getPhone(), info.getPhoneCode().getCode());
             logger.info("[MQ]发送手机" + info.getPhoneCode().getPhone() + "的验证码" + info.getPhoneCode().getCode() + "成功");
             channel.basicAck(envelope.getDeliveryTag(), false);
         } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.PUSH) {
