@@ -244,6 +244,7 @@ public class ProductServiceImpl implements ProductService {
     public ServiceStatusInfo<List<ProductInfo>> selectProductByStoreId(Long storeId) {
         List<ProductInfo> result = null;
         try {
+            
             result = iProductMapper.selectProductByStoreId(storeId);
             //查询产品规格
             return new ServiceStatusInfo<>(0, "", result);
@@ -251,5 +252,11 @@ public class ProductServiceImpl implements ProductService {
             return new ServiceStatusInfo<>(1, "查询失败", null);
         }
 
+    }
+
+    @Override
+    public List<Map<String, String>> selectEs() {
+        List<Map<String,String>> mapList = this.iProductMapper.selectEs();
+        return mapList;
     }
 }

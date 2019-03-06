@@ -33,10 +33,10 @@ public class OfflineStoreOpeningHoursController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}/{storeId}", method = RequestMethod.GET)
     @ApiOperation(value = "删除营业时间")
-    public ResponseData<Long> deleteById(@PathVariable("id") Long id) {
-        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreOpeningHoursServiceImpl.deleteById(id);
+    public ResponseData<Long> deleteById(@PathVariable("id") Long id, @PathVariable("storeId") long storeId) {
+        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreOpeningHoursServiceImpl.deleteById(id, storeId);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -69,7 +69,7 @@ public class OfflineStoreOpeningHoursController {
                                                                        @RequestParam(value = "rows", defaultValue = "30", required = true) int rows) {
 
         PageHelper.startPage(pageNo, rows);
-        List<OfflineStoreOpeningHours> list =offlineStoreOpeningHoursServiceImpl.select().getData();
+        List<OfflineStoreOpeningHours> list = offlineStoreOpeningHoursServiceImpl.select().getData();
         PageInfo<OfflineStoreOpeningHours> pageInfo = new PageInfo<>(list);
 
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", list, pageInfo.getTotal());

@@ -4,6 +4,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.*;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
 
@@ -25,7 +26,6 @@ public interface ProductService {
     /**
      * 根据商品类型,产品详细类型,店铺id查询商品
      *
-     * @param type
      * @param storeId
      * @return
      */
@@ -34,7 +34,6 @@ public interface ProductService {
     /**
      * 根据storeId商品
      *
-     * @param id
      * @return
      */
     ServiceStatusInfo<List<ProductlShow>> selectByStoreId(long storeId);
@@ -73,4 +72,8 @@ public interface ProductService {
      * @return
      */
     ServiceStatusInfo<List<ProductMainDto>> mainProduct();
+    /**
+     * 商品的es搜索
+     */
+    List<Map<String,String>> selectEs();
 }

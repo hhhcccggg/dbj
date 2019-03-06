@@ -197,13 +197,13 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             } else {
                 if (info.getSearch() == null || "".equals(info.getSearch())) {
                     matchQuery = QueryBuilders.boolQuery()
-                            .should(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
+                            .must(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
                             .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
                                     .distance(100, DistanceUnit.KILOMETERS)
                             );
                 } else {
                     matchQuery = QueryBuilders.boolQuery()
-                            .should(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
+                            .must(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
                             .should(new MultiMatchQueryBuilder(info.getSearch(),
                                     "name",
                                     "storeProducts.name",

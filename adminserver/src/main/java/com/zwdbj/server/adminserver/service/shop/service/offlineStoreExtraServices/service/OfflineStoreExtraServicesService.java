@@ -10,7 +10,7 @@ public interface OfflineStoreExtraServicesService {
 
     ServiceStatusInfo<Long> update(OfflineStoreExtraServices offlineStoreExtraServices);
 
-    ServiceStatusInfo<Long> deleteById(Long id);
+    ServiceStatusInfo<Long> deleteById(Long extraServiceId, long storeId);
 
     ServiceStatusInfo<List<OfflineStoreExtraServices>> select();
 
