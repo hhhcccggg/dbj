@@ -1,4 +1,4 @@
-package com.zwdbj.server.basearc.sms;
+package com.zwdbj.server.common.sms;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -8,6 +8,8 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.config.settings.AliyunConfigs;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
+import com.zwdbj.server.config.settings.AppSettingsConstant;
 import com.zwdbj.server.config.settings.SmsSendConfigs;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +24,11 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SendSmsService implements ISendSmsService {
     @Autowired
-    private AliyunConfigs aliyunConfigs;
-    @Autowired
-    private SmsSendConfigs smsSendConfigs;
+    private AppSettingConfigs appSettingConfigs;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private RedisTemplate redisTemplate;
-
-
-    private static String REDIS_PHONE_CODE_KEY = "phoneCode";
-    protected static String getRedisPhoneCodeKey(String phone) {
-        return REDIS_PHONE_CODE_KEY + "_" + phone;
-    }
-    private static String REDIS_PHONE_CODE_CFG_KEY = "phoneCodeCfg";
-    protected static String getRedisPhoneCodeCfgKey(String phone) {
-        return REDIS_PHONE_CODE_CFG_KEY + "_" + phone;
-    }
 
     /**
      * 短信发送验证码
@@ -54,16 +44,18 @@ public class SendSmsService implements ISendSmsService {
         long currentTimeStamp = System.currentTimeMillis() / 1000;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String todayFormat = simpleDateFormat.format(new Date().getTime());
-        if (this.redisTemplate.hasKey(getRedisPhoneCodeCfgKey(phone))) {
+        String cfgCacheKey = AppSettingsConstant.getRedisPhoneCodeCfgKey(phone);
+        String codeCacheKey = AppSettingsConstant.getRedisPhoneCodeKey(phone);
+        if (this.redisTemplate.hasKey(cfgCacheKey)) {
             try {
-                cfg = (SmsSendCfg)this.redisTemplate.opsForValue().get(getRedisPhoneCodeCfgKey(phone));
-                if (currentTimeStamp - cfg.getLastSendSmsTimeStamp() < this.smsSendConfigs.getSendInterval()) {
+                cfg = (SmsSendCfg)this.redisTemplate.opsForValue().get(cfgCacheKey);
+                if (currentTimeStamp - cfg.getLastSendSmsTimeStamp() < this.appSettingConfigs.getSmsSendConfigs().getSendInterval()) {
                     return new ServiceStatusInfo<Object>(500, "发送验证码太频繁，请稍后再试.", null);
                 }
                 String[] cfgDayArr = cfg.getDaySendCount().split(":");
                 int currentSendCount = Integer.parseInt(cfgDayArr[1]);
                 if (todayFormat.equals(cfgDayArr[0])) {
-                    if (currentSendCount > this.smsSendConfigs.getSendMaxCountDay()) {
+                    if (currentSendCount > this.appSettingConfigs.getSmsSendConfigs().getSendMaxCountDay()) {
                         return new ServiceStatusInfo<Object>(500, "超过当日最大验证码发送次数", null);
                     }
                     cfg.setLastSendSmsTimeStamp(currentTimeStamp);
@@ -74,16 +66,17 @@ public class SendSmsService implements ISendSmsService {
                 }
             } catch (Exception ex) {
                 cfg = new SmsSendCfg(currentTimeStamp, todayFormat + ":1");
-                this.redisTemplate.opsForValue().set(getRedisPhoneCodeCfgKey(phone), cfg);
+                this.redisTemplate.opsForValue().set(cfgCacheKey, cfg);
                 return new ServiceStatusInfo<Object>(500, "发送验证码失败，请稍后再试.", null);
             }
         }
         String code = UniqueIDCreater.generatePhoneCode();
-        if (this.smsSendConfigs.isSendOpen()) {
+        if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
+            //TODO 解决中文乱码后再修正
             ServiceStatusInfo<Object> sendResult = this.sendCodeByAli(phone,
                     code,
-                    this.aliyunConfigs.getSmsCodeSignName(),
-                    this.aliyunConfigs.getSmsTemplateCode());
+                    "爪子APP",
+                    this.appSettingConfigs.getAliyunConfigs().getSmsTemplateCode());
             if (!sendResult.isSuccess()) {
                 return sendResult;
             }
@@ -91,13 +84,26 @@ public class SendSmsService implements ISendSmsService {
         if (cfg == null) {
             cfg = new SmsSendCfg(currentTimeStamp, todayFormat + ":1");
         }
-        this.redisTemplate.opsForValue().set(getRedisPhoneCodeCfgKey(phone), cfg);
-        this.stringRedisTemplate.opsForValue().set(getRedisPhoneCodeKey(phone), code, this.smsSendConfigs.getCodeExpireTime(), TimeUnit.SECONDS);
-        if (this.smsSendConfigs.isSendOpen()) {
+        this.redisTemplate.opsForValue().set(cfgCacheKey, cfg);
+        this.stringRedisTemplate.opsForValue().set(codeCacheKey, code, this.appSettingConfigs.getSmsSendConfigs().getCodeExpireTime(), TimeUnit.SECONDS);
+        if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
             return new ServiceStatusInfo<>(0, "发送成功", null);
         } else {
             return new ServiceStatusInfo<>(0, "发送成功", code);
         }
+    }
+
+    /**
+     * 短信发送验证码
+     *
+     * @param phone 手机号
+     * @return 返回发送状态
+     */
+    @Override
+    public ServiceStatusInfo<Object> sendCode(String phone) {
+        return sendCode(phone
+                ,this.appSettingConfigs.getAliyunConfigs().getSmsCodeSignName()
+                ,this.appSettingConfigs.getAliyunConfigs().getSmsTemplateCode());
     }
 
     /**
@@ -110,7 +116,7 @@ public class SendSmsService implements ISendSmsService {
     @Override
     public ServiceStatusInfo<Object> checkPhoneCode(String phone, String code) {
         try {
-            String cacheKey = getRedisPhoneCodeKey(phone);
+            String cacheKey = AppSettingsConstant.getRedisPhoneCodeKey(phone);
             boolean hasPhoneCode = this.stringRedisTemplate.hasKey(cacheKey);
             if (!hasPhoneCode) {
                 return new ServiceStatusInfo<>(500, "请输入正确的手机号和验证码", null);
@@ -132,8 +138,8 @@ public class SendSmsService implements ISendSmsService {
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou",
-                this.aliyunConfigs.getAccessKey(),
-                this.aliyunConfigs.getAccessSecrect());
+                this.appSettingConfigs.getAliyunConfigs().getAccessKey(),
+                this.appSettingConfigs.getAliyunConfigs().getAccessSecrect());
         try {
             DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Dysmsapi", "dysmsapi.aliyuncs.com");
         } catch (Exception e) {

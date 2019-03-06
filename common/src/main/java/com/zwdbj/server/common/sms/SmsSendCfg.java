@@ -1,4 +1,4 @@
-package com.zwdbj.server.basearc.sms;
+package com.zwdbj.server.common.sms;
 
 import java.io.Serializable;
 

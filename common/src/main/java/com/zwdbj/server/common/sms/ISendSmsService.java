@@ -1,4 +1,4 @@
-package com.zwdbj.server.basearc.sms;
+package com.zwdbj.server.common.sms;
 
 
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
@@ -15,6 +15,13 @@ public interface ISendSmsService {
      * @return 返回发送状态
      */
     ServiceStatusInfo<Object> sendCode(String phone, String smsSignName, String templateCode);
+
+    /**
+     * 短信发送验证码
+     * @param phone 手机号
+     * @return 返回发送状态
+     */
+    ServiceStatusInfo<Object> sendCode(String phone);
 
     /**
      * 校验验证码
