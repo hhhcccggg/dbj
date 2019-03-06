@@ -112,6 +112,7 @@ public class WXPayService {
                 rmbs = productOrderDetailModel.getActualPayment();
             }
         }
+        logger.info(payConfigs.toString());
         // 生成预付单
         UnifiedOrderInput unifiedOrderInput = new UnifiedOrderInput();
         unifiedOrderInput.setBody("爪子 订单付款"+rmbs/100f+"元");
@@ -120,6 +121,7 @@ public class WXPayService {
         unifiedOrderInput.setTradeType("APP");
         unifiedOrderInput.setTotalFee(rmbs);
         unifiedOrderInput.setOutTradeNo(String.valueOf(input.getOrderId()));
+        logger.info(unifiedOrderInput.toString());
         ServiceStatusInfo<UnifiedOrderDto> unifiedOrderDtoServiceStatusInfo =
                 this.wechatPayService.unifiedOrder(unifiedOrderInput);
         if (!unifiedOrderDtoServiceStatusInfo.isSuccess()) {

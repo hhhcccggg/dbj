@@ -3,8 +3,11 @@ package com.zwdbj.server.pay.wechat.wechatpay.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 @ApiModel("微信支付统一下单")
-public class UnifiedOrderInput {
+public class UnifiedOrderInput implements Serializable {
+    private static final long serialVersionUID = 3698491567492103384L;
     @ApiModelProperty("商品描述")
     private String body;
     @ApiModelProperty("订单号")
