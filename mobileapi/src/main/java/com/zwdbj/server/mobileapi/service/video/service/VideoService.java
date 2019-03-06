@@ -843,11 +843,6 @@ public class VideoService {
      */
     public ServiceStatusInfo<VideoMainDto> mainVideo(VideoMainInput videoMainInput){
         try{
-            //TODO es查询数据
-//            RestHighLevelClient restHighLevelClient =  new RestHighLevelClient(
-//                    RestClient.builder(new HttpHost("127.0.0.1",9200,"http")).setMaxRetryTimeoutMillis(60000));
-//            CreateIndexRequest createIndexRequest = new
-            //createEs();
             //TODO 测试数据
             List<VideoMain> list = videoMapper.mainVideo();
             for (VideoMain videoMain: list) {

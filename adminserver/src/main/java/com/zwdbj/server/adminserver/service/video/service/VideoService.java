@@ -1,6 +1,7 @@
 package com.zwdbj.server.adminserver.service.video.service;
 
-import com.alibaba.fastjson.JSON;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.service.comment.model.CommentInfoDto;
 import com.zwdbj.server.adminserver.service.comment.service.CommentService;
@@ -9,7 +10,7 @@ import com.zwdbj.server.adminserver.service.shop.service.products.service.Produc
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.config.settings.AppSettingsConstant;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.es.common.ESIndex;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.heart.service.HeartService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
@@ -20,13 +21,10 @@ import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.mapper.IVideoMapper;
 import com.zwdbj.server.adminserver.service.heart.model.HeartModel;
 import com.zwdbj.server.adminserver.service.video.model.*;
+import com.zwdbj.server.es.service.ESUtilService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
-import org.elasticsearch.action.delete.DeleteRequest;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +64,8 @@ public class VideoService {
     private CommentService commentService;
     @Autowired
     private RestHighLevelClient restHighLevelClient;
+    @Autowired
+    private ESUtilService esUtilService;
     @Autowired
     protected VideoRandRecommendService videoRandRecommendService;
     @Autowired
@@ -356,27 +356,23 @@ public class VideoService {
     /**
      * 操作ES數據
      * @param id
-     * @param operationEnum
+     * @param action
      */
-    public void operationByIdES(long id, QueueWorkInfoModel.QueueWorkVideoInfo.OperationEnum operationEnum) throws IOException {
-        switch (operationEnum){
-            case CREATE:
+    public void operationByIdES(long id, String action, Channel channel, Envelope envelope){
+        try{
+            if(action.equals(ESIndex.CREATE) || action.equals(ESIndex.UPDATE)){
                 Map<String,String> map = selectById(id);
-                IndexRequest indexRequest = new IndexRequest("video","doc",String.valueOf(id));
-                indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
-                restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
-                break;
-            case UPDATE:
-                map = selectById(id);
-                indexRequest = new IndexRequest("video","doc",String.valueOf(id));
-                indexRequest.source(JSON.toJSONString(map), XContentType.JSON);
-                restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
-                break;
-            case DELETE:
-                DeleteRequest deleteRequest = new DeleteRequest("video","doc",String.valueOf(id));
-                restHighLevelClient.delete(deleteRequest,RequestOptions.DEFAULT);
-                break;
+                esUtilService.updateIndexData(ESIndex.VIDEO, ESIndex.VIDEO_TYPE, String.valueOf(id),map);
+            }else if(action.equals(ESIndex.DELETE)){
+                esUtilService.deleteIndexData(ESIndex.VIDEO, ESIndex.VIDEO_TYPE, String.valueOf(id));
+            }else
+                return;
+            //确认消费
+            channel.basicAck(envelope.getDeliveryTag(),false);
+        }catch (IOException e){
+            e.printStackTrace();
         }
+
     }
 
     private Map<String,String> selectById(long id){
