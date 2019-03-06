@@ -13,4 +13,5 @@ public class ESIndex {
     public static String VIDEO_TYPE = "doc";
     public static String STORE = "store";
     public static String PRODUCT = "product";
+    public static String PRODUCT_TYPE = "doc";
 }

@@ -252,4 +252,10 @@ public class ProductServiceImpl implements ProductService {
         }
 
     }
+
+    @Override
+    public List<Map<String, String>> selectEs() {
+        List<Map<String,String>> mapList = this.iProductMapper.selectEs();
+        return mapList;
+    }
 }

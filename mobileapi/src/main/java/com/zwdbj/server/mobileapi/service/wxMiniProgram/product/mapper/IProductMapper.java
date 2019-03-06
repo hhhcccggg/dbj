@@ -4,6 +4,7 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface IProductMapper {
@@ -100,4 +101,11 @@ public interface IProductMapper {
             " where productType=1 and (productDetailType='CARD' or productDetailType='CASHCOUPON') and p.storeId=#{storeId}"+
     " and pk.productId=p.id and (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime < REPLACE(unix_timestamp(current_timestamp(3)),'.','')))")
     List<ProductInfo> selectProductByStoreId(@Param("storeId") Long storeId);
+
+    @Select("select p.id ,pk.id as skuId,p.storeId,p.grade,pk.originalPrice as originalPrice,pk.promotionPrice as promotionPrice," +
+            "pk.inventory as inventory,pk.sales as sales,pk.attrs as attrs,pk.weight as weight,p.createTime as createTime," +
+            "p.brandId,p.categoryId,p.productType,p.attimageUrlsrs,p.videoUrl,p.numberId,p.detailDescription,p.ruleDescription," +
+            "p.notes,p.productDetailType,p.name,p.subName,p.searchName,p.marketName,p.sellerPoint,p.limitPerPerson,p.supportCoin " +
+            "from shop_products p right join shop_productSKUs pk on pk.productId=p.id where p.publish=true and p.productType=1")
+    List<Map<String,String>> selectEs();
 }
