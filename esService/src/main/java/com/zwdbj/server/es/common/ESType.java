@@ -72,4 +72,23 @@ public class ESType {
         ik_max_word.put("analyzer", "ik_max_word");
         return ik_max_word;
     }
+
+    public static Map<String, Object> getArray(Map<String, Object> properties) {
+        Map<String, Object> array = new HashMap<>();
+        array.put("type", "nested");
+        array.put("properties", properties);
+        return array;
+    }
+
+    public static Map<String, Object> getDouble() {
+        Map<String, Object> d = new HashMap<>();
+        d.put("type", "double");
+        return d;
+    }
+
+    public static Map<String, Object> getInteger() {
+        Map<String, Object> integer = new HashMap<>();
+        integer.put("type", "integer");
+        return integer;
+    }
 }
