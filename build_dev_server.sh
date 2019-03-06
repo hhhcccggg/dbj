@@ -16,9 +16,9 @@ supervisorctl stop adminserver
 supervisorctl stop apigatewayserver
 supervisorctl stop apiserver
 
-cp ./adminserver/target/api.jar ~/adminserver/admin.jar
-cp ./mobileapi/target/api.jar ~/apiserver/
-cp ./apigateway/target/apigateway.jar ~/apigatewayserver/
+cp ./adminserver/target/api.jar /root/adminserver/admin.jar
+cp ./mobileapi/target/api.jar /root/apiserver/
+cp ./apigateway/target/apigateway.jar /root/apigatewayserver/
 
 supervisorctl start adminserver
 supervisorctl start apigatewayserver

@@ -11,7 +11,7 @@ echo "配置文件拷贝结束"
 
 mvn package
 supervisorctl stop adminoperateserver
-cp ./adminoperate/target/adminoperate.jar ~/adminoperateserver/
+cp ./adminoperate/target/adminoperate.jar /root/adminoperateserver/
 supervisorctl start adminoperateserver
 
 git reset --hard

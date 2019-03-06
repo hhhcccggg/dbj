@@ -15,8 +15,8 @@ mvn package
 supervisorctl stop adminserverapp
 supervisorctl stop apiserverapp
 
-cp ./adminserver/target/api.jar ~/serverapps/adminserverapp/admin.jar
-cp ./mobileapi/target/api.jar ~/serverapps/apiserverapp/
+cp ./adminserver/target/api.jar /root/serverapps/adminserverapp/admin.jar
+cp ./mobileapi/target/api.jar /root/serverapps/apiserverapp/
 
 supervisorctl start adminserverapp
 supervisorctl start apiserverapp
