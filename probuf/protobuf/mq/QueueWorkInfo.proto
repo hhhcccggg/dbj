@@ -77,7 +77,7 @@ message QueueWorkShopLegalSubjectData{
 }
 message QueueWorkESAdminInfo{
     int64 id=1;//主键id
-    string type = 2;//user:用户,video:视频,store:商家,product:商品
+    string type = 2;//user:用户,video:视频,shop:商家,product:商品
     string action = 3;//c:增加,r:读取,u:更新,d:删除
 }
 message QueueWorkOrderTimeData{

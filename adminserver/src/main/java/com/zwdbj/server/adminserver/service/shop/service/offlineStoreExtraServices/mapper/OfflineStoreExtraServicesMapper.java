@@ -13,8 +13,8 @@ public interface OfflineStoreExtraServicesMapper {
             "#{offlineStoreExtraServices.status},#{offlineStoreExtraServices.notes})")
     Long create(@Param("id") Long id, @Param("offlineStoreExtraServices") OfflineStoreExtraServices offlineStoreExtraServices);
 
-    @Update("update o2o_offlineStoreExtraServices set isDeleted=1,deleteTIme=now() where id=#{id}")
-    Long deleteById(@Param("id") Long idd);
+    @Update("update o2o_offlineStoreExtraServices set isDeleted=1,deleteTIme=now() where extraServiceId=#{extraServiceId} and storeId=#{storeId}")
+    Long deleteById(@Param("extraServiceId") Long extraServiceId, @Param("storeId") long storeId);
 
     @Update("update o2o_offlineStoreExtraServices set " +
             "status=#{offlineStoreExtraServices.status}," +

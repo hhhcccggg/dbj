@@ -1,11 +1,10 @@
 package com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour.service;
 
-import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
+import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour.mapper.OfflineStoreOpeningHoursMapper;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreOpeningHour.model.OfflineStoreOpeningHours;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
-import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +25,7 @@ public class OfflineStoreOpeningHoursServiceImpl implements OfflineStoreOpeningH
         Long result = 0L;
         try {
             result = offlineStoreOpeningHourMapper.create(id, offlineStoreOpeningHours);
-            QueueUtil.sendQueue(offlineStoreOpeningHours.getStoreId(), QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            ESUtil.QueueWorkInfoModelSend(offlineStoreOpeningHours.getStoreId(), "shop", "u");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "创建营业时间失败" + e.getMessage(), result);
@@ -35,11 +34,11 @@ public class OfflineStoreOpeningHoursServiceImpl implements OfflineStoreOpeningH
 
     @Transactional
     @Override
-    public ServiceStatusInfo<Long> deleteById(Long id) {
+    public ServiceStatusInfo<Long> deleteById(long id, long storeId) {
         Long result = 0L;
         try {
             result = offlineStoreOpeningHourMapper.deleteById(id);
-            QueueUtil.sendQueue(id, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "删除营业时间失败" + e.getMessage(), result);
@@ -52,7 +51,7 @@ public class OfflineStoreOpeningHoursServiceImpl implements OfflineStoreOpeningH
         Long result = 0L;
         try {
             result = offlineStoreOpeningHourMapper.update(offlineStoreOpeningHours);
-            QueueUtil.sendQueue(offlineStoreOpeningHours.getStoreId(), QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            ESUtil.QueueWorkInfoModelSend(offlineStoreOpeningHours.getStoreId(), "shop", "u");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改营业时间失败" + e.getMessage(), result);
