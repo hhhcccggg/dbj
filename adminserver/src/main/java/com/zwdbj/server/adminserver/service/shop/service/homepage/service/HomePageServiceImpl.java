@@ -3,6 +3,8 @@ package com.zwdbj.server.adminserver.service.shop.service.homepage.service;
 import com.zwdbj.server.adminserver.service.shop.service.homepage.mapper.HomePageMapper;
 import com.zwdbj.server.adminserver.service.shop.service.homepage.model.OrderTrend;
 import com.zwdbj.server.adminserver.service.shop.service.homepage.model.TodayOverview;
+import com.zwdbj.server.adminserver.service.shop.service.homepage.model.UnHandle;
+import com.zwdbj.server.adminserver.service.shop.service.homepage.model.VideoTrend;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,28 +65,36 @@ public class HomePageServiceImpl implements HomePageService {
         }
     }
 
-//    @Override
-//    public ServiceStatusInfo<List<VideoTrend>> selectVideoDayTrend(long sellerId) {
-//        List<VideoTrend> result = null;
-//        try {
-//            //查询店铺代言人的userId
-//            List<Long> userIds = this.homePageMapper.selectSuperStar(sellerId);
-//            //调用http远程服务查询
-//            result = this.homePageMapper.videoDayTrend(sellerId);
-//            return new ServiceStatusInfo<>(0, "", result);
-//        } catch (Exception e) {
-//            return new ServiceStatusInfo<>(1, "查询每日视频视频增量失败" + e.getMessage(), null);
-//        }
-//    }
-//
-//    @Override
-//    public ServiceStatusInfo<List<VideoTrend>> selectVideoWeekTrend(long sellerId) {
-//        List<VideoTrend> result = null;
-//        try {
-//            result = this.homePageMapper.videoWeekTrend(sellerId);
-//            return new ServiceStatusInfo<>(0, "", result);
-//        } catch (Exception e) {
-//            return new ServiceStatusInfo<>(1, "查询每周视频视频增量失败" + e.getMessage(), null);
-//        }
-//    }
+    @Override
+    public ServiceStatusInfo<UnHandle> selectUnHandle(long storeId) {
+        try {
+            UnHandle handle = new UnHandle();
+            handle.setComments(homePageMapper.selectUnRefcomment(storeId));
+            handle.setOrders(homePageMapper.selectUnUseOrder(storeId));
+            return new ServiceStatusInfo<>(0, "", handle);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询未处理失败" + e.getMessage(), null);
+        }
+
+    }
+
+    @Override
+    public ServiceStatusInfo<List<VideoTrend>> selectVideoDayTrend(long sellerId) {
+        try {
+            List<VideoTrend> result = homePageMapper.videoDayTrend(sellerId);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询代言人每日视频增量失败" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<List<VideoTrend>> selectVideoWeekTrend(long sellerId) {
+        try {
+            List<VideoTrend> result = homePageMapper.videoWeekTrend(sellerId);
+            return new ServiceStatusInfo<>(0, "", result);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询代言人每周视频增量失败" + e.getMessage(), null);
+        }
+    }
 }
