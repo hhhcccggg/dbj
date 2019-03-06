@@ -10,6 +10,7 @@ import com.zwdbj.server.adminserver.easemob.api.EaseMobUser;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mapper.OfflineStoreStaffsMapper;
+import com.zwdbj.server.common.sms.ISendSmsService;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.tokencenter.model.UserToken;
@@ -57,6 +58,8 @@ public class UserService {
     OfflineStoreStaffsMapper offlineStoreStaffsMapper;
     @Autowired
     private AppSettingConfigs appSettingConfigs;
+    @Autowired
+    private ISendSmsService sendSmsService;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -491,42 +494,6 @@ public class UserService {
             return new ServiceStatusInfo<>(0, "登录成功", infoDto);
         } else {
             return new ServiceStatusInfo<>(1, "用户名或密码错误!", null);
-        }
-    }
-
-
-    public boolean sendSms(String phone, String code) {
-        //超时时间
-        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
-
-        //初始化acsClient,暂不支持region化
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", this.appSettingConfigs.getAliyunConfigs().getAccessKey()
-                ,this.appSettingConfigs.getAliyunConfigs().getAccessSecrect());
-        try {
-            DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Dysmsapi", "dysmsapi.aliyuncs.com");
-        } catch (Exception e) {
-            return false;
-        }
-        IAcsClient acsClient = new DefaultAcsClient(profile);
-
-        //组装请求对象-具体描述见控制台-文档部分内容
-        SendSmsRequest request = new SendSmsRequest();
-        //必填:待发送手机号
-        request.setPhoneNumbers(phone);
-        //必填:短信签名-可在短信控制台中找到
-        request.setSignName(this.appSettingConfigs.getAliyunConfigs().getSmsCodeSignName());
-        //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode(this.appSettingConfigs.getAliyunConfigs().getSmsTemplateCode());
-        request.setTemplateParam("{\"code\":\"" + code + "\"}");
-        try {
-            SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
-            if (sendSmsResponse.getCode().equals("OK")) {
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            return false;
         }
     }
 
