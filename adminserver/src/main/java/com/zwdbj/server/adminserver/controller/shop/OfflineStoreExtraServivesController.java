@@ -32,10 +32,10 @@ public class OfflineStoreExtraServivesController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{extraServiceId}/{storeId}", method = RequestMethod.GET)
     @ApiOperation(value = "删除门店其他服务")
-    public ResponseData<Long> deleteById(@PathVariable("id") Long id) {
-        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreExtraServicesServiceImpl.deleteById(id);
+    public ResponseData<Long> deleteById(@PathVariable("extraServiceId") Long extraServiceId, @PathVariable("storeId") long storeId) {
+        ServiceStatusInfo<Long> serviceStatusInfo = offlineStoreExtraServicesServiceImpl.deleteById(extraServiceId, storeId);
         if (serviceStatusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

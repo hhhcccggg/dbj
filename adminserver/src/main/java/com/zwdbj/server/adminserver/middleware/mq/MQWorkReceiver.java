@@ -3,17 +3,13 @@ package com.zwdbj.server.adminserver.middleware.mq;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-import com.zwdbj.server.adminserver.service.es.service.EsService;
 import com.zwdbj.server.adminserver.service.push.service.AppPushService;
 import com.zwdbj.server.adminserver.service.review.service.LivingReviewService;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
-import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
-import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServiceImpl;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.SpringContextUtil;
-import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.io.IOException;
 
@@ -119,49 +115,46 @@ public class MQWorkReceiver extends MQConnection {
             }
             logger.info("[MQ]收到数据类型:" + info.getWorkType() + "处理视频权重");
             channel.basicAck(envelope.getDeliveryTag(), false);
-        } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.MODIFY_SHOP_INFO) {
-            StoreServiceImpl storeService = SpringContextUtil.getBean(StoreServiceImpl.class);
-            EsService esService = SpringContextUtil.getBean(EsService.class);
-            if (storeService == null || esService == null) {
-                logger.error("[MQ]找不到服务");
-            } else {
-                long storeId = info.getModifyShopInfo().getStoreId();
-                ServiceStatusInfo<StoreInfo> statusInfo = null;
-                StoreInfo storeInfo = null;
-                switch (info.getModifyShopInfo().getOperation()) {
-                    case CREATE:
-                        ServiceStatusInfo<Long> statusInfo1 = esService.index(storeService.selectByStoreId(storeId).getData(), "shop", "shopinfo", String.valueOf(storeId));
-                        if (statusInfo1.isSuccess()) {
-                            channel.basicAck(envelope.getDeliveryTag(), false);
-                            break;
-                        }
-                        channel.basicRecover(true);
-                        break;
-                    case UPDATE:
-                        ServiceStatusInfo<Long> statusInfo2 = esService.update(storeService.selectByStoreId(storeId).getData(), "shop", "shopinfo", String.valueOf(storeId));
-                        if (statusInfo2.isSuccess()) {
-                            channel.basicAck(envelope.getDeliveryTag(), false);
-                            break;
-                        }
-                        channel.basicRecover(true);
-                        break;
-                    case DELETE:
-                        ServiceStatusInfo<Long> statusInfo3 = esService.delete("shop", "shopinfo", String.valueOf(storeId));
-                        if (statusInfo3.isSuccess()) {
-                            channel.basicAck(envelope.getDeliveryTag(), false);
-                            break;
-                        }
-                        channel.basicRecover(true);
-                        break;
-                }
-                logger.info("[MQ]商家" + info.getModifyShopInfo().getStoreId() + "信息更新成功");
-            }
-
-
         }
+// else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.ES_ADMIN_INFO && info.getEsAdminInfo().getType() == "shop") {
+//            StoreServiceImpl storeService = SpringContextUtil.getBean(StoreServiceImpl.class);
+//            ESUtilService esService = SpringContextUtil.getBean(ESUtilService.class);
+//            if (storeService == null || esService == null) {
+//                logger.error("[MQ]找不到服务");
+//            } else {
+//                long storeId = info.getEsAdminInfo().getId();
+//
+//                ServiceStatusInfo<StoreInfo> statusInfo = null;
+//                StoreInfo storeInfo = null;
+//                switch (info.getEsAdminInfo().getAction()) {
+//                    case "c":
+//                        esService.indexData(storeService.selectByStoreId(storeId).getData(), ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
+//
+//                        channel.basicAck(envelope.getDeliveryTag(), false);
+//                        break;
+//
+//                    case "u":
+//
+//                        esService.updateIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId), new BeanMap(storeService.selectByStoreId(storeId).getData()));
+//
+//                        channel.basicAck(envelope.getDeliveryTag(), false);
+//                        break;
+//
+//                    case "d":
+//                        esService.deleteIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
+//
+//                        channel.basicAck(envelope.getDeliveryTag(), false);
+//                        break;
+//
+//                }
+//                logger.info("[MQ]商家" + info.getModifyShopInfo().getStoreId() + "信息更新成功");
+//            }
 
 
     }
+
+
+
         /*else {
             logger.info("[MQ]收到数据类型:"+info.getWorkType()+"后端暂时没有合适的服务处理");
             channel.basicAck(envelope.getDeliveryTag(),false);

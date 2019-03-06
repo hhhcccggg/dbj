@@ -5,12 +5,12 @@ package com.zwdbj.server.es.common;
  */
 public class ESIndex {
 
-    public static String CREATE = "c";
-    public static String UPDATE = "u";
-    public static String DELETE = "d";
-    public static String USET = "USER";
-    public static String VIDEO = "video";
-    public static String VIDEO_TYPE = "doc";
-    public static String STORE = "store";
-    public static String PRODUCT = "product";
+    public static final String CREATE = "c";
+    public static final String UPDATE = "u";
+    public static final String DELETE = "d";
+    public static final String USET = "USER";
+    public static final String VIDEO = "video";
+    public static final String VIDEO_TYPE = "doc";
+    public static final String SHOP = "shop";
+    public static final String PRODUCT = "product";
 }

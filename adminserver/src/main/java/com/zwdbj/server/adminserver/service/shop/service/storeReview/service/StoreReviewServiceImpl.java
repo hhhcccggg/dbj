@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.storeReview.service;
 
+import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
 import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
@@ -38,7 +39,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             int result = this.storeReviewMapper.modifyStoreReview(id, input);
             if (result == 0) return new ServiceStatusInfo<>(1, "修改认证信息失败", result);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(input.getLegalSubjectId());
-            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "修改认证信息成功", result);
         } catch (Exception e) {
@@ -65,8 +66,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             int result = this.storeReviewMapper.addStoreReview(id, input);
             if (result == 0) return new ServiceStatusInfo<>(1, "添加认证信息失败", result);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(input.getLegalSubjectId());
-            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
-
+            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "添加认证信息成功", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "添加认证信息失败" + e.getMessage(), null);
@@ -79,7 +79,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             int result = this.storeReviewMapper.deleteStoreReview(id);
             if (result == 0) return new ServiceStatusInfo<>(1, "删除认证信息失败", result);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(id);
-            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "删除认证信息成功", result);
         } catch (Exception e) {
@@ -100,8 +100,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             }
             int a = this.storeReviewMapper.reviewStore(legalSubjectId, input, status);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
-            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
-
+            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "商铺资料审核成功", a);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "商铺资料审核失败" + e.getMessage(), null);
@@ -124,7 +123,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             int result = this.storeReviewMapper.notRealDeleteStoreReview(id);
             if (result == 0) return new ServiceStatusInfo<>(1, "删除认证信息失败", result);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(id);
-            QueueUtil.sendQueue(storeId, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "删除认证信息成功", result);
         } catch (Exception e) {

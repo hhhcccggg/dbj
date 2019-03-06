@@ -1,11 +1,10 @@
 package com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.service;
 
-import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
+import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.mapper.OfflineStoreExtraServicesMapper;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.model.OfflineStoreExtraServices;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
-import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class OfflineStoreExtraServicesServiceImpl implements OfflineStoreExtraSe
         Long result = 0L;
         Long id = UniqueIDCreater.generateID();
         result = mapper.create(id, offlineStoreExtraServices);
-        QueueUtil.sendQueue(offlineStoreExtraServices.getStoreId(), QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+        ESUtil.QueueWorkInfoModelSend(offlineStoreExtraServices.getStoreId(), "shop", "u");
         return new ServiceStatusInfo<>(0, "", result);
 
     }
@@ -39,7 +38,7 @@ public class OfflineStoreExtraServicesServiceImpl implements OfflineStoreExtraSe
         Long result = 0L;
 
         result = mapper.update(offlineStoreExtraServices);
-        QueueUtil.sendQueue(offlineStoreExtraServices.getStoreId(), QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+        ESUtil.QueueWorkInfoModelSend(offlineStoreExtraServices.getStoreId(), "shop", "u");
         return new ServiceStatusInfo<>(0, "", result);
 
 
@@ -47,11 +46,11 @@ public class OfflineStoreExtraServicesServiceImpl implements OfflineStoreExtraSe
 
     @Transactional
     @Override
-    public ServiceStatusInfo<Long> deleteById(Long id) {
+    public ServiceStatusInfo<Long> deleteById(Long extraServiceId, long storeId) {
         Long result = 0L;
 
-        result = mapper.deleteById(id);
-        QueueUtil.sendQueue(id, QueueWorkInfoModel.QueueWorkModifyShopInfo.OperationEnum.UPDATE);
+        result = mapper.deleteById(extraServiceId, storeId);
+        ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
         return new ServiceStatusInfo<>(0, "", result);
 
 

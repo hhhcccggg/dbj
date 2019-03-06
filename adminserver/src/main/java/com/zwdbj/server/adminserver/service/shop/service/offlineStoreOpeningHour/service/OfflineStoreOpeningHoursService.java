@@ -9,7 +9,7 @@ public interface OfflineStoreOpeningHoursService {
 
     ServiceStatusInfo<Long> create(OfflineStoreOpeningHours OfflineStoreOpeningHour);
 
-    ServiceStatusInfo<Long> deleteById(Long id);
+    ServiceStatusInfo<Long> deleteById(long id,long storeId);
 
     ServiceStatusInfo<Long> update(OfflineStoreOpeningHours OfflineStoreOpeningHour);
 
