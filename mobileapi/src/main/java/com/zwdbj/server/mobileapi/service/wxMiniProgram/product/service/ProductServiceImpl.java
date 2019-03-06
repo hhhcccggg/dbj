@@ -244,6 +244,7 @@ public class ProductServiceImpl implements ProductService {
     public ServiceStatusInfo<List<ProductInfo>> selectProductByStoreId(Long storeId) {
         List<ProductInfo> result = null;
         try {
+            
             result = iProductMapper.selectProductByStoreId(storeId);
             //查询产品规格
             return new ServiceStatusInfo<>(0, "", result);
