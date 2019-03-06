@@ -1,6 +1,6 @@
 package com.zwdbj.server.basearc.controllers;
 
-import com.zwdbj.server.basearc.sms.ISendSmsService;
+import com.zwdbj.server.common.sms.ISendSmsService;
 import com.zwdbj.server.basemodel.model.ResponseData;
 import com.zwdbj.server.basemodel.model.ResponseDataCode;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;

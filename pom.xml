@@ -28,6 +28,7 @@
         <module>microservice/basemodel</module>
         <module>microservice/serviceinterface</module>
         <module>esService</module>
+        <module>common</module>
     </modules>
 
     <parent>
