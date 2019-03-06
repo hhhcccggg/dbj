@@ -21,4 +21,5 @@ public class StoreServiceImpl implements StoreService {
             return new ServiceStatusInfo<>(1,"查询失败"+e.getMessage(),null);
         }
     }
+
 }
