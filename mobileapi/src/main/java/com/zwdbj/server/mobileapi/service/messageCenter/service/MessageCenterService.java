@@ -132,6 +132,7 @@ public class MessageCenterService {
     public List<MessageInfoDetailDto> getMyAllMessageByType(long userId, int type) {
         if (type==1 || type==6 || type==3){
             List<MessageInfoDetailDto> dtos = this.messageCenterMapper.getMyAllMessageByType(userId,type);
+            if (dtos==null || dtos.size()==0)return null;
             for (MessageInfoDetailDto dto:dtos){
                 UserModel userModel = this.userService.findUserById(dto.getCreatorUserId());
                 dto.setCreatorUserName(userModel.getNickName());
