@@ -112,7 +112,7 @@ public class WXPayService {
                 rmbs = productOrderDetailModel.getActualPayment();
             }
         }
-        logger.info(payConfigs.toString());
+        logger.info("payConfigs:"+payConfigs.toString());
         // 生成预付单
         UnifiedOrderInput unifiedOrderInput = new UnifiedOrderInput();
         unifiedOrderInput.setBody("爪子 订单付款"+rmbs/100f+"元");
