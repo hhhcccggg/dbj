@@ -237,13 +237,13 @@ public class PetService {
             ServiceStatusInfo<Long> isFirst = this.heartService.heart(id, userId, input.getId(), 2);
             this.userService.addHeart(pUserId, 1);
             petHeartDto.setHeart(true);
-            if (isFirst.getCoins()!=null)
-                return new ServiceStatusInfo<>(0, "点赞成功", petHeartDto,isFirst.getCoins());
             MessageInput msgInput = new MessageInput();
             msgInput.setCreatorUserId(userId);
             msgInput.setMessageType(1);
             msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"2\"}");
             this.messageCenterService.push(msgInput, pUserId);
+            if (isFirst.getCoins()!=null)
+                return new ServiceStatusInfo<>(0, "点赞成功", petHeartDto,isFirst.getCoins());
             return new ServiceStatusInfo<>(0, "点赞成功", petHeartDto);
         } else {
             return new ServiceStatusInfo<>(1, "取消失败", null,null);

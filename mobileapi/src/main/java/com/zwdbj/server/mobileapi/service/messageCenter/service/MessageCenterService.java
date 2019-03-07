@@ -157,7 +157,10 @@ public class MessageCenterService {
                         refUrl= petModelDto.getAvatar();
                     }
                     if (type==6){
-                        int coins = Integer.valueOf(ss.get("coins").toString());
+                        int coins=0;
+                        if (ss.containsKey("coins")){
+                            coins= Integer.valueOf(ss.get("coins").toString());
+                        }
                         dto.setCoins(coins);
                     }
                     dto.setRefUrl(refUrl);

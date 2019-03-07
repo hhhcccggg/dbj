@@ -76,11 +76,11 @@ public class StoreReviewServiceImpl implements StoreReviewService {
     }
 
     @Override
-    public ServiceStatusInfo<Integer> deleteStoreReview(long id) {
+    public ServiceStatusInfo<Integer> deleteStoreReview(long id, long legalSubjectId) {
         try {
             int result = this.storeReviewMapper.deleteStoreReview(id);
             if (result == 0) return new ServiceStatusInfo<>(1, "删除认证信息失败", result);
-            long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(id);
+            long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
             esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "删除认证信息成功", result);
@@ -120,11 +120,11 @@ public class StoreReviewServiceImpl implements StoreReviewService {
     }
 
     @Override
-    public ServiceStatusInfo<Integer> notRealDeleteStoreReview(long id) {
+    public ServiceStatusInfo<Integer> notRealDeleteStoreReview(long id, long legalSubjectId) {
         try {
             int result = this.storeReviewMapper.notRealDeleteStoreReview(id);
             if (result == 0) return new ServiceStatusInfo<>(1, "删除认证信息失败", result);
-            long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(id);
+            long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
             esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "删除认证信息成功", result);

@@ -11,7 +11,7 @@ public interface StoreReviewService {
     List<BusinessSellerReviewModel> findAllStoreReviews();
     ServiceStatusInfo<Integer> modifyStoreReview(long id, StoreReviewAddInput input);
     ServiceStatusInfo<Integer> addStoreReview(StoreReviewAddInput input);
-    ServiceStatusInfo<Integer> deleteStoreReview(long id);
+    ServiceStatusInfo<Integer> deleteStoreReview(long id,long legalSubjectId);
 
     /**
      * 审核属于legalSubjectId的所有资料
@@ -21,7 +21,7 @@ public interface StoreReviewService {
      */
     ServiceStatusInfo<Integer> reviewStore(long legalSubjectId, ReviewStoreInput input);
 
-    ServiceStatusInfo<Integer> notRealDeleteStoreReview(long id);
+    ServiceStatusInfo<Integer> notRealDeleteStoreReview(long id,long legalSubjectId);
     ServiceStatusInfo<List<BusinessSellerReviewModel>> getStoreReviewById(long legalSubjectId);
 
 }
