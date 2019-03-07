@@ -13,11 +13,9 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import java.text.DateFormat;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +29,7 @@ import java.util.regex.Pattern;
 public class MyInterceptor implements Interceptor {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private ESUtil esUtil;
 
     private static Logger logger = LoggerFactory.getLogger(MyInterceptor.class);
 
@@ -52,30 +50,27 @@ public class MyInterceptor implements Interceptor {
         //如果修改了视频就发送消息队列发送给ES
         if(sql.indexOf(" core_videos ")>-1 &&
                 (commandName.startsWith("INSERT") || commandName.startsWith("UPDATE") || commandName.startsWith("DELETE")) ){
-           try{
-               String action = null;
-               String type=null;
-               if(sql.indexOf(" core_videos ")>-1)
-                   type = ESIndex.VIDEO;
+            try{
+                String action = null;
+                String type=null;
+                if(sql.indexOf(" core_videos ")>-1)
+                    type = ESIndex.VIDEO;
 
-               if(commandName.startsWith("INSERT"))
-                   action =ESIndex.CREATE;
-               else if(commandName.startsWith("UPDATE"))
-                   action =ESIndex.UPDATE;
-               else if(commandName.startsWith("DELETE"))
-                   action =ESIndex.DELETE;
-               if(action != null){
-                   long id = sliptSqlGetId(action,sql);
-                   if( !redisTemplate.hasKey(id)){
-                       redisTemplate.opsForValue().set(id, id,60, TimeUnit.SECONDS);
-                       ESUtil.QueueWorkInfoModelSend(id, type, action);
-                   }
-               }
-           }catch (Exception e){
-               logger.error("[MyInterceptor]sql:" + sql);
-               logger.error("[MyInterceptor]commandName" + commandName);
-               logger.error("[MyInterceptor]log:" + e.getMessage());
-           }
+                if(commandName.startsWith("INSERT"))
+                    action =ESIndex.CREATE;
+                else if(commandName.startsWith("UPDATE"))
+                    action =ESIndex.UPDATE;
+                else if(commandName.startsWith("DELETE"))
+                    action =ESIndex.DELETE;
+                if(action != null){
+                    long id = sliptSqlGetId(action,sql);
+                    esUtil.QueueWorkInfoModelSend(id, type, action);
+                }
+            }catch (Exception e){
+                logger.error("[MyInterceptor]sql:" + sql);
+                logger.error("[MyInterceptor]commandName" + commandName);
+                logger.error("[MyInterceptor]log:" + e.getMessage());
+            }
         }
         return result;
     }

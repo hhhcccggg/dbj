@@ -43,6 +43,8 @@ import java.util.Random;
 public class OrderService {
 
     @Autowired
+    private ESUtil esUtil;
+    @Autowired
     IOrderMapper orderMapper;
     @Autowired
     UserService userService;
@@ -168,7 +170,7 @@ public class OrderService {
                 // 减去商品和sku的库存并更新销量
                 if (inventoryNum!=-10000L){
                     this.productServiceImpl.updateProductNum(input.getProductId(),input.getProductskuId(),input.getNum());
-                    ESUtil.QueueWorkInfoModelSend(input.getProductId(), "product", "u");
+                    esUtil.QueueWorkInfoModelSend(input.getProductId(), "product", "u");
 
                 }
 

@@ -1,7 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.shopdetail.service;
 
 import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
-import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
 import com.zwdbj.server.adminserver.service.category.service.CategoryService;
@@ -12,7 +11,6 @@ import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServ
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.service.StoreReviewService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.es.common.ESIndex;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +27,8 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     private ICategoryMapper categoryMapper;
     @Autowired
     private ShopDetailMapper shopDetailMapper;
+    @Autowired
+    private ESUtil esUtil;
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -80,7 +80,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             for (String day : s) {
                 result += this.shopDetailMapper.createOpeningHours(UniqueIDCreater.generateID(), Integer.parseInt(day), openTime, closeTime, storeId);
             }
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             throw new RuntimeException("创建营业时间失败" + e.getMessage());
@@ -101,7 +101,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 result += this.shopDetailMapper.modifyOpeningHours(UniqueIDCreater.generateID(), openTime, closeTime, Integer.parseInt(day), storeId);
 
             }
-            ESUtil.QueueWorkInfoModelSend(storeId, ESIndex.SHOP, "u");
+            esUtil.QueueWorkInfoModelSend(storeId, ESIndex.SHOP, "u");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             throw new RuntimeException("修改营业时间失败" + e.getMessage());
@@ -139,7 +139,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             qualificationInput.setReviewData(qiniuService.url(qualificationInput.getReviewData()));
             long id = UniqueIDCreater.generateID();
             result = this.shopDetailMapper.uploadCheck(id, qualificationInput, legalSubjectId);
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "上传失败" + e.getMessage(), null);
@@ -153,7 +153,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
         try {
             result = this.shopDetailMapper.modifyLocation(info, storeId);
 
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
@@ -175,7 +175,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 result += this.shopDetailMapper.createStoreExtraService(id, legalSubjectId, e.getId());
             }
 
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "", result);
 
@@ -199,7 +199,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 result += this.shopDetailMapper.createStoreServiceScopes(id, legalSubjectId, e.getId());
             }
 
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "", result);
 
         } catch (Exception e) {
@@ -221,7 +221,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
                 return new ServiceStatusInfo<>(0, "", 1L);
             }
             shopDetailMapper.modifyStoreImage(storeImage.getType(), qiniuService.url(storeImage.getImageUrl()), legalSubjectId);
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "", 1L);
         } catch (Exception e) {

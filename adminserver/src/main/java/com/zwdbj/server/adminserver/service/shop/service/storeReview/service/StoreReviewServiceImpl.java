@@ -23,6 +23,8 @@ public class StoreReviewServiceImpl implements StoreReviewService {
     @Autowired
     IStoreReviewMapper storeReviewMapper;
     @Autowired
+    private ESUtil esUtil;
+    @Autowired
     QiniuService qiniuService;
     @Autowired
     private StoreServiceImpl storeServiceImpl;
@@ -39,7 +41,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             int result = this.storeReviewMapper.modifyStoreReview(id, input);
             if (result == 0) return new ServiceStatusInfo<>(1, "修改认证信息失败", result);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(input.getLegalSubjectId());
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "修改认证信息成功", result);
         } catch (Exception e) {
@@ -66,7 +68,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             int result = this.storeReviewMapper.addStoreReview(id, input);
             if (result == 0) return new ServiceStatusInfo<>(1, "添加认证信息失败", result);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(input.getLegalSubjectId());
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "添加认证信息成功", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "添加认证信息失败" + e.getMessage(), null);
@@ -79,7 +81,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             int result = this.storeReviewMapper.deleteStoreReview(id);
             if (result == 0) return new ServiceStatusInfo<>(1, "删除认证信息失败", result);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(id);
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "删除认证信息成功", result);
         } catch (Exception e) {
@@ -100,7 +102,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             }
             int a = this.storeReviewMapper.reviewStore(legalSubjectId, input, status);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(legalSubjectId);
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "商铺资料审核成功", a);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "商铺资料审核失败" + e.getMessage(), null);
@@ -123,7 +125,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
             int result = this.storeReviewMapper.notRealDeleteStoreReview(id);
             if (result == 0) return new ServiceStatusInfo<>(1, "删除认证信息失败", result);
             long storeId = storeServiceImpl.selectStoreIdByLegalSubjectId(id);
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
             return new ServiceStatusInfo<>(0, "删除认证信息成功", result);
         } catch (Exception e) {
