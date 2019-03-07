@@ -4,7 +4,8 @@ import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.zwdbj.server.config.settings.PayConfigs;
-import com.zwdbj.server.pay.wechat.wechatpay.MD5Util;
+import com.zwdbj.server.utility.common.util.AESUtil;
+import com.zwdbj.server.utility.common.util.MD5Util;
 import com.zwdbj.server.pay.wechat.wechatpay.WeChatPayConfig;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
 import com.zwdbj.server.utility.common.IP;
@@ -385,12 +386,9 @@ public class WechatPayService {
                 return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
             }
             //解密
-            byte[] b = Base64Utils.decode(resData.get("req_info").getBytes());
-            SecretKeySpec key = new SecretKeySpec(MD5Util.MD5Encode("JpP6T3AqRCNXJVKKbLai391yWd6tXsPD","UTF-8").toLowerCase().getBytes(), "AES");
-
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding");
-            cipher.init(Cipher.DECRYPT_MODE, key);
-            Map<String,String> reqInfo =pay.processResponseXml(new String(cipher.doFinal(b),"utf-8"));
+            String a = resData.get("req_info");
+            String aa = AESUtil.decryptData(a);
+            Map<String,String> reqInfo =pay.processResponseXml(aa);
 
             RefundNotifyResult notifyResult = new RefundNotifyResult();
             //解析支付结果

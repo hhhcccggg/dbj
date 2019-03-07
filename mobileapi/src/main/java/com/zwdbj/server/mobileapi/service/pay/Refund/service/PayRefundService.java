@@ -29,6 +29,7 @@ public class PayRefundService {
         if (model==null)return new ServiceStatusInfo<>(1,"没有此订单",null);
         long userId = JWTUtil.getCurrentId();
         if (userId<=0)return new ServiceStatusInfo<>(1,"请重新登录",null);
+        if (userId!=model.getUserId())return new ServiceStatusInfo<>(1,"请重新登录",null);
         int refundAmount = model.getActualPayment();
         String tradeNo = model.getThirdPaymentTradeNo();
         if (tradeNo==null || tradeNo.length()==0)new ServiceStatusInfo<>(1,"此订单没有支付",null);

@@ -1,4 +1,4 @@
-package com.zwdbj.server.pay.wechat.wechatpay;
+package com.zwdbj.server.utility.common.util;
 
 import java.security.MessageDigest;
 
