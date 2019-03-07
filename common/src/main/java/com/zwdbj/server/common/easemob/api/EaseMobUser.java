@@ -1,7 +1,7 @@
-package com.zwdbj.server.adminserver.easemob.api;
+package com.zwdbj.server.common.easemob.api;
 
-import com.zwdbj.server.adminserver.easemob.common.EaseMobToken;
-import com.zwdbj.server.adminserver.easemob.common.EaseMobTokenManager;
+import com.zwdbj.server.common.easemob.common.EaseMobToken;
+import com.zwdbj.server.common.easemob.common.EaseMobTokenManager;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import okhttp3.*;
 import org.slf4j.Logger;

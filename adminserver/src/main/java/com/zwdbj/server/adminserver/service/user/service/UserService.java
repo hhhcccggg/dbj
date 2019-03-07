@@ -6,10 +6,11 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.zwdbj.server.adminserver.easemob.api.EaseMobUser;
+
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreStaffs.mapper.OfflineStoreStaffsMapper;
+import com.zwdbj.server.common.easemob.api.EaseMobUser;
 import com.zwdbj.server.common.sms.ISendSmsService;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.tokencenter.model.AuthUser;

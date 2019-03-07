@@ -1,6 +1,6 @@
 package com.zwdbj.server.adminserver.service.living.service;
 
-import com.zwdbj.server.adminserver.easemob.api.EaseMobChatRoom;
+
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.living.mapper.ILivingMapper;
@@ -9,6 +9,7 @@ import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.resourceRefGoods.service.ResRefGoodsService;
 import com.zwdbj.server.adminserver.service.user.model.UserModel;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
+import com.zwdbj.server.common.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
