@@ -10,7 +10,7 @@ import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
-import com.zwdbj.server.adminserver.easemob.api.EaseMobChatRoom;
+import com.zwdbj.server.common.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

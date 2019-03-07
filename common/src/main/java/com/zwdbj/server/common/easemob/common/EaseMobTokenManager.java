@@ -1,4 +1,5 @@
-package com.zwdbj.server.adminserver.easemob.common;
+package com.zwdbj.server.common.easemob.common;
+
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -35,7 +36,7 @@ public class EaseMobTokenManager {
         }
         if (isGetToken) {
             EaseMobToken token = tokenByHttp();
-            this.redisTemplate.opsForValue().set(easeMobTokenCacheKey,token,token.getExpires_in()-600,TimeUnit.SECONDS);
+            this.redisTemplate.opsForValue().set(easeMobTokenCacheKey,token,token.getExpires_in()-600, TimeUnit.SECONDS);
             return token;
         }
         return null;
@@ -75,3 +76,4 @@ public class EaseMobTokenManager {
     }
 
 }
+
