@@ -386,6 +386,7 @@ public class WechatPayService {
                 return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
             }
             //解密
+            logger.info(resData.toString());
             String a = resData.get("req_info");
             String aa = AESUtil.decryptData(a);
             Map<String,String> reqInfo =pay.processResponseXml(aa);
