@@ -4,7 +4,7 @@ import com.zwdbj.server.adminserver.service.adBanner.mapper.AdBannerMapper;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerDto;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerInfo;
 import com.zwdbj.server.adminserver.service.adBanner.model.AdBannerSerchInput;
-import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package com.zwdbj.server.adminserver.service.music.service;
 
 import com.zwdbj.server.adminserver.service.music.mapper.IMusicMapper;
 import com.zwdbj.server.adminserver.service.music.model.*;
-import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;

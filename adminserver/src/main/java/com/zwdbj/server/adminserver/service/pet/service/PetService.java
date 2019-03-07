@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.service.pet.service;
 
 import com.zwdbj.server.adminserver.service.pet.mapper.IPetMapper;
-import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

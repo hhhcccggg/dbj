@@ -1,12 +1,12 @@
 package com.zwdbj.server.mobileapi.service.living.service;
 
 import com.zwdbj.server.common.easemob.api.EaseMobChatRoom;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.living.mapper.ILivingMapper;
 import com.zwdbj.server.mobileapi.service.living.model.*;
-import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;
 import com.zwdbj.server.mobileapi.service.resourceRefGoods.service.ResRefGoodsService;
 import com.zwdbj.server.mobileapi.service.user.model.UserModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;

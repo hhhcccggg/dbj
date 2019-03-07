@@ -1,10 +1,10 @@
 package com.zwdbj.server.mobileapi.service.complain.service;
 
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.mobileapi.service.complain.mapper.IComplainMapper;
 import com.zwdbj.server.mobileapi.service.complain.model.*;
 import com.zwdbj.server.mobileapi.service.living.service.LivingService;
-import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;

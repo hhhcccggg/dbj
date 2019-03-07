@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.shop.comments.service;
 
-import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.mobileapi.service.shop.comments.mapper.ShopCommentsMapper;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentInput;
 import com.zwdbj.server.mobileapi.service.shop.comments.model.CommentVideoInfo;
@@ -11,7 +11,6 @@ import com.zwdbj.server.mobileapi.service.shop.nearbyShops.service.NearbyShopSer
 import com.zwdbj.server.mobileapi.service.shop.order.service.OrderService;
 import com.zwdbj.server.mobileapi.service.video.model.VideoDetailInfoDto;
 import com.zwdbj.server.mobileapi.service.video.service.VideoService;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service.ProductOrderService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;

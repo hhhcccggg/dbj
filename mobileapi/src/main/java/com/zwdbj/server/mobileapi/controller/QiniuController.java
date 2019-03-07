@@ -2,9 +2,9 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.zwdbj.server.basemodel.model.ResponseData;
 import com.zwdbj.server.basemodel.model.ResponseDataCode;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.tokencenter.model.UserToken;
-import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
