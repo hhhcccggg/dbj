@@ -32,10 +32,10 @@ public class PayRefundService {
         int refundAmount = model.getActualPayment();
         String tradeNo = model.getThirdPaymentTradeNo();
         if (tradeNo==null || tradeNo.length()==0)new ServiceStatusInfo<>(1,"此订单没有支付",null);
-        if (model.getPaymentType().equals("WECHAT")){
+        if (model.getPaymentType().equals("WECHAT") && (model.getStatus().equals("STATE_UNUSED") || model.getStatus().equals("STATE_REFUND_FAILED"))){
             RefundOrderDto dto = this.weChatService.refundOrder(input,refundAmount,tradeNo).getData();
             return new ServiceStatusInfo<>(0,"微信退款成功", dto);
-        }else if (model.getPaymentType().equals("ALIPAY")){
+        }else if (model.getPaymentType().equals("ALIPAY") && (model.getStatus().equals("STATE_UNUSED") || model.getStatus().equals("STATE_REFUND_FAILED"))){
             AliAppRefundDto dto = this.alipayBizService.refundOrder(input,refundAmount,tradeNo).getData();
             return new ServiceStatusInfo<>(0,"支付宝退款成功", dto);
         }else {

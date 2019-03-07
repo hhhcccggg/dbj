@@ -23,7 +23,7 @@ public interface IProductOrderMapper {
             " where id=#{id} and userId=#{userId} and `status`='STATE_SELLER_DELIVERIED'")
     int deliverOrderByUser(@Param("id") long orderId, @Param("userId") long userId);
 
-    @Update("update shop_productOrders set `status`='STATE_USED',updateTime=now(),endTime=now(),where id=#{id} and `status`='STATE_UNUSED'")
+    @Update("update shop_productOrders set `status`='STATE_USED',updateTime=now(),endTime=now() where id=#{id} and `status`='STATE_UNUSED'")
     int updateOrderSuccess(@Param("id")long orderId);
     @Select("select verifyCode from shop_productOrders where id=#{id}")
     String getVerifyCode(@Param("id")long orderId);

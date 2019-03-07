@@ -279,14 +279,15 @@ public class WXPayService {
     @Transactional
     protected void orderRefundResult(RefundQueryResultDto resultDto) {
         logger.info("处理微信退款结果"+resultDto.toString());
+        long orderId = Long.valueOf(resultDto.getOutTradeNo());
         if (resultDto.getRefundStatus().equals("SUCCESS")) {
             logger.info("退款成功");
-            long orderId = Long.valueOf(resultDto.getOutTradeNo());
             this.orderService.updateOrderState(orderId,resultDto.getTransactionId(),"STATE_REFUND_SUCCESS");
             String tradeNo = resultDto.getTransactionId();
             String params = resultDto.toString();
             //TODO  解决退款后的问题
         } else {
+            this.orderService.updateOrderState(orderId,resultDto.getTransactionId(),"STATE_REFUND_FAILED");
             logger.info("交易失败");
         }
     }

@@ -10,6 +10,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class ProductOrderController {
     @Autowired
     ProductOrderService productOrderService;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/search/{storeId}/orders", method = RequestMethod.POST)
     @ApiOperation(value = "根据店铺id查询订单")
     public ResponsePageInfoData<List<ProductOrderModel>> getStoreOrders(@PathVariable long storeId,
@@ -33,6 +35,7 @@ public class ProductOrderController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",orderModels,pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/search/order/{orderId}", method = RequestMethod.GET)
     @ApiOperation(value = "根据订单id查询订单")
     public ResponseData<ProductOrderDetailModel> getOrderById(@PathVariable long orderId){
@@ -42,6 +45,7 @@ public class ProductOrderController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
+    @RequiresAuthentication
     @RequestMapping(value = "/search/order/orderNo", method = RequestMethod.POST)
     @ApiOperation(value = "根据订单号查询订单")
     public ResponseData<ProductOrderDetailModel> getOrderByOrderNo(@RequestBody GetOrderByOrderNoInput input){
@@ -52,6 +56,7 @@ public class ProductOrderController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/deliver/{orderId}", method = RequestMethod.POST)
     @ApiOperation(value = "店铺发货")
     public ResponseData<Integer> deliverOrder(@PathVariable long orderId,
@@ -62,7 +67,7 @@ public class ProductOrderController {
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
     }
-    @RequestMapping(value = "/user/deliver/{orderId}/{userId}", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/user/deliver/{orderId}/{userId}", method = RequestMethod.POST)
     @ApiOperation(value = "用户确认收货,orderId为订单id,userId为用户id")
     public ResponseData<Integer> deliverOrderByUser(@PathVariable long orderId,
                                                     @PathVariable long userId){
@@ -71,7 +76,8 @@ public class ProductOrderController {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
-    }
+    }*/
+    @RequiresAuthentication
     @RequestMapping(value = "/identifyingCode/{orderId}", method = RequestMethod.POST)
     @ApiOperation(value = "验证消费码")
     public ResponseData<Integer> identifyingCode(@PathVariable long orderId,

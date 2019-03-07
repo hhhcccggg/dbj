@@ -6,8 +6,10 @@ import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.service.ReceiveAddressService;
+import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -36,6 +38,10 @@ public class ProductOrderService {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private ProductService productServiceImpl;
+    @Autowired
+    private IAuthUserManager authUserManagerImpl;
+    @Autowired
+    private StoreService storeServiceImpl;
 
     private Logger logger = LoggerFactory.getLogger(ProductOrderService.class);
 
@@ -112,6 +118,8 @@ public class ProductOrderService {
     @Transactional
     public  ServiceStatusInfo<Integer> identifyingCode(long orderId, IdentifyCodeInput input){
         try {
+            ProductOrderDetailModel model = this.getOrderById(orderId).getData();
+            if (model==null)return new ServiceStatusInfo<>(1,"没有此订单",0);
             String code = input.getIdentifyCode();
             String verifyCode;
             if (this.stringRedisTemplate.hasKey("orderIdVerifyCode:"+orderId)){
@@ -121,6 +129,12 @@ public class ProductOrderService {
             }
             if (!code.equals(verifyCode))return new ServiceStatusInfo<>(1,"验证消费码不正确",0);
             //验证成功后更新订单
+            long userId = JWTUtil.getCurrentId();
+            AuthUser authUser = authUserManagerImpl.get(String.valueOf(userId));
+            if (authUser.getLegalSubjectId()<0)return new ServiceStatusInfo<>(1,"未知正确",0);
+            long storeId = model.getStoreId();
+            long aStoreId = this.storeServiceImpl.selectByLegalSubjectId(authUser.getLegalSubjectId()).getData().getId();
+            if (storeId!=aStoreId)return new ServiceStatusInfo<>(1,"未知错误",0);
             int result = this.productOrderMapper.updateOrderSuccess(orderId);
             if (result==0)return new ServiceStatusInfo<>(1,"验证消费码失败",0);
             //设置订单评价过期机制
