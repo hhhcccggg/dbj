@@ -1,7 +1,6 @@
 package com.zwdbj.server.adminserver.service.shop.service.store.service;
 
 import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
-import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
 import com.zwdbj.server.adminserver.service.shop.service.legalSubject.service.ILegalSubjectService;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.model.OfflineStoreExtraServices;
 import com.zwdbj.server.adminserver.service.shop.service.offlineStoreExtraServices.service.OfflineStoreExtraServicesServiceImpl;
@@ -19,7 +18,6 @@ import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSimple
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.service.StoreReviewService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +27,8 @@ import java.util.List;
 @Service
 public class StoreServiceImpl implements StoreService {
 
+    @Autowired
+    private ESUtil esUtil;
     @Autowired
     private IStoreMapper iStoreMapper;
     @Autowired
@@ -108,7 +108,7 @@ public class StoreServiceImpl implements StoreService {
         if (result == 0) return new ServiceStatusInfo<>(1, "店铺更新失败了", result);
         int s = this.legalSubjectServiceImpl.updateStatusById(legalSubjectId, state);
         if (s == 0) return new ServiceStatusInfo<>(1, "商家更新失败了", result);
-        ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+        esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
         return new ServiceStatusInfo<>(0, "", s);
     }
 
@@ -127,7 +127,7 @@ public class StoreServiceImpl implements StoreService {
         a = this.legalSubjectServiceImpl.verityUnReviewedLegalSubject(legalSubjectId, input).getData();
         if (a == 0) return new ServiceStatusInfo<>(1, "商家审核失败", 0);
 
-        ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+        esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
 
         return new ServiceStatusInfo<>(0, "审核成功", a);
     }

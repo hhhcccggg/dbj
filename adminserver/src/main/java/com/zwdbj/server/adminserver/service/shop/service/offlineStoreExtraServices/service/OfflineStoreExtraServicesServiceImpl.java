@@ -7,6 +7,7 @@ import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,8 @@ public class OfflineStoreExtraServicesServiceImpl implements OfflineStoreExtraSe
     private Logger logger = LoggerFactory.getLogger(OfflineStoreExtraServicesServiceImpl.class);
     @Resource
     private OfflineStoreExtraServicesMapper mapper;
+    @Autowired
+    private ESUtil esUtil;
 
     @Transactional
     @Override
@@ -27,7 +30,7 @@ public class OfflineStoreExtraServicesServiceImpl implements OfflineStoreExtraSe
         Long result = 0L;
         Long id = UniqueIDCreater.generateID();
         result = mapper.create(id, offlineStoreExtraServices);
-        ESUtil.QueueWorkInfoModelSend(offlineStoreExtraServices.getStoreId(), "shop", "u");
+        esUtil.QueueWorkInfoModelSend(offlineStoreExtraServices.getStoreId(), "shop", "u");
         return new ServiceStatusInfo<>(0, "", result);
 
     }
@@ -38,7 +41,7 @@ public class OfflineStoreExtraServicesServiceImpl implements OfflineStoreExtraSe
         Long result = 0L;
 
         result = mapper.update(offlineStoreExtraServices);
-        ESUtil.QueueWorkInfoModelSend(offlineStoreExtraServices.getStoreId(), "shop", "u");
+        esUtil.QueueWorkInfoModelSend(offlineStoreExtraServices.getStoreId(), "shop", "u");
         return new ServiceStatusInfo<>(0, "", result);
 
 
@@ -50,7 +53,7 @@ public class OfflineStoreExtraServicesServiceImpl implements OfflineStoreExtraSe
         Long result = 0L;
 
         result = mapper.deleteById(extraServiceId, storeId);
-        ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+        esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
         return new ServiceStatusInfo<>(0, "", result);
 
 

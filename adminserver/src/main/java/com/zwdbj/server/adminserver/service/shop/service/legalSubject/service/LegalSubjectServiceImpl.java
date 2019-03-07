@@ -24,6 +24,8 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
     @Autowired
     ILegalSubjectMapper legalSubjectMapper;
     @Autowired
+    private ESUtil esUtil;
+    @Autowired
     private StoreService storeServiceImpl;
     protected Logger logger = LoggerFactory.getLogger(LegalSubjectServiceImpl.class);
 
@@ -74,21 +76,21 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
     public int addShopStore(long legalSubjectId, UserTenantInput input) {
         long id = UniqueIDCreater.generateID();
         int a = this.legalSubjectMapper.addShopStore(id, input, legalSubjectId);
-        ESUtil.QueueWorkInfoModelSend(id, "shop", "c");
+        esUtil.QueueWorkInfoModelSend(id, "shop", "c");
         return a;
     }
 
     public void modifyShopStore(long legalSubjectId, ModifyUserTenantInput input) {
         this.legalSubjectMapper.modifyShopStore(input, legalSubjectId);
         StoreSimpleInfo info = this.storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
-        ESUtil.QueueWorkInfoModelSend(info.getId(), "shop", "u");
+        esUtil.QueueWorkInfoModelSend(info.getId(), "shop", "u");
     }
 
     //假删
     public void delShopStore(long legalSubjectId) {
         this.legalSubjectMapper.delShopStore(legalSubjectId);
         StoreSimpleInfo info = this.storeServiceImpl.selectByLegalSubjectId(legalSubjectId).getData();
-        ESUtil.QueueWorkInfoModelSend(info.getId(), "shop", "d");
+        esUtil.QueueWorkInfoModelSend(info.getId(), "shop", "d");
     }
 
 
