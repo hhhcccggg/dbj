@@ -58,6 +58,8 @@ public class MD5Util {
                 resultString = byteArrayToHexString(md.digest(resultString.getBytes(charsetname)));
         }
         catch (Exception exception) {
+            exception.printStackTrace();
+            exception.getMessage();
         }
         return resultString;
     }

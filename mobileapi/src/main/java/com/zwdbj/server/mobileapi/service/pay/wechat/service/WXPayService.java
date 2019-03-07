@@ -238,7 +238,7 @@ public class WXPayService {
      * @return 响应微信退款结果通知
      */
     public ServiceStatusInfo<String> responseWeChatRefundResult(String resFromWX) {
-        logger.info("收到微信支付回调："+resFromWX);
+        logger.info("收到微信退款回调："+resFromWX);
         ServiceStatusInfo<RefundNotifyResult> stringServiceStatusInfo = this.wechatPayService.responseWeChatRefundResult(resFromWX);
         if(!stringServiceStatusInfo.isSuccess()) {
             logger.info(stringServiceStatusInfo.getMsg());

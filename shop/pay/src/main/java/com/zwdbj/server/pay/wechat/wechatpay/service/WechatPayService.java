@@ -420,13 +420,9 @@ public class WechatPayService {
             notifyResult.setDto(resultDto);
             notifyResult.setResponseWeChatXML("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
 
-
-            return new ServiceStatusInfo<>(
-                    0,
-                    "OK",
-                    notifyResult);
+            return new ServiceStatusInfo<>(0, "OK", notifyResult);
         } catch ( Exception ex ){
-            logger.info(ex.getMessage());
+            logger.info("异步退款异常:"+ex.getMessage());
         }
         return new ServiceStatusInfo<>(1,"参数或者签名失败",null);
     }
