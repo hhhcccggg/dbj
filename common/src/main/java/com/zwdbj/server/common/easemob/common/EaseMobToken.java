@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.easemob.common;
+package com.zwdbj.server.common.easemob.common;
 
 import java.io.Serializable;
 

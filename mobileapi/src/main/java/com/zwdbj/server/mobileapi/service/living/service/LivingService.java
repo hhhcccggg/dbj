@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.living.service;
 
+import com.zwdbj.server.common.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
-import com.zwdbj.server.mobileapi.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.mobileapi.model.EntityKeyModel;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.mobileapi.service.living.mapper.ILivingMapper;
