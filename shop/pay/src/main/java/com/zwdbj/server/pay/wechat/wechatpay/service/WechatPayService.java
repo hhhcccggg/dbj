@@ -389,6 +389,7 @@ public class WechatPayService {
             String a = resData.get("req_info");
             String aa = AESUtil.decryptData(a);
             Map<String,String> reqInfo =pay.processResponseXml(aa);
+            logger.info(reqInfo.toString());
 
             RefundNotifyResult notifyResult = new RefundNotifyResult();
             //解析支付结果
