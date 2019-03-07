@@ -1,11 +1,10 @@
 package com.zwdbj.server.adminserver.service.category.service;
 
 import com.zwdbj.server.adminserver.config.MainKeyType;
-import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
-import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.adminserver.service.category.model.*;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

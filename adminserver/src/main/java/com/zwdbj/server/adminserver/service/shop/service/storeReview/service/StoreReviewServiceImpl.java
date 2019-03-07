@@ -1,15 +1,13 @@
 package com.zwdbj.server.adminserver.service.shop.service.storeReview.service;
 
 import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
-import com.zwdbj.server.adminserver.middleware.mq.QueueUtil;
-import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServiceImpl;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.mapper.IStoreReviewMapper;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.BusinessSellerReviewModel;
 import com.zwdbj.server.adminserver.service.shop.service.storeReview.model.StoreReviewAddInput;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
-import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

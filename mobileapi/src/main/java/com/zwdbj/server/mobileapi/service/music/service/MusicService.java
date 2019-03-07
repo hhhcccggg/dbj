@@ -1,8 +1,8 @@
 package com.zwdbj.server.mobileapi.service.music.service;
 
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.mobileapi.service.music.mapper.IMusicMapper;
 import com.zwdbj.server.mobileapi.service.music.model.*;
-import com.zwdbj.server.mobileapi.service.qiniu.service.QiniuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

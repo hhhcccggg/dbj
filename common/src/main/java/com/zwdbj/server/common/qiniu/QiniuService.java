@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.service.qiniu.service;
+package com.zwdbj.server.common.qiniu;
 
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
@@ -10,25 +10,16 @@ import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
-import com.zwdbj.server.common.easemob.api.EaseMobChatRoom;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
-import com.zwdbj.server.mobileapi.service.living.mapper.ILivingMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 @Lazy
 public class QiniuService {
-    @Autowired
-    private  ILivingMapper livingMapper;
-    @Autowired
-    EaseMobChatRoom easeMobChatRoom;
-    @Autowired
-    private RedisTemplate redisTemplate;
     @Autowired
     private AppSettingConfigs appSettingConfigs;
 
@@ -37,8 +28,8 @@ public class QiniuService {
 
     public String uploadToken() {
         long expireTime = this.appSettingConfigs.getQiniuConfigs().getUptokenExpiretime();
-        Auth auth = Auth.create(this.appSettingConfigs.getQiniuConfigs().getAccessKey()
-                , this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
+        Auth auth = Auth.create(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
+                this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
         String upToken = auth.uploadToken(this.appSettingConfigs.getQiniuConfigs().getBucketName(),null,expireTime,null);
         return upToken;
     }
@@ -55,8 +46,8 @@ public class QiniuService {
 
     public FileInfo getFileInfo(String key) {
         Configuration cfg = new Configuration(Zone.zone0());
-        Auth auth = Auth.create(this.appSettingConfigs.getQiniuConfigs().getAccessKey()
-                , this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
+        Auth auth = Auth.create(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
+                this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
         BucketManager bucketManager = new BucketManager(auth, cfg);
         try {
             FileInfo fileInfo = bucketManager.stat(this.appSettingConfigs.getQiniuConfigs().getBucketName(), key);
@@ -67,18 +58,18 @@ public class QiniuService {
     }
 
     public String getRTMPPublishUrl(String streamName) {
-        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey()
-                ,this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
-        String url = cli.RTMPPublishURL(this.appSettingConfigs.getQiniuConfigs().getLiveRtmpPublishDomain(),
-                this.appSettingConfigs.getQiniuConfigs().getLiveHubName(),
-                streamName,
-                this.appSettingConfigs.getQiniuConfigs().getLivePublishExpiretime());
+        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
+                this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
+        String url = cli.RTMPPublishURL(this.appSettingConfigs.getQiniuConfigs().getLiveRtmpPublishDomain()
+                ,this.appSettingConfigs.getQiniuConfigs().getLiveHubName()
+                ,streamName
+                ,this.appSettingConfigs.getQiniuConfigs().getLivePublishExpiretime());
         return url;
     }
 
     public String getRTMPPlayUrl(String streamName) {
-        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey()
-                ,this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
+        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
+                this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
         String url = cli.RTMPPlayURL(this.appSettingConfigs.getQiniuConfigs().getLiveRtmpPlayDomain()
                 ,this.appSettingConfigs.getQiniuConfigs().getLiveHubName()
                 ,streamName);
@@ -86,16 +77,16 @@ public class QiniuService {
     }
 
     public String getHLSPlayUrl(String streamName) {
-        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey()
-                ,this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
+        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
+                this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
         String url = cli.HLSPlayURL(this.appSettingConfigs.getQiniuConfigs().getLiveHlsPlayDomain()
                 ,this.appSettingConfigs.getQiniuConfigs().getLiveHubName(),streamName);
         return url;
     }
 
     public boolean getLiveStatus(String streamName) {
-        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey()
-                ,this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
+        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
+                this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
         Hub hub = cli.newHub(this.appSettingConfigs.getQiniuConfigs().getLiveHubName());
         try {
             Stream stream = hub.get(streamName);
@@ -108,8 +99,8 @@ public class QiniuService {
     }
 
     public void disableStream(String streamName,Long livingId){
-        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey()
-                ,this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
+        Client cli = new Client(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
+                this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
         Hub hub = cli.newHub(this.appSettingConfigs.getQiniuConfigs().getLiveHubName());
         try {
             Stream stream = hub.get(streamName);

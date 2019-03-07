@@ -6,16 +6,14 @@ import com.zwdbj.server.adminserver.service.dailyIncreaseAnalysises.service.Dail
 import com.zwdbj.server.adminserver.service.living.service.LivingService;
 import com.zwdbj.server.adminserver.service.operateComments.service.OperateService;
 import com.zwdbj.server.adminserver.service.qiniu.service.QiniuOperService;
-import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.adminserver.service.review.service.TextScanSample;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
-import com.zwdbj.server.adminserver.service.video.model.VideoHeartAndPlayCountDto;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;

@@ -1,11 +1,11 @@
 package com.zwdbj.server.adminserver.service.tag.service;
 
 import com.zwdbj.server.adminserver.model.ResourceOpenInput;
-import com.zwdbj.server.adminserver.service.qiniu.service.QiniuService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.adminserver.service.homepage.model.AdFindHotTagsDto;
 import com.zwdbj.server.adminserver.service.tag.mapper.ITagMapper;
 import com.zwdbj.server.adminserver.service.tag.model.*;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -8,6 +8,7 @@ import com.qiniu.util.Auth;
 import com.zwdbj.server.adminserver.service.category.model.AdNewCategoryInput;
 import com.zwdbj.server.adminserver.service.category.service.CategoryService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
