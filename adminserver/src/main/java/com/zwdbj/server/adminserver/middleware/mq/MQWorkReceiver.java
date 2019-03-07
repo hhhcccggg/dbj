@@ -8,6 +8,7 @@ import com.zwdbj.server.adminserver.service.review.service.LivingReviewService;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.common.sms.SendSmsService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.SpringContextUtil;
 
@@ -80,8 +81,8 @@ public class MQWorkReceiver extends MQConnection {
     protected void processData(QueueWorkInfoModel.QueueWorkInfo info, Envelope envelope) throws IOException {
         logger.info("[MQ]收到数据类型:" + info.getWorkType());
         if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.SEND_PHONE_CODE) {
-            UserService userService = SpringContextUtil.getBean(UserService.class);
-            //userService.sendSms(info.getPhoneCode().getPhone(), info.getPhoneCode().getCode());
+            SendSmsService sendSmsService = SpringContextUtil.getBean(SendSmsService.class);
+            sendSmsService.sendCode(info.getPhoneCode().getPhone());
             logger.info("[MQ]发送手机" + info.getPhoneCode().getPhone() + "的验证码" + info.getPhoneCode().getCode() + "成功");
             channel.basicAck(envelope.getDeliveryTag(), false);
         } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.PUSH) {
