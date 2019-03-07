@@ -6,6 +6,7 @@ import com.zwdbj.server.adminserver.service.shop.service.offlineStoreServiceScop
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,8 @@ public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreService
     private OfflineStoreServiceScopesMapper mapper;
     @Resource
     private StoreService storeService;
+    @Autowired
+    private ESUtil esUtil;
 
     @Transactional
     @Override
@@ -28,7 +31,7 @@ public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreService
         long storeId = storeService.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
             result = mapper.create(id, storeId, offlineStoreServiceScopes);
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "创建线下门店服务范围失败" + e.getMessage(), result);
@@ -44,7 +47,7 @@ public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreService
         long storeId = storeService.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
             result = mapper.update(offlineStoreServiceScopes, storeId);
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改线下门店服务范围失败" + e.getMessage(), result);
@@ -61,7 +64,7 @@ public class OfflineStoreServiceScopesServiceImpl implements OfflineStoreService
         long storeId = storeService.selectStoreIdByLegalSubjectId(legalSubjectId);
         try {
             result = mapper.deleteById(serviceScopeId, storeId);
-            ESUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+            esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "删除线下门店服务范围失败" + e.getMessage(), result);
