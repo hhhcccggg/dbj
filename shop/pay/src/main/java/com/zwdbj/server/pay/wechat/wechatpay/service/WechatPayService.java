@@ -380,8 +380,11 @@ public class WechatPayService {
         try {
             WeChatPayConfig config = chatConfig();
             WXPay pay = new WXPay(config, WXPayConstants.SignType.MD5, isSandbox);
+            logger.info("1111111111111111111111111111111111111111111111111111111111111111111");
             Map<String,String> resData = pay.processResponseXml(responseRefundFromWeChat);
+            logger.info("2222222222222222222222222222222222222222222222222222222222222222222");
             PayResult payResult = this.parseResult(resData);
+            logger.info("3333333333333333333333333333333333333333333333333333333333333333333");
             if (!payResult.isSuccess()) {
                 return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
             }
