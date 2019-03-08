@@ -55,14 +55,14 @@ public class PayRefundService {
             input.setTransactionId(model.getThirdPaymentTradeNo());
             input.setType("WECHAT");
             RefundQueryResultDto dto = this.weChatService.refundOrderQuery(input).getData();
-            new ServiceStatusInfo<>(0,"查询微信退款成功", dto);
+            return new ServiceStatusInfo<>(0,"查询微信退款成功", dto);
         }else if (model.getPaymentType().equals("ALIPAY")){
             AliAppRefundQueryInput input = new AliAppRefundQueryInput();
             input.setOutTradeNo(String.valueOf(orderId));
             input.setTradeNo(model.getThirdPaymentTradeNo());
             input.setOutRequestNo(String.valueOf(orderId));
             AliAppRefundQueryDto dto = this.alipayBizService.orderRefundQuery(input).getData();
-            new ServiceStatusInfo<>(0,"查询支付宝退款成功", dto);
+            return new ServiceStatusInfo<>(0,"查询支付宝退款成功", dto);
         }else {
             return new ServiceStatusInfo<>(1,"此订单没有支付",null);
         }
