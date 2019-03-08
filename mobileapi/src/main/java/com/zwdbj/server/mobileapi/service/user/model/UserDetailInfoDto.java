@@ -366,6 +366,37 @@ public class UserDetailInfoDto implements Serializable {
         this.address = address;
     }
 
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
+    }
+
+    public boolean isEmailVerification() {
+        return isEmailVerification;
+    }
+
+    public void setEmailVerification(boolean emailVerification) {
+        isEmailVerification = emailVerification;
+    }
+
+    public boolean isLivingOpen() {
+        return isLivingOpen;
+    }
+
+    public void setLivingOpen(boolean livingOpen) {
+        isLivingOpen = livingOpen;
+    }
+
+    public boolean isLiving() {
+        return isLiving;
+    }
+
+    public void setLiving(boolean living) {
+        isLiving = living;
+    }
 
     public int getComplainCount() {
         return complainCount;
