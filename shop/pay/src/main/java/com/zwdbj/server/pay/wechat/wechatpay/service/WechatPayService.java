@@ -387,10 +387,10 @@ public class WechatPayService {
             WXPay pay = new WXPay(config);
             //Map<String,String> resData = pay.processResponseXml(responseRefundFromWeChat);
             Map<String,String> resData =WXPayUtil.xmlToMap(responseRefundFromWeChat);
-            PayResult payResult = this.parseResult(resData);
+           /* PayResult payResult = this.parseResult(resData);
             if (!payResult.isSuccess()) {
                 return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
-            }
+            }*/
             //解密
             String a = resData.get("req_info");
             String aa = AESUtil.decryptData(a);
