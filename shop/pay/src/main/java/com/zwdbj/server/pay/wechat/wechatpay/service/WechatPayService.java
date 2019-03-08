@@ -25,8 +25,11 @@ import java.util.Map;
 
 @Service
 public class WechatPayService {
-    @Autowired
+
     private PayConfigs payConfigs;
+    public WechatPayService(PayConfigs cfg) {
+        this.payConfigs = cfg;
+    }
     /**
      * 结果情况
      */

@@ -1,6 +1,9 @@
 package com.zwdbj.server.pay.wechat.wechatpay;
 
 import com.github.wxpay.sdk.WXPayConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -8,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class WeChatPayConfig implements WXPayConfig {
+    @Autowired
+    private static Logger logger= LoggerFactory.getLogger(WeChatPayConfig.class);
 
     private static volatile WeChatPayConfig payCfg = null;
     public static WeChatPayConfig payConfig(String certPath) {
@@ -15,10 +20,10 @@ public class WeChatPayConfig implements WXPayConfig {
             synchronized (WeChatPayConfig.class) {
                 if (payCfg == null) {
                     try {
+                        logger.info("certPath = [" + certPath + "]");
                         payCfg = new WeChatPayConfig(certPath);
-                        System.out.println("certPath = [" + certPath + "]");
                     } catch ( Exception ex ) {
-                        System.out.println("config:"+ex.getMessage());
+                        logger.error("config:"+ex.getMessage());
                     }
                 }
             }
