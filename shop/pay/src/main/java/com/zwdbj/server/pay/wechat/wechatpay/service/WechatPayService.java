@@ -433,31 +433,4 @@ public class WechatPayService {
         return new ServiceStatusInfo<>(1,"参数或者签名失败",null);
     }
 
-
-    public Map<String,String> xmlToMap(String xmlString) {
-
-        //去掉前后的xml标签
-        xmlString = xmlString.replaceAll("</?xml>", "");
-        System.out.println(xmlString);
-        //匹配一段一段这样的数据   <attach><![CDATA[支付测试]]></attach>
-        Pattern pattern = Pattern.compile("<.*?/.*?>");
-        Matcher matcher = pattern.matcher(xmlString);
-        //配置是否包含<![CDATA[CNY]]> CDATA 包裹的数据
-        Pattern pattern2 = Pattern.compile("!.*]");
-        Map<String, String> map = new HashMap<>();
-        while (matcher.find()) {
-            //获取键
-            String key = matcher.group().replaceAll(".*/", "");
-            key = key.substring(0, key.length() - 1);
-            Matcher matcher2 = pattern2.matcher(matcher.group());
-            String value = matcher.group().replaceAll("</?.*?>", "");
-            //获取值
-            if (matcher2.find() && !value.equals("DATA")) {
-                value = matcher2.group().replaceAll("!.*\\[", "");
-                value = value.substring(0, value.length() - 2);
-            }
-            map.put(key, value);
-        }
-        return map;
-    }
 }
