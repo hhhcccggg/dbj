@@ -384,7 +384,7 @@ public class WechatPayService {
     public ServiceStatusInfo<RefundNotifyResult> responseWeChatRefundResult(String responseRefundFromWeChat) {
         try {
             WeChatPayConfig config = chatConfig();
-            WXPay pay = new WXPay(config, WXPayConstants.SignType.MD5, isSandbox);
+            WXPay pay = new WXPay(config);
             logger.info("1111111111111111111111111111111111111111111111111111111111111111111");
             Map<String,String> resData = pay.processResponseXml(responseRefundFromWeChat);
             logger.info("2222222222222222222222222222222222222222222222222222222222222222222");
