@@ -5,23 +5,23 @@ import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.zwdbj.server.config.settings.PayConfigs;
 import com.zwdbj.server.utility.common.util.AESUtil;
-import com.zwdbj.server.utility.common.util.MD5Util;
 import com.zwdbj.server.pay.wechat.wechatpay.WeChatPayConfig;
 import com.zwdbj.server.pay.wechat.wechatpay.model.*;
 import com.zwdbj.server.utility.common.IP;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderDto;
 import com.zwdbj.server.pay.wechat.wechatpay.model.UnifiedOrderInput;
+import org.apache.poi.poifs.filesystem.DocumentFactoryHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Base64Utils;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
+import javax.swing.text.Document;
+import javax.xml.bind.Element;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class WechatPayService {
@@ -376,6 +376,7 @@ public class WechatPayService {
     }
 
 
+
     /**
      * @param responseRefundFromWeChat 微信退款异步结果通知
      * @return 响应微信
@@ -384,7 +385,8 @@ public class WechatPayService {
         try {
             WeChatPayConfig config = chatConfig();
             WXPay pay = new WXPay(config);
-            Map<String,String> resData = pay.processResponseXml(responseRefundFromWeChat);
+            //Map<String,String> resData = pay.processResponseXml(responseRefundFromWeChat);
+            Map<String,String> resData =WXPayUtil.xmlToMap(responseRefundFromWeChat);
             PayResult payResult = this.parseResult(resData);
             if (!payResult.isSuccess()) {
                 return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
@@ -392,7 +394,8 @@ public class WechatPayService {
             //解密
             String a = resData.get("req_info");
             String aa = AESUtil.decryptData(a);
-            Map<String,String> reqInfo =pay.processResponseXml(aa);
+            //Map<String,String> reqInfo =pay.processResponseXml(aa);
+            Map<String,String> reqInfo =WXPayUtil.xmlToMap(aa);
             logger.info(reqInfo.toString());
 
             RefundNotifyResult notifyResult = new RefundNotifyResult();
@@ -430,4 +433,31 @@ public class WechatPayService {
         return new ServiceStatusInfo<>(1,"参数或者签名失败",null);
     }
 
+
+    public Map<String,String> xmlToMap(String xmlString) {
+
+        //去掉前后的xml标签
+        xmlString = xmlString.replaceAll("</?xml>", "");
+        System.out.println(xmlString);
+        //匹配一段一段这样的数据   <attach><![CDATA[支付测试]]></attach>
+        Pattern pattern = Pattern.compile("<.*?/.*?>");
+        Matcher matcher = pattern.matcher(xmlString);
+        //配置是否包含<![CDATA[CNY]]> CDATA 包裹的数据
+        Pattern pattern2 = Pattern.compile("!.*]");
+        Map<String, String> map = new HashMap<>();
+        while (matcher.find()) {
+            //获取键
+            String key = matcher.group().replaceAll(".*/", "");
+            key = key.substring(0, key.length() - 1);
+            Matcher matcher2 = pattern2.matcher(matcher.group());
+            String value = matcher.group().replaceAll("</?.*?>", "");
+            //获取值
+            if (matcher2.find() && !value.equals("DATA")) {
+                value = matcher2.group().replaceAll("!.*\\[", "");
+                value = value.substring(0, value.length() - 2);
+            }
+            map.put(key, value);
+        }
+        return map;
+    }
 }
