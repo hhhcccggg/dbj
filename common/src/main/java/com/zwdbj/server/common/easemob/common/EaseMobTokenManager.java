@@ -26,7 +26,12 @@ public class EaseMobTokenManager {
     public EaseMobToken token() {
         boolean isGetToken = false;
         if (this.redisTemplate.hasKey(easeMobTokenCacheKey)) {
-            EaseMobToken easeMobToken = (EaseMobToken)this.redisTemplate.opsForValue().get(easeMobTokenCacheKey);
+            EaseMobToken easeMobToken = null;
+            try{
+                easeMobToken = (EaseMobToken)this.redisTemplate.opsForValue().get(easeMobTokenCacheKey);
+            }catch (Exception e){
+                logger.error("环形用户获取失败:"+e.getMessage());
+            }
             if (easeMobToken!=null) {
                 return easeMobToken;
             }
