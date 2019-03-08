@@ -44,6 +44,28 @@ public class AliAppRefundQueryDto implements Serializable {
     @ApiModelProperty("业务返回码:ACQ.TRADE_HAS_SUCCESS:退款成功,ACQ.SYSTEM_ERROR:系统错误,ACQ.INVALID_PARAMETER:参数无效,TRADE_NOT_EXIST:查询退款的交易不存在")
     @JSONField(name = "sub_code")
     private String subCode;
+    @ApiModelProperty("")
+    @JSONField(name = "code")
+    private String code;
+    @ApiModelProperty("")
+    @JSONField(name = "msg")
+    private String msg;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getSubCode() {
         return subCode;

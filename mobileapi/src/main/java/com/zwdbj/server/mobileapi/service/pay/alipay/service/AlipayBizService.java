@@ -161,7 +161,11 @@ public class AlipayBizService {
             logger.warn(serviceStatusInfo.getMsg());
             return serviceStatusInfo;
         }
-        boolean isSuccess = serviceStatusInfo.getData().getSubCode().equals("ACQ.TRADE_HAS_SUCCESS");
+        boolean isSuccess = serviceStatusInfo.getData().getCode().equals("10000");
+        if (!isSuccess){
+            logger.info("支付宝退款查询错误:"+serviceStatusInfo.getData().getSubCode());
+            return serviceStatusInfo;
+        }
         this.orderRefundResult(serviceStatusInfo.getData().getOutTradeNo(),serviceStatusInfo.getData().getTradeNo(),isSuccess);
         return serviceStatusInfo;
     }

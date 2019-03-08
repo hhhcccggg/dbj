@@ -169,15 +169,26 @@ public class AlipayService {
             AlipayTradeFastpayRefundQueryResponse  response = alipayClient.execute(request);
             if (response.isSuccess()) {
                 AliAppRefundQueryDto appRefundQueryDto = new AliAppRefundQueryDto();
-                appRefundQueryDto.setOutRequestNo(response.getOutRequestNo());
-                appRefundQueryDto.setOutTradeNo(response.getOutTradeNo());
-                appRefundQueryDto.setTotalAmount(response.getTotalAmount());
-                appRefundQueryDto.setTradeNo(response.getTradeNo());
-                appRefundQueryDto.setRefundReason(response.getRefundReason());
-                appRefundQueryDto.setRefundAmount(response.getRefundAmount());
-                appRefundQueryDto.setSendBackFee(response.getSendBackFee());
+                if (response.getOutRequestNo()!=null && !("".equals(response.getOutRequestNo())))
+                    appRefundQueryDto.setOutRequestNo(response.getOutRequestNo());
+                if (response.getOutTradeNo()!=null && !("".equals(response.getOutTradeNo())))
+                    appRefundQueryDto.setOutTradeNo(response.getOutTradeNo());
+                if (response.getTotalAmount()!=null && !("".equals(response.getTotalAmount())))
+                    appRefundQueryDto.setTotalAmount(response.getTotalAmount());
+                if (response.getTradeNo()!=null && !("".equals(response.getTradeNo())))
+                    appRefundQueryDto.setTradeNo(response.getTradeNo());
+                if (response.getRefundReason()!=null && !("".equals(response.getRefundReason())))
+                    appRefundQueryDto.setRefundReason(response.getRefundReason());
+                if (response.getRefundAmount()!=null && !("".equals(response.getRefundAmount())))
+                    appRefundQueryDto.setRefundAmount(response.getRefundAmount());
+                if (response.getSendBackFee()!=null && !("".equals(response.getSendBackFee())))
+                    appRefundQueryDto.setSendBackFee(response.getSendBackFee());
                 appRefundQueryDto.setGmtRefundPay(response.getGmtRefundPay());
-                appRefundQueryDto.setSubCode(response.getSubCode());
+                if (response.getSubCode()!=null && !("".equals(response.getSubCode())))
+                    appRefundQueryDto.setSubCode(response.getSubCode());
+                appRefundQueryDto.setCode(response.getCode());
+                appRefundQueryDto.setMsg(response.getMsg());
+
                 return new ServiceStatusInfo<>(0,"OK",appRefundQueryDto);
             } else {
                 logger.warn(response.getCode());
