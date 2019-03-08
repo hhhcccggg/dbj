@@ -28,12 +28,13 @@ public class FavoriteController {
     private FavoriteService favoriteServiceImpl;
 
     @ApiOperation(value = "查询我的收藏")
-    @GetMapping("/searchFavorite")
+    @GetMapping("/searchFavorite/{userId}")
     public ResponsePageInfoData<List<FavoriteModel>> searchFavorite(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                     @RequestParam(value = "rows", required = true, defaultValue = "10") int rows,
-                                                                    @Valid SearchFavorite searchFavorite){
+                                                                    @Valid SearchFavorite searchFavorite,
+                                                                    @PathVariable long userId){
         PageHelper.startPage(pageNo,rows);
-        ServiceStatusInfo<List<FavoriteModel>> serviceStatusInfo = favoriteServiceImpl.searchFavorite(searchFavorite);
+        ServiceStatusInfo<List<FavoriteModel>> serviceStatusInfo = favoriteServiceImpl.searchFavorite(searchFavorite,userId);
         if( !serviceStatusInfo.isSuccess()){
             return new ResponsePageInfoData<>(ResponseDataCode.STATUS_ERROR , serviceStatusInfo.getMsg(),null,0L);
         }

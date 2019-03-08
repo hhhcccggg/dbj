@@ -32,7 +32,7 @@ public interface FavoriteService {
      * @param searchFavorite
      * @return
      */
-    ServiceStatusInfo<List<FavoriteModel>> searchFavorite(SearchFavorite searchFavorite);
+    ServiceStatusInfo<List<FavoriteModel>> searchFavorite(SearchFavorite searchFavorite,long userId);
 
     /**
      * 查询我的收藏数量

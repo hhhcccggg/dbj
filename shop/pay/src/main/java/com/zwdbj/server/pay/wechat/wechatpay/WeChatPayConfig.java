@@ -20,7 +20,6 @@ public class WeChatPayConfig implements WXPayConfig {
             synchronized (WeChatPayConfig.class) {
                 if (payCfg == null) {
                     try {
-                        logger.info("certPath = [" + certPath + "]");
                         payCfg = new WeChatPayConfig(certPath);
                     } catch ( Exception ex ) {
                         logger.error("config:"+ex.getMessage());

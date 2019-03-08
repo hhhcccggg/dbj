@@ -101,12 +101,8 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public ServiceStatusInfo<List<FavoriteModel>> searchFavorite(SearchFavorite searchFavorite) {
+    public ServiceStatusInfo<List<FavoriteModel>> searchFavorite(SearchFavorite searchFavorite,long userId) {
         try {
-            long userId = JWTUtil.getCurrentId();
-            if (userId == 0) {
-                return new ServiceStatusInfo<>(1, "用户未登录", null);
-            }
             searchFavorite.setUserId(userId);
             List<FavoriteModel> favoriteModels = iFavoriteMapper.searchFavorite(searchFavorite);
             if(searchFavorite.getTargetType() == TargetType.STORE){

@@ -74,7 +74,6 @@ public class WechatPayService {
                 return null;
             }
         } else {
-            logger.info("4444444444444444444444444444444444");
             config = WeChatPayConfig.payConfig(this.payConfigs.getWechatCertPath());
         }
         return config;
@@ -385,16 +384,12 @@ public class WechatPayService {
         try {
             WeChatPayConfig config = chatConfig();
             WXPay pay = new WXPay(config);
-            logger.info("1111111111111111111111111111111111111111111111111111111111111111111");
             Map<String,String> resData = pay.processResponseXml(responseRefundFromWeChat);
-            logger.info("2222222222222222222222222222222222222222222222222222222222222222222");
             PayResult payResult = this.parseResult(resData);
-            logger.info("3333333333333333333333333333333333333333333333333333333333333333333");
             if (!payResult.isSuccess()) {
                 return new ServiceStatusInfo<>(1,payResult.getErrMsg(),null);
             }
             //解密
-            logger.info(resData.toString());
             String a = resData.get("req_info");
             String aa = AESUtil.decryptData(a);
             Map<String,String> reqInfo =pay.processResponseXml(aa);
