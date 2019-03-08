@@ -161,11 +161,13 @@ public class AlipayService {
     public ServiceStatusInfo<AliAppRefundQueryDto> orderRefundQuery(AliAppRefundQueryInput input) {
         try {
             AlipayTradeFastpayRefundQueryRequest  request = new AlipayTradeFastpayRefundQueryRequest ();
+            logger.info("1111111111111111111111111111111111111");
             request.setBizContent("{" +
-                    "\"out_trade_no\":\""+input.getOutTradeNo()+"\"," +
                     "\"trade_no\":\""+input.getTradeNo()+"\"," +
+                    "\"out_trade_no\":\""+input.getOutTradeNo()+"\"," +
                     "\"out_request_no\":\""+input.getOutRequestNo()+"\"" +
                     "  }");
+            logger.info("2222222222222222222222222222222222222");
             AlipayTradeFastpayRefundQueryResponse  response = alipayClient.execute(request);
             if (response.isSuccess()) {
                 AliAppRefundQueryDto appRefundQueryDto = new AliAppRefundQueryDto();
@@ -183,7 +185,6 @@ public class AlipayService {
                     appRefundQueryDto.setRefundAmount(response.getRefundAmount());
                 if (response.getSendBackFee()!=null && !("".equals(response.getSendBackFee())))
                     appRefundQueryDto.setSendBackFee(response.getSendBackFee());
-                appRefundQueryDto.setGmtRefundPay(response.getGmtRefundPay());
                 if (response.getSubCode()!=null && !("".equals(response.getSubCode())))
                     appRefundQueryDto.setSubCode(response.getSubCode());
                 appRefundQueryDto.setCode(response.getCode());
