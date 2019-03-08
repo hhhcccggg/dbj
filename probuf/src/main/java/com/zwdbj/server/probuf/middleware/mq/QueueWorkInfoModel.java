@@ -660,7 +660,7 @@ public final class QueueWorkInfoModel {
       VIDEO_INFO(11),
       /**
        * <pre>
-       *用户订单评价的超时
+       *用户订单评价的超时或者收货超时
        * </pre>
        *
        * <code>USER_ORDER_COMMENT_TIME = 12;</code>
@@ -767,7 +767,7 @@ public final class QueueWorkInfoModel {
       public static final int VIDEO_INFO_VALUE = 11;
       /**
        * <pre>
-       *用户订单评价的超时
+       *用户订单评价的超时或者收货超时
        * </pre>
        *
        * <code>USER_ORDER_COMMENT_TIME = 12;</code>
@@ -7328,7 +7328,7 @@ public final class QueueWorkInfoModel {
 
     /**
      * <pre>
-     *user:用户,video:视频,store:商家,product:商品
+     *user:用户,video:视频,shop:商家,product:商品
      * </pre>
      *
      * <code>string type = 2;</code>
@@ -7336,7 +7336,7 @@ public final class QueueWorkInfoModel {
     java.lang.String getType();
     /**
      * <pre>
-     *user:用户,video:视频,store:商家,product:商品
+     *user:用户,video:视频,shop:商家,product:商品
      * </pre>
      *
      * <code>string type = 2;</code>
@@ -7469,7 +7469,7 @@ public final class QueueWorkInfoModel {
     private volatile java.lang.Object type_;
     /**
      * <pre>
-     *user:用户,video:视频,store:商家,product:商品
+     *user:用户,video:视频,shop:商家,product:商品
      * </pre>
      *
      * <code>string type = 2;</code>
@@ -7488,7 +7488,7 @@ public final class QueueWorkInfoModel {
     }
     /**
      * <pre>
-     *user:用户,video:视频,store:商家,product:商品
+     *user:用户,video:视频,shop:商家,product:商品
      * </pre>
      *
      * <code>string type = 2;</code>
@@ -7908,7 +7908,7 @@ public final class QueueWorkInfoModel {
       private java.lang.Object type_ = "";
       /**
        * <pre>
-       *user:用户,video:视频,store:商家,product:商品
+       *user:用户,video:视频,shop:商家,product:商品
        * </pre>
        *
        * <code>string type = 2;</code>
@@ -7927,7 +7927,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *user:用户,video:视频,store:商家,product:商品
+       *user:用户,video:视频,shop:商家,product:商品
        * </pre>
        *
        * <code>string type = 2;</code>
@@ -7947,7 +7947,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *user:用户,video:视频,store:商家,product:商品
+       *user:用户,video:视频,shop:商家,product:商品
        * </pre>
        *
        * <code>string type = 2;</code>
@@ -7964,7 +7964,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *user:用户,video:视频,store:商家,product:商品
+       *user:用户,video:视频,shop:商家,product:商品
        * </pre>
        *
        * <code>string type = 2;</code>
@@ -7977,7 +7977,7 @@ public final class QueueWorkInfoModel {
       }
       /**
        * <pre>
-       *user:用户,video:视频,store:商家,product:商品
+       *user:用户,video:视频,shop:商家,product:商品
        * </pre>
        *
        * <code>string type = 2;</code>
@@ -8699,6 +8699,15 @@ public final class QueueWorkInfoModel {
      * <code>int64 orderId = 1;</code>
      */
     long getOrderId();
+
+    /**
+     * <pre>
+     *订单评价:1,商品确认收货:2
+     * </pre>
+     *
+     * <code>int32 type = 2;</code>
+     */
+    int getType();
   }
   /**
    * Protobuf type {@code QueueWorkOrderCommentTimeData}
@@ -8714,6 +8723,7 @@ public final class QueueWorkInfoModel {
     }
     private QueueWorkOrderCommentTimeData() {
       orderId_ = 0L;
+      type_ = 0;
     }
 
     @java.lang.Override
@@ -8750,6 +8760,11 @@ public final class QueueWorkInfoModel {
             case 8: {
 
               orderId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              type_ = input.readInt32();
               break;
             }
           }
@@ -8789,6 +8804,19 @@ public final class QueueWorkInfoModel {
       return orderId_;
     }
 
+    public static final int TYPE_FIELD_NUMBER = 2;
+    private int type_;
+    /**
+     * <pre>
+     *订单评价:1,商品确认收货:2
+     * </pre>
+     *
+     * <code>int32 type = 2;</code>
+     */
+    public int getType() {
+      return type_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -8804,6 +8832,9 @@ public final class QueueWorkInfoModel {
       if (orderId_ != 0L) {
         output.writeInt64(1, orderId_);
       }
+      if (type_ != 0) {
+        output.writeInt32(2, type_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -8815,6 +8846,10 @@ public final class QueueWorkInfoModel {
       if (orderId_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(1, orderId_);
+      }
+      if (type_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, type_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8834,6 +8869,8 @@ public final class QueueWorkInfoModel {
       boolean result = true;
       result = result && (getOrderId()
           == other.getOrderId());
+      result = result && (getType()
+          == other.getType());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -8848,6 +8885,8 @@ public final class QueueWorkInfoModel {
       hash = (37 * hash) + ORDERID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getOrderId());
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getType();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8979,6 +9018,8 @@ public final class QueueWorkInfoModel {
         super.clear();
         orderId_ = 0L;
 
+        type_ = 0;
+
         return this;
       }
 
@@ -9002,6 +9043,7 @@ public final class QueueWorkInfoModel {
       public com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderCommentTimeData buildPartial() {
         com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderCommentTimeData result = new com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderCommentTimeData(this);
         result.orderId_ = orderId_;
+        result.type_ = type_;
         onBuilt();
         return result;
       }
@@ -9045,6 +9087,9 @@ public final class QueueWorkInfoModel {
         if (other == com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel.QueueWorkOrderCommentTimeData.getDefaultInstance()) return this;
         if (other.getOrderId() != 0L) {
           setOrderId(other.getOrderId());
+        }
+        if (other.getType() != 0) {
+          setType(other.getType());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -9107,6 +9152,44 @@ public final class QueueWorkInfoModel {
       public Builder clearOrderId() {
         
         orderId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int type_ ;
+      /**
+       * <pre>
+       *订单评价:1,商品确认收货:2
+       * </pre>
+       *
+       * <code>int32 type = 2;</code>
+       */
+      public int getType() {
+        return type_;
+      }
+      /**
+       * <pre>
+       *订单评价:1,商品确认收货:2
+       * </pre>
+       *
+       * <code>int32 type = 2;</code>
+       */
+      public Builder setType(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *订单评价:1,商品确认收货:2
+       * </pre>
+       *
+       * <code>int32 type = 2;</code>
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
         onChanged();
         return this;
       }
@@ -15094,27 +15177,27 @@ public final class QueueWorkInfoModel {
       "egoryId\030\013 \001(\003\022\021\n\tstoreType\030\014 \001(\t\"@\n\024Queu" +
       "eWorkESAdminInfo\022\n\n\002id\030\001 \001(\003\022\014\n\004type\030\002 \001" +
       "(\t\022\016\n\006action\030\003 \001(\t\"9\n\026QueueWorkOrderTime" +
-      "Data\022\017\n\007orderId\030\001 \001(\003\022\016\n\006userId\030\002 \001(\003\"0\n" +
+      "Data\022\017\n\007orderId\030\001 \001(\003\022\016\n\006userId\030\002 \001(\003\">\n" +
       "\035QueueWorkOrderCommentTimeData\022\017\n\007orderI" +
-      "d\030\001 \001(\003\"[\n\016QueueWorkHeart\022\022\n\nresourceId\030" +
-      "\001 \001(\t\022\024\n\014resourceType\030\002 \001(\t\022\016\n\006userId\030\003 " +
-      "\001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n\022QueueWorkPhoneCo" +
-      "de\022\r\n\005phone\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"\226\001\n\rQueu" +
-      "eWorkPush\022\016\n\006pushId\030\001 \001(\003\022\025\n\rcreatorUser" +
-      "Id\030\002 \001(\003\022\022\n\nmsgContent\030\003 \001(\t\022\023\n\013dataCont" +
-      "ent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001(\t\022\020\n\010toUserId\030\006 " +
-      "\001(\003\022\023\n\013messageType\030\007 \001(\005\"G\n\032QueueWorkQin" +
-      "iuReviewResult\022\025\n\rresultContent\030\001 \001(\t\022\022\n" +
-      "\nretryCount\030\002 \001(\005\"|\n\037QueueWorkQiniuWaitR" +
-      "eviewResData\022\022\n\nresContent\030\001 \001(\t\022\022\n\nbuck" +
-      "etName\030\002 \001(\t\022\017\n\007resType\030\003 \001(\005\022\016\n\006dataId\030" +
-      "\004 \001(\003\022\020\n\010dataType\030\005 \001(\005\"&\n\030QueueWorkVide" +
-      "oWeightData\022\n\n\002id\030\001 \001(\003\"p\n\025QueueWorkUser" +
-      "TaskCoin\022\016\n\006userId\030\001 \001(\003\022\020\n\010taskName\030\002 \001" +
-      "(\t\022\016\n\006taskId\030\003 \001(\003\022\014\n\004coin\030\004 \001(\005\022\027\n\017acti" +
-      "onTimestamp\030\005 \001(\003B;\n%com.zwdbj.server.pr" +
-      "obuf.middleware.mqB\022QueueWorkInfoModelb\006" +
-      "proto3"
+      "d\030\001 \001(\003\022\014\n\004type\030\002 \001(\005\"[\n\016QueueWorkHeart\022" +
+      "\022\n\nresourceId\030\001 \001(\t\022\024\n\014resourceType\030\002 \001(" +
+      "\t\022\016\n\006userId\030\003 \001(\003\022\017\n\007unHeart\030\004 \001(\010\"1\n\022Qu" +
+      "eueWorkPhoneCode\022\r\n\005phone\030\001 \001(\t\022\014\n\004code\030" +
+      "\002 \001(\t\"\226\001\n\rQueueWorkPush\022\016\n\006pushId\030\001 \001(\003\022" +
+      "\025\n\rcreatorUserId\030\002 \001(\003\022\022\n\nmsgContent\030\003 \001" +
+      "(\t\022\023\n\013dataContent\030\004 \001(\t\022\016\n\006refUrl\030\005 \001(\t\022" +
+      "\020\n\010toUserId\030\006 \001(\003\022\023\n\013messageType\030\007 \001(\005\"G" +
+      "\n\032QueueWorkQiniuReviewResult\022\025\n\rresultCo" +
+      "ntent\030\001 \001(\t\022\022\n\nretryCount\030\002 \001(\005\"|\n\037Queue" +
+      "WorkQiniuWaitReviewResData\022\022\n\nresContent" +
+      "\030\001 \001(\t\022\022\n\nbucketName\030\002 \001(\t\022\017\n\007resType\030\003 " +
+      "\001(\005\022\016\n\006dataId\030\004 \001(\003\022\020\n\010dataType\030\005 \001(\005\"&\n" +
+      "\030QueueWorkVideoWeightData\022\n\n\002id\030\001 \001(\003\"p\n" +
+      "\025QueueWorkUserTaskCoin\022\016\n\006userId\030\001 \001(\003\022\020" +
+      "\n\010taskName\030\002 \001(\t\022\016\n\006taskId\030\003 \001(\003\022\014\n\004coin" +
+      "\030\004 \001(\005\022\027\n\017actionTimestamp\030\005 \001(\003B;\n%com.z" +
+      "wdbj.server.probuf.middleware.mqB\022QueueW" +
+      "orkInfoModelb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -15169,7 +15252,7 @@ public final class QueueWorkInfoModel {
     internal_static_QueueWorkOrderCommentTimeData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueueWorkOrderCommentTimeData_descriptor,
-        new java.lang.String[] { "OrderId", });
+        new java.lang.String[] { "OrderId", "Type", });
     internal_static_QueueWorkHeart_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_QueueWorkHeart_fieldAccessorTable = new

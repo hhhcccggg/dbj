@@ -38,6 +38,9 @@ public class OrderOut {
     @ApiModelProperty(value = "订单状态  交易状态 STATE_WAIT_BUYER_PAY（交易创建，等待买家付款）STATE_BUYER_PAYED (买家已付款) STATE_SELLER_DELIVERIED（卖家已发货，等待买家收货) STATE_BUYER_DELIVERIED（买家已确认收货)\n" +
             "STATE_REFUNDING（退款中) STATE_REFUND_SUCCESS（退款成功) STATE_UNUSED (未使用，虚拟商品有效) STATE_USED (已使用，虚拟商品有效) STATE_SUCCESS（交易成功) STATE_CLOSED(交易关闭)")
     private String status;
+    @ApiModelProperty(value = "订单状态  交易状态 STATE_WAIT_BUYER_PAY（交易创建，等待买家付款）STATE_BUYER_PAYED (买家已付款) STATE_SELLER_DELIVERIED（卖家已发货，等待买家收货) STATE_BUYER_DELIVERIED（买家已确认收货)\n" +
+            "STATE_REFUNDING（退款中) STATE_REFUND_SUCCESS（退款成功) STATE_UNUSED (未使用，虚拟商品有效) STATE_USED (已使用，虚拟商品有效) STATE_SUCCESS（交易成功) STATE_CLOSED(交易关闭)")
+    private String statusStr;
 
     @ApiModelProperty(value = "收货人")
     private String receiverName;
@@ -83,6 +86,14 @@ public class OrderOut {
 
     @ApiModelProperty(value = "省市区详细地址")
     private String detailedly;
+
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
 
     public Date getCloseTime() {
         return closeTime;

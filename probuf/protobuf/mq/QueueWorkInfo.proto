@@ -19,7 +19,7 @@ message QueueWorkInfo {
         USER_ORDER_TIME=9; //用户订单的超时
         MODIFY_SHOP_INFO=10;
         VIDEO_INFO=11;//视频es
-        USER_ORDER_COMMENT_TIME=12; //用户订单评价的超时
+        USER_ORDER_COMMENT_TIME=12; //用户订单评价的超时或者收货超时
         ES_ADMIN_INFO=13; //ES后台处理数据
     }
 
@@ -86,6 +86,7 @@ message QueueWorkOrderTimeData{
 }
 message QueueWorkOrderCommentTimeData{
     int64 orderId=1;//订单id
+    int32 type=2;//订单评价:1,商品确认收货:2
 }
 
 message QueueWorkHeart {

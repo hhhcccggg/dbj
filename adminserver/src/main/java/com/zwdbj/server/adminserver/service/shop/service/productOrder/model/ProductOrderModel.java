@@ -20,6 +20,8 @@ public class ProductOrderModel {
     private int num;
     @ApiModelProperty(value = "订单的状态")
     private String status;
+    @ApiModelProperty(value = "订单的状态")
+    private String statusStr;
     @ApiModelProperty(value = "订单的收货地址id")
     private long receiveAddressId;
 
@@ -45,6 +47,14 @@ public class ProductOrderModel {
     private long productskuId;
     @ApiModelProperty(value = "商品的图片地址")
     private String imageUrls;
+
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
 
     public String getImageUrls() {
         return imageUrls;

@@ -13,8 +13,8 @@ import java.util.List;
 public interface IProductOrderMapper {
 
     @Insert("insert into shop_productOrders(id,orderNo,payment,actualPayment,useCoin,paymentType,thirdPaymentTradeNo," +
-            "deliveryFee,status,updateTime,paymentTime,userId,storeId,buyerComment,buyerRate,receiveAddressId) " +
-            "values(#{id},#{id},#{payment},0,#{input.useCoin},'NONE','NONE',#{input.deliveryFee},'STATE_BUYER_PAYED'," +
+            "deliveryFee,status,statusStr,updateTime,paymentTime,userId,storeId,buyerComment,buyerRate,receiveAddressId) " +
+            "values(#{id},#{id},#{payment},0,#{input.useCoin},'NONE','NONE',#{input.deliveryFee},'STATE_BUYER_PAYED','已付款'," +
             "now(),now(),#{userId},#{input.storeId},#{input.buyerComment},0,#{input.receiveAddressId})")
     int createOrder(@Param("id")long id,@Param("userId")long userId, @Param("input")AddOrderInput input,@Param("payment")int payment);
     @Insert("insert into shop_productOrderItems(id,productId,productskuId,orderId,num,title,price,totalFee) " +
@@ -41,7 +41,7 @@ public interface IProductOrderMapper {
     @Select("SELECT " +
             "oi.productId,r.receiverName,r.receiverPhone, r.receiverMobile,r.reveiverState,r.receiverCity, " +
             "r.receiverCountry,r.receiverAddress,p.imageUrls,oi.price, " +
-            "o.payment,o.`status`,o.endTime,o.actualPayment,o.storeId,oi.title,o.createTime,o.updateTime,o.paymentTime,o.deliveryTime,o.closeTime," +
+            "o.payment,o.`status`,o.statusStr,o.endTime,o.actualPayment,o.storeId,oi.title,o.createTime,o.updateTime,o.paymentTime,o.deliveryTime,o.closeTime," +
             "o.orderNo,r.receiverStreet,oi.productskuId " +
             "FROM  shop_productOrderItems oi " +
             "LEFT JOIN shop_productOrders o ON o.id = oi.orderId " +

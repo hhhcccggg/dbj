@@ -101,9 +101,16 @@ public class DelayMQworkReceiver extends MQConnection {
             channel.basicAck(envelope.getDeliveryTag(), false);
         } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_COMMENT_TIME) {
             ProductOrderService orderService = SpringContextUtil.getBean(ProductOrderService.class);
-            orderService.orderUnComment(info.getOrderCommentTimeData().getOrderId());
-            logger.info("[DMQ]处理订单评价" + info.getOrderTimeData().getOrderId());
-            channel.basicAck(envelope.getDeliveryTag(), false);
+            if (info.getOrderCommentTimeData().getType()==1){
+                orderService.orderUnComment(info.getOrderCommentTimeData().getOrderId());
+                logger.info("[DMQ]处理订单评价" + info.getOrderTimeData().getOrderId());
+                channel.basicAck(envelope.getDeliveryTag(), false);
+            }else if (info.getOrderCommentTimeData().getType()==2){
+                orderService.deliverOrderByUser(info.getOrderCommentTimeData().getOrderId());
+                logger.info("[DMQ]处理订单收货" + info.getOrderTimeData().getOrderId());
+                channel.basicAck(envelope.getDeliveryTag(), false);
+            }
+
         } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.ES_ADMIN_INFO) {
             if (info.getEsAdminInfo().getType().equals(ESIndex.VIDEO)) {
                 VideoService videoService = SpringContextUtil.getBean(VideoService.class);

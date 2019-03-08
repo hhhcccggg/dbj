@@ -247,9 +247,9 @@ public class OrderService {
             }
         }
         if (productlShow.getProductType()==0){
-            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_BUYER_PAYED");
+            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_BUYER_PAYED","已付款");
         }else if (productlShow.getProductType()==1){
-            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_UNUSED");
+            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_UNUSED","未使用");
         }
 
     }
@@ -264,11 +264,11 @@ public class OrderService {
                 if (status.equals("STATE_REFUNDING")  ){
                     if (model.getStatus().equals("STATE_BUYER_PAYED") || model.getStatus().equals("STATE_SELLER_DELIVERIED")
                             || model.getStatus().equals("STATE_UNUSED")){
-                        this.orderMapper.updateOrderState(id,tradeNo,status);
+                        this.orderMapper.updateOrderState(id,tradeNo,status,"退款中");
                     }
                 }else if (status.equals("STATE_REFUND_SUCCESS")){
                     if ( model.getStatus().equals("STATE_REFUNDING") ){
-                        this.orderMapper.updateOrderState(id,tradeNo,status);
+                        this.orderMapper.updateOrderState(id,tradeNo,status,"退款成功");
                         //更新商品的库存  是否有使用金币抵扣
                         int coins = model.getUseCoin();
                         long userId = model.getUserId();
@@ -290,7 +290,7 @@ public class OrderService {
                     }
                 }else if (status.equals("STATE_REFUND_FAILED")){
                     if ( model.getStatus().equals("STATE_REFUNDING") ){
-                        this.orderMapper.updateOrderState(id,tradeNo,status);
+                        this.orderMapper.updateOrderState(id,tradeNo,status,"退款失败");
                     }
                 }
             }

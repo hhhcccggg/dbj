@@ -90,6 +90,17 @@ public class ProductOrderService {
             long storeId = 0L;
             int result = this.productOrderMapper.deliverOrder(orderId,input,storeId);
             if (result==0)return new ServiceStatusInfo<>(1,"发货失败",0);
+            //设置延时收货时间
+            QueueWorkInfoModel.QueueWorkOrderCommentTimeData orderCommentTimeData
+                    = QueueWorkInfoModel.QueueWorkOrderCommentTimeData.newBuilder()
+                    .setOrderId(orderId)
+                    .setType(2)
+                    .build();
+            QueueWorkInfoModel.QueueWorkInfo workInfo = QueueWorkInfoModel.QueueWorkInfo.newBuilder()
+                    .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_COMMENT_TIME)
+                    .setOrderCommentTimeData(orderCommentTimeData)
+                    .build();
+            DelayMQWorkSender.shareSender().send(workInfo,60*60*24*15);
             return  new ServiceStatusInfo<>(0,"",result);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1,"发货失败:"+e.getMessage(),0);
@@ -97,17 +108,13 @@ public class ProductOrderService {
     }
 
     /**
-     * 用户确认收货
+     * 延时确认收货
      * @param orderId
-     * @param userId
      * @return
      */
-    public ServiceStatusInfo<Integer> deliverOrderByUser(long orderId,long userId){
+    public ServiceStatusInfo<Integer> deliverOrderByUser(long orderId){
         try {
-            long userId2 = JWTUtil.getCurrentId();
-            if (userId2<=0)return new ServiceStatusInfo<>(1,"请重新登录",null);
-            if (userId!=userId2)return new ServiceStatusInfo<>(1,"账号有误",null);
-            int result = this.productOrderMapper.deliverOrderByUser(orderId,userId2);
+            int result = this.productOrderMapper.deliverOrderByUser(orderId);
             if (result==0)return new ServiceStatusInfo<>(1,"收货失败",0);
             return  new ServiceStatusInfo<>(0,"",result);
         }catch (Exception e){
@@ -141,6 +148,7 @@ public class ProductOrderService {
             QueueWorkInfoModel.QueueWorkOrderCommentTimeData orderCommentTimeData
                     = QueueWorkInfoModel.QueueWorkOrderCommentTimeData.newBuilder()
                     .setOrderId(orderId)
+                    .setType(1)
                     .build();
             QueueWorkInfoModel.QueueWorkInfo workInfo = QueueWorkInfoModel.QueueWorkInfo.newBuilder()
                     .setWorkType(QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_COMMENT_TIME)

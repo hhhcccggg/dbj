@@ -19,13 +19,13 @@ public interface IOrderMapper {
     ProductOrderDetailModel getOrderById(@Param("id") long id);
 
     @Insert("insert into shop_productOrders(id,orderNo,payment,paymentType,actualPayment,useCoin,verifyCode," +
-            "deliveryFee,status,updateTime,userId,storeId,buyerComment,buyerRate,receiveAddressId,thirdPaymentTradeNo) " +
+            "deliveryFee,status,statusStr,updateTime,userId,storeId,buyerComment,buyerRate,receiveAddressId,thirdPaymentTradeNo) " +
             "values(#{id},#{id},#{payment},'NONE',#{payment},#{input.useCoin},#{verifyCode},#{input.deliveryFee},'STATE_WAIT_BUYER_PAY'," +
-            "now(),#{userId},#{input.storeId},#{input.buyerComment},0,#{input.receiveAddressId},'NONE')")
+            "'待付款',now(),#{userId},#{input.storeId},#{input.buyerComment},0,#{input.receiveAddressId},'NONE')")
     int createOrder(@Param("id") long id, @Param("userId") long userId, @Param("input") AddNewOrderInput input,
                     @Param("payment") int payment, @Param("verifyCode") String verifyCode);
 
-    @Update("update shop_productOrders set `status`='STATE_CLOSED',updateTime=now(),closeTime=now(),cancelReason=#{input.cancelReason} " +
+    @Update("update shop_productOrders set `status`='STATE_CLOSED',statusStr='订单关闭',updateTime=now(),closeTime=now(),cancelReason=#{input.cancelReason} " +
             "where id=#{input.orderId} and `status`='STATE_WAIT_BUYER_PAY'")
     int cancelOrder(@Param("input") CancelOrderInput input);
 
@@ -42,18 +42,19 @@ public interface IOrderMapper {
     int userBuyProductAccounts(@Param("userId") long userId, @Param("productId") long productId);
 
     @Update("update shop_productOrders set paymentType=#{paymentType},thirdPaymentTradeNo=#{thirdPaymentTradeNo}," +
-            "thirdPaymentTradeNotes=#{thirdPaymentTradeNotes},`status`=#{status},updateTime=now(),paymentTime=now() " +
+            "thirdPaymentTradeNotes=#{thirdPaymentTradeNotes},`status`=#{status},statusStr=#{statusStr},updateTime=now(),paymentTime=now() " +
             "where id=#{id}")
     int updateOrderPay(@Param("id") long id, @Param("paymentType") String paymentType, @Param("thirdPaymentTradeNo") String thirdPaymentTradeNo,
-                       @Param("thirdPaymentTradeNotes") String thirdPaymentTradeNotes, @Param("status") String status);
+                       @Param("thirdPaymentTradeNotes") String thirdPaymentTradeNotes, @Param("status") String status,@Param("statusStr")String statusStr);
 
-    @Update("update shop_productOrders set `status`=#{status} where id=#{id} and thirdPaymentTradeNo=#{thirdPaymentTradeNo}")
-    int updateOrderState(@Param("id") long id, @Param("thirdPaymentTradeNo") String thirdPaymentTradeNo, @Param("status") String status);
+    @Update("update shop_productOrders set `status`=#{status},statusStr=#{statusStr} where id=#{id} and thirdPaymentTradeNo=#{thirdPaymentTradeNo}")
+    int updateOrderState(@Param("id") long id, @Param("thirdPaymentTradeNo") String thirdPaymentTradeNo,
+                         @Param("status") String status,@Param("statusStr")String statusStr);
 
-    @Update("update shop_productOrders set `status`='STATE_BUYER_DELIVERIED',updateTime=now(),endTime=now() " +
+    @Update("update shop_productOrders set `status`='STATE_BUYER_DELIVERIED',statusStr='已签收',updateTime=now(),endTime=now() " +
             "where id=#{id} and userId=#{userId} and `status`='STATE_SELLER_DELIVERIED'")
     int takeOverGoods(@Param("id") long orderId, @Param("userId") long userId);
 
-    @Update("update shop_productOrders set `status`='STATE_SUCCESS',buyerRate=1 where id=#{orderId} and `status`='STATE_USED'")
+    @Update("update shop_productOrders set `status`='STATE_SUCCESS',statusStr='交易成功',buyerRate=1 where id=#{orderId} and `status`='STATE_USED'")
     int updateGoodsStatus(@Param("orderId") long orderId);
 }

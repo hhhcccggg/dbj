@@ -80,6 +80,24 @@ namespace db.shop.Models.shop
         [MaxLength(128)]
         public String status { get; set; }
         /// <summary>
+        /// 交易状态
+        /// （待付款）STATE_WAIT_BUYER_PAY
+        /// (已付款)STATE_BUYER_PAYED
+        /// （已发货)STATE_SELLER_DELIVERIED
+        /// （已签收)STATE_BUYER_DELIVERIED
+        /// （退款中)STATE_REFUNDING
+        /// （退款成功)STATE_REFUND_SUCCESS
+        /// （退款失败)STATE_REFUND_FAILED
+        /// (未使用，虚拟商品有效)STATE_UNUSED
+        /// (待评价，虚拟商品有效)STATE_USED
+        /// （交易成功)STATE_SUCCESS
+        /// (订单关闭)STATE_CLOSED
+        /// </summary>
+        /// <value>The status.</value>
+        [Required]
+        [MaxLength(128)]
+        public String statusStr { get; set; }
+        /// <summary>
         /// 交易更新时间
         /// </summary>
         /// <value>The update time.</value>
