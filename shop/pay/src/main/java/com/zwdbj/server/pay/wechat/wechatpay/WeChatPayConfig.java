@@ -16,8 +16,9 @@ public class WeChatPayConfig implements WXPayConfig {
                 if (payCfg == null) {
                     try {
                         payCfg = new WeChatPayConfig(certPath);
+                        System.out.println("certPath = [" + certPath + "]");
                     } catch ( Exception ex ) {
-                        System.out.println(ex.getMessage());
+                        System.out.println("config:"+ex.getMessage());
                     }
                 }
             }

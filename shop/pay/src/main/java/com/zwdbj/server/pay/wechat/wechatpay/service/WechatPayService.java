@@ -25,6 +25,8 @@ import java.util.Map;
 
 @Service
 public class WechatPayService {
+    @Autowired
+    private PayConfigs payConfigs;
     /**
      * 结果情况
      */
@@ -69,6 +71,7 @@ public class WechatPayService {
                 return null;
             }
         } else {
+            logger.info("4444444444444444444444444444444444");
             config = WeChatPayConfig.payConfig(this.payConfigs.getWechatCertPath());
         }
         return config;
@@ -108,8 +111,7 @@ public class WechatPayService {
         }
         return null;
     }
-    @Autowired
-    private PayConfigs payConfigs;
+
 
     /**
      * @param prepayId 预付单ID
