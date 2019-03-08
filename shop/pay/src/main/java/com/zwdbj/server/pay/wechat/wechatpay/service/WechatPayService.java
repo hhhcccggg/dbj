@@ -396,7 +396,7 @@ public class WechatPayService {
             String aa = AESUtil.decryptData(a);
             //Map<String,String> reqInfo =pay.processResponseXml(aa);
             Map<String,String> reqInfo =WXPayUtil.xmlToMap(aa);
-            logger.info(reqInfo.toString());
+            logger.info("reqInfo:"+reqInfo.toString());
 
             RefundNotifyResult notifyResult = new RefundNotifyResult();
             //解析支付结果
@@ -406,7 +406,7 @@ public class WechatPayService {
                 resultDto.setCashFee(Integer.parseInt(reqInfo.get("cash_fee")));
             }
             if(reqInfo.containsKey("total_fee")) {
-                resultDto.setTotalFee(Integer.parseInt(resData.get("total_fee")));
+                resultDto.setTotalFee(Integer.parseInt(reqInfo.get("total_fee")));
             }
 
             if (reqInfo.containsKey("settlement_refund_fee")){
@@ -421,7 +421,8 @@ public class WechatPayService {
                 resultDto.setRefundFee(Integer.valueOf(reqInfo.get("refund_fee")));
             }
             resultDto.setRefundRecvAccout(reqInfo.get("refund_recv_accout"));
-            resultDto.setReFundRequestSource(reqInfo.get("refund_request_source"));
+            if (reqInfo.containsKey("refund_request_source"))
+                resultDto.setReFundRequestSource(reqInfo.get("refund_request_source"));
             resultDto.setRefundStatus(reqInfo.get("refund_status"));
             notifyResult.setDto(resultDto);
             notifyResult.setResponseWeChatXML("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
@@ -430,7 +431,7 @@ public class WechatPayService {
         } catch ( Exception ex ){
             logger.info("异步退款异常:"+ex.getMessage());
         }
-        return new ServiceStatusInfo<>(1,"参数或者签名失败",null);
+        return new ServiceStatusInfo<>(1,"解析错误",null);
     }
 
 }
