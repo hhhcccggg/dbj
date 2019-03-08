@@ -197,8 +197,12 @@ public class AlipayService {
                 if (response.getSubCode()!=null && !("".equals(response.getSubCode())))
                     appRefundQueryDto.setSubCode(response.getSubCode());
                 logger.info(response.getSubCode());
-                appRefundQueryDto.setCode(response.getCode());
-                appRefundQueryDto.setMsg(response.getMsg());
+                if (response.getCode()!=null && !("".equals(response.getCode())))
+                    appRefundQueryDto.setCode(response.getCode());
+                logger.info(response.getCode());
+                if (response.getMsg()!=null && !("".equals(response.getMsg())))
+                    appRefundQueryDto.setMsg(response.getMsg());
+                logger.info(response.getMsg());
 
                 return new ServiceStatusInfo<>(0,"OK",appRefundQueryDto);
             } else {

@@ -164,13 +164,13 @@ public class AlipayBizService {
         logger.info("3333333333333333333333333");
         boolean isSuccess = serviceStatusInfo.getData().getCode().equals("10000");
         boolean isSuccess2=false;
-        if (serviceStatusInfo.getData().getTradeNo()!=null || (serviceStatusInfo.getData().getTradeNo().length()!=0))
+        if (serviceStatusInfo.getData().getRefundAmount()!=null || (serviceStatusInfo.getData().getRefundAmount().length()!=0))
             isSuccess2 = true;
         if (!isSuccess){
             logger.info("支付宝退款查询错误:"+serviceStatusInfo.getData().getSubCode());
         }
         this.orderRefundResult(serviceStatusInfo.getData().getOutTradeNo(),serviceStatusInfo.getData().getTradeNo(),isSuccess2);
-        return serviceStatusInfo;
+        return new ServiceStatusInfo<>(0,"",serviceStatusInfo.getData());
     }
 
     public ServiceStatusInfo<Object> paramsRsaCheckV1(Map<String,String> params,int type) {
