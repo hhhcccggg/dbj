@@ -119,9 +119,6 @@ public class AlipayService {
     public ServiceStatusInfo<AliAppRefundDto> appPayRefund(AliAppRefundInput input) {
         try {
             AlipayTradeRefundRequest request = new AlipayTradeRefundRequest ();
-            //String bizJson = JSON.toJSONString(input);
-            //logger.info(bizJson);
-            //request.setBizContent(bizJson);
             request.setBizContent("{" +
                     "\"out_trade_no\":\""+input.getOutTradeNo()+"\"," +
                     "\"trade_no\":\""+input.getTradeNo()+"\"," +
@@ -164,8 +161,11 @@ public class AlipayService {
     public ServiceStatusInfo<AliAppRefundQueryDto> orderRefundQuery(AliAppRefundQueryInput input) {
         try {
             AlipayTradeFastpayRefundQueryRequest  request = new AlipayTradeFastpayRefundQueryRequest ();
-            String json = JSON.toJSONString(input);
-            request.setBizContent(json);
+            request.setBizContent("{" +
+                    "\"out_trade_no\":\""+input.getOutTradeNo()+"\"," +
+                    "\"trade_no\":\""+input.getTradeNo()+"\"," +
+                    "\"out_request_no\":\""+input.getOutRequestNo()+"\"" +
+                    "  }");
             AlipayTradeFastpayRefundQueryResponse  response = alipayClient.execute(request);
             if (response.isSuccess()) {
                 AliAppRefundQueryDto appRefundQueryDto = new AliAppRefundQueryDto();
