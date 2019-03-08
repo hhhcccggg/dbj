@@ -39,9 +39,9 @@ public interface IUserMapper {
 
     @Select("SELECT *, (select count(*) from core_pets as pet where pet.userId = u.id and pet.isDeleted=0) as petCount," +
             "(select count(*) from core_videos as vd where vd.userId = u.id) as videoCount," +
-            "(select count(*) from core_livings as li where li.userId = u.id) as liveCount " +
+            "(select count(*) from core_livings as li where li.userId = u.id) as liveCount, " +
             "(select name from shop_stores as s " +
-            "where s.legalSubjectId=(select legalSubjectId from core_user_tenants where u.tenantId=u.tenantId)) as storeName " +
+            "where s.legalSubjectId=(select legalSubjectId from core_user_tenants where id=u.tenantId)) as storeName " +
             "FROM dbj_server_db.core_users as u where u.id=#{userId}")
     UserDetailInfoDto getUserDetail(@Param("userId") long userId);
 
