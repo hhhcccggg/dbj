@@ -167,7 +167,6 @@ public class AlipayService {
                     "\"out_request_no\":\""+input.getOutRequestNo()+"\"" +
                     "  }");
             AlipayTradeFastpayRefundQueryResponse  response = alipayClient.execute(request);
-            logger.info("22houmian: "+response.getRefundAmount()+","+response.getErrorCode()+","+response.getRefundStatus());
             if (response.isSuccess()) {
                 AliAppRefundQueryDto appRefundQueryDto = new AliAppRefundQueryDto();
                 if (response.getOutRequestNo()!=null && !("".equals(response.getOutRequestNo())))
