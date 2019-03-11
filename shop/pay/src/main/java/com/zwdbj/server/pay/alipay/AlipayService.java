@@ -161,48 +161,35 @@ public class AlipayService {
     public ServiceStatusInfo<AliAppRefundQueryDto> orderRefundQuery(AliAppRefundQueryInput input) {
         try {
             AlipayTradeFastpayRefundQueryRequest  request = new AlipayTradeFastpayRefundQueryRequest ();
-            logger.info("1111111111111111111111111111111111111");
             request.setBizContent("{" +
                     "\"trade_no\":\""+input.getTradeNo()+"\"," +
                     "\"out_trade_no\":\""+input.getOutTradeNo()+"\"," +
                     "\"out_request_no\":\""+input.getOutRequestNo()+"\"" +
                     "  }");
-            logger.info("2222222222222222222222222222222222222");
             AlipayTradeFastpayRefundQueryResponse  response = alipayClient.execute(request);
             logger.info("22houmian: "+response.getRefundAmount()+","+response.getErrorCode()+","+response.getRefundStatus());
             if (response.isSuccess()) {
-                logger.info("_______________________________________________");
                 AliAppRefundQueryDto appRefundQueryDto = new AliAppRefundQueryDto();
                 if (response.getOutRequestNo()!=null && !("".equals(response.getOutRequestNo())))
                     appRefundQueryDto.setOutRequestNo(response.getOutRequestNo());
-                logger.info(response.getOutRequestNo());
                 if (response.getOutTradeNo()!=null && !("".equals(response.getOutTradeNo())))
                     appRefundQueryDto.setOutTradeNo(response.getOutTradeNo());
-                logger.info(response.getOutTradeNo());
                 if (response.getTotalAmount()!=null && !("".equals(response.getTotalAmount())))
                     appRefundQueryDto.setTotalAmount(response.getTotalAmount());
-                logger.info(response.getTotalAmount());
                 if (response.getTradeNo()!=null && !("".equals(response.getTradeNo())))
                     appRefundQueryDto.setTradeNo(response.getTradeNo());
-                logger.info(response.getTradeNo());
                 if (response.getRefundReason()!=null && !("".equals(response.getRefundReason())))
                     appRefundQueryDto.setRefundReason(response.getRefundReason());
-                logger.info(response.getRefundReason());
                 if (response.getRefundAmount()!=null && !("".equals(response.getRefundAmount())))
                     appRefundQueryDto.setRefundAmount(response.getRefundAmount());
-                logger.info(response.getRefundAmount());
                 if (response.getSendBackFee()!=null && !("".equals(response.getSendBackFee())))
                     appRefundQueryDto.setSendBackFee(response.getSendBackFee());
-                logger.info(response.getSendBackFee());
                 if (response.getSubCode()!=null && !("".equals(response.getSubCode())))
                     appRefundQueryDto.setSubCode(response.getSubCode());
-                logger.info(response.getSubCode());
                 if (response.getCode()!=null && !("".equals(response.getCode())))
                     appRefundQueryDto.setCode(response.getCode());
-                logger.info(response.getCode());
                 if (response.getMsg()!=null && !("".equals(response.getMsg())))
                     appRefundQueryDto.setMsg(response.getMsg());
-                logger.info(response.getMsg());
 
                 return new ServiceStatusInfo<>(0,"OK",appRefundQueryDto);
             } else {

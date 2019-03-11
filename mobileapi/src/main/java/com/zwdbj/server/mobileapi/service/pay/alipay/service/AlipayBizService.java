@@ -161,7 +161,6 @@ public class AlipayBizService {
             logger.warn(serviceStatusInfo.getMsg());
             return serviceStatusInfo;
         }
-        logger.info("3333333333333333333333333");
         boolean isSuccess = serviceStatusInfo.getData().getCode().equals("10000");
         boolean isSuccess2=false;
         if (serviceStatusInfo.getData().getRefundAmount()!=null || (serviceStatusInfo.getData().getRefundAmount().length()!=0))
