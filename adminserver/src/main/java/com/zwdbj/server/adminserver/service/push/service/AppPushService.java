@@ -217,7 +217,7 @@ public class AppPushService {
             if (message.getType()==1){
                 action.setActivity("com.zwdbj.aichongpai.ui.message.LikeActivity");
             }else if (message.getType()==2){
-                action.setActivity("com.zwdbj.aichongpai.ui.message.FansActivity");
+                action.setActivity("com.zwdbj.aichongpai.my.MyFans2Activity");
             }else if (message.getType()==3){
                 action.setActivity("com.zwdbj.aichongpai.ui.message.CommentsActivity");
             }
