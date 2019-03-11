@@ -202,6 +202,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ServiceStatusInfo<Long> updatePublishs(String id, boolean publish) {
+        return updatePublishs(strToString(id),publish);
+    }
+
+    @Override
     public ServiceStatusInfo<ProductsOut> selectById(long id) {
         try {
             Products products = this.iProductMapper.selectById(id);
@@ -252,6 +257,12 @@ public class ProductServiceImpl implements ProductService {
             return new ServiceStatusInfo<>(1, "批量失败" + e.getMessage(), 0L);
         }
     }
+
+    @Override
+    public ServiceStatusInfo<Long> deleteByProducts(String id) {
+        return deleteByProducts(strToString(id));
+    }
+
     @Override
     public long getProductInventoryNum(long productId) {
         long allInventory = this.iProductMapper.getProductInventory(productId);
@@ -329,6 +340,15 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return null;
+    }
+
+    public Long[] strToString(String ids){
+        String[] idstr = ids.split(",");
+        Long[] id = new Long[idstr.length];
+        for (int i = 0; i < idstr.length; i++) {
+            id[i] = Long.parseLong(idstr[i]);
+        }
+        return id;
     }
 
     @Override
