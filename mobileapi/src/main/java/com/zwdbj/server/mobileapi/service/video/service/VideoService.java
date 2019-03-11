@@ -541,6 +541,8 @@ public class VideoService {
                 msgInput.setCreatorUserId(userId);
                 msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"1\"}");
                 msgInput.setMessageType(1);
+                msgInput.setRefUrl(detailInfoDto.getVideoUrl());
+                msgInput.setMsgContent("");
                 this.messageCenterService.push(msgInput, detailInfoDto.getUserId());
             }
 
@@ -635,6 +637,7 @@ public class VideoService {
     @Transactional
     public void videoAuthorIncome(Long authorId, int income,long userId,long videoId) {
         this.userAssetServiceImpl.userIsExist(authorId);
+        VideoDetailInfoDto detailInfoDto = this.video(videoId);
         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
         addInput.setNum(income);
         addInput.setType("INCOME");
@@ -647,6 +650,8 @@ public class VideoService {
         msgInput.setCreatorUserId(userId);
         msgInput.setDataContent("{\"resId\":\"" + videoId + "\",\"type\":\"0\",\"coins\":\""+income+"\"}");
         msgInput.setMessageType(6);
+        msgInput.setMsgContent("");
+        msgInput.setRefUrl(detailInfoDto.getVideoUrl());
         this.messageCenterService.push(msgInput, authorId);
     }
 

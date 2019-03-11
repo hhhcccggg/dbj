@@ -183,6 +183,7 @@ public class CommentService {
                 msgInput.setMsgContent(input.getContent());
                 msgInput.setMessageType(3);
                 msgInput.setDataContent("{\"resId\":\"" + input.getResId() + "\",\"type\":\"0\"}");
+                msgInput.setRefUrl(detailInfoDto.getVideoUrl());
                 this.messageCenterService.push(msgInput, detailInfoDto.getUserId());
             }
             this.videoService.videoWegiht(input.getResId());

@@ -140,6 +140,9 @@ public class UserService {
                     MessageInput msgInput = new MessageInput();
                     msgInput.setCreatorUserId(userId);
                     msgInput.setMessageType(2);
+                    msgInput.setMsgContent("");
+                    msgInput.setRefUrl("");
+                    msgInput.setDataContent("{\"resId\":\"" + input.getUserId() + "\",\"type\":\"0\"}");
                     this.messageCenterService.push(msgInput, input.getUserId());
                     return new ServiceStatusInfo<>(0, "关注成功", null);
                 } else {

@@ -217,6 +217,7 @@ public class PetService {
     public ServiceStatusInfo<PetHeartDto> heart(HeartInput input){
         long userId = JWTUtil.getCurrentId();
         if (userId <= 0) return new ServiceStatusInfo<>(1, "请重新登录", null,null);
+        PetModelDto petModelDto =this.get(input.getId());
         PetHeartDto petHeartDto = new PetHeartDto();
         petHeartDto.setPetId(input.getId());
         HeartModel heartModel = this.heartService.findHeart(userId, input.getId());
@@ -241,6 +242,8 @@ public class PetService {
             msgInput.setCreatorUserId(userId);
             msgInput.setMessageType(1);
             msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"2\"}");
+            msgInput.setRefUrl(petModelDto.getAvatar());
+            msgInput.setMsgContent("");
             this.messageCenterService.push(msgInput, pUserId);
             if (isFirst.getCoins()!=null)
                 return new ServiceStatusInfo<>(0, "点赞成功", petHeartDto,isFirst.getCoins());
