@@ -71,7 +71,7 @@ public interface OfflineStoreStaffsMapper {
      * @param userId
      * @return
      */
-    @Select("select u.id,u.fullName,u.nickName,u.totalHearts,u.totalFans," +
+    @Select("select u.id,u.fullName,u.avatarUrl,u.nickName,u.totalHearts,u.totalFans," +
             "(select count(*) from core_pets where userId=u.id and isDeleted=0) as pets ," +
             "(select count(*) from core_videos where userId=#{userId} and isDeleted=0 ) as videos, " +
             "(SELECT count(*) from core_comments WHERE userId=#{userId} and isDeleted=0) as commentCounts" +
