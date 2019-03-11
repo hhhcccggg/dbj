@@ -11,6 +11,8 @@ public class SuperStarDto {
     private String fullName;
     @ApiModelProperty(value = "昵称")
     private String nickName;
+    @ApiModelProperty(value = "头像")
+    private String avatarUrl;
     @ApiModelProperty(value = "作品数")
     private int videos;
     @ApiModelProperty(value = "累计获赞数")
@@ -23,6 +25,14 @@ public class SuperStarDto {
     private int commentCounts;
     @ApiModelProperty(value = "资质认证")
     String qualification;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     public long getUsedId() {
         return usedId;
