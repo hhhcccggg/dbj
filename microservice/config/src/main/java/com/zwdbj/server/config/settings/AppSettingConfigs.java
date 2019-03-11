@@ -20,6 +20,8 @@ public class AppSettingConfigs {
     @Autowired
     private SmsSendConfigs smsSendConfigs;
     @Autowired
+    private LetterSendConfigs letterSendConfigs;
+    @Autowired
     private SwaggerConfigs swaggerConfigs;
     @Autowired
     private XgConfigs xgConfigs;
@@ -114,5 +116,13 @@ public class AppSettingConfigs {
 
     public void setYouZanConfigs(YouZanConfigs youZanConfigs) {
         this.youZanConfigs = youZanConfigs;
+    }
+
+    public LetterSendConfigs getLetterSendConfigs() {
+        return letterSendConfigs;
+    }
+
+    public void setLetterSendConfigs(LetterSendConfigs letterSendConfigs) {
+        this.letterSendConfigs = letterSendConfigs;
     }
 }
