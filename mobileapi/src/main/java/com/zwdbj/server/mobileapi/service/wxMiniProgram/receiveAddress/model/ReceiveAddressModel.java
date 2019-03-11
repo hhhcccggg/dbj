@@ -51,7 +51,8 @@ public class ReceiveAddressModel {
     }
 
     public String getDetailedly() {
-        return reveiverState+receiverCity+receiverCountry+detailedly+receiverAddress;
+        return updateField(reveiverState)+updateField(receiverCity)+updateField(receiverCountry)+
+                updateField(detailedly)+updateField(receiverAddress);
     }
 
     public long getId() {
@@ -172,5 +173,12 @@ public class ReceiveAddressModel {
 
     public void setDefaultAddr(boolean defaultAddr) {
         this.defaultAddr = defaultAddr;
+    }
+
+    private String updateField(String field){
+        if(field == null){
+            return "";
+        }
+        return field;
     }
 }
