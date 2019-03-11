@@ -539,7 +539,7 @@ public class VideoService {
             if (detailInfoDto != null) {
                 MessageInput msgInput = new MessageInput();
                 msgInput.setCreatorUserId(userId);
-                msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"1\"}");
+                msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"0\"}");
                 msgInput.setMessageType(1);
                 msgInput.setRefUrl(detailInfoDto.getVideoUrl());
                 msgInput.setMsgContent("");

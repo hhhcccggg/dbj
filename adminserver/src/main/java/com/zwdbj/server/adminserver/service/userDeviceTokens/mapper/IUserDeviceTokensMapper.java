@@ -18,4 +18,8 @@ public interface IUserDeviceTokensMapper {
 
     @Delete("delete from core_userDeviceTokens where id=#{id}")
     Long delTokenById(@Param("id")Long id);
+    @Select("select userId from core_userDeviceTokens where isManualData=false and deviceType='ios'")
+    List<Long> getIosUserId();
+    @Select("select userId from core_userDeviceTokens where isManualData=false and deviceType='android'")
+    List<Long> getAndroidUserId();
 }

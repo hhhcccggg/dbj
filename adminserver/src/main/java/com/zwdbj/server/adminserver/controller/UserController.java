@@ -37,24 +37,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Autowired
-    private SettingService settingService;
-
-    @RequiresAuthentication
-    @RequestMapping(value = "/pushSetting", method = RequestMethod.POST)
-    @ApiOperation(value = "设置用户推送设置")
-    public ResponseData<AppPushSettingModel> pushSetting(@RequestBody AppPushSettingModel settingModel) {
-        AppPushSettingModel appPushSettingModel = this.settingService.set(settingModel, JWTUtil.getCurrentId());
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", appPushSettingModel);
-    }
-
-    @RequiresAuthentication
-    @RequestMapping(value = "/pushSetting", method = RequestMethod.GET)
-    @ApiOperation(value = "获取用户推送设置")
-    public ResponseData<AppPushSettingModel> pushSetting() {
-        AppPushSettingModel appPushSettingModel = this.settingService.get(JWTUtil.getCurrentId());
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", appPushSettingModel);
-    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation(value = "登录")
