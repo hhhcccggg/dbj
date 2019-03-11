@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class PushXGMessage implements Serializable {
 
+    private static final long serialVersionUID = 3151474364488740298L;
     private String audience_type;
     private String platform;
     private Message message;
@@ -17,11 +18,21 @@ public class PushXGMessage implements Serializable {
     @ApiModelProperty(value = "用户指定推送环境，仅限iOS平台推送使用")
     private Environment environment = Environment.product;
     private int badge_type;
+    private String push_id;
+
 
 
     public PushXGMessage() {
         this.message_type = "notify";
         this.badge_type=-2;
+    }
+
+    public String getPush_id() {
+        return push_id;
+    }
+
+    public void setPush_id(String push_id) {
+        this.push_id = push_id;
     }
 
     public String getAudience_type() {

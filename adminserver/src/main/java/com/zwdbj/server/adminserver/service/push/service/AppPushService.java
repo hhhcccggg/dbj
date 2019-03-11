@@ -96,7 +96,7 @@ public class AppPushService {
             pushDescription = String.format("你的作品《%s》收到新打赏", pushResDataContent.getTitle());
         }
 
-        //TODO 关注的人发布视频和直播提醒
+        //TODO 关注的人发布视频
 
 
         PushMessage pushMessage = new PushMessage();
@@ -210,7 +210,7 @@ public class AppPushService {
             }
             mag.setIos(xgiosMessage);
             xgMessage.setMessage(mag);
-        } else {//安卓推送消息体
+        } else if (type.equals("android")){//安卓推送消息体
             PushXGAndroidMessage androidMessage = new PushXGAndroidMessage();
             androidMessage.setCustom_content(JSON.toJSONString(message.getExtraData()));
             ClickAction action = new ClickAction();
@@ -224,6 +224,9 @@ public class AppPushService {
             androidMessage.setAction(action);
             mag.setAndroid(androidMessage);
             xgMessage.setPlatform("android");
+            xgMessage.setMessage(mag);
+        }else {
+            xgMessage.setPlatform("all");
             xgMessage.setMessage(mag);
         }
         //将请求参数封装为json上传给后台
