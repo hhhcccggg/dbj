@@ -2,7 +2,11 @@ package com.zwdbj.server.adminserver.service.push.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.zwdbj.server.adminserver.service.pet.model.PetModelDto;
+import com.zwdbj.server.adminserver.service.pet.service.PetService;
 import com.zwdbj.server.adminserver.service.push.model.*;
+import com.zwdbj.server.adminserver.service.setting.model.AppPushSettingModel;
+import com.zwdbj.server.adminserver.service.setting.service.SettingService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdUserDeviceTokenDto;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.service.UserDeviceTokensService;
@@ -14,11 +18,13 @@ import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Map;
 
 @Service
 public class AppPushService {
@@ -32,6 +38,12 @@ public class AppPushService {
     private UserDeviceTokensService userDeviceTokensService;
     @Autowired
     private AppSettingConfigs appSettingConfigs;
+    @Autowired
+    private RedisTemplate redisTemplate;
+    @Autowired
+    private SettingService settingService;
+    @Autowired
+    private PetService petService;
 
     public boolean push(QueueWorkInfoModel.QueueWorkPush pushData) {
         //消息类型0:系统消息,1:点赞类2:粉丝类3:评论4:关注人发布视频5:关注人发布直播
@@ -81,7 +93,12 @@ public class AppPushService {
         if (pushData.getMessageType() == 1) {
             type = 1;
             pushTitle = "收到新点赞";
-            pushDescription = String.format("你的作品《%s》收到新点赞", pushResDataContent.getTitle());
+            if (pushResDataContent.getType()==0){
+                pushDescription = String.format("你的作品《%s》收到新点赞", pushResDataContent.getTitle());
+            }else if (pushResDataContent.getType()==1){
+                pushDescription = String.format("你的宠物:%s收到新点赞", pushResDataContent.getTitle());
+            }
+
         } else if (pushData.getMessageType() == 3) {
             type = 3;
             pushTitle = "收到新评论";
@@ -151,15 +168,30 @@ public class AppPushService {
             pushResDataContent.setTitle(detailInfoDto.getTitle());
             pushResDataContent.setId(resId);
             pushResDataContent.setType(type);
+        }else if (type==1 && pushData.getMessageType()==1){
+            PetModelDto petModelDto = this.petService.get(resId);
+            if (petModelDto == null) {
+                logger.warn("推送消息失败编号:" + pushData.getPushId()
+                        + ", 视频已经不存在");
+                return null;
+            }
+            pushResDataContent.setId(resId);
+            pushResDataContent.setTitle(petModelDto.getNickName());
+            pushResDataContent.setType(type);
         }
         return pushResDataContent;
     }
 
     protected void pushMessage(PushMessage message, long toUserId) {
+        ArrayList<String> accounts = new ArrayList<>();
+        ArrayList<String> accounts2 = new ArrayList<>();
+
         //未登录
         if (toUserId <= 0) {
-            pushMessage(message, toUserId, "ios", true);
-            pushMessage(message, toUserId, "android", true);
+            accounts.addAll(this.redisTemplate.opsForZSet().range("IOSSettingPush_All",0,-1));
+            accounts2.addAll(this.redisTemplate.opsForList().range("ANDROIDSettingPush_All",0,-1));
+            pushMessage(message, toUserId, "ios", false,accounts);
+            pushMessage(message, toUserId, "android", false,accounts2);
         } else {//已登录
             AdUserDeviceTokenDto tokenDto = this.userDeviceTokensService.getDeviceTokenByUserId(toUserId);
             if (tokenDto == null) {
@@ -167,12 +199,15 @@ public class AppPushService {
                         + ", 找不到绑定的终端");
                 return;
             }
-            pushMessage(message, toUserId, tokenDto.getDeviceType().toLowerCase(), false);
+            boolean aa = this.settingService.settingUse(toUserId,message.getType());
+            if (!aa)return;
+            accounts.add(String.valueOf(toUserId));
+            pushMessage(message, toUserId, tokenDto.getDeviceType().toLowerCase(), false,accounts);
         }
     }
 
     //推送请求参数到信鸽后台
-    protected void pushMessage(PushMessage message, long toUserId, String type, boolean isAll) {
+    protected void pushMessage(PushMessage message, long toUserId, String type, boolean isAll,ArrayList<String> accounts) {
         Request.Builder builder = new Request.Builder();
         builder.url(this.appSettingConfigs.getXgConfigs().getServiceUrl());
         //设置请求头
@@ -187,12 +222,14 @@ public class AppPushService {
             //设置推送目标 all：全量推送
             xgMessage.setAudience_type("all");
         } else {
-            //设置单设备推送
-            xgMessage.setAudience_type("account");
-            ArrayList<String> accounts = new ArrayList<>();
-            accounts.add(String.valueOf(toUserId));
-            //设置账号列表推送
+            if (toUserId>0){//单账号推送
+                xgMessage.setAudience_type("account");
+            }else {//账号列表推送
+                xgMessage.setAudience_type("account_list");
+                xgMessage.setPush_id("0");
+            }
             xgMessage.setAccount_list(accounts);
+
         }
         //设置ios推送消息体
         if (type.equals("ios")) {

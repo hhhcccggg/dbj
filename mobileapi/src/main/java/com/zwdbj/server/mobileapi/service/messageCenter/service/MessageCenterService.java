@@ -145,12 +145,12 @@ public class MessageCenterService {
                     //String refUrl = "";
                     String title = "";
                     VideoDetailInfoDto videoDetailInfoDto;
-                    if ((type==1  && a==1) || type==3 || type==6){
+                    if ((type==1  && a==0) || type==3 || type==6){
                         dto.setVideoOrPet(1);
                         videoDetailInfoDto = this.videoService.video(resId);
                         title = videoDetailInfoDto.getTitle();
                         //refUrl = videoDetailInfoDto.getVideoUrl();
-                    }else if (type==1 && a==2){
+                    }else if (type==1 && a==1){
                         dto.setVideoOrPet(2);
                         PetModelDto petModelDto =this.petService.get(resId);
                         title = petModelDto.getNickName();

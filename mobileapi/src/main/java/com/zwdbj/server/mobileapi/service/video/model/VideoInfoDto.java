@@ -47,7 +47,7 @@ public class VideoInfoDto {
     String userNickName;
     @ApiModelProperty(value = "视频背景音乐ID")
     long musicId;
-    @ApiModelProperty(value = "视频状态》》0:正常1:审核中2:下架3:需要人工审核")
+    @ApiModelProperty(value = "视频状态》》0:正常1:审核中2:审核未通过3:需要人工审核,4下架")
     int status;
     @ApiModelProperty(value = "视频被拒下架的原因")
     String rejectMsg;
