@@ -31,7 +31,7 @@ namespace dbdesgin.Models
         public string address { get; set; }
         public bool isHiddenLocation { get; set; }
         /// <summary>
-        /// 0:正常1:审核中2:下架3:需要人工审核
+        /// 0:正常1:审核中2:未通过审核3:需要人工审核4:下架
         /// </summary>
         /// <value>The status.</value>
         public int status { get; set; }

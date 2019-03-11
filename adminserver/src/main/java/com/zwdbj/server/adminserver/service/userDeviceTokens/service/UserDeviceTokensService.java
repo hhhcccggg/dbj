@@ -32,4 +32,11 @@ public class UserDeviceTokensService {
             return new ServiceStatusInfo<>(1,"删除失败"+e.getMessage(),result);
         }
     }
+
+    public List<Long> getIosUserId(){
+        return this.userDeviceTokensMapper.getIosUserId();
+    }
+    public List<Long> getAndroidUserId(){
+        return this.userDeviceTokensMapper.getAndroidUserId();
+    }
 }
