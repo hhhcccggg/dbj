@@ -148,11 +148,13 @@ public class MessageCenterService {
                     if ((type==1  && a==0) || type==3 || type==6){
                         dto.setVideoOrPet(1);
                         videoDetailInfoDto = this.videoService.video(resId);
+                        if (videoDetailInfoDto==null)continue;
                         title = videoDetailInfoDto.getTitle();
                         refUrl = videoDetailInfoDto.getVideoUrl();
                     }else if (type==1 && a==1){
                         dto.setVideoOrPet(2);
                         PetModelDto petModelDto =this.petService.get(resId);
+                        if (petModelDto==null)continue;
                         title = petModelDto.getNickName();
                         refUrl= petModelDto.getAvatar();
                     }
