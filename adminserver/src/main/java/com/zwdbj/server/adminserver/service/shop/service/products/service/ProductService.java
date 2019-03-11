@@ -32,15 +32,6 @@ public interface ProductService {
     ServiceStatusInfo<Long> updatePublishs(Long[] id, boolean publish);
 
     /**
-     * 批量商品上下架
-     *
-     * @param id
-     * @param publish
-     * @return
-     */
-    ServiceStatusInfo<Long> updatePublishs(String id, boolean publish);
-
-    /**
      * 查询单个商品
      *
      * @param id
@@ -61,14 +52,6 @@ public interface ProductService {
      * @return
      */
     ServiceStatusInfo<Long> deleteByProducts(Long[] id);
-
-    /**
-     * 批量删除商品
-     *
-     * @param id
-     * @return
-     */
-    ServiceStatusInfo<Long> deleteByProducts(String id);
 
     /**
      * 根据条件查询数据
