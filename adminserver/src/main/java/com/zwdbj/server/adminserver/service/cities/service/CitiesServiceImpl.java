@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Service
-public class CitiesServiceImpl implements CitiesService{
+public class CitiesServiceImpl implements CitiesService {
 
     @Autowired
     private ICitiesMapper iCitiesMapper;
@@ -19,20 +19,30 @@ public class CitiesServiceImpl implements CitiesService{
     @Override
     public ServiceStatusInfo<List<Cities>> selectAllProvince() {
         try {
-            List<Cities> list = iCitiesMapper.selectCondition(LevelType.province,0);
-            return new ServiceStatusInfo<>(0 ,"",list);
+            List<Cities> list = iCitiesMapper.selectCondition(LevelType.province, 0);
+            return new ServiceStatusInfo<>(0, "", list);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1 ,"查询地址失败",null);
+            return new ServiceStatusInfo<>(1, "查询地址失败", null);
         }
     }
 
     @Override
     public ServiceStatusInfo<List<Cities>> selectCondition(LevelType levelType, long parenId) {
         try {
-            List<Cities> list = iCitiesMapper.selectCondition(levelType,parenId);
-            return new ServiceStatusInfo<>(0 ,"",list);
+            List<Cities> list = iCitiesMapper.selectCondition(levelType, parenId);
+            return new ServiceStatusInfo<>(0, "", list);
         } catch (Exception e) {
-            return new ServiceStatusInfo<>(1 ,"查询地址失败",null);
+            return new ServiceStatusInfo<>(1, "查询地址失败", null);
+        }
+    }
+
+    @Override
+    public ServiceStatusInfo<String> selectCityName(long cityId) {
+        try {
+            String cityName = iCitiesMapper.selectCityName(cityId);
+            return new ServiceStatusInfo<>(0, "", cityName);
+        } catch (Exception e) {
+            return new ServiceStatusInfo<>(1, "查询城市名称失败" + e.getMessage(), null);
         }
     }
 }
