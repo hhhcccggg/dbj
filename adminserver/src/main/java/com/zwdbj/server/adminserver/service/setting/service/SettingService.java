@@ -46,14 +46,16 @@ public class SettingService {
      * 初始化用户的系统设置开关
      */
     public void initUserSetting(){
-    List<Long> iosUserId = this.userDeviceTokensService.getIosUserId();
-    for (Long userId:iosUserId){
-        this.redisTemplate.opsForZSet().add("IOSSettingPush_All", String.valueOf(userId), 0);
-    }
-    List<Long> androidUserId = this.userDeviceTokensService.getAndroidUserId();
-    for (Long userId:androidUserId){
-        this.redisTemplate.opsForZSet().add("ANDROIDSettingPush_All", String.valueOf(userId), 0);
-    }
+        if (!this.redisTemplate.hasKey("IOSSettingPush_All") || !this.redisTemplate.hasKey("ANDROIDSettingPush_All")){
+        List<Long> iosUserId = this.userDeviceTokensService.getIosUserId();
+        for (Long userId:iosUserId){
+            this.redisTemplate.opsForZSet().add("IOSSettingPush_All", String.valueOf(userId), 0);
+        }
+        List<Long> androidUserId = this.userDeviceTokensService.getAndroidUserId();
+        for (Long userId:androidUserId){
+            this.redisTemplate.opsForZSet().add("ANDROIDSettingPush_All", String.valueOf(userId), 0);
+        }
+        }
 }
 
 }
