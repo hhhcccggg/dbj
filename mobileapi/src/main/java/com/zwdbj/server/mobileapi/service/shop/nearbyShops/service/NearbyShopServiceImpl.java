@@ -13,14 +13,13 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.query.MatchQueryBuilder;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,47 +171,37 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 
     @Override
     public ServiceStatusInfo<List<SearchShop>> searchShop(SearchInfo info) {
-
-
         try {
             SearchRequest searchRequest = new SearchRequest("shop");//可以设置检索的索引，类型
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             QueryBuilder matchQuery = null;
-            if ("全部".equals(info.getFilter())) {
-                if (info.getSearch() == null || "".equals(info.getSearch())) {
-                    matchQuery = QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                            .distance(100, DistanceUnit.KILOMETERS);
-
-                } else {
+            if ("全部".equals(info.getFilter()) && (info.getSearch() != null && !"".equals(info.getSearch())) ) {
                     matchQuery = QueryBuilders.boolQuery().should(new MatchQueryBuilder("name",info.getSearch()))
                             .should(new MatchQueryBuilder("storeProducts.name",info.getSearch()))
                             .should(new MatchQueryBuilder("serviceScopes.categoryName",info.getSearch()))
-                            .should(new MatchQueryBuilder("address",info.getSearch()))
-                            .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                            .distance(100, DistanceUnit.KILOMETERS)
-                    );
-                }
+                            .should(new MatchQueryBuilder("address",info.getSearch()));
             } else {
                 if (info.getSearch() == null || "".equals(info.getSearch())) {
                     matchQuery = QueryBuilders.boolQuery()
-                            .must(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
-                            .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                                    .distance(100, DistanceUnit.KILOMETERS)
-                            );
+                            .must(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()));
                 } else {
                     matchQuery = QueryBuilders.boolQuery()
                             .must(new MatchQueryBuilder("serviceScopes.categoryName", info.getFilter()))
                             .should(new MultiMatchQueryBuilder(info.getSearch(),
                                     "name",
                                     "storeProducts.name",
-                                    "address"))
-//                                    .fuzziness(Fuzziness.AUTO))//多字段查询
-                            .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
-                                    .distance(100, DistanceUnit.KILOMETERS)
-                            );
+                                    "address"));
                 }
             }
-
+    //        QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
+//                    .distance(100, DistanceUnit.KILOMETERS)
+            GeoDistanceQueryBuilder geoDistanceQueryBuilder = QueryBuilders.geoDistanceQuery("location")
+                    .point(GeoPoint.parseFromLatLon(info.getLat()+","+info.getLon())).distance(100, DistanceUnit.KILOMETERS);
+            geoDistanceQueryBuilder.geoDistance();
+            GeoDistanceSortBuilder geoDistanceSortBuilder = SortBuilders.geoDistanceSort("location", info.getLat(), info.getLon());
+            geoDistanceSortBuilder.unit(DistanceUnit.METERS);
+            geoDistanceSortBuilder.order(SortOrder.ASC);
+            searchRequest.source().postFilter(geoDistanceQueryBuilder).sort(geoDistanceSortBuilder);
             //选择排序方式
             if ("distance".equals(info.getRank())) {
                 searchSourceBuilder.sort(new GeoDistanceSortBuilder("location", info.getLat(), info.getLon()).unit(DistanceUnit.KILOMETERS)
