@@ -22,17 +22,23 @@ public class SettingService {
      * @return
      */
     public boolean settingUse(long userId,int type){
-        AppPushSettingModel settingModelthis =
-                (AppPushSettingModel)this.redisTemplate.opsForHash().get("setting_push_hash_cache_key",String.valueOf(userId));
-        if (settingModelthis==null)return true;
-        switch(type){
-            case 0:return settingModelthis.isSystemIsOpen();
-            case 1:return settingModelthis.isHeartIsOpen();
-            case 2:return settingModelthis.isNewFollowerIsOpen();
-            case 3:return settingModelthis.isCommentIsOpen();
-            case 4:return settingModelthis.isMyFollowedPubNewVideoIsOpen();
-            case 6:return false;
+        try {
+            AppPushSettingModel settingModelthis =
+                    (AppPushSettingModel)this.redisTemplate.opsForHash().get("setting_push_hash_cache_key",String.valueOf(userId));
+            if (settingModelthis==null)return true;
+            switch(type){
+                case 0:return settingModelthis.isSystemIsOpen();
+                case 1:return settingModelthis.isHeartIsOpen();
+                case 2:return settingModelthis.isNewFollowerIsOpen();
+                case 3:return settingModelthis.isCommentIsOpen();
+                case 4:return settingModelthis.isMyFollowedPubNewVideoIsOpen();
+                case 6:return false;
+            }
+        }catch (Exception e){
+            this.redisTemplate.opsForHash().delete("setting_push_hash_cache_key",String.valueOf(userId));
+            e.printStackTrace();
         }
+
         return true;
     }
 
