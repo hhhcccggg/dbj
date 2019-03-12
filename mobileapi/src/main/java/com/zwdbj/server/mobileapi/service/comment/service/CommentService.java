@@ -80,7 +80,7 @@ public class CommentService {
 
         if (commentList!=null)
         hashOperations.put("videoComments" + resId, String.valueOf(pageNo), JSONArray.toJSONString(commentList));
-        if (pageNo==1 && userId>0){
+        if (pageNo==1 && userId>0 && commentList.size()>10){
             List<CommentInfoDto> c = this.getUserCommentByVideoId(resId,userId);
             if (c != null){
                 for (int i =0;i<c.size();i++){

@@ -127,7 +127,7 @@ public class StoreServiceImpl implements StoreService {
         a = this.legalSubjectServiceImpl.verityUnReviewedLegalSubject(legalSubjectId, input).getData();
         if (a == 0) return new ServiceStatusInfo<>(1, "商家审核失败", 0);
 
-        esUtil.QueueWorkInfoModelSend(storeId, "shop", "u");
+        if (input.isReviewOrNot())esUtil.QueueWorkInfoModelSend(storeId, "shop", "c");
 
         return new ServiceStatusInfo<>(0, "审核成功", a);
     }
