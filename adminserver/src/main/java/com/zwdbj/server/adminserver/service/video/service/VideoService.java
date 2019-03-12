@@ -367,8 +367,7 @@ public class VideoService {
                 esUtilService.deleteIndexData(ESIndex.VIDEO, ESIndex.VIDEO_TYPE, String.valueOf(id));
             }else
                 return;
-            //确认消费
-            channel.basicAck(envelope.getDeliveryTag(),false);
+
         }catch (IOException e){
             e.printStackTrace();
         }

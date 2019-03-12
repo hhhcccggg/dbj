@@ -117,6 +117,8 @@ public class DelayMQworkReceiver extends MQConnection {
             if (info.getEsAdminInfo().getType().equals(ESIndex.VIDEO)) {
                 VideoService videoService = SpringContextUtil.getBean(VideoService.class);
                 videoService.operationByIdES(info.getEsAdminInfo().getId(), info.getEsAdminInfo().getAction(), channel, envelope);
+                //确认消费
+                channel.basicAck(envelope.getDeliveryTag(),false);
             } else if (info.getEsAdminInfo().getType().equals(ESIndex.SHOP) ) {
                 logger.info("shop店铺:"+info.getEsAdminInfo().getId());
                 StoreServiceImpl storeService = SpringContextUtil.getBean(StoreServiceImpl.class);
