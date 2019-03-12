@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 @ApiModel(description = "APP推送设置")
 public class AppPushSettingModel implements Serializable {
+    private static final long serialVersionUID = -5460614046505633349L;
     @ApiModelProperty(value = "评论推送开关")
     private boolean commentIsOpen;
     @ApiModelProperty(value = "点赞推送开关")
