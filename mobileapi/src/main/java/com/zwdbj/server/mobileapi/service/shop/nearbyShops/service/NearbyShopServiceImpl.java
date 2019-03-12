@@ -184,13 +184,11 @@ public class NearbyShopServiceImpl implements NearbyShopService {
                             .distance(100, DistanceUnit.KILOMETERS);
 
                 } else {
-                    matchQuery = QueryBuilders.boolQuery().should(new MultiMatchQueryBuilder(info.getSearch(),
-                                    "name",
-                                    "storeProducts.name",
-                                    "serviceScopes.categoryName",
-                                    "address")
-//                            .fuzziness(Fuzziness.AUTO)//模糊匹配
-                    ).filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
+                    matchQuery = QueryBuilders.boolQuery().should(new MatchQueryBuilder("name",info.getSearch()))
+                            .should(new MatchQueryBuilder("storeProducts.name",info.getSearch()))
+                            .should(new MatchQueryBuilder("serviceScopes.categoryName",info.getSearch()))
+                            .should(new MatchQueryBuilder("address",info.getSearch()))
+                            .filter(QueryBuilders.geoDistanceQuery("location").point(info.getLat(), info.getLon())//过滤十公里内的商家
                             .distance(100, DistanceUnit.KILOMETERS)
                     );
                 }
@@ -222,7 +220,6 @@ public class NearbyShopServiceImpl implements NearbyShopService {
             } else if ("grade".equals(info.getRank())) {
                 searchSourceBuilder.sort("grade");//按评分排序
             }
-
             searchSourceBuilder.query(matchQuery);
             searchSourceBuilder.size(info.getRows()).from((info.getPageNo() - 1) * info.getRows());//分页
             searchRequest.source(searchSourceBuilder);
