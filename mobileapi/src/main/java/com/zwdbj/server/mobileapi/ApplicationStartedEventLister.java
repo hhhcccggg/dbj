@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi;
 
-import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
-import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.common.mq.DelayMQWorkSender;
+import com.zwdbj.server.common.mq.MQWorkSender;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 

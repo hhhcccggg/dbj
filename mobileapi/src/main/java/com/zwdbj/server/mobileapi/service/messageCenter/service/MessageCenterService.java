@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.messageCenter.service;
 
 import com.alibaba.fastjson.JSON;
-import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.common.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.*;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
