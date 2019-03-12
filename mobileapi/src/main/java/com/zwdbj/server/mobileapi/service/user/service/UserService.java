@@ -351,7 +351,7 @@ public class UserService {
     /**
      * 通过手机号查找用户
      *
-     * @param 手机号
+     * @param phone 手机号
      * @return 返回用户
      */
     public UserModel findUserByPhone(String phone) {
