@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.zwdbj.server.adminserver.service.pet.model.PetModelDto;
 import com.zwdbj.server.adminserver.service.pet.service.PetService;
 import com.zwdbj.server.adminserver.service.push.model.*;
-import com.zwdbj.server.adminserver.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.adminserver.service.setting.service.SettingService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.model.AdUserDeviceTokenDto;
@@ -24,7 +23,6 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Map;
 
 @Service
 public class AppPushService {

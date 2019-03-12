@@ -1,7 +1,7 @@
 package com.zwdbj.server.adminserver.service.setting.service;
 
-import com.zwdbj.server.adminserver.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.adminserver.service.userDeviceTokens.service.UserDeviceTokensService;
+import com.zwdbj.server.common.setting.model.AppPushSettingModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

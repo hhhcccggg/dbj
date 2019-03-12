@@ -1,6 +1,6 @@
 package com.zwdbj.server.mobileapi.service.setting.service;
 
-import com.zwdbj.server.mobileapi.service.setting.model.AppPushSettingModel;
+import com.zwdbj.server.common.setting.model.AppPushSettingModel;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokenDto;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.service.UserDeviceTokensService;
 import org.springframework.beans.factory.annotation.Autowired;

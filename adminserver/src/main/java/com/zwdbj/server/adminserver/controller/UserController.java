@@ -6,8 +6,6 @@ import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.basemodel.model.*;
 import com.zwdbj.server.adminserver.model.*;
-import com.zwdbj.server.adminserver.service.setting.model.AppPushSettingModel;
-import com.zwdbj.server.adminserver.service.setting.service.SettingService;
 import com.zwdbj.server.adminserver.service.user.model.*;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;

@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.common.sms.ISendSmsService;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
-import com.zwdbj.server.mobileapi.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.mobileapi.service.setting.service.SettingService;
 import com.zwdbj.server.mobileapi.service.user.model.*;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
