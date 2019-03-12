@@ -15,15 +15,21 @@ public class SettingService {
     private UserDeviceTokensService userDeviceTokensService;
     private static String appPushSettingCacheHashKey = "setting_push_hash_cache_key";
     public AppPushSettingModel get(long userId) {
-        boolean isExist = this.redisTemplate.opsForHash().hasKey(appPushSettingCacheHashKey,String.valueOf(userId));
-        AppPushSettingModel settingModel;
-        if (isExist) {
-            settingModel = (AppPushSettingModel)this.redisTemplate.opsForHash().get(appPushSettingCacheHashKey,String.valueOf(userId));
+        try {
+            boolean isExist = this.redisTemplate.opsForHash().hasKey(appPushSettingCacheHashKey,String.valueOf(userId));
+            AppPushSettingModel settingModel;
+            if (isExist) {
+                settingModel = (AppPushSettingModel)this.redisTemplate.opsForHash().get(appPushSettingCacheHashKey,String.valueOf(userId));
+                return settingModel;
+            }
+            settingModel = defaultPushSetting();
+            this.redisTemplate.opsForHash().put(appPushSettingCacheHashKey,String.valueOf(userId),settingModel);
             return settingModel;
+        }catch (Exception e){
+            this.redisTemplate.opsForHash().delete(appPushSettingCacheHashKey,String.valueOf(userId));
+            e.printStackTrace();
         }
-        settingModel = defaultPushSetting();
-        this.redisTemplate.opsForHash().put(appPushSettingCacheHashKey,String.valueOf(userId),settingModel);
-        return settingModel;
+        return null;
     }
     protected AppPushSettingModel defaultPushSetting() {
         AppPushSettingModel appPushSettingModel = new AppPushSettingModel();
@@ -36,11 +42,6 @@ public class SettingService {
         return appPushSettingModel;
     }
     public AppPushSettingModel set(AppPushSettingModel model,long userId) {
-        AppPushSettingModel innerModel = model;
-        if (innerModel == null) {
-            innerModel = defaultPushSetting();
-        }
-        this.redisTemplate.opsForHash().put(appPushSettingCacheHashKey,String.valueOf(userId),innerModel);
         if (!model.isSystemIsOpen()){
             UserDeviceTokenDto deviceTokenDto = this.userDeviceTokensService.getDeviceTokenByUserId(userId);
             if (deviceTokenDto.getDeviceType().equals("ios"))
@@ -48,6 +49,19 @@ public class SettingService {
             if (deviceTokenDto.getDeviceType().equals("android"))
                 this.redisTemplate.opsForZSet().remove("ANDROIDSettingPush_All",String.valueOf(userId));
         }
-        return innerModel;
+        try {
+            AppPushSettingModel innerModel = model;
+            if (innerModel == null) {
+                innerModel = defaultPushSetting();
+            }
+            this.redisTemplate.opsForHash().put(appPushSettingCacheHashKey,String.valueOf(userId),innerModel);
+
+            return innerModel;
+        }catch (Exception e){
+            this.redisTemplate.opsForHash().delete(appPushSettingCacheHashKey,String.valueOf(userId));
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
