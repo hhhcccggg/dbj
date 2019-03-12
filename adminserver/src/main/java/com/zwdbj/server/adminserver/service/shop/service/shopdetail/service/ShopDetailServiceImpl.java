@@ -4,6 +4,8 @@ import com.zwdbj.server.adminserver.middleware.mq.ESUtil;
 import com.zwdbj.server.adminserver.service.category.mapper.ICategoryMapper;
 import com.zwdbj.server.adminserver.service.category.model.StoreServiceCategory;
 import com.zwdbj.server.adminserver.service.category.service.CategoryService;
+import com.zwdbj.server.adminserver.service.cities.mapper.ICitiesMapper;
+import com.zwdbj.server.adminserver.service.cities.service.CitiesService;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.mapper.ShopDetailMapper;
 import com.zwdbj.server.adminserver.service.shop.service.shopdetail.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
@@ -24,7 +26,7 @@ import java.util.List;
 @Transactional
 public class ShopDetailServiceImpl implements ShopDetailService {
     @Autowired
-    private ICategoryMapper categoryMapper;
+    private CitiesService citiesServiceImpl;
     @Autowired
     private ShopDetailMapper shopDetailMapper;
     @Autowired
@@ -118,7 +120,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             String[] ids = cityLevel.split(",");
             String area = "";
             for (String id : ids) {
-                area = area + categoryMapper.searchCategory(Long.parseLong(id)).getCategoryName() + ",";
+                area = area + citiesServiceImpl.selectCityName(Long.parseLong(id)).getData() + ",";
             }
             area = area.substring(0, area.length() - 1);
             result.setArea(area);

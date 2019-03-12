@@ -11,15 +11,19 @@ public interface CitiesService {
 
     /**
      * 查询所有省
+     *
      * @return
      */
     ServiceStatusInfo<List<Cities>> selectAllProvince();
 
     /**
      * 根据条件查询
+     *
      * @param levelType
      * @param parenId
      * @return
      */
     ServiceStatusInfo<List<Cities>> selectCondition(LevelType levelType, long parenId);
+
+    ServiceStatusInfo<String> selectCityName(long cityId);
 }
