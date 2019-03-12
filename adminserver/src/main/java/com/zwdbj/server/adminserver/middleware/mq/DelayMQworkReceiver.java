@@ -6,6 +6,8 @@ import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.service.ProductOrderService;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServiceImpl;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.common.mq.MQConfig;
+import com.zwdbj.server.common.mq.MQConnection;
 import com.zwdbj.server.es.common.ESIndex;
 import com.zwdbj.server.es.service.ESUtilService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;

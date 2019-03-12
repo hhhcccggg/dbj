@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.middleware.mq;
 
+import com.zwdbj.server.common.mq.DelayMQWorkSender;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

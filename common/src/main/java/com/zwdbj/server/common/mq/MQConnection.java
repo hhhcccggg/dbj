@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.middleware.mq;
+package com.zwdbj.server.common.mq;
 
 import com.rabbitmq.client.*;
 import com.zwdbj.server.utility.common.SpringContextUtil;
