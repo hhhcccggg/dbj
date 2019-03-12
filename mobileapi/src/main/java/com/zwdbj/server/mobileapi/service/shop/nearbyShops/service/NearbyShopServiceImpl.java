@@ -197,11 +197,11 @@ public class NearbyShopServiceImpl implements NearbyShopService {
 //                    .distance(100, DistanceUnit.KILOMETERS)
             GeoDistanceQueryBuilder geoDistanceQueryBuilder = QueryBuilders.geoDistanceQuery("location")
                     .point(GeoPoint.parseFromLatLon(info.getLat()+","+info.getLon())).distance(100, DistanceUnit.KILOMETERS);
-            geoDistanceQueryBuilder.geoDistance();
+            /*geoDistanceQueryBuilder.geoDistance();
             GeoDistanceSortBuilder geoDistanceSortBuilder = SortBuilders.geoDistanceSort("location", info.getLat(), info.getLon());
             geoDistanceSortBuilder.unit(DistanceUnit.METERS);
             geoDistanceSortBuilder.order(SortOrder.ASC);
-            searchRequest.source().postFilter(geoDistanceQueryBuilder).sort(geoDistanceSortBuilder);
+            searchRequest.source().postFilter(geoDistanceQueryBuilder).sort(geoDistanceSortBuilder);*/
             //选择排序方式
             if ("distance".equals(info.getRank())) {
                 searchSourceBuilder.sort(new GeoDistanceSortBuilder("location", info.getLat(), info.getLon()).unit(DistanceUnit.KILOMETERS)
