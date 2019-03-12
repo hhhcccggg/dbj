@@ -118,30 +118,32 @@ public class DelayMQworkReceiver extends MQConnection {
                 VideoService videoService = SpringContextUtil.getBean(VideoService.class);
                 videoService.operationByIdES(info.getEsAdminInfo().getId(), info.getEsAdminInfo().getAction(), channel, envelope);
             } else if (info.getEsAdminInfo().getType().equals(ESIndex.SHOP) ) {
+                logger.info("shop店铺:"+info.getEsAdminInfo().getId());
                 StoreServiceImpl storeService = SpringContextUtil.getBean(StoreServiceImpl.class);
                 ESUtilService esService = SpringContextUtil.getBean(ESUtilService.class);
                 if (storeService == null || esService == null) {
                     logger.error("[DMQ]找不到服务");
                 } else {
+                    logger.info("11111");
                     long storeId = info.getEsAdminInfo().getId();
 
                     switch (info.getEsAdminInfo().getAction()) {
                         case "c":
                             esService.indexData(storeService.selectByStoreId(storeId).getData(), ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
 
+                            logger.info("ccccccccccccccc");
                             channel.basicAck(envelope.getDeliveryTag(), false);
                             break;
 
                         case "u":
-
                             esService.updateIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId), new BeanMap(storeService.selectByStoreId(storeId).getData()));
-
+                            logger.info("uuuuuuuuuuuuuuuuu");
                             channel.basicAck(envelope.getDeliveryTag(), false);
                             break;
 
                         case "d":
                             esService.deleteIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
-
+                            logger.info("ddddddddddddddddddd");
                             channel.basicAck(envelope.getDeliveryTag(), false);
                             break;
 
