@@ -23,9 +23,19 @@ public class UserDeviceTokensController {
 
     @RequiresAuthentication
     @RequestMapping(value = "/bindingUser",method = RequestMethod.POST)
-    @ApiOperation(value = "绑定/解绑设备的token和userId,若userId=0时则代表删除对应的记录")
+    @ApiOperation(value = "绑定设备的token和userId")
     public ResponseData<Object> bindingUserId(@RequestBody UserDeviceTokensInput input){
         ServiceStatusInfo<Object> statusInfo = this.userDeviceTokensService.bindingUserId(input);
+        if (statusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR,statusInfo.getMsg(),null);
+    }
+
+    @RequestMapping(value = "/bindingUser/del",method = RequestMethod.POST)
+    @ApiOperation(value = "解绑设备的token和userId")
+    public ResponseData<Object> delBindingUserId(@RequestBody UserDeviceTokensInput input){
+        ServiceStatusInfo<Object> statusInfo = this.userDeviceTokensService.delBindingUserId(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",statusInfo.getData());
         }

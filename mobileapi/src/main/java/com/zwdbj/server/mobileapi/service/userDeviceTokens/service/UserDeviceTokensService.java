@@ -44,19 +44,24 @@ public class UserDeviceTokensService {
 
                  return new ServiceStatusInfo<>(0,"更新成功","更新成功"+result+"条");
            }
-        }else {
-            result = this.deleteIt(input);
-            if (result==0)return new ServiceStatusInfo<>(1,"删除失败","删除失败");
-            try {
-                if (input.getDeviceType().equals("ios"))
-                    this.redisTemplate.opsForZSet().remove("IOSSettingPush_All",String.valueOf(JWTUtil.getCurrentId()));
-                if (input.getDeviceType().equals("android"))
-                    this.redisTemplate.opsForZSet().remove("ANDROIDSettingPush_All",String.valueOf(JWTUtil.getCurrentId()));
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            return new ServiceStatusInfo<>(0,"删除成功","删除成功"+result+"条");
         }
+            return new ServiceStatusInfo<>(1,"绑定失败",null);
+    }
+
+
+    public ServiceStatusInfo<Object> delBindingUserId(UserDeviceTokensInput input){
+        Long userId = input.getUserId();
+        int result = this.deleteIt(input);
+        if (result==0)return new ServiceStatusInfo<>(1,"删除失败","删除失败");
+        try {
+            if (input.getDeviceType().equals("ios"))
+                this.redisTemplate.opsForZSet().remove("IOSSettingPush_All",String.valueOf(userId));
+            if (input.getDeviceType().equals("android"))
+                this.redisTemplate.opsForZSet().remove("ANDROIDSettingPush_All",String.valueOf(userId));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ServiceStatusInfo<>(0,"删除成功","删除成功"+result+"条");
     }
 
     public int deleteIt(UserDeviceTokensInput input){
