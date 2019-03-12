@@ -345,7 +345,7 @@ public class UserController {
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), statusInfo.getData());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, statusInfo.getMsg(), null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
 
     @ApiOperation(value = "推荐人设置")

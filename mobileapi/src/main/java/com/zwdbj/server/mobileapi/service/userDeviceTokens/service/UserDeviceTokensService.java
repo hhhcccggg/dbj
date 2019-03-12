@@ -5,6 +5,7 @@ import com.zwdbj.server.mobileapi.service.userDeviceTokens.mapper.IUserDeviceTok
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokenDto;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokensInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,9 @@ public class UserDeviceTokensService {
             if (result==0)return new ServiceStatusInfo<>(1,"删除失败","删除失败");
             try {
                 if (input.getDeviceType().equals("ios"))
-                    this.redisTemplate.opsForZSet().remove("IOSSettingPush_All",String.valueOf(userId));
+                    this.redisTemplate.opsForZSet().remove("IOSSettingPush_All",String.valueOf(JWTUtil.getCurrentId()));
                 if (input.getDeviceType().equals("android"))
-                    this.redisTemplate.opsForZSet().remove("ANDROIDSettingPush_All",String.valueOf(userId));
+                    this.redisTemplate.opsForZSet().remove("ANDROIDSettingPush_All",String.valueOf(JWTUtil.getCurrentId()));
             } catch (Exception e){
                 e.printStackTrace();
             }
