@@ -51,7 +51,7 @@ public class ReceiveAddressModel {
     }
 
     public String getDetailedly() {
-        return updateField(reveiverState)+updateField(receiverCity)+updateField(receiverCountry)+
+        return updateField(reveiverState)+updateField(receiverCity)+updateField(receiverCountry)+updateField(receiverStreet)+
                 updateField(detailedly)+updateField(receiverAddress);
     }
 

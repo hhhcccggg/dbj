@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class NewMyPasswordInput implements Serializable {
+    private static final long serialVersionUID = 2091840217279552491L;
     @ApiModelProperty(value = "手机号")
     private String phone;
     @ApiModelProperty(value = "手机号验证码")
@@ -13,6 +14,16 @@ public class NewMyPasswordInput implements Serializable {
     private String password;
     @ApiModelProperty(value = "确认密码")
     private String passwordTwo;
+    @ApiModelProperty(value = "秘钥")
+    private String keys;
+
+    public String getKeys() {
+        return keys;
+    }
+
+    public void setKeys(String keys) {
+        this.keys = keys;
+    }
 
     public String getPhone() {
         return phone;

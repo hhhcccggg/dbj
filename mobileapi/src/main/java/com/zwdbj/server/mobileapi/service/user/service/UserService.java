@@ -24,6 +24,7 @@ import com.zwdbj.server.mobileapi.service.user.model.*;
 import com.zwdbj.server.mobileapi.service.userBind.model.UserThirdAccountBindDto;
 import com.zwdbj.server.mobileapi.service.userBind.service.UserBindService;
 import com.zwdbj.server.mobileapi.service.youzan.service.YouZanService;
+import com.zwdbj.server.utility.common.SnowFlake;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.common.SHAEncrypt;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
@@ -527,6 +528,24 @@ public class UserService {
         return new ServiceStatusInfo<UserModel>(0, "", userModel);
     }
 
+    public ServiceStatusInfo<String> pwdByPhone(String phone, String code){
+        try {
+            ServiceStatusInfo<Object> statusInfo = this.sendSmsService.checkPhoneCode(phone, code);
+            if (!statusInfo.isSuccess()) {
+                return new ServiceStatusInfo<>(1, statusInfo.getMsg(), null);
+            }
+            String key = UniqueIDCreater.generateUserName();
+            key = SHAEncrypt.encryptSHA(key);
+            this.stringRedisTemplate.opsForValue().set("AUTHByPhoneForPWD"+phone,key);
+            return new ServiceStatusInfo<>(0,"",key);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ServiceStatusInfo<>(1,"异常:"+e.getMessage(),null);
+        }
+
+
+    }
+
     /**
      * 绑定手机号码
      *
@@ -561,20 +580,29 @@ public class UserService {
         return result;
     }
 
-    public ServiceStatusInfo<Integer> phoneIsRegOrNot(PhoneCodeInput input){
+    public ServiceStatusInfo<PhoneRegDto> phoneIsRegOrNot(PhoneCodeInput input){
         try {
             ServiceStatusInfo<Object> statusInfo = this.sendSmsService.checkPhoneCode(input.getPhone(),input.getCode());
+            PhoneRegDto dto = new PhoneRegDto();
+            String key = UniqueIDCreater.generateUserName();
+            key = SHAEncrypt.encryptSHA(key);
+            this.stringRedisTemplate.opsForValue().set("AUTHByPhoneForPWD"+input.getPhone(),key);
             if (statusInfo.isSuccess()){
                 int result = this.userMapper.phoneIsRegOrNot(input.getPhone());
                 if (result!=0){
                     result = this.userMapper.phoneIsHavePWD(input.getPhone());
                     if (result==0){
-                        return  new ServiceStatusInfo<>(0,"",202);
+                        dto.setType(202);
+                        return  new ServiceStatusInfo<>(0,"",dto);
                     }else {
-                        return  new ServiceStatusInfo<>(0,"",201);
+                        dto.setType(201);
+                        dto.setKey(key);
+                        return  new ServiceStatusInfo<>(0,"",dto);
                     }
                 }else {
-                    return  new ServiceStatusInfo<>(0,"",100);
+                    dto.setType(100);
+                    dto.setKey(key);
+                    return  new ServiceStatusInfo<>(0,"",dto);
                 }
             }else {
                 new ServiceStatusInfo<>(1, "验证失败，请输入正确的手机号和验证码", null);
@@ -588,18 +616,11 @@ public class UserService {
 
     public ServiceStatusInfo<Integer> regUser(RegUserInput input){
         try {
-            // 验证手机验证码是否正确
-            String cacheKey = AppSettingsConstant.getRedisPhoneCodeKey(input.getPhone());
-            boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
-            if (!hasPhoneCode) {
-                return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);
-            }
-            String cachePhoneCode = this.stringRedisTemplate.opsForValue().get(cacheKey);
-            if (!input.getCode().equals(cachePhoneCode)) {
+            String key =  SHAEncrypt.encryptSHA(input.getKeys());
+            String aKey = this.stringRedisTemplate.opsForValue().get("AUTHByPhoneForPWD"+input.getPhone());
+            if (!key.equals(aKey)) {
                 return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
             }
-            //移除验证码
-            stringRedisTemplate.delete(cacheKey);
             String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
             Pattern r = Pattern.compile(regEx);
             Matcher m1 = r.matcher(input.getPassword());
@@ -623,12 +644,15 @@ public class UserService {
                     userCoinDetailAddInput.setTitle("首次完成注册信息获得小饼干"+10+"个");
                     userCoinDetailAddInput.setType("TASK");
                     this.userAssetServiceImpl.userPlayCoinTask(userCoinDetailAddInput,id,"TASK",10,"FIRSTREGUSER","DONE");
+                    stringRedisTemplate.delete("AUTHByPhoneForPWD"+input.getPhone());
                     return new ServiceStatusInfo<>(0,"注册成功",result);
                 }else if (input.getType()==201){
                     UserModel userModel = this.findUserByPhone(input.getPhone());
                     if (userModel==null)return new ServiceStatusInfo<>(1,"此手机号还没有注册，请注册账号",null);
                     result = this.userMapper.updatePasswordByUserId(password,userModel.getId());
                     if (result==0)return new ServiceStatusInfo<>(1,"完善密码失败",0);
+                    //移除验证码
+                    stringRedisTemplate.delete("AUTHByPhoneForPWD"+input.getPhone());
                     return new ServiceStatusInfo<>(0,"完善密码成功",result);
                 }else if (input.getType()==202){
                     return  new ServiceStatusInfo<>(1,"该手机号码已经注册",null);
@@ -647,18 +671,12 @@ public class UserService {
     public  ServiceStatusInfo<Integer> getMyNewPWD(NewMyPasswordInput input){
 
         try {
-            // 验证手机验证码是否正确
-            String cacheKey = AppSettingsConstant.getRedisPhoneCodeKey(input.getPhone());
-            boolean hasPhoneCode = stringRedisTemplate.hasKey(cacheKey);
-            if (!hasPhoneCode) {
-                return new ServiceStatusInfo<>(1, "请输入正确的手机号和验证码", null);
-            }
-            String cachePhoneCode = this.stringRedisTemplate.opsForValue().get(cacheKey);
-            if (!input.getCode().equals(cachePhoneCode)) {
+            String key = SHAEncrypt.encryptSHA(input.getKeys());
+            String aKey = this.stringRedisTemplate.opsForValue().get("AUTHByPhoneForPWD"+input.getPhone());
+            if (!key.equals(aKey)) {
                 return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
             }
-            //移除验证码
-            stringRedisTemplate.delete(cacheKey);
+
             String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
             Pattern r = Pattern.compile(regEx);
             Matcher m1 = r.matcher(input.getPassword());
@@ -673,6 +691,7 @@ public class UserService {
                 if (userModel==null)return new ServiceStatusInfo<>(1,"此手机号还没有注册，请注册账号",null);
                 result = this.userMapper.updatePasswordByUserId(password,userModel.getId());
                 if (result==0)return new ServiceStatusInfo<>(1,"找回密码失败",0);
+                this.stringRedisTemplate.delete("AUTHByPhoneForPWD"+input.getPhone());
                 return new ServiceStatusInfo<>(0,"找回密码成功",result);
             }else {
                 return  new ServiceStatusInfo<>(1,"两次输入的密码不一致，请确认",null);
