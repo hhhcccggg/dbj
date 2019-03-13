@@ -252,6 +252,7 @@ public class ProductServiceImpl implements ProductService {
             return new ServiceStatusInfo<>(1, "批量失败" + e.getMessage(), 0L);
         }
     }
+
     @Override
     public long getProductInventoryNum(long productId) {
         long allInventory = this.iProductMapper.getProductInventory(productId);

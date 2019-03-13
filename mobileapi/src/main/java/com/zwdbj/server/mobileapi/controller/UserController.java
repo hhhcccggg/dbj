@@ -2,9 +2,9 @@ package com.zwdbj.server.mobileapi.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.common.setting.model.AppPushSettingModel;
 import com.zwdbj.server.common.sms.ISendSmsService;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
-import com.zwdbj.server.mobileapi.service.setting.model.AppPushSettingModel;
 import com.zwdbj.server.mobileapi.service.setting.service.SettingService;
 import com.zwdbj.server.mobileapi.service.user.model.*;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
@@ -163,6 +163,16 @@ public class UserController {
             return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, serviceStatusInfo.getMsg(), null);
         }
     }
+    @RequestMapping(value = "/AuthByPhone/pwd", method = RequestMethod.POST)
+    @ApiOperation(value = "通过手机号验证码验证")
+    public ResponseData<String> pwdByPhone(@RequestBody PhoneCodeInput input) {
+        ServiceStatusInfo<String> serviceStatusInfo = userService.pwdByPhone(input.getPhone(), input.getCode());
+        if (serviceStatusInfo.isSuccess()) {
+            return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "验证成功", serviceStatusInfo.getData());
+        } else {
+            return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, serviceStatusInfo.getMsg(), null);
+        }
+    }
 
     @RequestMapping(value = "/sendPhoneCode", method = RequestMethod.GET)
     @ApiOperation(value = "获取手机验证码")
@@ -309,8 +319,8 @@ public class UserController {
 
     @RequestMapping(value = "/phoneIsRegOrNot", method = RequestMethod.POST)
     @ApiOperation(value = "查验此手机号是否被注册(返回的结果 100:未被注册，201:已经注册过但是没有设置密码,202:已经注册过并设置密码)")
-    public  ResponseData<Integer> phoneIsRegOrNot(@RequestBody PhoneCodeInput input){
-        ServiceStatusInfo<Integer> statusInfo = this.userService.phoneIsRegOrNot(input);
+    public  ResponseData<PhoneRegDto> phoneIsRegOrNot(@RequestBody PhoneCodeInput input){
+        ServiceStatusInfo<PhoneRegDto> statusInfo = this.userService.phoneIsRegOrNot(input);
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), statusInfo.getData());
         }
@@ -345,7 +355,7 @@ public class UserController {
         if (statusInfo.isSuccess()) {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, statusInfo.getMsg(), statusInfo.getData());
         }
-        return new ResponseData<>(ResponseDataCode.STATUS_UNAUTH, statusInfo.getMsg(), null);
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
 
     @ApiOperation(value = "推荐人设置")

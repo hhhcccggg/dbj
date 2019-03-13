@@ -20,6 +20,8 @@ public class AppSettingConfigs {
     @Autowired
     private SmsSendConfigs smsSendConfigs;
     @Autowired
+    private LetterSendConfigs letterSendConfigs;
+    @Autowired
     private SwaggerConfigs swaggerConfigs;
     @Autowired
     private XgConfigs xgConfigs;

@@ -1,12 +1,12 @@
 package com.zwdbj.server.adminserver.service.messageCenter.service;
 
-import com.zwdbj.server.adminserver.middleware.mq.MQWorkSender;
 import com.zwdbj.server.adminserver.service.messageCenter.mapper.IMessageCenterMapper;
 import com.zwdbj.server.adminserver.service.messageCenter.model.MessageDispatchInput;
 import com.zwdbj.server.adminserver.service.messageCenter.model.MessageInfoDto;
 import com.zwdbj.server.adminserver.service.messageCenter.model.MessageInput;
 import com.zwdbj.server.adminserver.service.messageCenter.model.MessageUnReadDto;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
+import com.zwdbj.server.common.mq.MQWorkSender;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import org.slf4j.Logger;

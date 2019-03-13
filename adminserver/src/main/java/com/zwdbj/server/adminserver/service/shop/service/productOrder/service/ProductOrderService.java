@@ -1,6 +1,5 @@
 package com.zwdbj.server.adminserver.service.shop.service.productOrder.service;
 
-import com.zwdbj.server.adminserver.middleware.mq.DelayMQWorkSender;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.products.service.ProductService;
@@ -8,6 +7,7 @@ import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.Re
 import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.service.ReceiveAddressService;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
+import com.zwdbj.server.common.mq.DelayMQWorkSender;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.tokencenter.IAuthUserManager;
 import com.zwdbj.server.tokencenter.TokenCenterManager;

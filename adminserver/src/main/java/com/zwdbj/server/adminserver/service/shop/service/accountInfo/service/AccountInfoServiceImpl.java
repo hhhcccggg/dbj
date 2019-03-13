@@ -1,10 +1,10 @@
 package com.zwdbj.server.adminserver.service.shop.service.accountInfo.service;
 
-import com.zwdbj.server.adminserver.middleware.mq.MQWorkSender;
 import com.zwdbj.server.adminserver.service.shop.service.accountInfo.model.SmsSendCfg;
 import com.zwdbj.server.adminserver.service.user.model.AdModifyManagerPasswordInput;
 import com.zwdbj.server.adminserver.service.user.model.AdNewlyPwdInput;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
+import com.zwdbj.server.common.mq.MQWorkSender;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.config.settings.AppSettingsConstant;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;

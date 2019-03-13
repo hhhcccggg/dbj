@@ -6,6 +6,8 @@ import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.service.ProductOrderService;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServiceImpl;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.common.mq.MQConfig;
+import com.zwdbj.server.common.mq.MQConnection;
 import com.zwdbj.server.es.common.ESIndex;
 import com.zwdbj.server.es.service.ESUtilService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
@@ -115,31 +117,35 @@ public class DelayMQworkReceiver extends MQConnection {
             if (info.getEsAdminInfo().getType().equals(ESIndex.VIDEO)) {
                 VideoService videoService = SpringContextUtil.getBean(VideoService.class);
                 videoService.operationByIdES(info.getEsAdminInfo().getId(), info.getEsAdminInfo().getAction(), channel, envelope);
+                //确认消费
+                channel.basicAck(envelope.getDeliveryTag(),false);
             } else if (info.getEsAdminInfo().getType().equals(ESIndex.SHOP) ) {
+                logger.info("shop店铺:"+info.getEsAdminInfo().getId());
                 StoreServiceImpl storeService = SpringContextUtil.getBean(StoreServiceImpl.class);
                 ESUtilService esService = SpringContextUtil.getBean(ESUtilService.class);
                 if (storeService == null || esService == null) {
                     logger.error("[DMQ]找不到服务");
                 } else {
+                    logger.info("11111");
                     long storeId = info.getEsAdminInfo().getId();
 
                     switch (info.getEsAdminInfo().getAction()) {
                         case "c":
                             esService.indexData(storeService.selectByStoreId(storeId).getData(), ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
 
+                            logger.info("ccccccccccccccc");
                             channel.basicAck(envelope.getDeliveryTag(), false);
                             break;
 
                         case "u":
-
                             esService.updateIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId), new BeanMap(storeService.selectByStoreId(storeId).getData()));
-
+                            logger.info("uuuuuuuuuuuuuuuuu");
                             channel.basicAck(envelope.getDeliveryTag(), false);
                             break;
 
                         case "d":
                             esService.deleteIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
-
+                            logger.info("ddddddddddddddddddd");
                             channel.basicAck(envelope.getDeliveryTag(), false);
                             break;
 

@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.shop.order.service;
 
 import com.ecwid.consul.v1.ConsulClient;
-import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
+import com.zwdbj.server.common.mq.DelayMQWorkSender;
 import com.zwdbj.server.mobileapi.middleware.mq.ESUtil;
 import com.zwdbj.server.mobileapi.service.shop.order.mapper.IOrderMapper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;

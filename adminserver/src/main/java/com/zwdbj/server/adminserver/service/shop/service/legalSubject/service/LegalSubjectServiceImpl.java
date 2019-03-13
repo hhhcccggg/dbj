@@ -76,7 +76,6 @@ public class LegalSubjectServiceImpl implements ILegalSubjectService {
     public int addShopStore(long legalSubjectId, UserTenantInput input) {
         long id = UniqueIDCreater.generateID();
         int a = this.legalSubjectMapper.addShopStore(id, input, legalSubjectId);
-        esUtil.QueueWorkInfoModelSend(id, "shop", "c");
         return a;
     }
 

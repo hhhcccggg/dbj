@@ -64,7 +64,8 @@ public class MyInterceptor implements Interceptor {
                     action =ESIndex.DELETE;
                 if(action != null){
                     long id = sliptSqlGetId(action,sql);
-                    esUtil.QueueWorkInfoModelSend(id, type, action);
+                    if(id>0)
+                        esUtil.QueueWorkInfoModelSend(id, type, action);
                 }
             }catch (Exception e){
                 logger.error("[MyInterceptor]sql:" + sql);
@@ -109,7 +110,7 @@ public class MyInterceptor implements Interceptor {
             String[] wheres = sqlnumber[1].split("and");
             for (int i = 0; i < wheres.length; i++) {
                 //去掉空格
-                String str2 = wheres[i].replaceAll(" ", "");
+                String str2 = wheres[i].replaceAll("\\(|\\)", "").replaceAll(" ", "");
                 if(str2.indexOf("id=")>-1 || str2.indexOf("`id`=")>-1 )
                     return Long.parseLong(str2.replaceAll("id=","")
                             .replaceAll("`id`=","").trim());

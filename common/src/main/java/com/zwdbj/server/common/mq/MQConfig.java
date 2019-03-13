@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.middleware.mq;
+package com.zwdbj.server.common.mq;
 
 
 import org.springframework.beans.factory.annotation.Value;

@@ -142,7 +142,7 @@ public class VideoService {
         Long result = 0L;
         try {
             result = this.videoMapper.doComplainInfoAd(toResId, input);
-            if (input.getTreatment() == 2) this.videoRandRecommendService.popVideo(toResId);
+            if (input.getTreatment() == 4) this.videoRandRecommendService.popVideo(toResId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改失败：" + e.getMessage(), result);
@@ -367,8 +367,7 @@ public class VideoService {
                 esUtilService.deleteIndexData(ESIndex.VIDEO, ESIndex.VIDEO_TYPE, String.valueOf(id));
             }else
                 return;
-            //确认消费
-            channel.basicAck(envelope.getDeliveryTag(),false);
+
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -6,8 +6,6 @@ import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.basemodel.model.*;
 import com.zwdbj.server.adminserver.model.*;
-import com.zwdbj.server.adminserver.service.setting.model.AppPushSettingModel;
-import com.zwdbj.server.adminserver.service.setting.service.SettingService;
 import com.zwdbj.server.adminserver.service.user.model.*;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -37,24 +35,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Autowired
-    private SettingService settingService;
-
-    @RequiresAuthentication
-    @RequestMapping(value = "/pushSetting", method = RequestMethod.POST)
-    @ApiOperation(value = "设置用户推送设置")
-    public ResponseData<AppPushSettingModel> pushSetting(@RequestBody AppPushSettingModel settingModel) {
-        AppPushSettingModel appPushSettingModel = this.settingService.set(settingModel, JWTUtil.getCurrentId());
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", appPushSettingModel);
-    }
-
-    @RequiresAuthentication
-    @RequestMapping(value = "/pushSetting", method = RequestMethod.GET)
-    @ApiOperation(value = "获取用户推送设置")
-    public ResponseData<AppPushSettingModel> pushSetting() {
-        AppPushSettingModel appPushSettingModel = this.settingService.get(JWTUtil.getCurrentId());
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", appPushSettingModel);
-    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation(value = "登录")
