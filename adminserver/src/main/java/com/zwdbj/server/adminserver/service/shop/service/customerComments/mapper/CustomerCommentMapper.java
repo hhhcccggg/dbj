@@ -14,7 +14,9 @@ public interface CustomerCommentMapper {
             "and c.isOwner=1 and d.storeId=s.id and s.legalSubjectId=#{legalSubjectId} and c.resourceTypeId=1  order by c.createTime")
     List<CommentInfo> commentList(@Param("legalSubjectId") long legalSubjectId);
 
-    @Select("SELECT c.id,u.username,u.id AS userId,c.createTime,c.contentTxt FROM core_comments AS c,core_users AS u WHERE c.refCommentId =#{commentId} AND c.userId=u.id AND c.isOwner=0")
+    @Select("SELECT c.id as refCommentId,u.fullName as userName,u.id AS userId,c.createTime,c.contentTxt as refContentTxt " +
+            "FROM core_comments AS c,core_users AS u " +
+            "WHERE c.id =#{commentId} AND c.userId=u.id AND c.isOwner=0")
     RefComment commentReply(@Param("commentId") long commentId);
 
     @Insert("insert into core_comments(id,contentTxt,originContentTxt,userId,refCommentId,reviewStatus,isOwner,resourceOwnerId) " +

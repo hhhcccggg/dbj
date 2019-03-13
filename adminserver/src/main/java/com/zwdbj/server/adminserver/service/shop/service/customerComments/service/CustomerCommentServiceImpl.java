@@ -8,6 +8,7 @@ import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public class CustomerCommentServiceImpl implements CustomerCommentService {
 
     @Autowired
     private CustomerCommentMapper customerCommentMapper;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public ServiceStatusInfo<List<CommentInfo>> commentList(long legalSubjectId) {
@@ -24,7 +27,13 @@ public class CustomerCommentServiceImpl implements CustomerCommentService {
         try {
             result = this.customerCommentMapper.commentList(legalSubjectId);
             for (CommentInfo c : result) {
-                c.setRefComment(this.customerCommentMapper.commentReply(c.getId()));
+                if (this.stringRedisTemplate.hasKey("replyComment"+c.getId())){
+                    c.setRefCommentOrNot(true);
+                    long id = Long.valueOf(this.stringRedisTemplate.opsForValue().get("replyComment"+c.getId()));
+                    c.setRefComment(this.customerCommentMapper.commentReply(id));
+                }else {
+                    c.setRefCommentOrNot(false);
+                }
             }
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
@@ -38,6 +47,8 @@ public class CustomerCommentServiceImpl implements CustomerCommentService {
             long id = UniqueIDCreater.generateID();
             long result = this.customerCommentMapper.replyComment(id, replyComment);
 
+            if (result==0)new ServiceStatusInfo<>(1, "回复评论失败", null);
+            this.stringRedisTemplate.opsForValue().set("replyComment"+replyComment.getRefCommentId(),String.valueOf(id));
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "回复评论失败" + e.getMessage(), null);

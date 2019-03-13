@@ -616,7 +616,7 @@ public class UserService {
 
     public ServiceStatusInfo<Integer> regUser(RegUserInput input){
         try {
-            String key =  SHAEncrypt.encryptSHA(input.getKeys());
+            String key = input.getKeys();
             String aKey = this.stringRedisTemplate.opsForValue().get("AUTHByPhoneForPWD"+input.getPhone());
             if (!key.equals(aKey)) {
                 return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);
@@ -671,7 +671,7 @@ public class UserService {
     public  ServiceStatusInfo<Integer> getMyNewPWD(NewMyPasswordInput input){
 
         try {
-            String key = SHAEncrypt.encryptSHA(input.getKeys());
+            String key = input.getKeys();
             String aKey = this.stringRedisTemplate.opsForValue().get("AUTHByPhoneForPWD"+input.getPhone());
             if (!key.equals(aKey)) {
                 return new ServiceStatusInfo<>(1, "请输入正确的验证码", null);

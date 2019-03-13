@@ -25,6 +25,8 @@ public class CommentInfo {
     String resourceOwnerName;
     @ApiModelProperty(value = "被评论目标资源id")
     long resourceOwnerId;
+    @ApiModelProperty(value = "是否回复")
+    boolean refCommentOrNot;
     @ApiModelProperty(value = "评论回复")
     RefComment refComment;
     @ApiModelProperty(value = "评论关联的媒体资源类型,VIDEO IMAGE")
@@ -33,6 +35,14 @@ public class CommentInfo {
     long dataId;
     @ApiModelProperty(value = "媒体资源内容")
     String dataContent;
+
+    public boolean isRefCommentOrNot() {
+        return refCommentOrNot;
+    }
+
+    public void setRefCommentOrNot(boolean refCommentOrNot) {
+        this.refCommentOrNot = refCommentOrNot;
+    }
 
     public long getId() {
         return id;
