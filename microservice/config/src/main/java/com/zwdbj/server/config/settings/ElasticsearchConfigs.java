@@ -5,10 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "app.es")
+@ConfigurationProperties(prefix = "spring.data.elasticsearch")
 public class ElasticsearchConfigs {
 
-    @Value("${spring.data.elasticsearch.cluster-nodes}")
     private String clusterNodes;
 
     public String getClusterNodes() {
