@@ -183,7 +183,7 @@ public class ProductOrderService {
             logger.error("更改未支付订单:"+orderId+"异常:"+e.getMessage());
         }
 
-        return false;
+        return true;
 
 
     }
@@ -203,7 +203,7 @@ public class ProductOrderService {
             logger.error("更改未评价订单:"+orderId+"异常:"+e.getMessage());
         }
 
-        return false;
+        return true;
 
 
     }
