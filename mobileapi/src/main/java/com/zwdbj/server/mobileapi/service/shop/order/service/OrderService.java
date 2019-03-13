@@ -230,27 +230,29 @@ public class OrderService {
         ProductOrderDetailModel model = this.getOrderById(id).getData();
         long userId = JWTUtil.getCurrentId();
         if (model==null)return;
-        if (!model.getStatus().equals("STATE_WAIT_BUYER_PAY"))return;
-        ProductlShow productlShow = this.productServiceImpl.selectByIdByStoreId(model.getProductId(),model.getStoreId()).getData();
-        if (model.getUseCoin()!=0){
-            //处理金币
-            this.userAssetServiceImpl.minusUserCoins(model.getUseCoin(),userId,id);
-        }
-        String coupons = model.getCouponids();
-        if (coupons!=null && (!coupons.equals("") )){
-            String[] couponIds = coupons.split(",");
-            for (String coupon:couponIds){
-                long couponId = Long.valueOf(coupon);
-                if (couponId==0)continue;
-                //更新优惠券的状态
-                this.userDiscountCouponServiceImpl.updateUserDiscountCouponState(userId,couponId);
+        if (model.getStatus().equals("STATE_WAIT_BUYER_PAY") || model.getStatus().equals("STATE_CLOSED")){
+            ProductlShow productlShow = this.productServiceImpl.selectByIdByStoreId(model.getProductId(),model.getStoreId()).getData();
+            if (model.getUseCoin()!=0){
+                //处理金币
+                this.userAssetServiceImpl.minusUserCoins(model.getUseCoin(),userId,id);
+            }
+            String coupons = model.getCouponids();
+            if (coupons!=null && (!coupons.equals("") )){
+                String[] couponIds = coupons.split(",");
+                for (String coupon:couponIds){
+                    long couponId = Long.valueOf(coupon);
+                    if (couponId==0)continue;
+                    //更新优惠券的状态
+                    this.userDiscountCouponServiceImpl.updateUserDiscountCouponState(userId,couponId);
+                }
+            }
+            if (productlShow.getProductType()==0){
+                this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_BUYER_PAYED","已付款");
+            }else if (productlShow.getProductType()==1){
+                this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_UNUSED","未使用");
             }
         }
-        if (productlShow.getProductType()==0){
-            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_BUYER_PAYED","已付款");
-        }else if (productlShow.getProductType()==1){
-            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_UNUSED","未使用");
-        }
+
 
     }
     @Transactional
