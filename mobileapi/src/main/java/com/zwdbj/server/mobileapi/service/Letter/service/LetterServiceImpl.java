@@ -30,17 +30,14 @@ public class LetterServiceImpl implements ILetterService {
         //判断是否相互关注
         UserFollowInfoDto userFollowInfoDto=userService.followStatusSearch(new UserFollowInfoSearchInput(userId,receiverId));
         if(userFollowInfoDto.isFollowed()&&userFollowInfoDto.isMyFollower()){
-            return new ServiceStatusInfo<>(0, "", 1);
+            return new ServiceStatusInfo<>(0, "", -1);
         }
         String key="letter_"+userId + "_" + receiverId;
         //判断是否有消息缓存
         int maxCount=this.appSettingConfigs.getLetterSendConfigs().getSendMaxCount();
         if(redisTemplate.hasKey(key)){
-            int count=(Integer)redisTemplate.opsForValue().get(key);
-            if(maxCount>count){
-                return new ServiceStatusInfo<>(0, "", maxCount-count);
-            }
-            return new ServiceStatusInfo<>(1,"需加为好友，才能继续发送消息",-1);
+            int remainCount=maxCount-(Integer)redisTemplate.opsForValue().get(key);
+            return new ServiceStatusInfo<>(0, "", remainCount>0?remainCount:0);
         }
         return new ServiceStatusInfo<>(0, "", maxCount);
     }

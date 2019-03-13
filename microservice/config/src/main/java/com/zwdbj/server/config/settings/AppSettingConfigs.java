@@ -29,8 +29,6 @@ public class AppSettingConfigs {
     private YouZanConfigs youZanConfigs;
     @Autowired
     private ElasticsearchConfigs elasticsearchConfigs;
-    @Autowired
-    private LetterSendConfigs letterSendConfigs;
 
     public ElasticsearchConfigs getElasticsearchConfigs() {
         return elasticsearchConfigs;
