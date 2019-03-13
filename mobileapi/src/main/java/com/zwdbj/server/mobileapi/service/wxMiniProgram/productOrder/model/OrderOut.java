@@ -140,7 +140,8 @@ public class OrderOut {
     }
 
     public String getDetailedly() {
-        return reveiverState+receiverCity+receiverCountry+detailedly+receiverAddress;
+        return updateField(reveiverState)+updateField(receiverCity)+updateField(receiverCountry)+updateField(receiverStreet)+
+                updateField(detailedly)+updateField(receiverAddress);
     }
 
     public long getProductskuId() {
@@ -293,5 +294,12 @@ public class OrderOut {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    private String updateField(String field){
+        if(field == null){
+            return "";
+        }
+        return field;
     }
 }

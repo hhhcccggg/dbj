@@ -587,6 +587,7 @@ public class UserService {
             String key = UniqueIDCreater.generateUserName();
             key = SHAEncrypt.encryptSHA(key);
             this.stringRedisTemplate.opsForValue().set("AUTHByPhoneForPWD"+input.getPhone(),key);
+            dto.setKey(key);
             if (statusInfo.isSuccess()){
                 int result = this.userMapper.phoneIsRegOrNot(input.getPhone());
                 if (result!=0){
@@ -596,12 +597,10 @@ public class UserService {
                         return  new ServiceStatusInfo<>(0,"",dto);
                     }else {
                         dto.setType(201);
-                        dto.setKey(key);
                         return  new ServiceStatusInfo<>(0,"",dto);
                     }
                 }else {
                     dto.setType(100);
-                    dto.setKey(key);
                     return  new ServiceStatusInfo<>(0,"",dto);
                 }
             }else {
