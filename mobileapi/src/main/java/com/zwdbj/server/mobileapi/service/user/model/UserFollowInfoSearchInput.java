@@ -25,4 +25,9 @@ public class UserFollowInfoSearchInput {
     public void setToUserId(long toUserId) {
         this.toUserId = toUserId;
     }
+
+    public UserFollowInfoSearchInput(long userId, long toUserId) {
+        this.userId = userId;
+        this.toUserId = toUserId;
+    }
 }

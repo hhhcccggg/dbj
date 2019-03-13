@@ -7,11 +7,11 @@ public interface ILetterService {
     /**
      * 判断是否还能继续私信
      * */
-    ServiceStatusInfo<Boolean> isSend(long receiverId);
+    ServiceStatusInfo<Integer> isSend(long receiverId);
 
     /**
      * 存储私信条数
      * */
-    ServiceStatusInfo<Boolean> saveLetterCount(long receiverId,int count);
+    ServiceStatusInfo<Boolean> saveLetterCount(long receiverId);
 
 }

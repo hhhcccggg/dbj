@@ -27,6 +27,8 @@ public class AppSettingConfigs {
     private YouZanConfigs youZanConfigs;
     @Autowired
     private ElasticsearchConfigs elasticsearchConfigs;
+    @Autowired
+    private LetterSendConfigs letterSendConfigs;
 
     public ElasticsearchConfigs getElasticsearchConfigs() {
         return elasticsearchConfigs;
@@ -114,5 +116,13 @@ public class AppSettingConfigs {
 
     public void setYouZanConfigs(YouZanConfigs youZanConfigs) {
         this.youZanConfigs = youZanConfigs;
+    }
+
+    public LetterSendConfigs getLetterSendConfigs() {
+        return letterSendConfigs;
+    }
+
+    public void setLetterSendConfigs(LetterSendConfigs letterSendConfigs) {
+        this.letterSendConfigs = letterSendConfigs;
     }
 }
