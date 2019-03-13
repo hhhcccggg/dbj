@@ -1,6 +1,7 @@
 package com.zwdbj.server.common.mq;
 
 import com.rabbitmq.client.*;
+import com.zwdbj.server.config.settings.RabbitmqConfigs;
 import com.zwdbj.server.utility.common.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ public class MQConnection implements ShutdownListener {
 
     protected void connect() {
         try {
-            MQConfig mqConfig = SpringContextUtil.getBean(MQConfig.class);
+            RabbitmqConfigs mqConfig = SpringContextUtil.getBean(RabbitmqConfigs.class);
             this.connectionFactory = new ConnectionFactory();
             this.connectionFactory.setUsername(mqConfig.getUsername());
             this.connectionFactory.setPassword(mqConfig.getPassword());
