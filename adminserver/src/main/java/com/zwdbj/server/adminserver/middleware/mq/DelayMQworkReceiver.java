@@ -118,9 +118,7 @@ public class DelayMQworkReceiver extends MQConnection {
             } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.ES_ADMIN_INFO) {
                 if (info.getEsAdminInfo().getType().equals(ESIndex.VIDEO)) {
                     VideoService videoService = SpringContextUtil.getBean(VideoService.class);
-                    videoService.operationByIdES(info.getEsAdminInfo().getId(), info.getEsAdminInfo().getAction(), channel, envelope);
-                    //确认消费
-                    action = Action.ACCEPT;
+                    action=videoService.operationByIdES(info.getEsAdminInfo().getId(), info.getEsAdminInfo().getAction(), channel, envelope);
                 } else if (info.getEsAdminInfo().getType().equals(ESIndex.SHOP)) {
                     logger.info("shop店铺:" + info.getEsAdminInfo().getId());
                     StoreServiceImpl storeService = SpringContextUtil.getBean(StoreServiceImpl.class);
@@ -158,7 +156,7 @@ public class DelayMQworkReceiver extends MQConnection {
             if (action == Action.ACCEPT) {
                 channel.basicAck(envelope.getDeliveryTag(),false);
             } else if (action == Action.RETRY) {
-                channel.basicNack(envelope.getDeliveryTag(), false, true);
+                channel.basicNack(envelope.getDeliveryTag(), false, false);
             } else {
                 channel.basicNack(envelope.getDeliveryTag(), false, false);
             }
