@@ -2,6 +2,9 @@ package com.zwdbj.server.mobileapi.service.Letter.service;
 
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
+import com.zwdbj.server.mobileapi.service.user.model.UserFollowInfoDto;
+import com.zwdbj.server.mobileapi.service.user.model.UserFollowInfoSearchInput;
+import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -16,30 +19,43 @@ public class LetterServiceImpl implements ILetterService {
     private RedisTemplate redisTemplate;
     @Autowired
     private AppSettingConfigs appSettingConfigs;
+    @Autowired
+    private UserService userService;
 
     @Override
-    public ServiceStatusInfo<Boolean> isSend(long receiverId) {
+    public ServiceStatusInfo<Integer> isSend(long receiverId) {
         long userId = JWTUtil.getCurrentId();
         if (userId<=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
 
+        //判断是否相互关注
+        UserFollowInfoDto userFollowInfoDto=userService.followStatusSearch(new UserFollowInfoSearchInput(userId,receiverId));
+        if(userFollowInfoDto.isFollowed()&&userFollowInfoDto.isMyFollower()){
+            return new ServiceStatusInfo<>(0, "", -1);
+        }
         String key="letter_"+userId + "_" + receiverId;
         //判断是否有消息缓存
+        int maxCount=this.appSettingConfigs.getLetterSendConfigs().getSendMaxCount();
         if(redisTemplate.hasKey(key)){
-            //发送超过规定条数，不能再进行私信操作
-            int maxCount=this.appSettingConfigs.getLetterSendConfigs().getSendMaxCount();
-            if((Integer)redisTemplate.opsForValue().get(key)>maxCount){
-                return new ServiceStatusInfo<>(1, "需加为好友，才能继续发送消息", false);
-            }
+            int remainCount=maxCount-(Integer)redisTemplate.opsForValue().get(key);
+            return new ServiceStatusInfo<>(0, "", remainCount>0?remainCount:0);
         }
-        return new ServiceStatusInfo<>(0, "", true);
+        return new ServiceStatusInfo<>(0, "", maxCount);
     }
 
     @Override
-    public ServiceStatusInfo<Boolean> saveLetterCount(long receiverId, int count) {
-        long userId = JWTUtil.getCurrentId();
-        if (userId<=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
+    public ServiceStatusInfo<Boolean> saveLetterCount(long receiverId) {
+        try{
+            long userId = JWTUtil.getCurrentId();
+            if (userId<=0) return new ServiceStatusInfo<>(1,"请重新登录",null);
 
-        redisTemplate.opsForValue().set("letter_"+userId+"_"+receiverId,count);
-        return new ServiceStatusInfo<>(0, "", true);
+            String key="letter_"+userId+"_"+receiverId;
+            if(redisTemplate.hasKey(key)){
+                redisTemplate.opsForValue().set("letter_"+userId+"_"+receiverId,(int)redisTemplate.opsForValue().get(key)+1);
+            }
+            redisTemplate.opsForValue().set("letter_"+userId+"_"+receiverId,1);
+            return new ServiceStatusInfo<>(0, "", true);
+        }catch (Exception exception){
+            return new ServiceStatusInfo<>(1, "私信条数保存失败", false);
+        }
     }
 }
