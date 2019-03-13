@@ -1,9 +1,11 @@
 package com.zwdbj.server.config.settings;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 @Component
+@RefreshScope
 public class AppSettingConfigs {
     @Autowired
     private AliyunConfigs aliyunConfigs;
