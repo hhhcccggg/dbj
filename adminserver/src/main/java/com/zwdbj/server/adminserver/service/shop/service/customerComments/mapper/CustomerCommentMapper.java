@@ -7,12 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface CustomerCommentMapper {
-    @Select("SELECT c.id,c.contentTxt,c.rate,c.heartCount,u.username,u.id as userId,c.createTime,c.resourceOwnerId," +
-            "ce.type,ce.dataId,ce.dataContent FROM core_comments as c left join core_comment_extraDatas as ce " +
-            "on ce.commentId=c.id left JOIN core_users as u ON u.id=c.userId where c.reviewStatus='pass' and c.isOwner=1  " +
-            "and c.resourceTypeId=1 and c.resourceOwnerId in (select p.id from shop_products as p,shop_stores as s " +
-            "where p.storeId=s.id and s.legalSubjectId=#{legalSubjectId}) order by c.createTime ")
-    List<CommentInfo> commentList(@Param("legalSubjectId") long legalSubjectId);
+    @SelectProvider(type = CustomerCommentsSqlProvider.class, method = "getCustomerComments")
+    List<CommentInfo> commentList(@Param("legalSubjectId") long legalSubjectId,@Param("searchInfo") SearchInfo searchInfo);
 
     @Select("SELECT c.id as refCommentId,u.fullName as userName,u.id AS userId,c.createTime,c.contentTxt as refContentTxt " +
             "FROM core_comments AS c,core_users AS u " +
