@@ -8,10 +8,20 @@ public class AdNewlyPwdInput {
 
     @ApiModelProperty(value = "手机号码")
     private String phone;
+    @ApiModelProperty(value = "手机验证码")
+    private String code;
     @ApiModelProperty(value = "新密码")
     private String newPassword;
     @ApiModelProperty(value = "确认新密码")
     private String mNewPassword;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getPhone() {
         return phone;

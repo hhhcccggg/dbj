@@ -1,12 +1,14 @@
 package com.zwdbj.server.config.settings;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
  * 发送短信&验证码配置
  */
 @Component
+@RefreshScope
 @ConfigurationProperties(prefix = "app.sms")
 public class SmsSendConfigs {
     private int sendInterval;

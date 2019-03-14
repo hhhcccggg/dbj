@@ -8,6 +8,8 @@ import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOr
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.OrderOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.model.ProductSKUs;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productSKUs.service.ProductSKUsService;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.model.ReceiveAddressModel;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.receiveAddress.service.ReceiveAddressService;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import com.zwdbj.server.utility.consulLock.unit.Lock;
@@ -28,6 +30,8 @@ public class ProductOrderService {
     private ProductService productServiceImpl;
     @Autowired
     private ProductSKUsService productSKUsServiceImpl;
+    @Autowired
+    private ReceiveAddressService receiveAddressServiceImpl;
 
 
     @Transactional
@@ -70,7 +74,10 @@ public class ProductOrderService {
                 }
                 //创建order
                 int payment = (int)productSKUs.getPromotionPrice();
-                this.productOrderMapper.createOrder(orderId, userId, input, payment);
+                ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(input.getReceiveAddressId()).getData();
+                String receiveAddress = addressModel.getReveiverState()+addressModel.getReceiverCity()+
+                        addressModel.getReceiverCountry()+addressModel.getReceiverStreet()+addressModel.getReceiverAddress();
+                this.productOrderMapper.createOrder(orderId, userId, input, payment,receiveAddress);
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();
                 int price = (int)productSKUs.getPromotionPrice();

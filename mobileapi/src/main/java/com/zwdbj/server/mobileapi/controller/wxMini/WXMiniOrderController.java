@@ -20,6 +20,7 @@ public class WXMiniOrderController {
     @Autowired
     ProductOrderService productOrderService;
 
+
     @RequestMapping(value = "/createOrder",method = RequestMethod.POST)
     @ApiOperation(value = "创建订单")
     @RequiresAuthentication
