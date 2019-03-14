@@ -108,4 +108,7 @@ public interface IProductMapper {
             "p.notes,p.productDetailType,p.name,p.subName,p.searchName,p.marketName,p.sellerPoint,p.limitPerPerson,p.supportCoin " +
             "from shop_products p right join shop_productSKUs pk on pk.productId=p.id where p.publish=true and p.productType=1")
     List<Map<String,String>> selectEs();
+
+    @Select("SELECT * from shop_products where isDeleted=0  and id=#{id}")
+    ShareProduct selectShareProduct(@Param("id") long id);
 }

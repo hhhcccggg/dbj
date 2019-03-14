@@ -259,4 +259,14 @@ public class ProductServiceImpl implements ProductService {
         List<Map<String,String>> mapList = this.iProductMapper.selectEs();
         return mapList;
     }
+
+    @Override
+    public ServiceStatusInfo<ShareProduct> shareProduct(long id) {
+       try{
+           ShareProduct shareProduct = this.iProductMapper.selectShareProduct(id);
+           return new ServiceStatusInfo<>(0, "", shareProduct);
+       }catch(Exception e){
+           return new ServiceStatusInfo<>(1, e.getMessage(), null);
+       }
+    }
 }
