@@ -2,10 +2,7 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.CommentInfo;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.CommentRank;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.ReplyComment;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.UserComments;
+import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.*;
 import com.zwdbj.server.adminserver.service.shop.service.customerComments.service.CustomerCommentService;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
@@ -31,12 +28,13 @@ public class CustomerCommentsController {
     @RequestMapping(value = "/commentList", method = RequestMethod.GET)
     @ApiOperation(value = "获取评论列表")
     public ResponsePageInfoData<List<CommentInfo>> commentList(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
-                                                               @RequestParam(value = "rows", required = true, defaultValue = "10") int rows) {
+                                                               @RequestParam(value = "rows", required = true, defaultValue = "10") int rows,
+                                                               @RequestBody SearchInfo searchInfo) {
 
         long userId = JWTUtil.getCurrentId();
         long legalSubjectId = tokenCenterManager.fetchUser(String.valueOf(userId)).getData().getLegalSubjectId();
         Page<CommentInfo> page = PageHelper.startPage(pageNo, rows);
-        List<CommentInfo> list = customerCommentServiceImpl.commentList(legalSubjectId).getData();
+        List<CommentInfo> list = customerCommentServiceImpl.commentList(legalSubjectId,searchInfo).getData();
         return new ResponsePageInfoData<>(0, "", list, page.getTotal());
     }
 
