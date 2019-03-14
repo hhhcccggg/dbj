@@ -122,14 +122,15 @@ public class QiniuService {
         //新建一个OperationManager对象
         OperationManager operater = new OperationManager(auth,cfg);
         //需要添加水印的图片UrlSafeBase64,可以参考http://developer.qiniu.com/code/v6/api/dora-api/av/video-watermark.html
-        String pictureurl = UrlSafeBase64.encodeToString("http://developer.qiniu.com/resource/logo-2.jpg");
+        String pictureurl = UrlSafeBase64.encodeToString("https://res.pet.zwdbj.com/20988eac5f550.jpg");
         //设置转码操作参数
-        String fops = "avthumb/mp4/wmImage/aHR0cDovL3Rlc3QtMi5xaW5pdWRuLmNvbS9sb2dvLnBuZw==/wmText/d2Vsb3ZlcWluaXU=/wmFontColor/cmVk/wmFontSize/60/wmGravityText/North";
+        String fops = "avthumb/mp4/s/640x360/vb/1.25m/wmImage/"+pictureurl;
         //设置转码的队列
         String pipeline = "zwdbj001";
         //可以对转码后的文件进行使用saveas参数自定义命名，当然也可以不指定,文件会默认命名并保存在当前空间。
-        //String urlbase64 = UrlSafeBase64.encodeToString("resource-live-hub-dev:"+key);
-        String pfops = fops; //+ "|saveas/"; //+ urlbase64;
+        String urlbase64 = UrlSafeBase64.encodeToString("resource-live-hub-dev:"+key);
+        String pfops = fops+ "|saveas/"+ urlbase64;
+        logger.info("urlbase64:"+urlbase64);
         //设置pipeline参数
         StringMap params = new StringMap().putWhen("force", 1, true).putNotEmpty("pipeline", pipeline);
                 //.putNotEmpty("notifyUrl",);
