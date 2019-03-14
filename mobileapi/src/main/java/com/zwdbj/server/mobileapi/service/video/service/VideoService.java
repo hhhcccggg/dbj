@@ -877,6 +877,7 @@ public class VideoService {
             SearchResponse searchResponse ;
             SearchRequest searchRequest = new SearchRequest("video");
             searchRequest.scroll(TimeValue.timeValueMinutes(15L));
+            searchRequest.source().query(QueryBuilders.termQuery("status",0));
             if(videoMainInput.getScroll_id() != null && videoMainInput.getScroll_id().length()>0){
                 SearchScrollRequest searchScrollRequest = new SearchScrollRequest(videoMainInput.getScroll_id());
                 searchScrollRequest.scroll(TimeValue.timeValueMinutes(15L));
