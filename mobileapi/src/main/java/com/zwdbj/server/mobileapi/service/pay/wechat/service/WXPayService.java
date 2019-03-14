@@ -49,6 +49,8 @@ public class WXPayService {
         } else {
             if (this.payConfigs.isWechatTest()) {
                 rmbs = 1;
+                if (input.getCoins()==10000)
+                    rmbs=2;
             } else {
                 rmbs = (input.getCoins() / 10) * 100;
             }
