@@ -126,10 +126,10 @@ public class QiniuService {
         //设置转码操作参数
         String fops = "avthumb/mp4/wmImage/aHR0cDovL3Rlc3QtMi5xaW5pdWRuLmNvbS9sb2dvLnBuZw==/wmText/d2Vsb3ZlcWluaXU=/wmFontColor/cmVk/wmFontSize/60/wmGravityText/North";
         //设置转码的队列
-        String pipeline = "yourpipelinename";
+        String pipeline = "zwdbj001";
         //可以对转码后的文件进行使用saveas参数自定义命名，当然也可以不指定,文件会默认命名并保存在当前空间。
-        String urlbase64 = UrlSafeBase64.encodeToString("resource-live-hub-dev:"+key);
-        String pfops = fops + "|saveas/" + urlbase64;
+        //String urlbase64 = UrlSafeBase64.encodeToString("resource-live-hub-dev:"+key);
+        String pfops = fops; //+ "|saveas/"; //+ urlbase64;
         //设置pipeline参数
         StringMap params = new StringMap().putWhen("force", 1, true).putNotEmpty("pipeline", pipeline);
                 //.putNotEmpty("notifyUrl",);
