@@ -8,10 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/letter")
@@ -24,15 +21,15 @@ public class LetterController {
     @RequiresAuthentication
     @RequestMapping(value = "/isSend",method = RequestMethod.GET)
     @ApiOperation("判断是否还能继续发送私信：超过规定条数则不能")
-    public ResponseData<Integer> letterAccount(long receiverId) {
+    public ResponseData<Integer> letterAccount(@RequestParam long receiverId) {
         ServiceStatusInfo<Integer> serviceStatusInfo = this.letterServiceImpl.isSend(receiverId);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
     @RequiresAuthentication
-    @RequestMapping(value = "/saveCount",method = RequestMethod.POST)
+    @RequestMapping(value = "/saveCount",method = RequestMethod.GET)
     @ApiOperation("保存私信条数")
-    public ResponseData<Boolean> saveLetterCount(long receiverId) {
+    public ResponseData<Boolean> saveLetterCount(@RequestParam long receiverId) {
         ServiceStatusInfo<Boolean> serviceStatusInfo = this.letterServiceImpl.saveLetterCount(receiverId);
         if(!serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),serviceStatusInfo.getData());
