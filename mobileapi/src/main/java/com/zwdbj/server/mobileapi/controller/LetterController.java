@@ -19,21 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class LetterController {
 
     @Autowired
-    private ILetterService letterService;
+    private ILetterService letterServiceImpl;
 
     @RequiresAuthentication
     @RequestMapping(value = "/isSend",method = RequestMethod.GET)
     @ApiOperation("判断是否还能继续发送私信：超过规定条数则不能")
     public ResponseData<Integer> letterAccount(long receiverId) {
-        //ServiceStatusInfo<Integer> serviceStatusInfo = this.letterService.isSend(receiverId);
-        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",this.letterService.isSend(receiverId).getData());
+        ServiceStatusInfo<Integer> serviceStatusInfo = this.letterServiceImpl.isSend(receiverId);
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
     @RequiresAuthentication
     @RequestMapping(value = "/saveCount",method = RequestMethod.POST)
     @ApiOperation("保存私信条数")
     public ResponseData<Boolean> saveLetterCount(long receiverId) {
-        ServiceStatusInfo<Boolean> serviceStatusInfo = this.letterService.saveLetterCount(receiverId);
+        ServiceStatusInfo<Boolean> serviceStatusInfo = this.letterServiceImpl.saveLetterCount(receiverId);
         if(!serviceStatusInfo.isSuccess())
             return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),serviceStatusInfo.getData());
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
