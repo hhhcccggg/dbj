@@ -93,7 +93,7 @@ public interface IProductMapper {
     long getProductInventory(@Param("id") long productId);
 
     @Select("select id,`productType`,`productDetailType`,`name`,`imageUrls`,storeId from shop_products  where (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime < REPLACE(unix_timestamp(current_timestamp(3)),'.','')))" +
-            " and isDeleted=0  order by sales desc limit 3")
+            " and productDetailType != 'CARD' and  productDetailType != 'CASHCOUPON' and isDeleted=0  order by sales desc limit 3")
     List<ProductMainDto> mainSelectProduct();
 
     @Select("select p.id as productId,pk.id as skuId,p.storeId,p.productType,p.productDetailType,p.name,p.limitPerPerson,pk.originalPrice,pk.promotionPrice, "+
@@ -108,4 +108,7 @@ public interface IProductMapper {
             "p.notes,p.productDetailType,p.name,p.subName,p.searchName,p.marketName,p.sellerPoint,p.limitPerPerson,p.supportCoin " +
             "from shop_products p right join shop_productSKUs pk on pk.productId=p.id where p.publish=true and p.productType=1")
     List<Map<String,String>> selectEs();
+
+    @Select("SELECT * from shop_products where isDeleted=0  and id=#{id}")
+    ShareProduct selectShareProduct(@Param("id") long id);
 }

@@ -67,13 +67,14 @@ public class ElasticsearchConfiguration implements FactoryBean<RestHighLevelClie
 
     private RestHighLevelClient buildClient() {
         try {
-            String clusterNodes = elasticsearchConfigs.getClusterNodes();
+            String[] clusterNodes = elasticsearchConfigs.getClusterNodes().split(",");
+            HttpHost[] httpHosts = new HttpHost[clusterNodes.length];
+            for (int i = 0; i < clusterNodes.length; i++) {
+                httpHosts[i] = new HttpHost(clusterNodes[i].split(":")[0],Integer.parseInt(clusterNodes[i].split(":")[1]),
+                        "http");
+            }
             restHighLevelClient = new RestHighLevelClient(
-                    RestClient.builder(
-                            new HttpHost(
-                                    clusterNodes.split(":")[0],
-                                    Integer.parseInt(clusterNodes.split(":")[1]),
-                                    "http")));
+                    RestClient.builder(httpHosts));
         } catch (Exception e) {
             LOG.error(e.getMessage());
         }

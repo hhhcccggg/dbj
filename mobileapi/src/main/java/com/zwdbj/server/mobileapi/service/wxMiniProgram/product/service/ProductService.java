@@ -76,4 +76,11 @@ public interface ProductService {
      * 商品的es搜索
      */
     List<Map<String,String>> selectEs();
+
+    /**
+     * 分享商品
+     * @param id
+     * @return
+     */
+    ServiceStatusInfo<ShareProduct> shareProduct(long id);
 }

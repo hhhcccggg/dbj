@@ -3,10 +3,7 @@ package com.zwdbj.server.mobileapi.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zwdbj.server.mobileapi.config.MainKeyType;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductInput;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductMainDto;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
-import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductlShow;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.*;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.OrderOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service.ProductOrderService;
@@ -84,6 +81,15 @@ public class ProductController {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR,serviceStatusInfo.getMsg(),null);
     }
+
+    @GetMapping(value = "shareProduct/{id}")
+    @ApiOperation(value = "分享商品接口")
+    public ResponseData<ShareProduct> shareProduct(@PathVariable("id")long id){
+        ServiceStatusInfo<ShareProduct> serviceStatusInfo = this.productServiceImpl.shareProduct(id);
+        return new ResponseData<>(serviceStatusInfo.isSuccess()?ResponseDataCode.STATUS_NORMAL:ResponseDataCode.STATUS_ERROR,
+                serviceStatusInfo.getMsg(),serviceStatusInfo.getData());
+    }
+
     @DeleteMapping(value = "del")
     @ApiOperation(value = "删除首页缓存数据")
     public void deleteReidsKey(){
