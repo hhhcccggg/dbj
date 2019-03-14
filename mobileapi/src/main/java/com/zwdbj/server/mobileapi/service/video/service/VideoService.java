@@ -196,7 +196,7 @@ public class VideoService {
             input.setCoverImageKey(qiniuService.url(coverImageKey));
             input.setFirstFrameUrl(qiniuService.url(firstFrameImageKey));
         }
-        this.qiniuService.watermark(input.getVideoKey());
+        //this.qiniuService.watermark(input.getVideoKey());
 
         long videoId = UniqueIDCreater.generateID();
         long userId = JWTUtil.getCurrentId();

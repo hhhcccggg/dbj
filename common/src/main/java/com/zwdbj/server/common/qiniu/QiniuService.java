@@ -115,7 +115,7 @@ public class QiniuService {
         }
 
     }
-    public void watermark(String key){
+    public boolean watermark(String key){
         Configuration cfg = new Configuration(Zone.zone0());
         Auth auth = Auth.create(this.appSettingConfigs.getQiniuConfigs().getAccessKey(),
                 this.appSettingConfigs.getQiniuConfigs().getAccessSecrect());
@@ -137,19 +137,21 @@ public class QiniuService {
         try {
             String persistid = operater.pfop(this.appSettingConfigs.getQiniuConfigs().getBucketName(), key, pfops, params);
             //打印返回的persistid
-            System.out.println(persistid);
+            System.out.println("打印返回的persistid:"+persistid);
+            return true;
         } catch (QiniuException e) {
             //捕获异常信息
             Response r = e.response;
             // 请求失败时简单状态信息
-            System.out.println(r.toString());
+            System.out.println("请求失败时简单状态信息"+r.toString());
             try {
                 // 响应的文本信息
-                System.out.println(r.bodyString());
+                System.out.println("响应的文本信息"+r.bodyString());
             } catch (QiniuException e1) {
                 //ignore
             }
         }
+        return false;
     }
 
 }
