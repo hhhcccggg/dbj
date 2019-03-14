@@ -125,8 +125,8 @@ public class QiniuService {
         String pictureurl = UrlSafeBase64.encodeToString("http://dev.hd.res.pet.zwdbj.com/1%20%2849%29.jpg");
         logger.info("水印的图片UrlSafeBase64:"+pictureurl);
         //设置转码操作参数
-        String text = UrlSafeBase64.encodeToString("ZuaiZiAPP");
-        String fops = "avthumb/mp4/wmImage/"+pictureurl+"/wmText"+text;
+        String text = UrlSafeBase64.encodeToString("爪子APP");
+        String fops = "avthumb/mp4/wmImage/"+pictureurl+"/dissolve/100/gravity/NorthWest/dx/10/dy/10/wmText/"+text;
         //设置转码的队列
         String pipeline = "zwdbj001";
         //可以对转码后的文件进行使用saveas参数自定义命名，当然也可以不指定,文件会默认命名并保存在当前空间。
