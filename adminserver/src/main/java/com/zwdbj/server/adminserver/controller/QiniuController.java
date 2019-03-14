@@ -56,7 +56,7 @@ public class QiniuController {
     }
     @ApiOperation(value = "七牛异步通知")
     @RequestMapping(value = "/qiuniu/notify",method = RequestMethod.POST)
-    public void notify(HttpServletRequest request, HttpServletResponse response) {
+    public void notify(HttpServletRequest request, HttpServletResponse response) throws Exception{
 
         Map<String,String> params = new HashMap<>();
         Map requestParams = request.getParameterMap();
@@ -69,12 +69,11 @@ public class QiniuController {
                         : valueStr + values[i] + ",";
             }
             //乱码解决，这段代码在出现乱码时使用。
-            //valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+            valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
         }
+
         System.out.println("request = [" + request + "], response = [" + response + "]");
-        System.out.println("requestParams = " + requestParams);
-        System.out.println("params = " + params);
         System.out.println("params.toString() = " + params.toString());
     }
 }
