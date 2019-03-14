@@ -125,11 +125,11 @@ public class QiniuService {
         String pictureurl = UrlSafeBase64.encodeToString("https://res.pet.zwdbj.com/20988eac5f550.jpg");
         logger.info("水印的图片UrlSafeBase64:"+pictureurl);
         //设置转码操作参数
-        String fops = "avthumb/mp4/s/640x360/vb/1.25m/wmImage/"+pictureurl;
+        String fops = "avthumb/mp4/wmImage/"+pictureurl;
         //设置转码的队列
         String pipeline = "zwdbj001";
         //可以对转码后的文件进行使用saveas参数自定义命名，当然也可以不指定,文件会默认命名并保存在当前空间。
-        String urlbase64 = UrlSafeBase64.encodeToString("resource-live-hub-dev:"+key);
+        String urlbase64 = UrlSafeBase64.encodeToString(this.appSettingConfigs.getQiniuConfigs().getBucketName()+":"+key+"1");
         String pfops = fops+ "|saveas/"+ urlbase64;
         logger.info("urlbase64:"+urlbase64);
         //设置pipeline参数
