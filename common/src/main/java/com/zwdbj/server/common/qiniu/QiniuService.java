@@ -125,7 +125,7 @@ public class QiniuService {
         String pictureurl = UrlSafeBase64.encodeToString("http://dev.hd.res.pet.zwdbj.com/1%20%2849%29.jpg");
         logger.info("水印的图片UrlSafeBase64:"+pictureurl);
         //设置转码操作参数
-        String text = "zuaiziAPP";
+        String text = UrlSafeBase64.encodeToString("ZuaiZiAPP");
         String fops = "avthumb/mp4/wmImage/"+pictureurl+"/wmText"+text;
         //设置转码的队列
         String pipeline = "zwdbj001";
