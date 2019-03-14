@@ -160,7 +160,10 @@ public class OrderService {
                 Random random = new Random();
                 int code = random.nextInt(900000)  + 100000;
                 String verifyCode = String.valueOf(code);
-                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode);
+                ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(input.getReceiveAddressId()).getData();
+                String receiveAddress = addressModel.getReveiverState()+addressModel.getReceiverCity()+
+                        addressModel.getReceiverCountry()+addressModel.getReceiverStreet()+addressModel.getReceiverAddress();
+                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode,receiveAddress);
                 this.stringRedisTemplate.opsForValue().set("orderIdVerifyCode:"+orderId,verifyCode);
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();
