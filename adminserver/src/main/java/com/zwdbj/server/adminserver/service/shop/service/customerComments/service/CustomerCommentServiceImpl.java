@@ -26,6 +26,7 @@ public class CustomerCommentServiceImpl implements CustomerCommentService {
         List<CommentInfo> result = null;
         try {
             result = this.customerCommentMapper.commentList(legalSubjectId);
+            System.out.println(result);
             for (CommentInfo c : result) {
                 if (this.stringRedisTemplate.hasKey("replyComment"+c.getId())){
                     c.setRefCommentOrNot(true);
