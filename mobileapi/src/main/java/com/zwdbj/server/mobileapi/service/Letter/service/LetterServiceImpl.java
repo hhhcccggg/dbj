@@ -7,11 +7,9 @@ import com.zwdbj.server.mobileapi.service.user.model.UserFollowInfoSearchInput;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-@Primary
 @Service
 public class LetterServiceImpl implements ILetterService {
 
@@ -29,9 +27,12 @@ public class LetterServiceImpl implements ILetterService {
 
         //判断是否相互关注
         UserFollowInfoDto userFollowInfoDto=userService.followStatusSearch(new UserFollowInfoSearchInput(userId,receiverId));
-        if(userFollowInfoDto.isFollowed()&&userFollowInfoDto.isMyFollower()){
-            return new ServiceStatusInfo<>(0, "", -1);
+        if (userFollowInfoDto!=null){
+            if(userFollowInfoDto.isFollowed()&&userFollowInfoDto.isMyFollower()){
+                return new ServiceStatusInfo<>(0, "", -1);
+            }
         }
+
         String key="letter_"+userId + "_" + receiverId;
         //判断是否有消息缓存
         int maxCount=this.appSettingConfigs.getLetterSendConfigs().getSendMaxCount();
