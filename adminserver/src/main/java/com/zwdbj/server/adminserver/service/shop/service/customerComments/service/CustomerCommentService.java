@@ -1,15 +1,12 @@
 package com.zwdbj.server.adminserver.service.shop.service.customerComments.service;
 
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.CommentInfo;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.CommentRank;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.ReplyComment;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.UserComments;
+import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.*;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 
 import java.util.List;
 
 public interface CustomerCommentService {
-    ServiceStatusInfo<List<CommentInfo>> commentList(long legalSubjectId);
+    ServiceStatusInfo<List<CommentInfo>> commentList(long legalSubjectId, SearchInfo searchInfo);
 
     ServiceStatusInfo<Long> replyComment(ReplyComment replyComment);
 

@@ -730,6 +730,16 @@ public class UserService {
         return userMapper.pageSelectAll();
     }
 
+    public ServiceStatusInfo<Integer> updateUserLonAndLat(float longitude, float latitude){
+        long userId = JWTUtil.getCurrentId();
+        if (userId<=0){
+            return new ServiceStatusInfo<>(0,"",null);
+        }
+        int result = this.userMapper.updateUserLonAndLat(longitude,latitude,userId);
+        if (result==0)return new ServiceStatusInfo<>(1,"",null);
+        return new ServiceStatusInfo<>(0,"",result);
+    }
+
 }
 
 

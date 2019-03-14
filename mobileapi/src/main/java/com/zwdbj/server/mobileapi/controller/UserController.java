@@ -378,6 +378,13 @@ public class UserController {
         List<UserOnNearbyDto> dtos = this.userService.nearUsers(input);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", dtos, pageInfo.getTotal());
     }
+    @ApiOperation(value = "更新用户的经纬度")
+    @RequiresAuthentication
+    @RequestMapping(value = "/update/users/lonAndLat/{lon}/{lat}",method = RequestMethod.GET)
+    public ResponseData<Integer> updateUserLonAndLat(@PathVariable float lon,@PathVariable float lat){
+        ServiceStatusInfo<Integer> dtos = this.userService.updateUserLonAndLat(lon,lat);
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", dtos.getData());
+    }
 
 
 

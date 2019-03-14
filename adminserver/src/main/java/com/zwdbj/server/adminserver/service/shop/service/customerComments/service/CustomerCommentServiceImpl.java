@@ -1,10 +1,7 @@
 package com.zwdbj.server.adminserver.service.shop.service.customerComments.service;
 
 import com.zwdbj.server.adminserver.service.shop.service.customerComments.mapper.CustomerCommentMapper;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.CommentInfo;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.CommentRank;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.ReplyComment;
-import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.UserComments;
+import com.zwdbj.server.adminserver.service.shop.service.customerComments.model.*;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +19,10 @@ public class CustomerCommentServiceImpl implements CustomerCommentService {
     private StringRedisTemplate stringRedisTemplate;
 
     @Override
-    public ServiceStatusInfo<List<CommentInfo>> commentList(long legalSubjectId) {
+    public ServiceStatusInfo<List<CommentInfo>> commentList(long legalSubjectId, SearchInfo searchInfo) {
         List<CommentInfo> result = null;
         try {
-            result = this.customerCommentMapper.commentList(legalSubjectId);
-            System.out.println(result);
+            result = this.customerCommentMapper.commentList(legalSubjectId,searchInfo);
             for (CommentInfo c : result) {
                 if (this.stringRedisTemplate.hasKey("replyComment"+c.getId())){
                     c.setRefCommentOrNot(true);
@@ -34,6 +30,14 @@ public class CustomerCommentServiceImpl implements CustomerCommentService {
                     c.setRefComment(this.customerCommentMapper.commentReply(id));
                 }else {
                     c.setRefCommentOrNot(false);
+                }
+                //全部 已回复       没有回复
+                if(searchInfo.getIsReply()!=0&&!c.isRefCommentOrNot()){
+                    result.remove(c);
+                }
+                //全部  未回复     回复
+                if(searchInfo.getIsReply()!=1&&c.isRefCommentOrNot()){
+                    result.remove(c);
                 }
             }
             return new ServiceStatusInfo<>(0, "", result);

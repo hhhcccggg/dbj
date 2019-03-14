@@ -157,4 +157,6 @@ public interface IUserMapper {
 
     @Select("select * from core_users")
     List<Map<String, String>> pageSelectAll();
+    @Update("update core_users set longitude=#{longitude},latitude=#{latitude} where id=#{id}")
+    int updateUserLonAndLat(@Param("longitude") float longitude, @Param("latitude") float latitude,@Param("id")long id);
 }
