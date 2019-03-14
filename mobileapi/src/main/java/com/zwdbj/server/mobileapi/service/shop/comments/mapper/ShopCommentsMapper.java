@@ -13,8 +13,8 @@ import java.util.List;
 @Mapper
 public interface ShopCommentsMapper {
 
-    @Select("SELECT count(*) as countComments,AVG(rate) as rate FROM core_comments as c " +
-            "where c.resourceTypeId=1 and c.reviewStatus='pass' and c.resourceOwnerId in(select id from shop_discountCoupons where storeId=#{storeId} )")
+    @Select("SELECT count(*) as countComments,round(AVG(rate),1) as rate FROM core_comments as c where c.resourceTypeId=1 " +
+            "and c.reviewStatus='pass' and c.resourceOwnerId in(select id from shop_products where storeId=#{storeId})")
     UserComments CountComments(@Param("storeId") long storeId);
 
     @Select("SELECT u.id as userId ,u.userName,u.avatarUrl,c.contentTxt,c.heartCount,c.createTime,p.name as resourceName,c.resourceOwnerId,c.resourceTypeId,c.rate,ce.commentId,ce.type,ce.dataId,ce.dataContent" +
