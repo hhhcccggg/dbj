@@ -41,10 +41,12 @@ public class QiniuController {
         redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
         return redirectView;
     }
-    /*@ApiOperation(value = "七牛异步通知")
+    @ApiOperation(value = "七牛异步通知")
     @ApiIgnore
     @RequestMapping(value = "/qiuniu/notify",method = RequestMethod.GET)
-    public RedirectView notify() {
+    public ResponseData<Boolean> notify(@RequestParam String key) {
 
-    }*/
+        boolean a = this.qiniuService.watermark(key);
+        return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",a);
+    }
 }
