@@ -52,8 +52,9 @@ public class LetterServiceImpl implements ILetterService {
             String key="letter_"+userId+"_"+receiverId;
             if(redisTemplate.hasKey(key)){
                 redisTemplate.opsForValue().set("letter_"+userId+"_"+receiverId,(int)redisTemplate.opsForValue().get(key)+1);
+            }else{
+                redisTemplate.opsForValue().set("letter_"+userId+"_"+receiverId,1);
             }
-            redisTemplate.opsForValue().set("letter_"+userId+"_"+receiverId,1);
             return new ServiceStatusInfo<>(0, "", true);
         }catch (Exception exception){
             return new ServiceStatusInfo<>(1, "私信条数保存失败", false);

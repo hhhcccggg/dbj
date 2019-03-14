@@ -31,12 +31,12 @@ public class CustomerCommentServiceImpl implements CustomerCommentService {
                 }else {
                     c.setRefCommentOrNot(false);
                 }
-                //全部 已回复       没有回复
-                if(searchInfo.getIsReply()!=0&&!c.isRefCommentOrNot()){
+                //点了没有回复  移除回复      没有回复
+                if(searchInfo.getIsReply()==0&&c.isRefCommentOrNot()){
                     result.remove(c);
                 }
-                //全部  未回复     回复
-                if(searchInfo.getIsReply()!=1&&c.isRefCommentOrNot()){
+                //点了回复    移除没有回复
+                if(searchInfo.getIsReply()==1&&!c.isRefCommentOrNot()){
                     result.remove(c);
                 }
             }
