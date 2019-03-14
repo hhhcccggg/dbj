@@ -15,7 +15,7 @@ public class CustomerCommentsSqlProvider {
             sql.SET("`c.createTime`>={info.startDate}");
         }
         if(info.getEndDate()!=null){
-            sql.SET("`c.createTime`<={info.startDate}");
+            sql.SET("`c.createTime`<={info.endDate}");
         }
         sql.WHERE("`c.resourceOwnerId` in (select `p.id` from shop_products as p," +
                 "shop_stores as s where `p.storeId`=`s.id` and `s.legalSubjectId`=#{legalSubjectId}) ");
