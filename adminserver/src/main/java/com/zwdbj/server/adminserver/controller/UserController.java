@@ -3,6 +3,8 @@ package com.zwdbj.server.adminserver.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zwdbj.server.adminserver.identity.RoleIdentity;
+import com.zwdbj.server.common.sms.ISendSmsService;
+import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.basemodel.model.*;
 import com.zwdbj.server.adminserver.model.*;
@@ -18,9 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -29,6 +29,10 @@ public class UserController {
     private UserService userService;
     @Autowired
     private TokenCenterManager tokenCenterManager;
+    @Autowired
+    private ISendSmsService sendSmsService;
+    @Autowired
+    private AppSettingConfigs appSettingConfigs;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -173,6 +177,21 @@ public class UserController {
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", statusInfo.getData());
         }
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
+    }
+    @RequestMapping(value = "/sendPhoneCode", method = RequestMethod.GET)
+    @ApiOperation(value = "获取手机验证码")
+    public ResponseData<Map<String, String>> sendPhoneCode(@RequestParam("phone") String phone) {
+        ServiceStatusInfo<Object> info = this.sendSmsService.sendCode(phone);
+        if (info.isSuccess()) {
+            if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "发送验证码成功!", null);
+            } else {
+                Map<String, String> map = new HashMap<>();
+                map.put("code", (String) info.getData());
+                return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "发送验证码成功!{" + info.getData() + "}", map);
+            }
+        }
+        return new ResponseData<>(ResponseDataCode.STATUS_ERROR, info.getMsg(), null);
     }
 
     @RequiresAuthentication

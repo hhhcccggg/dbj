@@ -315,6 +315,10 @@ public class UserService {
     public ServiceStatusInfo<Long> newlyPwdAd(AdNewlyPwdInput input){
         Long result = 0L;
         try {
+            ServiceStatusInfo<Object> statusInfo = this.sendSmsService.checkPhoneCode(input.getPhone(), input.getCode());
+            if (!statusInfo.isSuccess()) {
+                return new ServiceStatusInfo<>(1, statusInfo.getMsg(), null);
+            }
             if (!input.getmNewPassword().equals(input.getNewPassword()))return new ServiceStatusInfo<>(1, "新密码和确认密码不一致", null);
             String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
             Pattern r = Pattern.compile(regEx);

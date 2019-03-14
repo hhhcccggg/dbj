@@ -51,7 +51,7 @@ public class AccountInController {
     }
     @RequiresAuthentication
     @RequestMapping(value = "/newlyPwd", method = RequestMethod.POST)
-    @ApiOperation("账号管理-账号密码修改")
+    @ApiOperation("账号管理-账号密码找回")
     public ResponseData<Long> newlyPwdAd(@RequestBody AdNewlyPwdInput input) {
         ServiceStatusInfo<Long> statusInfo = this.accountInfoServiceImpl.newlyPwdAd(input);
         if (statusInfo.isSuccess()) {
