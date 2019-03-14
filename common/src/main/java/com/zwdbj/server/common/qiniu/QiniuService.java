@@ -132,6 +132,7 @@ public class QiniuService {
         String pfops = fops + "|saveas/" + urlbase64;
         //设置pipeline参数
         StringMap params = new StringMap().putWhen("force", 1, true).putNotEmpty("pipeline", pipeline);
+                //.putNotEmpty("notifyUrl",);
         try {
             String persistid = operater.pfop(this.appSettingConfigs.getQiniuConfigs().getBucketName(), key, pfops, params);
             //打印返回的persistid
