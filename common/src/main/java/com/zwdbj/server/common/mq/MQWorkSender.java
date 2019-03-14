@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.middleware.mq;
+package com.zwdbj.server.common.mq;
 
 import com.rabbitmq.client.MessageProperties;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;

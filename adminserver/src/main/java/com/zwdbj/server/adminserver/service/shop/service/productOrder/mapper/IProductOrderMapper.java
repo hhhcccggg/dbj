@@ -32,8 +32,9 @@ public interface IProductOrderMapper {
     ProductOrderDetailModel getOrderByOrderNo(@Param("orderNo")String orderNo);
 
 
-    @Update("update shop_productOrders set`status`='STATE_CLOSED',statusStr='订单关闭',updateTime=now(),closeTime=now() where id=#{id} and userId=#{userId}")
+    @Update("update shop_productOrders set `status`='STATE_CLOSED',statusStr='订单关闭',updateTime=now(),closeTime=now() " +
+            "where id=#{id} and userId=#{userId} and `status`='STATE_WAIT_BUYER_PAY'")
     int updateOrderUnPay(@Param("id")long orderId,@Param("userId")long userId);
-    @Update("update shop_productOrders set`status`='STATE_SUCCESS',statusStr='交易成功',updateTime=now(),endTime=now(),buyerRate=true where id=#{id} and `status`='STATE_USED'")
+    @Update("update shop_productOrders set `status`='STATE_SUCCESS',statusStr='交易成功',updateTime=now(),endTime=now(),buyerRate=true where id=#{id} and `status`='STATE_USED'")
     int updateOrderUnComment(@Param("id")long orderId);
 }

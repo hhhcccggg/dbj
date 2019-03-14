@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.service.video.service;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Envelope;
+import com.zwdbj.server.adminserver.middleware.mq.Action;
 import com.zwdbj.server.adminserver.model.EntityKeyModel;
 import com.zwdbj.server.adminserver.service.comment.model.CommentInfoDto;
 import com.zwdbj.server.adminserver.service.comment.service.CommentService;
@@ -142,7 +143,7 @@ public class VideoService {
         Long result = 0L;
         try {
             result = this.videoMapper.doComplainInfoAd(toResId, input);
-            if (input.getTreatment() == 2) this.videoRandRecommendService.popVideo(toResId);
+            if (input.getTreatment() == 4) this.videoRandRecommendService.popVideo(toResId);
             return new ServiceStatusInfo<>(0, "", result);
         } catch (Exception e) {
             return new ServiceStatusInfo<>(1, "修改失败：" + e.getMessage(), result);
@@ -358,19 +359,19 @@ public class VideoService {
      * @param id
      * @param action
      */
-    public void operationByIdES(long id, String action, Channel channel, Envelope envelope){
+    public Action operationByIdES(long id, String action, Channel channel, Envelope envelope){
         try{
             if(action.equals(ESIndex.CREATE) || action.equals(ESIndex.UPDATE)){
                 Map<String,String> map = selectById(id);
                 esUtilService.updateIndexData(ESIndex.VIDEO, ESIndex.VIDEO_TYPE, String.valueOf(id),map);
             }else if(action.equals(ESIndex.DELETE)){
                 esUtilService.deleteIndexData(ESIndex.VIDEO, ESIndex.VIDEO_TYPE, String.valueOf(id));
-            }else
-                return;
-            //确认消费
-            channel.basicAck(envelope.getDeliveryTag(),false);
+            }
+            return Action.ACCEPT;
         }catch (IOException e){
             e.printStackTrace();
+            return Action.REJECT;
+
         }
 
     }

@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.service.setting.model;
+package com.zwdbj.server.common.setting.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

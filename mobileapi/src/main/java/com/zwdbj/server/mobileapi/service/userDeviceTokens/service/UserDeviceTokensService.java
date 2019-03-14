@@ -5,15 +5,19 @@ import com.zwdbj.server.mobileapi.service.userDeviceTokens.mapper.IUserDeviceTok
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokenDto;
 import com.zwdbj.server.mobileapi.service.userDeviceTokens.model.UserDeviceTokensInput;
 import com.zwdbj.server.utility.common.UniqueIDCreater;
+import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserDeviceTokensService {
     @Autowired
     private IUserDeviceTokensMapper userDeviceTokensMapper;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     private Logger logger = LoggerFactory.getLogger(UserDeviceTokensService.class);
 
@@ -25,17 +29,39 @@ public class UserDeviceTokensService {
            if (userCount == 0){
                result = this.insertDeviceToken(input);
                if (result==0)return new ServiceStatusInfo<>(1,"插入失败","插入失败");
+               try {
+                   if (input.getDeviceType().equals("ios"))
+                       this.redisTemplate.opsForZSet().add("IOSSettingPush_All", String.valueOf(userId), 0);
+                   if (input.getDeviceType().equals("android"))
+                       this.redisTemplate.opsForZSet().add("ANDROIDSettingPush_All", String.valueOf(userId), 0);
+               } catch (Exception e){
+               e.printStackTrace();
+            }
                return new ServiceStatusInfo<>(0,"插入成功","插入成功"+result+"条");
            }else {
                  result =  this.updateTokenByUserId(input);
                  if (result==0)return new ServiceStatusInfo<>(1,"更新失败","更新失败");
+
                  return new ServiceStatusInfo<>(0,"更新成功","更新成功"+result+"条");
            }
-        }else {
-            result = this.deleteIt(input);
-            if (result==0)return new ServiceStatusInfo<>(1,"删除失败","删除失败");
-            return new ServiceStatusInfo<>(0,"删除成功","删除成功"+result+"条");
         }
+            return new ServiceStatusInfo<>(1,"绑定失败",null);
+    }
+
+
+    public ServiceStatusInfo<Object> delBindingUserId(UserDeviceTokensInput input){
+        Long userId = input.getUserId();
+        int result = this.deleteIt(input);
+        if (result==0)return new ServiceStatusInfo<>(1,"删除失败","删除失败");
+        try {
+            if (input.getDeviceType().equals("ios"))
+                this.redisTemplate.opsForZSet().remove("IOSSettingPush_All",String.valueOf(userId));
+            if (input.getDeviceType().equals("android"))
+                this.redisTemplate.opsForZSet().remove("ANDROIDSettingPush_All",String.valueOf(userId));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ServiceStatusInfo<>(0,"删除成功","删除成功"+result+"条");
     }
 
     public int deleteIt(UserDeviceTokensInput input){

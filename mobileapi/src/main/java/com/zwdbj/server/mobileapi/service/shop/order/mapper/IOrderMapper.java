@@ -19,11 +19,11 @@ public interface IOrderMapper {
     ProductOrderDetailModel getOrderById(@Param("id") long id);
 
     @Insert("insert into shop_productOrders(id,orderNo,payment,paymentType,actualPayment,useCoin,verifyCode," +
-            "deliveryFee,status,statusStr,updateTime,userId,storeId,buyerComment,buyerRate,receiveAddressId,thirdPaymentTradeNo) " +
+            "deliveryFee,status,statusStr,updateTime,userId,storeId,buyerComment,buyerRate,receiveAddressId,thirdPaymentTradeNo,receiveAddress) " +
             "values(#{id},#{id},#{payment},'NONE',#{payment},#{input.useCoin},#{verifyCode},#{input.deliveryFee},'STATE_WAIT_BUYER_PAY'," +
-            "'待付款',now(),#{userId},#{input.storeId},#{input.buyerComment},0,#{input.receiveAddressId},'NONE')")
+            "'待付款',now(),#{userId},#{input.storeId},#{input.buyerComment},0,#{input.receiveAddressId},'NONE',#{receiveAddress})")
     int createOrder(@Param("id") long id, @Param("userId") long userId, @Param("input") AddNewOrderInput input,
-                    @Param("payment") int payment, @Param("verifyCode") String verifyCode);
+                    @Param("payment") int payment, @Param("verifyCode") String verifyCode,@Param("receiveAddress")String receiveAddress);
 
     @Update("update shop_productOrders set `status`='STATE_CLOSED',statusStr='订单关闭',updateTime=now(),closeTime=now(),cancelReason=#{input.cancelReason} " +
             "where id=#{input.orderId} and `status`='STATE_WAIT_BUYER_PAY'")

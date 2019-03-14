@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.messageCenter.service;
 
 import com.alibaba.fastjson.JSON;
-import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
+import com.zwdbj.server.common.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.messageCenter.model.*;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
@@ -135,26 +135,28 @@ public class MessageCenterService {
             if (dtos==null || dtos.size()==0)return null;
             for (MessageInfoDetailDto dto:dtos){
                 UserModel userModel = this.userService.findUserById(dto.getCreatorUserId());
+                if (userModel.getAvatarUrl()!=null) dto.setCreatorUserUrl(userModel.getAvatarUrl());
                 dto.setCreatorUserName(userModel.getNickName());
-                dto.setCreatorUserUrl(userModel.getAvatarUrl());
                 String data = dto.getDataContent();
                 if (data!=null && data.length()!=0){
                     Map ss = JSON.parseObject(data, Map.class);
                     long resId = Long.valueOf(ss.get("resId").toString());
                     int a = Integer.valueOf(ss.get("type").toString());
-                    //String refUrl = "";
+                    String refUrl = "";
                     String title = "";
                     VideoDetailInfoDto videoDetailInfoDto;
-                    if ((type==1  && a==1) || type==3 || type==6){
+                    if ((type==1  && a==0) || type==3 || type==6){
                         dto.setVideoOrPet(1);
                         videoDetailInfoDto = this.videoService.video(resId);
+                        if (videoDetailInfoDto==null)continue;
                         title = videoDetailInfoDto.getTitle();
-                        //refUrl = videoDetailInfoDto.getVideoUrl();
-                    }else if (type==1 && a==2){
+                        refUrl = videoDetailInfoDto.getVideoUrl();
+                    }else if (type==1 && a==1){
                         dto.setVideoOrPet(2);
                         PetModelDto petModelDto =this.petService.get(resId);
+                        if (petModelDto==null)continue;
                         title = petModelDto.getNickName();
-                        //refUrl= petModelDto.getAvatar();
+                        refUrl= petModelDto.getAvatar();
                     }
                     if (type==6){
                         int coins=0;
@@ -163,7 +165,7 @@ public class MessageCenterService {
                         }
                         dto.setCoins(coins);
                     }
-                    //dto.setRefUrl(refUrl);
+                    dto.setRefUrl(refUrl);
                     dto.setTitle(title);
                     dto.setRefId(resId);
 

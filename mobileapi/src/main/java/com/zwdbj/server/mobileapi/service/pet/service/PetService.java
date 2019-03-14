@@ -241,7 +241,7 @@ public class PetService {
             MessageInput msgInput = new MessageInput();
             msgInput.setCreatorUserId(userId);
             msgInput.setMessageType(1);
-            msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"2\"}");
+            msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"1\"}");
             msgInput.setRefUrl(petModelDto.getAvatar());
             msgInput.setMsgContent("");
             this.messageCenterService.push(msgInput, pUserId);

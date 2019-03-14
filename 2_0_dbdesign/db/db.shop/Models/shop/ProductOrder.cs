@@ -168,6 +168,11 @@ namespace db.shop.Models.shop
         /// <value>The receive address identifier.</value>
         public long receiveAddressId { get; set; }
         /// <summary>
+        /// 收货地址
+        /// </summary>
+        /// <value>The receive address identifier.</value>
+        public String receiveAddress { get; set; }
+        /// <summary>
         /// 校验码
         /// 虚拟商品兑换码|验证码
         /// </summary>

@@ -8,6 +8,8 @@ import com.zwdbj.server.adminserver.service.review.service.LivingReviewService;
 import com.zwdbj.server.adminserver.service.review.service.VideoReviewService;
 import com.zwdbj.server.adminserver.service.user.service.UserService;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.common.mq.MQConfig;
+import com.zwdbj.server.common.mq.MQConnection;
 import com.zwdbj.server.common.sms.SendSmsService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
 import com.zwdbj.server.utility.common.SpringContextUtil;

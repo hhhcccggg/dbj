@@ -1,12 +1,14 @@
 package com.zwdbj.server.config.settings;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
  * 阿里云基础配置信息
  */
 @Component
+@RefreshScope
 @ConfigurationProperties(prefix = "app.aliyun")
 public class AliyunConfigs {
     private String accessKey;

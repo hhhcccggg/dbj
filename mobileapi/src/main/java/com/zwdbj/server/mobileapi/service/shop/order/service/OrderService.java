@@ -1,7 +1,7 @@
 package com.zwdbj.server.mobileapi.service.shop.order.service;
 
 import com.ecwid.consul.v1.ConsulClient;
-import com.zwdbj.server.mobileapi.middleware.mq.DelayMQWorkSender;
+import com.zwdbj.server.common.mq.DelayMQWorkSender;
 import com.zwdbj.server.mobileapi.middleware.mq.ESUtil;
 import com.zwdbj.server.mobileapi.service.shop.order.mapper.IOrderMapper;
 import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
@@ -160,7 +160,10 @@ public class OrderService {
                 Random random = new Random();
                 int code = random.nextInt(900000)  + 100000;
                 String verifyCode = String.valueOf(code);
-                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode);
+                ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(input.getReceiveAddressId()).getData();
+                String receiveAddress = addressModel.getReveiverState()+addressModel.getReceiverCity()+
+                        addressModel.getReceiverCountry()+addressModel.getReceiverStreet()+addressModel.getReceiverAddress();
+                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode,receiveAddress);
                 this.stringRedisTemplate.opsForValue().set("orderIdVerifyCode:"+orderId,verifyCode);
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();
@@ -230,27 +233,29 @@ public class OrderService {
         ProductOrderDetailModel model = this.getOrderById(id).getData();
         long userId = JWTUtil.getCurrentId();
         if (model==null)return;
-        if (!model.getStatus().equals("STATE_WAIT_BUYER_PAY"))return;
-        ProductlShow productlShow = this.productServiceImpl.selectByIdByStoreId(model.getProductId(),model.getStoreId()).getData();
-        if (model.getUseCoin()!=0){
-            //处理金币
-            this.userAssetServiceImpl.minusUserCoins(model.getUseCoin(),userId,id);
-        }
-        String coupons = model.getCouponids();
-        if (coupons!=null && (!coupons.equals("") )){
-            String[] couponIds = coupons.split(",");
-            for (String coupon:couponIds){
-                long couponId = Long.valueOf(coupon);
-                if (couponId==0)continue;
-                //更新优惠券的状态
-                this.userDiscountCouponServiceImpl.updateUserDiscountCouponState(userId,couponId);
+        if (model.getStatus().equals("STATE_WAIT_BUYER_PAY") || model.getStatus().equals("STATE_CLOSED")){
+            ProductlShow productlShow = this.productServiceImpl.selectByIdByStoreId(model.getProductId(),model.getStoreId()).getData();
+            if (model.getUseCoin()!=0){
+                //处理金币
+                this.userAssetServiceImpl.minusUserCoins(model.getUseCoin(),userId,id);
+            }
+            String coupons = model.getCouponids();
+            if (coupons!=null && (!coupons.equals("") )){
+                String[] couponIds = coupons.split(",");
+                for (String coupon:couponIds){
+                    long couponId = Long.valueOf(coupon);
+                    if (couponId==0)continue;
+                    //更新优惠券的状态
+                    this.userDiscountCouponServiceImpl.updateUserDiscountCouponState(userId,couponId);
+                }
+            }
+            if (productlShow.getProductType()==0){
+                this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_BUYER_PAYED","已付款");
+            }else if (productlShow.getProductType()==1){
+                this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_UNUSED","未使用");
             }
         }
-        if (productlShow.getProductType()==0){
-            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_BUYER_PAYED","已付款");
-        }else if (productlShow.getProductType()==1){
-            this.orderMapper.updateOrderPay(id,paymentType,tradeNo,thirdPaymentTradeNotes,"STATE_UNUSED","未使用");
-        }
+
 
     }
     @Transactional

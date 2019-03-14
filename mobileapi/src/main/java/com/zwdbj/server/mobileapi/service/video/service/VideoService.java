@@ -3,11 +3,11 @@ package com.zwdbj.server.mobileapi.service.video.service;
 import com.alibaba.fastjson.JSONArray;
 import com.ecwid.consul.v1.ConsulClient;
 import com.github.pagehelper.Page;
+import com.zwdbj.server.common.mq.MQWorkSender;
 import com.zwdbj.server.common.qiniu.QiniuService;
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.config.settings.AppSettingsConstant;
 import com.zwdbj.server.discoverapiservice.videorandrecommend.service.VideoRandRecommendService;
-import com.zwdbj.server.mobileapi.middleware.mq.MQWorkSender;
 import com.zwdbj.server.mobileapi.service.comment.model.CommentInfoDto;
 import com.zwdbj.server.mobileapi.service.pet.model.PetModelDto;
 import com.zwdbj.server.mobileapi.service.pet.service.PetService;
@@ -539,7 +539,7 @@ public class VideoService {
             if (detailInfoDto != null) {
                 MessageInput msgInput = new MessageInput();
                 msgInput.setCreatorUserId(userId);
-                msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"1\"}");
+                msgInput.setDataContent("{\"resId\":\"" + input.getId() + "\",\"type\":\"0\"}");
                 msgInput.setMessageType(1);
                 msgInput.setRefUrl(detailInfoDto.getVideoUrl());
                 msgInput.setMsgContent("");

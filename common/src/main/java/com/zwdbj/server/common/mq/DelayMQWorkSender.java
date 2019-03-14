@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.middleware.mq;
+package com.zwdbj.server.common.mq;
 
 import com.rabbitmq.client.AMQP;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
@@ -15,7 +15,7 @@ public class DelayMQWorkSender extends MQConnection{
         super.connect();
         try {
             if (this.channel != null) {
-                //this.channel.queueDeclare(MQConfig.delayedQueueTimeConsuming, true, false, false, null);
+                this.channel.queueDeclare(MQConfig.delayedQueueTimeConsuming, true, false, false, null);
                 // 声明x-delayed-type类型的exchange
                 Map<String, Object> args = new HashMap<>();
                 args.put("x-delayed-type", "direct");

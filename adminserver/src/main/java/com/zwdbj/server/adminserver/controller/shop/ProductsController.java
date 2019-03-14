@@ -100,9 +100,8 @@ public class ProductsController {
 
     @PostMapping(value = "/updatePublishs")
     @ApiOperation(value = "批量商品上下架")
-    public ResponseData<Long> updatePublishs(@RequestBody Long[] id ,
-                                            @RequestParam(value = "publish" ,required = true) boolean publish){
-        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updatePublishs(id,publish);
+    public ResponseData<Long> updatePublishs(@RequestBody PublishsProducts publishsProducts){
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.updatePublishs(publishsProducts.getId(),publishsProducts.isPublish());
         if(serviceStatusInfo.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }
@@ -121,8 +120,8 @@ public class ProductsController {
 
     @PostMapping(value = "/deleteByProducts")
     @ApiOperation(value = "批量删除商品")
-    public ResponseData<Long> deleteByProducts(@RequestBody Long[] id){
-        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.deleteByProducts(id);
+    public ResponseData<Long> deleteByProducts(@RequestBody BasicsProducts basicsProducts){
+        ServiceStatusInfo<Long> serviceStatusInfo = this.productServiceImpl.deleteByProducts(basicsProducts.getId());
         if(serviceStatusInfo.isSuccess()){
             return new ResponseData<>(ResponseDataCode.STATUS_NORMAL, "", serviceStatusInfo.getData());
         }

@@ -1173,6 +1173,8 @@ namespace dbdesgin.Migrations
                         .IsRequired()
                         .HasMaxLength(128);
 
+                    b.Property<string>("receiveAddress");
+
                     b.Property<long>("receiveAddressId");
 
                     b.Property<string>("status")

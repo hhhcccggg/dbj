@@ -1,9 +1,11 @@
 package com.zwdbj.server.config.settings;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 @Component
+@RefreshScope
 public class AppSettingConfigs {
     @Autowired
     private AliyunConfigs aliyunConfigs;
@@ -19,6 +21,8 @@ public class AppSettingConfigs {
     private QiniuConfigs qiniuConfigs;
     @Autowired
     private SmsSendConfigs smsSendConfigs;
+    @Autowired
+    private LetterSendConfigs letterSendConfigs;
     @Autowired
     private SwaggerConfigs swaggerConfigs;
     @Autowired
@@ -114,5 +118,13 @@ public class AppSettingConfigs {
 
     public void setYouZanConfigs(YouZanConfigs youZanConfigs) {
         this.youZanConfigs = youZanConfigs;
+    }
+
+    public LetterSendConfigs getLetterSendConfigs() {
+        return letterSendConfigs;
+    }
+
+    public void setLetterSendConfigs(LetterSendConfigs letterSendConfigs) {
+        this.letterSendConfigs = letterSendConfigs;
     }
 }

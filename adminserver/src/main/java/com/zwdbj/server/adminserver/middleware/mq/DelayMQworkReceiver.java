@@ -6,6 +6,8 @@ import com.rabbitmq.client.Envelope;
 import com.zwdbj.server.adminserver.service.shop.service.productOrder.service.ProductOrderService;
 import com.zwdbj.server.adminserver.service.shop.service.store.service.StoreServiceImpl;
 import com.zwdbj.server.adminserver.service.video.service.VideoService;
+import com.zwdbj.server.common.mq.MQConfig;
+import com.zwdbj.server.common.mq.MQConnection;
 import com.zwdbj.server.es.common.ESIndex;
 import com.zwdbj.server.es.service.ESUtilService;
 import com.zwdbj.server.probuf.middleware.mq.QueueWorkInfoModel;
@@ -93,65 +95,71 @@ public class DelayMQworkReceiver extends MQConnection {
     }
 
     protected void processData(QueueWorkInfoModel.QueueWorkInfo info, Envelope envelope) throws IOException {
-        logger.info("[DMQ]收到数据类型:" + info.getWorkType());
-        if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_TIME) {
-            ProductOrderService orderService = SpringContextUtil.getBean(ProductOrderService.class);
-            orderService.orderUnPay(info.getOrderTimeData().getOrderId(), info.getOrderTimeData().getUserId());
-            logger.info("[DMQ]处理订单" + info.getOrderTimeData().getOrderId() + ",用户" + info.getOrderTimeData().getUserId());
-            channel.basicAck(envelope.getDeliveryTag(), false);
-        } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_COMMENT_TIME) {
-            ProductOrderService orderService = SpringContextUtil.getBean(ProductOrderService.class);
-            if (info.getOrderCommentTimeData().getType()==1){
-                orderService.orderUnComment(info.getOrderCommentTimeData().getOrderId());
-                logger.info("[DMQ]处理订单评价" + info.getOrderTimeData().getOrderId());
-                channel.basicAck(envelope.getDeliveryTag(), false);
-            }else if (info.getOrderCommentTimeData().getType()==2){
-                orderService.deliverOrderByUser(info.getOrderCommentTimeData().getOrderId());
-                logger.info("[DMQ]处理订单收货" + info.getOrderTimeData().getOrderId());
-                channel.basicAck(envelope.getDeliveryTag(), false);
-            }
-
-        } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.ES_ADMIN_INFO) {
-            if (info.getEsAdminInfo().getType().equals(ESIndex.VIDEO)) {
-                VideoService videoService = SpringContextUtil.getBean(VideoService.class);
-                videoService.operationByIdES(info.getEsAdminInfo().getId(), info.getEsAdminInfo().getAction(), channel, envelope);
-            } else if (info.getEsAdminInfo().getType().equals(ESIndex.SHOP) ) {
-                StoreServiceImpl storeService = SpringContextUtil.getBean(StoreServiceImpl.class);
-                ESUtilService esService = SpringContextUtil.getBean(ESUtilService.class);
-                if (storeService == null || esService == null) {
-                    logger.error("[DMQ]找不到服务");
-                } else {
-                    long storeId = info.getEsAdminInfo().getId();
-
-                    switch (info.getEsAdminInfo().getAction()) {
-                        case "c":
-                            esService.indexData(storeService.selectByStoreId(storeId).getData(), ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
-
-                            channel.basicAck(envelope.getDeliveryTag(), false);
-                            break;
-
-                        case "u":
-
-                            esService.updateIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId), new BeanMap(storeService.selectByStoreId(storeId).getData()));
-
-                            channel.basicAck(envelope.getDeliveryTag(), false);
-                            break;
-
-                        case "d":
-                            esService.deleteIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
-
-                            channel.basicAck(envelope.getDeliveryTag(), false);
-                            break;
-
-                    }
-                    logger.info("[DMQ]商家" + info.getEsAdminInfo().getId() + "信息更新成功");
+        Action action = Action.RETRY;
+        try {
+            logger.info("[DMQ]收到数据类型:" + info.getWorkType());
+            if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_TIME) {
+                ProductOrderService orderService = SpringContextUtil.getBean(ProductOrderService.class);
+                orderService.orderUnPay(info.getOrderTimeData().getOrderId(), info.getOrderTimeData().getUserId());
+                logger.info("[DMQ]处理订单" + info.getOrderTimeData().getOrderId() + ",用户" + info.getOrderTimeData().getUserId());
+                action = Action.ACCEPT;
+            } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.USER_ORDER_COMMENT_TIME) {
+                ProductOrderService orderService = SpringContextUtil.getBean(ProductOrderService.class);
+                if (info.getOrderCommentTimeData().getType() == 1) {
+                    orderService.orderUnComment(info.getOrderCommentTimeData().getOrderId());
+                    logger.info("[DMQ]处理订单评价" + info.getOrderTimeData().getOrderId());
+                    action = Action.ACCEPT;
+                } else if (info.getOrderCommentTimeData().getType() == 2) {
+                    orderService.deliverOrderByUser(info.getOrderCommentTimeData().getOrderId());
+                    logger.info("[DMQ]处理订单收货" + info.getOrderTimeData().getOrderId());
+                    action = Action.ACCEPT;
                 }
 
-            }
-        } else {
-            logger.info("[DMQ]收到数据类型:" + info.getWorkType() + "后端暂时没有合适的服务处理");
-            channel.basicAck(envelope.getDeliveryTag(), false);
-        }
+            } else if (info.getWorkType() == QueueWorkInfoModel.QueueWorkInfo.WorkTypeEnum.ES_ADMIN_INFO) {
+                if (info.getEsAdminInfo().getType().equals(ESIndex.VIDEO)) {
+                    VideoService videoService = SpringContextUtil.getBean(VideoService.class);
+                    action=videoService.operationByIdES(info.getEsAdminInfo().getId(), info.getEsAdminInfo().getAction(), channel, envelope);
+                } else if (info.getEsAdminInfo().getType().equals(ESIndex.SHOP)) {
+                    logger.info("shop店铺:" + info.getEsAdminInfo().getId());
+                    StoreServiceImpl storeService = SpringContextUtil.getBean(StoreServiceImpl.class);
+                    ESUtilService esService = SpringContextUtil.getBean(ESUtilService.class);
+                    if (storeService == null || esService == null) {
+                        logger.error("[DMQ]找不到服务");
+                    } else {
+                        long storeId = info.getEsAdminInfo().getId();
 
+                        switch (info.getEsAdminInfo().getAction()) {
+                            case "c":
+                                esService.indexData(storeService.selectByStoreId(storeId).getData(), ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
+                                action = Action.ACCEPT;
+                                break;
+
+                            case "u":
+                                esService.updateIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId), new BeanMap(storeService.selectByStoreId(storeId).getData()));
+                                action = Action.ACCEPT;
+                                break;
+
+                            case "d":
+                                esService.deleteIndexData(ESIndex.SHOP, "shopinfo", String.valueOf(storeId));
+                                action = Action.ACCEPT;
+                                break;
+
+                        }
+                        logger.info("[DMQ]商家" + info.getEsAdminInfo().getId() + "信息更新成功");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            action=Action.REJECT;
+            e.printStackTrace();
+        } finally {
+            if (action == Action.ACCEPT) {
+                channel.basicAck(envelope.getDeliveryTag(),false);
+            } else if (action == Action.RETRY) {
+                channel.basicNack(envelope.getDeliveryTag(), false, false);
+            } else {
+                channel.basicNack(envelope.getDeliveryTag(), false, false);
+            }
+        }
     }
 }

@@ -13,4 +13,9 @@ public interface ICitiesMapper {
 
     @Select("select * from core_cities where level = #{levelType} and parentId=#{parenId}")
     List<Cities> selectCondition(@Param("levelType") LevelType levelType, @Param("parenId") long parenId);
+
+    @Select("select name from core_cities where id=#{cityId}")
+    String selectCityName(@Param("cityId") long cityId);
+
+
 }
