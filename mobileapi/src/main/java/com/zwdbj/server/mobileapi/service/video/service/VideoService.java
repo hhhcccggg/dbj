@@ -877,7 +877,6 @@ public class VideoService {
             SearchResponse searchResponse ;
             SearchRequest searchRequest = new SearchRequest("video");
             searchRequest.scroll(TimeValue.timeValueMinutes(15L));
-            searchRequest.source().query(QueryBuilders.termQuery("status",0));
             if(videoMainInput.getScroll_id() != null && videoMainInput.getScroll_id().length()>0){
                 SearchScrollRequest searchScrollRequest = new SearchScrollRequest(videoMainInput.getScroll_id());
                 searchScrollRequest.scroll(TimeValue.timeValueMinutes(15L));
@@ -888,6 +887,7 @@ public class VideoService {
                 if(videoMainInput.getCategory() != null){
                     boolQueryBuilder.filter(QueryBuilders.termQuery("categoryId",videoMainInput.getCategory()));
                 }
+                boolQueryBuilder.filter(QueryBuilders.termQuery("status",0));
                 searchRequest.source().size(10).query(boolQueryBuilder);
                 //距离
                 if(videoMainInput.getType() == VideoMainType.NEARBY &&videoMainInput.getLocation() != null && videoMainInput.getLocation().length()>0) {
