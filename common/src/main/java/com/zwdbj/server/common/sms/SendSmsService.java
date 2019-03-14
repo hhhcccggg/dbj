@@ -72,10 +72,9 @@ public class SendSmsService implements ISendSmsService {
         }
         String code = UniqueIDCreater.generatePhoneCode();
         if (this.appSettingConfigs.getSmsSendConfigs().isSendOpen()) {
-            //TODO 解决中文乱码后再修正
             ServiceStatusInfo<Object> sendResult = this.sendCodeByAli(phone,
                     code,
-                    "爪子APP",
+                    this.appSettingConfigs.getAliyunConfigs().getSmsCodeSignName(),
                     this.appSettingConfigs.getAliyunConfigs().getSmsTemplateCode());
             if (!sendResult.isSuccess()) {
                 return sendResult;

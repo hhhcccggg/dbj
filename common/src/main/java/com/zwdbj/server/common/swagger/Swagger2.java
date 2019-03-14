@@ -1,4 +1,4 @@
-package com.zwdbj.server.mobileapi.config;
+package com.zwdbj.server.common.swagger;
 
 import com.zwdbj.server.config.settings.AppSettingConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,11 @@ public class Swagger2 {
 
     @Bean
     public Docket createRestApi() {
-        String swaggerBasePackageName = "com.zwdbj.server.mobileapi.controller";
+        String swaggerBasePackageName = this.appSettingConfigs.getSwaggerConfigs().getBasePackageName();
+        if (swaggerBasePackageName == null ||
+            swaggerBasePackageName.length()==0) {
+            swaggerBasePackageName = "";
+        }
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .enable(this.appSettingConfigs.getSwaggerConfigs().isEnabled())
@@ -38,10 +42,10 @@ public class Swagger2 {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("后端api接口服务")
-                .description("app和前端接口服务")
-                .termsOfServiceUrl("http://www.zwdbj.com")
-                .version("1.0")
+                .title(this.appSettingConfigs.getSwaggerConfigs().getInfoTitle())
+                .description(this.appSettingConfigs.getSwaggerConfigs().getDescription())
+                .termsOfServiceUrl(this.appSettingConfigs.getSwaggerConfigs().getTermsOfServiceUrl())
+                .version(this.appSettingConfigs.getSwaggerConfigs().getVersion())
                 .build();
     }
 
