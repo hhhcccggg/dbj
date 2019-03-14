@@ -133,21 +133,21 @@ public class QiniuService {
         String pfops = fops+ "|saveas/"+ urlbase64;
         logger.info("urlbase64:"+urlbase64);
         //设置pipeline参数
-        StringMap params = new StringMap().putWhen("force", 1, true).putNotEmpty("pipeline", pipeline);
-                //.putNotEmpty("notifyUrl",);
+        StringMap params = new StringMap().putWhen("force", 1, true).putNotEmpty("pipeline", pipeline)
+                .putNotEmpty("notifyURL","http://dev.api.zwdbj.com/am/api/qiniu/qiuniu/notify");
         try {
             String persistid = operater.pfop(this.appSettingConfigs.getQiniuConfigs().getBucketName(), key, pfops, params);
             //打印返回的persistid
-            System.out.println("打印返回的persistid:"+persistid);
+            logger.info("打印返回的persistid:"+persistid);
             return true;
         } catch (QiniuException e) {
             //捕获异常信息
             Response r = e.response;
             // 请求失败时简单状态信息
-            System.out.println("请求失败时简单状态信息"+r.toString());
+            logger.info("请求失败时简单状态信息"+r.toString());
             try {
                 // 响应的文本信息
-                System.out.println("响应的文本信息"+r.bodyString());
+                logger.info("响应的文本信息"+r.bodyString());
             } catch (QiniuException e1) {
                 //ignore
             }

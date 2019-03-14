@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/qiniu")
 @Api(description = "七牛相关",value = "Qiniu")
@@ -41,11 +47,34 @@ public class QiniuController {
         redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
         return redirectView;
     }
-    @ApiOperation(value = "七牛异步通知")
-    @RequestMapping(value = "/qiuniu/notify",method = RequestMethod.GET)
-    public ResponseData<Boolean> notify(@RequestParam String key) {
+    @ApiOperation(value = "七牛持久化")
+    @RequestMapping(value = "/qiuniu/fops",method = RequestMethod.GET)
+    public ResponseData<Boolean> fops(@RequestParam String key) {
 
         boolean a = this.qiniuService.watermark(key);
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",a);
+    }
+    @ApiOperation(value = "七牛异步通知")
+    @RequestMapping(value = "/qiuniu/notify",method = RequestMethod.POST)
+    public void notify(HttpServletRequest request, HttpServletResponse response) {
+
+        Map<String,String> params = new HashMap<>();
+        Map requestParams = request.getParameterMap();
+        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+            String name = (String) iter.next();
+            String[] values = (String[]) requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+            //乱码解决，这段代码在出现乱码时使用。
+            //valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+            params.put(name, valueStr);
+        }
+        System.out.println("request = [" + request + "], response = [" + response + "]");
+        System.out.println("requestParams = " + requestParams);
+        System.out.println("params = " + params);
+        System.out.println("params.toString() = " + params.toString());
     }
 }
