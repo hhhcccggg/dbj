@@ -123,6 +123,7 @@ public class QiniuService {
         OperationManager operater = new OperationManager(auth,cfg);
         //需要添加水印的图片UrlSafeBase64,可以参考http://developer.qiniu.com/code/v6/api/dora-api/av/video-watermark.html
         String pictureurl = UrlSafeBase64.encodeToString("https://res.pet.zwdbj.com/20988eac5f550.jpg");
+        logger.info("水印的图片UrlSafeBase64:"+pictureurl);
         //设置转码操作参数
         String fops = "avthumb/mp4/s/640x360/vb/1.25m/wmImage/"+pictureurl;
         //设置转码的队列
