@@ -25,7 +25,7 @@ public class CustomerCommentsController {
     @Autowired
     private TokenCenterManager tokenCenterManager;
 
-    @RequestMapping(value = "/commentList", method = RequestMethod.GET)
+    @RequestMapping(value = "/commentList", method = RequestMethod.POST)
     @ApiOperation(value = "获取评论列表")
     public ResponsePageInfoData<List<CommentInfo>> commentList(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                @RequestParam(value = "rows", required = true, defaultValue = "10") int rows,
