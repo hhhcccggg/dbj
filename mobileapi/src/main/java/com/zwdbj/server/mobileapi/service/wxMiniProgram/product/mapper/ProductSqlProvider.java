@@ -23,7 +23,7 @@ public class ProductSqlProvider {
         SQL sql = new SQL().SELECT("id","productType","productDetailType","name","storeId","categoryId", "sales",
                 "brandId","inventory","imageUrls","limitPerPerson","detailDescription","supportCoin","ruleDescription","createTime");
         sql.FROM("shop_products");
-        sql.WHERE(" productDetailType != 'CARD' and  productDetailType != 'CASHCOUPON' and (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0 "+storeId);
+        sql.WHERE(" productDetailType = 'DELIVERY' and (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0 "+storeId);
 
         if(productInput.getType() == 1){
             sql.ORDER_BY("sales desc");
@@ -48,7 +48,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    " productDetailType != 'CARD' and  productDetailType != 'CASHCOUPON' and (publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+"))  and isDeleted=0 and inventory>0 "+storeId+") " +
+                    " productDetailType = 'DELIVERY' and (publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+"))  and isDeleted=0 and inventory>0 "+storeId+") " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
@@ -68,7 +68,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    " productDetailType != 'CARD' and  productDetailType != 'CASHCOUPON' and (publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0  "+storeId+") " +
+                    " productDetailType = 'DELIVERY' and (publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0  "+storeId+") " +
                     "union all " +
                     "(SELECT " +
                     "shop_products.id, " +
@@ -88,7 +88,7 @@ public class ProductSqlProvider {
                     "FROM " +
                     "shop_products " +
                     "where  " +
-                    " productDetailType != 'CARD' and  productDetailType != 'CASHCOUPON' and (publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0  "+storeId+" and  inventory=0) ";
+                    " productDetailType = 'DELIVERY'  and (publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0  "+storeId+" and  inventory=0) ";
         }
         return sql.toString();
     }
