@@ -122,10 +122,11 @@ public class QiniuService {
         //新建一个OperationManager对象
         OperationManager operater = new OperationManager(auth,cfg);
         //需要添加水印的图片UrlSafeBase64,可以参考http://developer.qiniu.com/code/v6/api/dora-api/av/video-watermark.html
-        String pictureurl = UrlSafeBase64.encodeToString("https://res.pet.zwdbj.com/20988eac5f550.jpg");
+        String pictureurl = UrlSafeBase64.encodeToString("http://dev.hd.res.pet.zwdbj.com/1%20%2849%29.jpg");
         logger.info("水印的图片UrlSafeBase64:"+pictureurl);
         //设置转码操作参数
-        String fops = "avthumb/mp4/wmImage/"+pictureurl;
+        String text = UrlSafeBase64.encodeToString("ZuaiZiAPP");
+        String fops = "avthumb/mp4/wmImage/"+pictureurl+"/wmText"+text;
         //设置转码的队列
         String pipeline = "zwdbj001";
         //可以对转码后的文件进行使用saveas参数自定义命名，当然也可以不指定,文件会默认命名并保存在当前空间。
