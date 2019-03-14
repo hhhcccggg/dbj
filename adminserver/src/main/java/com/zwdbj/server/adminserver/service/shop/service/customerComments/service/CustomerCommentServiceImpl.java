@@ -23,6 +23,7 @@ public class CustomerCommentServiceImpl implements CustomerCommentService {
         List<CommentInfo> result = null;
         try {
             result = this.customerCommentMapper.commentList(legalSubjectId);
+            System.out.println(result);
             for (CommentInfo c : result) {
                 c.setRefComment(this.customerCommentMapper.commentReply(c.getId()));
             }

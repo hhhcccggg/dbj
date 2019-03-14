@@ -7,11 +7,11 @@ import java.util.List;
 
 @Mapper
 public interface CustomerCommentMapper {
-    @Select("SELECT c.id,c.contentTxt,c.rate,c.heartCount,u.username,u.id as userId," +
-            "c.createTime,c.resourceOwnerId,d.`name` as resourceOwnerName,ce.type,ce.dataId,ce.dataContent " +
-            "from core_comments as c,core_comment_extraDatas as ce,core_users as u,shop_discountCoupons as d,shop_stores as s " +
-            "where ce.commentId=c.id and d.id=c.resourceOwnerId and u.id=c.userId and c.reviewStatus='pass' " +
-            "and c.isOwner=1 and d.storeId=s.id and s.legalSubjectId=#{legalSubjectId} and c.resourceTypeId=1  order by c.createTime")
+    @Select("SELECT c.id,c.contentTxt,c.rate,c.heartCount,u.username,u.id as userId,c.createTime,c.resourceOwnerId," +
+            "ce.type,ce.dataId,ce.dataContent FROM core_comments as c left join core_comment_extraDatas as ce " +
+            "on ce.commentId=c.id left JOIN core_users as u ON u.id=c.userId where c.reviewStatus='pass' and c.isOwner=1  " +
+            "and c.resourceTypeId=1 and c.resourceOwnerId in (select p.id from shop_products as p,shop_stores as s " +
+            "where p.storeId=s.id and s.legalSubjectId=#{legalSubjectId}) order by c.createTime ")
     List<CommentInfo> commentList(@Param("legalSubjectId") long legalSubjectId);
 
     @Select("SELECT c.id,u.username,u.id AS userId,c.createTime,c.contentTxt FROM core_comments AS c,core_users AS u WHERE c.refCommentId =#{commentId} AND c.userId=u.id AND c.isOwner=0")
@@ -25,19 +25,20 @@ public interface CustomerCommentMapper {
     @Update("update core_comments set isDeleted=1 and deleteTime=now() where id=#{commentId}")
     Long deleteComment(@Param("commentId") long commentId);
 
-    @Select("SELECT count(*) as countComments,AVG(rate) as rate FROM core_comments as c " +
-            "where c.resourceTypeId=1 and c.reviewStatus='pass' and c.resourceOwnerId in" +
-            "(select d.id from shop_discountCoupons as d,shop_stores as s where d.storeId=s.id and s.legalSubjectId=#{legalSubjectId})")
+    @Select("SELECT count(*) as countComments,round(AVG(rate),1) as rate FROM core_comments as c where c.resourceTypeId=1 " +
+            "and c.isOwner=1 and c.reviewStatus='pass' and c.resourceOwnerId in (select p.id from shop_products as p," +
+            "shop_stores as s where p.storeId=s.id and s.legalSubjectId=#{legalSubjectId})")
     UserComments countComments(@Param("legalSubjectId") long legalSubjectId);
 
-    @Select("SELECT c.id,c.contentTxt,c.rate,c.heartCount,u.username,u.id as userId," +
-            "c.createTime,c.resourceOwnerId,d.`name` as resourceOwnerName,ce.type,ce.dataId,ce.dataContent " +
-            "from core_comments as c,core_comment_extraDatas as ce,core_users as u,shop_discountCoupons as d,shop_stores as s " +
-            "where ce.commentId=c.id and d.id=c.resourceOwnerId and u.id=c.userId and c.reviewStatus='pass' " +
-            "and c.isOwner=1 and d.storeId=s.id and s.legalSubjectId=#{legalSubjectId} and c.resourceTypeId=1 and c.rate=#{rate} order by c.createTime")
+    @Select("SELECT c.id,c.contentTxt,c.rate,c.heartCount,u.username,u.id as userId,c.createTime,c.resourceOwnerId," +
+            "ce.type,ce.dataId,ce.dataContent from core_comments as c left join core_comment_extraDatas as ce " +
+            "on ce.commentId=c.id left join core_users as u on u.id=c.userId where c.reviewStatus='pass' and c.isOwner=1  " +
+            "and c.resourceTypeId=1 and c.resourceOwnerId in (select p.id from shop_products as p,shop_stores as s " +
+            "where p.storeId=s.id and s.legalSubjectId=#{legalSubjectId}) and c.rate=#{rate} order by c.createTime")
     List<CommentInfo> commentRankList(@Param("legalSubjectId") long legalSubjectId, @Param("rate") float rate);
 
-    @Select("SELECT c.rate, count(*) as counts from core_comments as c,shop_discountCoupons as d ,shop_stores as s " +
-            "where c.resourceOwnerId=d.id and d.storeId=s.id and s.legalSubjectId=#{legalSubjectId} GROUP BY rate ORDER BY rate DESC")
+    @Select("SELECT c.rate, count(*) as counts from core_comments as c,shop_products as p ,shop_stores as s " +
+            "where c.resourceOwnerId=p.id and p.storeId=s.id and s.legalSubjectId=#{legalSubjectId} " +
+            "and c.resourceTypeId=1 and c.isOwner=1 and c.reviewStatus='pass' GROUP BY rate ORDER BY rate DESC")
     List<CommentRank> commentRank(long legalSubjectId);
 }
