@@ -73,12 +73,13 @@ public class EaseMobUser {
                 .build();
         try {
             Response response = client.newCall(request).execute();
+            logger.info("response:"+response.toString());
             if (response.isSuccessful()) {
                 String bodyJSON = response.body().string();
                 logger.info("环信发送消息回执:"+bodyJSON);
                 return true;
             } else {
-                logger.error("发送环信消息失败:>>"+response.message());
+                logger.error("发送环信消息失败:>>"+response.message()+"code:"+response.code());
                 return false;
             }
         } catch (Exception ex) {
