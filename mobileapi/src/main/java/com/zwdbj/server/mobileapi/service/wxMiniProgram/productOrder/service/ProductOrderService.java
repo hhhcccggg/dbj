@@ -75,7 +75,7 @@ public class ProductOrderService {
                 //创建order
                 int payment = (int)productSKUs.getPromotionPrice();
                 ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(input.getReceiveAddressId()).getData();
-                this.productOrderMapper.createOrder(orderId, userId, input, payment,addressModel.getReceiverAddress(),
+                this.productOrderMapper.createOrder(orderId, userId, input, payment,addressModel.getDetailedly(),
                         addressModel.getReceiverName(),addressModel.getReceiverMobile());
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();
