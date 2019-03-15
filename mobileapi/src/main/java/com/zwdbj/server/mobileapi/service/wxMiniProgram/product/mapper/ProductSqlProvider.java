@@ -30,65 +30,7 @@ public class ProductSqlProvider {
         }else if(productInput.getType() == 2){
             sql.ORDER_BY("specifyPublishTime desc");
         }else if(productInput.getType() == 0){
-            return "(SELECT " +
-                    "shop_products.id, " +
-                    "shop_products.productType, " +
-                    "shop_products.specifyPublishTime, " +
-                    "shop_products.name, " +
-                    "shop_products.storeId, " +
-                    "shop_products.sales, " +
-                    "shop_products.categoryId, " +
-                    "shop_products.brandId, " +
-                    "shop_products.inventory, " +
-                    "shop_products.imageUrls, " +
-                    "shop_products.detailDescription, " +
-                    "shop_products.supportCoin, "+
-                    "shop_products.ruleDescription, "+
-                    "shop_products.limitPerPerson " +
-                    "FROM " +
-                    "shop_products " +
-                    "where  " +
-                    " productDetailType = 'DELIVERY' and (publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+"))  and isDeleted=0 and inventory>0 "+storeId+") " +
-                    "union all " +
-                    "(SELECT " +
-                    "shop_products.id, " +
-                    "shop_products.productType, " +
-                    "shop_products.specifyPublishTime, " +
-                    "shop_products.name, " +
-                    "shop_products.storeId, " +
-                    "shop_products.sales, " +
-                    "shop_products.categoryId, " +
-                    "shop_products.brandId, " +
-                    "shop_products.inventory, " +
-                    "shop_products.imageUrls, " +
-                    "shop_products.detailDescription, " +
-                    "shop_products.supportCoin, "+
-                    "shop_products.ruleDescription, "+
-                    "shop_products.limitPerPerson " +
-                    "FROM " +
-                    "shop_products " +
-                    "where  " +
-                    " productDetailType = 'DELIVERY' and (publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0  "+storeId+") " +
-                    "union all " +
-                    "(SELECT " +
-                    "shop_products.id, " +
-                    "shop_products.productType, " +
-                    "shop_products.specifyPublishTime, " +
-                    "shop_products.name, " +
-                    "shop_products.storeId, " +
-                    "shop_products.sales, " +
-                    "shop_products.categoryId, " +
-                    "shop_products.brandId, " +
-                    "shop_products.inventory, " +
-                    "shop_products.imageUrls, " +
-                    "shop_products.detailDescription, " +
-                    "shop_products.supportCoin, "+
-                    "shop_products.ruleDescription, "+
-                    "shop_products.limitPerPerson " +
-                    "FROM " +
-                    "shop_products " +
-                    "where  " +
-                    " productDetailType = 'DELIVERY'  and (publish=1 or (publish=0 and specifyPublishTime!=0 and specifyPublishTime<"+specifyPublishTime+")) and isDeleted=0  "+storeId+" and  inventory=0) ";
+            sql.ORDER_BY("createTime desc");
         }
         return sql.toString();
     }
