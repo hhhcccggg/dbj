@@ -350,15 +350,13 @@ public class UserService {
         Long result = 0L;
         try {
             if (!input.getmNewPassword().equals(input.getNewPassword()))return new ServiceStatusInfo<>(1, "新密码和确认密码不一致", result);
-            String regEx = "^(?![a-zA-z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
+            String regEx = "^(?![a-zA-Z]+$)(?!\\d+$)(?![_]+$)[a-zA-Z\\d_]{8,12}$";
             Pattern r = Pattern.compile(regEx);
             Matcher m1 = r.matcher(input.getmNewPassword());
             Matcher m2 = r.matcher(input.getNewPassword());
-            Matcher m3 = r.matcher(input.getOldPassword());
             boolean rs1 = m1.matches();
             boolean rs2 = m2.matches();
-            boolean rs3 = m3.matches();
-            if (!rs1  || !rs2 || !rs3) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
+            if (!rs1  || !rs2 ) return new ServiceStatusInfo<>(1, "密码为8到12位字母、数字或“_”的组合", null);
             input.setOldPassword(SHAEncrypt.encryptSHA(input.getOldPassword()));
             input.setmNewPassword(SHAEncrypt.encryptSHA(input.getmNewPassword()));
             result = this.userMapper.modifyPwdAd(id, input);
