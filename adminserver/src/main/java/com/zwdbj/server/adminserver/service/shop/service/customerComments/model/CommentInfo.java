@@ -35,6 +35,8 @@ public class CommentInfo {
     long dataId;
     @ApiModelProperty(value = "媒体资源内容")
     String dataContent;
+    @ApiModelProperty(value = "视频第一帧")
+    String coverImageUrl;
 
     public boolean isRefCommentOrNot() {
         return refCommentOrNot;
@@ -146,5 +148,13 @@ public class CommentInfo {
 
     public void setDataContent(String dataContent) {
         this.dataContent = dataContent;
+    }
+
+    public String getCoverImageUrl() {
+        return coverImageUrl;
+    }
+
+    public void setCoverImageUrl(String coverImageUrl) {
+        this.coverImageUrl = coverImageUrl;
     }
 }
