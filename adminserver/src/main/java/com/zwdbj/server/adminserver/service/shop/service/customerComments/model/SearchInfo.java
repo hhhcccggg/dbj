@@ -12,10 +12,10 @@ public class SearchInfo {
     //回复状态，0：未回复，1：已回复
     private int isReply;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date startDate;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date endDate;
 
     public String getUsername() {
