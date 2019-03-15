@@ -98,7 +98,7 @@ public interface IProductMapper {
 
     @Select("select p.id as productId,pk.id as skuId,p.storeId,p.productType,p.productDetailType,p.name,p.limitPerPerson,pk.originalPrice,pk.promotionPrice, "+
             "pk.inventory,pk.sales from shop_products as p,shop_productSKUs as pk"+
-            " where productType=1 and (productDetailType='CARD' or productDetailType='CASHCOUPON') and p.storeId=#{storeId}"+
+            " where productType=1 and p.storeId=#{storeId}"+
     " and pk.productId=p.id and (publish=1 or (publish=0 and specifyPublishTime!=0 and  specifyPublishTime < REPLACE(unix_timestamp(current_timestamp(3)),'.','')))")
     List<ProductInfo> selectProductByStoreId(@Param("storeId") Long storeId);
 
