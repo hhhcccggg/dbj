@@ -47,4 +47,44 @@ public class EaseMobUser {
             return false;
         }
     }
+
+    /**
+     * 发送透传消息
+     * @param fromUser
+     * @param toUser
+     * @param action
+     * @return
+     */
+    public boolean message_cmd(String fromUser,String toUser,String action) {
+        String url = String.format("%s/%s/%s/messages",
+                this.appSettingConfigs.getEasemobConfigs().getHttpbase(),
+                this.appSettingConfigs.getEasemobConfigs().getOrgName(),
+                this.appSettingConfigs.getEasemobConfigs().getAppName());
+        EaseMobToken token = this.easeMobTokenManager.token();
+        if (token==null)return false;
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization","Bearer "+token.getAccess_token())
+                .post(RequestBody.create(MediaType.parse("application/json"),
+                        "{\"target_type\": \"users\"," +
+                                "\"target\": [\""+toUser+"\"]," +
+                                "\"msg\": {\"type\": \"cmd\",\"action\": \""+action+"\"}, " +
+                                "\"target\": \""+fromUser+"\"}"))
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String bodyJSON = response.body().string();
+                logger.info("环信发送消息回执:"+bodyJSON);
+                return true;
+            } else {
+                logger.error("发送环信消息失败:>>"+response.message());
+                return false;
+            }
+        } catch (Exception ex) {
+            logger.error("发送环信消息失败:>>"+ex.getMessage());
+            return false;
+        }
+
+    }
 }

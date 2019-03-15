@@ -128,6 +128,8 @@ public class UserService {
         long userId = JWTUtil.getCurrentId();
         if (userId == 0) return new ServiceStatusInfo<>(1, "请重新登录", null);
         if (input.getUserId() == userId) return new ServiceStatusInfo<>(1, "不能关注自己", null);
+        String fromUser = this.userMapper.findHxUserNameById(userId);
+        String toUser = this.userMapper.findHxUserNameById(input.getUserId());
         boolean isFollowed = isFollower(input.getUserId(), userId);
         if (input.isFollow()) {
             if (!isFollowed) {
@@ -145,6 +147,8 @@ public class UserService {
                     msgInput.setRefUrl("");
                     msgInput.setDataContent("{\"resId\":\"" + input.getUserId() + "\",\"type\":\"0\"}");
                     this.messageCenterService.push(msgInput, input.getUserId());
+                    if (fromUser!=null && toUser!=null && fromUser.length()>0 && toUser.length()>0)
+                        this.easeMobUser.message_cmd(fromUser,toUser,"follow");
                     return new ServiceStatusInfo<>(0, "关注成功", null);
                 } else {
                     return new ServiceStatusInfo<>(1, "关注失败", null);
@@ -154,6 +158,8 @@ public class UserService {
             if (isFollowed) {
                 long result = this.userMapper.unFollow(input.getUserId(), userId);
                 if (result > 0) {
+                    if (fromUser!=null && toUser!=null && fromUser.length()>0 && toUser.length()>0)
+                        this.easeMobUser.message_cmd(fromUser,toUser,"unFollow");
                     return new ServiceStatusInfo<>(0, "取消关注成功", null);
                 } else {
                     return new ServiceStatusInfo<>(1, "取消关注失败", null);
