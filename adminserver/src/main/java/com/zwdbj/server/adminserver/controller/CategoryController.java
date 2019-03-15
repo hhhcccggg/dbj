@@ -11,6 +11,7 @@ import com.zwdbj.server.adminserver.service.category.model.*;
 import com.zwdbj.server.adminserver.service.category.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+    @RequiresAuthentication
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @ApiOperation("分类列表")
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ResponseData<List<CategoryDto>> search(@RequestBody CategorySearchInput input) {
@@ -35,7 +38,7 @@ public class CategoryController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/basicCategory", method = RequestMethod.POST)
     @ApiOperation("基本分类信息列表")
-    @RequiresRoles(RoleIdentity.ADMIN_ROLE)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponsePageInfoData<List<AdBasicCategoryDto>> basicCompalinAd(@RequestBody AdBasicCategoryInput input,
                                                                           @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                           @RequestParam(value = "rows", required = true, defaultValue = "13") int rows) {
@@ -47,7 +50,7 @@ public class CategoryController {
     @RequiresAuthentication
     @RequestMapping(value = {"/dbj/basicCategory/add", "/dbj/basicCategory/add/{id}"}, method = RequestMethod.POST)
     @ApiOperation("新建基本分类信息列表")
-    @RequiresRoles(RoleIdentity.ADMIN_ROLE)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponseData<Long> addCategoryAd(@PathVariable(required = false) Long id,
                                             @RequestBody AdNewCategoryInput input) {
         ServiceStatusInfo<Long> statusInfo = this.categoryService.addCategoryAd(id, input);
@@ -61,7 +64,7 @@ public class CategoryController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/basicCategory/edit/{id}", method = RequestMethod.POST)
     @ApiOperation("修改分类的名字")
-    @RequiresRoles(RoleIdentity.ADMIN_ROLE)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponseData<Long> editCategoryAd(@PathVariable Long id,
                                              @RequestBody AdNewCategoryNameInput input) {
         ServiceStatusInfo<Long> statusInfo = this.categoryService.editCategoryAd(id, input);
@@ -74,7 +77,7 @@ public class CategoryController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/categoryDetails/{id}", method = RequestMethod.GET)
     @ApiOperation("查看分类的品种")
-    @RequiresRoles(RoleIdentity.ADMIN_ROLE)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponsePageInfoData<List<AdBasicCategoryDto>> categoryDetailsAd(@PathVariable Long id,
                                                                             @RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
                                                                             @RequestParam(value = "rows", required = true, defaultValue = "13") int rows) {
@@ -86,7 +89,7 @@ public class CategoryController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/delCategory/{id}", method = RequestMethod.GET)
     @ApiOperation("删除分类的品种")
-    @RequiresRoles(RoleIdentity.ADMIN_ROLE)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponseData<Long> delCategoryAd(@PathVariable Long id) {
         ServiceStatusInfo<Long> statusInfo = this.categoryService.delCategoryAd(id);
         if (statusInfo.isSuccess()) {
@@ -97,6 +100,8 @@ public class CategoryController {
 
     @RequestMapping(value = "/dbj/searchCategory", method = RequestMethod.GET)
     @ApiOperation("通过id查找分类")
+    @RequiresAuthentication
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponseData<List<StoreServiceCategory>> storeExtraService(@RequestParam(value = "param") List<Long> param) {
 
         ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.searchCategory(param);
@@ -109,6 +114,8 @@ public class CategoryController {
 
     @RequestMapping(value = "/dbj/allExtraService", method = RequestMethod.GET)
     @ApiOperation("查找所有商家额外服务名称")
+    @RequiresAuthentication
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponseData<List<StoreServiceCategory>> allExtraService() {
         ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.allExtraService();
         if (statusInfo.isSuccess()) {
@@ -119,6 +126,8 @@ public class CategoryController {
 
     @RequestMapping(value = "/dbj/allServiceScopes", method = RequestMethod.GET)
     @ApiOperation("查找所有商家服务范围名称")
+    @RequiresAuthentication
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponseData<List<StoreServiceCategory>> allServiceScopes() {
         ServiceStatusInfo<List<StoreServiceCategory>> statusInfo = this.categoryService.allServiceScopes();
         if (statusInfo.isSuccess()) {

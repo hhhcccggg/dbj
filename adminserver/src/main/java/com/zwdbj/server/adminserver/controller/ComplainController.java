@@ -11,6 +11,7 @@ import com.zwdbj.server.adminserver.service.complain.model.*;
 import com.zwdbj.server.adminserver.service.complain.service.ComplainService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ComplainController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/basicComplain/{resTypeId}",method = RequestMethod.POST)
     @ApiOperation("基础信息-(用户/视频/直播)举报选项:被举报的资源类型0：用户,1：视频,2：直播")
-    @RequiresRoles(RoleIdentity.ADMIN_ROLE)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponsePageInfoData<List<AdComplainListDto>>
     basicCompalinAd(@RequestBody AdFindComplainInput input,
                     @PathVariable(value = "resTypeId",required = true) int resTypeId, //0：用户,1：视频,2：直播
@@ -43,7 +44,7 @@ public class ComplainController {
     @RequiresAuthentication
     @RequestMapping(value = "/dbj/basicComplain/{type}/add",method = RequestMethod.POST)
     @ApiOperation("基础信息-新建(用户/视频/直播)举报选项:被举报的资源类型0：用户,1：视频,2：直播")
-    @RequiresRoles(RoleIdentity.ADMIN_ROLE)
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     public ResponseData<Long> addComplainAd(@RequestBody AdNewComplainInput input,
                                             @PathVariable(value = "type",required = true)int type){
         ServiceStatusInfo<Long> statusInfo = this.complainService.addComplainAd(input,type);

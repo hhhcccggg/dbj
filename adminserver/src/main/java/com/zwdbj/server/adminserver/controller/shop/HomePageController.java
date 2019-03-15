@@ -13,6 +13,7 @@ import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +34,7 @@ public class HomePageController {
     @ApiModelProperty
     private StoreService storeServiceImpl;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/todayOverview", method = RequestMethod.GET)
     @ApiOperation(value = "今日概览")
     public ResponseData<TodayOverview> todayOverview() {
@@ -44,6 +46,7 @@ public class HomePageController {
         return new ResponseData<>(1, result.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/orderDayTrend", method = RequestMethod.GET)
     @ApiOperation(value = "订单今日趋势")
     public ResponseData<HashMap<String, List<OrderTrend>>> orderDayTrend() {
@@ -55,6 +58,7 @@ public class HomePageController {
         return new ResponseData<>(1, result.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/orderWeekTrend", method = RequestMethod.GET)
     @ApiOperation(value = "订单本周趋势")
     public ResponseData<HashMap<String, List<OrderTrend>>> orderWeekTrend() {
@@ -66,6 +70,7 @@ public class HomePageController {
         return new ResponseData<>(1, result.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/videoDayTrend", method = RequestMethod.GET)
     @ApiOperation(value = "视频今日趋势")
     public ResponseData<List<VideoTrend>> videoDayTrend() {
@@ -79,6 +84,7 @@ public class HomePageController {
         return new ResponseData<>(1, result.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/videoWeekTrend", method = RequestMethod.GET)
     @ApiOperation(value = "视频今日趋势")
     public ResponseData<List<VideoTrend>> videoWeekTrend() {

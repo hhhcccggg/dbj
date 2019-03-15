@@ -11,6 +11,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class DiscountCouponController {
     @Autowired
     private DiscountCouponService discountCouponServiceImpl;
 
+    @RequiresAuthentication
     @GetMapping("findPage")
     @ApiOperation(value = "优惠券分页查询")
     public ResponsePageInfoData<DiscountCouponModel> findPage(@RequestParam(value = "pageNo" , required = true , defaultValue = "1") int pageNo,
@@ -38,6 +40,7 @@ public class DiscountCouponController {
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL,"",pageInfo.getList(),pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
     @PostMapping("addDiscountCoupon")
     @ApiOperation(value = "新增优惠券")
     public ResponseData<Long> addDiscountCoupon(@RequestBody @Valid DiscountCouponInput discountCouponInput){
@@ -48,6 +51,7 @@ public class DiscountCouponController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
+    @RequiresAuthentication
     @PostMapping("updateDiscountCoupon")
     @ApiOperation(value = "修改优惠券")
     public ResponseData<Long> updateDiscountCoupon(@RequestBody @Valid DiscountCouponInput discountCouponInput){
@@ -58,6 +62,7 @@ public class DiscountCouponController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
+    @RequiresAuthentication
     @PostMapping("deleteDiscountCoupon")
     @ApiOperation(value = "删除优惠券")
     public ResponseData<Long> deleteDiscountCoupon(@RequestBody long[] id){
@@ -68,6 +73,7 @@ public class DiscountCouponController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
+    @RequiresAuthentication
     @PostMapping("find/{id}")
     @ApiOperation(value = "查询优惠券")
     public ResponseData<DiscountCouponModel> findDiscountCoupon(@RequestParam(value = "id" ,required = true) long id){
@@ -78,6 +84,7 @@ public class DiscountCouponController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,"",serviceStatusInfo.getData());
     }
 
+    @RequiresAuthentication
     @PostMapping("issueDiscountCoupon")
     @ApiOperation(value = "指定用户发放优惠券")
     public ResponseData<Long> issueDiscountCoupon(@RequestParam(value = "id" ,required = true) long id,

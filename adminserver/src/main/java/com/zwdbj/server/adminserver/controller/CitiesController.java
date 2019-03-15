@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.controller;
 
+import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.adminserver.service.cities.model.Cities;
 import com.zwdbj.server.adminserver.service.cities.model.LevelType;
 import com.zwdbj.server.adminserver.service.cities.service.CitiesService;
@@ -8,6 +9,9 @@ import com.zwdbj.server.basemodel.model.ResponseDataCode;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +30,7 @@ public class CitiesController {
 
     @GetMapping("selectAllProvince")
     @ApiOperation(value = "查询所有省")
+    @RequiresAuthentication
     public ResponseData<List<Cities>> selectAllProvince(){
         ServiceStatusInfo<List<Cities>> serviceStatusInfo = citiesServiceImpl.selectAllProvince();
         if(serviceStatusInfo.isSuccess())
@@ -33,6 +38,7 @@ public class CitiesController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,serviceStatusInfo.getMsg(),null);
     }
 
+    @RequiresAuthentication
     @GetMapping("selectCity")
     @ApiOperation(value = "查询省下面的市")
     public ResponseData<List<Cities>> selectCity(long parenId){
@@ -42,6 +48,7 @@ public class CitiesController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,serviceStatusInfo.getMsg(),null);
     }
 
+    @RequiresAuthentication
     @GetMapping("selectStreet")
     @ApiOperation(value = "查询市下面的街道 镇 乡")
     public ResponseData<List<Cities>> selectStreet(long parenId){
@@ -51,6 +58,7 @@ public class CitiesController {
         return new ResponseData<>(ResponseDataCode.STATUS_NORMAL,serviceStatusInfo.getMsg(),null);
     }
 
+    @RequiresAuthentication
     @GetMapping("selectDistrict")
     @ApiOperation(value = "查询市下面的行政区")
     public ResponseData<List<Cities>> selectDistrict(long parenId){

@@ -11,6 +11,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class ProductAttriLinksController {
     @Autowired
     private ProductAttriLinksService productAttriLinksServiceImpl;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "添加商品属性关系")
     public ResponseData<Long> createProductAttriLinks(@RequestBody ProductAttriLinks productAttriLinks) {
@@ -34,6 +36,7 @@ public class ProductAttriLinksController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除商品属性关系")
     public ResponseData<Long> deleteProductAttriLinks(@PathVariable("id") Long id) {
@@ -44,6 +47,7 @@ public class ProductAttriLinksController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改商品属性关系")
     public ResponseData<Long> updateProductAttriLinks(@RequestBody ProductAttriLinks productAttriLinks) {
@@ -55,6 +59,7 @@ public class ProductAttriLinksController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有商品属性关系")
     public ResponsePageInfoData<List<ProductAttriLinks>> selectAll(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,

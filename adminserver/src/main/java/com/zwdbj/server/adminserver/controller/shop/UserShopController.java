@@ -13,6 +13,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class UserShopController {
     @Autowired
     UserService userService;
 
+    @RequiresAuthentication
     @PostMapping("/findPage")
     @ApiOperation(value = "分页条件查询")
     public ResponsePageInfoData<List<UserShopSelectInput>> findPage(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
@@ -38,6 +40,7 @@ public class UserShopController {
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, serviceStatusInfo.getMsg(), pageInfo.getList(), pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
     @PostMapping("/createUserShop")
     @ApiOperation(value = "创建员工")
      public ResponseData<Long> createUserShop(@RequestBody @Valid CreateUserInput input){
@@ -48,12 +51,14 @@ public class UserShopController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
      }
 
+    @RequiresAuthentication
      @GetMapping("/findById/{id}")
      @ApiOperation(value = "查询员工")
      public ResponseData<UserModel> findById(@PathVariable long id){
          return new ResponseData(ResponseDataCode.STATUS_NORMAL, "", this.userService.findUserById(id));
      }
 
+    @RequiresAuthentication
      @PostMapping("/deleteByUser")
      @ApiOperation(value = "批量删除员工")
      public ResponseData<Long> deleteByUser(@RequestBody long[] id){
@@ -64,6 +69,7 @@ public class UserShopController {
          return new ResponseData(ResponseDataCode.STATUS_ERROR, "", 0L);
      }
 
+    @RequiresAuthentication
     @PostMapping("/setRepresent")
     @ApiOperation(value = "批量设置代言人")
     public ResponseData<Long> setRepresent(@RequestBody long[] id){
@@ -75,6 +81,7 @@ public class UserShopController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, "", 0L);
     }
 
+    @RequiresAuthentication
     @PostMapping("/cancelRepresent")
     @ApiOperation(value = "批量取消代言人")
     public ResponseData<Long> cancelRepresent(@RequestBody long[] id){

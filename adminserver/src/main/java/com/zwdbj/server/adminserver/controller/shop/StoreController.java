@@ -2,6 +2,7 @@ package com.zwdbj.server.adminserver.controller.shop;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.ReviewStoreInput;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreInfo;
 import com.zwdbj.server.adminserver.service.shop.service.store.model.StoreSearchInput;
@@ -12,7 +13,9 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +48,8 @@ public class StoreController {
         if (statusInfo.isSuccess())return new ResponseData<>(0,"",statusInfo.getData());
         return new ResponseData<>(1,"查询失败",null);
     }
+
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequiresAuthentication
     @RequestMapping(value = "/update/storeStatus/{storeId}/{legalSubjectId}", method = RequestMethod.GET)
     @ApiOperation(value = "店铺 的上线和下线 state为0时上线,为1时下线")
@@ -55,6 +60,8 @@ public class StoreController {
         if (statusInfo.isSuccess())return new ResponseData<>(0,"",statusInfo.getData());
         return new ResponseData<>(1,"更新失败",null);
     }
+
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequiresAuthentication
     @RequestMapping(value = "/review/store/{storeId}/{legalSubjectId}", method = RequestMethod.POST)
     @ApiOperation(value = "店铺的审核")

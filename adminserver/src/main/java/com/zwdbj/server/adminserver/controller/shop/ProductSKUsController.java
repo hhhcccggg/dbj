@@ -11,6 +11,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class ProductSKUsController {
     @Autowired
     private ProductSKUsService productSKUsServiceImpl;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建商品SKU")
     public ResponseData<Long> create(@RequestBody ProductSKUs productSKUs) {
@@ -34,6 +36,7 @@ public class ProductSKUsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改商品SKU")
     public ResponseData<Long> update(@RequestBody ProductSKUs productSKUs) {
@@ -45,6 +48,7 @@ public class ProductSKUsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除商品SKU")
     public ResponseData<Long> deleteById(@PathVariable Long id) {
@@ -56,6 +60,7 @@ public class ProductSKUsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有商品SKU")
     public ResponsePageInfoData<List<ProductSKUs>> selectAll(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
@@ -68,6 +73,7 @@ public class ProductSKUsController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping(value = "/select/{id}")
     @ApiOperation(value = "查询单个商品的SKU")
     public ResponseData<ProductSKUs> selectById(@PathVariable Long id){

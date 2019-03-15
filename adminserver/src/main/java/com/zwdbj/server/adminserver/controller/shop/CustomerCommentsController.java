@@ -11,6 +11,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class CustomerCommentsController {
     @Autowired
     private TokenCenterManager tokenCenterManager;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/commentList", method = RequestMethod.POST)
     @ApiOperation(value = "获取评论列表")
     public ResponsePageInfoData<List<CommentInfo>> commentList(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
@@ -38,6 +40,7 @@ public class CustomerCommentsController {
         return new ResponsePageInfoData<>(0, "", list, page.getTotal());
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/commenRanktList/{rate}", method = RequestMethod.GET)
     @ApiOperation(value = "分级获取评论列表")
     public ResponsePageInfoData<List<CommentInfo>> commentRankList(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,
@@ -51,6 +54,7 @@ public class CustomerCommentsController {
         return new ResponsePageInfoData<>(0, "", list, page.getTotal());
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/replyComment", method = RequestMethod.POST)
     @ApiOperation(value = "回复评论")
     public ResponseData<Long> replyComment(@RequestBody ReplyComment replyComment) {
@@ -62,6 +66,7 @@ public class CustomerCommentsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/deleteComment/{commentId}", method = RequestMethod.GET)
     @ApiOperation(value = "删除评论")
     public ResponseData<Long> deleteComment(@PathVariable("commentId") long commentId) {
@@ -73,6 +78,7 @@ public class CustomerCommentsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/countComments", method = RequestMethod.GET)
     @ApiOperation(value = "统计评论")
     public ResponseData<UserComments> countComments() {
@@ -86,6 +92,7 @@ public class CustomerCommentsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/countCommentsRank", method = RequestMethod.GET)
     @ApiOperation(value = "分级统计评论")
     public ResponseData<List<CommentRank>> commentRank() {

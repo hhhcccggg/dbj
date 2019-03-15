@@ -27,6 +27,8 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+    @RequiresAuthentication
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/list/{resId}",method = RequestMethod.GET)
     @ApiOperation(value = "获取资源(视频)的评论")
     @ApiImplicitParams({
@@ -39,6 +41,8 @@ public class CommentController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL,"",comments,pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ApiOperation(value = "获取某个评论详情")
     public ResponseData<CommentInfoDto> list(@PathVariable long id) {
