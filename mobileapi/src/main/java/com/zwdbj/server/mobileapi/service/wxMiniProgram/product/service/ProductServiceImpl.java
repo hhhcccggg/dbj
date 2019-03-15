@@ -129,7 +129,15 @@ public class ProductServiceImpl implements ProductService {
             List<Long> userIds = iProductOrderMapper.selectByOrder(id);
             List<String> exchangeList = null;
             if (userIds.size() > 0) {
-                exchangeList = iUserMapper.selectUserAvatarUrl(userIds);
+                exchangeList = new ArrayList<>(userIds.size());
+                List<Map<String,String>> userAvatarUrls = iUserMapper.selectUserAvatarUrl(userIds);
+                Map<String,String> userAvatarUrl = new HashMap<>();
+                for (Map<String,String> map : userAvatarUrls) {
+                    userAvatarUrl.put( String.valueOf(map.get("id")) ,map.get("avatarUrl"));
+                }
+                for (long userId : userIds) {
+                    exchangeList.add(userAvatarUrl.get(String.valueOf(userId)));
+                }
             }
             StoreModel storeModel = storeServiceImpl.selectById(storeId).getData();
             productlShow.setStoreName(storeModel == null ? "" : storeModel.getName());

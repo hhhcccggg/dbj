@@ -57,7 +57,7 @@ public class UserSqlProvider {
 
     public String selectUserAvatarUrl(Map map){
         List<Long> userIds = (List<Long>) map.get("userIds");
-        SQL sql = new SQL().SELECT("avatarUrl").FROM(TBL_NAME);
+        SQL sql = new SQL().SELECT("id,avatarUrl").FROM(TBL_NAME);
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = 0; i < userIds.size(); i++) {
             stringBuffer.append("id="+userIds.get(i));
