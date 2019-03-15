@@ -28,7 +28,6 @@ public class AccountInController {
     @RequestMapping(value = "/sendPhoneCode/{phone}", method = RequestMethod.GET)
     @ApiOperation("/发送手机验证码")
     @RequiresAuthentication
-    @RequiresRoles(value = BusinessRoleIdentity.ADMIN_ROLE)
     public ResponseData<String> sendPhoneCode(@PathVariable("phone") String phone) {
         ServiceStatusInfo<String> statusInfo = accountInfoServiceImpl.sendPhoneCode(phone);
         if (statusInfo.isSuccess()) {
@@ -40,7 +39,6 @@ public class AccountInController {
     @RequestMapping(value = "/checkPhoneCode", method = RequestMethod.GET)
     @ApiOperation("验证手机验证码")
     @RequiresAuthentication
-    @RequiresRoles(value = BusinessRoleIdentity.ADMIN_ROLE)
     public ResponseData<Object> checkPhoneCode(@RequestParam("phone") String phone, @RequestParam("code") String code) {
 
         ServiceStatusInfo<Object> statusInfo = accountInfoServiceImpl.checkPhoneCode(phone, code);

@@ -10,6 +10,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class ProductAttrisController {
     @Autowired
     private ProductAttrisService productAttrisServiceImpl;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有商品属性规格")
     public ResponsePageInfoData<List<ProductAttrisController>> selectAll(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
@@ -33,6 +35,7 @@ public class ProductAttrisController {
         return new ResponsePageInfoData(ResponseDataCode.STATUS_NORMAL, "", list, pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改商品属性规格")
     public ResponseData<Long> updateProdcutAttris(@RequestBody ProductAttris productAttris) {
@@ -43,6 +46,7 @@ public class ProductAttrisController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "增加商品属性规格")
     public ResponseData<Long> createProdcutAttris(@RequestBody ProductAttris productAttris) {
@@ -53,6 +57,7 @@ public class ProductAttrisController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除商品属性规格")
     public ResponseData<Long> deleteById(@PathVariable("id") Long id) {

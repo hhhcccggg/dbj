@@ -10,6 +10,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.adminserver.service.music.service.MusicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.modelmapper.ModelMapper;
@@ -27,6 +28,9 @@ import java.util.Map;
 public class MusicController {
     @Autowired
     private MusicService musicService;
+
+    @RequiresAuthentication
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ApiOperation(value = "获取音乐列表")
     public ResponsePageInfoData<List<MusicDto>> list(@RequestParam(value = "pageNo",required = true,defaultValue = "1") int pageNo,
@@ -37,6 +41,8 @@ public class MusicController {
         return new ResponsePageInfoData<List<MusicDto>>(ResponseDataCode.STATUS_NORMAL,"",musicDtos,pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ApiOperation(value = "获取音乐详情")
     public ResponseData<MusicDto> get(@PathVariable long id) {

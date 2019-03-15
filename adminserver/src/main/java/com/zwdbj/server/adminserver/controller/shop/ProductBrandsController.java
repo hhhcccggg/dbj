@@ -10,6 +10,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class ProductBrandsController {
     @Autowired
     private ProductBrandsService productBrandsServiceImpl;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建品牌")
     public ResponseData<Long> create(@RequestBody ProductBrands productBrands) {
@@ -32,6 +34,7 @@ public class ProductBrandsController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除品牌")
     public ResponseData<Long> delete(@PathVariable Long id) {
@@ -42,6 +45,7 @@ public class ProductBrandsController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改品牌")
     public ResponseData<Long> update(@RequestBody ProductBrands productBrands) {
@@ -52,6 +56,7 @@ public class ProductBrandsController {
         return new ResponseData(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询品牌")
     public ResponsePageInfoData<List<ProductBrands>> select(@RequestParam(value = "pageNo", required = true, defaultValue = "1") int pageNo,

@@ -13,6 +13,7 @@ import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class EnCashPayAccountController {
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有提现第三方支付账号")
+    @RequiresAuthentication
     public ResponsePageInfoData<List<EnCashPayAccount>> search(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
                                                                @RequestParam(value = "rows", defaultValue = "30", required = true) int rows) {
         PageHelper.startPage(pageNo, rows);
@@ -40,6 +42,7 @@ public class EnCashPayAccountController {
 
     }
 
+    @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/search/{userId}", method = RequestMethod.GET)
     @ApiOperation(value = "通过用户id查询提现第三方支付账号")
@@ -54,6 +57,7 @@ public class EnCashPayAccountController {
 
     }
 
+    @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建提现第三方支付账号")
@@ -69,6 +73,7 @@ public class EnCashPayAccountController {
 
     }
 
+    @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
     @ApiOperation(value = "通过用户id删除提现第三方支付账号")
@@ -81,6 +86,7 @@ public class EnCashPayAccountController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, statusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/update/{userId}", method = RequestMethod.POST)
     @ApiOperation(value = "修改提现第三方支付账号")

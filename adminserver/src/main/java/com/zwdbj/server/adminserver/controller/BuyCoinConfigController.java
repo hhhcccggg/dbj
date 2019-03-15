@@ -13,6 +13,7 @@ import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class BuyCoinConfigController {
     @Resource
     private BuyCoinConfigService buyCoinConfigServiceImpl;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/search/{type}", method = RequestMethod.GET)
     @ApiOperation(value = "通过平台类型查询可选充值金币配置列表")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
@@ -38,6 +40,7 @@ public class BuyCoinConfigController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", result, pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有可选充值金币配置列表")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
@@ -49,6 +52,7 @@ public class BuyCoinConfigController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "create", method = RequestMethod.POST)
     @ApiOperation(value = "创建可选充值金币配置列表")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
@@ -60,6 +64,7 @@ public class BuyCoinConfigController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除可选充值金币配置列表")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)
@@ -71,6 +76,7 @@ public class BuyCoinConfigController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改可选充值金币配置列表")
     @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE,RoleIdentity.MARKET_ROLE},logical = Logical.OR)

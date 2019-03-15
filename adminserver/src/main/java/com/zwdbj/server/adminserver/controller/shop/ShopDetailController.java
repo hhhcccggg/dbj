@@ -13,6 +13,7 @@ import com.zwdbj.server.tokencenter.model.AuthUser;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class ShopDetailController {
     @Autowired
     private TokenCenterManager tokenCenterManager;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/basicInfo", method = RequestMethod.GET)
     @ApiOperation(value = "展示店铺基本信息")
     public ResponseData<StoreDto> basicInfo() {
@@ -46,6 +48,7 @@ public class ShopDetailController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/createOpeningHours/{openTime}/{closeTime}/{days}", method = RequestMethod.GET)
     @ApiOperation(value = "新增时间段")
     public ResponseData<Long> createOpeningHours(@PathVariable("openTime") int openTime,
@@ -62,6 +65,7 @@ public class ShopDetailController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/modifyOpeningHours/{openTime}/{closeTime}/{days}", method = RequestMethod.GET)
     @ApiOperation(value = "修改营业时间")
     public ResponseData<Long> modifyOpeningHours(@PathVariable("openTime") int openTime,
@@ -79,6 +83,7 @@ public class ShopDetailController {
     }
 
 
+    @RequiresAuthentication
     @RequestMapping(value = "/location", method = RequestMethod.GET)
     @ApiOperation(value = "显示位置信息")
     public ResponseData<LocationInfo> showLocation() {
@@ -93,6 +98,7 @@ public class ShopDetailController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/modifylocation", method = RequestMethod.POST)
     @ApiOperation(value = "修改位置信息")
     public ResponseData<Long> modifylocation(@RequestBody LocationInfo info) {
@@ -109,6 +115,7 @@ public class ShopDetailController {
     }
 
 
+    @RequiresAuthentication
     @RequestMapping(value = "/modifyExtraService", method = RequestMethod.POST)
     @ApiOperation(value = "修改店铺额外服务范围")
     public ResponseData<Long> modifyExtraService(@RequestBody List<StoreServiceCategory> storeServiceCategory) {
@@ -123,6 +130,7 @@ public class ShopDetailController {
     }
 
 
+    @RequiresAuthentication
     @RequestMapping(value = "/modifyServiceScopes", method = RequestMethod.POST)
     @ApiOperation(value = "修改店铺服务范围")
     public ResponseData<Long> modifyServiceScopes(@RequestBody List<StoreServiceCategory> storeServiceCategory) {
@@ -136,6 +144,7 @@ public class ShopDetailController {
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/uploadCheck", method = RequestMethod.POST)
     @ApiOperation("上传资料审核")
     public ResponseData<Long> uploadCheck(@RequestBody QualificationInput input) {
@@ -150,6 +159,7 @@ public class ShopDetailController {
         return new ResponseData<>(1, statusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/modifyStoreImage", method = RequestMethod.POST)
     @ApiOperation(value = "修改店铺照片")
     public ResponseData<Long> modifyStoreImage(@RequestBody StoreImage storeImage) {

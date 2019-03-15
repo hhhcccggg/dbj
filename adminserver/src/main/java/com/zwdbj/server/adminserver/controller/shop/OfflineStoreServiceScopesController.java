@@ -13,6 +13,7 @@ import com.zwdbj.server.tokencenter.TokenCenterManager;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ public class OfflineStoreServiceScopesController {
     @Autowired
     private TokenCenterManager tokenCenterManager;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "添加线下门店服务范围")
     public ResponseData<Long> create(@RequestBody OfflineStoreServiceScopes offlineStoreServiceScopes) {
@@ -40,6 +42,7 @@ public class OfflineStoreServiceScopesController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改线下门店服务范围")
     public ResponseData<Long> update(@RequestBody OfflineStoreServiceScopes offlineStoreServiceScopes) {
@@ -52,6 +55,7 @@ public class OfflineStoreServiceScopesController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/delete/{serviceScopeId}", method = RequestMethod.GET)
     @ApiOperation(value = "删除线下门店服务范围")
     public ResponseData<Long> deleteById(@PathVariable("serviceScopeId") Long serviceScopeId) {
@@ -65,6 +69,7 @@ public class OfflineStoreServiceScopesController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有线下门店服务范围")
     public ResponsePageInfoData<List<OfflineStoreServiceScopes>> select(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
@@ -75,6 +80,7 @@ public class OfflineStoreServiceScopesController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", list, pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/select/{offlineStoreId}", method = RequestMethod.GET)
     @ApiOperation(value = "通过Id查询线下门店服务范围")
     public ResponseData<List<OfflineStoreServiceScopes>> selectById(@PathVariable("offlineStoreId") Long offlineStoreId) {
