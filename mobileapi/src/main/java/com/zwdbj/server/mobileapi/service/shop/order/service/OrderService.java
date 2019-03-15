@@ -126,13 +126,14 @@ public class OrderService {
                 //如果有限购，则要查看订单表，看兑换次数是否已经用完
                 //查看此商品的sku信息
                 ProductSKUs productSKUs =  this.productSKUsServiceImpl.selectById(input.getProductskuId()).getData();
-                if (productSKUs==null)return new ServiceStatusInfo<>(1, "购买失败", null);
-                if (input.getLimitPerPerson()!=0){
+                ProductOut product = this.productServiceImpl.selectById(input.getProductId()).getData();
+                if (productSKUs==null || product==null)return new ServiceStatusInfo<>(1, "兑换失败",null);
+                if (product.getLimitPerPerson()!=0){
                     int account = this.orderMapper.userBuyProductAccounts(userId,input.getProductId());
-                    if (account>=input.getLimitPerPerson()){
-                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", null);
-                    }else if ((account+input.getNum())>input.getLimitPerPerson()){
-                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+input.getLimitPerPerson()+"个", null);
+                    if (account>=product.getLimitPerPerson()){
+                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+product.getLimitPerPerson()+"个", null);
+                    }else if ((account+input.getNum())>product.getLimitPerPerson()){
+                        return new ServiceStatusInfo<>(1, "您只能购买此商品"+product.getLimitPerPerson()+"个", null);
                     }
 
                 }

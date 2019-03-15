@@ -2,6 +2,7 @@ package com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.service;
 
 import com.ecwid.consul.v1.ConsulClient;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
+import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.model.ProductOut;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.product.service.ProductService;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.mapper.IProductOrderMapper;
 import com.zwdbj.server.mobileapi.service.wxMiniProgram.productOrder.model.AddOrderInput;
@@ -44,15 +45,16 @@ public class ProductOrderService {
                 long userId = JWTUtil.getCurrentId();
                 //查看此商品的sku信息
                 ProductSKUs productSKUs =  this.productSKUsServiceImpl.selectById(input.getProductskuId()).getData();
-                if (productSKUs==null)return new ServiceStatusInfo<>(1, "兑换失败", 0);
+                ProductOut product = this.productServiceImpl.selectById(input.getProductId()).getData();
+                if (productSKUs==null || product==null)return new ServiceStatusInfo<>(1, "兑换失败", 0);
 
                 //如果有限购，则要查看订单表，看兑换次数是否已经用完
-                if (input.getLimitPerPerson() != 0) {
+                if (product.getLimitPerPerson() != 0) {
                     int account = this.productOrderMapper.userBuyProductAccounts(userId, input.getProductId());
-                    if (account >= input.getLimitPerPerson()) {
-                        return new ServiceStatusInfo<>(1, "您只能兑换此商品" + input.getLimitPerPerson() + "个", null);
-                    } else if ((account + input.getNum()) > input.getLimitPerPerson()) {
-                        return new ServiceStatusInfo<>(1, "您只能兑换此商品" + input.getLimitPerPerson() + "个", null);
+                    if (account >= product.getLimitPerPerson()) {
+                        return new ServiceStatusInfo<>(1, "您只能兑换此商品" + product.getLimitPerPerson() + "个", null);
+                    } else if ((account + input.getNum()) > product.getLimitPerPerson()) {
+                        return new ServiceStatusInfo<>(1, "您只能兑换此商品" + product.getLimitPerPerson() + "个", null);
                     }
 
                 }
