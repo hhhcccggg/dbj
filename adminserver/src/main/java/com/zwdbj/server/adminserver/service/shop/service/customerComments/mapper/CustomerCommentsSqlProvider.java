@@ -17,18 +17,16 @@ public class CustomerCommentsSqlProvider {
                 .LEFT_OUTER_JOIN("core_users u ON u.id=c.userId")
                 .LEFT_OUTER_JOIN("core_videos v ON v.id=ce.dataId")
                 .WHERE("c.resourceOwnerId in (select p.id from shop_products as p," +
-                        "shop_stores as s where p.storeId=s.id and s.legalSubjectId=#{legalSubjectId})")
+                        "shop_stores as s where p.storeId=s.id and s.legalSubjectId="+legalSubjectId+")")
                 .WHERE("c.reviewStatus='pass'")
                 .WHERE("c.isOwner=1")
                 .WHERE("c.resourceTypeId=1");
         if (searchInfo.getUsername()!=null&&searchInfo.getUsername().length()>0) {
-            sql.WHERE("c.username like '%#{searchInfo.username}%'");
+            sql.WHERE(String.format("c.username like '%s'", ("%" + searchInfo.getUsername() + "%")));
         }
-        if(searchInfo.getStartDate()!=null){
-            sql.WHERE("c.createTime>='#{searchInfo.startDate}'");
-        }
-        if(searchInfo.getEndDate()!=null){
-            sql.WHERE("c.createTime<='#{searchInfo.endDate}'");
+        if (searchInfo.getStartTime() !=null  && searchInfo.getStartTime().length()!=0
+                && searchInfo.getEndTime() !=null && searchInfo.getEndTime().length()!=0){
+            sql.WHERE(String.format("c.createTime between '%s' and '%s'",searchInfo.getStartTime(),searchInfo.getEndTime()));
         }
         sql.ORDER_BY("c.createTime desc");
         return sql.toString();

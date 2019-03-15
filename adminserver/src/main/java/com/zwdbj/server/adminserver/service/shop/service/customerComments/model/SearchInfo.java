@@ -1,22 +1,21 @@
 package com.zwdbj.server.adminserver.service.shop.service.customerComments.model;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 @ApiModel(description = "搜索评论的条件")
 public class SearchInfo {
-    //用户昵称
+    @ApiModelProperty(value = "输入的查询关键字， 用户昵称")
     private String username;
-    //回复状态，0：未回复，1：已回复
+    @ApiModelProperty(value = "回复状态，0：未回复，1：已回复")
     private int isReply;
-
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date startDate;
-
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date endDate;
+    @ApiModelProperty(value = "输入的查询起始时间")
+    private String startTime;
+    @ApiModelProperty(value = "输入的查询结束时间")
+    private String endTime;
 
     public String getUsername() {
         return username;
@@ -34,19 +33,19 @@ public class SearchInfo {
         this.isReply = isReply;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }
