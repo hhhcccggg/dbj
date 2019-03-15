@@ -17,7 +17,7 @@ public class CustomerCommentsSqlProvider {
                 .LEFT_OUTER_JOIN("core_users u ON u.id=c.userId")
                 .LEFT_OUTER_JOIN("core_videos v ON v.id=ce.dataId")
                 .WHERE("c.resourceOwnerId in (select p.id from shop_products as p," +
-                        "shop_stores as s where p.storeId=s.id and s.legalSubjectId=#{legalSubjectId}")
+                        "shop_stores as s where p.storeId=s.id and s.legalSubjectId=#{legalSubjectId})")
                 .WHERE("c.reviewStatus='pass'")
                 .WHERE("c.isOwner=1")
                 .WHERE("c.resourceTypeId=1");
