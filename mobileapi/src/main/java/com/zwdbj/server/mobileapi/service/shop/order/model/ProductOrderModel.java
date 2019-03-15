@@ -30,8 +30,6 @@ public class ProductOrderModel {
     private String receiverName;
     @ApiModelProperty(value = "收货人手机号")
     private String receiverMobile;
-    @ApiModelProperty(value = "收货地址model")
-    private ReceiveAddressModel addressModel;
     @ApiModelProperty(value = "此订单的实付金额,单位为分")
     private int actualPayment;
     @ApiModelProperty(value = "此订单使用的金币抵扣数")
@@ -241,14 +239,6 @@ public class ProductOrderModel {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public ReceiveAddressModel getAddressModel() {
-        return addressModel;
-    }
-
-    public void setAddressModel(ReceiveAddressModel addressModel) {
-        this.addressModel = addressModel;
     }
 
     public int getActualPayment() {

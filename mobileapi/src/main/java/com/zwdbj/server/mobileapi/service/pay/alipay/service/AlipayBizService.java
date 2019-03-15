@@ -43,7 +43,7 @@ public class AlipayBizService {
         rmbs = (input.getCoins() / 10) * 100;
         rmbs = 1;// 测试
         UserCoinDetailAddInput detailInput = new UserCoinDetailAddInput();
-        detailInput.setTitle("充值"+input.getCoins()+"小饼干");
+        detailInput.setTitle("充值小饼干 ￥"+input.getCoins()/10.0);
         detailInput.setNum(input.getCoins());
         detailInput.setExtraData("");
         detailInput.setType("PAY");

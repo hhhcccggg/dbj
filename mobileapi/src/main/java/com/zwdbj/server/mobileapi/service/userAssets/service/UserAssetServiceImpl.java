@@ -459,7 +459,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
                 if (result == 1) {
                     UserCoinDetailAddInput userCoinDetailAddInput = new UserCoinDetailAddInput();
                     userCoinDetailAddInput.setNum(-coins);
-                    userCoinDetailAddInput.setTitle("提现" + coins + "小饼干");
+                    userCoinDetailAddInput.setTitle("提现￥" + coins/10 + "元");
                     userCoinDetailAddInput.setType("ENCASH");
                     userCoinDetailAddInput.setExtraData("");
                     //提现时增加小饼干详情

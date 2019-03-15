@@ -201,7 +201,7 @@ public class VideoService {
         long videoId = UniqueIDCreater.generateID();
         long userId = JWTUtil.getCurrentId();
         if (userId <= 0) return new ServiceStatusInfo<>(1,"请登录后再发布视频",null,null);
-        if (input.getTags() != null) {
+        if (input.getTags() != null && !("".equals(input.getTags()))) {
             String[] tags = input.getTags().split(",");
             //TODO 更新标签的数据
             this.tagService.everyTagCount(tags);
@@ -643,7 +643,7 @@ public class VideoService {
         UserCoinDetailAddInput addInput = new UserCoinDetailAddInput();
         addInput.setNum(income);
         addInput.setType("INCOME");
-        addInput.setTitle("视频获得的打赏");
+        addInput.setTitle("收到打赏");
         userAssetServiceImpl.addUserCoinDetailSuccess(authorId, addInput);
         userAssetServiceImpl.updateUserCoinType(authorId, "INCOME", income);
         userAssetServiceImpl.updateUserAsset(authorId, income);
@@ -711,7 +711,7 @@ public class VideoService {
                     UserCoinDetailAddInput addTaskInput = new UserCoinDetailAddInput();
                     addTaskInput.setNum(-coins);
                     addTaskInput.setType("TASK");
-                    addTaskInput.setTitle("视频打赏消费");
+                    addTaskInput.setTitle("打赏");
 
                     //修改打赏用户小饼干明细
                     userAssetServiceImpl.addUserCoinDetailSuccess(userId, addTaskInput);
@@ -736,7 +736,7 @@ public class VideoService {
                         UserCoinDetailAddInput addPayInput = new UserCoinDetailAddInput();
                         addPayInput.setNum(-authorIncome);
                         addPayInput.setType("INCOME");
-                        addPayInput.setTitle("视频打赏消费");
+                        addPayInput.setTitle("打赏");
 
                         userAssetServiceImpl.addUserCoinDetailSuccess(userId, addPayInput);
                         userAssetServiceImpl.updateUserCoinType(userId, "PAY", -coins);
@@ -757,7 +757,7 @@ public class VideoService {
                             UserCoinDetailAddInput addOtherInput = new UserCoinDetailAddInput();
                             addOtherInput.setNum(-authorIncome);
                             addOtherInput.setType("INCOME");
-                            addOtherInput.setTitle("视频打赏消费");
+                            addOtherInput.setTitle("打赏");
 
                             userAssetServiceImpl.addUserCoinDetailSuccess(userId, addOtherInput);
                             userAssetServiceImpl.updateUserCoinType(userId, "OTHER", -coins);
@@ -777,7 +777,7 @@ public class VideoService {
                             UserCoinDetailAddInput addIncomeInput = new UserCoinDetailAddInput();
                             addIncomeInput.setNum(-authorIncome);
                             addIncomeInput.setType("INCOME");
-                            addIncomeInput.setTitle("视频打赏消费");
+                            addIncomeInput.setTitle("打赏");
                             userAssetServiceImpl.addUserCoinDetailSuccess(userId, addIncomeInput);
                             userAssetServiceImpl.updateUserCoinType(userId, "INCOME", -coins);
                             userAssetServiceImpl.updateUserAsset(userId, -authorIncome);
