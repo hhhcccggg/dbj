@@ -66,11 +66,11 @@ public interface IUserMapper {
     long unFollow(@Param("userId") long userId, @Param("followerUserId") long followerUserId);
 
     @Select("select t3.*,(select count(*) from core_followers as t2 where t2.userId = t1.followerUserId and t2.followerUserId=#{userId}) as isFollowedMe " +
-            "from core_followers as t1 inner join core_users as t3 on t3.id = t1.followerUserId where t1.userId=#{userId}")
+            "from core_followers as t1 inner join core_users as t3 on t3.id = t1.followerUserId where t1.userId=#{userId} order by t1.createTime desc")
     List<FollowerUserInfoDto> myFollowers(@Param("userId") long userId);
 
     @Select("select t3.*,(select count(*) from core_followers as t2 where t2.followerUserId = t1.userId and t2.userId=#{userId}) as isFollowedMe " +
-            "from core_followers as t1 inner join core_users as t3 on t3.id = t1.userId where t1.followerUserId=#{userId}")
+            "from core_followers as t1 inner join core_users as t3 on t3.id = t1.userId where t1.followerUserId=#{userId} order by t1.createTime desc")
     List<FollowerUserInfoDto> myFollowed(@Param("userId") long userId);
 
     @Select("select (select count(*) from core_followers where userId=#{input.toUserId} and followerUserId=#{input.userId}) as isFollowed, " +
