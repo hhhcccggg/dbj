@@ -10,62 +10,62 @@ import java.util.Map;
 public class ProductlShow {
 
     @ApiModelProperty(value = "id")
-    Long id;
+    private Long id;
 
     @ApiModelProperty(value = "商品类型")
-    Long productType;
+    private Long productType;
 
     @ApiModelProperty(value = "产品详细类型 /// DELIVERY: 实物产品 NODELIVERY:虚拟商品(不需要物流)\n" +
             "        /// CARD:卡券(服务中套餐)，关联[ProductCard]表 CASHCOUPON:代金券，类似70抵100，关联[ProductCashCoupon]表")
-    String productDetailType;
+    private String productDetailType;
 
     @ApiModelProperty(value = "商品名称")
-    String name;
+    private String name;
 
     @ApiModelProperty(value = "库存")
-    long inventory;
+    private long inventory;
 
     @ApiModelProperty(value = "销量")
-    long sales;
+    private long sales;
 
     @ApiModelProperty(value = "商品详情")
-    String detailDescription;
+    private String detailDescription = "";
 
     @ApiModelProperty(value = "是否限购 0：表示不限购 大于0数字表示没人只能买商品的数量")
-    int limitPerPerson;
+    private int limitPerPerson;
 
     @ApiModelProperty(value = "原价")
-    long originalPrice;
+    private long originalPrice;
 
     @ApiModelProperty(value = "促销价")
-    Long promotionPrice;
+    private Long promotionPrice;
 
     @ApiModelProperty(value = "节假日是否可用")
-    boolean festivalCanUse;
+    private boolean festivalCanUse;
 
     @ApiModelProperty(value = "支持金币兑换购买")
-    boolean supportCoin;
+    private boolean supportCoin;
 
     @ApiModelProperty(value = "品牌ID")
-    Long brandId;
+    private Long brandId;
 
     @ApiModelProperty(value = "种类ID")
-    Long categoryId;
+    private Long categoryId;
 
     @ApiModelProperty(value = "商品图片地址")
-    String imageUrls;
+    private String imageUrls;
 
     @ApiModelProperty(value = "已经兑换的头像列表")
-    List<String> exchangeList;
+    private List<String> exchangeList;
 
     @ApiModelProperty(value = "productSKUId")
-    long productSKUId;
+    private long productSKUId;
 
     @ApiModelProperty(value = "规则说明")
-    String ruleDescription;
+    private String ruleDescription = "";
 
     @ApiModelProperty(value = "预约信息")
-    private String appointment;
+    private String appointment = "";
 
     @ApiModelProperty(value = "是否与其他优惠券共用")
     private boolean stackUse;
