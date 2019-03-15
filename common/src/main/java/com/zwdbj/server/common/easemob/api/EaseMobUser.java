@@ -78,7 +78,7 @@ public class EaseMobUser {
                 logger.info("环信发送消息回执:"+bodyJSON);
                 return true;
             } else {
-                logger.error("发送环信消息失败:>>"+response.message());
+                logger.error("发送环信消息失败:>>"+response.message()+"code:"+response.code());
                 return false;
             }
         } catch (Exception ex) {
