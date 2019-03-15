@@ -35,8 +35,8 @@ public class CategoryService {
                }catch (Exception e){}
             }
             List<CategoryOut> categoryOuts = this.categoryMapper.mainSelect();
-            if(categoryOuts != null && categoryOuts.size()>0){
-                List<CategoryOut> category = categoryOuts.subList(0,5);
+            if(categoryOuts != null && categoryOuts.size()>0 && categoryOuts.size()<= 5){
+                List<CategoryOut> category = categoryOuts.subList(0,categoryOuts.size());
                 categoryMainDto.setCategoryOneOut(new ArrayList<>(category));
             }
             if(categoryOuts != null && categoryOuts.size()>5){
