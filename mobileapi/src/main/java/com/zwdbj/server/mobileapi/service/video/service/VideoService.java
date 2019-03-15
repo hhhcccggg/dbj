@@ -522,6 +522,7 @@ public class VideoService {
             videoHeartStatusDto.setHeart(true);
             return new ServiceStatusInfo<>(1, "已经点赞过", videoHeartStatusDto,null);
         }
+        this.stringRedisTemplate.delete("userFavorite"+userId);
         if (heartModel != null && !input.isHeart()) {
             this.heartService.unHeart(userId, input.getId());
             this.videoMapper.addHeart(input.getId(), -1);
