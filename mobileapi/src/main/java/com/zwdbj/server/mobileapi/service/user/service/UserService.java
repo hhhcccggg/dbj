@@ -148,7 +148,7 @@ public class UserService {
                     msgInput.setDataContent("{\"resId\":\"" + input.getUserId() + "\",\"type\":\"0\"}");
                     this.messageCenterService.push(msgInput, input.getUserId());
                     if (fromUser!=null && toUser!=null && fromUser.length()>0 && toUser.length()>0)
-                        this.easeMobUser.message_cmd(fromUser,toUser,"follow");
+                        this.easeMobUser.message_cmd(fromUser,toUser,"action1");
                     return new ServiceStatusInfo<>(0, "关注成功", null);
                 } else {
                     return new ServiceStatusInfo<>(1, "关注失败", null);
@@ -159,7 +159,7 @@ public class UserService {
                 long result = this.userMapper.unFollow(input.getUserId(), userId);
                 if (result > 0) {
                     if (fromUser!=null && toUser!=null && fromUser.length()>0 && toUser.length()>0)
-                        this.easeMobUser.message_cmd(fromUser,toUser,"unFollow");
+                        this.easeMobUser.message_cmd(fromUser,toUser,"action1");
                     return new ServiceStatusInfo<>(0, "取消关注成功", null);
                 } else {
                     return new ServiceStatusInfo<>(1, "取消关注失败", null);

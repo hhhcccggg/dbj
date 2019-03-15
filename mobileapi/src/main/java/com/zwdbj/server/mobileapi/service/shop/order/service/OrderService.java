@@ -8,6 +8,7 @@ import com.zwdbj.server.mobileapi.service.shop.order.model.AddNewOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.CancelOrderInput;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderDetailModel;
 import com.zwdbj.server.mobileapi.service.shop.order.model.ProductOrderModel;
+import com.zwdbj.server.mobileapi.service.user.model.UserModel;
 import com.zwdbj.server.mobileapi.service.user.service.UserService;
 import com.zwdbj.server.mobileapi.service.userAssets.model.UserCoinDetailAddInput;
 import com.zwdbj.server.mobileapi.service.userAssets.service.UserAssetServiceImpl;
@@ -127,7 +128,7 @@ public class OrderService {
                 //查看此商品的sku信息
                 ProductSKUs productSKUs =  this.productSKUsServiceImpl.selectById(input.getProductskuId()).getData();
                 ProductOut product = this.productServiceImpl.selectById(input.getProductId()).getData();
-                if (productSKUs==null || product==null)return new ServiceStatusInfo<>(1, "兑换失败",null);
+                if (productSKUs==null || product==null)return new ServiceStatusInfo<>(1, "下单失败",null);
                 if (product.getLimitPerPerson()!=0){
                     int account = this.orderMapper.userBuyProductAccounts(userId,input.getProductId());
                     if (account>=product.getLimitPerPerson()){
@@ -161,9 +162,10 @@ public class OrderService {
                 Random random = new Random();
                 int code = random.nextInt(900000)  + 100000;
                 String verifyCode = String.valueOf(code);
-                ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(input.getReceiveAddressId()).getData();
-                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode,addressModel.getDetailedly(),
-                        addressModel.getReceiverName(),addressModel.getReceiverMobile());
+                UserModel userModel = this.userService.findUserById(userId);
+                //ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(input.getReceiveAddressId()).getData();
+                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode,"",
+                        userModel.getNickName(),userModel.getPhone());
                 this.stringRedisTemplate.opsForValue().set("orderIdVerifyCode:"+orderId,verifyCode);
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();
