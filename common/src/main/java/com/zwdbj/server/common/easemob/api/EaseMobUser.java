@@ -69,7 +69,7 @@ public class EaseMobUser {
                         "{\"target_type\": \"users\"," +
                                 "\"target\": [\""+toUser+"\"]," +
                                 "\"msg\": {\"type\": \"cmd\",\"action\": \""+action+"\"}, " +
-                                "\"target\": \""+fromUser+"\"}"))
+                                "\"from\": \""+fromUser+"\"}"))
                 .build();
         try {
             Response response = client.newCall(request).execute();
