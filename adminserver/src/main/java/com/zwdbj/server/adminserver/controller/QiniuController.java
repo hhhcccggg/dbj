@@ -1,5 +1,6 @@
 package com.zwdbj.server.adminserver.controller;
 
+import com.zwdbj.server.adminserver.identity.RoleIdentity;
 import com.zwdbj.server.basemodel.model.ResponseData;
 import com.zwdbj.server.basemodel.model.ResponseDataCode;
 import com.zwdbj.server.common.qiniu.QiniuService;
@@ -7,7 +8,9 @@ import com.zwdbj.server.config.settings.AppSettingConfigs;
 import com.zwdbj.server.tokencenter.model.UserToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +50,7 @@ public class QiniuController {
         redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
         return redirectView;
     }
+    @RequiresAuthentication
     @ApiOperation(value = "七牛持久化")
     @RequestMapping(value = "/qiuniu/fops",method = RequestMethod.GET)
     public ResponseData<Boolean> fops(@RequestParam String key) {

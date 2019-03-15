@@ -10,6 +10,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class LegalSubjectController {
     @Autowired
     ILegalSubjectService legalSubjectServiceImpl;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ApiOperation(value = "查询商户")
     public ResponsePageInfoData<List<LegalSubjectModel>> getLegalSubjects(@RequestBody LegalSubjectSearchInput input,
@@ -31,6 +33,8 @@ public class LegalSubjectController {
         List<LegalSubjectModel> legalSubjectModels = this.legalSubjectServiceImpl.getLegalSubjects(input);
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", legalSubjectModels, pageInfo.getTotal());
     }
+
+    @RequiresAuthentication
     @RequestMapping(value = "/search/unReviewed", method = RequestMethod.POST)
     @ApiOperation(value = "查询未通过审核的商户")
     public ResponsePageInfoData<List<LegalSubjectModel>> getUnReviewedLegalSubjects(@RequestBody LegalSubjectSearchInput input,

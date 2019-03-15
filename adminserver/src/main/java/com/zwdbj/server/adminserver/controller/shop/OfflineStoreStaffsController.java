@@ -13,6 +13,7 @@ import com.zwdbj.server.basemodel.model.ResponsePageInfoData;
 import com.zwdbj.server.basemodel.model.ServiceStatusInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class OfflineStoreStaffsController {
     @Autowired
     private AuthUserManagerImpl authUserManager;
 
+    @RequiresAuthentication
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "添加员工，代言人")
     public ResponseData<Long> create(@RequestBody StaffInput staffInput) {
@@ -43,6 +45,7 @@ public class OfflineStoreStaffsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "修改门店员工，代言人")
     public ResponseData<Long> update(@RequestBody ModifyStaff modifyStaff) {
@@ -53,6 +56,7 @@ public class OfflineStoreStaffsController {
         return new ResponseData<>(ResponseDataCode.STATUS_ERROR, serviceStatusInfo.getMsg(), null);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "删除门店员工，代言人")
     public ResponseData<Long> deleteById(@PathVariable("id") long id, @RequestParam("isSuperStar") boolean isSuperStar) {
@@ -68,6 +72,7 @@ public class OfflineStoreStaffsController {
 
 
 
+    @RequiresAuthentication
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ApiOperation(value = "查询所有门店员工，代言人")
     public ResponsePageInfoData<List<OfflineStoreStaffs>> select(@RequestParam(value = "pageNo", defaultValue = "1", required = true) int pageNo,
@@ -82,6 +87,7 @@ public class OfflineStoreStaffsController {
         return new ResponsePageInfoData<>(ResponseDataCode.STATUS_NORMAL, "", pageInfo.getList(), pageInfo.getTotal());
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/bulkSetStaffs", method = RequestMethod.GET)
     @ApiOperation(value = "批量设置员工，代言人")
     public ResponseData<Long> bulkSetStaffs(@RequestParam("userIds") long[] userIds,
@@ -96,6 +102,7 @@ public class OfflineStoreStaffsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/bulkDeleteStaffs", method = RequestMethod.POST)
     @ApiOperation(value = "批量删除员工，代言人")
     public ResponseData<Long> selectById(@RequestBody() IsSuperStar[] isSuperStars) {
@@ -109,6 +116,7 @@ public class OfflineStoreStaffsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/getSuperStarDetail", method = RequestMethod.POST)
     @ApiOperation(value = "获取代言人详情")
     public ResponsePageInfoData<List<SuperStarInfo>> getSuperStarDetail(@RequestBody SearchSuperStarInput input) {
@@ -121,6 +129,7 @@ public class OfflineStoreStaffsController {
 
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/videoListStaff/{userId}", method = RequestMethod.GET)
     @ApiOperation(value = "代言人作品列表个人信息")
     public ResponseData<SuperStarDto> videoListStaff(@PathVariable long userId) {
@@ -131,6 +140,7 @@ public class OfflineStoreStaffsController {
         return new ResponseData<>(1, statusInfo.getMsg(), null, null);
     }
 
+    @RequiresAuthentication
     @GetMapping("/getOfflineStoreStaffsById/{id}")
     @ApiOperation(value = "根据员工ID获取数据")
     public ResponseData<OfflineStoreStaffs> getOfflineStoreStaffsById(@PathVariable long id){

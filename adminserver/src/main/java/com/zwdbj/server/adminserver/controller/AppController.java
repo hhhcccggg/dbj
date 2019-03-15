@@ -10,6 +10,9 @@ import com.zwdbj.server.adminserver.service.AppConfigDto;
 import com.zwdbj.server.utility.common.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(description = "APP设置相关")
 @RequestMapping("/api/app")
 public class AppController {
+    @RequiresAuthentication
+    @RequiresRoles(value = {RoleIdentity.ADMIN_ROLE, RoleIdentity.MARKET_ROLE}, logical = Logical.OR)
     @RequestMapping(value = "/config",method = RequestMethod.GET)
     @ApiOperation(value = "默认的一些配置信息")
     public ResponseData<AppConfigDto> config() {
