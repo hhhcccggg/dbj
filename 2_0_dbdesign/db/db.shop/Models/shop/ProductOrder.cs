@@ -168,6 +168,20 @@ namespace db.shop.Models.shop
         /// <value>The receive address identifier.</value>
         public long receiveAddressId { get; set; }
         /// <summary>
+        /// 收货人
+        /// </summary>
+        /// <value>The name of the receiver.</value>
+        [Required]
+        [MaxLength(50)]
+        public String receiverName { get; set; }
+        /// <summary>
+        /// 收货人手机号
+        /// </summary>
+        /// <value>The receiver mobile.</value>
+        [Required]
+        [MaxLength(50)]
+        public String receiverMobile { get; set; }
+        /// <summary>
         /// 收货地址
         /// </summary>
         /// <value>The receive address identifier.</value>
@@ -182,5 +196,6 @@ namespace db.shop.Models.shop
         // 订单取消的原因
         [MaxLength(512)]
         public String cancelReason { get; set; }
+
     }
 }
