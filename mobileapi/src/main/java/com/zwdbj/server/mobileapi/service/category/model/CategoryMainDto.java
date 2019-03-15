@@ -4,16 +4,17 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApiModel(description = "主页分类对象")
 public class CategoryMainDto implements Serializable {
 
     @ApiModelProperty("一级分类")
-    List<CategoryOut> categoryOneOut;
+    List<CategoryOut> categoryOneOut = new ArrayList<>();
 
     @ApiModelProperty("二级分类")
-    List<CategoryOut> categoryTwoOut;
+    List<CategoryOut> categoryTwoOut = new ArrayList<>();
 
     public List<CategoryOut> getCategoryOneOut() {
         return categoryOneOut;
