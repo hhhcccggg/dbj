@@ -26,7 +26,7 @@ public class CustomerCommentsSqlProvider {
         }
         if (searchInfo.getStartTime() !=null  && searchInfo.getStartTime().length()!=0
                 && searchInfo.getEndTime() !=null && searchInfo.getEndTime().length()!=0){
-            sql.WHERE(String.format("o.createTime between '%s' and '%s'",searchInfo.getStartTime(),searchInfo.getEndTime()));
+            sql.WHERE(String.format("c.createTime between '%s' and '%s'",searchInfo.getStartTime(),searchInfo.getEndTime()));
         }
         sql.ORDER_BY("c.createTime desc");
         return sql.toString();
