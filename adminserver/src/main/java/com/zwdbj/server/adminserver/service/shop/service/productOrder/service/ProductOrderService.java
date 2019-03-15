@@ -62,9 +62,7 @@ public class ProductOrderService {
     public ServiceStatusInfo<ProductOrderDetailModel> getOrderByOrderNo(String orderNo){
         try {
             ProductOrderDetailModel model = this.productOrderMapper.getOrderByOrderNo(orderNo);
-            ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.getReceiveAddressById(model.getReceiveAddressId()).getData();
             model.setNickName(this.userService.getNickNameById(model.getUserId()));
-            model.setAddressModel(addressModel);
             return new ServiceStatusInfo<>(0,"",model);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "获得订单失败：" + e.getMessage(), null);
@@ -73,9 +71,7 @@ public class ProductOrderService {
     public ServiceStatusInfo<ProductOrderDetailModel> getOrderById(long orderId){
         try {
             ProductOrderDetailModel model = this.productOrderMapper.getOrderById(orderId);
-            ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.getReceiveAddressById(model.getReceiveAddressId()).getData();
             model.setNickName(this.userService.getNickNameById(model.getUserId()));
-            model.setAddressModel(addressModel);
             return new ServiceStatusInfo<>(0,"",model);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "获得订单失败：" + e.getMessage(), null);

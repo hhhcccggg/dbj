@@ -9,7 +9,8 @@ public class OrderSqlProvider {
         Long userId = (Long)params.get("userId");
         Integer status = (Integer)params.get("status");
         SQL sql = new SQL()
-                .SELECT("o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price,s.name as storeName,s.mainConverImage as mainConverImage")
+                .SELECT("o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price,s.name as storeName," +
+                        "s.mainConverImage as mainConverImage")
                 .FROM("shop_productOrders o ")
                 .LEFT_OUTER_JOIN("shop_productOrderItems oi on oi.orderId=o.id")
                 .LEFT_OUTER_JOIN("shop_stores s on s.id=o.storeId")

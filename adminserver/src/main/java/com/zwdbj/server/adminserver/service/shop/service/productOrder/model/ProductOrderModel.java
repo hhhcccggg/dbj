@@ -1,6 +1,5 @@
 package com.zwdbj.server.adminserver.service.shop.service.productOrder.model;
 
-import com.zwdbj.server.adminserver.service.shop.service.receiveAddress.model.ReceiveAddressModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -41,6 +40,8 @@ public class ProductOrderModel {
     private String receiverName;
     @ApiModelProperty(value = "此订单的联系人的手机号")
     private String receiverMobile;
+    @ApiModelProperty(value = "详细地址")
+    private String receiverAddress;
     @ApiModelProperty(value = "商品的id")
     private long productId;
     @ApiModelProperty(value = "商品的skuid")

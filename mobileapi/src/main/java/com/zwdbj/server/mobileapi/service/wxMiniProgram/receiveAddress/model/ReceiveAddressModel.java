@@ -80,7 +80,7 @@ public class ReceiveAddressModel {
     }
 
     public String getReceiverName() {
-        return receiverName;
+        return updateField(receiverName);
     }
 
     public void setReceiverName(String receiverName) {
@@ -96,7 +96,7 @@ public class ReceiveAddressModel {
     }
 
     public String getReceiverMobile() {
-        return receiverMobile;
+        return updateField(receiverMobile);
     }
 
     public void setReceiverMobile(String receiverMobile) {

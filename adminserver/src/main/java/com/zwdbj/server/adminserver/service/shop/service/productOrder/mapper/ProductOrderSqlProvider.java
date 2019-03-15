@@ -10,11 +10,10 @@ public class ProductOrderSqlProvider {
         ProductOrderInput input = (ProductOrderInput)params.get("input");
         Long storeId = (Long)params.get("storeId");
         SQL sql = new SQL()
-                .SELECT("o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price,a.receiverName as receiverName," +
-                        "p.imageUrls as imageUrls ,a.receiverMobile as receiverMobile,u.nickName as nickName")
+                .SELECT("o.*,oi.productId,oi.productskuId,oi.num,oi.title,oi.price," +
+                        "p.imageUrls as imageUrls ,u.nickName as nickName")
                 .FROM("shop_productOrders o ")
                 .LEFT_OUTER_JOIN("shop_productOrderItems oi on oi.orderId=o.id")
-                .LEFT_OUTER_JOIN("shop_receiveAddresses a on a.id=o.receiveAddressId")
                 .LEFT_OUTER_JOIN("core_users u on u.id=o.userId")
                 .LEFT_OUTER_JOIN("shop_products p on p.id=oi.productId")
                 .WHERE("o.storeId="+storeId);
@@ -24,9 +23,9 @@ public class ProductOrderSqlProvider {
         if (input.getKeyWords() !=null && input.getKeyWords().length()>0 ) {
             sql.WHERE(String.format("o.id like '%s'", ("%" + input.getKeyWords() + "%")))
                     .OR()
-                    .WHERE(String.format("a.receiverName like '%s'", ("%" + input.getKeyWords() + "%")))
+                    .WHERE(String.format("o.receiverName like '%s'", ("%" + input.getKeyWords() + "%")))
                     .OR()
-                    .WHERE(String.format("a.receiverMobile like '%s'", ("%" + input.getKeyWords() + "%")));
+                    .WHERE(String.format("o.receiverMobile like '%s'", ("%" + input.getKeyWords() + "%")));
         }
         if (input.getPaymentType()!=null && input.getPaymentType().length()>0){
             sql.WHERE(String.format("o.paymentType='%s'",input.getPaymentType()));

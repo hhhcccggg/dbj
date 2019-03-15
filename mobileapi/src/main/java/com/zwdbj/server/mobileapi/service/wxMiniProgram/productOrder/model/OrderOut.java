@@ -45,26 +45,11 @@ public class OrderOut {
     @ApiModelProperty(value = "收货人")
     private String receiverName;
 
-    @ApiModelProperty(value = "收货人固定电话")
-    private String receiverPhone;
+    @ApiModelProperty(value = "收货人地址")
+    private String receiveAddress;
 
     @ApiModelProperty(value = "收货人手机号")
     private String receiverMobile;
-
-    @ApiModelProperty(value = "省份")
-    private String reveiverState;
-
-    @ApiModelProperty(value = "城市")
-    private String receiverCity;
-
-    @ApiModelProperty(value = "区县")
-    private String receiverCountry;
-
-    @ApiModelProperty(value = "街道")
-    private String receiverStreet;
-
-    @ApiModelProperty(value = "联系地址")
-    private String receiverAddress;
 
     @ApiModelProperty(value = "交易结束时间")
     private Date endTime;
@@ -84,8 +69,13 @@ public class OrderOut {
     @ApiModelProperty(value = "订单更新时间")
     private Date updateTime;
 
-    @ApiModelProperty(value = "省市区详细地址")
-    private String detailedly;
+    public String getReceiveAddress() {
+        return receiveAddress;
+    }
+
+    public void setReceiveAddress(String receiveAddress) {
+        this.receiveAddress = receiveAddress;
+    }
 
     public String getStatusStr() {
         return statusStr;
@@ -135,14 +125,6 @@ public class OrderOut {
         this.storeId = storeId;
     }
 
-    public void setDetailedly(String detailedly) {
-        this.detailedly = detailedly;
-    }
-
-    public String getDetailedly() {
-        return updateField(reveiverState)+updateField(receiverCity)+updateField(receiverCountry)+updateField(receiverStreet)+
-                updateField(detailedly)+updateField(receiverAddress);
-    }
 
     public long getProductskuId() {
         return productskuId;
@@ -150,14 +132,6 @@ public class OrderOut {
 
     public void setProductskuId(long productskuId) {
         this.productskuId = productskuId;
-    }
-
-    public String getReceiverStreet() {
-        return receiverStreet;
-    }
-
-    public void setReceiverStreet(String receiverStreet) {
-        this.receiverStreet = receiverStreet;
     }
 
     public long getOrderNo() {
@@ -240,13 +214,6 @@ public class OrderOut {
         this.receiverName = receiverName;
     }
 
-    public String getReceiverPhone() {
-        return receiverPhone;
-    }
-
-    public void setReceiverPhone(String receiverPhone) {
-        this.receiverPhone = receiverPhone;
-    }
 
     public String getReceiverMobile() {
         return receiverMobile;
@@ -256,37 +223,6 @@ public class OrderOut {
         this.receiverMobile = receiverMobile;
     }
 
-    public String getReveiverState() {
-        return reveiverState;
-    }
-
-    public void setReveiverState(String reveiverState) {
-        this.reveiverState = reveiverState;
-    }
-
-    public String getReceiverCity() {
-        return receiverCity;
-    }
-
-    public void setReceiverCity(String receiverCity) {
-        this.receiverCity = receiverCity;
-    }
-
-    public String getReceiverCountry() {
-        return receiverCountry;
-    }
-
-    public void setReceiverCountry(String receiverCountry) {
-        this.receiverCountry = receiverCountry;
-    }
-
-    public String getReceiverAddress() {
-        return receiverAddress;
-    }
-
-    public void setReceiverAddress(String receiverAddress) {
-        this.receiverAddress = receiverAddress;
-    }
 
     public Date getEndTime() {
         return endTime;

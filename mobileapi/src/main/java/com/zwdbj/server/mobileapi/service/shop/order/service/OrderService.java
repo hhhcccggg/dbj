@@ -75,9 +75,9 @@ public class OrderService {
                     model.setImageUrls(ima);
                 }
                 model.setNickName(this.userService.getUserName(userId));
-                ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
+                /*ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
                 if (addressModel!=null)
-                    model.setAddressModel(addressModel);
+                    model.setAddressModel(addressModel);*/
             }
             return orderModels;
         }catch (Exception e){
@@ -100,10 +100,10 @@ public class OrderService {
                 String ima = product.getImageUrls().split(",")[0];
                 model.setImageUrls(ima);
             }
-            ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
+            //ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(model.getReceiveAddressId()).getData();
             model.setNickName(this.userService.getUserName(model.getUserId()));
-            if (addressModel!=null) 
-                model.setAddressModel(addressModel);
+            /*if (addressModel!=null)
+                model.setAddressModel(addressModel);*/
             return new ServiceStatusInfo<>(0,"",model);
         }catch (Exception e){
             return new ServiceStatusInfo<>(1, "获得订单失败：" + e.getMessage(), null);
@@ -161,9 +161,8 @@ public class OrderService {
                 int code = random.nextInt(900000)  + 100000;
                 String verifyCode = String.valueOf(code);
                 ReceiveAddressModel addressModel = this.receiveAddressServiceImpl.findById(input.getReceiveAddressId()).getData();
-                String receiveAddress = addressModel.getReveiverState()+addressModel.getReceiverCity()+
-                        addressModel.getReceiverCountry()+addressModel.getReceiverStreet()+addressModel.getReceiverAddress();
-                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode,receiveAddress);
+                this.orderMapper.createOrder(orderId,userId,input,payment,verifyCode,addressModel.getDetailedly(),
+                        addressModel.getReceiverName(),addressModel.getReceiverMobile());
                 this.stringRedisTemplate.opsForValue().set("orderIdVerifyCode:"+orderId,verifyCode);
                 //创建OrderItem
                 long orderItemId = UniqueIDCreater.generateID();

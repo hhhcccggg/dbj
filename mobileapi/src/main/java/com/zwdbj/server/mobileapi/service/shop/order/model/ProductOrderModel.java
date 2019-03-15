@@ -26,6 +26,10 @@ public class ProductOrderModel {
     private long receiveAddressId;
     @ApiModelProperty(value = "订单的收货地址")
     private String receiveAddress;
+    @ApiModelProperty(value = "收货人")
+    private String receiverName;
+    @ApiModelProperty(value = "收货人手机号")
+    private String receiverMobile;
     @ApiModelProperty(value = "收货地址model")
     private ReceiveAddressModel addressModel;
     @ApiModelProperty(value = "此订单的实付金额,单位为分")
@@ -54,6 +58,22 @@ public class ProductOrderModel {
     private String mainConverImage;
     @ApiModelProperty(value = "商品的图片地址")
     private String imageUrls;
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverMobile() {
+        return receiverMobile;
+    }
+
+    public void setReceiverMobile(String receiverMobile) {
+        this.receiverMobile = receiverMobile;
+    }
 
     public String getReceiveAddress() {
         return receiveAddress;
