@@ -56,6 +56,7 @@ public class YouZanService {
 
     public ServiceStatusInfo<String> getToken() {
         // TODO 对token做缓存&校验处理，以便减少api的请求
+        
         String url = String.format("https://uic.youzan.com/sso/open/initToken?client_id=%s&client_secret=%s",
                 this.appSettingConfigs.getYouZanConfigs().getClientid()
                 ,this.appSettingConfigs.getYouZanConfigs().getSecrect());
